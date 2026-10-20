@@ -14,9 +14,11 @@
 :root{
   --paper:#F5F6F2; --sheet:#FFFFFF; --ink:#16233A; --ink2:#4A5568; --rule:#DCE0D8; --grid:rgba(36,87,197,.07);
   --blue:#2457C5; --blue-soft:#E7EEFB; --saffron:#F2A007; --saffron-soft:#FFF4DC;
-  --ok:#1F8A5B; --ok-soft:#E3F4EC; --bad:#C8372D; --bad-soft:#FBE9E7; --mark:#7A4CC2;
+  --ok:#17744C; --ok-soft:#E3F4EC; --bad:#C8372D; --bad-soft:#FBE9E7; --mark:#7A4CC2;
   --s-maths:#0E86B8; --s-reasoning:#7A4CC2; --s-general-science:#1F8A5B; --s-general-awareness:#C77700; --s-eng:#C8372D;
   --r1:10px; --r2:16px; --shadow:0 1px 0 rgba(22,35,58,.06), 0 6px 18px -12px rgba(22,35,58,.35);
+  --sp1:4px; --sp2:8px; --sp3:12px; --sp4:16px; --sp5:24px; --sp6:32px;
+  --fs-body:16px; --fs-small:14px; --fs-title:24px; --fs-h2:18px; --tap:48px; --ease:150ms ease-out;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#0E1522; --sheet:#152034; --ink:#E8EDF6; --ink2:#A3AEC2; --rule:#26334A; --grid:rgba(120,160,240,.06);
@@ -43,7 +45,7 @@ h2{font-size:18px;margin:24px 0 10px;font-weight:700}
 .brand{font-weight:800;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
 .brand svg{width:26px;height:26px}
 .spacer{flex:1}
-.chip{border:1px solid var(--rule);background:var(--sheet);border-radius:999px;padding:5px 14px;font-size:15px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;min-height:40px;white-space:nowrap}
+.chip{border:1px solid var(--rule);background:var(--sheet);border-radius:999px;padding:5px 14px;font-size:15px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;min-height:44px;white-space:nowrap}
 .chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .lang{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden;background:var(--sheet)}
 .lang button{border:0;background:none;padding:6px 11px;font-size:14px;cursor:pointer;min-height:36px;color:var(--ink2)}
@@ -65,6 +67,15 @@ h2{font-size:18px;margin:24px 0 10px;font-weight:700}
 .btn.line{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
 .btn.quiet{background:var(--blue-soft);color:var(--blue)}
 .btn:disabled{opacity:.45;cursor:default}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn.loading{opacity:.7;pointer-events:none}
+.btn.loading::after{content:'';width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.errbox{background:var(--bad-soft);color:var(--bad);border-radius:var(--r1);padding:10px 12px;font-size:15px;font-weight:600}
+.gal-sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.gal-sw div{border-radius:var(--r1);padding:10px;min-height:56px;font-size:13px;border:1px solid var(--rule)}
+.gal-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.gal-sec{margin:var(--sp5) 0 var(--sp2)}
 .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .panel{background:var(--sheet);border:1px solid var(--rule);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden}
 .item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--rule);width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;cursor:pointer;min-height:64px}
@@ -408,11 +419,35 @@ function vMistakes(){
 }
 
 /* --- मैं --- */
+function vGallery(){
+  const sw=[['paper','--paper'],['sheet','--sheet'],['ink','--ink'],['ink2','--ink2'],['blue','--blue'],['saffron','--saffron'],['ok','--ok'],['bad','--bad']];
+  return `<div style="margin-top:16px"><button class="chip" data-a="back-me">← ${L('वापस','Back')}</button></div>
+  <h1 style="margin-top:12px">${L('कंपोनेंट गैलरी','Component gallery')}</h1>
+  <p class="muted small">${L('हर बटन और कार्ड यहाँ एक जैसा दिखता है। थीम बदलकर देखें।','Every button and card looks the same here. Check both themes.')}</p>
+  <h2 class="gal-sec">${L('बटन','Buttons')}</h2>
+  <div class="gal-row"><button class="btn" style="width:auto;min-width:140px">${L('मुख्य','Primary')}</button><button class="btn saffron" style="width:auto;min-width:140px">${L('ज़ोर','Accent')}</button></div>
+  <div class="gal-row" style="margin-top:8px"><button class="btn line" style="width:auto;min-width:140px">${L('आउटलाइन','Outline')}</button><button class="btn quiet" style="width:auto;min-width:140px">${L('हल्का','Quiet')}</button></div>
+  <div class="gal-row" style="margin-top:8px"><button class="btn" disabled style="width:auto;min-width:140px">${L('बंद','Disabled')}</button><button class="btn loading" style="width:auto;min-width:140px">${L('लोड','Loading')}</button></div>
+  <h2 class="gal-sec">${L('चिप','Chips')}</h2>
+  <div class="gal-row"><span class="chip on">${L('चालू','On')}</span><span class="chip">${L('बंद','Off')}</span></div>
+  <h2 class="gal-sec">${L('टैग','Tags')}</h2>
+  <div class="gal-row"><span class="tag">${L('प्रैक्टिस','Practice')}</span><span class="tag pyq">PYQ</span></div>
+  <h2 class="gal-sec">${L('सूची और कार्ड','List and card')}</h2>
+  <div class="panel"><button class="item"><span class="bar4" style="background:var(--s-maths)"></span><span class="tx"><b>${L('गणित · अध्याय','Maths · chapter')}</b><span>${L('12 सवाल','12 questions')}</span><div class="meter"><i style="width:60%"></i></div></span><span class="chev">${ICON.chev}</span></button></div>
+  <h2 class="gal-sec">${L('सूचना','Messages')}</h2>
+  <div class="note">${L('यह एक नोट है।','This is a note.')}</div>
+  <div class="errbox" role="alert">${L('नेटवर्क नहीं है। बाद में फिर कोशिश करें।','No network. Try again later.')}</div>
+  <div class="empty">${L('अभी कुछ नहीं है।','Nothing here yet.')}</div>
+  <h2 class="gal-sec">${L('रंग (टोकन)','Colours (tokens)')}</h2>
+  <div class="gal-sw">${sw.map(x=>`<div style="padding:0;border:0;min-height:0"><div style="background:var(${x[1]});height:44px;border-radius:var(--r1);border:1px solid var(--rule)"></div><div style="padding-top:6px"><b>${x[0]}</b><br><span class="muted">${x[1]}</span></div></div>`).join('')}</div>
+  </div>`;
+}
 function vMe(){
   const tot=Object.values(S.st).reduce((a,v)=>a+v.t,0), cor=Object.values(S.st).reduce((a,v)=>a+v.c,0);
   const last7=[...Array(7)].map((_,i)=>S.days[addDays(-6+i)]||0), mx=Math.max(5,...last7);
   return `<h1 style="margin-top:16px">${L('मेरा हिसाब','My progress')}</h1>
   <div class="stats"><div class="stat"><b>${tot}</b><span>${L('सवाल हल','Answered')}</span></div><div class="stat"><b>${pct(cor,tot)}%</b><span>${L('सही','Right')}</span></div><div class="stat"><b>${S.mocks.length}</b><span>${L('मॉक दिए','Mocks')}</span></div></div>
+  <div class="panel" style="margin-top:12px"><button class="item" data-a="open-gallery"><span class="tx"><b>${L('कंपोनेंट गैलरी','Component gallery')}</b><span>${L('बटन, रंग और कार्ड एक जगह','Buttons, colours and cards in one place')}</span></span><span class="chev">${ICON.chev}</span></button></div>
   <h2>${L('पिछले 7 दिन','Last 7 days')}</h2>
   <div class="panel" style="padding:14px"><div style="display:flex;align-items:flex-end;gap:8px;height:96px" role="img" aria-label="${last7.join(', ')}">${last7.map((v,i)=>`<div style="flex:1;text-align:center"><div style="height:${Math.round(v/mx*70)}px;min-height:2px;background:${i===6?'var(--saffron)':'var(--blue)'};border-radius:4px 4px 0 0"></div><div class="small muted">${v}</div></div>`).join('')}</div></div>
   <h2>${L('विषय के अनुसार','By subject')}</h2>
@@ -503,7 +538,7 @@ function render(){
   if(!S.branch){ app.innerHTML=vBranch(); $('#dock').classList.add('hide'); }
   else{
     $('#dock').classList.remove('hide');
-    const t=S.tab; app.innerHTML=t==='learn'?vLearn():t==='pyq'?vPyq():t==='practice'?vPractice():t==='mistakes'?vMistakes():t==='me'?vMe():vToday();
+    const t=S.tab; app.innerHTML=t==='learn'?vLearn():t==='pyq'?vPyq():t==='practice'?vPractice():t==='mistakes'?vMistakes():t==='me'?(V.view&&V.view.gal?vGallery():vMe()):vToday();
     const due=dueMistakes().length;
     $('#dockin').innerHTML=TABS.map(x=>`<button class="${S.tab===x[0]?'on':''}" data-a="tab" data-id="${x[0]}" ${S.tab===x[0]?'aria-current="page"':''}>${ICON[x[0]]}<span>${L(x[1],x[2])}</span>${x[0]==='today'&&due?`<span class="badge">${due}</span>`:''}</button>`).join('');
   }
@@ -571,6 +606,8 @@ document.addEventListener('click',ev=>{
     case 'open-paper': go('pyq',{paper:+id}); break;
     case 'back-pyq': go('pyq'); break;
     case 'open-mis': go('mistakes'); break;
+    case 'open-gallery': go('me',{gal:1}); break;
+    case 'back-me': go('me'); break;
     case 'back-today': go('today'); break;
     case 'start-ch': startChapter(el.dataset.subj, el.dataset.ch||null, el.dataset.kind||null); break;
     case 'start-exsub': startExamSubject(el.dataset.subj); break;

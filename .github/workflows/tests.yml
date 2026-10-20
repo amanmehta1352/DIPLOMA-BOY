@@ -15,6 +15,7 @@ jobs:
         with: { node-version: 20 }
       - run: npm i --no-save playwright@1.48.2 && npx playwright install --with-deps chromium
       - run: mkdir -p tests/shots && node tests/flow.test.js
+      - run: node tests/design.test.js
       - if: always()
         uses: actions/upload-artifact@v4
         with: { name: screenshots, path: tests/shots }
