@@ -3,283 +3,539 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1F4E79">
+<meta name="theme-color" content="#16233A">
 <title>Diploma Boy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Inter:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&display=swap">
 <style>
-:root{--bg:#F5F7FA;--card:#FFFFFF;--ink:#14213D;--muted:#5B6578;--line:#E3E8EF;--brand:#1F4E79;--accent:#E07A1F;--ok:#2E8B57;--soft:#EAF1F8;--r:14px}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0E1420;--card:#172033;--ink:#EEF2F8;--muted:#9AA5B8;--line:#26324A;--brand:#7FB2E5;--accent:#F0A35E;--ok:#5FD39A;--soft:#1D2A44}}
-:root[data-theme="dark"]{--bg:#0E1420;--card:#172033;--ink:#EEF2F8;--muted:#9AA5B8;--line:#26324A;--brand:#7FB2E5;--accent:#F0A35E;--ok:#5FD39A;--soft:#1D2A44}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink)}
-body{font-family:"Noto Sans Devanagari",Inter,system-ui,sans-serif;font-size:16px;line-height:1.55;min-height:100vh;padding-bottom:84px;overflow-x:hidden}
-.wrap{max-width:640px;margin:0 auto;padding:16px}
-header.top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px;position:sticky;top:0;background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
-.logo{font-weight:700;color:var(--brand);font-size:18px}
-.logo small{display:block;font-weight:400;color:var(--muted);font-size:12px}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-.seg button{border:0;background:transparent;color:var(--muted);padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
-.seg button.on{background:var(--brand);color:#fff}
-h1{font-size:22px;margin:12px 0 4px}
-h2{font-size:17px;margin:20px 0 8px}
-.sub{color:var(--muted);font-size:14px;margin:0 0 12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media (min-width:520px){.grid{grid-template-columns:repeat(3,1fr)}}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;min-height:64px}
-.tile.on{border-color:var(--brand);box-shadow:0 0 0 2px var(--soft) inset}
-.tile b{display:block;font-size:15px}
-.tile span{color:var(--muted);font-size:13px}
-.btn{display:block;width:100%;min-height:48px;border:0;border-radius:12px;background:var(--brand);color:#fff;font:inherit;font-weight:600;font-size:16px;cursor:pointer;padding:10px 14px}
-.btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--line)}
-.btn:disabled{opacity:.45}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
-.row:first-child{border-top:0}
-.tag{font-size:12px;border-radius:999px;padding:2px 8px;background:var(--soft);color:var(--brand);white-space:nowrap}
-.tag.soon{color:var(--accent);background:transparent;border:1px solid var(--accent)}
-.tag.done{color:var(--ok)}
-.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:6px}
-.bar i{display:block;height:100%;background:var(--ok);width:0}
-.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;margin:8px 0;padding:12px;min-height:48px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
-.opt.right{border-color:var(--ok);background:rgba(46,139,87,.12)}
-.opt.wrong{border-color:#C0392B}
-.dock{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-around;background:var(--card);border-top:1px solid var(--line);padding:6px 0 calc(6px + env(safe-area-inset-bottom));z-index:6}
-.dock button{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;padding:8px 0;min-height:48px;cursor:pointer}
-.dock button.on{color:var(--brand);font-weight:700}
-.muted{color:var(--muted)}
+/* Diploma Boy — identity: an engineering drawing sheet. Paper, drafting blue, signal saffron.
+   One memorable element: the "title block" on Today (like the corner block of a drawing sheet). */
+:root{
+  --paper:#F5F6F2; --sheet:#FFFFFF; --ink:#16233A; --ink2:#4A5568; --rule:#DCE0D8; --grid:rgba(36,87,197,.07);
+  --blue:#2457C5; --blue-soft:#E7EEFB; --saffron:#F2A007; --saffron-soft:#FFF4DC;
+  --ok:#1F8A5B; --ok-soft:#E3F4EC; --bad:#C8372D; --bad-soft:#FBE9E7; --mark:#7A4CC2;
+  --s-maths:#0E86B8; --s-reasoning:#7A4CC2; --s-general-science:#1F8A5B; --s-general-awareness:#C77700; --s-eng:#C8372D;
+  --r1:10px; --r2:16px; --shadow:0 1px 0 rgba(22,35,58,.06), 0 6px 18px -12px rgba(22,35,58,.35);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0E1522; --sheet:#152034; --ink:#E8EDF6; --ink2:#A3AEC2; --rule:#26334A; --grid:rgba(120,160,240,.06);
+  --blue:#7EA6F5; --blue-soft:#1C2D4D; --saffron:#F5B83D; --saffron-soft:#3A2E12; --ok:#4CC78E; --ok-soft:#14352A; --bad:#F07A6E; --bad-soft:#3E1D1A; --mark:#B595F0;
+  --shadow:0 1px 0 rgba(0,0,0,.3);}}
+:root[data-theme="dark"]{
+  --paper:#0E1522; --sheet:#152034; --ink:#E8EDF6; --ink2:#A3AEC2; --rule:#26334A; --grid:rgba(120,160,240,.06);
+  --blue:#7EA6F5; --blue-soft:#1C2D4D; --saffron:#F5B83D; --saffron-soft:#3A2E12; --ok:#4CC78E; --ok-soft:#14352A; --bad:#F07A6E; --bad-soft:#3E1D1A; --mark:#B595F0;
+  --shadow:0 1px 0 rgba(0,0,0,.3);}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--paper);color:var(--ink)}
+body{font-family:Mukta,"Noto Sans Devanagari",system-ui,sans-serif;font-size:16px;line-height:1.5;min-height:100vh;overflow-x:hidden;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit}
+button:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px}
 .hide{display:none!important}
+.muted{color:var(--ink2)}
+.small{font-size:14px}
+h1{font-size:24px;line-height:1.2;margin:0;font-weight:800;letter-spacing:-.01em}
+h2{font-size:18px;margin:24px 0 10px;font-weight:700}
+.top{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:56px}
+.brand{font-weight:800;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.brand svg{width:26px;height:26px}
+.spacer{flex:1}
+.chip{border:1px solid var(--rule);background:var(--sheet);border-radius:999px;padding:5px 14px;font-size:15px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;min-height:40px;white-space:nowrap}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.lang{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden;background:var(--sheet)}
+.lang button{border:0;background:none;padding:6px 11px;font-size:14px;cursor:pointer;min-height:36px;color:var(--ink2)}
+.lang button.on{background:var(--blue);color:#fff}
+.tblock{margin:12px 0 0;background:var(--sheet);border:2px solid var(--ink);border-radius:4px;display:grid;grid-template-columns:1.4fr 1fr .8fr;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:14px 14px}
+.tblock>div{padding:10px 12px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);min-width:0}
+.tblock>div:nth-child(3){border-right:0}
+.tblock .k{font-size:13px;color:var(--ink2)}
+.tblock .v{font-weight:800;font-size:18px;line-height:1.2;overflow-wrap:anywhere}
+.tblock .v.big{font-size:24px}
+.tblock .wide{grid-column:1/-1;display:flex;align-items:center;gap:14px;border-right:0;border-bottom:0}
+.ring{--p:0;width:60px;height:60px;border-radius:50%;flex:none;background:conic-gradient(var(--saffron) calc(var(--p)*1%),var(--rule) 0);display:grid;place-items:center}
+.ring::after{content:attr(data-t);width:46px;height:46px;border-radius:50%;background:var(--sheet);display:grid;place-items:center;font-weight:800;font-size:14px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:50px;border:0;border-radius:var(--r1);background:var(--blue);color:#fff;font-weight:700;font-size:17px;cursor:pointer;padding:10px 16px;text-align:center;line-height:1.25}
+:root[data-theme="dark"] .btn:not(.line):not(.quiet):not(.saffron){color:#0E1522}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn:not(.line):not(.quiet):not(.saffron){color:#0E1522}}
+.btn.saffron{background:var(--saffron);color:#1B1300}
+.btn.line{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.quiet{background:var(--blue-soft);color:var(--blue)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.panel{background:var(--sheet);border:1px solid var(--rule);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden}
+.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--rule);width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;cursor:pointer;min-height:64px}
+.item:first-child{border-top:0}
+.item .bar4{width:4px;align-self:stretch;border-radius:4px;flex:none}
+.item .tx{flex:1;min-width:0}
+.item .tx b{display:block;font-size:16px;line-height:1.3}
+.item .tx span{font-size:14px;color:var(--ink2)}
+.meter{height:6px;background:var(--rule);border-radius:9px;overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;background:var(--ok);border-radius:9px}
+.chev{color:var(--ink2);flex:none;display:flex}
+.empty{padding:22px 16px;text-align:center;color:var(--ink2)}
+.note{background:var(--saffron-soft);border-left:4px solid var(--saffron);padding:10px 12px;border-radius:8px;font-size:15px;margin:12px 0}
+.scroller{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+.tag{font-size:12px;font-weight:700;border-radius:6px;padding:1px 7px;background:var(--blue-soft);color:var(--blue);white-space:nowrap}
+.tag.pyq{background:var(--ink);color:var(--paper)}
+.hero{padding:28px 0 8px}
+.hero p{margin:8px 0 0;color:var(--ink2)}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 24px}
+.bcard{background:var(--sheet);border:1.5px solid var(--rule);border-radius:var(--r2);padding:16px 14px;text-align:left;cursor:pointer;min-height:96px;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
+.bcard b{font-size:19px;line-height:1.2}
+.bcard span{font-size:13px;color:var(--ink2)}
+.bcard.on{border-color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue)}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--sheet);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom)}
+.dock .wrap{display:grid;grid-template-columns:repeat(5,1fr);padding:0 4px}
+.dock button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 7px;font-size:12px;color:var(--ink2);cursor:pointer;min-height:58px;position:relative}
+.dock button svg{width:24px;height:24px}
+.dock button.on{color:var(--blue);font-weight:700}
+.dock button.on::before{content:"";position:absolute;top:0;left:30%;right:30%;height:3px;border-radius:0 0 3px 3px;background:var(--blue)}
+.dock .badge{position:absolute;top:5px;left:56%;background:var(--saffron);color:#1B1300;font-size:11px;font-weight:800;border-radius:9px;padding:0 5px;min-width:18px;line-height:17px}
+.sheet{position:fixed;inset:0;z-index:50;background:var(--paper);display:flex;flex-direction:column}
+.sheet-top{background:var(--sheet);border-bottom:1px solid var(--rule)}
+.sheet-top .wrap{display:flex;align-items:center;gap:8px;height:56px}
+.icon-btn{border:0;background:none;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;cursor:pointer;color:var(--ink);flex:none}
+.icon-btn svg{width:24px;height:24px}
+.prog{height:4px;background:var(--rule)}
+.prog i{display:block;height:100%;background:var(--blue);transition:width .25s}
+.sheet-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sheet-body .wrap{padding-top:14px;padding-bottom:110px}
+.qmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--ink2)}
+.qtext{font-size:18px;line-height:1.55;margin:12px 0 4px;font-weight:500}
+.qtext .en{display:block;font-size:15px;color:var(--ink2);font-weight:400;margin-top:6px}
+.qimg{max-width:100%;display:block;margin:10px 0;background:#fff;border-radius:8px;border:1px solid var(--rule)}
+.mt{font-size:12px;color:var(--ink2);margin-top:2px}
+.opts{margin-top:14px;display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:13px 14px;min-height:54px;border:1.5px solid var(--rule);border-radius:12px;background:var(--sheet);cursor:pointer;font-size:16px;line-height:1.45}
+.opt:disabled{cursor:default}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink2);display:grid;place-items:center;font-weight:700;font-size:14px}
+.opt .ot{flex:1;min-width:0;overflow-wrap:anywhere}
+.opt .ot .en{display:block;font-size:14px;color:var(--ink2)}
+.opt img{max-width:100%;display:block;background:#fff;margin-top:6px;border-radius:6px}
+.opt.sel{border-color:var(--blue);background:var(--blue-soft)} .opt.sel .l{background:var(--blue);border-color:var(--blue);color:var(--sheet)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)} .opt.right .l{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .opt.wrong .l{background:var(--bad);border-color:var(--bad);color:var(--sheet)}
+.verdict{margin-top:14px;padding:12px 14px;border-radius:12px;font-weight:700}
+.verdict.ok{background:var(--ok-soft);color:var(--ok)} .verdict.bad{background:var(--bad-soft);color:var(--bad)} .verdict.skip{background:var(--saffron-soft);color:var(--ink)}
+.sol{margin-top:10px;background:var(--sheet);border:1px dashed var(--ink2);border-radius:12px;padding:12px 14px;font-size:15px}
+.sheet-foot{position:fixed;left:0;right:0;bottom:0;background:var(--sheet);border-top:1px solid var(--rule);padding:10px 0 calc(10px + env(safe-area-inset-bottom));z-index:55}
+.sheet-foot .wrap{display:flex;gap:8px}
+.sheet-foot .btn{min-height:48px;font-size:16px;padding:8px 10px}
+.timer{font-weight:800;font-variant-numeric:tabular-nums;font-size:17px;padding:4px 10px;border-radius:8px;background:var(--blue-soft);color:var(--blue)}
+.timer.low{background:var(--bad-soft);color:var(--bad)}
+.pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px}
+.pal button{height:44px;border-radius:8px;border:1.5px solid var(--rule);background:var(--sheet);cursor:pointer;font-weight:700;font-size:14px}
+.pal button.a{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.pal button.m{background:var(--mark);border-color:var(--mark);color:var(--sheet)}
+.pal button.v{border-color:var(--bad);color:var(--bad)}
+.pal button.cur{outline:3px solid var(--saffron);outline-offset:1px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--ink2);margin:10px 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.modal{position:fixed;inset:0;z-index:70;background:rgba(10,16,28,.55);display:flex;align-items:flex-end;justify-content:center}
+.modal .box{background:var(--sheet);width:100%;max-width:680px;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:85vh;overflow:auto}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stat{background:var(--sheet);border:1px solid var(--rule);border-radius:12px;padding:10px 12px}
+.stat b{display:block;font-size:22px;font-weight:800;line-height:1.1}
+.stat span{font-size:13px;color:var(--ink2)}
+.score{display:flex;align-items:baseline;gap:6px;margin-top:10px}
+.score b{font-size:52px;font-weight:800;line-height:1;letter-spacing:-.03em}
+table.sub{width:100%;border-collapse:collapse;font-size:15px}
+table.sub td,table.sub th{padding:9px 8px;border-top:1px solid var(--rule);text-align:right}
+table.sub td:first-child,table.sub th:first-child{text-align:left}
+table.sub th{font-size:13px;color:var(--ink2);font-weight:600;border-top:0}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;z-index:90;font-size:15px;max-width:90vw}
+@media (min-width:760px){.bgrid{grid-template-columns:repeat(3,1fr)} .qtext{font-size:19px}}
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="logo">Diploma Boy<small id="tag"></small></div>
-  <div class="seg" role="group" aria-label="Language">
-    <button data-lang="hi">हिं</button><button data-lang="both">दोनों</button><button data-lang="en">EN</button>
-  </div>
-</header>
+<header class="top"><div class="wrap">
+  <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M2 21h28M18 21v9" stroke="currentColor" stroke-width="2"/><path d="M7 15l4.5-7 4.5 7 4.5-7 4.5 7" fill="none" stroke="#F2A007" stroke-width="2.5" stroke-linejoin="round"/></svg>Diploma Boy</div>
+  <div class="spacer"></div>
+  <div class="lang" role="group" aria-label="भाषा / Language"><button data-lang="hi">हिं</button><button data-lang="both">दोनों</button><button data-lang="en">EN</button></div>
+</div></header>
 <main class="wrap" id="app"></main>
-<nav class="dock" id="dock"></nav>
+<nav class="dock hide" id="dock"><div class="wrap" id="dockin"></div></nav>
+<div id="layer"></div>
 
 <script>
-/* ---------- DATA (config-only: add exams/subjects here, nothing else changes) ---------- */
-const DATA = {
-  branches: [
-    {id:'mechanical', hi:'मैकेनिकल', en:'Mechanical'},
-    {id:'civil', hi:'सिविल', en:'Civil'},
-    {id:'electrical', hi:'इलेक्ट्रिकल', en:'Electrical'},
-    {id:'electronics', hi:'इलेक्ट्रॉनिक्स', en:'Electronics'},
-    {id:'computer', hi:'कंप्यूटर / आईटी', en:'Computer / IT'}
-  ],
-  // common = सभी ब्रांच के लिए; branch = सिर्फ़ उस ब्रांच के लिए
-  subjects: [
-    {id:'maths', hi:'गणित', en:'Maths', branch:null},
-    {id:'reasoning', hi:'रीज़निंग', en:'Reasoning', branch:null},
-    {id:'gs', hi:'सामान्य विज्ञान', en:'General Science', branch:null},
-    {id:'ga', hi:'सामान्य जागरूकता', en:'General Awareness', branch:null},
-    {id:'mech-thermo', hi:'थर्मोडायनामिक्स', en:'Thermodynamics', branch:'mechanical'},
-    {id:'civil-survey', hi:'सर्वेक्षण', en:'Surveying', branch:'civil'},
-    {id:'elec-circuits', hi:'इलेक्ट्रिक सर्किट', en:'Electric Circuits', branch:'electrical'},
-    {id:'ec-analog', hi:'एनालॉग इलेक्ट्रॉनिक्स', en:'Analog Electronics', branch:'electronics'},
-    {id:'cs-prog', hi:'प्रोग्रामिंग', en:'Programming', branch:'computer'}
-  ],
-  exams: [
-    {id:'rrb-je-cbt1', hi:'आरआरबी जेई — सीबीटी 1', en:'RRB JE — CBT 1', branches:['mechanical','civil','electrical','electronics','computer'], ready:true},
-    {id:'ssc-je', hi:'एसएससी जेई', en:'SSC JE', branches:['mechanical','civil','electrical'], ready:false},
-    {id:'isro', hi:'इसरो', en:'ISRO', branches:['electronics','computer','electrical'], ready:false},
-    {id:'drdo', hi:'डीआरडीओ', en:'DRDO', branches:['electronics','computer','mechanical'], ready:false}
-  ],
-  // सैंपल सवाल — असली PYQ सिर्फ़ आधिकारिक स्रोत से आएँगे (kind: 'practice' अभी के लिए)
-  questions: [
-    {id:'q1', subject:'maths', kind:'practice', hi:'किसी संख्या का 20% 40 है, संख्या क्या है?', en:'20% of a number is 40. What is the number?', o:['100','200','80','20'], a:1},
-    {id:'q2', subject:'reasoning', kind:'practice', hi:'श्रृंखला: 2, 4, 8, ? अगला अंक क्या है?', en:'Series: 2, 4, 8, ? Next number?', o:['12','16','10','14'], a:1},
-    {id:'q3', subject:'mech-thermo', kind:'practice', hi:'आदर्श गैस समीकरण क्या है?', en:'What is the ideal gas equation?', o:['PV = nRT','F = ma','V = IR','E = mc²'], a:0},
-    {id:'q4', subject:'elec-circuits', kind:'practice', hi:'ओम का नियम क्या है?', en:"What is Ohm's law?", o:['V = IR','P = IV²','F = qE','v = u+at'], a:0}
-  ]
+/* ============ CONFIG ============ */
+const SB={url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'}; // publishable key: safe in the app
+const REV=[1,3,7,15,30];   // spaced revision, days
+/* Offline fallback: names only. Questions always come from the database. */
+const DATA={
+  branches:[{id:'mechanical',hi:'मैकेनिकल',en:'Mechanical'},{id:'civil',hi:'सिविल',en:'Civil'},{id:'electrical',hi:'इलेक्ट्रिकल',en:'Electrical'},{id:'electronics',hi:'इलेक्ट्रॉनिक्स',en:'Electronics'},{id:'computer',hi:'कंप्यूटर / आईटी',en:'Computer / IT'}],
+  subjects:[{id:'maths',hi:'गणित',en:'Mathematics',branch:null},{id:'reasoning',hi:'रीज़निंग',en:'Reasoning',branch:null},{id:'general-science',hi:'सामान्य विज्ञान',en:'General Science',branch:null},{id:'general-awareness',hi:'सामान्य जागरूकता',en:'General Awareness',branch:null}],
+  exams:[
+    {id:'rrb-je-cbt1',hi:'आरआरबी जेई सीबीटी 1',en:'RRB JE CBT 1',branches:['mechanical','civil','electrical','electronics','computer'],ready:false},
+    {id:'ssc-je-paper1',hi:'एसएससी जेई पेपर I',en:'SSC JE Paper I',branches:['mechanical','civil','electrical'],ready:false},
+    {id:'isro',hi:'इसरो',en:'ISRO',branches:['electronics','computer','electrical','mechanical'],ready:false,soon:true},
+    {id:'drdo',hi:'डीआरडीओ',en:'DRDO',branches:['electronics','computer','mechanical'],ready:false,soon:true}]
 };
+const R={ok:false,topics:{},sources:{}};
 
+/* ============ STATE (saved on this phone) ============ */
+const KEY='diploma-boy-v2';
+let S={lang:'both',theme:'auto',branch:null,exam:null,tab:'today',goal:30,st:{},tp:{},days:{},mis:{},mocks:[],seen:{}};
+try{const o=JSON.parse(localStorage.getItem(KEY)||'null'); if(o) Object.assign(S,o);
+  else{const v1=JSON.parse(localStorage.getItem('diploma-boy-v1')||'null'); if(v1){S.lang=v1.lang||S.lang;S.branch=v1.branch||null;}}}catch(e){}
+function save(){try{const {lang,theme,branch,exam,tab,goal,st,tp,days,mis,mocks,seen}=S;localStorage.setItem(KEY,JSON.stringify({lang,theme,branch,exam,tab,goal,st,tp,days,mis,mocks,seen}))}catch(e){}}
+let V={sheet:null,view:null,modal:null};   // screen state, not saved
 
-/* ---------- REMOTE (Supabase, schema mtb; publishable key only) ---------- */
-const SB={url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'};
-async function sbGet(path){
-  const r=await fetch(SB.url+'/rest/v1/'+path,{headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Accept-Profile':'mtb'}});
-  if(!r.ok) throw new Error('HTTP '+r.status); return r.json();
-}
-const REMOTE={ok:false,topics:{},sources:{},cache:{}};
+/* ============ HELPERS ============ */
+const $=s=>document.querySelector(s);
+const L=(hi,en)=>S.lang==='en'?en:hi;
+const N=o=>o?(S.lang==='en'?(o.en||o.hi):(o.hi||o.en)):'';
+const byId=(a,id)=>a.find(x=>x.id===id);
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const today=()=>ymd(new Date());
+const addDays=n=>{const d=new Date();d.setDate(d.getDate()+n);return ymd(d)};
+const pct=(c,t)=>t?Math.round(c/t*100):0;
+const fmtDate=s=>s?s.split('-').reverse().join('/'):'';
+function TX(o){ if(!o) return ''; const hi=o.hi||'', en=o.en||'';
+  if(S.lang==='en'||!hi) return en||hi; if(S.lang==='hi'||hi===en) return hi; return hi+'<span class="en">'+en+'</span>'; }
+const ICON={
+  today:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>',
+  practice:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM4 17a2 2 0 0 1 2-2h12"/></svg>',
+  mock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>',
+  mistakes:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>',
+  me:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
+  chev:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>'
+};
+const subjColor=id=>/engineering/.test(id)?'var(--s-eng)':`var(--s-${id},var(--blue))`;
+function toast(m){ const t=document.createElement('div'); t.className='toast'; t.setAttribute('role','status'); t.textContent=m; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
+
+/* ============ DATABASE ============ */
+async function sb(path){ const r=await fetch(SB.url+'/rest/v1/'+path,{headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Accept-Profile':'mtb'}}); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
 async function loadRemote(){
   try{
-    const [br,ex,eb,sb]=await Promise.all([
-      sbGet('branches?select=slug,name_en,name_hi,sort&order=sort'),
-      sbGet('exams?select=id,slug,name_en,name_hi,active,pattern&active=eq.true'),
-      sbGet('exam_branches?select=exam_id,branch_id'),
-      sbGet('subjects?select=slug,name_en,name_hi,branch_id')
-    ]);
-    if(br.length){ DATA.branches = br.map(b=>({id:b.slug,hi:b.name_hi,en:b.name_en})); }
-    const brById={}; const brIdToSlug={}; // map db ids -> slugs
-    (await sbGet('branches?select=id,slug')).forEach(b=>brIdToSlug[b.id]=b.slug);
-    const exById={}; ex.forEach(e=>exById[e.id]={id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,branches:[],ready:true,sections:(e.pattern&&e.pattern.sections)||null,pattern:e.pattern||{}});
-    eb.forEach(x=>{ if(exById[x.exam_id]) exById[x.exam_id].branches.push(brIdToSlug[x.branch_id]); });
-    const remoteExams=Object.values(exById);
-    if(remoteExams.length){
-      // keep embedded "coming soon" exams that are not in the database yet
-      const keep=DATA.exams.filter(e=>!remoteExams.some(r=>r.id===e.id));
-      DATA.exams=[...remoteExams,...keep];
-    }
-    // common subjects from DB; branch subjects stay in the app until they are added to the DB
-    const dbSubs=sb.map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:s.branch_id===null?null:brIdToSlug[s.branch_id]}));
-    if(dbSubs.length){
-      // embedded samples only for branches that have no subject in the database yet
-      const dbBranches=new Set(dbSubs.filter(x=>x.branch).map(x=>x.branch));
-      const samples=DATA.subjects.filter(x=>x.branch!==null && !dbBranches.has(x.branch));
-      DATA.subjects=[...dbSubs,...samples];
-    }
-    const [tp,sid,src]=await Promise.all([sbGet('topics?select=id,slug,name_en,name_hi,subject_id'),sbGet('subjects?select=id,slug'),sbGet('sources?select=id,exam_id,branch_id,paper_date,shift,note')]);
-    const subSlug={}; sid.forEach(x=>subSlug[x.id]=x.slug);
-    REMOTE.topics={}; tp.forEach(t=>REMOTE.topics[t.id]={hi:t.name_hi,en:t.name_en,subject:subSlug[t.subject_id]});
-    REMOTE.sources={}; src.forEach(x=>REMOTE.sources[x.id]=x); REMOTE.exams={}; remoteExams.forEach(e=>REMOTE.exams[e.id]=e);
-    REMOTE.ok=true;
-    return true;
-  }catch(e){ console.warn('offline/fallback', e.message); return false; }
+    const [br,ex,eb,su,tp,src]=await Promise.all([
+      sb('branches?select=id,slug,name_en,name_hi,sort&order=sort'),
+      sb('exams?select=id,slug,name_en,name_hi,active,pattern&active=eq.true&order=id'),
+      sb('exam_branches?select=exam_id,branch_id'),
+      sb('subjects?select=id,slug,name_en,name_hi,branch_id&order=id'),
+      sb('topics?select=id,slug,name_en,name_hi,subject_id,sort&order=sort,id'),
+      sb('sources?select=id,exam_id,branch_id,paper_date,shift,note&order=paper_date.desc,shift')]);
+    const bS={}; br.forEach(b=>bS[b.id]=b.slug);
+    const sS={}; su.forEach(s=>sS[s.id]=s.slug);
+    DATA.branches=br.map(b=>({id:b.slug,hi:b.name_hi,en:b.name_en}));
+    DATA.subjects=su.map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:s.branch_id==null?null:bS[s.branch_id]}));
+    const exs=ex.map(e=>({id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,pattern:e.pattern||{},branches:eb.filter(x=>x.exam_id===e.id).map(x=>bS[x.branch_id]),ready:true}));
+    DATA.exams=[...exs,...DATA.exams.filter(e=>e.soon&&!exs.some(x=>x.id===e.id))];
+    R.topics={}; tp.forEach(t=>R.topics[t.id]={id:t.id,hi:t.name_hi,en:t.name_en,subject:sS[t.subject_id]});
+    R.sources={}; src.forEach(x=>R.sources[x.id]={...x,exam:(exs.find(e=>e.dbid===x.exam_id)||{}).id,branch:bS[x.branch_id]||null});
+    R.ok=true;
+  }catch(e){ R.ok=false; }
 }
-
-async function fetchQs(subj, exam){
-  const ck=subj+'@'+exam; if(REMOTE.cache[ck]) return REMOTE.cache[ck];
-  const ids=Object.entries(REMOTE.topics).filter(([id,t])=>t.subject===subj).map(([id])=>id);
-  const ex=REMOTE.exams&&REMOTE.exams[exam];
-  const srcIds=ex?Object.values(REMOTE.sources).filter(x=>x.exam_id===ex.dbid).map(x=>x.id):[];
-  if(!ids.length||!srcIds.length) return null;
-  const done=(S.progress[subj]?.t)||0; const base='questions?select=id,topic_id,source_id,source_qno,stem,options,answer,solution&topic_id=in.('+ids.join(',')+')&source_id=in.('+srcIds.join(',')+')&order=id.desc&limit=25';
-  let rows=await sbGet(base+'&offset='+Math.floor(done/25)*25);
-  if(!rows.length) rows=await sbGet(base+'&offset=0');
-  const list=rows.map(r=>({id:'db'+r.id,subject:subj,kind:'pyq',stem:r.stem,opts:r.options,a:r.answer,sol:r.solution,topic:REMOTE.topics[r.topic_id],src:REMOTE.sources[r.source_id],qno:r.source_qno}));
-  REMOTE.cache[ck]=list; return list;
+const QSEL='id,topic_id,source_id,source_qno,stem,options,answer,solution';
+function norm(r){ const t=R.topics[r.topic_id]||{}; return {id:r.id,topic:t,subj:t.subject,src:R.sources[r.source_id],qno:r.source_qno,stem:r.stem||{},opts:r.options||[],a:r.answer,sol:r.solution}; }
+function examSources(exam,branch){ return Object.values(R.sources).filter(s=>s.exam===exam&&(!s.branch||!branch||s.branch===branch)); }
+async function fetchPractice(exam,subj,topicId){
+  const tids=topicId?[topicId]:Object.values(R.topics).filter(t=>t.subject===subj).map(t=>t.id);
+  const sids=examSources(exam,isBranchSubj(subj)?S.branch:null).map(s=>s.id);
+  if(!tids.length||!sids.length) return [];
+  const scope=exam+'|'+subj+'|'+(topicId||'all'); const off=S.seen[scope]||0;
+  const base=`questions?select=${QSEL}&topic_id=in.(${tids.join(',')})&source_id=in.(${sids.join(',')})&order=id&limit=20`;
+  let rows=await sb(base+'&offset='+off);
+  if(!rows.length&&off){ rows=await sb(base+'&offset=0'); S.seen[scope]=0; }
+  S.seen[scope]=(S.seen[scope]||0)+rows.length; save();
+  return rows.map(norm);
 }
-/* ---------- STATE (per device; no secrets; wrapped in try/catch) ---------- */
-const KEY='diploma-boy-v1';
-let S={lang:'both', branch:null, exam:null, tab:'home', progress:{}, subj:null, qi:0, picked:null, score:{c:0,t:0}};
-try{Object.assign(S, JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){}
-function save(){try{localStorage.setItem(KEY, JSON.stringify({lang:S.lang,branch:S.branch,pexam:S.pexam,progress:S.progress}))}catch(e){}}
+async function fetchPaper(srcId){ return (await sb(`questions?select=${QSEL}&source_id=eq.${srcId}&order=source_qno`)).map(norm); }
+async function fetchIds(ids){ const out=[]; for(let i=0;i<ids.length;i+=40) out.push(...await sb(`questions?select=${QSEL}&id=in.(${ids.slice(i,i+40).join(',')})`)); return out.map(norm); }
 
-/* ---------- HELPERS ---------- */
-const T=(o)=> S.lang==='hi'?o.hi : S.lang==='en'?o.en : (o.hi+' · '+o.en);
-const $=(s)=>document.querySelector(s);
-const TX=(o)=>{const hi=o.hi||'', en=o.en||''; if(S.lang==='en'||!hi) return en||hi; if(S.lang==='hi') return hi; return hi===en?hi:hi+'<div class="muted" style="font-size:14px">'+en+'</div>';};
-function sampleQs(subj){return DATA.questions.filter(q=>q.subject===subj).map(q=>({id:q.id,subject:q.subject,kind:q.kind,stem:{hi:q.hi,en:q.en},opts:q.o.map(x=>({en:x})),a:q.a}));}
-const byId=(arr,id)=>arr.find(x=>x.id===id);
-function subjectsFor(branch){return DATA.subjects.filter(s=>s.branch===null || s.branch===branch)}
-function examsFor(branch){return DATA.exams.filter(e=>e.branches.includes(branch))}
-function examSubjects(examId, branch){
-  const e=byId(DATA.exams,examId); if(!e||!e.sections) return subjectsFor(branch);
-  const out=[]; e.sections.forEach(sec=>{ if(sec==='branch-engineering') DATA.subjects.filter(x=>x.branch===branch).forEach(x=>out.push(x)); else { const x=byId(DATA.subjects,sec); if(x) out.push(x);} });
+/* ============ DERIVED ============ */
+const isBranchSubj=id=>{const s=byId(DATA.subjects,id);return !!(s&&s.branch)};
+const examsFor=b=>DATA.exams.filter(e=>e.branches.includes(b));
+const readyExams=()=>examsFor(S.branch).filter(e=>e.ready);
+function curExam(){ const r=readyExams(); return r.find(e=>e.id===S.exam)||r[0]||null; }
+function examSubjects(e){
+  if(!e) return [];
+  const secs=(e.pattern&&e.pattern.sections)||DATA.subjects.filter(s=>!s.branch).map(s=>s.id);
+  const out=[]; secs.forEach(x=>{ if(x==='branch-engineering') DATA.subjects.filter(s=>s.branch===S.branch).forEach(s=>out.push(s)); else { const s=byId(DATA.subjects,x); if(s) out.push(s);} });
   return out;
 }
-function curExam(){ const ready=examsFor(S.branch).filter(e=>e.ready); return (ready.find(e=>e.id===S.pexam)||ready[0]||{}).id; }
-function pct(subj){const p=S.progress[subj]||{c:0,t:0};return p.t?Math.round(p.c/p.t*100):0}
+const stat=id=>S.st[id]||{c:0,t:0};
+const todayCount=()=>S.days[today()]||0;
+function streak(){ let n=0; for(let i=0;i<400;i++){ if(S.days[addDays(-i)]) n++; else if(i>0) break; } return n; }
+function dueMistakes(){ const t=today(); return Object.keys(S.mis).filter(id=>S.mis[id].due<=t).map(Number); }
+function weakTopics(subs){ const ok=new Set(subs.map(s=>s.id)); return Object.entries(S.tp).filter(([id,v])=>v.t>=4&&R.topics[id]&&ok.has(R.topics[id].subject)).map(([id,v])=>({id:+id,acc:pct(v.c,v.t),t:v.t})).filter(x=>x.acc<70).sort((a,b)=>a.acc-b.acc).slice(0,3); }
+function negTxt(n){ if(!n) return '0'; if(Math.abs(n-.25)<.01) return '¼'; if(Math.abs(n-1/3)<.01) return '⅓'; return n; }
 
-/* ---------- VIEWS ---------- */
-function viewOnboard(){
-  return `<h1>${S.lang==='en'?'Choose your branch':'अपनी ब्रांच चुनें'}</h1>
-  <p class="sub">${S.lang==='en'?'You can change this later in Profile. Your progress stays.':'बाद में प्रोफ़ाइल में बदल सकते हैं। आपकी प्रगति सुरक्षित रहेगी।'}</p>
-  <div class="grid">${DATA.branches.map(b=>`<button class="tile" data-act="pick-branch" data-id="${b.id}"><b>${T(b)}</b><span>${S.lang==='en'?'Diploma':'डिप्लोमा'}</span></button>`).join('')}</div>`;
+function bump(q,ok){
+  const s=S.st[q.subj]||{c:0,t:0}; s.t++; if(ok)s.c++; S.st[q.subj]=s;
+  const tid=q.topic&&q.topic.id; if(tid){ const v=S.tp[tid]||{c:0,t:0}; v.t++; if(ok)v.c++; S.tp[tid]=v; }
+  S.days[today()]=(S.days[today()]||0)+1;
 }
-function viewHome(){
-  const b=byId(DATA.branches,S.branch);
-  const exams=examsFor(S.branch);
-  const subs=subjectsFor(S.branch);
-  const total=subs.reduce((a,s)=>a+ (S.progress[s.id]?.t||0),0);
-  return `<h1>${S.lang==='en'?'Hello':'नमस्ते'} · ${T(b)}</h1>
-  <p class="sub">${S.lang==='en'?'Your exams for this branch':'इस ब्रांच की परीक्षाएँ'}</p>
-  <div class="card"><b>${S.lang==='en'?'Today':'आज'}</b>
-    <p class="muted" style="margin:6px 0 10px">${total?(S.lang==='en'?'Keep going: ':'आगे बढ़ें: ')+total+' '+(S.lang==='en'?'answered':'सवाल हल'):(S.lang==='en'?'Start with 5 questions in Maths':'गणित के 5 सवाल से शुरू करें')}</p>
-    <button class="btn" data-act="go-practice">${S.lang==='en'?'Start practice':'अभ्यास शुरू करें'}</button></div>
-  ${exams.map(e=>`<div class="card"><div class="row" style="border:0;padding:0"><b>${T(e)}</b><span class="tag ${e.ready?'':'soon'}">${e.ready?(S.lang==='en'?'Ready':'तैयार'):(S.lang==='en'?'Coming soon':'जल्द')}</span></div>
-    ${e.ready?`<button class="btn ghost" style="margin-top:10px" data-act="open-exam" data-id="${e.id}">${S.lang==='en'?'Open':'खोलें'}</button>`:''}</div>`).join('')}`;
+function toMistakes(q,ok){
+  const m=S.mis[q.id];
+  if(!ok) S.mis[q.id]={subj:q.subj,w:(m?m.w:0)+1,step:0,due:addDays(1)};
+  else if(m){ const step=m.step+1; if(step>=REV.length) delete S.mis[q.id]; else S.mis[q.id]={...m,step,due:addDays(REV[step])}; }
 }
-function viewExam(){
-  const e=byId(DATA.exams,S.exam);
-  const subs=examSubjects(S.exam,S.branch);
-  const pt=e.pattern||{};
-  return `<button class="btn ghost" data-act="go-home" style="width:auto;margin-bottom:8px">← ${S.lang==='en'?'Back':'वापस'}</button>
-  <h1>${T(e)}</h1>
-  <p class="sub">${pt.questions?`${pt.questions} ${S.lang==='en'?'Q':'सवाल'} · ${pt.minutes} ${S.lang==='en'?'min':'मिनट'} · −${pt.negative_per_wrong==0.25?'¼':pt.negative_per_wrong>0.33&&pt.negative_per_wrong<0.34?'⅓':pt.negative_per_wrong} · `:''}${S.lang==='en'?'Common + your branch subjects':'सामान्य + आपकी ब्रांच के विषय'}</p>
-  <div class="card">${subs.map(s=>`<div class="row"><div style="flex:1"><b>${T(s)}</b> <span class="tag ${s.branch?'':''}">${s.branch?(S.lang==='en'?'Branch':'ब्रांच'):(S.lang==='en'?'Common':'सामान्य')}</span>
-    <div class="bar"><i style="width:${pct(s.id)}%"></i></div></div>
-    <button class="btn" style="width:auto;padding:8px 14px" data-act="start-subj" data-id="${s.id}">${S.lang==='en'?'Practice':'अभ्यास'}</button></div>`).join('')}</div>`;
+
+/* ============ SCREENS ============ */
+function vBranch(){
+  return `<section class="hero"><h1>${L('अपनी ब्रांच चुनें','Choose your branch')}</h1>
+  <p>${L('आपको सिर्फ़ आपकी ब्रांच की परीक्षाएँ और विषय दिखेंगे। बाद में बदल सकते हैं।','You will see only your branch exams and subjects. You can change it later.')}</p></section>
+  <div class="bgrid">${DATA.branches.map(b=>`<button class="bcard ${b.id===S.branch?'on':''}" data-a="branch" data-id="${b.id}"><b>${N(b)}</b><span>${examsFor(b.id).filter(e=>e.ready).map(N).join(', ')||L('परीक्षाएँ जल्द','Exams soon')}</span></button>`).join('')}</div>`;
 }
-function viewPractice(){
-  const ce=curExam(); const subs=ce?examSubjects(ce,S.branch):subjectsFor(S.branch);
-  const chips=examsFor(S.branch).filter(e=>e.ready).map(e=>`<button class="tile ${e.id===ce?'on':''}" style="min-height:44px;padding:8px 12px" data-act="pick-exam" data-id="${e.id}"><b style="font-size:14px">${T(e)}</b></button>`).join('');
-    if(!S.subj){
-    return `<h1>${S.lang==='en'?'Practice':'अभ्यास'}</h1><p class="sub">${S.lang==='en'?'Official PYQ. Pick exam, then subject.':'आधिकारिक PYQ। पहले परीक्षा, फिर विषय चुनें।'}</p>
-    <div class="grid" style="margin-bottom:12px">${chips}</div>
-    <div class="card">${subs.map(s=>`<div class="row"><b>${T(s)}</b><button class="btn" style="width:auto;padding:8px 14px" data-act="start-subj" data-id="${s.id}">${S.lang==='en'?'Start':'शुरू'}</button></div>`).join('')}</div>`;
+function examSwitch(){
+  const r=readyExams(), ce=curExam(), soon=examsFor(S.branch).filter(e=>!e.ready);
+  return `<div class="scroller" style="margin-top:12px" role="tablist" aria-label="${L('परीक्षा','Exam')}">${r.map(e=>`<button class="chip ${ce&&e.id===ce.id?'on':''}" role="tab" aria-selected="${ce&&e.id===ce.id}" data-a="exam" data-id="${e.id}">${N(e)}</button>`).join('')}${soon.map(e=>`<span class="chip" style="opacity:.55;cursor:default">${N(e)}: ${L('जल्द','soon')}</span>`).join('')}</div>`;
+}
+function subjRow(s){
+  const v=stat(s.id), pc=pct(v.c,v.t);
+  return `<button class="item" data-a="open-subj" data-subj="${s.id}"><span class="bar4" style="background:${subjColor(s.id)}"></span>
+   <span class="tx"><b>${N(s)}</b><span>${v.t?L(`${v.t} हल, ${pc}% सही`,`${v.t} done, ${pc}% right`):L('अभी शुरू नहीं किया','Not started')}</span>
+   <div class="meter"><i style="width:${v.t?pc:0}%"></i></div></span><span class="chev">${ICON.chev}</span></button>`;
+}
+function vToday(){
+  const b=byId(DATA.branches,S.branch), e=curExam(), tc=todayCount(), g=S.goal, due=dueMistakes().length;
+  const subs=examSubjects(e), p=(e&&e.pattern)||{};
+  const next=subs.slice().sort((x,y)=>stat(x.id).t-stat(y.id).t)[0];
+  const weak=weakTopics(subs);
+  return `${examSwitch()}
+  <div class="tblock">
+    <div><div class="k">${L('परीक्षा','Exam')}</div><div class="v">${e?N(e):L('जल्द','Soon')}</div></div>
+    <div><div class="k">${L('ब्रांच','Branch')}</div><div class="v">${N(b)}</div></div>
+    <div><div class="k">${L('लगातार दिन','Streak')}</div><div class="v big">${streak()}</div></div>
+    <div class="wide"><div class="ring" style="--p:${Math.min(100,pct(tc,g))}" data-t="${tc}/${g}" role="img" aria-label="${tc} / ${g}"></div>
+      <div style="flex:1;min-width:0"><b style="font-size:17px;display:block">${tc>=g?L('आज का लक्ष्य पूरा हुआ','Today’s goal is done'):L(`आज ${g-tc} सवाल और करें`,`${g-tc} more questions today`)}</b>
+      <span class="small muted">${p.questions?L(`असली पेपर: ${p.questions} सवाल, ${p.minutes} मिनट`,`Real paper: ${p.questions} questions, ${p.minutes} min`):''}</span></div></div>
+  </div>
+  ${R.ok?'':`<div class="note">${L('इंटरनेट नहीं मिला। सवाल लाने के लिए इंटरनेट चालू करें।','No internet. Turn it on to load questions.')}</div>`}
+  ${e?`<div style="margin-top:14px">
+    ${next?`<button class="btn" data-a="start" data-subj="${next.id}">${L('अभ्यास शुरू करें','Start practice')}: ${N(next)}</button>`:''}
+    <div class="btn-row">
+      <button class="btn ${due?'saffron':'quiet'}" data-a="revise" ${due?'':'disabled'}>${due?L(`${due} सवाल दोहराएँ`,`Revise ${due}`):L('आज दोहराना नहीं','Nothing to revise')}</button>
+      <button class="btn line" data-a="tab" data-id="mock">${L('मॉक टेस्ट दें','Take a mock')}</button>
+    </div></div>`:''}
+  ${weak.length?`<h2>${L('इन टॉपिक पर ध्यान दें','Focus on these topics')}</h2><div class="panel">${weak.map(w=>{const t=R.topics[w.id];return `<button class="item" data-a="start" data-subj="${t.subject}" data-topic="${w.id}"><span class="bar4" style="background:var(--bad)"></span><span class="tx"><b>${N(t)}</b><span>${L(`${w.t} में से ${w.acc}% सही`,`${w.acc}% right of ${w.t}`)}</span></span><span class="chev">${ICON.chev}</span></button>`}).join('')}</div>`:''}
+  <h2>${L('विषय','Subjects')}</h2>
+  <div class="panel">${subs.map(subjRow).join('')||`<div class="empty">${L('इस ब्रांच की परीक्षाएँ जल्द जुड़ेंगी।','Exams for this branch are coming.')}</div>`}</div>`;
+}
+function vPractice(){
+  const e=curExam();
+  if(V.view&&V.view.subj){
+    const s=byId(DATA.subjects,V.view.subj)||{id:V.view.subj}; const tps=Object.values(R.topics).filter(t=>t.subject===s.id);
+    return `<div style="display:flex;align-items:center;gap:4px;margin-top:10px"><button class="icon-btn" data-a="back-subj" aria-label="${L('वापस','Back')}">${ICON.back}</button><h1 style="font-size:22px">${N(s)}</h1></div>
+    <p class="muted small" style="margin:0 0 12px 48px">${e?N(e):''}</p>
+    <button class="btn" data-a="start" data-subj="${s.id}">${L('सभी टॉपिक मिलाकर 20 सवाल','20 questions, all topics')}</button>
+    <h2>${L('या एक टॉपिक चुनें','Or pick one topic')}</h2>
+    <div class="panel">${tps.map(t=>{const v=S.tp[t.id]||{c:0,t:0};return `<button class="item" data-a="start" data-subj="${s.id}" data-topic="${t.id}"><span class="tx"><b>${N(t)}</b><span>${v.t?L(`${v.t} हल, ${pct(v.c,v.t)}% सही`,`${v.t} done, ${pct(v.c,v.t)}% right`):L('नया','New')}</span>${v.t?`<div class="meter"><i style="width:${pct(v.c,v.t)}%"></i></div>`:''}</span><span class="chev">${ICON.chev}</span></button>`}).join('')||`<div class="empty">${L('टॉपिक जल्द आएँगे।','Topics coming soon.')}</div>`}</div>`;
   }
-  const qs=S.qlist||[];
-  if(S.loading) return `<div class="card muted">${S.lang==='en'?'Loading questions…':'सवाल आ रहे हैं…'}</div>`;
-  if(!qs.length) return `<h1>${T(byId(DATA.subjects,S.subj))}</h1><div class="card muted">${S.lang==='en'?'Questions coming soon for this subject.':'इस विषय के सवाल जल्द आएँगे।'}</div><button class="btn ghost" data-act="back-practice">${S.lang==='en'?'Back':'वापस'}</button>`;
-  const q=qs[S.qi%qs.length];
-  const src=q.src?` · ${q.src.paper_date.split('-').reverse().join('/')} ${S.lang==='en'?'Shift':'शिफ़्ट'} ${q.src.shift} · Q${q.qno}`:'';
-  const imgs=(q.stem.img||[]).map(u=>`<img src="${u}" alt="" style="max-width:100%;display:block;margin:8px 0;background:#fff;border-radius:8px">`).join('');
-  return `<button class="btn ghost" data-act="back-practice" style="width:auto;margin-bottom:8px">← ${S.lang==='en'?'Subjects':'विषय'}</button>
-  <div class="card"><span class="tag">${q.kind==='pyq'?'PYQ':'Practice'}</span> <span class="muted" style="font-size:12px">${q.topic?T(q.topic):''}${src}</span>
-  <div style="font-size:17px;margin:10px 0">${TX(q.stem)}</div>${imgs}${q.stem.hi_mt&&S.lang!=='en'?`<div class="muted" style="font-size:12px">${S.lang==='en'?'':'हिंदी: मशीन अनुवाद, अंग्रेज़ी मूल है'}</div>`:''}
-  ${q.opts.map((o,i)=>`<button class="opt ${S.picked!==null?(i===q.a?'right':(i===S.picked?'wrong':'')):''}" data-act="pick" data-i="${i}" ${S.picked!==null?'disabled':''}><b>${'ABCD'[i]}</b> <span>${TX(o)}${o.img?`<img src="${o.img}" alt="" style="max-width:100%;display:block;background:#fff">`:''}</span></button>`).join('')}
-  ${S.picked!==null&&q.sol&&q.sol.hi?`<div class="card" style="background:var(--soft);margin-top:10px"><b>${S.lang==='en'?'Solution':'हल'}:</b> ${q.sol.hi}</div>`:''}
-  ${S.picked!==null?`<button class="btn" style="margin-top:10px" data-act="next">${S.lang==='en'?'Next':'अगला'} (${(S.qi%qs.length)+1}/${qs.length})</button>`:''}
-  <p class="muted" style="margin-top:12px">${S.lang==='en'?'Score':'स्कोर'}: ${S.score.c}/${S.score.t}</p></div>`;
+  return `${examSwitch()}<h1 style="margin-top:6px">${L('अभ्यास','Practice')}</h1>
+  <p class="muted" style="margin:4px 0 14px">${L('सिर्फ़ आधिकारिक पेपर के सवाल। विषय चुनें, फिर टॉपिक।','Only official paper questions. Pick a subject, then a topic.')}</p>
+  <div class="panel">${examSubjects(e).map(subjRow).join('')||`<div class="empty">${L('जल्द आएगा।','Coming soon.')}</div>`}</div>`;
 }
-function viewProgress(){
-  const subs=subjectsFor(S.branch);
-  return `<h1>${S.lang==='en'?'Progress':'प्रगति'}</h1><div class="card">${subs.map(s=>{const p=S.progress[s.id]||{c:0,t:0};return `<div class="row"><div style="flex:1"><b>${T(s)}</b><div class="bar"><i style="width:${pct(s.id)}%"></i></div></div><span class="muted">${p.c}/${p.t}</span></div>`}).join('')}</div>`;
+function vMock(){
+  const e=curExam(); if(!e) return `${examSwitch()}<div class="panel" style="margin-top:14px"><div class="empty">${L('इस ब्रांच के मॉक जल्द आएँगे।','Mocks for this branch are coming.')}</div></div>`;
+  const p=e.pattern||{}; const srcs=examSources(e.id,S.branch);
+  return `${examSwitch()}<h1 style="margin-top:6px">${L('मॉक टेस्ट','Mock test')}</h1>
+  <p class="muted" style="margin:4px 0 14px">${L(`पूरा असली पेपर, असली समय: ${p.minutes||'—'} मिनट। हर गलत पर −${negTxt(p.negative_per_wrong)}।`,`The full real paper in real time: ${p.minutes||'—'} min. −${negTxt(p.negative_per_wrong)} per wrong answer.`)}</p>
+  <div class="panel">${srcs.map(s=>{const d=S.mocks.filter(m=>m.src===s.id);const best=d.length?Math.max(...d.map(m=>m.score)):null;
+    return `<button class="item" data-a="mock-ask" data-id="${s.id}"><span class="tx"><b>${fmtDate(s.paper_date)}, ${L('शिफ़्ट','shift')} ${s.shift}</b><span>${d.length?L(`${d.length} बार दिया, सबसे अच्छा ${best}`,`Taken ${d.length}×, best ${best}`):L('अभी नहीं दिया','Not taken yet')}</span></span><span class="tag pyq">PYQ</span><span class="chev">${ICON.chev}</span></button>`}).join('')||`<div class="empty">${L('इस परीक्षा के पेपर जल्द आएँगे।','Papers coming soon.')}</div>`}</div>
+  ${S.mocks.length?`<h2>${L('पिछले मॉक','Past mocks')}</h2><div class="panel">${S.mocks.slice(-6).reverse().map(m=>`<div class="item" style="cursor:default"><span class="tx"><b>${m.score} / ${m.max}</b><span>${m.label}<br>${L(`${m.c} सही, ${m.w} गलत, ${m.u} छोड़े`,`${m.c} right, ${m.w} wrong, ${m.u} skipped`)}</span></span></div>`).join('')}</div>`:''}`;
 }
-function viewProfile(){
-  return `<h1>${S.lang==='en'?'Profile':'प्रोफ़ाइल'}</h1>
-  <p class="sub">${S.lang==='en'?'Change branch anytime. Progress stays.':'ब्रांच कभी भी बदलें। प्रगति सुरक्षित रहेगी।'}</p>
-  <div class="grid">${DATA.branches.map(b=>`<button class="tile ${b.id===S.branch?'on':''}" data-act="pick-branch" data-id="${b.id}"><b>${T(b)}</b></button>`).join('')}</div>
-  <div class="card" style="margin-top:14px"><button class="btn ghost" data-act="reset">${S.lang==='en'?'Reset progress on this device':'इस डिवाइस की प्रगति मिटाएँ'}</button></div>`;
+function vMistakes(){
+  const ids=Object.keys(S.mis), due=dueMistakes();
+  const by={}; ids.forEach(id=>{const s=S.mis[id].subj; by[s]=(by[s]||0)+1;});
+  return `<h1 style="margin-top:16px">${L('गलती बुक','Mistake book')}</h1>
+  <p class="muted" style="margin:4px 0 0">${L('हर गलत सवाल यहाँ आता है। सही करने पर वह 1, 3, 7, 15 और 30 दिन बाद फिर आता है, फिर हट जाता है।','Every wrong answer lands here. Get it right and it returns after 1, 3, 7, 15 and 30 days, then leaves.')}</p>
+  <div class="stats"><div class="stat"><b>${ids.length}</b><span>${L('कुल','Total')}</span></div><div class="stat"><b>${due.length}</b><span>${L('आज दोहराने','Due today')}</span></div><div class="stat"><b>${ids.filter(i=>S.mis[i].w>=2).length}</b><span>${L('बार-बार गलत','Repeated')}</span></div></div>
+  <div style="margin-top:12px"><button class="btn ${due.length?'saffron':'quiet'}" data-a="revise" ${due.length?'':'disabled'}>${due.length?L(`आज के ${due.length} सवाल दोहराएँ`,`Revise ${due.length} due today`):L('आज कुछ बाकी नहीं','Nothing due today')}</button></div>
+  ${ids.length?`<h2>${L('विषय के अनुसार','By subject')}</h2><div class="panel">${Object.entries(by).map(([s,n])=>`<button class="item" data-a="revise-subj" data-subj="${s}"><span class="bar4" style="background:${subjColor(s)}"></span><span class="tx"><b>${N(byId(DATA.subjects,s)||{hi:s,en:s})}</b><span>${L(`${n} सवाल, अभी दोहराएँ`,`${n} questions, revise now`)}</span></span><span class="chev">${ICON.chev}</span></button>`).join('')}</div>`
+  :`<div class="panel" style="margin-top:14px"><div class="empty">${L('अभी कोई गलती नहीं। अभ्यास करें, गलत सवाल अपने-आप यहाँ आएँगे।','No mistakes yet. Practise and wrong answers will appear here.')}</div></div>`}`;
+}
+function vMe(){
+  const tot=Object.values(S.st).reduce((a,v)=>a+v.t,0), cor=Object.values(S.st).reduce((a,v)=>a+v.c,0);
+  const last7=[...Array(7)].map((_,i)=>S.days[addDays(-6+i)]||0), mx=Math.max(5,...last7);
+  return `<h1 style="margin-top:16px">${L('मेरा हिसाब','My progress')}</h1>
+  <div class="stats"><div class="stat"><b>${tot}</b><span>${L('सवाल हल','Answered')}</span></div><div class="stat"><b>${pct(cor,tot)}%</b><span>${L('सही','Right')}</span></div><div class="stat"><b>${S.mocks.length}</b><span>${L('मॉक दिए','Mocks')}</span></div></div>
+  <h2>${L('पिछले 7 दिन','Last 7 days')}</h2>
+  <div class="panel" style="padding:14px"><div style="display:flex;align-items:flex-end;gap:8px;height:96px" role="img" aria-label="${last7.join(', ')}">${last7.map((v,i)=>`<div style="flex:1;text-align:center"><div style="height:${Math.round(v/mx*70)}px;min-height:2px;background:${i===6?'var(--saffron)':'var(--blue)'};border-radius:4px 4px 0 0"></div><div class="small muted">${v}</div></div>`).join('')}</div></div>
+  <h2>${L('ब्रांच','Branch')}</h2>
+  <div class="scroller">${DATA.branches.map(b=>`<button class="chip ${b.id===S.branch?'on':''}" data-a="branch" data-id="${b.id}">${N(b)}</button>`).join('')}</div>
+  <h2>${L('रोज़ का लक्ष्य','Daily goal')}</h2>
+  <div class="scroller">${[20,30,50,100].map(n=>`<button class="chip ${S.goal===n?'on':''}" data-a="goal" data-id="${n}">${n} ${L('सवाल','questions')}</button>`).join('')}</div>
+  <h2>${L('रंग','Theme')}</h2>
+  <div class="scroller">${[['auto','फ़ोन के अनुसार','Auto'],['light','हल्का','Light'],['dark','गहरा','Dark']].map(t=>`<button class="chip ${S.theme===t[0]?'on':''}" data-a="theme" data-id="${t[0]}">${L(t[1],t[2])}</button>`).join('')}</div>
+  <h2>${L('डेटा','Data')}</h2>
+  <div class="panel"><div class="item" style="cursor:default"><span class="tx"><b>${L('प्रगति इसी फ़ोन में सेव है','Progress is saved on this phone')}</b><span>${L('ब्राउज़र का डेटा मिटाने पर यह भी मिट जाएगी।','Clearing browser data erases it too.')}</span></span></div>
+  <button class="item" data-a="reset-ask"><span class="tx"><b style="color:var(--bad)">${L('इस फ़ोन की प्रगति मिटाएँ','Erase progress on this phone')}</b></span></button></div>
+  <p class="small muted" style="margin:18px 0 8px">${L('सवाल आधिकारिक पेपर / response sheet और आधिकारिक answer key से हैं।','Questions come from official papers / response sheets with official answer keys.')}</p>`;
 }
 
-/* ---------- RENDER ---------- */
-const TABS=[{id:'home',hi:'आज',en:'Today'},{id:'practice',hi:'अभ्यास',en:'Practice'},{id:'progress',hi:'प्रगति',en:'Progress'},{id:'profile',hi:'प्रोफ़ाइल',en:'Profile'}];
+/* ============ QUESTION SHEET: practice · revise · mock · review ============ */
+function qBlock(q,mode,sel){
+  const reveal=mode!=='mock'&&sel!=null, src=q.src;
+  const meta=`<div class="qmeta"><span class="tag pyq">PYQ</span><span>${N(q.topic)}</span>${src?`<span>${fmtDate(src.paper_date)}, ${L('शिफ़्ट','shift')} ${src.shift}, Q${q.qno}</span>`:''}</div>`;
+  const imgs=(q.stem.img||[]).map(u=>`<img class="qimg" src="${u}" alt="${L('सवाल का चित्र','Question figure')}">`).join('');
+  const opts=q.opts.map((o,k)=>{let c=''; if(reveal){ if(k===q.a)c='right'; else if(k===sel)c='wrong'; } else if(sel===k) c='sel';
+    return `<button class="opt ${c}" data-a="pick" data-i="${k}" ${reveal?'disabled':''} aria-pressed="${sel===k}"><span class="l">${'ABCD'[k]}</span><span class="ot">${TX(o)}${o.img?`<img src="${o.img}" alt="">`:''}</span></button>`;}).join('');
+  let after='';
+  if(reveal){
+    if(sel===-1) after=`<div class="verdict skip">${L(`छोड़ा। सही उत्तर ${'ABCD'[q.a]} है।`,`Skipped. The answer is ${'ABCD'[q.a]}.`)}</div>`;
+    else { const ok=sel===q.a; after=`<div class="verdict ${ok?'ok':'bad'}" role="status">${ok?L('सही जवाब','Correct'):L(`गलत। सही उत्तर ${'ABCD'[q.a]} है।`,`Wrong. The answer is ${'ABCD'[q.a]}.`)}${!ok&&mode!=='review'?`<div class="small" style="font-weight:500">${L('गलती बुक में जोड़ दिया।','Added to the mistake book.')}</div>`:''}</div>`; }
+    if(q.sol&&q.sol.hi) after+=`<div class="sol"><b>${L('हल','Solution')}:</b> ${q.sol.hi}</div>`;
+  }
+  return `${meta}<div class="qtext">${TX(q.stem)}</div>${imgs}${q.stem.hi_mt&&S.lang!=='en'?`<div class="mt">हिंदी मशीन अनुवाद है, अंग्रेज़ी मूल प्रश्न है।</div>`:''}<div class="opts">${opts}</div>${after}`;
+}
+function clock(s){ s=Math.max(0,s|0); const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=s%60; return (h?h+':':'')+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0'); }
+function topBar(title,sub,extra='',closeAct='close'){ return `<div class="sheet-top"><div class="wrap"><button class="icon-btn" data-a="${closeAct}" aria-label="${L('बंद करें','Close')}">${ICON.close}</button><div style="flex:1;min-width:0"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${title}</b>${sub?`<span class="small muted">${sub}</span>`:''}</div>${extra}</div>`; }
+function vSheet(){
+  const z=V.sheet; if(!z) return '';
+  if(z.loading) return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,'')}</div><div class="sheet-body"><div class="wrap"><div class="empty">${L('सवाल आ रहे हैं…','Loading questions…')}</div></div></div></div>`;
+  if(!z.list.length) return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,'')}</div><div class="sheet-body"><div class="wrap"><div class="empty">${R.ok?L('यहाँ अभी सवाल नहीं हैं।','No questions here yet.'):L('सवाल लाने के लिए इंटरनेट चालू करें।','Turn on internet to load questions.')}</div><button class="btn" data-a="close">${L('वापस जाएँ','Go back')}</button></div></div></div>`;
+  if(z.done) return vResult();
+  const q=z.list[z.i], n=z.list.length, mock=z.mode==='mock', review=z.mode==='review';
+  const sel=mock?z.ans[z.i]:review?(z.ansRef[z.i]==null?-1:z.ansRef[z.i]):z.pick;
+  const answered=mock?z.ans.filter(x=>x!=null).length:0;
+  const sub=mock?L(`सवाल ${z.i+1} / ${n}, हल ${answered}`,`Question ${z.i+1} / ${n}, answered ${answered}`):L(`सवाल ${z.i+1} / ${n}`,`Question ${z.i+1} / ${n}`)+(review?'':`, ${L('सही','right')} ${z.c}`);
+  const extra=mock?`<span class="timer ${z.left<300?'low':''}" id="tmr" aria-label="${L('बचा समय','Time left')}">${clock(z.left)}</span><button class="icon-btn" data-a="palette" aria-label="${L('सवाल सूची','Question list')}">${ICON.grid}</button>`:'';
+  const progW=Math.round((z.i+((!mock&&sel!=null)?1:0))/n*100);
+  const foot=mock?`<div class="sheet-foot"><div class="wrap">
+      <button class="btn line" style="flex:1" data-a="m-prev" ${z.i?'':'disabled'}>${L('पिछला','Previous')}</button>
+      <button class="btn quiet" style="flex:1" data-a="m-mark">${z.mark[z.i]?L('निशान हटाएँ','Unmark'):L('बाद में देखें','Mark')}</button>
+      <button class="btn" style="flex:1.2" data-a="m-next">${z.i<n-1?L('सेव, अगला','Save, next'):L('जमा करें','Submit')}</button></div></div>`
+    :`<div class="sheet-foot"><div class="wrap">${sel!=null?`<button class="btn" data-a="next">${z.i<n-1?L('अगला सवाल','Next question'):(review?L('ख़त्म, बंद करें','Done, close'):L('सेट ख़त्म करें','Finish set'))}</button>`:`<button class="btn line" data-a="skip">${L('छोड़ें, अगला','Skip')}</button>`}</div></div>`;
+  return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,sub,extra,mock?'mock-exit':'close')}<div class="prog"><i style="width:${progW}%"></i></div></div>
+   <div class="sheet-body" id="sbody"><div class="wrap">${qBlock(q,review?'review':z.mode,sel)}${mock&&sel!=null?`<button class="btn quiet" style="margin-top:12px" data-a="m-clear">${L('जवाब हटाएँ','Clear answer')}</button>`:''}</div></div>${foot}</div>`;
+}
+function vResult(){
+  const z=V.sheet;
+  if(z.mode!=='mock') return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,'')}</div><div class="sheet-body"><div class="wrap">
+    <h1 style="margin-top:8px">${L('सेट पूरा हुआ','Set complete')}</h1>
+    <div class="score"><b>${z.c}</b><span class="muted">/ ${z.seen} ${L('सही','right')}</span></div>
+    <div class="stats"><div class="stat"><b>${pct(z.c,z.seen)}%</b><span>${L('सही','Accuracy')}</span></div><div class="stat"><b>${z.seen-z.c}</b><span>${L('गलती बुक में','To mistakes')}</span></div><div class="stat"><b>${todayCount()}</b><span>${L('आज कुल','Today total')}</span></div></div>
+    <div class="btn-row"><button class="btn line" data-a="close">${L('बंद करें','Close')}</button>${z.mode==='practice'?`<button class="btn" data-a="again">${L('अगले 20 सवाल','Next 20')}</button>`:`<button class="btn" data-a="close">${L('ठीक है','Done')}</button>`}</div></div></div></div>`;
+  const r=z.res;
+  return `<div class="sheet" role="dialog" aria-modal="true">${topBar(L('मॉक का नतीजा','Mock result'),z.title)}</div><div class="sheet-body"><div class="wrap">
+   <div class="score"><b>${r.score}</b><span class="muted">/ ${r.max} ${L('अंक','marks')}</span></div>
+   <div class="stats"><div class="stat"><b style="color:var(--ok)">${r.c}</b><span>${L('सही','Right')}</span></div><div class="stat"><b style="color:var(--bad)">${r.w}</b><span>${L('गलत','Wrong')} (−${r.neg})</span></div><div class="stat"><b>${r.u}</b><span>${L('छोड़े','Skipped')}</span></div></div>
+   ${r.w?`<div class="note">${L(`गलत वाले ${r.w} सवाल छोड़ देते तो ${r.noguess} अंक आते। जिसमें पक्का न हों, उसे छोड़ना भी एक कला है।`,`Skipping the ${r.w} wrong ones would have given ${r.noguess}. Skipping what you are unsure of is a skill too.`)}</div>`:''}
+   <h2>${L('विषय के अनुसार','By subject')}</h2>
+   <div class="panel" style="padding:4px 10px"><table class="sub"><tr><th>${L('विषय','Subject')}</th><th>${L('सही','Right')}</th><th>${L('गलत','Wrong')}</th><th>${L('छोड़े','Skip')}</th></tr>
+   ${Object.entries(r.by).map(([s,v])=>`<tr><td>${N(byId(DATA.subjects,s)||{hi:s,en:s})}</td><td>${v.c}</td><td>${v.w}</td><td>${v.u}</td></tr>`).join('')}</table></div>
+   <div class="btn-row"><button class="btn line" data-a="m-review">${L('जवाब देखें','Review answers')}</button><button class="btn" data-a="close">${L('बंद करें','Close')}</button></div>
+   <p class="small muted" style="margin-top:12px">${L('गलत सवाल गलती बुक में जोड़ दिए गए।','Wrong answers were added to the mistake book.')}</p></div></div></div>`;
+}
+function vPalette(){
+  const z=V.sheet, a=z.ans.filter(x=>x!=null).length, m=z.mark.filter(Boolean).length;
+  return `<div class="modal" data-a="modal-close"><div class="box" data-stop="1" role="dialog" aria-modal="true"><div style="display:flex;align-items:center"><b style="font-size:18px;flex:1">${L('सवाल सूची','All questions')}</b><button class="icon-btn" data-a="modal-close" aria-label="${L('बंद करें','Close')}">${ICON.close}</button></div>
+   <div class="legend"><span><i style="background:var(--ok)"></i>${L('हल किए','Answered')} ${a}</span><span><i style="background:var(--mark)"></i>${L('बाद में देखें','Marked')} ${m}</span><span><i style="border:1.5px solid var(--bad)"></i>${L('देखा, हल नहीं','Seen')}</span><span><i style="border:1.5px solid var(--rule)"></i>${L('नहीं देखा','Not seen')}</span></div>
+   <div class="pal">${z.list.map((q,i)=>`<button class="${z.mark[i]?'m':z.ans[i]!=null?'a':z.vis[i]?'v':''} ${i===z.i?'cur':''}" data-a="m-go" data-i="${i}" aria-label="${L('सवाल','Question')} ${i+1}">${i+1}</button>`).join('')}</div>
+   <button class="btn saffron" style="margin-top:16px" data-a="m-submit-ask">${L('टेस्ट जमा करें','Submit test')}</button></div></div>`;
+}
+function vConfirm(msg,yes,act,danger){ return `<div class="modal" data-a="modal-close"><div class="box" data-stop="1" role="alertdialog" aria-modal="true"><p style="font-size:17px;margin:4px 0 16px">${msg}</p><div class="btn-row" style="margin:0"><button class="btn line" data-a="modal-close">${L('रुकें','Cancel')}</button><button class="btn saffron" style="${danger?'background:var(--bad);color:#fff':''}" data-a="${act}">${yes}</button></div></div></div>`; }
+
+/* ============ RENDER ============ */
+function applyTheme(){ const r=document.documentElement; if(S.theme==='auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme',S.theme); r.lang=S.lang==='en'?'en':'hi'; }
+const TABS=[['today','आज','Today'],['practice','अभ्यास','Practice'],['mock','मॉक','Mock'],['mistakes','गलती बुक','Mistakes'],['me','मैं','Me']];
 function render(){
-  document.documentElement.lang = S.lang==='en'?'en':'hi';
-  document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.lang===S.lang));
-  $('#tag').textContent = S.lang==='en'?'Diploma exam prep':'डिप्लोमा परीक्षा तैयारी';
+  applyTheme();
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===S.lang));
   const app=$('#app');
-  if(!S.branch){ app.innerHTML=viewOnboard(); $('#dock').classList.add('hide'); return; }
-  $('#dock').classList.remove('hide');
-  if(S.exam){ app.innerHTML=viewExam(); }
-  else if(S.tab==='practice') app.innerHTML=viewPractice();
-  else if(S.tab==='progress') app.innerHTML=viewProgress();
-  else if(S.tab==='profile') app.innerHTML=viewProfile();
-  else app.innerHTML=viewHome();
-  $('#dock').innerHTML=TABS.map(t=>`<button class="${(S.tab===t.id&&!S.exam)?'on':''}" data-act="tab" data-id="${t.id}">${T(t)}</button>`).join('');
-}
-
-/* ---------- EVENTS ---------- */
-document.addEventListener('click',e=>{
-  const lg=e.target.closest('[data-lang]'); if(lg){S.lang=lg.dataset.lang; save(); render(); return}
-  const el=e.target.closest('[data-act]'); if(!el) return;
-  const a=el.dataset.act, id=el.dataset.id;
-  if(a==='pick-branch'){ S.branch=id; S.exam=null; S.tab='home'; S.subj=null; save(); render(); }
-  else if(a==='tab'){ S.tab=id; S.exam=null; S.subj=null; S.picked=null; render(); }
-  else if(a==='open-exam'){ S.exam=id; S.pexam=id; save(); render(); }
-  else if(a==='pick-exam'){ S.pexam=id; S.subj=null; save(); render(); }
-  else if(a==='go-home'){ S.exam=null; render(); }
-  else if(a==='go-practice'){ S.tab='practice'; S.exam=null; S.subj=null; render(); }
-  else if(a==='start-subj'){ if(S.exam) S.pexam=S.exam; S.tab='practice'; S.exam=null; S.subj=id; S.qi=0; S.picked=null; S.qlist=null; S.loading=true; render();
-    (async()=>{ let l=null; try{ if(REMOTE.ok) l=await fetchQs(id, S.pexam||curExam()); }catch(e){} S.qlist=(l&&l.length)?l:sampleQs(id); S.loading=false; render(); })(); }
-  else if(a==='back-practice'){ S.subj=null; S.picked=null; render(); }
-  else if(a==='pick'){
-    const qs=S.qlist||[]; const q=qs[S.qi%qs.length]; if(!q) return; const i=+el.dataset.i; S.picked=i;
-    const ok=i===q.a; S.score.t++; if(ok) S.score.c++;
-    const p=S.progress[S.subj]||{c:0,t:0}; p.t++; if(ok)p.c++; S.progress[S.subj]=p; save(); render();
+  if(!S.branch){ app.innerHTML=vBranch(); $('#dock').classList.add('hide'); }
+  else{
+    $('#dock').classList.remove('hide');
+    const t=S.tab; app.innerHTML=t==='practice'?vPractice():t==='mock'?vMock():t==='mistakes'?vMistakes():t==='me'?vMe():vToday();
+    const due=dueMistakes().length;
+    $('#dockin').innerHTML=TABS.map(x=>`<button class="${S.tab===x[0]?'on':''}" data-a="tab" data-id="${x[0]}" ${S.tab===x[0]?'aria-current="page"':''}>${ICON[x[0]]}<span>${L(x[1],x[2])}</span>${x[0]==='mistakes'&&due?`<span class="badge">${due}</span>`:''}</button>`).join('');
   }
-  else if(a==='next'){ S.qi++; S.picked=null; render(); }
-  else if(a==='reset'){ if(confirm(S.lang==='en'?'Reset progress on this device?':'इस डिवाइस की प्रगति मिटाएँ?')){ S.progress={}; S.score={c:0,t:0}; save(); render(); } }
+  rSheet();
+}
+function rSheet(top){ $('#layer').innerHTML=vSheet()+(V.modal||''); document.body.style.overflow=V.sheet?'hidden':''; if(top){ const b=$('#sbody'); if(b) b.scrollTop=0; } }
+
+/* ============ ACTIONS ============ */
+async function openPractice(subj,topic){
+  const e=curExam(); if(!e) return; const s=byId(DATA.subjects,subj)||{hi:subj,en:subj}; const t=topic?R.topics[topic]:null;
+  V.sheet={mode:'practice',title:t?N(t):N(s),list:[],i:0,pick:null,c:0,seen:0,loading:true,subj,topic}; rSheet();
+  try{ V.sheet.list=await fetchPractice(e.id,subj,topic?+topic:null); }catch(err){ V.sheet.list=[]; }
+  V.sheet.loading=false; rSheet(true);
+}
+async function openRevise(subj){
+  const ids=(subj?Object.keys(S.mis).filter(id=>S.mis[id].subj===subj).map(Number):dueMistakes()).slice(0,30);
+  V.sheet={mode:'revise',title:L('दोहराना','Revision'),list:[],i:0,pick:null,c:0,seen:0,loading:true}; rSheet();
+  try{ V.sheet.list=await fetchIds(ids); }catch(err){ V.sheet.list=[]; }
+  V.sheet.loading=false; rSheet(true);
+}
+let TICK=null;
+async function openMock(srcId){
+  const e=curExam(), s=R.sources[srcId], p=e.pattern||{};
+  V.modal=null; V.sheet={mode:'mock',title:`${N(e)}, ${fmtDate(s.paper_date)} ${L('शिफ़्ट','shift')} ${s.shift}`,list:[],i:0,ans:[],mark:[],vis:[],loading:true,src:srcId,left:(p.minutes||90)*60,neg:p.negative_per_wrong||0,mpq:p.marks_per_q||1}; rSheet();
+  try{ V.sheet.list=await fetchPaper(srcId); }catch(err){ V.sheet.list=[]; }
+  const z=V.sheet; z.loading=false; z.ans=z.list.map(()=>null); z.mark=z.list.map(()=>false); z.vis=z.list.map((_,i)=>i===0);
+  z.end=Date.now()+z.left*1000; clearInterval(TICK);
+  TICK=setInterval(()=>{ const y=V.sheet; if(!y||y.mode!=='mock'||y.done){clearInterval(TICK);return;} y.left=Math.round((y.end-Date.now())/1000); const el=$('#tmr'); if(el){el.textContent=clock(y.left); el.classList.toggle('low',y.left<300);} if(y.left<=0){ submitMock(); toast(L('समय ख़त्म, टेस्ट जमा हुआ','Time up, test submitted')); } },1000);
+  rSheet(true);
+}
+function submitMock(){
+  const z=V.sheet; clearInterval(TICK); let c=0,w=0,u=0; const by={};
+  z.list.forEach((q,i)=>{ const a=z.ans[i], b=by[q.subj]||(by[q.subj]={c:0,w:0,u:0});
+    if(a==null){u++;b.u++;return;} const ok=a===q.a; if(ok){c++;b.c++;}else{w++;b.w++;} bump(q,ok); toMistakes(q,ok); });
+  const neg=+(w*z.neg).toFixed(2), score=+(c*z.mpq-neg).toFixed(2);
+  z.res={c,w,u,neg,score,max:z.list.length*z.mpq,noguess:+(c*z.mpq).toFixed(2),by};
+  S.mocks.push({src:z.src,label:z.title,score,max:z.res.max,c,w,u,date:today()}); save();
+  z.done=true; V.modal=null; render(); rSheet(true);
+}
+const answeredMsg=z=>L(`${z.ans.filter(x=>x!=null).length} / ${z.list.length} सवाल हल हुए। टेस्ट जमा करें?`,`${z.ans.filter(x=>x!=null).length} / ${z.list.length} answered. Submit the test?`);
+
+document.addEventListener('click',ev=>{
+  const lg=ev.target.closest('[data-lang]'); if(lg){ S.lang=lg.dataset.lang; save(); render(); return; }
+  const el=ev.target.closest('[data-a]'); if(!el) return;
+  if(el.classList.contains('modal')&&ev.target.closest('[data-stop]')) return;   // tap inside a sheet box
+  const a=el.dataset.a, id=el.dataset.id, z=V.sheet;
+  switch(a){
+    case 'branch': S.branch=id; S.exam=null; V.view=null; save(); render(); window.scrollTo(0,0); if(S.tab==='me') toast(L('ब्रांच बदल दी','Branch changed')); break;
+    case 'exam': S.exam=id; V.view=null; save(); render(); break;
+    case 'tab': S.tab=id; V.view=null; save(); render(); window.scrollTo(0,0); break;
+    case 'open-subj': S.tab='practice'; V.view={subj:el.dataset.subj}; save(); render(); window.scrollTo(0,0); break;
+    case 'back-subj': V.view=null; render(); break;
+    case 'start': openPractice(el.dataset.subj, el.dataset.topic||null); break;
+    case 'revise': openRevise(null); break;
+    case 'revise-subj': openRevise(el.dataset.subj); break;
+    case 'goal': S.goal=+id; save(); render(); break;
+    case 'theme': S.theme=id; save(); render(); break;
+    case 'reset-ask': V.modal=vConfirm(L('इस फ़ोन की सारी प्रगति, गलती बुक और मॉक मिट जाएँगे। यह वापस नहीं आएगा।','All progress, mistakes and mocks on this phone will be erased. This cannot be undone.'),L('मिटाएँ','Erase'),'reset',true); rSheet(); break;
+    case 'reset': S.st={};S.tp={};S.days={};S.mis={};S.mocks=[];S.seen={}; V.modal=null; save(); render(); toast(L('प्रगति मिटा दी','Progress erased')); break;
+    case 'modal-close': V.modal=null; rSheet(); break;
+    case 'close': clearInterval(TICK); V.sheet=null; V.modal=null; render(); break;
+    case 'pick':
+      if(z.mode==='mock'){ z.ans[z.i]=+el.dataset.i; rSheet(); break; }
+      if(z.mode==='review'||z.pick!=null) break;
+      { z.pick=+el.dataset.i; z.seen++; const q=z.list[z.i], ok=z.pick===q.a; if(ok) z.c++; bump(q,ok); toMistakes(q,ok); save(); rSheet();
+        const f=document.querySelector('.verdict'); if(f) f.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+      break;
+    case 'skip': case 'next':
+      if(z.i<z.list.length-1){ z.i++; z.pick=null; rSheet(true); }
+      else if(z.mode==='review'){ V.sheet=null; render(); }
+      else { z.done=true; render(); rSheet(true); }
+      break;
+    case 'again': openPractice(z.subj,z.topic); break;
+    case 'mock-ask': { const e=curExam(), p=e.pattern||{}; V.modal=vConfirm(L(`यह पूरा पेपर है: ${p.questions||''} सवाल, ${p.minutes||''} मिनट। टाइमर तुरंत शुरू होगा। शुरू करें?`,`This is the full paper: ${p.questions||''} questions, ${p.minutes||''} min. The timer starts right away. Start?`),L('शुरू करें','Start'),'mock-go'); V.pendingSrc=+id; rSheet(); break; }
+    case 'mock-go': openMock(V.pendingSrc); break;
+    case 'm-next': if(z.i<z.list.length-1){ z.i++; z.vis[z.i]=true; rSheet(true);} else { V.modal=vConfirm(answeredMsg(z),L('जमा करें','Submit'),'m-submit'); rSheet(); } break;
+    case 'm-prev': if(z.i>0){ z.i--; rSheet(true);} break;
+    case 'm-mark': z.mark[z.i]=!z.mark[z.i]; rSheet(); break;
+    case 'm-clear': z.ans[z.i]=null; rSheet(); break;
+    case 'palette': V.modal=vPalette(); rSheet(); break;
+    case 'm-go': z.i=+el.dataset.i; z.vis[z.i]=true; V.modal=null; rSheet(true); break;
+    case 'm-submit-ask': V.modal=vConfirm(answeredMsg(z),L('जमा करें','Submit'),'m-submit'); rSheet(); break;
+    case 'm-submit': submitMock(); break;
+    case 'mock-exit': V.modal=vConfirm(L('टेस्ट बीच में छोड़ें? जवाब सेव नहीं होंगे।','Leave the test? Your answers will not be saved.'),L('टेस्ट छोड़ें','Leave test'),'close',true); rSheet(); break;
+    case 'm-review': V.sheet={mode:'review',title:L('जवाब देखें','Review answers'),list:z.list,ansRef:z.ans,i:0,pick:null,c:0,seen:0}; rSheet(true); break;
+  }
 });
-(async()=>{ await loadRemote(); render(); })();
+window.addEventListener('beforeunload',e=>{ if(V.sheet&&V.sheet.mode==='mock'&&!V.sheet.done){ e.preventDefault(); e.returnValue=''; } });
+(async()=>{ render(); await loadRemote(); render(); })();
 </script>
 </body>
 </html>
