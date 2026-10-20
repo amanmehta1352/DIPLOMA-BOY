@@ -166,7 +166,7 @@ table.sub th{font-size:13px;color:var(--ink2);font-weight:600;border-top:0}
 /* ============ CONFIG ============ */
 const SB={url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'}; // publishable key: safe in the app
 const REV=[1,3,7,15,30];   // spaced revision, days
-/* Offline fallback: names only. Questions always come from the database. */
+/* One data source, three views: विषय (all questions of a chapter), PYQ (official papers), Practice (our own questions). */
 const DATA={
   branches:[{id:'mechanical',hi:'मैकेनिकल',en:'Mechanical'},{id:'civil',hi:'सिविल',en:'Civil'},{id:'electrical',hi:'इलेक्ट्रिकल',en:'Electrical'},{id:'electronics',hi:'इलेक्ट्रॉनिक्स',en:'Electronics'},{id:'computer',hi:'कंप्यूटर / आईटी',en:'Computer / IT'}],
   subjects:[{id:'maths',hi:'गणित',en:'Mathematics',branch:null},{id:'reasoning',hi:'रीज़निंग',en:'Reasoning',branch:null},{id:'general-science',hi:'सामान्य विज्ञान',en:'General Science',branch:null},{id:'general-awareness',hi:'सामान्य जागरूकता',en:'General Awareness',branch:null}],
@@ -176,14 +176,16 @@ const DATA={
     {id:'isro',hi:'इसरो',en:'ISRO',branches:['electronics','computer','electrical','mechanical'],ready:false,soon:true},
     {id:'drdo',hi:'डीआरडीओ',en:'DRDO',branches:['electronics','computer','mechanical'],ready:false,soon:true}]
 };
-const R={ok:false,topics:{},sources:{}};
+const COMMON=['maths','reasoning','general-science','general-awareness'];
+const R={ok:false,topics:{},sources:{},stats:{}};
 
 /* ============ STATE (saved on this phone) ============ */
 const KEY='diploma-boy-v2';
 let S={lang:'both',theme:'auto',branch:null,exam:null,tab:'today',goal:30,st:{},tp:{},days:{},mis:{},mocks:[],seen:{}};
 try{const o=JSON.parse(localStorage.getItem(KEY)||'null'); if(o) Object.assign(S,o);
   else{const v1=JSON.parse(localStorage.getItem('diploma-boy-v1')||'null'); if(v1){S.lang=v1.lang||S.lang;S.branch=v1.branch||null;}}}catch(e){}
-function save(){try{const {lang,theme,branch,exam,tab,goal,st,tp,days,mis,mocks,seen}=S;localStorage.setItem(KEY,JSON.stringify({lang,theme,branch,exam,tab,goal,st,tp,days,mis,mocks,seen}))}catch(e){}}
+if(S.tab==='practice'&&!S.v3){S.tab='today';} S.v3=1;
+function save(){try{const {lang,theme,branch,exam,tab,goal,st,tp,days,mis,mocks,seen,v3}=S;localStorage.setItem(KEY,JSON.stringify({lang,theme,branch,exam,tab,goal,st,tp,days,mis,mocks,seen,v3}))}catch(e){}}
 let V={sheet:null,view:null,modal:null};   // screen state, not saved
 
 /* ============ HELPERS ============ */
@@ -200,9 +202,9 @@ function TX(o){ if(!o) return ''; const hi=o.hi||'', en=o.en||'';
   if(S.lang==='en'||!hi) return en||hi; if(S.lang==='hi'||hi===en) return hi; return hi+'<span class="en">'+en+'</span>'; }
 const ICON={
   today:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>',
-  practice:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM4 17a2 2 0 0 1 2-2h12"/></svg>',
-  mock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>',
-  mistakes:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>',
+  learn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM4 17a2 2 0 0 1 2-2h12"/></svg>',
+  pyq:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>',
+  practice:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg>',
   me:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
   close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
@@ -211,42 +213,51 @@ const ICON={
 };
 const subjColor=id=>/engineering/.test(id)?'var(--s-eng)':`var(--s-${id},var(--blue))`;
 function toast(m){ const t=document.createElement('div'); t.className='toast'; t.setAttribute('role','status'); t.textContent=m; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
+const backBtn=(act,label)=>`<div style="display:flex;align-items:center;gap:4px;margin-top:10px"><button class="icon-btn" data-a="${act}" aria-label="${L('वापस','Back')}">${ICON.back}</button><h1 style="font-size:22px">${label}</h1></div>`;
 
 /* ============ DATABASE ============ */
 async function sb(path){ const r=await fetch(SB.url+'/rest/v1/'+path,{headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Accept-Profile':'mtb'}}); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
 async function loadRemote(){
   try{
-    const [br,ex,eb,su,tp,src]=await Promise.all([
+    const [br,ex,eb,su,tp,src,cs]=await Promise.all([
       sb('branches?select=id,slug,name_en,name_hi,sort&order=sort'),
       sb('exams?select=id,slug,name_en,name_hi,active,pattern&active=eq.true&order=id'),
       sb('exam_branches?select=exam_id,branch_id'),
       sb('subjects?select=id,slug,name_en,name_hi,branch_id&order=id'),
-      sb('topics?select=id,slug,name_en,name_hi,subject_id,sort&order=sort,id'),
-      sb('sources?select=id,exam_id,branch_id,paper_date,shift,note&order=paper_date.desc,shift')]);
+      sb('topics?select=id,slug,name_en,name_hi,subject_id,sort,is_chapter,unit_en,unit_hi&order=sort,id'),
+      sb('sources?select=id,exam_id,branch_id,paper_date,shift,note&order=paper_date.desc,shift'),
+      sb('chapter_stats?select=chapter_id,kind,n')]);
     const bS={}; br.forEach(b=>bS[b.id]=b.slug);
     const sS={}; su.forEach(s=>sS[s.id]=s.slug);
     DATA.branches=br.map(b=>({id:b.slug,hi:b.name_hi,en:b.name_en}));
     DATA.subjects=su.map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:s.branch_id==null?null:bS[s.branch_id]}));
     const exs=ex.map(e=>({id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,pattern:e.pattern||{},branches:eb.filter(x=>x.exam_id===e.id).map(x=>bS[x.branch_id]),ready:true}));
     DATA.exams=[...exs,...DATA.exams.filter(e=>e.soon&&!exs.some(x=>x.id===e.id))];
-    R.topics={}; tp.forEach(t=>R.topics[t.id]={id:t.id,hi:t.name_hi,en:t.name_en,subject:sS[t.subject_id]});
+    R.topics={}; tp.forEach(t=>R.topics[t.id]={id:t.id,hi:t.name_hi,en:t.name_en,subject:sS[t.subject_id],chapter:t.is_chapter,unit:t.unit_en?{hi:t.unit_hi,en:t.unit_en}:null,sort:t.sort});
     R.sources={}; src.forEach(x=>R.sources[x.id]={...x,exam:(exs.find(e=>e.dbid===x.exam_id)||{}).id,branch:bS[x.branch_id]||null});
+    R.stats={}; cs.forEach(x=>{ const s=R.stats[x.chapter_id]||(R.stats[x.chapter_id]={pyq:0,practice:0}); s[x.kind]=x.n; });
     R.ok=true;
   }catch(e){ R.ok=false; }
 }
-const QSEL='id,topic_id,source_id,source_qno,stem,options,answer,solution';
-function norm(r){ const t=R.topics[r.topic_id]||{}; return {id:r.id,topic:t,subj:t.subject,src:R.sources[r.source_id],qno:r.source_qno,stem:r.stem||{},opts:r.options||[],a:r.answer,sol:r.solution}; }
+const QSEL='id,kind,topic_id,chapter_id,source_id,source_qno,stem,options,answer,solution';
+function norm(r){ const ch=R.topics[r.chapter_id]||R.topics[r.topic_id]||{}; return {id:r.id,kind:r.kind,topic:ch,subj:ch.subject,src:R.sources[r.source_id],qno:r.source_qno,stem:r.stem||{},opts:r.options||[],a:r.answer,sol:r.solution}; }
 function examSources(exam,branch){ return Object.values(R.sources).filter(s=>s.exam===exam&&(!s.branch||!branch||s.branch===branch)).sort((x,y)=>(y.paper_date||'').localeCompare(x.paper_date||'')||x.shift-y.shift); }
-async function fetchPractice(exam,subj,topicId){
-  const tids=topicId?[topicId]:Object.values(R.topics).filter(t=>t.subject===subj).map(t=>t.id);
+async function paged(scope,base){
+  const off=S.seen[scope]||0; let rows=await sb(base+'&order=id&limit=20&offset='+off);
+  if(!rows.length&&off){ rows=await sb(base+'&order=id&limit=20&offset=0'); S.seen[scope]=0; }
+  S.seen[scope]=(S.seen[scope]||0)+rows.length; save(); return rows.map(norm);
+}
+// विषय / Practice view: by chapter (or whole subject), any exam
+function fetchChapter(subj,chapterId,kind){
+  const chs=chapterId?[chapterId]:chaptersOf(subj).map(t=>t.id); if(!chs.length) return Promise.resolve([]);
+  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&chapter_id=in.(${chs.join(',')})${kind?'&kind=eq.'+kind:''}`);
+}
+// PYQ view: one exam, by subject (exam's own papers only)
+function fetchExamSubject(exam,subj){
   const sids=examSources(exam,isBranchSubj(subj)?S.branch:null).map(s=>s.id);
-  if(!tids.length||!sids.length) return [];
-  const scope=exam+'|'+subj+'|'+(topicId||'all'); const off=S.seen[scope]||0;
-  const base=`questions?select=${QSEL}&topic_id=in.(${tids.join(',')})&source_id=in.(${sids.join(',')})&order=id&limit=20`;
-  let rows=await sb(base+'&offset='+off);
-  if(!rows.length&&off){ rows=await sb(base+'&offset=0'); S.seen[scope]=0; }
-  S.seen[scope]=(S.seen[scope]||0)+rows.length; save();
-  return rows.map(norm);
+  const tids=Object.values(R.topics).filter(t=>t.subject===subj).map(t=>t.id);
+  if(!sids.length||!tids.length) return Promise.resolve([]);
+  return paged(`ex|${exam}|${subj}`,`questions?select=${QSEL}&source_id=in.(${sids.join(',')})&topic_id=in.(${tids.join(',')})`);
 }
 async function fetchPaper(srcId){ return (await sb(`questions?select=${QSEL}&source_id=eq.${srcId}&order=source_qno`)).map(norm); }
 async function fetchIds(ids){ const out=[]; for(let i=0;i<ids.length;i+=40) out.push(...await sb(`questions?select=${QSEL}&id=in.(${ids.slice(i,i+40).join(',')})`)); return out.map(norm); }
@@ -258,17 +269,20 @@ const readyExams=()=>examsFor(S.branch).filter(e=>e.ready);
 function curExam(){ const r=readyExams(); return r.find(e=>e.id===S.exam)||r[0]||null; }
 function examSubjects(e){
   if(!e) return [];
-  const secs=(e.pattern&&e.pattern.sections)||DATA.subjects.filter(s=>!s.branch).map(s=>s.id);
+  const secs=(e.pattern&&e.pattern.sections)||COMMON;
   const out=[]; secs.forEach(x=>{ if(x==='branch-engineering') DATA.subjects.filter(s=>s.branch===S.branch).forEach(s=>out.push(s)); else { const s=byId(DATA.subjects,x); if(s) out.push(s);} });
   return out;
 }
+function mySubjects(){ return [...COMMON.map(id=>byId(DATA.subjects,id)).filter(Boolean),...DATA.subjects.filter(s=>s.branch===S.branch)]; }
+function chaptersOf(subj){ return Object.values(R.topics).filter(t=>t.chapter&&t.subject===subj).sort((a,b)=>(a.sort||0)-(b.sort||0)||a.id-b.id); }
+function cnt(chId,kind){ const s=R.stats[chId]||{}; return kind?(s[kind]||0):((s.pyq||0)+(s.practice||0)); }
+function subjCount(subj,kind){ return chaptersOf(subj).reduce((a,t)=>a+cnt(t.id,kind),0); }
 const stat=id=>S.st[id]||{c:0,t:0};
 const todayCount=()=>S.days[today()]||0;
 function streak(){ let n=0; for(let i=0;i<400;i++){ if(S.days[addDays(-i)]) n++; else if(i>0) break; } return n; }
 function dueMistakes(){ const t=today(); return Object.keys(S.mis).filter(id=>S.mis[id].due<=t).map(Number); }
-function weakTopics(subs){ const ok=new Set(subs.map(s=>s.id)); return Object.entries(S.tp).filter(([id,v])=>v.t>=4&&R.topics[id]&&ok.has(R.topics[id].subject)).map(([id,v])=>({id:+id,acc:pct(v.c,v.t),t:v.t})).filter(x=>x.acc<70).sort((a,b)=>a.acc-b.acc).slice(0,3); }
+function weakTopics(){ const ok=new Set(mySubjects().map(s=>s.id)); return Object.entries(S.tp).filter(([id,v])=>v.t>=4&&R.topics[id]&&ok.has(R.topics[id].subject)).map(([id,v])=>({id:+id,acc:pct(v.c,v.t),t:v.t})).filter(x=>x.acc<70).sort((a,b)=>a.acc-b.acc).slice(0,3); }
 function negTxt(n){ if(!n) return '0'; if(Math.abs(n-.25)<.01) return '¼'; if(Math.abs(n-1/3)<.01) return '⅓'; return n; }
-
 function bump(q,ok){
   const s=S.st[q.subj]||{c:0,t:0}; s.t++; if(ok)s.c++; S.st[q.subj]=s;
   const tid=q.topic&&q.topic.id; if(tid){ const v=S.tp[tid]||{c:0,t:0}; v.t++; if(ok)v.c++; S.tp[tid]=v; }
@@ -288,19 +302,20 @@ function vBranch(){
 }
 function examSwitch(){
   const r=readyExams(), ce=curExam(), soon=examsFor(S.branch).filter(e=>!e.ready);
-  return `<div class="scroller" style="margin-top:12px" role="tablist" aria-label="${L('परीक्षा','Exam')}">${r.map(e=>`<button class="chip ${ce&&e.id===ce.id?'on':''}" role="tab" aria-selected="${ce&&e.id===ce.id}" data-a="exam" data-id="${e.id}">${N(e)}</button>`).join('')}${soon.map(e=>`<span class="chip" style="opacity:.55;cursor:default">${N(e)}: ${L('जल्द','soon')}</span>`).join('')}</div>`;
+  return `<div class="scroller" style="margin-top:12px" role="tablist" aria-label="${L('परीक्षा','Exam')}">${r.map(e=>`<button class="chip ${ce&&e.id===ce.id?'on':''}" role="tab" aria-selected="${!!(ce&&e.id===ce.id)}" data-a="exam" data-id="${e.id}">${N(e)}</button>`).join('')}${soon.map(e=>`<span class="chip" style="opacity:.55;cursor:default">${N(e)}: ${L('जल्द','soon')}</span>`).join('')}</div>`;
 }
-function subjRow(s){
+function countLine(p,pr){ const a=[]; if(p) a.push(`PYQ ${p}`); if(pr) a.push(`${L('प्रैक्टिस','Practice')} ${pr}`); return a.join(' · ')||L('सवाल जल्द','Questions soon'); }
+function subjRow(s,act,extra){
   const v=stat(s.id), pc=pct(v.c,v.t);
-  return `<button class="item" data-a="open-subj" data-subj="${s.id}"><span class="bar4" style="background:${subjColor(s.id)}"></span>
-   <span class="tx"><b>${N(s)}</b><span>${v.t?L(`${v.t} हल, ${pc}% सही`,`${v.t} done, ${pc}% right`):L('अभी शुरू नहीं किया','Not started')}</span>
+  return `<button class="item" data-a="${act}" data-subj="${s.id}"><span class="bar4" style="background:${subjColor(s.id)}"></span>
+   <span class="tx"><b>${N(s)}</b><span>${extra}${v.t?` · ${L(`${pc}% सही`,`${pc}% right`)}`:''}</span>
    <div class="meter"><i style="width:${v.t?pc:0}%"></i></div></span><span class="chev">${ICON.chev}</span></button>`;
 }
+
+/* --- आज --- */
 function vToday(){
   const b=byId(DATA.branches,S.branch), e=curExam(), tc=todayCount(), g=S.goal, due=dueMistakes().length;
-  const subs=examSubjects(e), p=(e&&e.pattern)||{};
-  const next=subs.slice().sort((x,y)=>stat(x.id).t-stat(y.id).t)[0];
-  const weak=weakTopics(subs);
+  const weak=weakTopics(); const mis=Object.keys(S.mis).length;
   return `${examSwitch()}
   <div class="tblock">
     <div><div class="k">${L('परीक्षा','Exam')}</div><div class="v">${e?N(e):L('जल्द','Soon')}</div></div>
@@ -308,52 +323,91 @@ function vToday(){
     <div><div class="k">${L('लगातार दिन','Streak')}</div><div class="v big">${streak()}</div></div>
     <div class="wide"><div class="ring" style="--p:${Math.min(100,pct(tc,g))}" data-t="${tc}/${g}" role="img" aria-label="${tc} / ${g}"></div>
       <div style="flex:1;min-width:0"><b style="font-size:17px;display:block">${tc>=g?L('आज का लक्ष्य पूरा हुआ','Today’s goal is done'):L(`आज ${g-tc} सवाल और करें`,`${g-tc} more questions today`)}</b>
-      <span class="small muted">${p.questions?L(`असली पेपर: ${p.questions} सवाल, ${p.minutes} मिनट`,`Real paper: ${p.questions} questions, ${p.minutes} min`):''}</span></div></div>
+      <span class="small muted">${L('विषय पढ़ें, PYQ हल करें या प्रैक्टिस करें।','Study a subject, solve PYQs or practise.')}</span></div></div>
   </div>
   ${R.ok?'':`<div class="note">${L('इंटरनेट नहीं मिला। सवाल लाने के लिए इंटरनेट चालू करें।','No internet. Turn it on to load questions.')}</div>`}
-  ${e?`<div style="margin-top:14px">
-    ${next?`<button class="btn" data-a="start" data-subj="${next.id}">${L('अभ्यास शुरू करें','Start practice')}: ${N(next)}</button>`:''}
-    <div class="btn-row">
-      <button class="btn ${due?'saffron':'quiet'}" data-a="revise" ${due?'':'disabled'}>${due?L(`${due} सवाल दोहराएँ`,`Revise ${due}`):L('आज दोहराना नहीं','Nothing to revise')}</button>
-      <button class="btn line" data-a="tab" data-id="mock">${L('मॉक टेस्ट दें','Take a mock')}</button>
-    </div></div>`:''}
-  ${weak.length?`<h2>${L('इन टॉपिक पर ध्यान दें','Focus on these topics')}</h2><div class="panel">${weak.map(w=>{const t=R.topics[w.id];return `<button class="item" data-a="start" data-subj="${t.subject}" data-topic="${w.id}"><span class="bar4" style="background:var(--bad)"></span><span class="tx"><b>${N(t)}</b><span>${L(`${w.t} में से ${w.acc}% सही`,`${w.acc}% right of ${w.t}`)}</span></span><span class="chev">${ICON.chev}</span></button>`}).join('')}</div>`:''}
-  <h2>${L('विषय','Subjects')}</h2>
-  <div class="panel">${subs.map(subjRow).join('')||`<div class="empty">${L('इस ब्रांच की परीक्षाएँ जल्द जुड़ेंगी।','Exams for this branch are coming.')}</div>`}</div>`;
+  <div class="btn-row" style="margin-top:14px">
+    <button class="btn" data-a="tab" data-id="learn">${L('विषय पढ़ें','Study by subject')}</button>
+    <button class="btn line" data-a="tab" data-id="pyq">${L('PYQ और मॉक','PYQ & mock')}</button>
+  </div>
+  <h2>${L('गलती बुक','Mistake book')}</h2>
+  <div class="panel"><button class="item" data-a="${due?'revise':'open-mis'}"><span class="bar4" style="background:var(--saffron)"></span><span class="tx"><b>${due?L(`आज ${due} सवाल दोहराने हैं`,`${due} questions to revise today`):L('आज दोहराने को कुछ नहीं','Nothing to revise today')}</b><span>${L(`कुल ${mis} गलत सवाल सेव हैं`,`${mis} wrong answers saved`)}</span></span><span class="chev">${ICON.chev}</span></button>
+  <button class="item" data-a="open-mis"><span class="tx"><b>${L('पूरी गलती बुक देखें','Open mistake book')}</b><span>${L('विषय के अनुसार','By subject')}</span></span><span class="chev">${ICON.chev}</span></button></div>
+  ${weak.length?`<h2>${L('इन अध्यायों पर ध्यान दें','Focus on these chapters')}</h2><div class="panel">${weak.map(w=>{const t=R.topics[w.id];return `<button class="item" data-a="start-ch" data-subj="${t.subject}" data-ch="${w.id}"><span class="bar4" style="background:var(--bad)"></span><span class="tx"><b>${N(t)}</b><span>${L(`${w.t} में से ${w.acc}% सही`,`${w.acc}% right of ${w.t}`)}</span></span><span class="chev">${ICON.chev}</span></button>`}).join('')}</div>`:''}`;
 }
-function vPractice(){
-  const e=curExam();
-  if(V.view&&V.view.subj){
-    const s=byId(DATA.subjects,V.view.subj)||{id:V.view.subj}; const tps=Object.values(R.topics).filter(t=>t.subject===s.id);
-    return `<div style="display:flex;align-items:center;gap:4px;margin-top:10px"><button class="icon-btn" data-a="back-subj" aria-label="${L('वापस','Back')}">${ICON.back}</button><h1 style="font-size:22px">${N(s)}</h1></div>
-    <p class="muted small" style="margin:0 0 12px 48px">${e?N(e):''}</p>
-    <button class="btn" data-a="start" data-subj="${s.id}">${L('सभी टॉपिक मिलाकर 20 सवाल','20 questions, all topics')}</button>
-    <h2>${L('या एक टॉपिक चुनें','Or pick one topic')}</h2>
-    <div class="panel">${tps.map(t=>{const v=S.tp[t.id]||{c:0,t:0};return `<button class="item" data-a="start" data-subj="${s.id}" data-topic="${t.id}"><span class="tx"><b>${N(t)}</b><span>${v.t?L(`${v.t} हल, ${pct(v.c,v.t)}% सही`,`${v.t} done, ${pct(v.c,v.t)}% right`):L('नया','New')}</span>${v.t?`<div class="meter"><i style="width:${pct(v.c,v.t)}%"></i></div>`:''}</span><span class="chev">${ICON.chev}</span></button>`}).join('')||`<div class="empty">${L('टॉपिक जल्द आएँगे।','Topics coming soon.')}</div>`}</div>`;
-  }
-  return `${examSwitch()}<h1 style="margin-top:6px">${L('अभ्यास','Practice')}</h1>
-  <p class="muted" style="margin:4px 0 14px">${L('सिर्फ़ आधिकारिक पेपर के सवाल। विषय चुनें, फिर टॉपिक।','Only official paper questions. Pick a subject, then a topic.')}</p>
-  <div class="panel">${examSubjects(e).map(subjRow).join('')||`<div class="empty">${L('जल्द आएगा।','Coming soon.')}</div>`}</div>`;
+
+/* --- विषय (subject-wise: every question of a chapter, PYQ + Practice) --- */
+function vLearn(){
+  const v=V.view;
+  if(v&&v.ch){ const t=R.topics[v.ch]; const p=cnt(v.ch,'pyq'), pr=cnt(v.ch,'practice'); const sv=S.tp[v.ch]||{c:0,t:0};
+    return `${backBtn('back-learn',N(t))}
+    <p class="muted small" style="margin:0 0 12px 48px">${N(byId(DATA.subjects,t.subject))}${t.unit?' · '+N(t.unit):''} · ${countLine(p,pr)}</p>
+    ${sv.t?`<div class="panel" style="padding:12px 14px;margin-bottom:12px"><b>${L(`${sv.t} हल, ${pct(sv.c,sv.t)}% सही`,`${sv.t} done, ${pct(sv.c,sv.t)}% right`)}</b><div class="meter"><i style="width:${pct(sv.c,sv.t)}%"></i></div></div>`:''}
+    <button class="btn" data-a="start-ch" data-subj="${t.subject}" data-ch="${t.id}" ${p+pr?'':'disabled'}>${L('सब मिलाकर 20 सवाल','20 questions, all types')}</button>
+    <div class="btn-row"><button class="btn line" data-a="start-ch" data-subj="${t.subject}" data-ch="${t.id}" data-kind="pyq" ${p?'':'disabled'}>${L('सिर्फ़ PYQ','PYQ only')} (${p})</button>
+    <button class="btn quiet" data-a="start-ch" data-subj="${t.subject}" data-ch="${t.id}" data-kind="practice" ${pr?'':'disabled'}>${L('सिर्फ़ प्रैक्टिस','Practice only')} (${pr})</button></div>`; }
+  if(v&&v.subj){ const s=byId(DATA.subjects,v.subj)||{id:v.subj}; const chs=chaptersOf(s.id);
+    let last=null; const rows=chs.map(t=>{ let head=''; const u=t.unit?N(t.unit):''; if(u&&u!==last){ head=`<div class="item" style="min-height:0;padding:10px 14px;cursor:default;background:var(--paper)"><b class="small">${u}</b></div>`; last=u; }
+      const sv=S.tp[t.id]||{c:0,t:0};
+      return head+`<button class="item" data-a="open-ch" data-ch="${t.id}"><span class="tx"><b>${N(t)}</b><span>${countLine(cnt(t.id,'pyq'),cnt(t.id,'practice'))}${sv.t?` · ${pct(sv.c,sv.t)}% ${L('सही','right')}`:''}</span></span><span class="chev">${ICON.chev}</span></button>`; }).join('');
+    return `${backBtn('back-learn',N(s))}
+    <p class="muted small" style="margin:0 0 12px 48px">${L('हर अध्याय में सभी परीक्षाओं के PYQ और हमारे प्रैक्टिस सवाल।','Each chapter has PYQs from every exam plus our practice questions.')}</p>
+    <button class="btn" data-a="start-ch" data-subj="${s.id}" ${subjCount(s.id)?'':'disabled'}>${L('पूरे विषय से 20 सवाल','20 questions from the whole subject')}</button>
+    <h2>${L('अध्याय','Chapters')}</h2><div class="panel">${rows||`<div class="empty">${L('अध्याय जल्द आएँगे।','Chapters coming soon.')}</div>`}</div>`; }
+  return `<h1 style="margin-top:16px">${L('विषय के अनुसार पढ़ें','Study by subject')}</h1>
+  <p class="muted" style="margin:4px 0 14px">${L('विषय चुनें, फिर अध्याय। एक अध्याय में सभी परीक्षाओं के सवाल एक साथ मिलते हैं।','Pick a subject, then a chapter. Questions from every exam meet in one chapter.')}</p>
+  <div class="panel">${mySubjects().map(s=>subjRow(s,'open-subj',countLine(subjCount(s.id,'pyq'),subjCount(s.id,'practice')))).join('')}</div>`;
 }
-function vMock(){
-  const e=curExam(); if(!e) return `${examSwitch()}<div class="panel" style="margin-top:14px"><div class="empty">${L('इस ब्रांच के मॉक जल्द आएँगे।','Mocks for this branch are coming.')}</div></div>`;
+
+/* --- PYQ (official papers of one exam) --- */
+function vPyq(){
+  const e=curExam(); if(!e) return `${examSwitch()}<div class="panel" style="margin-top:14px"><div class="empty">${L('इस ब्रांच की परीक्षाएँ जल्द जुड़ेंगी।','Exams for this branch are coming.')}</div></div>`;
   const p=e.pattern||{}; const srcs=examSources(e.id,S.branch);
-  return `${examSwitch()}<h1 style="margin-top:6px">${L('मॉक टेस्ट','Mock test')}</h1>
-  <p class="muted" style="margin:4px 0 14px">${L(`पूरा असली पेपर, असली समय: ${p.minutes||'—'} मिनट। हर गलत पर −${negTxt(p.negative_per_wrong)}।`,`The full real paper in real time: ${p.minutes||'—'} min. −${negTxt(p.negative_per_wrong)} per wrong answer.`)}</p>
-  <div class="panel">${srcs.map(s=>{const d=S.mocks.filter(m=>m.src===s.id);const best=d.length?Math.max(...d.map(m=>m.score)):null;
-    return `<button class="item" data-a="mock-ask" data-id="${s.id}"><span class="tx"><b>${fmtDate(s.paper_date)}, ${L('शिफ़्ट','shift')} ${s.shift}</b><span>${d.length?L(`${d.length} बार दिया, सबसे अच्छा ${best}`,`Taken ${d.length}×, best ${best}`):L('अभी नहीं दिया','Not taken yet')}</span></span><span class="tag pyq">PYQ</span><span class="chev">${ICON.chev}</span></button>`}).join('')||`<div class="empty">${L('इस परीक्षा के पेपर जल्द आएँगे।','Papers coming soon.')}</div>`}</div>
-  ${S.mocks.length?`<h2>${L('पिछले मॉक','Past mocks')}</h2><div class="panel">${S.mocks.slice(-6).reverse().map(m=>`<div class="item" style="cursor:default"><span class="tx"><b>${m.score} / ${m.max}</b><span>${m.label}<br>${L(`${m.c} सही, ${m.w} गलत, ${m.u} छोड़े`,`${m.c} right, ${m.w} wrong, ${m.u} skipped`)}</span></span></div>`).join('')}</div>`:''}`;
+  if(V.view&&V.view.paper){ const s=R.sources[V.view.paper]; const d=S.mocks.filter(m=>m.src===s.id); const best=d.length?Math.max(...d.map(m=>m.score)):null;
+    return `${backBtn('back-pyq',`${fmtDate(s.paper_date)}, ${L('शिफ़्ट','shift')} ${s.shift}`)}
+    <p class="muted small" style="margin:0 0 12px 48px">${N(e)}${s.branch?' · '+N(byId(DATA.branches,s.branch)):''}</p>
+    <div class="panel">
+      <button class="item" data-a="mock-ask" data-id="${s.id}"><span class="bar4" style="background:var(--blue)"></span><span class="tx"><b>${L('मॉक टेस्ट दें','Take as mock test')}</b><span>${L(`${p.minutes||'—'} मिनट का टाइमर, गलत पर −${negTxt(p.negative_per_wrong)}, आख़िर में नतीजा`,`${p.minutes||'—'} min timer, −${negTxt(p.negative_per_wrong)} per wrong, result at the end`)}${d.length?` · ${L('सबसे अच्छा','best')} ${best}`:''}</span></span><span class="chev">${ICON.chev}</span></button>
+      <button class="item" data-a="paper-practice" data-id="${s.id}"><span class="bar4" style="background:var(--ok)"></span><span class="tx"><b>${L('अभ्यास की तरह हल करें','Solve as practice')}</b><span>${L('बिना टाइमर, हर जवाब के बाद सही उत्तर','No timer, answer shown after each question')}</span></span><span class="chev">${ICON.chev}</span></button>
+    </div>`; }
+  return `${examSwitch()}<h1 style="margin-top:6px">PYQ</h1>
+  <p class="muted" style="margin:4px 0 14px">${L(`सिर्फ़ आधिकारिक पेपर। असली पैटर्न: ${p.questions||'—'} सवाल, ${p.minutes||'—'} मिनट, गलत पर −${negTxt(p.negative_per_wrong)}।`,`Official papers only. Real pattern: ${p.questions||'—'} questions, ${p.minutes||'—'} min, −${negTxt(p.negative_per_wrong)} per wrong.`)}</p>
+  <h2 style="margin-top:8px">${L('पेपर (साल और शिफ़्ट)','Papers (year and shift)')}</h2>
+  <div class="panel">${srcs.map(s=>{const d=S.mocks.filter(m=>m.src===s.id);
+    return `<button class="item" data-a="open-paper" data-id="${s.id}"><span class="tx"><b>${fmtDate(s.paper_date)}, ${L('शिफ़्ट','shift')} ${s.shift}</b><span>${d.length?L(`मॉक ${d.length} बार दिया`,`Mock taken ${d.length}×`):L('अभी नहीं दिया','Not attempted')}</span></span><span class="tag pyq">PYQ</span><span class="chev">${ICON.chev}</span></button>`}).join('')||`<div class="empty">${L('पेपर जल्द आएँगे।','Papers coming soon.')}</div>`}</div>
+  <h2>${L('इस परीक्षा के PYQ, विषय के अनुसार','This exam’s PYQs by subject')}</h2>
+  <div class="panel">${examSubjects(e).map(s=>subjRow(s,'start-exsub',L('20 सवाल का सेट','Sets of 20'))).join('')}</div>
+  ${S.mocks.length?`<h2>${L('पिछले मॉक','Past mocks')}</h2><div class="panel">${S.mocks.slice(-5).reverse().map(m=>`<div class="item" style="cursor:default"><span class="tx"><b>${m.score} / ${m.max}</b><span>${m.label}<br>${L(`${m.c} सही, ${m.w} गलत, ${m.u} छोड़े`,`${m.c} right, ${m.w} wrong, ${m.u} skipped`)}</span></span></div>`).join('')}</div>`:''}`;
 }
+
+/* --- Practice (our own questions) --- */
+function vPractice(){
+  const v=V.view;
+  if(v&&v.subj){ const s=byId(DATA.subjects,v.subj)||{id:v.subj}; const chs=chaptersOf(s.id).filter(t=>cnt(t.id,'practice'));
+    let last=null; const rows=chs.map(t=>{ let head=''; const u=t.unit?N(t.unit):''; if(u&&u!==last){ head=`<div class="item" style="min-height:0;padding:10px 14px;cursor:default;background:var(--paper)"><b class="small">${u}</b></div>`; last=u; }
+      return head+`<button class="item" data-a="start-ch" data-subj="${s.id}" data-ch="${t.id}" data-kind="practice"><span class="tx"><b>${N(t)}</b><span>${cnt(t.id,'practice')} ${L('सवाल','questions')}</span></span><span class="chev">${ICON.chev}</span></button>`; }).join('');
+    return `${backBtn('back-practice',N(s))}
+    <button class="btn" style="margin-top:8px" data-a="start-ch" data-subj="${s.id}" data-kind="practice">${L('सभी अध्याय मिलाकर 20','20 from all chapters')}</button>
+    <h2>${L('अध्याय','Chapters')}</h2><div class="panel">${rows}</div>`; }
+  const subs=mySubjects();
+  return `<h1 style="margin-top:16px">${L('प्रैक्टिस','Practice')}</h1>
+  <p class="muted" style="margin:4px 0 14px">${L('ये सवाल Diploma Boy ने ख़ुद लिखे हैं, अपने शब्दों में, हल के साथ। ये PYQ नहीं हैं।','These questions are written by Diploma Boy in our own words, with solutions. They are not PYQs.')}</p>
+  <div class="panel">${subs.map(s=>{const n=subjCount(s.id,'practice'); return n?subjRow(s,'open-psubj',`${n} ${L('सवाल','questions')}`):`<div class="item" style="cursor:default;opacity:.6"><span class="bar4" style="background:${subjColor(s.id)}"></span><span class="tx"><b>${N(s)}</b><span>${L('जल्द','Coming soon')}</span></span></div>`;}).join('')}</div>`;
+}
+
+/* --- गलती बुक --- */
 function vMistakes(){
   const ids=Object.keys(S.mis), due=dueMistakes();
   const by={}; ids.forEach(id=>{const s=S.mis[id].subj; by[s]=(by[s]||0)+1;});
-  return `<h1 style="margin-top:16px">${L('गलती बुक','Mistake book')}</h1>
+  return `${backBtn('back-today',L('गलती बुक','Mistake book'))}
   <p class="muted" style="margin:4px 0 0">${L('हर गलत सवाल यहाँ आता है। सही करने पर वह 1, 3, 7, 15 और 30 दिन बाद फिर आता है, फिर हट जाता है।','Every wrong answer lands here. Get it right and it returns after 1, 3, 7, 15 and 30 days, then leaves.')}</p>
   <div class="stats"><div class="stat"><b>${ids.length}</b><span>${L('कुल','Total')}</span></div><div class="stat"><b>${due.length}</b><span>${L('आज दोहराने','Due today')}</span></div><div class="stat"><b>${ids.filter(i=>S.mis[i].w>=2).length}</b><span>${L('बार-बार गलत','Repeated')}</span></div></div>
   <div style="margin-top:12px"><button class="btn ${due.length?'saffron':'quiet'}" data-a="revise" ${due.length?'':'disabled'}>${due.length?L(`आज के ${due.length} सवाल दोहराएँ`,`Revise ${due.length} due today`):L('आज कुछ बाकी नहीं','Nothing due today')}</button></div>
   ${ids.length?`<h2>${L('विषय के अनुसार','By subject')}</h2><div class="panel">${Object.entries(by).map(([s,n])=>`<button class="item" data-a="revise-subj" data-subj="${s}"><span class="bar4" style="background:${subjColor(s)}"></span><span class="tx"><b>${N(byId(DATA.subjects,s)||{hi:s,en:s})}</b><span>${L(`${n} सवाल, अभी दोहराएँ`,`${n} questions, revise now`)}</span></span><span class="chev">${ICON.chev}</span></button>`).join('')}</div>`
   :`<div class="panel" style="margin-top:14px"><div class="empty">${L('अभी कोई गलती नहीं। अभ्यास करें, गलत सवाल अपने-आप यहाँ आएँगे।','No mistakes yet. Practise and wrong answers will appear here.')}</div></div>`}`;
 }
+
+/* --- मैं --- */
 function vMe(){
   const tot=Object.values(S.st).reduce((a,v)=>a+v.t,0), cor=Object.values(S.st).reduce((a,v)=>a+v.c,0);
   const last7=[...Array(7)].map((_,i)=>S.days[addDays(-6+i)]||0), mx=Math.max(5,...last7);
@@ -361,6 +415,9 @@ function vMe(){
   <div class="stats"><div class="stat"><b>${tot}</b><span>${L('सवाल हल','Answered')}</span></div><div class="stat"><b>${pct(cor,tot)}%</b><span>${L('सही','Right')}</span></div><div class="stat"><b>${S.mocks.length}</b><span>${L('मॉक दिए','Mocks')}</span></div></div>
   <h2>${L('पिछले 7 दिन','Last 7 days')}</h2>
   <div class="panel" style="padding:14px"><div style="display:flex;align-items:flex-end;gap:8px;height:96px" role="img" aria-label="${last7.join(', ')}">${last7.map((v,i)=>`<div style="flex:1;text-align:center"><div style="height:${Math.round(v/mx*70)}px;min-height:2px;background:${i===6?'var(--saffron)':'var(--blue)'};border-radius:4px 4px 0 0"></div><div class="small muted">${v}</div></div>`).join('')}</div></div>
+  <h2>${L('विषय के अनुसार','By subject')}</h2>
+  <div class="panel">${mySubjects().map(s=>{const v=stat(s.id);return `<div class="item" style="cursor:default"><span class="bar4" style="background:${subjColor(s.id)}"></span><span class="tx"><b>${N(s)}</b><span>${v.t?L(`${v.t} हल, ${pct(v.c,v.t)}% सही`,`${v.t} done, ${pct(v.c,v.t)}% right`):L('अभी शुरू नहीं','Not started')}</span><div class="meter"><i style="width:${pct(v.c,v.t)}%"></i></div></span></div>`}).join('')}</div>
+  <div class="panel" style="margin-top:12px"><button class="item" data-a="open-mis"><span class="tx"><b>${L('गलती बुक','Mistake book')}</b><span>${L(`${Object.keys(S.mis).length} सवाल`,`${Object.keys(S.mis).length} questions`)}</span></span><span class="chev">${ICON.chev}</span></button></div>
   <h2>${L('ब्रांच','Branch')}</h2>
   <div class="scroller">${DATA.branches.map(b=>`<button class="chip ${b.id===S.branch?'on':''}" data-a="branch" data-id="${b.id}">${N(b)}</button>`).join('')}</div>
   <h2>${L('रोज़ का लक्ष्य','Daily goal')}</h2>
@@ -370,13 +427,13 @@ function vMe(){
   <h2>${L('डेटा','Data')}</h2>
   <div class="panel"><div class="item" style="cursor:default"><span class="tx"><b>${L('प्रगति इसी फ़ोन में सेव है','Progress is saved on this phone')}</b><span>${L('ब्राउज़र का डेटा मिटाने पर यह भी मिट जाएगी।','Clearing browser data erases it too.')}</span></span></div>
   <button class="item" data-a="reset-ask"><span class="tx"><b style="color:var(--bad)">${L('इस फ़ोन की प्रगति मिटाएँ','Erase progress on this phone')}</b></span></button></div>
-  <p class="small muted" style="margin:18px 0 8px">${L('सवाल आधिकारिक पेपर / response sheet और आधिकारिक answer key से हैं।','Questions come from official papers / response sheets with official answer keys.')}</p>`;
+  <p class="small muted" style="margin:18px 0 8px">${L('PYQ: आधिकारिक पेपर / response sheet और आधिकारिक answer key से। प्रैक्टिस: Diploma Boy के अपने सवाल।','PYQ: official papers / response sheets with official keys. Practice: Diploma Boy’s own questions.')}</p>`;
 }
 
 /* ============ QUESTION SHEET: practice · revise · mock · review ============ */
 function qBlock(q,mode,sel){
-  const reveal=mode!=='mock'&&sel!=null, src=q.src;
-  const meta=`<div class="qmeta"><span class="tag pyq">PYQ</span><span>${N(q.topic)}</span>${src?`<span>${fmtDate(src.paper_date)}, ${L('शिफ़्ट','shift')} ${src.shift}, Q${q.qno}</span>`:''}</div>`;
+  const reveal=mode!=='mock'&&sel!=null, src=q.src, pyq=q.kind!=='practice';
+  const meta=`<div class="qmeta"><span class="tag ${pyq?'pyq':''}">${pyq?'PYQ':L('प्रैक्टिस','Practice')}</span><span>${N(q.topic)}</span>${pyq&&src?`<span>${N(byId(DATA.exams,src.exam)||{})} ${fmtDate(src.paper_date)}, ${L('शिफ़्ट','shift')} ${src.shift}, Q${q.qno}</span>`:''}</div>`;
   const imgs=(q.stem.img||[]).map(u=>`<img class="qimg" src="${u}" alt="${L('सवाल का चित्र','Question figure')}">`).join('');
   const opts=q.opts.map((o,k)=>{let c=''; if(reveal){ if(k===q.a)c='right'; else if(k===sel)c='wrong'; } else if(sel===k) c='sel';
     return `<button class="opt ${c}" data-a="pick" data-i="${k}" ${reveal?'disabled':''} aria-pressed="${sel===k}"><span class="l">${'ABCD'[k]}</span><span class="ot">${TX(o)}${o.img?`<img src="${o.img}" alt="">`:''}</span></button>`;}).join('');
@@ -415,7 +472,7 @@ function vResult(){
     <h1 style="margin-top:8px">${L('सेट पूरा हुआ','Set complete')}</h1>
     <div class="score"><b>${z.c}</b><span class="muted">/ ${z.seen} ${L('सही','right')}</span></div>
     <div class="stats"><div class="stat"><b>${pct(z.c,z.seen)}%</b><span>${L('सही','Accuracy')}</span></div><div class="stat"><b>${z.seen-z.c}</b><span>${L('गलती बुक में','To mistakes')}</span></div><div class="stat"><b>${todayCount()}</b><span>${L('आज कुल','Today total')}</span></div></div>
-    <div class="btn-row"><button class="btn line" data-a="close">${L('बंद करें','Close')}</button>${z.mode==='practice'?`<button class="btn" data-a="again">${L('अगले 20 सवाल','Next 20')}</button>`:`<button class="btn" data-a="close">${L('ठीक है','Done')}</button>`}</div></div></div></div>`;
+    <div class="btn-row"><button class="btn line" data-a="close">${L('बंद करें','Close')}</button>${z.again?`<button class="btn" data-a="again">${L('अगले 20 सवाल','Next 20')}</button>`:`<button class="btn" data-a="close">${L('ठीक है','Done')}</button>`}</div></div></div></div>`;
   const r=z.res;
   return `<div class="sheet" role="dialog" aria-modal="true">${topBar(L('मॉक का नतीजा','Mock result'),z.title)}</div><div class="sheet-body"><div class="wrap">
    <div class="score"><b>${r.score}</b><span class="muted">/ ${r.max} ${L('अंक','marks')}</span></div>
@@ -438,7 +495,7 @@ function vConfirm(msg,yes,act,danger){ return `<div class="modal" data-a="modal-
 
 /* ============ RENDER ============ */
 function applyTheme(){ const r=document.documentElement; if(S.theme==='auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme',S.theme); r.lang=S.lang==='en'?'en':'hi'; }
-const TABS=[['today','आज','Today'],['practice','अभ्यास','Practice'],['mock','मॉक','Mock'],['mistakes','गलती बुक','Mistakes'],['me','मैं','Me']];
+const TABS=[['today','आज','Today'],['learn','विषय','Subjects'],['pyq','PYQ','PYQ'],['practice','प्रैक्टिस','Practice'],['me','मैं','Me']];
 function render(){
   applyTheme();
   document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===S.lang));
@@ -446,21 +503,29 @@ function render(){
   if(!S.branch){ app.innerHTML=vBranch(); $('#dock').classList.add('hide'); }
   else{
     $('#dock').classList.remove('hide');
-    const t=S.tab; app.innerHTML=t==='practice'?vPractice():t==='mock'?vMock():t==='mistakes'?vMistakes():t==='me'?vMe():vToday();
+    const t=S.tab; app.innerHTML=t==='learn'?vLearn():t==='pyq'?vPyq():t==='practice'?vPractice():t==='mistakes'?vMistakes():t==='me'?vMe():vToday();
     const due=dueMistakes().length;
-    $('#dockin').innerHTML=TABS.map(x=>`<button class="${S.tab===x[0]?'on':''}" data-a="tab" data-id="${x[0]}" ${S.tab===x[0]?'aria-current="page"':''}>${ICON[x[0]]}<span>${L(x[1],x[2])}</span>${x[0]==='mistakes'&&due?`<span class="badge">${due}</span>`:''}</button>`).join('');
+    $('#dockin').innerHTML=TABS.map(x=>`<button class="${S.tab===x[0]?'on':''}" data-a="tab" data-id="${x[0]}" ${S.tab===x[0]?'aria-current="page"':''}>${ICON[x[0]]}<span>${L(x[1],x[2])}</span>${x[0]==='today'&&due?`<span class="badge">${due}</span>`:''}</button>`).join('');
   }
   rSheet();
 }
 function rSheet(top){ $('#layer').innerHTML=vSheet()+(V.modal||''); document.body.style.overflow=V.sheet?'hidden':''; if(top){ const b=$('#sbody'); if(b) b.scrollTop=0; } }
 
 /* ============ ACTIONS ============ */
-async function openPractice(subj,topic){
-  const e=curExam(); if(!e) return; const s=byId(DATA.subjects,subj)||{hi:subj,en:subj}; const t=topic?R.topics[topic]:null;
-  V.sheet={mode:'practice',title:t?N(t):N(s),list:[],i:0,pick:null,c:0,seen:0,loading:true,subj,topic}; rSheet();
-  try{ V.sheet.list=await fetchPractice(e.id,subj,topic?+topic:null); }catch(err){ V.sheet.list=[]; }
+async function openSet(title,loader,again){
+  V.sheet={mode:'practice',title,list:[],i:0,pick:null,c:0,seen:0,loading:true,again}; rSheet();
+  try{ V.sheet.list=await loader(); }catch(err){ V.sheet.list=[]; }
   V.sheet.loading=false; rSheet(true);
 }
+function startChapter(subj,ch,kind){
+  const t=ch?R.topics[ch]:null, s=byId(DATA.subjects,subj)||{hi:subj,en:subj};
+  const title=(t?N(t):N(s))+(kind==='pyq'?' · PYQ':kind==='practice'?' · '+L('प्रैक्टिस','Practice'):'');
+  openSet(title,()=>fetchChapter(subj,ch?+ch:null,kind),()=>startChapter(subj,ch,kind));
+}
+function startExamSubject(subj){ const e=curExam(); if(!e) return; const s=byId(DATA.subjects,subj)||{};
+  openSet(`${N(e)} · ${N(s)}`,()=>fetchExamSubject(e.id,subj),()=>startExamSubject(subj)); }
+function startPaperPractice(srcId){ const s=R.sources[srcId], e=curExam();
+  openSet(`${N(e)}, ${fmtDate(s.paper_date)} ${L('शिफ़्ट','shift')} ${s.shift}`,()=>fetchPaper(srcId),null); }
 async function openRevise(subj){
   const ids=(subj?Object.keys(S.mis).filter(id=>S.mis[id].subj===subj).map(Number):dueMistakes()).slice(0,30);
   V.sheet={mode:'revise',title:L('दोहराना','Revision'),list:[],i:0,pick:null,c:0,seen:0,loading:true}; rSheet();
@@ -487,19 +552,29 @@ function submitMock(){
   z.done=true; V.modal=null; render(); rSheet(true);
 }
 const answeredMsg=z=>L(`${z.ans.filter(x=>x!=null).length} / ${z.list.length} सवाल हल हुए। टेस्ट जमा करें?`,`${z.ans.filter(x=>x!=null).length} / ${z.list.length} answered. Submit the test?`);
+function go(tab,view){ S.tab=tab; V.view=view||null; save(); render(); window.scrollTo(0,0); }
 
 document.addEventListener('click',ev=>{
   const lg=ev.target.closest('[data-lang]'); if(lg){ S.lang=lg.dataset.lang; save(); render(); return; }
   const el=ev.target.closest('[data-a]'); if(!el) return;
-  if(el.classList.contains('modal')&&ev.target.closest('[data-stop]')) return;   // tap inside a sheet box
+  if(el.classList.contains('modal')&&ev.target.closest('[data-stop]')) return;
   const a=el.dataset.a, id=el.dataset.id, z=V.sheet;
   switch(a){
     case 'branch': S.branch=id; S.exam=null; V.view=null; save(); render(); window.scrollTo(0,0); if(S.tab==='me') toast(L('ब्रांच बदल दी','Branch changed')); break;
     case 'exam': S.exam=id; V.view=null; save(); render(); break;
-    case 'tab': S.tab=id; V.view=null; save(); render(); window.scrollTo(0,0); break;
-    case 'open-subj': S.tab='practice'; V.view={subj:el.dataset.subj}; save(); render(); window.scrollTo(0,0); break;
-    case 'back-subj': V.view=null; render(); break;
-    case 'start': openPractice(el.dataset.subj, el.dataset.topic||null); break;
+    case 'tab': go(id); break;
+    case 'open-subj': go('learn',{subj:el.dataset.subj}); break;
+    case 'open-ch': go('learn',{subj:(R.topics[el.dataset.ch]||{}).subject,ch:+el.dataset.ch}); break;
+    case 'back-learn': go('learn',V.view&&V.view.ch?{subj:V.view.subj}:null); break;
+    case 'open-psubj': go('practice',{subj:el.dataset.subj}); break;
+    case 'back-practice': go('practice'); break;
+    case 'open-paper': go('pyq',{paper:+id}); break;
+    case 'back-pyq': go('pyq'); break;
+    case 'open-mis': go('mistakes'); break;
+    case 'back-today': go('today'); break;
+    case 'start-ch': startChapter(el.dataset.subj, el.dataset.ch||null, el.dataset.kind||null); break;
+    case 'start-exsub': startExamSubject(el.dataset.subj); break;
+    case 'paper-practice': startPaperPractice(+id); break;
     case 'revise': openRevise(null); break;
     case 'revise-subj': openRevise(el.dataset.subj); break;
     case 'goal': S.goal=+id; save(); render(); break;
@@ -519,7 +594,7 @@ document.addEventListener('click',ev=>{
       else if(z.mode==='review'){ V.sheet=null; render(); }
       else { z.done=true; render(); rSheet(true); }
       break;
-    case 'again': openPractice(z.subj,z.topic); break;
+    case 'again': if(z.again) z.again(); break;
     case 'mock-ask': { const e=curExam(), p=e.pattern||{}; V.modal=vConfirm(L(`यह पूरा पेपर है: ${p.questions||''} सवाल, ${p.minutes||''} मिनट। टाइमर तुरंत शुरू होगा। शुरू करें?`,`This is the full paper: ${p.questions||''} questions, ${p.minutes||''} min. The timer starts right away. Start?`),L('शुरू करें','Start'),'mock-go'); V.pendingSrc=+id; rSheet(); break; }
     case 'mock-go': openMock(V.pendingSrc); break;
     case 'm-next': if(z.i<z.list.length-1){ z.i++; z.vis[z.i]=true; rSheet(true);} else { V.modal=vConfirm(answeredMsg(z),L('जमा करें','Submit'),'m-submit'); rSheet(); } break;
@@ -536,6 +611,7 @@ document.addEventListener('click',ev=>{
 });
 window.addEventListener('beforeunload',e=>{ if(V.sheet&&V.sheet.mode==='mock'&&!V.sheet.done){ e.preventDefault(); e.returnValue=''; } });
 (async()=>{ render(); await loadRemote(); render(); })();
+
 </script>
 </body>
 </html>
