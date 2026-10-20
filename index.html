@@ -236,7 +236,7 @@ async function loadRemote(){
 }
 const QSEL='id,topic_id,source_id,source_qno,stem,options,answer,solution';
 function norm(r){ const t=R.topics[r.topic_id]||{}; return {id:r.id,topic:t,subj:t.subject,src:R.sources[r.source_id],qno:r.source_qno,stem:r.stem||{},opts:r.options||[],a:r.answer,sol:r.solution}; }
-function examSources(exam,branch){ return Object.values(R.sources).filter(s=>s.exam===exam&&(!s.branch||!branch||s.branch===branch)); }
+function examSources(exam,branch){ return Object.values(R.sources).filter(s=>s.exam===exam&&(!s.branch||!branch||s.branch===branch)).sort((x,y)=>(y.paper_date||'').localeCompare(x.paper_date||'')||x.shift-y.shift); }
 async function fetchPractice(exam,subj,topicId){
   const tids=topicId?[topicId]:Object.values(R.topics).filter(t=>t.subject===subj).map(t=>t.id);
   const sids=examSources(exam,isBranchSubj(subj)?S.branch:null).map(s=>s.id);
