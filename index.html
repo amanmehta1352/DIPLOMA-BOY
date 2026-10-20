@@ -111,14 +111,14 @@ async function loadRemote(){
   try{
     const [br,ex,eb,sb]=await Promise.all([
       sbGet('branches?select=slug,name_en,name_hi,sort&order=sort'),
-      sbGet('exams?select=id,slug,name_en,name_hi,active&active=eq.true'),
+      sbGet('exams?select=id,slug,name_en,name_hi,active,pattern&active=eq.true'),
       sbGet('exam_branches?select=exam_id,branch_id'),
       sbGet('subjects?select=slug,name_en,name_hi,branch_id')
     ]);
     if(br.length){ DATA.branches = br.map(b=>({id:b.slug,hi:b.name_hi,en:b.name_en})); }
     const brById={}; const brIdToSlug={}; // map db ids -> slugs
     (await sbGet('branches?select=id,slug')).forEach(b=>brIdToSlug[b.id]=b.slug);
-    const exById={}; ex.forEach(e=>exById[e.id]={id:e.slug,hi:e.name_hi,en:e.name_en,branches:[],ready:true});
+    const exById={}; ex.forEach(e=>exById[e.id]={id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,branches:[],ready:true,sections:(e.pattern&&e.pattern.sections)||null,pattern:e.pattern||{}});
     eb.forEach(x=>{ if(exById[x.exam_id]) exById[x.exam_id].branches.push(brIdToSlug[x.branch_id]); });
     const remoteExams=Object.values(exById);
     if(remoteExams.length){
@@ -127,35 +127,39 @@ async function loadRemote(){
       DATA.exams=[...remoteExams,...keep];
     }
     // common subjects from DB; branch subjects stay in the app until they are added to the DB
-    const common=sb.filter(s=>s.branch_id===null).map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:null}));
-    if(common.length){
-      const branchOnes=DATA.subjects.filter(s=>s.branch!==null);
-      DATA.subjects=[...common,...branchOnes];
+    const dbSubs=sb.map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:s.branch_id===null?null:brIdToSlug[s.branch_id]}));
+    if(dbSubs.length){
+      // embedded samples only for branches that have no subject in the database yet
+      const dbBranches=new Set(dbSubs.filter(x=>x.branch).map(x=>x.branch));
+      const samples=DATA.subjects.filter(x=>x.branch!==null && !dbBranches.has(x.branch));
+      DATA.subjects=[...dbSubs,...samples];
     }
-    const [tp,sid,src]=await Promise.all([sbGet('topics?select=id,slug,name_en,name_hi,subject_id'),sbGet('subjects?select=id,slug'),sbGet('sources?select=id,paper_date,shift')]);
+    const [tp,sid,src]=await Promise.all([sbGet('topics?select=id,slug,name_en,name_hi,subject_id'),sbGet('subjects?select=id,slug'),sbGet('sources?select=id,exam_id,branch_id,paper_date,shift,note')]);
     const subSlug={}; sid.forEach(x=>subSlug[x.id]=x.slug);
     REMOTE.topics={}; tp.forEach(t=>REMOTE.topics[t.id]={hi:t.name_hi,en:t.name_en,subject:subSlug[t.subject_id]});
-    REMOTE.sources={}; src.forEach(x=>REMOTE.sources[x.id]=x);
+    REMOTE.sources={}; src.forEach(x=>REMOTE.sources[x.id]=x); REMOTE.exams={}; remoteExams.forEach(e=>REMOTE.exams[e.id]=e);
     REMOTE.ok=true;
     return true;
   }catch(e){ console.warn('offline/fallback', e.message); return false; }
 }
 
-async function fetchQs(subj){
-  if(REMOTE.cache[subj]) return REMOTE.cache[subj];
+async function fetchQs(subj, exam){
+  const ck=subj+'@'+exam; if(REMOTE.cache[ck]) return REMOTE.cache[ck];
   const ids=Object.entries(REMOTE.topics).filter(([id,t])=>t.subject===subj).map(([id])=>id);
-  if(!ids.length) return null;
-  const done=(S.progress[subj]?.t)||0; const base='questions?select=id,topic_id,source_id,source_qno,stem,options,answer,solution&topic_id=in.('+ids.join(',')+')&order=id.desc&limit=25';
+  const ex=REMOTE.exams&&REMOTE.exams[exam];
+  const srcIds=ex?Object.values(REMOTE.sources).filter(x=>x.exam_id===ex.dbid).map(x=>x.id):[];
+  if(!ids.length||!srcIds.length) return null;
+  const done=(S.progress[subj]?.t)||0; const base='questions?select=id,topic_id,source_id,source_qno,stem,options,answer,solution&topic_id=in.('+ids.join(',')+')&source_id=in.('+srcIds.join(',')+')&order=id.desc&limit=25';
   let rows=await sbGet(base+'&offset='+Math.floor(done/25)*25);
   if(!rows.length) rows=await sbGet(base+'&offset=0');
   const list=rows.map(r=>({id:'db'+r.id,subject:subj,kind:'pyq',stem:r.stem,opts:r.options,a:r.answer,sol:r.solution,topic:REMOTE.topics[r.topic_id],src:REMOTE.sources[r.source_id],qno:r.source_qno}));
-  REMOTE.cache[subj]=list; return list;
+  REMOTE.cache[ck]=list; return list;
 }
 /* ---------- STATE (per device; no secrets; wrapped in try/catch) ---------- */
 const KEY='diploma-boy-v1';
 let S={lang:'both', branch:null, exam:null, tab:'home', progress:{}, subj:null, qi:0, picked:null, score:{c:0,t:0}};
 try{Object.assign(S, JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){}
-function save(){try{localStorage.setItem(KEY, JSON.stringify({lang:S.lang,branch:S.branch,exam:S.exam,progress:S.progress}))}catch(e){}}
+function save(){try{localStorage.setItem(KEY, JSON.stringify({lang:S.lang,branch:S.branch,pexam:S.pexam,progress:S.progress}))}catch(e){}}
 
 /* ---------- HELPERS ---------- */
 const T=(o)=> S.lang==='hi'?o.hi : S.lang==='en'?o.en : (o.hi+' · '+o.en);
@@ -165,7 +169,12 @@ function sampleQs(subj){return DATA.questions.filter(q=>q.subject===subj).map(q=
 const byId=(arr,id)=>arr.find(x=>x.id===id);
 function subjectsFor(branch){return DATA.subjects.filter(s=>s.branch===null || s.branch===branch)}
 function examsFor(branch){return DATA.exams.filter(e=>e.branches.includes(branch))}
-function examSubjects(branch){return subjectsFor(branch)}
+function examSubjects(examId, branch){
+  const e=byId(DATA.exams,examId); if(!e||!e.sections) return subjectsFor(branch);
+  const out=[]; e.sections.forEach(sec=>{ if(sec==='branch-engineering') DATA.subjects.filter(x=>x.branch===branch).forEach(x=>out.push(x)); else { const x=byId(DATA.subjects,sec); if(x) out.push(x);} });
+  return out;
+}
+function curExam(){ const ready=examsFor(S.branch).filter(e=>e.ready); return (ready.find(e=>e.id===S.pexam)||ready[0]||{}).id; }
 function pct(subj){const p=S.progress[subj]||{c:0,t:0};return p.t?Math.round(p.c/p.t*100):0}
 
 /* ---------- VIEWS ---------- */
@@ -189,18 +198,21 @@ function viewHome(){
 }
 function viewExam(){
   const e=byId(DATA.exams,S.exam);
-  const subs=subjectsFor(S.branch);
+  const subs=examSubjects(S.exam,S.branch);
+  const pt=e.pattern||{};
   return `<button class="btn ghost" data-act="go-home" style="width:auto;margin-bottom:8px">← ${S.lang==='en'?'Back':'वापस'}</button>
   <h1>${T(e)}</h1>
-  <p class="sub">${S.lang==='en'?'Common subjects + your branch subjects':'सामान्य विषय + आपकी ब्रांच के विषय'}</p>
+  <p class="sub">${pt.questions?`${pt.questions} ${S.lang==='en'?'Q':'सवाल'} · ${pt.minutes} ${S.lang==='en'?'min':'मिनट'} · −${pt.negative_per_wrong==0.25?'¼':pt.negative_per_wrong>0.33&&pt.negative_per_wrong<0.34?'⅓':pt.negative_per_wrong} · `:''}${S.lang==='en'?'Common + your branch subjects':'सामान्य + आपकी ब्रांच के विषय'}</p>
   <div class="card">${subs.map(s=>`<div class="row"><div style="flex:1"><b>${T(s)}</b> <span class="tag ${s.branch?'':''}">${s.branch?(S.lang==='en'?'Branch':'ब्रांच'):(S.lang==='en'?'Common':'सामान्य')}</span>
     <div class="bar"><i style="width:${pct(s.id)}%"></i></div></div>
     <button class="btn" style="width:auto;padding:8px 14px" data-act="start-subj" data-id="${s.id}">${S.lang==='en'?'Practice':'अभ्यास'}</button></div>`).join('')}</div>`;
 }
 function viewPractice(){
-  const subs=subjectsFor(S.branch);
+  const ce=curExam(); const subs=ce?examSubjects(ce,S.branch):subjectsFor(S.branch);
+  const chips=examsFor(S.branch).filter(e=>e.ready).map(e=>`<button class="tile ${e.id===ce?'on':''}" style="min-height:44px;padding:8px 12px" data-act="pick-exam" data-id="${e.id}"><b style="font-size:14px">${T(e)}</b></button>`).join('');
     if(!S.subj){
-    return `<h1>${S.lang==='en'?'Practice':'अभ्यास'}</h1><p class="sub">${S.lang==='en'?'Official PYQ with Hindi + solution. Pick a subject.':'आधिकारिक PYQ, हिंदी और हल के साथ। विषय चुनें।'}</p>
+    return `<h1>${S.lang==='en'?'Practice':'अभ्यास'}</h1><p class="sub">${S.lang==='en'?'Official PYQ. Pick exam, then subject.':'आधिकारिक PYQ। पहले परीक्षा, फिर विषय चुनें।'}</p>
+    <div class="grid" style="margin-bottom:12px">${chips}</div>
     <div class="card">${subs.map(s=>`<div class="row"><b>${T(s)}</b><button class="btn" style="width:auto;padding:8px 14px" data-act="start-subj" data-id="${s.id}">${S.lang==='en'?'Start':'शुरू'}</button></div>`).join('')}</div>`;
   }
   const qs=S.qlist||[];
@@ -211,7 +223,7 @@ function viewPractice(){
   const imgs=(q.stem.img||[]).map(u=>`<img src="${u}" alt="" style="max-width:100%;display:block;margin:8px 0;background:#fff;border-radius:8px">`).join('');
   return `<button class="btn ghost" data-act="back-practice" style="width:auto;margin-bottom:8px">← ${S.lang==='en'?'Subjects':'विषय'}</button>
   <div class="card"><span class="tag">${q.kind==='pyq'?'PYQ':'Practice'}</span> <span class="muted" style="font-size:12px">${q.topic?T(q.topic):''}${src}</span>
-  <div style="font-size:17px;margin:10px 0">${TX(q.stem)}</div>${imgs}
+  <div style="font-size:17px;margin:10px 0">${TX(q.stem)}</div>${imgs}${q.stem.hi_mt&&S.lang!=='en'?`<div class="muted" style="font-size:12px">${S.lang==='en'?'':'हिंदी: मशीन अनुवाद, अंग्रेज़ी मूल है'}</div>`:''}
   ${q.opts.map((o,i)=>`<button class="opt ${S.picked!==null?(i===q.a?'right':(i===S.picked?'wrong':'')):''}" data-act="pick" data-i="${i}" ${S.picked!==null?'disabled':''}><b>${'ABCD'[i]}</b> <span>${TX(o)}${o.img?`<img src="${o.img}" alt="" style="max-width:100%;display:block;background:#fff">`:''}</span></button>`).join('')}
   ${S.picked!==null&&q.sol&&q.sol.hi?`<div class="card" style="background:var(--soft);margin-top:10px"><b>${S.lang==='en'?'Solution':'हल'}:</b> ${q.sol.hi}</div>`:''}
   ${S.picked!==null?`<button class="btn" style="margin-top:10px" data-act="next">${S.lang==='en'?'Next':'अगला'} (${(S.qi%qs.length)+1}/${qs.length})</button>`:''}
@@ -252,11 +264,12 @@ document.addEventListener('click',e=>{
   const a=el.dataset.act, id=el.dataset.id;
   if(a==='pick-branch'){ S.branch=id; S.exam=null; S.tab='home'; S.subj=null; save(); render(); }
   else if(a==='tab'){ S.tab=id; S.exam=null; S.subj=null; S.picked=null; render(); }
-  else if(a==='open-exam'){ S.exam=id; render(); }
+  else if(a==='open-exam'){ S.exam=id; S.pexam=id; save(); render(); }
+  else if(a==='pick-exam'){ S.pexam=id; S.subj=null; save(); render(); }
   else if(a==='go-home'){ S.exam=null; render(); }
   else if(a==='go-practice'){ S.tab='practice'; S.exam=null; S.subj=null; render(); }
-  else if(a==='start-subj'){ S.tab='practice'; S.exam=null; S.subj=id; S.qi=0; S.picked=null; S.qlist=null; S.loading=true; render();
-    (async()=>{ let l=null; try{ if(REMOTE.ok) l=await fetchQs(id); }catch(e){} S.qlist=(l&&l.length)?l:sampleQs(id); S.loading=false; render(); })(); }
+  else if(a==='start-subj'){ if(S.exam) S.pexam=S.exam; S.tab='practice'; S.exam=null; S.subj=id; S.qi=0; S.picked=null; S.qlist=null; S.loading=true; render();
+    (async()=>{ let l=null; try{ if(REMOTE.ok) l=await fetchQs(id, S.pexam||curExam()); }catch(e){} S.qlist=(l&&l.length)?l:sampleQs(id); S.loading=false; render(); })(); }
   else if(a==='back-practice'){ S.subj=null; S.picked=null; render(); }
   else if(a==='pick'){
     const qs=S.qlist||[]; const q=qs[S.qi%qs.length]; if(!q) return; const i=+el.dataset.i; S.picked=i;
