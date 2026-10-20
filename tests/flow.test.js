@@ -1,7 +1,7 @@
 // Diploma Boy end-to-end check. Run: mkdir -p tests/shots && node tests/flow.test.js
 const { chromium } = require('playwright');
 const path=require('path'); const URL='file://'+path.resolve(__dirname,'../index.html'); const SHOT=n=>path.join(__dirname,'shots',n);
-(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'}); const out=[]; const errs=[];
+(async()=>{const b=await chromium.launch(process.env.PW_CHROMIUM?{executablePath:process.env.PW_CHROMIUM}:{}); const out=[]; const errs=[];
 async function run(w,scheme){
  const p=await b.newPage({viewport:{width:w,height:800},isMobile:w<700,colorScheme:scheme});
  p.on('pageerror',e=>errs.push(w+':'+e.message)); p.on('console',m=>{if(m.type()==='error')errs.push(w+':console:'+m.text())});
