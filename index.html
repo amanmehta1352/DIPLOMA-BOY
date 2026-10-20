@@ -99,6 +99,42 @@ const DATA = {
   ]
 };
 
+
+/* ---------- REMOTE (Supabase, schema mtb; publishable key only) ---------- */
+const SB={url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'};
+async function sbGet(path){
+  const r=await fetch(SB.url+'/rest/v1/'+path,{headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Accept-Profile':'mtb'}});
+  if(!r.ok) throw new Error('HTTP '+r.status); return r.json();
+}
+async function loadRemote(){
+  try{
+    const [br,ex,eb,sb]=await Promise.all([
+      sbGet('branches?select=slug,name_en,name_hi,sort&order=sort'),
+      sbGet('exams?select=id,slug,name_en,name_hi,active&active=eq.true'),
+      sbGet('exam_branches?select=exam_id,branch_id'),
+      sbGet('subjects?select=slug,name_en,name_hi,branch_id')
+    ]);
+    if(br.length){ DATA.branches = br.map(b=>({id:b.slug,hi:b.name_hi,en:b.name_en})); }
+    const brById={}; const brIdToSlug={}; // map db ids -> slugs
+    (await sbGet('branches?select=id,slug')).forEach(b=>brIdToSlug[b.id]=b.slug);
+    const exById={}; ex.forEach(e=>exById[e.id]={id:e.slug,hi:e.name_hi,en:e.name_en,branches:[],ready:true});
+    eb.forEach(x=>{ if(exById[x.exam_id]) exById[x.exam_id].branches.push(brIdToSlug[x.branch_id]); });
+    const remoteExams=Object.values(exById);
+    if(remoteExams.length){
+      // keep embedded "coming soon" exams that are not in the database yet
+      const keep=DATA.exams.filter(e=>!remoteExams.some(r=>r.id===e.id));
+      DATA.exams=[...remoteExams,...keep];
+    }
+    // common subjects from DB; branch subjects stay in the app until they are added to the DB
+    const common=sb.filter(s=>s.branch_id===null).map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:null}));
+    if(common.length){
+      const branchOnes=DATA.subjects.filter(s=>s.branch!==null);
+      DATA.subjects=[...common,...branchOnes];
+    }
+    return true;
+  }catch(e){ console.warn('offline/fallback', e.message); return false; }
+}
+
 /* ---------- STATE (per device; no secrets; wrapped in try/catch) ---------- */
 const KEY='diploma-boy-v1';
 let S={lang:'both', branch:null, exam:null, tab:'home', progress:{}, subj:null, qi:0, picked:null, score:{c:0,t:0}};
@@ -209,7 +245,7 @@ document.addEventListener('click',e=>{
   else if(a==='next'){ S.qi++; S.picked=null; render(); }
   else if(a==='reset'){ if(confirm(S.lang==='en'?'Reset progress on this device?':'इस डिवाइस की प्रगति मिटाएँ?')){ S.progress={}; S.score={c:0,t:0}; save(); render(); } }
 });
-render();
+(async()=>{ await loadRemote(); render(); })();
 </script>
 </body>
 </html>
