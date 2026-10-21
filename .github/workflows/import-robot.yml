@@ -17,6 +17,12 @@ on:
         description: 'Also read the Hindi sheet (OCR)'
         type: boolean
         default: true
+      offline_en:
+        description: 'TEST without database: English PDF link (leave blank normally)'
+        default: ''
+      offline_hi:
+        description: 'TEST without database: Hindi PDF link'
+        default: ''
       upgrade_hindi:
         description: 'Replace machine-translated Hindi of questions already in the paper with the official Hindi'
         type: boolean
@@ -49,6 +55,7 @@ jobs:
           [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
           [ "${{ inputs.hindi }}" = "false" ] && ARGS="$ARGS --no-hindi"
           [ "${{ inputs.upgrade_hindi }}" = "true" ] && ARGS="$ARGS --upgrade-hindi"
+          if [ -n "${{ inputs.offline_en }}" ]; then ARGS="--work work --offline --url ${{ inputs.offline_en }}"; [ -n "${{ inputs.offline_hi }}" ] && ARGS="$ARGS --url-hi ${{ inputs.offline_hi }}"; fi
           python robots/import/robot.py $ARGS
       - name: Reports
         if: always()

@@ -12,15 +12,19 @@ UA = 'Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chr
 
 
 # ---------------- REST (schema mtb) ----------------
+OFFLINE = False
+
 def rest(method, path, body=None, prefer=None, params=None):
+    if OFFLINE: return [] if method == 'GET' else ([{'id': 0}] if prefer and 'representation' in prefer else None)
     import requests
     h = {'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Accept-Profile': 'mtb', 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
     if prefer: h['Prefer'] = prefer
     r = requests.request(method, URL + '/rest/v1/' + path, headers=h, params=params, data=json.dumps(body) if body is not None else None, timeout=120)
+    if r.status_code == 401: raise SystemExit('❌ SUPABASE_SECRET_KEY गलत है: GitHub में रखी key इस प्रोजेक्ट (wobmtlcpszcntczkebtt) की नहीं है, या कॉपी में space/नई लाइन आ गई। Supabase → Project Settings → API Keys → Secret key (sb_secret_…) दोबारा डालें।')
     if r.status_code >= 300: raise RuntimeError(f'{method} {path} -> {r.status_code} {r.text[:300]}')
     return r.json() if r.text else None
 
-def rpc(fn, args): return rest('POST', 'rpc/' + fn, args)
+def rpc(fn, args): return 0 if OFFLINE else rest('POST', 'rpc/' + fn, args)
 
 def fetch_all(path, params, page=1000):
     out = []; off = 0
@@ -206,9 +210,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--job', type=int, action='append'); ap.add_argument('--queued', action='store_true'); ap.add_argument('--limit', type=int, default=3)
     ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--no-hindi', action='store_true'); ap.add_argument('--upgrade-hindi', action='store_true'); ap.add_argument('--work', default='work')
+    ap.add_argument('--offline', action='store_true', help='no database: only read the PDFs and show what would happen'); ap.add_argument('--url'); ap.add_argument('--url-hi')
     a = ap.parse_args()
-    if not KEY: sys.exit('SUPABASE_SECRET_KEY नहीं मिली')
-    if a.job: jobs = [rest('GET', 'import_jobs', params={'id': f'eq.{j}'})[0] for j in a.job]
+    global OFFLINE
+    if a.offline:
+        OFFLINE = True; a.dry_run = True
+        jobs = [{'id': 0, 'url': a.url, 'url_hi': a.url_hi, 'status': 'queued', 'exam_hint': 'SSC JE', 'stage_hint': None, 'branch_hint': None, 'paper_date': None, 'shift': None}]
+        a.job = None
+    elif not KEY: sys.exit('SUPABASE_SECRET_KEY नहीं मिली')
+    if a.offline: pass
+    elif a.job: jobs = [rest('GET', 'import_jobs', params={'id': f'eq.{j}'})[0] for j in a.job]
     else: jobs = rest('GET', 'import_jobs', params={'status': 'eq.queued', 'order': 'id', 'limit': a.limit})
     print(f'{len(jobs)} job')
     bad = 0
