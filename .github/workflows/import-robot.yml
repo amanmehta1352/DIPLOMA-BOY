@@ -23,6 +23,14 @@ on:
       offline_hi:
         description: 'TEST without database: Hindi PDF link'
         default: ''
+      tag:
+        description: 'Run the chapter tagger on drafts instead of importing (dry run unless apply)'
+        type: boolean
+        default: false
+      tag_apply:
+        description: 'Tagger: write the chapter moves (otherwise only report)'
+        type: boolean
+        default: false
       upgrade_hindi:
         description: 'Replace machine-translated Hindi of questions already in the paper with the official Hindi'
         type: boolean
@@ -56,6 +64,7 @@ jobs:
           [ "${{ inputs.hindi }}" = "false" ] && ARGS="$ARGS --no-hindi"
           [ "${{ inputs.upgrade_hindi }}" = "true" ] && ARGS="$ARGS --upgrade-hindi"
           if [ -n "${{ inputs.offline_en }}" ]; then ARGS="--work work --offline --url ${{ inputs.offline_en }}"; [ -n "${{ inputs.offline_hi }}" ] && ARGS="$ARGS --url-hi ${{ inputs.offline_hi }}"; fi
+          if [ "${{ inputs.tag }}" = "true" ]; then pip install scikit-learn requests; T="--apply"; [ "${{ inputs.tag_apply }}" = "true" ] || T="--dry-run"; cd robots/import && python tag.py $T; exit $?; fi
           python robots/import/robot.py $ARGS
       - name: Reports
         if: always()
