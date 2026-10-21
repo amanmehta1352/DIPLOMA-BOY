@@ -120,7 +120,7 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
     hold = collections.Counter(); rows = []; seen = {}; dup = 0; conflicts = []
     existing = {}; ex_rows = []
     if src_id:
-        for r in fetch_all('questions', {'select': 'id,status,stem,options,answer', 'source_id': f'eq.{src_id}'}):
+        for r in fetch_all('questions', {'select': 'id,status,stem,options,answer,source_qno', 'source_id': f'eq.{src_id}'}):
             en_opts = [o.get('en', '') for o in r['options']]
             existing[S.qkey(r['stem'].get('en', ''), en_opts)] = (r, S.norm(en_opts[r['answer']]))
             ex_rows.append(r)
@@ -203,6 +203,12 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
         rep['inserted'] = 0; rep['status'] = 'dry-run'; return rep
     sub_cache = {}
     out = []
+    used = {x['source_qno'] for x in ex_rows if x.get('source_qno')}   # (source, qno) is unique; another candidate's numbering can clash
+    def free_qno(want):
+        n = want
+        if n in used:
+            n = next((k for k in range(1, 201) if k not in used), max(used | {200}) + 1)
+        used.add(n); return n
     for r in rows:
         sec = r['q']['section'] or 'Unknown'
         if sec not in sub_cache:
@@ -212,7 +218,7 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
         h = r.get('hi')
         stem = {'en': r['q']['text'], 'hi': h['text'] if h else None, 'hi_mt': False}
         options = [{'en': r['opts'][i], 'hi': (h['opts'][i] if h and h['opts'][i] else None)} for i in range(4)]
-        out.append({'kind': 'pyq', 'source_id': src_id, 'source_qno': r['q']['qno'], 'topic_id': topic_id, 'stem': stem, 'options': options,
+        out.append({'kind': 'pyq', 'source_id': src_id, 'source_qno': free_qno(r['q']['qno']), 'topic_id': topic_id, 'stem': stem, 'options': options,
                     'answer': r['q']['answer_pos'], 'status': 'draft', 'content_hash': r['key']})
     for i in range(0, len(out), 50): rest('POST', 'questions', out[i:i + 50], prefer='return=minimal')
     rep['inserted'] = len(out); rep['subjects'] = {k: v[0] for k, v in sub_cache.items()}
