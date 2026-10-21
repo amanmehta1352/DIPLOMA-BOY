@@ -147,6 +147,18 @@ h2{font-size:18px;margin:24px 0 10px;font-weight:700}
 .pal button.m{background:var(--mark);border-color:var(--mark);color:var(--sheet)}
 .pal button.v{border-color:var(--bad);color:var(--bad)}
 .pal button.cur{outline:3px solid var(--saffron);outline-offset:1px}
+.pal button.am{background:var(--mark);border-color:var(--mark);color:var(--sheet);box-shadow:inset 0 -5px 0 var(--ok)}
+.pal-h{font-size:14px;font-weight:700;margin:14px 0 8px;color:var(--ink2)}
+.secbar{display:flex;gap:6px;overflow-x:auto;padding:6px 16px;scrollbar-width:none;background:var(--sheet);border-bottom:1px solid var(--rule)}
+.secbar::-webkit-scrollbar{display:none}
+.secbar .chip{min-height:44px;font-size:14px;padding:4px 12px}
+.timer{border:0;cursor:pointer;min-height:44px}
+.conf{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px}
+.conf .chip{font-size:14px}
+.conf .chip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.padc{width:100%;height:min(60vh,420px);background:var(--paper);border:1px solid var(--rule);border-radius:12px;touch-action:none;display:block;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:16px 16px}
+.resume{border-left:4px solid var(--saffron)}
 .legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--ink2);margin:10px 0}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
 .modal{position:fixed;inset:0;z-index:70;background:rgba(10,16,28,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -198,7 +210,7 @@ let S={lang:'both',theme:'auto',branch:null,exam:null,tab:'today',goal:30,examDa
 try{const o=JSON.parse(localStorage.getItem(KEY)||'null'); if(o) Object.assign(S,o);
   else{const v1=JSON.parse(localStorage.getItem('diploma-boy-v1')||'null'); if(v1){S.lang=v1.lang||S.lang;S.branch=v1.branch||null;}}}catch(e){}
 if(S.tab==='practice'&&!S.v3){S.tab='today';} S.v3=1;
-function save(){try{const {lang,theme,branch,exam,tab,goal,st,tp,days,mis,mocks,seen,v3}=S;localStorage.setItem(KEY,JSON.stringify({lang,theme,branch,exam,tab,goal,st,tp,days,mis,mocks,seen,v3}))}catch(e){}}
+function save(){try{const {lang,theme,branch,exam,tab,goal,examDate,st,tp,days,mis,mocks,seen,v3}=S;localStorage.setItem(KEY,JSON.stringify({lang,theme,branch,exam,tab,goal,examDate,st,tp,days,mis,mocks,seen,v3}))}catch(e){}}
 let V={sheet:null,view:null,modal:null};   // screen state, not saved
 
 /* ============ HELPERS ============ */
@@ -222,6 +234,7 @@ const ICON={
   close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
   chev:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>',
+  pen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>'
 };
 const subjColor=id=>/engineering/.test(id)?'var(--s-eng)':`var(--s-${id},var(--blue))`;
@@ -301,6 +314,26 @@ function paperLine(e,src){ const n=(R.pstat||{})[src.id], t=paperTotal(e); if(!n
 function groupBySection(by){ const e=curExam(), g=new Map();
   Object.entries(by).forEach(([sj,v])=>{ const sec=sectionOf(e,sj); const nm=sec?N(sec):N(byId(DATA.subjects,sj)||{hi:sj,en:sj}); const o=g.get(nm)||{c:0,w:0,u:0}; o.c+=v.c; o.w+=v.w; o.u+=v.u; g.set(nm,o); });
   return [...g.entries()]; }
+function mockSecs(z){ const e=byId(DATA.exams,z.exam); if(!e||!e.sections||!e.sections.length) return [];
+  return e.sections.map(sec=>({sec,idx:z.list.map((q,i)=>sectionOf(e,q.subj)===sec?i:-1).filter(i=>i>=0)})).filter(x=>x.idx.length); }
+const mmss=ms=>{ const t=Math.round(ms/1000); return Math.floor(t/60)+':'+String(t%60).padStart(2,'0'); };
+function resumeCard(){ const o=pendingMock(); if(!o) return ''; const left=Math.max(0,Math.round((o.end-Date.now())/60000)), a=o.ans.filter(x=>x!=null).length;
+  return `<div class="panel resume" style="margin-top:12px"><button class="item" data-a="m-resume"><span class="tx"><b>${L('अधूरा मॉक जारी रखें','Continue unfinished mock')}</b><span>${o.title} · ${L(`${a}/${o.list.length} हल, ${left} मिनट बचे`,`${a}/${o.list.length} answered, ${left} min left`)}</span></span><span class="chev">${ICON.chev}</span></button>
+  <button class="item" data-a="m-drop-ask" style="min-height:48px"><span class="tx"><span style="color:var(--bad)">${L('यह मॉक हटा दें','Discard this mock')}</span></span></button></div>`; }
+function softLanding(r){ let m='';
+  if(r.prev){ const d=+(r.score-r.prev.score).toFixed(2);
+    m=d>0?L(`पिछले मॉक से ${d} अंक ज़्यादा। अच्छा सुधार!`,`${d} marks more than your last mock. Good progress!`):d===0?L('पिछले मॉक जितने अंक। अगली बार गलत जवाब कम करने पर ध्यान दें।','Same as your last mock. Next time, cut down wrong answers.'):L(`पिछले मॉक से ${-d} अंक कम। कोई बात नहीं, नीचे देखें कहाँ अंक गए।`,`${-d} marks below your last mock. That's okay, see below where marks went.`); }
+  else m=r.c?L(`आपने ${r.c} सवाल सही किए। यह आपका पहला मॉक है, अब इससे आगे बढ़ना है।`,`You got ${r.c} right. This is your first mock; now build on it.`):L('पहला मॉक दिया, यही शुरुआत है।','First mock done. That is the start.');
+  return `<div class="note" style="margin-top:12px">${m}</div>`; }
+function confBlock(r){ const cf=r.cf; if(!cf) return ''; const t=cf.sure.t+cf.half.t+cf.guess.t; if(!t) return '';
+  const row=(k,hi,en)=>cf[k].t?`<tr><td>${L(hi,en)}</td><td>${cf[k].t}</td><td>${cf[k].c}</td><td>${pct(cf[k].c,cf[k].t)}%</td></tr>`:'';
+  return `<h2>${L('कितने पक्के थे?','How sure were you?')}</h2><div class="panel" style="padding:4px 10px"><table class="sub"><tr><th></th><th>${L('जवाब','Answers')}</th><th>${L('सही','Right')}</th><th>%</th></tr>${row('sure','पक्का','Sure')}${row('half','50-50','50-50')}${row('guess','तुक्का','Guess')}</table></div>
+  ${cf.guess.t?`<p class="small muted" style="margin:8px 0 0">${L(`तुक्के न लगाते तो ${r.noGuess} अंक आते (अभी ${r.score})।`,`Without guesses you would have ${r.noGuess} (now ${r.score}).`)}</p>`:''}`; }
+function timeBlock(z){ const r=z.res; if(!r.used) return ''; const n=z.list.length, done=r.c+r.w, avg=done?r.used/done:0, allow=(z.minutes||90)*60000/n;
+  const slow=z.ms.map((v,i)=>[v||0,i]).sort((a,b)=>b[0]-a[0]).slice(0,3).filter(x=>x[0]>=1000);
+  return `<h2>${L('समय','Time')}</h2><div class="panel" style="padding:12px 14px"><div>${L(`कुल समय: ${mmss(r.used)} मिनट`,`Time used: ${mmss(r.used)} min`)}</div>
+  ${done?`<div class="small muted" style="margin-top:4px">${L(`हल किए सवाल पर औसत ${mmss(avg)} · परीक्षा में हर सवाल को ${mmss(allow)} मिलता है`,`Average ${mmss(avg)} per answered question · the exam allows ${mmss(allow)} per question`)}</div>`:''}
+  ${slow.length?`<div class="small muted" style="margin-top:4px">${L('सबसे ज़्यादा समय','Slowest')}: ${slow.map(x=>`Q${x[1]+1} (${mmss(x[0])})`).join(', ')}</div>`:''}</div>`; }
 function mySubjects(){ return [...COMMON.map(id=>byId(DATA.subjects,id)).filter(Boolean),...DATA.subjects.filter(s=>s.branch===S.branch)]; }
 function chaptersOf(subj){ return Object.values(R.topics).filter(t=>t.chapter&&t.subject===subj).sort((a,b)=>(a.sort||0)-(b.sort||0)||a.id-b.id); }
 function cnt(chId,kind){ const s=R.stats[chId]||{}; return kind?(s[kind]||0):((s.pyq||0)+(s.practice||0)); }
@@ -353,6 +386,7 @@ function vToday(){
       <div style="flex:1;min-width:0"><b style="font-size:17px;display:block">${tc>=g?L('आज का लक्ष्य पूरा हुआ','Today’s goal is done'):L(`आज ${g-tc} सवाल और करें`,`${g-tc} more questions today`)}</b>
       <span class="small muted">${L('विषय पढ़ें, PYQ हल करें या प्रैक्टिस करें।','Study a subject, solve PYQs or practise.')}</span></div></div>
   </div>
+  ${resumeCard()}
   ${R.ok?'':`<div class="note">${L('इंटरनेट नहीं मिला। सवाल लाने के लिए इंटरनेट चालू करें।','No internet. Turn it on to load questions.')}</div>`}
   <div class="btn-row" style="margin-top:14px">
     <button class="btn" data-a="tab" data-id="learn">${L('विषय पढ़ें','Study by subject')}</button>
@@ -401,6 +435,7 @@ function vPyq(){
     </div>`; }
   return `${examSwitch()}<h1 style="margin-top:6px">PYQ</h1>
   <p class="muted" style="margin:4px 0 14px">${patternCard(e)?L('सिर्फ़ आधिकारिक पेपर और answer key से।','Only from official papers and answer keys.'):L(`सिर्फ़ आधिकारिक पेपर। असली पैटर्न: ${p.questions||'—'} सवाल, ${p.minutes||'—'} मिनट, गलत पर −${negTxt(p.negative_per_wrong)}।`,`Official papers only. Real pattern: ${p.questions||'—'} questions, ${p.minutes||'—'} min, −${negTxt(p.negative_per_wrong)} per wrong.`)}</p>
+  ${resumeCard()}
   ${patternCard(e)}
   <h2 style="margin-top:16px">${L('पेपर (साल और शिफ़्ट)','Papers (year and shift)')}</h2>
   <div class="panel">${srcs.map(s=>{const d=S.mocks.filter(m=>m.src===s.id);
@@ -512,16 +547,19 @@ function vSheet(){
   const q=z.list[z.i], n=z.list.length, mock=z.mode==='mock', review=z.mode==='review';
   const sel=mock?z.ans[z.i]:review?(z.ansRef[z.i]==null?-1:z.ansRef[z.i]):z.pick;
   const answered=mock?z.ans.filter(x=>x!=null).length:0;
-  const sub=mock?L(`सवाल ${z.i+1} / ${n}, हल ${answered}`,`Question ${z.i+1} / ${n}, answered ${answered}`):L(`सवाल ${z.i+1} / ${n}`,`Question ${z.i+1} / ${n}`)+(review?'':`, ${L('सही','right')} ${z.c}`);
-  const extra=mock?`<span class="timer ${z.left<300?'low':''}" id="tmr" aria-label="${L('बचा समय','Time left')}">${clock(z.left)}</span><button class="icon-btn" data-a="palette" aria-label="${L('सवाल सूची','Question list')}">${ICON.grid}</button>`:'';
+  const sub=mock?L(`${z.i+1}/${n} · हल ${answered}`,`${z.i+1}/${n} · done ${answered}`):L(`सवाल ${z.i+1} / ${n}`,`Question ${z.i+1} / ${n}`)+(review?'':`, ${L('सही','right')} ${z.c}`);
+  const extra=mock?`<button class="timer ${z.left<300?'low':''}" id="tmr" data-a="t-hide" aria-label="${L('बचा समय (छुपाने के लिए दबाएँ)','Time left (tap to hide)')}">${z.hideT?L('समय देखें','Show time'):clock(z.left)}</button><button class="icon-btn" data-a="pad" aria-label="${L('रफ़ पेज','Rough pad')}">${ICON.pen}</button><button class="icon-btn" data-a="palette" aria-label="${L('सवाल सूची','Question list')}">${ICON.grid}</button>`:'';
+  const secs=mock?mockSecs(z):[];
+  const secBar=secs.length>1?`<div class="secbar" role="tablist" aria-label="${L('सेक्शन','Sections')}">${secs.map(x=>{const on=x.idx.includes(z.i), a=x.idx.filter(i=>z.ans[i]!=null).length; return `<button class="chip ${on?'on':''}" role="tab" aria-selected="${on}" data-a="sec-go" data-i="${x.idx[0]}">${N(x.sec)} ${a}/${x.idx.length}</button>`;}).join('')}</div>`:'';
+  const conf=mock&&sel!=null?`<div class="conf"><span class="small muted">${L('कितना पक्का?','How sure?')}</span>${[['sure','पक्का','Sure'],['half','50-50','50-50'],['guess','तुक्का','Guess']].map(c=>`<button class="chip ${z.conf[z.i]===c[0]?'on':''}" data-a="m-conf" data-id="${c[0]}" aria-pressed="${z.conf[z.i]===c[0]}">${L(c[1],c[2])}</button>`).join('')}</div>`:'';
   const progW=Math.round((z.i+((!mock&&sel!=null)?1:0))/n*100);
   const foot=mock?`<div class="sheet-foot"><div class="wrap">
       <button class="btn line" style="flex:1" data-a="m-prev" ${z.i?'':'disabled'}>${L('पिछला','Previous')}</button>
-      <button class="btn quiet" style="flex:1" data-a="m-mark">${z.mark[z.i]?L('निशान हटाएँ','Unmark'):L('बाद में देखें','Mark')}</button>
+      <button class="btn quiet" style="flex:1" data-a="m-mark" aria-pressed="${!!z.mark[z.i]}">${z.mark[z.i]?L('निशान हटाएँ','Unmark'):L('बाद में देखें','Mark')}</button>
       <button class="btn" style="flex:1.2" data-a="m-next">${z.i<n-1?L('सेव, अगला','Save, next'):L('जमा करें','Submit')}</button></div></div>`
     :`<div class="sheet-foot"><div class="wrap">${sel!=null?`<button class="btn" data-a="next">${z.i<n-1?L('अगला सवाल','Next question'):(review?L('ख़त्म, बंद करें','Done, close'):L('सेट ख़त्म करें','Finish set'))}</button>`:`<button class="btn line" data-a="skip">${L('छोड़ें, अगला','Skip')}</button>`}</div></div>`;
-  return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,sub,extra,mock?'mock-exit':'close')}<div class="prog"><i style="width:${progW}%"></i></div></div>
-   <div class="sheet-body" id="sbody"><div class="wrap">${qBlock(q,review?'review':z.mode,sel)}${mock&&sel!=null?`<button class="btn quiet" style="margin-top:12px" data-a="m-clear">${L('जवाब हटाएँ','Clear answer')}</button>`:''}</div></div>${foot}</div>`;
+  return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,sub,extra,mock?'mock-exit':'close')}<div class="prog"><i style="width:${progW}%"></i></div>${secBar}</div>
+   <div class="sheet-body" id="sbody"><div class="wrap">${qBlock(q,review?'review':z.mode,sel)}${conf}${mock&&sel!=null?`<button class="btn quiet" style="margin-top:12px" data-a="m-clear">${L('जवाब हटाएँ','Clear answer')}</button>`:''}${mock&&z.pad[z.i]?`<p class="small muted" style="margin-top:10px">${L('इस सवाल का रफ़ पेज सेव है।','Rough work saved for this question.')}</p>`:''}</div></div>${foot}</div>`;
 }
 function vResult(){
   const z=V.sheet;
@@ -532,22 +570,42 @@ function vResult(){
     <div class="btn-row"><button class="btn line" data-a="close">${L('बंद करें','Close')}</button>${z.again?`<button class="btn" data-a="again">${L('अगले 20 सवाल','Next 20')}</button>`:`<button class="btn" data-a="close">${L('ठीक है','Done')}</button>`}</div></div></div></div>`;
   const r=z.res;
   return `<div class="sheet" role="dialog" aria-modal="true">${topBar(L('मॉक का नतीजा','Mock result'),z.title)}</div><div class="sheet-body"><div class="wrap">
+   ${softLanding(r)}
    <div class="score"><b>${r.score}</b><span class="muted">/ ${r.max} ${L('अंक','marks')}</span></div>
    <div class="stats"><div class="stat"><b style="color:var(--ok)">${r.c}</b><span>${L('सही','Right')}</span></div><div class="stat"><b style="color:var(--bad)">${r.w}</b><span>${L('गलत','Wrong')} (−${r.neg})</span></div><div class="stat"><b>${r.u}</b><span>${L('छोड़े','Skipped')}</span></div></div>
    ${r.w?`<div class="note">${L(`गलत वाले ${r.w} सवाल छोड़ देते तो ${r.noguess} अंक आते। जिसमें पक्का न हों, उसे छोड़ना भी एक कला है।`,`Skipping the ${r.w} wrong ones would have given ${r.noguess}. Skipping what you are unsure of is a skill too.`)}</div>`:''}
-   <h2>${L('विषय के अनुसार','By subject')}</h2>
+   ${confBlock(r)}
+   ${timeBlock(z)}
+   <h2>${L('सेक्शन के अनुसार','By section')}</h2>
    <div class="panel" style="padding:4px 10px"><table class="sub"><tr><th>${L('विषय','Subject')}</th><th>${L('सही','Right')}</th><th>${L('गलत','Wrong')}</th><th>${L('छोड़े','Skip')}</th></tr>
    ${groupBySection(r.by).map(([nm,v])=>`<tr><td>${nm}</td><td>${v.c}</td><td>${v.w}</td><td>${v.u}</td></tr>`).join('')}</table></div>
    <div class="btn-row"><button class="btn line" data-a="m-review">${L('जवाब देखें','Review answers')}</button><button class="btn" data-a="close">${L('बंद करें','Close')}</button></div>
    <p class="small muted" style="margin-top:12px">${L('गलत सवाल गलती बुक में जोड़ दिए गए।','Wrong answers were added to the mistake book.')}</p></div></div></div>`;
 }
 function vPalette(){
-  const z=V.sheet, a=z.ans.filter(x=>x!=null).length, m=z.mark.filter(Boolean).length;
+  const z=V.sheet, st=i=>z.ans[i]!=null&&z.mark[i]?'am':z.mark[i]?'m':z.ans[i]!=null?'a':z.vis[i]?'v':'';
+  const cnt=k=>z.list.filter((_,i)=>st(i)===k).length;
+  const btn=i=>`<button class="${st(i)} ${i===z.i?'cur':''}" data-a="m-go" data-i="${i}" aria-label="${L('सवाल','Question')} ${i+1}">${i+1}</button>`;
+  const secs=mockSecs(z);
+  const grid=secs.length>1?secs.map(x=>`<div class="pal-h">${N(x.sec)}</div><div class="pal">${x.idx.map(btn).join('')}</div>`).join(''):`<div class="pal">${z.list.map((_,i)=>btn(i)).join('')}</div>`;
   return `<div class="modal" data-a="modal-close"><div class="box" data-stop="1" role="dialog" aria-modal="true"><div style="display:flex;align-items:center"><b style="font-size:18px;flex:1">${L('सवाल सूची','All questions')}</b><button class="icon-btn" data-a="modal-close" aria-label="${L('बंद करें','Close')}">${ICON.close}</button></div>
-   <div class="legend"><span><i style="background:var(--ok)"></i>${L('हल किए','Answered')} ${a}</span><span><i style="background:var(--mark)"></i>${L('बाद में देखें','Marked')} ${m}</span><span><i style="border:1.5px solid var(--bad)"></i>${L('देखा, हल नहीं','Seen')}</span><span><i style="border:1.5px solid var(--rule)"></i>${L('नहीं देखा','Not seen')}</span></div>
-   <div class="pal">${z.list.map((q,i)=>`<button class="${z.mark[i]?'m':z.ans[i]!=null?'a':z.vis[i]?'v':''} ${i===z.i?'cur':''}" data-a="m-go" data-i="${i}" aria-label="${L('सवाल','Question')} ${i+1}">${i+1}</button>`).join('')}</div>
+   <div class="legend"><span><i style="background:var(--ok)"></i>${L('हल किए','Answered')} ${cnt('a')}</span><span><i style="border:1.5px solid var(--bad)"></i>${L('देखा, हल नहीं','Not answered')} ${cnt('v')}</span><span><i style="border:1.5px solid var(--rule)"></i>${L('नहीं देखा','Not visited')} ${cnt('')}</span><span><i style="background:var(--mark)"></i>${L('बाद में देखें','Marked')} ${cnt('m')}</span><span><i style="background:var(--mark);box-shadow:inset 0 -3px 0 var(--ok)"></i>${L('हल + निशान','Answered & marked')} ${cnt('am')}</span></div>
+   ${grid}
    <button class="btn saffron" style="margin-top:16px" data-a="m-submit-ask">${L('टेस्ट जमा करें','Submit test')}</button></div></div>`;
 }
+function vPad(){ return `<div class="modal" data-a="pad-close"><div class="box" data-stop="1" role="dialog" aria-modal="true" aria-label="${L('रफ़ पेज','Rough pad')}"><div style="display:flex;align-items:center;gap:8px"><b style="font-size:18px;flex:1">${L('रफ़ पेज','Rough pad')} · ${L('सवाल','Q')} ${V.sheet.i+1}</b><button class="icon-btn" data-a="pad-close" aria-label="${L('बंद करें','Close')}">${ICON.close}</button></div>
+  <p class="small muted" style="margin:4px 0 8px">${L('उँगली से लिखें। हर सवाल का रफ़ अलग सेव होता है।','Write with your finger. Each question keeps its own rough work.')}</p>
+  <canvas id="pad" class="padc"></canvas>
+  <div class="btn-row"><button class="btn line" data-a="pad-clear">${L('साफ़ करें','Clear')}</button><button class="btn" data-a="pad-close">${L('सेव, बंद करें','Save, close')}</button></div></div></div>`; }
+function initPad(){ const c=$('#pad'); if(!c||c.dataset.ok) return; c.dataset.ok=1; const r=c.getBoundingClientRect(), d=window.devicePixelRatio||1;
+  c.width=Math.round(r.width*d); c.height=Math.round(r.height*d); const x=c.getContext('2d'); x.scale(d,d); x.lineWidth=2.2; x.lineCap='round'; x.lineJoin='round'; x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()||'#16233A';
+  const prev=V.sheet.pad[V.sheet.i]; if(prev){ const im=new Image(); im.onload=()=>x.drawImage(im,0,0,r.width,r.height); im.src=prev; }
+  let on=false; const pt=e=>{const b=c.getBoundingClientRect(); return [e.clientX-b.left,e.clientY-b.top];};
+  c.addEventListener('pointerdown',e=>{ on=true; c.setPointerCapture(e.pointerId); const [a,b]=pt(e); x.beginPath(); x.moveTo(a,b); x.lineTo(a+.1,b+.1); x.stroke(); c.dataset.dirty=1; delete c.dataset.blank; });
+  c.addEventListener('pointermove',e=>{ if(!on) return; const [a,b]=pt(e); x.lineTo(a,b); x.stroke(); });
+  c.addEventListener('pointerup',()=>{ on=false; }); c.addEventListener('pointercancel',()=>{ on=false; }); }
+function closePad(){ const c=$('#pad'), z=V.sheet; if(c&&c.dataset.dirty) z.pad[z.i]=c.dataset.blank?null:c.toDataURL('image/png'); V.modal=null; saveMock(); rSheet(); }
+
 function vConfirm(msg,yes,act,danger){ return `<div class="modal" data-a="modal-close"><div class="box" data-stop="1" role="alertdialog" aria-modal="true"><p style="font-size:17px;margin:4px 0 16px">${msg}</p><div class="btn-row" style="margin:0"><button class="btn line" data-a="modal-close">${L('रुकें','Cancel')}</button><button class="btn saffron" style="${danger?'background:var(--bad);color:#fff':''}" data-a="${act}">${yes}</button></div></div></div>`; }
 
 /* ============ RENDER ============ */
@@ -566,7 +624,7 @@ function render(){
   }
   rSheet();
 }
-function rSheet(top){ $('#layer').innerHTML=vSheet()+(V.modal||''); document.body.style.overflow=V.sheet?'hidden':''; if(top){ const b=$('#sbody'); if(b) b.scrollTop=0; } }
+function rSheet(top){ $('#layer').innerHTML=vSheet()+(V.modal||''); initPad(); document.body.style.overflow=V.sheet?'hidden':''; if(top){ const b=$('#sbody'); if(b) b.scrollTop=0; } }
 
 /* ============ ACTIONS ============ */
 async function openSet(title,loader,again){
@@ -590,22 +648,48 @@ async function openRevise(subj){
   V.sheet.loading=false; rSheet(true);
 }
 let TICK=null;
+const MKEY='diploma-boy-mock';
+function saveMock(){ const z=V.sheet; if(!z||z.mode!=='mock'||z.done||z.loading) return; try{ localStorage.setItem(MKEY,JSON.stringify(z)); }catch(e){ try{ localStorage.setItem(MKEY,JSON.stringify({...z,pad:z.pad.map(()=>null)})); }catch(e2){} } }
+function dropMock(){ try{ localStorage.removeItem(MKEY); }catch(e){} }
+function pendingMock(){ try{ const o=JSON.parse(localStorage.getItem(MKEY)||'null'); return o&&o.mode==='mock'&&!o.done&&o.list&&o.list.length?o:null; }catch(e){ return null; } }
+function tickQ(){ const z=V.sheet; if(!z||z.mode!=='mock'||z.done) return; const now=Date.now(); z.ms[z.i]=(z.ms[z.i]||0)+Math.max(0,now-(z.t0||now)); z.t0=now; }
+function goQ(i){ const z=V.sheet; tickQ(); z.i=i; z.vis[i]=true; saveMock(); }
+function startTick(){
+  clearInterval(TICK);
+  TICK=setInterval(()=>{ const y=V.sheet; if(!y||y.mode!=='mock'||y.done){clearInterval(TICK);return;}
+    y.left=Math.round((y.end-Date.now())/1000); const el=$('#tmr');
+    if(el){ el.textContent=y.hideT?L('समय देखें','Show time'):clock(y.left); el.classList.toggle('low',y.left<300); }
+    if(y.left<=300&&!y.a5){ y.a5=true; toast(L('5 मिनट बचे हैं','5 minutes left')); try{navigator.vibrate&&navigator.vibrate(200);}catch(e){} saveMock(); }
+    if(y.left<=0){ submitMock(); toast(L('समय ख़त्म, टेस्ट जमा हुआ','Time up, test submitted')); } },1000);
+}
 async function openMock(srcId){
   const e=curExam(), s=R.sources[srcId], p=e.pattern||{};
-  V.modal=null; V.sheet={mode:'mock',title:`${N(e)}, ${fmtDate(s.paper_date)} ${L('शिफ़्ट','shift')} ${s.shift}`,list:[],i:0,ans:[],mark:[],vis:[],loading:true,src:srcId,left:(p.minutes||90)*60,neg:p.negative_per_wrong||0,mpq:p.marks_per_q||1}; rSheet();
+  V.modal=null; V.sheet={mode:'mock',title:`${N(e)}, ${fmtDate(s.paper_date)} ${L('शिफ़्ट','shift')} ${s.shift}`,exam:e.id,list:[],i:0,ans:[],mark:[],vis:[],conf:[],ms:[],pad:[],loading:true,src:srcId,left:(p.minutes||90)*60,minutes:p.minutes||90,neg:p.negative_per_wrong||0,mpq:p.marks_per_q||1}; rSheet();
   try{ V.sheet.list=await fetchPaper(srcId); }catch(err){ V.sheet.list=[]; }
-  const z=V.sheet; z.loading=false; z.ans=z.list.map(()=>null); z.mark=z.list.map(()=>false); z.vis=z.list.map((_,i)=>i===0);
-  z.end=Date.now()+z.left*1000; clearInterval(TICK);
-  TICK=setInterval(()=>{ const y=V.sheet; if(!y||y.mode!=='mock'||y.done){clearInterval(TICK);return;} y.left=Math.round((y.end-Date.now())/1000); const el=$('#tmr'); if(el){el.textContent=clock(y.left); el.classList.toggle('low',y.left<300);} if(y.left<=0){ submitMock(); toast(L('समय ख़त्म, टेस्ट जमा हुआ','Time up, test submitted')); } },1000);
+  const z=V.sheet; z.loading=false; const n=z.list.length;
+  z.ans=Array(n).fill(null); z.mark=Array(n).fill(false); z.vis=z.list.map((_,i)=>i===0); z.conf=Array(n).fill(null); z.ms=Array(n).fill(0); z.pad=Array(n).fill(null);
+  z.end=Date.now()+z.left*1000; z.t0=Date.now();
+  if(n){ saveMock(); startTick(); }
   rSheet(true);
 }
+function resumeMock(){
+  const o=pendingMock(); if(!o) return;
+  V.modal=null; V.sheet=o; o.t0=Date.now(); o.left=Math.round((o.end-Date.now())/1000);
+  if(o.left<=0){ submitMock(); toast(L('समय ख़त्म हो चुका था, टेस्ट जमा हुआ','Time was over, test submitted')); return; }
+  startTick(); rSheet(true);
+}
 function submitMock(){
-  const z=V.sheet; clearInterval(TICK); let c=0,w=0,u=0; const by={};
+  const z=V.sheet; tickQ(); clearInterval(TICK); let c=0,w=0,u=0; const by={}, cf={sure:{c:0,t:0},half:{c:0,t:0},guess:{c:0,t:0}};
   z.list.forEach((q,i)=>{ const a=z.ans[i], b=by[q.subj]||(by[q.subj]={c:0,w:0,u:0});
-    if(a==null){u++;b.u++;return;} const ok=a===q.a; if(ok){c++;b.c++;}else{w++;b.w++;} bump(q,ok); toMistakes(q,ok); });
+    if(a==null){u++;b.u++;return;} const ok=a===q.a; if(ok){c++;b.c++;}else{w++;b.w++;}
+    const k=z.conf[i]; if(k&&cf[k]){ cf[k].t++; if(ok) cf[k].c++; }
+    bump(q,ok); toMistakes(q,ok); });
   const neg=+(w*z.neg).toFixed(2), score=+(c*z.mpq-neg).toFixed(2);
-  z.res={c,w,u,neg,score,max:z.list.length*z.mpq,noguess:+(c*z.mpq).toFixed(2),by};
-  S.mocks.push({src:z.src,label:z.title,score,max:z.res.max,c,w,u,date:today()}); save();
+  const gW=cf.guess.t-cf.guess.c, noGuess=+((c-cf.guess.c)*z.mpq-(w-gW)*z.neg).toFixed(2);
+  const used=z.ms.reduce((a,v)=>a+(v||0),0);
+  const prev=S.mocks.filter(m=>m.exam===z.exam).slice(-1)[0]||null;
+  z.res={c,w,u,neg,score,max:z.list.length*z.mpq,noguess:+(c*z.mpq).toFixed(2),noGuess,cf,by,used,prev:prev?{score:prev.score,max:prev.max}:null};
+  S.mocks.push({src:z.src,exam:z.exam,label:z.title,score,max:z.res.max,c,w,u,date:today()}); save(); dropMock();
   z.done=true; V.modal=null; render(); rSheet(true);
 }
 const answeredMsg=z=>L(`${z.ans.filter(x=>x!=null).length} / ${z.list.length} सवाल हल हुए। टेस्ट जमा करें?`,`${z.ans.filter(x=>x!=null).length} / ${z.list.length} answered. Submit the test?`);
@@ -644,7 +728,7 @@ document.addEventListener('click',ev=>{
     case 'modal-close': V.modal=null; rSheet(); break;
     case 'close': clearInterval(TICK); V.sheet=null; V.modal=null; render(); break;
     case 'pick':
-      if(z.mode==='mock'){ z.ans[z.i]=+el.dataset.i; rSheet(); break; }
+      if(z.mode==='mock'){ z.ans[z.i]=+el.dataset.i; saveMock(); rSheet(); break; }
       if(z.mode==='review'||z.pick!=null) break;
       { z.pick=+el.dataset.i; z.seen++; const q=z.list[z.i], ok=z.pick===q.a; if(ok) z.c++; bump(q,ok); toMistakes(q,ok); save(); rSheet();
         const f=document.querySelector('.verdict'); if(f) f.scrollIntoView({behavior:'smooth',block:'nearest'}); }
@@ -657,15 +741,25 @@ document.addEventListener('click',ev=>{
     case 'again': if(z.again) z.again(); break;
     case 'mock-ask': { const e=curExam(), p=e.pattern||{}; V.modal=vConfirm(L(`यह पूरा पेपर है: ${p.questions||''} सवाल, ${p.minutes||''} मिनट। टाइमर तुरंत शुरू होगा। शुरू करें?`,`This is the full paper: ${p.questions||''} questions, ${p.minutes||''} min. The timer starts right away. Start?`),L('शुरू करें','Start'),'mock-go'); V.pendingSrc=+id; rSheet(); break; }
     case 'mock-go': openMock(V.pendingSrc); break;
-    case 'm-next': if(z.i<z.list.length-1){ z.i++; z.vis[z.i]=true; rSheet(true);} else { V.modal=vConfirm(answeredMsg(z),L('जमा करें','Submit'),'m-submit'); rSheet(); } break;
-    case 'm-prev': if(z.i>0){ z.i--; rSheet(true);} break;
-    case 'm-mark': z.mark[z.i]=!z.mark[z.i]; rSheet(); break;
-    case 'm-clear': z.ans[z.i]=null; rSheet(); break;
+    case 'm-next': if(z.i<z.list.length-1){ goQ(z.i+1); rSheet(true);} else { V.modal=vConfirm(answeredMsg(z),L('जमा करें','Submit'),'m-submit'); rSheet(); } break;
+    case 'm-prev': if(z.i>0){ goQ(z.i-1); rSheet(true);} break;
+    case 'm-mark': z.mark[z.i]=!z.mark[z.i]; saveMock(); rSheet(); break;
+    case 'm-clear': z.ans[z.i]=null; z.conf[z.i]=null; saveMock(); rSheet(); break;
+    case 'm-conf': z.conf[z.i]=z.conf[z.i]===id?null:id; saveMock(); rSheet(); break;
+    case 'sec-go': goQ(+el.dataset.i); rSheet(true); break;
+    case 't-hide': z.hideT=!z.hideT; saveMock(); rSheet(); break;
+    case 'pad': V.modal=vPad(); rSheet(); break;
+    case 'pad-clear': { const c=$('#pad'); if(c){ c.getContext('2d').clearRect(0,0,c.width,c.height); c.dataset.dirty=1; c.dataset.blank=1; } break; }
+    case 'pad-close': closePad(); break;
+    case 'm-pause': tickQ(); saveMock(); clearInterval(TICK); V.sheet=null; V.modal=null; render(); toast(L('टेस्ट सेव है, बाद में जारी रखें','Test saved, continue later')); break;
+    case 'm-resume': resumeMock(); break;
+    case 'm-drop-ask': V.modal=vConfirm(L('अधूरा मॉक हटा दें? इसके जवाब मिट जाएँगे।','Discard the unfinished mock? Its answers will be erased.'),L('हटाएँ','Discard'),'m-drop',true); rSheet(); break;
+    case 'm-drop': dropMock(); V.modal=null; render(); break;
     case 'palette': V.modal=vPalette(); rSheet(); break;
-    case 'm-go': z.i=+el.dataset.i; z.vis[z.i]=true; V.modal=null; rSheet(true); break;
+    case 'm-go': goQ(+el.dataset.i); V.modal=null; rSheet(true); break;
     case 'm-submit-ask': V.modal=vConfirm(answeredMsg(z),L('जमा करें','Submit'),'m-submit'); rSheet(); break;
     case 'm-submit': submitMock(); break;
-    case 'mock-exit': V.modal=vConfirm(L('टेस्ट बीच में छोड़ें? जवाब सेव नहीं होंगे।','Leave the test? Your answers will not be saved.'),L('टेस्ट छोड़ें','Leave test'),'close',true); rSheet(); break;
+    case 'mock-exit': V.modal=vConfirm(L('टेस्ट रोकें? जवाब इसी फ़ोन में सेव रहेंगे और आप बाद में जारी रख सकते हैं। असली परीक्षा की तरह घड़ी चलती रहेगी।','Pause the test? Answers stay saved on this phone and you can continue later. Like the real exam, the clock keeps running.'),L('रोकें','Pause'),'m-pause'); rSheet(); break;
     case 'm-review': V.sheet={mode:'review',title:L('जवाब देखें','Review answers'),list:z.list,ansRef:z.ans,i:0,pick:null,c:0,seen:0}; rSheet(true); break;
   }
 });
