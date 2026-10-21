@@ -19,6 +19,7 @@ jobs:
       - run: node tests/tree.test.js
       - run: node tests/cbt.test.js
       - run: node tests/home.test.js
+      - run: node tests/clean.test.js
       - if: always()
         uses: actions/upload-artifact@v4
         with: { name: screenshots, path: tests/shots }

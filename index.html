@@ -129,7 +129,9 @@ h2{font-size:18px;margin:24px 0 10px;font-weight:700}
 .opt .l{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink2);display:grid;place-items:center;font-weight:700;font-size:14px}
 .opt .ot{flex:1;min-width:0;overflow-wrap:anywhere}
 .opt .ot .en{display:block;font-size:14px;color:var(--ink2)}
-.opt img{max-width:100%;display:block;background:#fff;margin-top:6px;border-radius:6px}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.85em;line-height:1.15;margin:0 2px}
+.frac i{font-style:normal}.frac i:first-child{border-bottom:1.5px solid currentColor;padding:0 2px}
+.opt img{max-width:100%;max-height:84px;width:auto;height:auto;display:block;background:#fff;padding:4px;border-radius:6px}
 .opt.sel{border-color:var(--blue);background:var(--blue-soft)} .opt.sel .l{background:var(--blue);border-color:var(--blue);color:var(--sheet)}
 .opt.right{border-color:var(--ok);background:var(--ok-soft)} .opt.right .l{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
 .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .opt.wrong .l{background:var(--bad);border-color:var(--bad);color:var(--sheet)}
@@ -638,12 +640,18 @@ function qBlock(q,mode,sel){
   const reveal=mode!=='mock'&&sel!=null, src=q.src, pyq=q.kind!=='practice';
   const meta=`<div class="qmeta"><span class="tag ${pyq?'pyq':''}">${pyq?'PYQ':L('प्रैक्टिस','Practice')}</span><span>${N(q.topic)}</span>${pyq&&src?`<span>${N(byId(DATA.exams,src.exam)||{})} ${fmtDate(src.paper_date)}, ${L('शिफ़्ट','shift')} ${src.shift}, Q${q.qno}</span>`:''}</div>`;
   const pic=S.lang==='en'?(q.stem.img||q.stem.img_hi):(q.stem.img_hi||q.stem.img);   /* figure questions: picture of the official question block */
-  const imgs=[].concat(pic||[]).map(u=>`<img class="qimg" src="${u}" loading="lazy" alt="${L('सवाल का चित्र','Question figure')}">`).join('');
-  const showText=!(q.stem.fig&&pic);
+  /* never the same question twice: a picture that only copies the question (stem.dup) is shown only when the reader's language has no text */
+  const own=S.lang==='en'?(q.stem.en||''):(q.stem.hi||q.stem.en||'');
+  let showText=!(q.stem.fig&&pic), showPic=!!pic;
+  if(pic&&q.stem.dup&&!q.stem.fig){ if(!own) showText=false; else if(S.lang!=='en'||q.stem.dup==='all') showPic=false; }
+  else if(pic&&q.stem.qpic&&!own) showText=false;   /* table picture that already holds the whole question */
+  const imgs=showPic?[].concat(pic).map(u=>`<img class="qimg" src="${u}" loading="lazy" alt="${L('सवाल का चित्र','Question figure')}">`).join(''):'';
   const lab=k=>q.stem.fig?String(k+1):'ABCD'[k];   /* figure pictures number their options 1-4 */
   const opts=q.opts.map((o,k)=>{let c=''; if(reveal){ if(k===q.a)c='right'; else if(k===sel)c='wrong'; } else if(sel===k) c='sel';
-    const t=(q.stem.fig&&(o.en||'')===String(k+1))?L('चित्र में विकल्प '+(k+1),'Option '+(k+1)+' in the figure'):TX(o);
-    return `<button class="opt ${c}" data-a="pick" data-i="${k}" ${reveal?'disabled':''} aria-pressed="${sel===k}"><span class="l">${lab(k)}</span><span class="ot">${t}${o.img?`<img src="${o.img}" alt="">`:''}</span></button>`;}).join('');
+    /* one form per option, never two: text in the reader's language if it exists, otherwise the official picture */
+    const own=S.lang==='en'?(o.en||''):(o.hi||o.en||''), usePic=!!o.img&&!own;
+    const t=(q.stem.fig&&(o.en||'')===String(k+1))?L('चित्र में विकल्प '+(k+1),'Option '+(k+1)+' in the figure'):(usePic?'':TX(o).replace(/\b(\d{1,4})\/(\d{1,4})(?=\s*%)/g,'<span class="frac"><i>$1</i><i>$2</i></span>'));
+    return `<button class="opt ${c}" data-a="pick" data-i="${k}" ${reveal?'disabled':''} aria-pressed="${sel===k}"><span class="l">${lab(k)}</span><span class="ot">${t}${usePic?`<img src="${o.img}" alt="${L('विकल्प '+lab(k),'Option '+lab(k))}">`:''}</span></button>`;}).join('');
   let after='';
   if(reveal){
     if(sel===-1) after=`<div class="verdict skip">${L(`छोड़ा। सही उत्तर ${lab(q.a)} है।`,`Skipped. The answer is ${lab(q.a)}.`)}</div>`;
