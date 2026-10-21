@@ -15,7 +15,7 @@ const SHOT = n => path.join(__dirname, 'shots', n);
     await p.screenshot({ path: SHOT(`home_onboard_${w}_${scheme}.png`), fullPage: true });
     await p.click('[data-a=branch][data-id=mechanical]');
     const home = await p.textContent('#app');
-    o[k + 'ctx'] = /आरआरबी जेई · मैकेनिकल/.test(home) && !/एसएससी/.test(home);
+    o[k + 'ctx'] = /आरआरबी जेई[^<]*मैकेनिकल/.test(home) && !/एसएससी/.test(home);
     o[k + 'onePrimary'] = (await p.$$('.pcard')).length === 1;
     await p.screenshot({ path: SHOT(`home_${w}_${scheme}.png`), fullPage: true });
     o[k + 'homeOverflow'] = await p.evaluate(() => document.documentElement.scrollWidth > innerWidth);

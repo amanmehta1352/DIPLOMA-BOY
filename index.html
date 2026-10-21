@@ -264,8 +264,9 @@ let V={sheet:null,view:null,modal:null};   // screen state, not saved
 
 /* ============ HELPERS ============ */
 const $=s=>document.querySelector(s);
-const L=(hi,en)=>S.lang==='en'?en:hi;
-const N=o=>o?(S.lang==='en'?(o.en||o.hi):(o.hi||o.en)):'';
+const BI=(hi,en)=>(hi&&en&&hi!==en)?hi+' / '+en:(hi||en||'');
+const L=(hi,en)=>S.lang==='en'?(en||hi):S.lang==='both'?BI(hi,en):(hi||en);
+const N=o=>{ if(!o) return ''; if(S.lang==='en') return o.en||o.hi||''; if(S.lang==='hi') return o.hi||o.en||''; return BI(o.hi,o.en); };
 const byId=(a,id)=>a.find(x=>x.id===id);
 const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const today=()=>ymd(new Date());
