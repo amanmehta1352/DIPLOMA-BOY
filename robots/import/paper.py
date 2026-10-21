@@ -109,6 +109,23 @@ def hindi_of(sheet, i, ocr):
     return {'text': scrub(text), 'opts': [scrub(x) for x in opts]}
 
 
+GREEK = re.compile('[α-ωΑ-Ωµ]')
+FORMULA = re.compile(r'[A-Za-z0-9]+(?:\s*/\s*[A-Za-z0-9]+)+')
+def ocr_clean(hi, en, layer):
+    """Official Hindi from OCR is used only if it carries no stray English words (OCR noise like 'Ferd'),
+    keeps every Greek letter and formula of the English, and does not end in stray marks."""
+    en_words = {w.lower() for w in re.findall(r'[A-Za-z]{2,}', (en or '') + ' ' + re.sub(r'\(cid:\d+\)', ' ', layer or ''))}
+    for w in re.findall(r'[A-Za-z]{2,}', hi or ''):
+        if w.lower() not in en_words: return False
+    for g in GREEK.findall(en or ''):
+        if g not in (hi or ''): return False
+    flat = re.sub(r'\s+', '', hi or '')
+    for f in FORMULA.findall(en or ''):
+        if re.sub(r'\s+', '', f) not in flat: return False
+    if re.search(r'[|]|\s[IlL]\s*$', hi or ''): return False
+    return True
+
+
 # ------------------------------------------------------------------ similarity in English space
 NUMTOK = re.compile(r'\d+(?:\.\d+)?|\b[A-Z]{2,}\b')
 def langfree(t):
@@ -336,11 +353,15 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
                     rec['checks']['twin'] = f'not used (score {m[1]:.2f}, answer {verdict})'
                     stats['pair_rejected_' + verdict] += 1
         # --- Hindi sanity: numbers / codes of the English must survive
+        if rec['hi'] and rec['en'] and not fig and not rec.get('hi_mt') and not ocr_clean(rec['hi'], rec['en'], (qb or qa)['text']):
+            rec['checks']['hindi'] = 'OCR noise'; stats['hindi_rejected_noise'] += 1; rec['hi'] = None; rec['hi_opts'] = [None] * 4
         if rec['hi'] and rec['en'] and not fig and not H.stem_valid(rec['hi'], rec['en']):
             rec['checks']['hindi'] = 'numbers/codes differ from English'; stats['hindi_rejected'] += 1; rec['hi'] = None; rec['hi_opts'] = [None] * 4
         # --- no official Hindi found: IndicTrans2 Hindi (codes/numbers protected), clearly marked as machine translation
         if not rec['hi'] and rec['en'] and a_hs[i] and DEVA.search(a_hs[i] or ''):
             rec['hi'] = a_hs[i]; rec['hi_mt'] = True; stats['hindi_machine'] += 1
+        if rec['hi'] and not rec.get('hi_mt'):      # each official option must also be free of OCR noise
+            rec['hi_opts'] = [o if (o and ocr_clean(o, rec['en_opts'][k] or '', '')) else None for k, o in enumerate(rec['hi_opts'])]
         if rec['hi'] and rec['en']:
             rec['hi_opts'] = [rec['hi_opts'][k] or (a_ho[i][k] if a_ho[i] and a_ho[i][k] and (DEVA.search(a_ho[i][k]) or a_ho[i][k] == rec['en_opts'][k]) else rec['en_opts'][k]) for k in range(4)]
         # --- pictures for figure questions

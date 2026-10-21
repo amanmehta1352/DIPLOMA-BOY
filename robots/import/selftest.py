@@ -29,4 +29,8 @@ pr = H.pair(hi, en)
 assert pr == {0: (0, [3, 2, 1, 0])}, pr
 hi_bad = [{'text': 'यदि + का अर्थ - है तो 153×9-5+32÷90= ?', 'opts': ['160', '150', '155', '143'], 'ans': 0}]   # answer disagrees
 assert H.pair(hi_bad, en) == {}
+import paper as P
+assert not P.ocr_clean('शंकु Ferd के स्थिर (a) घटता', 'cone clutch semi-cone angle (α) decreases', '')
+assert P.ocr_clean('ऊर्जा POLISH को 89', 'In a code POLISH is 89', '')
+assert not P.ocr_clean('QT का चक्रीय', 'The cyclic integral of Q/T', '')
 print('selftest ok')
