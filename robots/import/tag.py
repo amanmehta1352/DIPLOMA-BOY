@@ -11,7 +11,7 @@ def text_of(stem, opts):
     return ' '.join([(stem or {}).get('en', '') or ''] + [(o or {}).get('en', '') or '' for o in (opts or [])])
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--apply', action='store_true'); ap.add_argument('--min-acc', type=float, default=0.80); ap.add_argument('--min-prob', type=float, default=0.55)
+    ap = argparse.ArgumentParser(); ap.add_argument('--apply', action='store_true'); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--min-acc', type=float, default=0.80); ap.add_argument('--min-prob', type=float, default=0.55)
     a = ap.parse_args()
     from sklearn.feature_extraction.text import TfidfVectorizer
     from sklearn.linear_model import LogisticRegression
