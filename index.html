@@ -119,6 +119,8 @@ h2{font-size:18px;margin:24px 0 10px;font-weight:700}
 .sheet-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .sheet-body .wrap{padding-top:14px;padding-bottom:110px}
 .qmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--ink2)}
+.pat{margin-left:auto;display:inline-flex;align-items:center;gap:6px;min-height:44px;min-width:48px;padding:0 12px;border:1.5px solid var(--blue);border-radius:22px;background:var(--blue-soft);color:var(--blue);font-weight:800;font-size:14px;cursor:pointer}
+.pat svg{width:18px;height:18px}
 .qtext{font-size:18px;line-height:1.55;margin:12px 0 4px;font-weight:500}
 .qtext .en{display:block;font-size:15px;color:var(--ink2);font-weight:400;margin-top:6px}
 .qimg{max-width:100%;display:block;margin:10px 0;background:#fff;border-radius:8px;border:1px solid var(--rule)}
@@ -311,8 +313,8 @@ async function loadRemote(){
     R.ok=true;
   }catch(e){ R.ok=false; }
 }
-const QSEL='id,kind,topic_id,chapter_id,source_id,source_qno,stem,options,answer,solution';
-function norm(r){ const ch=R.topics[r.chapter_id]||R.topics[r.topic_id]||{}; return {id:r.id,kind:r.kind,topic:ch,subj:ch.subject,src:R.sources[r.source_id],qno:r.source_qno,stem:r.stem||{},opts:r.options||[],a:r.answer,sol:r.solution}; }
+const QSEL='id,kind,topic_id,chapter_id,source_id,source_qno,stem,options,answer,solution,pattern_id,pattern_n';
+function norm(r){ const ch=R.topics[r.chapter_id]||R.topics[r.topic_id]||{}; return {id:r.id,kind:r.kind,topic:ch,subj:ch.subject,src:R.sources[r.source_id],qno:r.source_qno,stem:r.stem||{},opts:r.options||[],a:r.answer,sol:r.solution,pat:r.pattern_id,patn:r.pattern_n}; }
 function examSources(exam,branch){ return Object.values(R.sources).filter(s=>s.exam===exam&&(!s.branch||!branch||s.branch===branch)).sort((x,y)=>(y.paper_date||'').localeCompare(x.paper_date||'')||x.shift-y.shift); }
 async function paged(scope,base){
   const off=S.seen[scope]||0; let rows=await sb(base+'&order=id&limit=20&offset='+off);
@@ -322,7 +324,7 @@ async function paged(scope,base){
 // विषय / Practice view: by chapter (or whole subject), any exam
 function fetchChapter(subj,chapterId,kind){
   const chs=chapterId?[chapterId]:chaptersOf(subj).map(t=>t.id); if(!chs.length) return Promise.resolve([]);
-  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&chapter_id=in.(${chs.join(',')})${kind?'&kind=eq.'+kind:''}`);
+  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&chapter_id=in.(${chs.join(',')})&pattern_rep=eq.true${kind?'&kind=eq.'+kind:''}`);   /* one question per same-type pattern; its chip opens the whole pattern */
 }
 // PYQ view: one exam, by subject (exam's own papers only)
 function fetchExamSubject(exam,subj){
@@ -331,6 +333,7 @@ function fetchExamSubject(exam,subj){
   if(!sids.length||!tids.length) return Promise.resolve([]);
   return paged(`ex|${exam}|${subj}`,`questions?select=${QSEL}&source_id=in.(${sids.join(',')})&topic_id=in.(${tids.join(',')})`);
 }
+async function fetchPattern(pid){ return (await sb(`questions?select=${QSEL}&pattern_id=eq.${pid}&order=id`)).map(norm); }   /* every exam, every year */
 async function fetchPaper(srcId){ return (await sb(`questions?select=${QSEL}&source_id=eq.${srcId}&order=source_qno`)).map(norm); }
 async function fetchIds(ids){ const out=[]; for(let i=0;i<ids.length;i+=40) out.push(...await sb(`questions?select=${QSEL}&id=in.(${ids.slice(i,i+40).join(',')})`)); return out.map(norm); }
 
@@ -638,7 +641,7 @@ function vMe(){
 /* ============ QUESTION SHEET: practice · revise · mock · review ============ */
 function qBlock(q,mode,sel){
   const reveal=mode!=='mock'&&sel!=null, src=q.src, pyq=q.kind!=='practice';
-  const meta=`<div class="qmeta"><span class="tag ${pyq?'pyq':''}">${pyq?'PYQ':L('प्रैक्टिस','Practice')}</span><span>${N(q.topic)}</span>${pyq&&src?`<span>${N(byId(DATA.exams,src.exam)||{})} ${fmtDate(src.paper_date)}, ${L('शिफ़्ट','shift')} ${src.shift}, Q${q.qno}</span>`:''}</div>`;
+  const meta=`<div class="qmeta"><span class="tag ${pyq?'pyq':''}">${pyq?'PYQ':L('प्रैक्टिस','Practice')}</span><span>${N(q.topic)}</span>${pyq&&src?`<span>${N(byId(DATA.exams,src.exam)||{})} ${fmtDate(src.paper_date)}, ${L('शिफ़्ट','shift')} ${src.shift}, Q${q.qno}</span>`:''}${q.patn>1&&mode==='practice'&&!(V.sheet&&V.sheet.meta&&V.sheet.meta.pat)?`<button class="pat" data-a="pattern" data-id="${q.pat}" data-n="${q.patn}" aria-label="${L(`ऐसे ${q.patn} सवाल, सब परीक्षाओं के`,`${q.patn} same-type questions from all exams`)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>${q.patn}</button>`:''}</div>`;
   const pic=S.lang==='en'?(q.stem.img||q.stem.img_hi):(q.stem.img_hi||q.stem.img);   /* figure questions: picture of the official question block */
   /* never the same question twice: a picture that only copies the question (stem.dup) is shown only when the reader's language has no text */
   const own=S.lang==='en'?(q.stem.en||''):(q.stem.hi||q.stem.en||'');
@@ -768,6 +771,7 @@ function startChapter(subj,ch,kind){
   const title=(t?N(t):N(s))+(kind==='pyq'?' · PYQ':kind==='practice'?' · '+L('प्रैक्टिस','Practice'):'');
   openSet(title,()=>fetchChapter(subj,ch?+ch:null,kind),()=>startChapter(subj,ch,kind),{subj,ch,kind});
 }
+function startPattern(pid,n){ openSet(L(`एक जैसे सवाल · ${n}`,`Same-type questions · ${n}`),()=>fetchPattern(pid),null,{pat:pid}); }
 function startExamSubject(subj){ const e=curExam(); if(!e) return; const s=byId(DATA.subjects,subj)||{};
   openSet(`${N(e)} · ${N(s)}`,()=>fetchExamSubject(e.id,subj),()=>startExamSubject(subj)); }
 function startPaperPractice(srcId){ const s=R.sources[srcId], e=curExam();
@@ -866,6 +870,7 @@ document.addEventListener('click',ev=>{
     case 'reset-ask': V.modal=vConfirm(L('इस फ़ोन की सारी प्रगति, गलती बुक और मॉक मिट जाएँगे। यह वापस नहीं आएगा।','All progress, mistakes and mocks on this phone will be erased. This cannot be undone.'),L('मिटाएँ','Erase'),'reset',true); rSheet(); break;
     case 'reset': S.st={};S.tp={};S.days={};S.mis={};S.mocks=[];S.seen={}; V.modal=null; save(); render(); toast(L('प्रगति मिटा दी','Progress erased')); break;
     case 'modal-close': V.modal=null; rSheet(); break;
+    case 'pattern': clearInterval(TICK); startPattern(+el.dataset.id,+el.dataset.n); break;
     case 'close': clearInterval(TICK); V.sheet=null; V.modal=null; render(); break;
     case 'pick':
       if(z.mode==='mock'){ z.ans[z.i]=+el.dataset.i; saveMock(); rSheet(); break; }
