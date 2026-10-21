@@ -6,7 +6,7 @@ const path=require('path'); const URL='file://'+path.resolve(__dirname,'../index
  const p=await b.newPage({viewport:{width:w,height:800},isMobile:true,colorScheme:scheme}); p.on('pageerror',e=>errs.push(e.message));
  await p.goto(URL); await p.waitForTimeout(2500); await p.click('[data-a=onb-go]'); await p.click('[data-a=branch][data-id=mechanical]');
  const r=await p.evaluate(async()=>{
-   const rows=await sb('questions?select=id,pattern_id,pattern_n,pattern_rep,chapter_id&pattern_id=not.is.null&kind=eq.pyq&order=id&limit=2000');
+   const rows=await sb('questions?select=id,pattern_id,pattern_n,pattern_rep,chapter_id&pattern_id=not.is.null&order=id&limit=2000');
    const reps=rows.filter(x=>x.pattern_rep), by={}; rows.forEach(x=>(by[x.pattern_id]=by[x.pattern_id]||[]).push(x));
    const sizeOk=Object.values(by).every(g=>g.length===g[0].pattern_n && g.filter(x=>x.pattern_rep).length===1 && g.every(x=>x.chapter_id===g[0].chapter_id));
    const lead=reps.find(x=>x.pattern_n>=5); const q=(await fetchIds([lead.id]))[0];

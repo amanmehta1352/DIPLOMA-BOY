@@ -15,7 +15,7 @@ TH = 0.70
 def fetch():
     H = {'apikey': PUB, 'Accept-Profile': 'mtb'}; rows = []; o = 0
     while True:
-        r = requests.get(URL + 'questions', headers=H, timeout=60, params={'select': 'id,chapter_id,topic_id,stem->en,stem->hi', 'kind': 'eq.pyq', 'order': 'id', 'limit': 1000, 'offset': o})
+        r = requests.get(URL + 'questions', headers=H, timeout=60, params={'select': 'id,kind,chapter_id,topic_id,stem->en,stem->hi,status', 'order': 'id', 'limit': 1000, 'offset': o})
         r.raise_for_status(); b = r.json(); rows += b; o += 1000
         if len(b) < 1000: return rows
 
