@@ -779,7 +779,9 @@ function startChapter(subj,ch,kind){
   const title=(t?N(t):N(s))+(kind==='pyq'?' · PYQ':kind==='practice'?' · '+L('प्रैक्टिस','Practice'):'');
   openSet(title,()=>fetchChapter(subj,ch?+ch:null,kind),()=>startChapter(subj,ch,kind),{subj,ch,kind});
 }
-function startPattern(pid,n){ openSet(L(`एक जैसे सवाल · ${n}`,`Same-type questions · ${n}`),()=>fetchPattern(pid),null,{pat:pid}); }
+function startPattern(pid,n){ const z=V.sheet, ok=z&&z.mode==='practice'&&z.list&&z.list.length&&!(z.meta&&z.meta.pat);
+  const back=ok?{title:z.title,list:z.list,i:z.i,pick:z.pick,c:z.c,seen:z.seen,meta:z.meta,again:z.again}:null;
+  openSet(L(`एक जैसे सवाल · ${n}`,`Same-type questions · ${n}`),()=>fetchPattern(pid),null,{pat:pid,back}); }   /* back = the question the student left, restored on close */
 function startExamSubject(subj){ const e=curExam(); if(!e) return; const s=byId(DATA.subjects,subj)||{};
   openSet(`${N(e)} · ${N(s)}`,()=>fetchExamSubject(e.id,subj),()=>startExamSubject(subj)); }
 function startPaperPractice(srcId){ const s=R.sources[srcId], e=curExam();
@@ -879,7 +881,9 @@ document.addEventListener('click',ev=>{
     case 'reset': S.st={};S.tp={};S.days={};S.mis={};S.mocks=[];S.seen={}; V.modal=null; save(); render(); toast(L('प्रगति मिटा दी','Progress erased')); break;
     case 'modal-close': V.modal=null; rSheet(); break;
     case 'pattern': clearInterval(TICK); startPattern(+el.dataset.id,+el.dataset.n); break;
-    case 'close': clearInterval(TICK); V.sheet=null; V.modal=null; render(); break;
+    case 'close': clearInterval(TICK); { const bk=V.sheet&&V.sheet.meta&&V.sheet.meta.back;
+      if(bk){ V.sheet={mode:'practice',title:bk.title,list:bk.list,i:bk.i,pick:bk.pick,c:bk.c,seen:bk.seen,loading:false,meta:bk.meta,again:bk.again}; rSheet(true); break; }
+      V.sheet=null; V.modal=null; render(); } break;
     case 'pick':
       if(z.mode==='mock'){ z.ans[z.i]=+el.dataset.i; saveMock(); rSheet(); break; }
       if(z.mode==='review'||z.pick!=null) break;
