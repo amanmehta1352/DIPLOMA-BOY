@@ -111,7 +111,13 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
     en_pdf = os.path.join(work, f"j{job['id']}_en.pdf")
     sha = download(job['url'], en_pdf)
     en = S.read_sheet(en_pdf)
-    meta = S.meta_of(en['header']); rep['header'] = en['header']; rep['meta'] = meta
+    meta = S.meta_of(en['header']); rep['header'] = en['header']
+    # the sheet's own header is read first; the job's date/shift/branch label fills any field the header did not give
+    if not meta.get('date') and job.get('paper_date'): meta['date'] = str(job['paper_date'])
+    if not meta.get('shift') and job.get('shift'): meta['shift'] = int(job['shift'])
+    if not meta.get('branch') and job.get('branch_hint'): meta['branch'] = job['branch_hint']
+    if not meta.get('year') and meta.get('date'): meta['year'] = int(meta['date'][:4])
+    rep['meta'] = meta
     check_spaces(en)
     try: aliases = [x['alias'] for x in fetch_all('subject_aliases', {'select': 'alias'})]
     except Exception: aliases = []
