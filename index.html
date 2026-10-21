@@ -332,7 +332,7 @@ async function paged(scope,base){
 // विषय / Practice view: by chapter (or whole subject), any exam
 function fetchChapter(subj,chapterId,kind){
   const chs=chapterId?[chapterId]:chaptersOf(subj).map(t=>t.id); if(!chs.length) return Promise.resolve([]);
-  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&chapter_id=in.(${chs.join(',')})&pattern_rep=eq.true${kind?'&kind=eq.'+kind:''}`);   /* one question per same-type pattern; its chip opens the whole pattern */
+  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&chapter_id=in.(${chs.join(',')})${kind?'&kind=eq.'+kind:''}`);   /* one question per same-type pattern; its chip opens the whole pattern */
 }
 // PYQ view: one exam, by subject (exam's own papers only)
 function fetchExamSubject(exam,subj){

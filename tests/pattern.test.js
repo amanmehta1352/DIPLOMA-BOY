@@ -15,7 +15,7 @@ const path=require('path'); const URL='file://'+path.resolve(__dirname,'../index
    chip.click(); await new Promise(r=>setTimeout(r,2500));
    const n=V.sheet.list.length, inner=document.querySelectorAll('.pat').length, exams=new Set(V.sheet.list.map(x=>x.src&&x.src.exam)).size;
    const ch=await fetchChapter(lead.chapter_id&&byId(DATA.subjects,R.topics[lead.chapter_id].subject)?R.topics[lead.chapter_id].subject:null,lead.chapter_id,'pyq');
-   return {patterns:reps.length,sizeOk,hasChip,tapH:h,opened:n,expect:lead.pattern_n,chipInsidePattern:inner,examsInPattern:exams,chapterRowsAreReps:ch.every(x=>!x.pat||x.id===x.pat)};});
+   return {patterns:reps.length,sizeOk,hasChip,tapH:h,opened:n,expect:lead.pattern_n,chipInsidePattern:inner,examsInPattern:exams,chapterShowsMembers:ch.some(x=>x.pat && x.id!==x.pat)};});
  out.push({w,scheme,...r}); await p.close(); }
  console.log(JSON.stringify(out)); console.log('errors',errs); await b.close();
- const bad=out.some(o=>!o.sizeOk||!o.hasChip||o.tapH<44||o.opened!==o.expect||o.chipInsidePattern!==0||!o.chapterRowsAreReps); process.exit(errs.length||bad?1:0);})();
+ const bad=out.some(o=>!o.sizeOk||!o.hasChip||o.tapH<44||o.opened!==o.expect||o.chipInsidePattern!==0||!o.chapterShowsMembers); process.exit(errs.length||bad?1:0);})();
