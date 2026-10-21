@@ -47,6 +47,11 @@ jobs:
             tag)     cd robots/import && if [ "${{ inputs.dry_run }}" = "true" ]; then python tag.py --dry-run; else python tag.py --apply; fi ;;
             publish) python robots/import/publish.py $A ;;
           esac
+      - name: Patterns (same-type questions, all subjects)
+        if: ${{ inputs.mode == 'publish' && inputs.dry_run == false || inputs.mode == 'paper' && inputs.dry_run == false }}
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python robots/import/group.py
       - name: Reports
         if: always()
         uses: actions/upload-artifact@v4

@@ -15,7 +15,7 @@ TH = 0.70
 def fetch():
     H = {'apikey': PUB, 'Accept-Profile': 'mtb'}; rows = []; o = 0
     while True:
-        r = requests.get(URL + 'questions', headers=H, timeout=60, params={'select': 'id,kind,chapter_id,topic_id,stem->en,stem->hi,status', 'order': 'id', 'limit': 1000, 'offset': o})
+        r = requests.get(URL + 'questions', headers=H, timeout=60, params={'select': 'id,kind,chapter_id,topic_id,stem->en,stem->hi', 'order': 'id', 'limit': 1000, 'offset': o})
         r.raise_for_status(); b = r.json(); rows += b; o += 1000
         if len(b) < 1000: return rows
 
@@ -58,7 +58,9 @@ def main():
         open(a.sql, 'w').write("update mtb.questions set pattern_id=null, pattern_n=null, pattern_rep=true where pattern_id is not null;\n"
             "update mtb.questions q set pattern_id=v.pid, pattern_n=v.n, pattern_rep=(q.id=v.pid) from (values " + ','.join(f'({i},{p},{n})' for i, p, n in vals) + ") v(id,pid,n) where q.id=v.id;\n")
     if a.dry_run or a.sql: return
-    key = os.environ['SUPABASE_SECRET_KEY']; H = {'apikey': key, 'Authorization': 'Bearer ' + key, 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
+    key = os.environ.get('SUPABASE_SECRET_KEY')
+    if not key: sys.exit('no SUPABASE_SECRET_KEY: pattern step skipped (dry run ok)')
+    H = {'apikey': key, 'Authorization': 'Bearer ' + key, 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
     requests.patch(URL + 'questions?pattern_id=not.is.null', headers=H, json={'pattern_id': None, 'pattern_n': None, 'pattern_rep': True}, timeout=60).raise_for_status()
     for g in pats:
         requests.patch(URL + 'questions?id=in.(' + ','.join(map(str, g)) + ')', headers=H, json={'pattern_id': g[0], 'pattern_n': len(g)}, timeout=60).raise_for_status()
