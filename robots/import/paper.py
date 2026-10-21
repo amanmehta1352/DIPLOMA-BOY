@@ -182,7 +182,17 @@ def match_sheets(A, B, spaces, log=print):
     return out
 
 
-def map_options(a_en, b_en, a_lay, b_lay, a_hi=None, b_hi=None):
+def map_options2(a_en, b_en, a_lay, b_lay, a_hi=None, b_hi=None):
+    mp, conf, M = map_options(a_en, b_en, a_lay, b_lay, a_hi, b_hi, full=True)
+    cells = []
+    for x in range(4):
+        y = mp[x]
+        rbest = max([M[x, k] for k in range(4) if k != y] or [0]); cbest = max([M[k, y] for k in range(4) if k != x] or [0])
+        cells.append(M[x, y] > 0.1 and M[x, y] >= rbest + 0.08 and M[x, y] >= cbest + 0.08)
+    return mp, conf, cells, M
+
+
+def map_options(a_en, b_en, a_lay, b_lay, a_hi=None, b_hi=None, full=False):
     """Which option of B is option k of A? Hungarian on exact language-free tokens + English-space words + Hindi-space characters."""
     import numpy as np
     from scipy.optimize import linear_sum_assignment
@@ -204,6 +214,7 @@ def map_options(a_en, b_en, a_lay, b_lay, a_hi=None, b_hi=None):
     r, c = linear_sum_assignment(-M)
     mp = dict(zip(r, c))
     conf = all(M[x, mp[x]] > 0.1 and M[x, mp[x]] >= max(M[x, y] for y in range(4) if y != mp[x]) + 0.08 for x in range(4))
+    if full: return [int(mp[x]) for x in range(4)], conf, M
     return [int(mp[x]) for x in range(4)], conf
 
 
@@ -300,27 +311,38 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
                     rec['twin_fig'] = m[0]
                 stats['fig_pair_ok' if ok else 'fig_pair_weak'] += 1
             else:
-                # map options of B onto A and require the official answers to agree
+                # map options of B onto A; the official answers must agree (answer option of A must be closest to the ticked option of B)
                 a_lay = [qa['opts'].get(str(k + 1)) or '' for k in range(4)]
                 b_lay = [qb['opts'].get(str(k + 1)) or '' for k in range(4)]
                 a_en = rec['en_opts'] if qa['lang'] == 'en' else tr([x or '' for x in rec['hi_opts']])
                 hb = hiB.get(m[0]) if qb['lang'] == 'hi' else None
                 b_en = b_lay if qb['lang'] == 'en' else tr([x or '' for x in (hb or {'opts': [''] * 4})['opts']])
-                omap, conf = map_options(a_en, b_en, a_lay, b_lay, a_ho[i], b_ho[m[0]])
-                agree = qb['answer_pos'] is not None and qa['answer_pos'] is not None and omap[qa['answer_pos']] == qb['answer_pos']
-                if strong and conf and agree:
+                omap, conf, cells, M = map_options2(a_en, b_en, a_lay, b_lay, a_ho[i], b_ho[m[0]])
+                ans = qa['answer_pos']; bans = qb['answer_pos']
+                verdict = 'unclear'
+                if ans is not None and bans is not None:
+                    row = list(M[ans]); best = max(range(4), key=lambda y: row[y]); others = sorted(row, reverse=True)
+                    if others[0] - others[1] >= 0.08: verdict = 'agree' if best == bans else 'disagree'
+                take = (verdict == 'agree' and m[1] >= 0.2) or (verdict == 'unclear' and m[1] >= 0.45 and m[2] >= 0.1)
+                if take:
                     if qb['lang'] == 'hi' and hb and rec['hi'] is None:
-                        rec['hi'] = hb['text']; rec['hi_opts'] = [hb['opts'][omap[k]] for k in range(4)]
-                    if qb['lang'] == 'en' and rec['en'] is None:
+                        rec['hi'] = hb['text']
+                        rec['hi_opts'] = [hb['opts'][omap[k]] if (cells[k] or (verdict == 'agree' and k == ans)) else None for k in range(4)]
+                    if qb['lang'] == 'en' and rec['en'] is None and conf:
                         rec['en'] = qb['text']; rec['en_opts'] = [qb['opts'].get(str(omap[k] + 1)) for k in range(4)]
-                    rec['checks']['twin'] = 'answers agree'
-                    stats['pair_verified'] += 1
+                    rec['checks']['twin'] = 'answers agree' if verdict == 'agree' else 'strong match'
+                    stats['pair_' + verdict] += 1
                 else:
-                    rec['checks']['twin'] = f'not used (score {m[1]:.2f}, options {"ok" if conf else "unsure"}, answer {"same" if agree else "differs"})'
-                    stats['pair_rejected'] += 1
+                    rec['checks']['twin'] = f'not used (score {m[1]:.2f}, answer {verdict})'
+                    stats['pair_rejected_' + verdict] += 1
         # --- Hindi sanity: numbers / codes of the English must survive
         if rec['hi'] and rec['en'] and not fig and not H.stem_valid(rec['hi'], rec['en']):
             rec['checks']['hindi'] = 'numbers/codes differ from English'; stats['hindi_rejected'] += 1; rec['hi'] = None; rec['hi_opts'] = [None] * 4
+        # --- no official Hindi found: IndicTrans2 Hindi (codes/numbers protected), clearly marked as machine translation
+        if not rec['hi'] and rec['en'] and a_hs[i] and DEVA.search(a_hs[i] or ''):
+            rec['hi'] = a_hs[i]; rec['hi_mt'] = True; stats['hindi_machine'] += 1
+        if rec['hi'] and rec['en']:
+            rec['hi_opts'] = [rec['hi_opts'][k] or (a_ho[i][k] if a_ho[i] and a_ho[i][k] and (DEVA.search(a_ho[i][k]) or a_ho[i][k] == rec['en_opts'][k]) else rec['en_opts'][k]) for k in range(4)]
         # --- pictures for figure questions
         if fig and pagesA:
             png = pagesA.block(qa, xa)
@@ -337,6 +359,7 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
     for r in out:
         r['complete_en'] = bool(r['img'] or (r['en'] and all(r['en_opts'])))
         r['complete_hi'] = bool(r['img_hi'] or (r['hi'] and all(r['hi_opts'])) or (r['fig'] and r['img'] and r['hi']))
+        stats['hi_official' if (r['hi'] and not r.get('hi_mt')) else ('hi_machine' if r.get('hi_mt') else 'hi_none')] += 1
         stats['en_ok' if r['complete_en'] else 'en_missing'] += 1
         stats['hi_ok' if r['complete_hi'] else 'hi_missing'] += 1
         stats['fig'] += r['fig']

@@ -67,7 +67,7 @@ def run(job, dry, work, log=print):
         else:
             if not q['en'] or not all(q['en_opts']): st['skip_no_english'] += 1; continue
             key = S.qkey(q['en'], q['en_opts'])
-        stem = {'en': q['en'], 'hi': q['hi'], 'hi_mt': False, 'key': key}
+        stem = {'en': q['en'], 'hi': q['hi'], 'hi_mt': bool(q.get('hi_mt')), 'key': key}
         if q['fig']: stem['fig'] = True
         for k_, lang in (('img', 'en'), ('img_hi', 'hi')):
             if q[k_]:
@@ -81,7 +81,7 @@ def run(job, dry, work, log=print):
         if ex:
             if ex['status'] == 'published':
                 # never touch the English of a published question; take the official Hindi if ours is verified and theirs is machine/missing
-                if q['hi'] and (not ex['stem'].get('hi') or ex['stem'].get('hi_mt')) and not q['checks'].get('hindi') and q['checks'].get('twin') == 'answers agree':
+                if q['hi'] and not q.get('hi_mt') and (not ex['stem'].get('hi') or ex['stem'].get('hi_mt')) and not q['checks'].get('hindi') and q['checks'].get('twin') in ('answers agree', 'strong match'):
                     s2 = dict(ex['stem']); s2['hi'] = q['hi']; s2['hi_mt'] = False
                     o2 = [dict(o) for o in ex['options']]
                     if all(q['hi_opts']):
@@ -89,7 +89,8 @@ def run(job, dry, work, log=print):
                         pos = {S.norm(o.get('en', '')): k for k, o in enumerate(o2)}
                         for k in range(4):
                             kk = pos.get(S.norm(q['en_opts'][k] or ''))
-                            if kk is not None: o2[kk]['hi'] = q['hi_opts'][k]
+                            hv = q['hi_opts'][k] or ''
+                            if kk is not None and (P.DEVA.search(hv) or hv == (q['en_opts'][k] or '')): o2[kk]['hi'] = hv
                     patches.append((ex['id'], {'stem': s2, 'options': o2})); st['hindi_upgraded'] += 1
                 else: st['already_published'] += 1
                 continue
