@@ -71,7 +71,7 @@ def resolve_path(job, meta, header, log):
 
 
 def get_source(exam_id, branch_id, meta, job, en_url, sha, fam, stage, br, dry, log):
-    date = job.get('paper_date') or meta['date']; shift = job.get('shift') or meta['shift']
+    date = meta['date']; shift = meta['shift']      # the PDF's own header is the truth; the job's date/shift is only a label
     params = {'select': 'id,note', 'exam_id': f'eq.{exam_id}', 'paper_date': f'eq.{date}', 'shift': f'eq.{shift}'}
     if branch_id: params['branch_id'] = f'eq.{branch_id}'
     rows = rest('GET', 'sources', params=params)
@@ -101,6 +101,8 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
         except Exception as e:
             rep['hindi_sheet'] = f'Hindi sheet नहीं पढ़ी: {e}'; hi = None
 
+    if (job.get('paper_date') and str(job['paper_date']) != meta['date']) or (job.get('shift') and int(job['shift']) != meta['shift']):
+        rep['label_mismatch'] = f"job: {job.get('paper_date')} शिफ्ट {job.get('shift')}  ·  PDF header: {meta['date']} शिफ्ट {meta['shift']} (PDF वाली मानी गई)"
     exam_id, branch_id, fam, stage, br = resolve_path(job, meta, en['header'], log)
     src_id, existed = get_source(exam_id, branch_id, meta, job, job['url'], sha, fam, stage, br, dry, log)
     rep['source_id'] = src_id; rep['source_existed'] = existed
