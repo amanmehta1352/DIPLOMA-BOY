@@ -152,6 +152,11 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
             want = [i for i, q in enumerate(hi['questions']) if q['lang'] == 'hi' and not S.hold_reason(q)]
             wd = os.path.join(work, f"ocr{job['id']}"); os.makedirs(wd, exist_ok=True)
             ocr = H.ocr_sheet(hi_pdf, hi, want, wd, log=log)
+            for i, o in ocr.items():     # options that are only numbers / letters are taken from the sheet's own text layer (OCR garbles them)
+                tl = hi['questions'][i]['opts']
+                for k in range(4):
+                    t = (tl.get(str(k + 1)) or '').strip()
+                    if t and not H.DEVA.search(t) and '(cid:' not in t: o['opts'][k] = t
             good = {i: o for i, o in ocr.items() if H.ocr_ok(o)}
             hi_stats['ocr'] = len(good); hi_stats['ocr_bad'] = len(ocr) - len(good)
             json.dump({str(i): o for i, o in ocr.items()}, open(os.path.join(work, f"j{job['id']}_ocr.json"), 'w'), ensure_ascii=False, indent=1)
@@ -163,6 +168,7 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
             pr = H.pair(hitems, eitems)
             for hk, (ek, omap) in pr.items():
                 o = good[hitems[hk]['i']]; tgt = eitems[ek]
+                if not H.stem_valid(o['text'], tgt['text']): hi_stats['rejected_ocr'] = hi_stats.get('rejected_ocr', 0) + 1; continue
                 hi_opts = [None] * 4
                 if omap:
                     for hi_i, en_i in enumerate(omap): hi_opts[en_i] = o['opts'][hi_i]
@@ -171,6 +177,7 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
                 if 'row' in tgt: tgt['row']['hi'] = {'text': o['text'], 'opts': hi_opts}
                 else: upgrades.append((tgt['db'], {'text': o['text'], 'opts': hi_opts}))
             hi_stats['unpaired'] = len(good) - len(pr)
+            hi_stats['attached'] = hi_stats['paired'] + hi_stats['stem_only']
             hi_stats['upgrade_existing'] = len(upgrades)
     rep['hindi'] = hi_stats
 

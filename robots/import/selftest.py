@@ -17,6 +17,9 @@ assert 'RankMitra' not in t and 'prepp' not in t and 'R' in t and 'more' in t
 o = H.parse_ocr('Q.5 एक प्रश्न 8 + 2\n1. आ 10\n2. ब 12\n3. स 14\n4. द 16')
 assert o['text'] == 'एक प्रश्न 8 + 2' and o['opts'] == ['आ 10', 'ब 12', 'स 14', 'द 16'], o
 assert H.ocr_ok(o)
+o2 = H.parse_ocr('0.2 एक कूट भाषा 8 + 2\nAns .6\n2. ब 12\n3. स 14\n4. द 16')
+assert o2['text'] == 'एक कूट भाषा 8 + 2' and o2['opts'][0] == '6' and o2['opts'][3] == 'द 16', o2
+assert H.stem_valid('एक कूट LESSON 10', 'In a code LESSON is 10') and not H.stem_valid('एक कूट शछरशा 10', 'In a code LESSON is 10')
 
 # pairing: numbers/maths inside the Hindi question must sit inside the English one, and the right answer must agree
 en = [{'text': 'If + means - then 153 × 9 - 5 + 32 ÷ 90 = ?', 'opts': ['143', '155', '150', '160'], 'ans': 0},

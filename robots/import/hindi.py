@@ -26,7 +26,7 @@ def _render(pdf_path, dpi):
         yield page.rect.width, page.rect.height, page.get_pixmap(dpi=dpi, alpha=False)
 
 
-def ocr_sheet(pdf_path, sheet, want, workdir, dpi=200, log=print):
+def ocr_sheet(pdf_path, sheet, want, workdir, dpi=250, log=print):
     """OCR the questions of `sheet` whose index is in `want`. Returns {index: {'text','opts':[4 strings or '']}}."""
     from PIL import Image, ImageDraw
     k = dpi / 72
@@ -63,20 +63,35 @@ def ocr_sheet(pdf_path, sheet, want, workdir, dpi=200, log=print):
     return out
 
 
+ANS = re.compile(r'^\W{0,3}Ans\b\W{0,3}(.*)$', re.I)
+QPREFIX = re.compile(r'^\(?\s*[QqOo0]\s*[.,]\s*\d{1,3}\s*[.:]?\s*')
+
 def parse_ocr(txt):
+    """OCR text of one question -> stem + 4 options. 'Ans' starts option 1 (the tick icon next to it is painted out, so its number is often lost)."""
     stem, opts, cur = [], {}, None
     for raw in txt.split('\n'):
         s = raw.strip()
         if not s: continue
         if re.search(r'(Question ID|Option \d ID|Status|Chosen Option)\s*:', s): continue
-        s = re.sub(r'^Q\s*\.?\s*\d{1,3}\s*[.:]?\s*', '', s) if not opts and not stem else s
+        if not stem and not opts: s = QPREFIX.sub('', s)
+        m = ANS.match(s)
+        if m and '1' not in opts:
+            m2 = re.match(r'^[1-4]?\s*[.)]?\s*(.*)$', m.group(1)); cur = '1'; opts['1'] = [m2.group(1).strip()]; continue
         m = OPT.match(s)
-        if m and (cur is not None or stem or m.group(1) == '1') and (m.group(1) not in opts):
+        if m and m.group(1) not in opts and ((cur is None and m.group(1) == '1' and stem) or (cur is not None and int(m.group(1)) == int(cur) + 1)):
             cur = m.group(1); opts[cur] = [m.group(2).strip()]; continue
         if cur is None: stem.append(s)
         else: opts[cur].append(s)
     return {'text': re.sub(r'\s+', ' ', ' '.join(stem)).strip(),
             'opts': [re.sub(r'\s+', ' ', ' '.join(opts.get(str(i), []))).strip() for i in range(1, 5)]}
+
+
+def stem_valid(hi_text, en_text):
+    """The OCR'd Hindi stem must still carry every number and CAPITAL code word of the English stem
+    (codes like "LESSON" and numbers are exactly where OCR goes wrong). Otherwise it is rejected."""
+    need = re.findall(r'\d+(?:\.\d+)?|\b[A-Z]{2,}\b', en_text or '')
+    flat = re.sub(r'\s+', '', hi_text or '').upper()
+    return all(re.sub(r'\s+', '', n).upper() in flat for n in need)
 
 
 def ocr_ok(o):
