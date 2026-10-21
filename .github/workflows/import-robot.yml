@@ -1,76 +1,52 @@
 name: Import Robot
-# Phone: Actions -> Import Robot -> Run workflow. Reads queued paper links (import_jobs), puts questions in as DRAFT. Never publishes.
+# Started by Claude (the import admin). mode=paper: complete bilingual paper from an English + Hindi sheet (draft only).
+# mode=tag: chapter tagger for drafts. mode=publish: checked publish. Never publishes anything that failed a check.
 on:
   workflow_dispatch:
     inputs:
       jobs:
-        description: 'Job ids, comma separated (blank = next queued jobs)'
+        description: 'Job ids, comma separated'
         default: ''
-      limit:
-        description: 'How many queued jobs when ids are blank'
-        default: '3'
+      mode:
+        description: 'paper | tag | publish'
+        type: choice
+        options: [paper, tag, publish]
+        default: paper
       dry_run:
         description: 'Dry run (read + report only, nothing written)'
         type: boolean
         default: true
-      hindi:
-        description: 'Also read the Hindi sheet (OCR)'
-        type: boolean
-        default: true
-      offline_en:
-        description: 'TEST without database: English PDF link (leave blank normally)'
-        default: ''
-      offline_hi:
-        description: 'TEST without database: Hindi PDF link'
-        default: ''
-      ocr_en:
-        description: 'Re-read English from the picture (OCR) - fixes lost letters in the text layer'
-        type: boolean
-        default: false
-      tag:
-        description: 'Run the chapter tagger on drafts instead of importing (dry run unless apply)'
-        type: boolean
-        default: false
-      tag_apply:
-        description: 'Tagger: write the chapter moves (otherwise only report)'
-        type: boolean
-        default: false
-      upgrade_hindi:
-        description: 'Replace machine-translated Hindi of questions already in the paper with the official Hindi'
-        type: boolean
-        default: false
 permissions:
   contents: read
 concurrency: import-robot
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - name: Tools (Hindi OCR)
+      - name: Tools
         run: |
           sudo apt-get update -y
           sudo apt-get install -y tesseract-ocr tesseract-ocr-hin tesseract-ocr-eng poppler-utils
-          pip install pdfplumber pymupdf pillow requests
-          tesseract --list-langs
+          pip install -q pdfplumber pymupdf pillow requests scikit-learn scipy
+          if [ "${{ inputs.mode }}" = "paper" ]; then pip install -q torch --index-url https://download.pytorch.org/whl/cpu; pip install -q transformers sentencepiece sacremoses; fi
       - name: Self-test
         run: python robots/import/selftest.py
-      - name: Import
+      - name: Run
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: |
-          ARGS="--work work --limit ${{ inputs.limit }}"
-          if [ -n "${{ inputs.jobs }}" ]; then for j in $(echo "${{ inputs.jobs }}" | tr ',' ' '); do ARGS="$ARGS --job $j"; done; else ARGS="$ARGS --queued"; fi
-          [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
-          [ "${{ inputs.hindi }}" = "false" ] && ARGS="$ARGS --no-hindi"
-          [ "${{ inputs.upgrade_hindi }}" = "true" ] && ARGS="$ARGS --upgrade-hindi"
-          [ "${{ inputs.ocr_en }}" = "true" ] && ARGS="$ARGS --ocr-en"
-          if [ -n "${{ inputs.offline_en }}" ]; then ARGS="--work work --offline --url ${{ inputs.offline_en }}"; [ -n "${{ inputs.offline_hi }}" ] && ARGS="$ARGS --url-hi ${{ inputs.offline_hi }}"; fi
-          if [ "${{ inputs.tag }}" = "true" ]; then pip install scikit-learn requests; T="--apply"; [ "${{ inputs.tag_apply }}" = "true" ] || T="--dry-run"; cd robots/import && python tag.py $T; exit $?; fi
-          python robots/import/robot.py $ARGS
+          A="--work work"
+          for j in $(echo "${{ inputs.jobs }}" | tr ',' ' '); do A="$A --job $j"; done
+          [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
+          case "${{ inputs.mode }}" in
+            paper)   python robots/import/importer.py $A ;;
+            tag)     cd robots/import && if [ "${{ inputs.dry_run }}" = "true" ]; then python tag.py --dry-run; else python tag.py --apply; fi ;;
+            publish) python robots/import/publish.py $A ;;
+          esac
       - name: Reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -78,5 +54,5 @@ jobs:
           name: import-reports
           path: |
             work/report_*.json
-            work/*/*_ocr.json
+            work/publish_*.json
           if-no-files-found: ignore

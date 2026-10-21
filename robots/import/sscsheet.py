@@ -118,21 +118,25 @@ def read_sheet(pdf_path):
     import pdfplumber
     pdf = pdfplumber.open(pdf_path)
     n_pages = len(pdf.pages)
-    # overlay watermarks (channel names stamped on every page at the same place) are not question content: drop those words
+    # overlay watermarks / page furniture: the SAME word at the SAME spot on most pages (channel names, "CLICK TO DOWNLOAD").
+    # Only those exact word boxes are removed - never letters inside other words.
+    words_by_page = [page.extract_words() for page in pdf.pages]
     pos = collections.Counter()
-    for page in pdf.pages:
-        for w in page.extract_words():
-            pos[(w['text'], round(w['x0'] / 4), round(w['top'] / 4))] += 1
-    need = max(4, len(pdf.pages) // 4)
-    wm = {k for k, v in pos.items() if v >= need and not re.fullmatch(r'[\d.()\-:]+', k[0]) and not re.fullmatch(r'(Q\.\d+|Ans|ID|Status|Option|Question|Chosen)', k[0])}
+    for ws in words_by_page:
+        for k in {(w['text'], round(w['x0']), round(w['top'])) for w in ws}: pos[k] += 1
+    need = max(3, int(len(pdf.pages) * 0.6))
+    wm = {k for k, v in pos.items() if v >= need and not re.fullmatch(r'[\d.()\-:]+', k[0])
+          and not re.fullmatch(r'(Q\.\d+|Ans|ID|Status|Option|Question|Chosen|Section|:)', k[0])}
     watermark_words = sorted({k[0] for k in wm})
     lines = []; texts = []
-    for page in pdf.pages:
-        if wm:
-            def keep(o, wm=wm):
-                return not (o.get('object_type') == 'char' and any(abs(o['x0'] / 4 - x) < 8 and abs(o['top'] / 4 - y) < 2 and o['text'] in t for (t, x, y) in wm if len(t) <= 40 and abs(o['x0'] / 4 - x) < 8))
-            try: page_f = page.filter(keep)
-            except Exception: page_f = page
+    for page, ws in zip(pdf.pages, words_by_page):
+        boxes = [(w['x0'] - 0.5, w['top'] - 0.5, w['x1'] + 0.5, w['bottom'] + 0.5) for w in ws if (w['text'], round(w['x0']), round(w['top'])) in wm]
+        if boxes:
+            def keep(o, boxes=boxes):
+                if o.get('object_type') != 'char': return True
+                cx = (o['x0'] + o['x1']) / 2; cy = (o['top'] + o['bottom']) / 2
+                return not any(x0 <= cx <= x1 and t0 <= cy <= t1 for (x0, t0, x1, t1) in boxes)
+            page_f = page.filter(keep)
         else: page_f = page
         t = page_f.extract_text() or ''
         texts.append(t); lines.extend(t.split('\n'))
@@ -160,7 +164,7 @@ def read_sheet(pdf_path):
         one = [k for k, v in mark_hash.items() if v == len(qs)]
         if len(one) == 1 and any(v == 3 * len(qs) for v in mark_hash.values()): tick_hash = one[0]
 
-    marks, figs, starts, rows = [], [], [], []
+    marks, figs, starts, rows, sides = [], [], [], [], []
     for pi, page in enumerate(pdf.pages):
         for im in page.images:
             sz = tuple(im['srcsize'])
@@ -175,6 +179,7 @@ def read_sheet(pdf_path):
         for w in page.extract_words():
             m_ = re.match(r'Q\.(\d+)', w['text'])
             if m_ and w['x0'] < 120: starts.append((pi, w['top'], int(m_.group(1))))
+            if w['x0'] > 200 and re.match(r'^(Question|QuestionID|Option\d?(ID)?|Status|Chosen)', w['text']): sides.append((pi, w['top'], w['x0']))
             if w['x0'] < 330: rows.append((pi, w['top'], w['bottom']))
     marks.sort(); starts.sort(); rows.sort(key=lambda r: (r[0], r[1]))
     if len(starts) != len(qs) or any(q['qno'] != s[2] for q, s in zip(qs, starts)):
@@ -183,6 +188,8 @@ def read_sheet(pdf_path):
         a = starts[i][:2]; end = starts[i + 1][:2] if i + 1 < len(qs) else (n_pages, 0)
         q['start'] = a; q['end'] = end
         q['figs'] = sum(1 for f in figs if a <= f < end)
+        sx = [x for (p_, t_, x) in sides if a <= (p_, t_) < end]
+        q['side_x'] = min(sx) if sx else None
         grp = [m for m in marks if a <= (m[0], m[1]) < end]
         q['marks'] = [(m[0], m[3], m[1], m[4], m[5]) for m in grp]      # for painting out before OCR
         ticks = [k for k, m in enumerate(grp) if m[2] == 'tick']
