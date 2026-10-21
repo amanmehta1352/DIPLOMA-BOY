@@ -32,7 +32,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y tesseract-ocr tesseract-ocr-hin tesseract-ocr-eng poppler-utils
           pip install -q pdfplumber pymupdf pillow requests scikit-learn scipy
-          if [ "${{ inputs.mode }}" = "paper" ]; then pip install -q torch --index-url https://download.pytorch.org/whl/cpu; pip install -q transformers sentencepiece sacremoses; fi
+          if [ "${{ inputs.mode }}" = "paper" ]; then pip install -q torch --index-url https://download.pytorch.org/whl/cpu; pip install -q "transformers==4.46.3" sentencepiece sacremoses einops IndicTransToolkit; fi
       - name: Self-test
         run: python robots/import/selftest.py
       - name: Run

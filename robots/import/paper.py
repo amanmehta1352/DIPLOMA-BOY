@@ -139,11 +139,22 @@ class Translator:
         return [self.cache.get(t, '') if t else '' for t in texts]
 
 
-def match_sheets(A, B, a_txt, b_txt, log=print):
-    """One-to-one matching of questions of sheet A to sheet B, section by section.
-    a_txt/b_txt: per-question text in English space. Returns {a_index: (b_index, score)}."""
-    import numpy as np
+def _sim(a_docs, b_docs, char=(3, 5), word=True):
     from sklearn.feature_extraction.text import TfidfVectorizer
+    docs = a_docs + b_docs
+    vc = TfidfVectorizer(analyzer='char_wb', ngram_range=char, sublinear_tf=True, min_df=1).fit(docs)
+    s = (vc.transform(a_docs) @ vc.transform(b_docs).T).toarray()
+    if word:
+        vw = TfidfVectorizer(ngram_range=(1, 2), sublinear_tf=True, min_df=1, token_pattern=r'(?u)\b\w\w+\b').fit(docs)
+        s = 0.5 * s + 0.5 * (vw.transform(a_docs) @ vw.transform(b_docs).T).toarray()
+    return s
+
+
+def match_sheets(A, B, spaces, log=print):
+    """One-to-one matching of questions of sheet A to sheet B, section by section.
+    spaces: list of (a_texts, b_texts, weight, char_range) - the same questions written in a common language.
+    Returns {a_index: (b_index, score, margin)}."""
+    import numpy as np
     from scipy.optimize import linear_sum_assignment
     out = {}
     secA = collections.defaultdict(list); secB = collections.defaultdict(list)
@@ -152,13 +163,10 @@ def match_sheets(A, B, a_txt, b_txt, log=print):
     for sec, ia in secA.items():
         jb = secB.get(sec)
         if not jb: log(f'section not in other sheet: {sec}'); continue
-        docs = [a_txt[i] for i in ia] + [b_txt[j] for j in jb]
-        vw = TfidfVectorizer(ngram_range=(1, 2), sublinear_tf=True, min_df=1).fit(docs)
-        vc = TfidfVectorizer(analyzer='char_wb', ngram_range=(3, 5), sublinear_tf=True, min_df=1).fit(docs)
-        Xa = [vw.transform([a_txt[i] for i in ia]), vc.transform([a_txt[i] for i in ia])]
-        Xb = [vw.transform([b_txt[j] for j in jb]), vc.transform([b_txt[j] for j in jb])]
-        sim = 0.5 * (Xa[0] @ Xb[0].T).toarray() + 0.5 * (Xa[1] @ Xb[1].T).toarray()
-        # language-free tokens: numbers / codes must agree
+        sim = np.zeros((len(ia), len(jb))); wsum = 0
+        for a_t, b_t, w, cr in spaces:
+            sim += w * _sim([a_t[i] or '' for i in ia], [b_t[j] or '' for j in jb], char=cr); wsum += w
+        sim /= wsum
         la = [langfree(A['questions'][i]['text'] + ' ' + ' '.join(A['questions'][i]['opts'].values())) for i in ia]
         lb = [langfree(B['questions'][j]['text'] + ' ' + ' '.join(B['questions'][j]['opts'].values())) for j in jb]
         for x, ca in enumerate(la):
@@ -168,29 +176,34 @@ def match_sheets(A, B, a_txt, b_txt, log=print):
                     sim[x, y] = 0.6 * sim[x, y] + 0.4 * (inter / uni if uni else 0)
         r, c = linear_sum_assignment(-sim)
         for x, y in zip(r, c):
-            # margin: how much better than this row's second best
             row = np.sort(sim[x])[::-1]; second = row[1] if len(row) > 1 else 0
-            out[ia[x]] = (jb[y], float(sim[x, y]), float(sim[x, y] - second))
+            col = np.sort(sim[:, y])[::-1]; second_c = col[1] if len(col) > 1 else 0
+            out[ia[x]] = (jb[y], float(sim[x, y]), float(sim[x, y] - max(second, second_c)))
     return out
 
 
-def map_options(a_opts_en, b_opts_en, a_lay, b_lay):
-    """Which option of B is option k of A? Hungarian on text similarity + exact language-free tokens."""
+def map_options(a_en, b_en, a_lay, b_lay, a_hi=None, b_hi=None):
+    """Which option of B is option k of A? Hungarian on exact language-free tokens + English-space words + Hindi-space characters."""
     import numpy as np
     from scipy.optimize import linear_sum_assignment
     def tok(t): return set(re.findall(r'[a-z]{3,}|\d+(?:\.\d+)?', (t or '').lower()))
+    def grams(t):
+        t = re.sub(r'\s+', ' ', (t or '').strip()); return {t[i:i + 3] for i in range(max(0, len(t) - 2))}
     M = np.zeros((4, 4))
     for x in range(4):
         for y in range(4):
             la, lb = langfree(a_lay[x]), langfree(b_lay[y])
             exact = 1.0 if (la and la == lb) else 0.0
-            ta, tb = tok(a_opts_en[x]), tok(b_opts_en[y])
+            ta, tb = tok(a_en[x]), tok(b_en[y])
             j = len(ta & tb) / len(ta | tb) if (ta | tb) else 0.0
-            M[x, y] = 2 * exact + j + (0.5 if S.norm(a_lay[x]) and S.norm(a_lay[x]) == S.norm(b_lay[y]) else 0)
+            h = 0.0
+            if a_hi and b_hi:
+                ga, gb = grams(a_hi[x]), grams(b_hi[y])
+                h = len(ga & gb) / len(ga | gb) if (ga | gb) else 0.0
+            M[x, y] = 2 * exact + j + 1.5 * h + (0.5 if S.norm(a_lay[x]) and S.norm(a_lay[x]) == S.norm(b_lay[y]) else 0)
     r, c = linear_sum_assignment(-M)
     mp = dict(zip(r, c))
-    # confident only if every chosen cell clearly beats the alternatives in its row
-    conf = all(M[x, mp[x]] > 0 and M[x, mp[x]] >= max(M[x, y] for y in range(4) if y != mp[x]) + 0.15 for x in range(4))
+    conf = all(M[x, mp[x]] > 0.1 and M[x, mp[x]] >= max(M[x, y] for y in range(4) if y != mp[x]) + 0.08 for x in range(4))
     return [int(mp[x]) for x in range(4)], conf
 
 
@@ -221,10 +234,38 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
         for (i, _), t in zip(need, tt): texts[i] = t
         return [t or '' for t in texts]
     a_txt = en_space(A, hiA)
+    # Hindi-space texts: English questions machine-translated to Hindi (IndicTrans2, codes protected) vs official Hindi OCR
+    def hi_space(sheet, hmap):
+        stems = [None] * len(sheet['questions']); opts = [None] * len(sheet['questions']); todo = []
+        for i, q in enumerate(sheet['questions']):
+            if q['lang'] == 'hi':
+                h = hmap.get(i) or {'text': '', 'opts': [''] * 4}
+                stems[i] = h['text']; opts[i] = list(h['opts'])
+            else: todo.append(i)
+        if todo:
+            try:
+                import mt_enhi
+                lines = []
+                for i in todo:
+                    q = sheet['questions'][i]
+                    lines.append(re.sub(r'\s*\n\s*', ' ', q['text']))
+                    lines += [q['opts'].get(str(k + 1)) or '' for k in range(4)]
+                tt = mt_enhi.translate(lines, batch=16, beams=1)
+                for n, i in enumerate(todo):
+                    stems[i] = tt[5 * n]; opts[i] = tt[5 * n + 1: 5 * n + 5]
+            except Exception as e:
+                log(f'en->hi translation not available: {e}')
+                for i in todo:
+                    q = sheet['questions'][i]; stems[i] = q['text']; opts[i] = [q['opts'].get(str(k + 1)) or '' for k in range(4)]
+        return stems, opts
+    a_hs, a_ho = hi_space(A, hiA)
     pairs = {}
     if B:
         b_txt = en_space(B, hiB)
-        pairs = match_sheets(A, B, a_txt, b_txt, log)
+        b_hs, b_ho = hi_space(B, hiB)
+        a_h = [(a_hs[i] or '') + ' । ' + ' । '.join(x or '' for x in a_ho[i]) for i in range(len(a_hs))]
+        b_h = [(b_hs[j] or '') + ' । ' + ' । '.join(x or '' for x in b_ho[j]) for j in range(len(b_hs))]
+        pairs = match_sheets(A, B, [(a_txt, b_txt, 0.3, (3, 5)), (a_h, b_h, 0.7, (2, 4))], log)
 
     # pictures
     pagesA = pagesB = None
@@ -250,9 +291,9 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
             if h: rec['hi'] = h['text']; rec['hi_opts'] = h['opts']
         # --- twin from B
         if qb is not None:
-            strong = m[1] >= 0.35 and m[2] >= 0.05
+            strong = m[1] >= 0.25 and m[2] >= 0.03
             if fig:
-                ok = m[1] >= 0.45 and m[2] >= 0.08
+                ok = m[1] >= 0.40 and m[2] >= 0.08
                 if ok:
                     if qb['lang'] == 'hi' and rec['hi'] is None: rec['hi'] = (hiB.get(m[0]) or {}).get('text')
                     if qb['lang'] == 'en' and rec['en'] is None: rec['en'] = qb['text']
@@ -265,7 +306,7 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
                 a_en = rec['en_opts'] if qa['lang'] == 'en' else tr([x or '' for x in rec['hi_opts']])
                 hb = hiB.get(m[0]) if qb['lang'] == 'hi' else None
                 b_en = b_lay if qb['lang'] == 'en' else tr([x or '' for x in (hb or {'opts': [''] * 4})['opts']])
-                omap, conf = map_options(a_en, b_en, a_lay, b_lay)
+                omap, conf = map_options(a_en, b_en, a_lay, b_lay, a_ho[i], b_ho[m[0]])
                 agree = qb['answer_pos'] is not None and qa['answer_pos'] is not None and omap[qa['answer_pos']] == qb['answer_pos']
                 if strong and conf and agree:
                     if qb['lang'] == 'hi' and hb and rec['hi'] is None:

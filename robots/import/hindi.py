@@ -37,6 +37,14 @@ def ocr_sheet(pdf_path, sheet, want, workdir, dpi=250, log=print, lang='hin+eng'
     marks_by_page = collections.defaultdict(list)
     for q in sheet['questions']:
         for (pi, x0, top, x1, bottom) in q['marks']: marks_by_page[pi].append((x0, top, x1, bottom))
+    import pdfplumber
+    plum = pdfplumber.open(pdf_path)
+    for pi, page in enumerate(plum.pages):     # the "Q.12" label is not part of the question text
+        for w in page.extract_words():
+            m = re.match(r'Q\.\d+', w['text'])
+            if m and w['x0'] < 120:
+                frac = len(m.group(0)) / max(1, len(w['text']))
+                marks_by_page[pi].append((w['x0'], w['top'], w['x0'] + (w['x1'] - w['x0']) * frac, w['bottom']))
     for pi, (w, h, png) in enumerate(pages):          # paint tick/cross icons white so OCR does not read them
         if marks_by_page.get(pi):
             im = Image.open(png).convert('RGB'); dr = ImageDraw.Draw(im)
@@ -65,7 +73,7 @@ def ocr_sheet(pdf_path, sheet, want, workdir, dpi=250, log=print, lang='hin+eng'
 
 
 ANS = re.compile(r'^\W{0,3}Ans\b\W{0,3}(.*)$', re.I)
-QPREFIX = re.compile(r'^\(?\s*[QqOo0]\s*[.,]\s*\d{1,3}\s*[.:]?\s*')
+QPREFIX = re.compile(r'^\(?\s*[QqO]\s*[.,]\s*\d{1,3}\s*[.:]?\s*')
 
 def parse_ocr(txt):
     """OCR text of one question -> stem + 4 options. 'Ans' starts option 1 (the tick icon next to it is painted out, so its number is often lost)."""
