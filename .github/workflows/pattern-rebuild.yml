@@ -1,0 +1,22 @@
+name: Pattern rebuild (one transaction)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pattern-rebuild
+  cancel-in-progress: false
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Tools
+        run: pip install -q requests scikit-learn
+      - name: Rebuild patterns (single RPC, all or nothing)
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python robots/import/group.py

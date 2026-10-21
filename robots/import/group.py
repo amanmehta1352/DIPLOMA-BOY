@@ -61,10 +61,11 @@ def main():
     key = os.environ.get('SUPABASE_SECRET_KEY')
     if not key: sys.exit('no SUPABASE_SECRET_KEY: pattern step skipped (dry run ok)')
     H = {'apikey': key, 'Authorization': 'Bearer ' + key, 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
-    requests.patch(URL + 'questions?pattern_id=not.is.null', headers=H, json={'pattern_id': None, 'pattern_n': None, 'pattern_rep': True}, timeout=60).raise_for_status()
-    for g in pats:
-        requests.patch(URL + 'questions?id=in.(' + ','.join(map(str, g)) + ')', headers=H, json={'pattern_id': g[0], 'pattern_n': len(g)}, timeout=60).raise_for_status()
-        requests.patch(URL + 'questions?id=in.(' + ','.join(map(str, g[1:])) + ')', headers=H, json={'pattern_rep': False}, timeout=60).raise_for_status()
+    # one RPC = one transaction (mtb.pattern_apply, migration 0013): all or nothing
+    body = [{'id': i, 'pid': p, 'n': n} for i, p, n in vals]
+    r = requests.post(URL + 'rpc/pattern_apply', headers=H, json={'p': body}, timeout=120)
+    if r.status_code >= 300: sys.exit('pattern_apply failed, data unchanged: ' + r.text[:300])
+    print(json.dumps({'written': r.json(), 'patterns': len(pats)}))
 
 
 if __name__ == '__main__': main()
