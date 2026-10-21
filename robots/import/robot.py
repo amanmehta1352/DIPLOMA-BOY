@@ -13,6 +13,7 @@ UA = 'Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chr
 
 # ---------------- REST (schema mtb) ----------------
 OFFLINE = False
+OCR_EN = os.environ.get('OCR_EN') == '1'
 
 def rest(method, path, body=None, prefer=None, params=None):
     if OFFLINE: return [] if method == 'GET' else ([{'id': 0}] if prefer and 'representation' in prefer else None)
@@ -107,10 +108,23 @@ def get_source(exam_id, branch_id, meta, job, en_url, sha, fam, stage, br, dry, 
 # ---------------- main per job ----------------
 def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
     rep = {'job': job['id'], 'dry_run': dry, 'started': time.strftime('%Y-%m-%d %H:%M:%S')}
+    rep_ocr = None
     os.makedirs(work, exist_ok=True)
     en_pdf = os.path.join(work, f"j{job['id']}_en.pdf")
     sha = download(job['url'], en_pdf)
     en = S.read_sheet(en_pdf)
+    if OCR_EN:
+        # the PDF's text layer can lose letters: re-read every question from the picture (English OCR, tick icons painted out)
+        idx = [i for i, q in enumerate(en['questions']) if q['lang'] == 'en']
+        ocr = H.ocr_sheet(en_pdf, en, idx, os.path.join(work, 'ocr_en'), lang='eng')
+        fixed = 0
+        for i, o in ocr.items():
+            if o and o['text'] and all(o['opts']):
+                q = en['questions'][i]
+                q['text_layer'] = q['text']
+                q['text'] = S.fix(o['text']); q['opts'] = {str(k + 1): S.fix(o['opts'][k]) for k in range(4)}; fixed += 1
+        rep_ocr = {'ocr_en_questions': len(idx), 'ocr_en_used': fixed,
+                   'sample': [(en['questions'][i]['qno'], en['questions'][i].get('text_layer', '')[:90], en['questions'][i]['text'][:90]) for i in idx[:4]]}
     meta = S.meta_of(en['header']); rep['header'] = en['header']
     # the sheet's own header is read first; the job's date/shift/branch label fills any field the header did not give
     if not meta.get('date') and job.get('paper_date'): meta['date'] = str(job['paper_date'])
@@ -118,6 +132,7 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
     if not meta.get('branch') and job.get('branch_hint'): meta['branch'] = job['branch_hint']
     if not meta.get('year') and meta.get('date'): meta['year'] = int(meta['date'][:4])
     rep['meta'] = meta
+    if rep_ocr: rep['ocr_en'] = rep_ocr
     check_spaces(en)
     try: aliases = [x['alias'] for x in fetch_all('subject_aliases', {'select': 'alias'})]
     except Exception: aliases = []
@@ -258,10 +273,11 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--job', type=int, action='append'); ap.add_argument('--queued', action='store_true'); ap.add_argument('--limit', type=int, default=3)
-    ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--no-hindi', action='store_true'); ap.add_argument('--upgrade-hindi', action='store_true'); ap.add_argument('--work', default='work')
+    ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--no-hindi', action='store_true'); ap.add_argument('--upgrade-hindi', action='store_true'); ap.add_argument('--ocr-en', action='store_true'); ap.add_argument('--work', default='work')
     ap.add_argument('--offline', action='store_true', help='no database: only read the PDFs and show what would happen'); ap.add_argument('--url'); ap.add_argument('--url-hi')
     a = ap.parse_args()
-    global OFFLINE
+    global OFFLINE, OCR_EN
+    OCR_EN = OCR_EN or a.ocr_en
     if a.offline:
         OFFLINE = True; a.dry_run = True
         jobs = [{'id': 0, 'url': a.url, 'url_hi': a.url_hi, 'status': 'queued', 'exam_hint': 'SSC JE', 'stage_hint': None, 'branch_hint': None, 'paper_date': None, 'shift': None}]
