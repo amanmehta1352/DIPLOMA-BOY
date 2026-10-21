@@ -637,16 +637,20 @@ function vMe(){
 function qBlock(q,mode,sel){
   const reveal=mode!=='mock'&&sel!=null, src=q.src, pyq=q.kind!=='practice';
   const meta=`<div class="qmeta"><span class="tag ${pyq?'pyq':''}">${pyq?'PYQ':L('प्रैक्टिस','Practice')}</span><span>${N(q.topic)}</span>${pyq&&src?`<span>${N(byId(DATA.exams,src.exam)||{})} ${fmtDate(src.paper_date)}, ${L('शिफ़्ट','shift')} ${src.shift}, Q${q.qno}</span>`:''}</div>`;
-  const imgs=(q.stem.img||[]).map(u=>`<img class="qimg" src="${u}" alt="${L('सवाल का चित्र','Question figure')}">`).join('');
+  const pic=S.lang==='en'?(q.stem.img||q.stem.img_hi):(q.stem.img_hi||q.stem.img);   /* figure questions: picture of the official question block */
+  const imgs=[].concat(pic||[]).map(u=>`<img class="qimg" src="${u}" loading="lazy" alt="${L('सवाल का चित्र','Question figure')}">`).join('');
+  const showText=!(q.stem.fig&&pic);
+  const lab=k=>q.stem.fig?String(k+1):'ABCD'[k];   /* figure pictures number their options 1-4 */
   const opts=q.opts.map((o,k)=>{let c=''; if(reveal){ if(k===q.a)c='right'; else if(k===sel)c='wrong'; } else if(sel===k) c='sel';
-    return `<button class="opt ${c}" data-a="pick" data-i="${k}" ${reveal?'disabled':''} aria-pressed="${sel===k}"><span class="l">${'ABCD'[k]}</span><span class="ot">${TX(o)}${o.img?`<img src="${o.img}" alt="">`:''}</span></button>`;}).join('');
+    const t=(q.stem.fig&&(o.en||'')===String(k+1))?L('चित्र में विकल्प '+(k+1),'Option '+(k+1)+' in the figure'):TX(o);
+    return `<button class="opt ${c}" data-a="pick" data-i="${k}" ${reveal?'disabled':''} aria-pressed="${sel===k}"><span class="l">${lab(k)}</span><span class="ot">${t}${o.img?`<img src="${o.img}" alt="">`:''}</span></button>`;}).join('');
   let after='';
   if(reveal){
-    if(sel===-1) after=`<div class="verdict skip">${L(`छोड़ा। सही उत्तर ${'ABCD'[q.a]} है।`,`Skipped. The answer is ${'ABCD'[q.a]}.`)}</div>`;
-    else { const ok=sel===q.a; after=`<div class="verdict ${ok?'ok':'bad'}" role="status">${ok?L('सही जवाब','Correct'):L(`गलत। सही उत्तर ${'ABCD'[q.a]} है।`,`Wrong. The answer is ${'ABCD'[q.a]}.`)}${!ok&&mode!=='review'?`<div class="small" style="font-weight:500">${L('गलती बुक में जोड़ दिया।','Added to the mistake book.')}</div>`:''}</div>`; }
+    if(sel===-1) after=`<div class="verdict skip">${L(`छोड़ा। सही उत्तर ${lab(q.a)} है।`,`Skipped. The answer is ${lab(q.a)}.`)}</div>`;
+    else { const ok=sel===q.a; after=`<div class="verdict ${ok?'ok':'bad'}" role="status">${ok?L('सही जवाब','Correct'):L(`गलत। सही उत्तर ${lab(q.a)} है।`,`Wrong. The answer is ${lab(q.a)}.`)}${!ok&&mode!=='review'?`<div class="small" style="font-weight:500">${L('गलती बुक में जोड़ दिया।','Added to the mistake book.')}</div>`:''}</div>`; }
     if(q.sol&&q.sol.hi) after+=`<div class="sol"><b>${L('हल','Solution')}:</b> ${q.sol.hi}</div>`;
   }
-  return `${meta}<div class="qtext">${TX(q.stem)}</div>${imgs}${q.stem.hi_mt&&S.lang!=='en'?`<div class="mt">हिंदी मशीन अनुवाद है, अंग्रेज़ी मूल प्रश्न है।</div>`:''}<div class="opts">${opts}</div>${after}`;
+  return `${meta}${showText?`<div class="qtext">${TX(q.stem)}</div>`:''}${imgs}${q.stem.hi_mt&&S.lang!=='en'?`<div class="mt">हिंदी मशीन अनुवाद है, अंग्रेज़ी मूल प्रश्न है।</div>`:''}<div class="opts">${opts}</div>${after}`;
 }
 function clock(s){ s=Math.max(0,s|0); const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=s%60; return (h?h+':':'')+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0'); }
 function topBar(title,sub,extra='',closeAct='close'){ return `<div class="sheet-top"><div class="wrap"><button class="icon-btn" data-a="${closeAct}" aria-label="${L('बंद करें','Close')}">${ICON.close}</button><div style="flex:1;min-width:0"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${title}</b>${sub?`<span class="small muted">${sub}</span>`:''}</div>${extra}</div>`; }

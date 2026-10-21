@@ -300,4 +300,14 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
         stats['hi_ok' if r['complete_hi'] else 'hi_missing'] += 1
         stats['fig'] += r['fig']
     rep.update(dict(stats)); rep['translator'] = tr.ok
+    try:   # debug dump for review: every question of B with its OCR, translation and best match
+        dbg = []
+        inv = {v[0]: (k, v[1], v[2]) for k, v in pairs.items()}
+        for j, q in enumerate(B['questions'] if B else []):
+            k = inv.get(j)
+            dbg.append({'j': j, 'sec': (q['section'] or '')[:12], 'lang': q['lang'], 'ocr': (hiB.get(j) or {}).get('text', '')[:300],
+                        'ocr_opts': (hiB.get(j) or {}).get('opts'), 'tr': b_txt[j][:300], 'a': k[0] if k else None,
+                        'a_en': (A['questions'][k[0]]['text'][:200] if k else ''), 'score': k[1] if k else None})
+        json.dump(dbg, open(os.path.join(work, '..', 'debug_pairs.json'), 'w'), ensure_ascii=False, indent=1)
+    except Exception as e: log(f'debug dump failed {e}')
     return {'questions': out, 'report': rep, 'A': A, 'B': B}

@@ -55,4 +55,5 @@ jobs:
           path: |
             work/report_*.json
             work/publish_*.json
+            work/*/debug_pairs.json
           if-no-files-found: ignore
