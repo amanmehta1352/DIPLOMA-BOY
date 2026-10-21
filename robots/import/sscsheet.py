@@ -118,9 +118,23 @@ def read_sheet(pdf_path):
     import pdfplumber
     pdf = pdfplumber.open(pdf_path)
     n_pages = len(pdf.pages)
+    # overlay watermarks (channel names stamped on every page at the same place) are not question content: drop those words
+    pos = collections.Counter()
+    for page in pdf.pages:
+        for w in page.extract_words():
+            pos[(w['text'], round(w['x0'] / 4), round(w['top'] / 4))] += 1
+    need = max(4, len(pdf.pages) // 4)
+    wm = {k for k, v in pos.items() if v >= need and not re.fullmatch(r'[\d.()\-:]+', k[0]) and not re.fullmatch(r'(Q\.\d+|Ans|ID|Status|Option|Question|Chosen)', k[0])}
+    watermark_words = sorted({k[0] for k in wm})
     lines = []; texts = []
     for page in pdf.pages:
-        t = page.extract_text() or ''
+        if wm:
+            def keep(o, wm=wm):
+                return not (o.get('object_type') == 'char' and any(abs(o['x0'] / 4 - x) < 8 and abs(o['top'] / 4 - y) < 2 and o['text'] in t for (t, x, y) in wm if len(t) <= 40 and abs(o['x0'] / 4 - x) < 8))
+            try: page_f = page.filter(keep)
+            except Exception: page_f = page
+        else: page_f = page
+        t = page_f.extract_text() or ''
         texts.append(t); lines.extend(t.split('\n'))
     h = header_of('\n'.join(texts[:2]))
     qs = parse_text_lines(lines)
@@ -175,7 +189,7 @@ def read_sheet(pdf_path):
             if x[0] == y[0]: gap = max(gap, y[1] - x[2])
         q['gap'] = round(gap)
         q['lang'] = 'hi' if len(DEVA.findall(q['text'] + ' '.join(q['opts'].values()))) >= 3 else 'en'
-    return {'header': h, 'questions': qs, 'pages': n_pages}
+    return {'header': h, 'questions': qs, 'pages': n_pages, 'watermark_words': watermark_words}
 
 
 def hold_reason(q):

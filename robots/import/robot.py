@@ -152,6 +152,13 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
             want = [i for i, q in enumerate(hi['questions']) if q['lang'] == 'hi' and not S.hold_reason(q)]
             wd = os.path.join(work, f"ocr{job['id']}"); os.makedirs(wd, exist_ok=True)
             ocr = H.ocr_sheet(hi_pdf, hi, want, wd, log=log)
+            wm = [w for w in hi.get('watermark_words', []) if not w.startswith('http')]
+            def scrub(t):
+                t = S.URL_INLINE.sub('', t)
+                for w in wm: t = re.sub(r'\b' + re.escape(w) + r'\b', '', t, flags=re.I)
+                return re.sub(r'\s+', ' ', t).strip()
+            for o in ocr.values():
+                o['text'] = scrub(o['text']); o['opts'] = [scrub(x) for x in o['opts']]
             for i, o in ocr.items():     # options that are only numbers / letters are taken from the sheet's own text layer (OCR garbles them)
                 tl = hi['questions'][i]['opts']
                 for k in range(4):
