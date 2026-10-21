@@ -14,13 +14,13 @@ FURNITURE_LINE = re.compile(r'^\s*(www\.[a-z0-9.-]+\.[a-z]{2,}|https?://\S+)\s*$
 MARK_SIZES = ((16, 16), (31, 21))
 # coaching / channel watermark text inside the text layer ("RankMitra - https://t.me/..", "www.x.in") is not question content
 URL_INLINE = re.compile(r'(?:\b[A-Za-z0-9_]+\s*[-–:]\s*)?(?:https?://|www\.|t\.me/|telegram\.me/)\S*', re.I)
-SIDE = re.compile(r'(Question ID|Option (\d) ID|Status|Chosen Option)\s*:\s*(\S+)')
+SIDE = re.compile(r'(Question\s*ID|Option\s*(\d)\s*ID|Status|Chosen\s*Option)\s*:\s*(\S+)')
 
 
 def header_of(txt):
     h = {}
-    for k, pat in [('date', r'(?:Exam|Test) Date\s+(\d\d/\d\d/\d{4})'), ('time', r'(?:Exam|Test) Time\s+(.+?)\s*(?:\n|$)'),
-                   ('subject', r'Subject\s+(.+?)\s*(?:\n|$)')]:
+    for k, pat in [('date', r'(?:Exam|Test)\s*Date\s*(\d\d/\d\d/\d{4})'), ('time', r'(?:Exam|Test)\s*Time\s*(.+?)\s*(?:\n|$)'),
+                   ('subject', r'Subject\s*(.+?)\s*(?:\n|$)')]:
         m = re.search(pat, txt); h[k] = m.group(1).strip() if m else None
     return h
 
@@ -110,7 +110,7 @@ def parse_text_lines(lines):
     return qs
 
 def _side(cur, side):
-    if side.group(1) == 'Question ID': cur['ids']['q'] = side.group(3)
+    if side.group(1).replace(' ', '') == 'QuestionID': cur['ids']['q'] = side.group(3)
     elif side.group(2): cur['ids']['o' + side.group(2)] = side.group(3)
 
 
@@ -140,12 +140,19 @@ def read_sheet(pdf_path):
     qs = parse_text_lines(lines)
 
     # picture census: repeated pictures are page furniture; small 16x16/31x21 are tick/cross marks
+    sizes = collections.Counter(tuple(im['srcsize']) for page in pdf.pages for im in page.images)
+    n_tick = sizes.get((16, 16), 0)
+    cross_size = (31, 21)
+    if n_tick:   # the cross icon is the small picture that appears about 3x per tick (its size differs between sheet generations)
+        cand = [(abs(v - 3 * n_tick), k) for k, v in sizes.items() if k != (16, 16) and k[0] <= 40 and k[1] <= 40 and v >= n_tick]
+        if cand: cross_size = min(cand)[1]
+    MARKS = ((16, 16), cross_size)
     hc = collections.Counter(); mark_hash = collections.Counter()
     for page in pdf.pages:
         for im in page.images:
             sz = tuple(im['srcsize'])
-            if sz == (31, 21): mark_hash[hashlib.md5(im['stream'].get_data()).hexdigest()] += 1
-            elif sz not in MARK_SIZES and sz != (411, 488): hc[hashlib.md5(im['stream'].get_data()).hexdigest()] += 1
+            if sz == cross_size: mark_hash[hashlib.md5(im['stream'].get_data()).hexdigest()] += 1
+            elif sz not in MARKS and sz != (411, 488): hc[hashlib.md5(im['stream'].get_data()).hexdigest()] += 1
     furniture = {k for k, v in hc.items() if v >= max(5, n_pages // 4)}
     has_small_tick = any(tuple(im['srcsize']) == (16, 16) for p in pdf.pages for im in p.images)
     tick_hash = None
@@ -157,9 +164,9 @@ def read_sheet(pdf_path):
     for pi, page in enumerate(pdf.pages):
         for im in page.images:
             sz = tuple(im['srcsize'])
-            if sz in MARK_SIZES: rows.append((pi, im['top'], im['bottom'], 'm'))
+            if sz in MARKS: rows.append((pi, im['top'], im['bottom'], 'm'))
             if sz == (16, 16): marks.append((pi, im['top'], 'tick', im['x0'], im['x1'], im['bottom']))
-            elif sz == (31, 21):
+            elif sz == cross_size:
                 kind = 'tick' if tick_hash and hashlib.md5(im['stream'].get_data()).hexdigest() == tick_hash else 'cross'
                 marks.append((pi, im['top'], kind, im['x0'], im['x1'], im['bottom']))
             elif sz == (411, 488): pass
@@ -194,6 +201,7 @@ def read_sheet(pdf_path):
 
 def hold_reason(q):
     """None = safe to import (in the language this entry is in), else why it is held back."""
+    if q.get('unreadable'): return 'unreadable'
     if q['figs']: return 'figure'
     if q['gap'] > 30: return 'figure_gap'
     if q['answer_pos'] is None: return 'no_answer'
@@ -201,3 +209,14 @@ def hold_reason(q):
         if not q['text']: return 'no_text'
         if len(q['opts']) != 4 or any(not v for v in q['opts'].values()): return 'options'
     return None
+
+
+def looks_nospace(q):
+    t = q.get('text') or ''
+    return q['lang'] == 'en' and len(t) > 40 and t.count(' ') / len(t) < 0.06
+
+
+def sim(a, b):
+    import difflib
+    a, b = norm(a), norm(b)
+    return difflib.SequenceMatcher(None, a, b, autojunk=False).ratio() if a and b else 0.0

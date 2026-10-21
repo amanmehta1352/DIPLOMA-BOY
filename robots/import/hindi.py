@@ -26,7 +26,7 @@ def _render(pdf_path, dpi):
         yield page.rect.width, page.rect.height, page.get_pixmap(dpi=dpi, alpha=False)
 
 
-def ocr_sheet(pdf_path, sheet, want, workdir, dpi=250, log=print):
+def ocr_sheet(pdf_path, sheet, want, workdir, dpi=250, log=print, lang='hin+eng'):
     """OCR the questions of `sheet` whose index is in `want`. Returns {index: {'text','opts':[4 strings or '']}}."""
     from PIL import Image, ImageDraw
     k = dpi / 72
@@ -56,7 +56,7 @@ def ocr_sheet(pdf_path, sheet, want, workdir, dpi=250, log=print):
             w, h, png = pages[p]
             crop = Image.open(png).crop((0, int(top * k), int(w * 0.60 * k), int(bot * k)))
             cp = os.path.join(workdir, f'c{idx}_{p}.png'); crop.save(cp)
-            r = subprocess.run(['tesseract', cp, '-', '-l', 'hin+eng', '--psm', '6'], capture_output=True, text=True)
+            r = subprocess.run(['tesseract', cp, '-', '-l', lang, '--psm', '6'], capture_output=True, text=True)
             text.append(r.stdout)
             os.remove(cp)
         out[idx] = parse_ocr('\n'.join(text))

@@ -2,7 +2,7 @@
 """Import robot: one job = one paper (an English sheet link + optional Hindi sheet link).
    robot.py --job 12 [--dry-run] [--no-hindi]      robot.py --queued [--limit 3]
 Everything lands as DRAFT. Nothing is published here. Needs env SUPABASE_SECRET_KEY (GitHub secret)."""
-import os, sys, re, json, time, argparse, hashlib, traceback, collections, tempfile, urllib.request, urllib.parse
+import os, sys, shutil, re, json, time, argparse, hashlib, traceback, collections, tempfile, urllib.request, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sscsheet as S, hindi as H
 
@@ -54,6 +54,20 @@ def download(u, dest):
     return hashlib.sha256(r.content).hexdigest()
 
 
+# ---------------- sheets printed without spaces between words: not safe to guess, refuse ----------------
+def check_spaces(sheet):
+    qs = [q for q in sheet['questions'] if q['lang'] == 'en' and len(q['text']) > 40]
+    bad = sum(1 for q in qs if S.looks_nospace(q))
+    if qs and bad / len(qs) > 0.3:
+        raise RuntimeError(f'इस PDF में शब्दों के बीच खाली जगह ही नहीं है ({bad}/{len(qs)} सवाल) — पढ़ना सुरक्षित नहीं। इसी पेपर की दूसरी PDF / दूसरा लिंक दें')
+
+def canon_section(name, aliases):
+    key = re.sub(r'[^a-z0-9]', '', (name or '').lower())
+    for a in aliases:
+        if re.sub(r'[^a-z0-9]', '', a) == key: return a.title() if ' ' in a else name
+    return name
+
+
 # ---------------- path ----------------
 FAMILY_GUESS = [(r'junior engineer|ssc je|\bje\b', ('SSC JE', 'एसएससी जेई'))]
 
@@ -95,6 +109,10 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
     sha = download(job['url'], en_pdf)
     en = S.read_sheet(en_pdf)
     meta = S.meta_of(en['header']); rep['header'] = en['header']; rep['meta'] = meta
+    check_spaces(en)
+    try: aliases = [x['alias'] for x in fetch_all('subject_aliases', {'select': 'alias'})]
+    except Exception: aliases = []
+    for q in en['questions']: q['section'] = canon_section(q['section'], aliases)
     if not meta['date'] or not meta['shift']: raise RuntimeError('PDF के header से तारीख/शिफ्ट नहीं मिली')
     hi = None
     if use_hindi and job.get('url_hi'):
@@ -111,6 +129,8 @@ def run_job(job, dry, use_hindi, work, log=print, upgrade_hi=False):
     src_id, existed = get_source(exam_id, branch_id, meta, job, job['url'], sha, fam, stage, br, dry, log)
     rep['source_id'] = src_id; rep['source_existed'] = existed
 
+    if hi:
+        for q in hi['questions']: q['section'] = canon_section(q['section'], aliases)
     # English pool = this sheet's English entries + the Hindi sheet's English entries
     pool = []
     for sheet, tag in ((en, 'en-sheet'), (hi, 'hi-sheet')):
