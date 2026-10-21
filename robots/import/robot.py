@@ -42,6 +42,9 @@ def drive_id(u):
 
 def download(u, dest):
     import requests
+    if u.startswith('repo:'):      # a PDF the user sent by chat, kept in robots/import/inputs/
+        data = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'inputs', u[5:]), 'rb').read()
+        open(dest, 'wb').write(data); return hashlib.sha256(data).hexdigest()
     if 'drive.google.com' in u:
         i = drive_id(u)
         if not i: raise RuntimeError('Drive link समझ नहीं आया')
