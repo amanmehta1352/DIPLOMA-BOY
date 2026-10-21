@@ -6,7 +6,7 @@ async function run(w,scheme){
  const p=await b.newPage({viewport:{width:w,height:800},isMobile:w<700,colorScheme:scheme});
  p.on('pageerror',e=>errs.push(w+':'+e.message)); p.on('console',m=>{if(m.type()==='error')errs.push(w+':console:'+m.text())});
  await p.goto(URL); await p.waitForTimeout(2500);
- await p.click('[data-a=branch][data-id=mechanical]'); await p.waitForTimeout(200); await p.screenshot({path:SHOT(`today_${w}_${scheme}.png`),fullPage:true});
+ await p.click('[data-a=onb-go]'); await p.click('[data-a=branch][data-id=mechanical]'); await p.waitForTimeout(200); await p.screenshot({path:SHOT(`today_${w}_${scheme}.png`),fullPage:true});
  // 1) विषय: science → chapter → mixed set
  await p.click('[data-a=tab][data-id=learn]'); await p.screenshot({path:SHOT(`learn_${w}.png`)});
  await p.click('[data-a=open-subj][data-subj=general-science]'); await p.screenshot({path:SHOT(`chapters_${w}.png`),fullPage:true});
@@ -28,7 +28,7 @@ async function run(w,scheme){
  await p.click('[data-a=m-review]'); await p.click('[data-a=next]'); await p.click('[data-a=close]');
  // 4) PYQ by exam subject, mistakes, me
  await p.click('[data-a=back-pyq]'); await p.click('[data-a=start-exsub][data-subj=mechanical-engineering]'); await p.waitForSelector('[data-a=pick]',{timeout:20000}); const exTags=await p.$$eval('.qmeta .tag',e=>e.map(x=>x.textContent)); await p.click('[data-a=close]');
- await p.click('[data-a=tab][data-id=today]'); await p.click('[data-a=open-mis]'); const mis=await p.textContent('#app');
+ await p.click('[data-a=tab][data-id=mistakes]'); const mis=await p.textContent('#app');
  await p.click('[data-a=tab][data-id=me]'); await p.screenshot({path:SHOT(`me_${w}.png`),fullPage:true});
  const sw=await p.evaluate(()=>document.documentElement.scrollWidth);
  const small=await p.evaluate(()=>[...document.querySelectorAll('button')].filter(x=>{const r=x.getBoundingClientRect();return r.width&&r.height<36}).length);

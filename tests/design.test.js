@@ -11,7 +11,7 @@ const PAIRS = [['ink','paper'],['ink2','paper'],['ink2','sheet'],['blue','sheet'
     const p = await b.newPage({ viewport: { width: w, height: 800 }, isMobile: w < 700, colorScheme: scheme });
     p.on('pageerror', e => errs.push(w + ':' + e.message));
     await p.goto(URL); await p.waitForTimeout(1500);
-    await p.click('[data-a=branch][data-id=mechanical]'); await p.click('[data-a=tab][data-id=me]');
+    await p.click('[data-a=onb-go]'); await p.click('[data-a=branch][data-id=mechanical]'); await p.click('[data-a=tab][data-id=me]');
     await p.click('[data-a=open-gallery]'); await p.waitForSelector('.gal-sw');
     const vars = await p.evaluate(() => { const s = getComputedStyle(document.documentElement); const o = {}; ['ink','ink2','paper','sheet','blue','bad','ok'].forEach(k => o[k] = s.getPropertyValue('--' + k).trim()); return o; });
     const fails = PAIRS.filter(([a,c]) => ratio(vars[a], vars[c]) < 4.5).map(([a,c]) => a + '/' + c);

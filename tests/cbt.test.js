@@ -9,7 +9,7 @@ const path = require('path'); const URL = 'file://' + path.resolve(__dirname, '.
     const p = await ctx.newPage(); const o = { w, scheme };
     p.on('pageerror', e => errs.push(w + ':' + e.message));
     await p.goto(URL); await p.waitForTimeout(2500);
-    await p.click('[data-a=branch][data-id=mechanical]');
+    await p.click('[data-a=onb-go]'); await p.click('[data-a=branch][data-id=mechanical]');
     await p.click('[data-a=tab][data-id=pyq]'); await p.click('[data-a=exam][data-id=ssc-je-paper1]');
     await p.click('[data-a=open-paper]'); await p.click('[data-a=mock-ask]'); await p.click('[data-a=mock-go]');
     await p.waitForSelector('#tmr', { timeout: 30000 });

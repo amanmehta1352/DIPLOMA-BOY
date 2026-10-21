@@ -7,7 +7,7 @@ const path = require('path'); const URL = 'file://' + path.resolve(__dirname, '.
   const p = await b.newPage({ viewport: { width: 390, height: 800 }, isMobile: true });
   p.on('pageerror', e => errs.push(e.message));
   await p.goto(URL); await p.waitForTimeout(2500);
-  await p.click('[data-a=branch][data-id=civil]');
+  await p.click('[data-a=onb-go]'); await p.click('[data-a=branch][data-id=civil]');
   await p.click('[data-a=tab][data-id=pyq]'); await p.click('[data-a=exam][data-id=ssc-je-paper1]');
   const pyq = await p.textContent('#app');
   out.pattern = /परीक्षा का पैटर्न/.test(pyq) && /कुल 200 सवाल/.test(pyq);
