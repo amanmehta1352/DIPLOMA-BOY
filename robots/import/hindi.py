@@ -29,6 +29,7 @@ def _render(pdf_path, dpi):
 def ocr_sheet(pdf_path, sheet, want, workdir, dpi=250, log=print, lang='hin+eng'):
     """OCR the questions of `sheet` whose index is in `want`. Returns {index: {'text','opts':[4 strings or '']}}."""
     from PIL import Image, ImageDraw
+    os.makedirs(workdir, exist_ok=True)
     k = dpi / 72
     pages = []
     for i, (w, h, pix) in enumerate(_render(pdf_path, dpi)):
