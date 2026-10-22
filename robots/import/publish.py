@@ -25,6 +25,9 @@ def main():
         job = R.rest('GET', 'import_jobs', params={'id': f'eq.{j}'})[0]
         sid = job.get('source_id') or (job.get('report') or {}).get('source_id')
         if not sid: print(f'job {j}: no paper yet'); continue
+        src = R.rest('GET', 'sources', params={'select': 'kind,verification', 'id': f'eq.{sid}'})
+        if src and src[0].get('kind') == 'third_party_copy' and os.environ.get('ALLOW_THIRD_PARTY') != 'yes':
+            print(f'job {j}: source is a re-hosted third-party copy ({src[0].get("verification")}) - stays DRAFT until the owner allows publishing'); continue
         qs = R.fetch_all('questions', {'select': 'id,status,stem,options,answer', 'source_id': f'eq.{sid}'})
         st = collections.Counter(); ok = []; fails = collections.Counter()
         for q in qs:

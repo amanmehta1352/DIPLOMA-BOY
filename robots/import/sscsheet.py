@@ -95,7 +95,8 @@ def parse_text_lines(lines):
         side = SIDE.search(s)
         left = s[:side.start()] if side else s
         if side: _side(cur, side)
-        m = re.match(r'\s*(Ans\s+)?([1-4])\.\s+(.*)$', left) if mode in ('q', 'o') else None
+        m = re.match(r'\s*(Ans\s+)?([1-4]|[A-D])\.\s+(.*)$', left) if mode in ('q', 'o') else None
+        if m and m.group(2) in 'ABCD': m = _LetterMatch(m)
         if m and (m.group(1) or mode == 'o'):
             mode = 'o'; cur['last'] = m.group(2); cur['opts'][m.group(2)] = [m.group(3).strip()]; continue
         t = left.strip()
@@ -108,6 +109,11 @@ def parse_text_lines(lines):
         q['opts'] = {k: fix(' '.join(v)) for k, v in q['opts'].items()}
         q.pop('last', None)
     return qs
+
+class _LetterMatch:
+    """NTPC 2026 sheets label options A-D: present them as 1-4 (same order)."""
+    def __init__(self, m): self.m = m
+    def group(self, i): return str('ABCD'.index(self.m.group(2)) + 1) if i == 2 else self.m.group(i)
 
 def _side(cur, side):
     if side.group(1).replace(' ', '') == 'QuestionID': cur['ids']['q'] = side.group(3)
@@ -147,10 +153,14 @@ def read_sheet(pdf_path):
     sizes = collections.Counter(tuple(im['srcsize']) for page in pdf.pages for im in page.images)
     n_tick = sizes.get((16, 16), 0)
     cross_size = (31, 21)
+    # scanned/OCR'd sheets (2022): tick = 92x91/92x92 picture, cross = 31x21, exactly 1 tick : 3 crosses
+    BIGT = {(92, 91), (92, 92)}
+    nbig = sum(sizes.get(k, 0) for k in BIGT)
+    big_tick = (not n_tick) and nbig > 0 and sizes.get((31, 21), 0) == 3 * nbig
     if n_tick:   # the cross icon is the small picture that appears about 3x per tick (its size differs between sheet generations)
         cand = [(abs(v - 3 * n_tick), k) for k, v in sizes.items() if k != (16, 16) and k[0] <= 40 and k[1] <= 40 and v >= n_tick]
         if cand: cross_size = min(cand)[1]
-    MARKS = ((16, 16), cross_size)
+    MARKS = ((16, 16), cross_size) + (tuple(BIGT) if big_tick else ())
     hc = collections.Counter(); mark_hash = collections.Counter()
     for page in pdf.pages:
         for im in page.images:
@@ -158,7 +168,7 @@ def read_sheet(pdf_path):
             if sz == cross_size: mark_hash[hashlib.md5(im['stream'].get_data()).hexdigest()] += 1
             elif sz not in MARKS and sz != (411, 488): hc[hashlib.md5(im['stream'].get_data()).hexdigest()] += 1
     furniture = {k for k, v in hc.items() if v >= max(5, n_pages // 4)}
-    has_small_tick = any(tuple(im['srcsize']) == (16, 16) for p in pdf.pages for im in p.images)
+    has_small_tick = big_tick or any(tuple(im['srcsize']) == (16, 16) for p in pdf.pages for im in p.images)
     tick_hash = None
     if not has_small_tick:  # older sheets: tick and cross are both 31x21, told apart by picture content
         one = [k for k, v in mark_hash.items() if v == len(qs)]
@@ -169,7 +179,7 @@ def read_sheet(pdf_path):
         for im in page.images:
             sz = tuple(im['srcsize'])
             if sz in MARKS: rows.append((pi, im['top'], im['bottom'], 'm'))
-            if sz == (16, 16): marks.append((pi, im['top'], 'tick', im['x0'], im['x1'], im['bottom']))
+            if sz == (16, 16) or (big_tick and sz in BIGT): marks.append((pi, im['top'], 'tick', im['x0'], im['x1'], im['bottom']))
             elif sz == cross_size:
                 kind = 'tick' if tick_hash and hashlib.md5(im['stream'].get_data()).hexdigest() == tick_hash else 'cross'
                 marks.append((pi, im['top'], kind, im['x0'], im['x1'], im['bottom']))

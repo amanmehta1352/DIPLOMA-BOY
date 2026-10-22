@@ -73,7 +73,7 @@ def canon_section(name, aliases):
 
 
 # ---------------- path ----------------
-FAMILY_GUESS = [(r'junior engineer|ssc je|\bje\b', ('SSC JE', 'एसएससी जेई'))]
+FAMILY_GUESS = [(r'ntpc', ('RRB NTPC', 'आरआरबी एनटीपीसी')), (r'junior engineer|ssc je|\bje\b', ('SSC JE', 'एसएससी जेई'))]
 
 def resolve_path(job, meta, header, log):
     fam = (job.get('exam_hint') or '').strip()
@@ -84,8 +84,8 @@ def resolve_path(job, meta, header, log):
         else: raise RuntimeError(f"परीक्षा पहचानी नहीं गई ({subj!r}) — job में exam_hint डालें")
     else: fam_hi = None
     stage = (job.get('stage_hint') or meta.get('paper') or 'Paper-I').strip()
-    stage_hi = {'Paper-I': 'पेपर-I', 'Paper-II': 'पेपर-II'}.get(stage)
-    exam_id = rpc('ensure_exam', {'p_family_en': fam, 'p_family_hi': fam_hi, 'p_stage_en': stage, 'p_stage_hi': stage_hi, 'p_stage_sort': 2 if stage.endswith('II') else 1})
+    stage_hi = {'Paper-I': 'पेपर-I', 'Paper-II': 'पेपर-II'}.get(stage) or (stage.replace('Graduate', 'ग्रेजुएट').replace('UG', 'अंडर-ग्रेजुएट') if 'CBT' in stage else None)
+    exam_id = rpc('ensure_exam', {'p_family_en': fam, 'p_family_hi': fam_hi, 'p_stage_en': stage, 'p_stage_hi': stage_hi, 'p_stage_sort': 2 if (stage.endswith('II') or stage.endswith('CBT-2')) else 1})
     br = (job.get('branch_hint') or meta.get('branch') or '').strip()
     branch_id = rpc('ensure_branch', {'p_en': br, 'p_hi': None}) if br else None
     log(f'path: exam {fam} / {stage} (id {exam_id}), branch {br or "-"} (id {branch_id})')
@@ -99,9 +99,14 @@ def get_source(exam_id, branch_id, meta, job, en_url, sha, fam, stage, br, dry, 
     rows = rest('GET', 'sources', params=params)
     if rows: return rows[0]['id'], True
     if dry: return None, False
-    note = f"{fam} {meta['year']} {br} {stage} · {date} Shift {shift} · official response sheet (PDF) · answer = official key"
-    row = rest('POST', 'sources', {'exam_id': exam_id, 'exam_year': meta['year'], 'shift': shift, 'paper_date': date, 'kind': 'official_response_sheet',
-                                   'url': en_url, 'file_sha256': sha, 'branch_id': branch_id, 'note': note}, prefer='return=representation')
+    third = fam == 'RRB NTPC'      # NTPC sheets come from re-hosted copies, not from a source we can call official
+    host = re.sub(r'^https?://(www\.)?', '', en_url).split('/')[0]
+    note = (f"{fam} {meta['year']} {br} {stage} · {date} Shift {shift} · candidate response sheet re-hosted by {host} (NOT checked against an official RRB record) · answer = tick in that sheet"
+            if third else f"{fam} {meta['year']} {br} {stage} · {date} Shift {shift} · official response sheet (PDF) · answer = official key")
+    extra = {'verification': 'UNVERIFIED_COPY', 'host': host,
+             'reuse_note': 'Re-hosted copy; host terms not cleared for republishing. Keep draft until the owner decides.'} if third else {}
+    row = rest('POST', 'sources', {'exam_id': exam_id, 'exam_year': meta['year'], 'shift': shift, 'paper_date': date, 'kind': 'third_party_copy' if third else 'official_response_sheet',
+                                   'url': en_url, 'file_sha256': sha, 'branch_id': branch_id, 'note': note, **extra}, prefer='return=representation')
     return row[0]['id'], False
 
 
