@@ -24,6 +24,7 @@ class Pages:
         import fitz, pdfplumber
         from PIL import Image, ImageDraw
         self.dpi = dpi; self.k = dpi / 72; self.imgs = []; self.size = []
+        self.skip = set(sheet.get('ad_pages') or [])      # advert pages inside a question are never part of its picture
         os.makedirs(workdir, exist_ok=True)
         doc = fitz.open(pdf_path); plum = pdfplumber.open(pdf_path)
         paint = collections.defaultdict(list)
@@ -60,7 +61,7 @@ class Pages:
             w, h = self.size[p]
             top = (t0 - 3) if p == p0 else 40
             bot = (t1 - 3) if p == p1 else h - 40
-            if bot - top < 6: continue
+            if bot - top < 6 or p in self.skip: continue
             crop = self.imgs[p].crop((int(20 * self.k), int(top * self.k), int(min(w, x_right) * self.k), int(bot * self.k)))
             bbox = ImageOps.invert(crop.convert('L')).point(lambda v: 255 if v > 40 else 0).getbbox()
             if bbox: parts.append(crop.crop((max(0, bbox[0] - 8), max(0, bbox[1] - 8), min(crop.width, bbox[2] + 8), min(crop.height, bbox[3] + 8))))
@@ -374,6 +375,9 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
         # --- no official Hindi found: IndicTrans2 Hindi (codes/numbers protected), clearly marked as machine translation
         if not rec['hi'] and rec['en'] and a_hs[i] and DEVA.search(a_hs[i] or ''):
             rec['hi'] = a_hs[i]; rec['hi_mt'] = True; stats['hindi_machine'] += 1
+        # figure questions: the Hindi picture carries the Hindi; an OCR'd Hindi text is kept only when it is clean
+        if fig and rec['hi'] and not rec.get('hi_mt') and not (rec['en'] and ocr_clean(rec['hi'], rec['en'], (qb or qa)['text'])):
+            rec['checks']['hindi'] = 'figure: Hindi text unclear, picture used'; rec['hi'] = None; rec['hi_opts'] = [None] * 4
         if rec['hi'] and not rec.get('hi_mt'):      # each official option must also be free of OCR noise
             rec['hi_opts'] = [o if (o and ocr_clean(o, rec['en_opts'][k] or '', '')) else None for k, o in enumerate(rec['hi_opts'])]
         if rec['hi'] and rec['en']:
@@ -393,7 +397,7 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
     # completeness flags
     for r in out:
         r['complete_en'] = bool(r['img'] or (r['en'] and all(r['en_opts'])))
-        r['complete_hi'] = bool(r['img_hi'] or (r['hi'] and all(r['hi_opts'])) or (r['fig'] and r['img'] and r['hi']))
+        r['complete_hi'] = bool(r['img_hi'] or (r['hi'] and all(r['hi_opts'])) or (r['fig'] and r['img'] and r['hi'] and not r['checks'].get('hindi')))
         stats['hi_official' if (r['hi'] and not r.get('hi_mt')) else ('hi_machine' if r.get('hi_mt') else 'hi_none')] += 1
         stats['en_ok' if r['complete_en'] else 'en_missing'] += 1
         stats['hi_ok' if r['complete_hi'] else 'hi_missing'] += 1

@@ -240,6 +240,7 @@ def read_sheet(pdf_path):
         if len(one) == 1 and any(v == 3 * len(qs) for v in mark_hash.values()): tick_hash = one[0]
 
     marks, figs, starts, rows, sides = [], [], [], [], []
+    ad_pages = set()
     for pi, page in enumerate(pdf.pages):
         for im in page.images:
             sz = tuple(im['srcsize'])
@@ -250,7 +251,8 @@ def read_sheet(pdf_path):
                 marks.append((pi, im['top'], kind, im['x0'], im['x1'], im['bottom']))
             elif sz == (411, 488): pass
             elif hashlib.md5(im['stream'].get_data()).hexdigest() in furniture: pass
-            else: figs.append((pi, im['top']))
+            elif (im['x1'] - im['x0']) * (im['bottom'] - im['top']) >= 0.45 * page.width * page.height: ad_pages.add(pi)   # a picture covering the page = an inserted advert page, not a figure
+            else: figs.append((pi, (im['top'] + im['bottom']) / 2))     # by its middle: a picture may start a hair above its own "Q.n" label
         for w in page.extract_words():
             m_ = re.match(r'Q\.(\d+)', w['text'])
             if m_ and w['x0'] < 120: starts.append((pi, w['top'], int(m_.group(1))))
@@ -278,7 +280,7 @@ def read_sheet(pdf_path):
             if x[0] == y[0]: gap = max(gap, y[1] - x[2])
         q['gap'] = round(gap)
         q['lang'] = 'hi' if len(DEVA.findall(q['text'] + ' '.join(q['opts'].values()))) >= 3 else 'en'
-    return {'header': h, 'questions': qs, 'pages': n_pages, 'watermark_words': watermark_words}
+    return {'header': h, 'questions': qs, 'pages': n_pages, 'watermark_words': watermark_words, 'ad_pages': sorted(ad_pages)}
 
 
 def hold_reason(q):
