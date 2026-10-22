@@ -1,0 +1,24 @@
+name: Daily backup + keep-alive
+# Every day: reads all PUBLISHED data with the public key (keeps the free Supabase project awake) and stores a compressed copy
+# as a workflow artifact for 30 days. If anything is missing or the database does not answer, the run FAILS and GitHub emails the owner.
+on:
+  schedule:
+    - cron: '41 20 * * *'   # 02:11 IST
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: mkdir -p out && python robots/backup/export_public.py out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: diploma-boy-public-backup
+          path: out/*.json.gz
+          retention-days: 30
+          if-no-files-found: error
