@@ -15,12 +15,20 @@ UA = 'Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chr
 OFFLINE = False
 OCR_EN = os.environ.get('OCR_EN') == '1'
 
+_CTRL = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]')
+def clean_body(x):
+    """A PDF text layer can hold NUL / control characters; Postgres refuses them (22P05). One choke point: strip them from every string we send."""
+    if isinstance(x, str): return _CTRL.sub('', x)
+    if isinstance(x, list): return [clean_body(i) for i in x]
+    if isinstance(x, dict): return {k: clean_body(v) for k, v in x.items()}
+    return x
+
 def rest(method, path, body=None, prefer=None, params=None):
     if OFFLINE: return [] if method == 'GET' else ([{'id': 0}] if prefer and 'representation' in prefer else None)
     import requests
     h = {'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Accept-Profile': 'mtb', 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
     if prefer: h['Prefer'] = prefer
-    r = requests.request(method, URL + '/rest/v1/' + path, headers=h, params=params, data=json.dumps(body) if body is not None else None, timeout=120)
+    r = requests.request(method, URL + '/rest/v1/' + path, headers=h, params=params, data=json.dumps(clean_body(body)) if body is not None else None, timeout=120)
     if r.status_code == 401: raise SystemExit('❌ SUPABASE_SECRET_KEY गलत है: GitHub में रखी key इस प्रोजेक्ट (wobmtlcpszcntczkebtt) की नहीं है, या कॉपी में space/नई लाइन आ गई। Supabase → Project Settings → API Keys → Secret key (sb_secret_…) दोबारा डालें।')
     if r.status_code >= 300: raise RuntimeError(f'{method} {path} -> {r.status_code} {r.text[:300]}')
     return r.json() if r.text else None

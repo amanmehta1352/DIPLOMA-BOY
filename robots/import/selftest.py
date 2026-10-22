@@ -33,4 +33,6 @@ import paper as P
 assert not P.ocr_clean('शंकु Ferd के स्थिर (a) घटता', 'cone clutch semi-cone angle (α) decreases', '')
 assert P.ocr_clean('ऊर्जा POLISH को 89', 'In a code POLISH is 89', '')
 assert not P.ocr_clean('QT का चक्रीय', 'The cyclic integral of Q/T', '')
+import robot as R
+assert R.clean_body({'a': ['x\u0000y', {'b': 'p\x07q\nr'}], 'n': 3}) == {'a': ['xy', {'b': 'pq\nr'}], 'n': 3}, 'NUL/control chars must be stripped before a DB write'
 print('selftest ok')
