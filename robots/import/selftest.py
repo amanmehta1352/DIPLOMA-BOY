@@ -37,4 +37,20 @@ import robot as R
 assert R.clean_body({'a': ['x\u0000y', {'b': 'p\x07q\nr'}], 'n': 3}) == {'a': ['xy', {'b': 'pq\nr'}], 'n': 3}, 'NUL/control chars must be stripped before a DB write'
 import ast, inspect, importer as I
 assert "ex['id'] is None" in inspect.getsource(I.run), 'a repeated question inside one paper must not PATCH id=None'
+import publish as PB
+_q = {'answer': 1, 'options': [{'en': 'a', 'hi': 'अ'}] * 4, 'stem': {'en': 'x', 'hi': 'य', 'hi_mt': True, 'checks': {'hindi': 'OCR noise'}}}
+assert PB.check(_q) == [], 'machine Hindi that replaced a rejected OCR read must pass'
+_q['stem']['hi_mt'] = False
+assert PB.check(_q) == ['hindi-check'], 'flagged official Hindi must be held'
+# superscripts: small raised glyphs hanging on a full-size glyph become script characters; ordinals and labels stay
+class _Pg:
+    def __init__(self, cs): self.chars = cs
+def _ch(t, x0, size=8.8, top=117.0):
+    w = 4.8 if size > 8 else 3.7
+    return {'text': t, 'x0': x0, 'x1': x0 + w, 'top': top, 'bottom': top + size, 'size': size, 'doctop': top}
+cs = [_ch('4', 10), _ch('7', 14.8), _ch('−', 19.6, 7.3, 114.5), _ch('1', 23.3, 7.3, 114.5), _ch('1', 27.0, 7.3, 114.5),
+      _ch('2', 60), _ch('t', 64.8, 7.3, 114.5), _ch('h', 68.5, 7.3, 114.5),
+      _ch('H', 100), _ch('2', 104.8, 7.3, 119.8), _ch('O', 108.5)]
+S.mark_scripts(_Pg(cs))
+assert ''.join(c['text'] for c in cs) == '47⁻¹¹2thH₂O', ''.join(c['text'] for c in cs)
 print('selftest ok')

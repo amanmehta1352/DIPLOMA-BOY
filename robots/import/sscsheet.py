@@ -74,6 +74,70 @@ def qkey(stem_en, opts_en):
     return hashlib.sha1((norm(stem_en) + '|' + '|'.join(sorted(norm(o) for o in opts_en))).encode()).hexdigest()[:16]
 
 
+
+SUP = str.maketrans('0123456789−-+()abcdefghijklmnoprstuvwxyz', '⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁻⁺⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ')
+SUBS = str.maketrans('0123456789−-+()aehijklmnoprstuvx', '₀₁₂₃₄₅₆₇₈₉₋₋₊₍₎ₐₑₕᵢⱼₖₗₘₙₒₚᵣₛₜᵤᵥₓ')
+SCRIPTABLE = set('0123456789−-+().abcdefghijklmnoprstuvwxyz')
+ORDINAL = re.compile(r'\d(st|nd|rd|th)$')
+def mark_scripts(page):
+    """Superscripts/subscripts are smaller characters set above/below the line (47⁻¹¹, x², H₂O). The text layer
+    flattens them into ordinary digits ("47−11"), which changes the maths. Rewrite them as Unicode script characters
+    and move them onto the main line so the text keeps their place. A script must hang on a glyph directly to its left
+    (a run of scripts hangs on the glyph before the run); labels such as "Q.19" are never touched."""
+    cs = [c for c in page.chars if c['text'].strip()]
+    if not cs: return 0
+    buckets = collections.defaultdict(list)
+    for c in cs: buckets[int(c['top'] // 4)].append(c)
+    def near(c): return [d for k in (int(c['top'] // 4) - 1, int(c['top'] // 4), int(c['top'] // 4) + 1) for d in buckets.get(k, []) if abs(d['top'] - c['top']) < 5 and d is not c]
+    small = {}
+    for c in cs:
+        if c['text'] not in SCRIPTABLE: continue
+        nb = near(c)
+        if not nb: continue
+        big = max(d['size'] for d in nb)
+        if c['size'] < 0.9 * big: small[id(c)] = (c, nb, big)
+    n = 0
+    for c, nb, big in small.values():
+        # the glyph directly to the left: a full-size glyph (or a script of the same run) ending where this one starts
+        left = [d for d in nb if d['x1'] <= c['x0'] + 0.8 and c['x0'] - d['x1'] < 1.6]
+        if not left: continue
+        base = max(left, key=lambda d: d['x1'])
+        chain = base
+        while id(chain) in small:
+            l2 = [d for d in near(chain) if d['x1'] <= chain['x0'] + 0.8 and chain['x0'] - d['x1'] < 1.6]
+            if not l2: chain = None; break
+            chain = max(l2, key=lambda d: d['x1'])
+        if chain is None or chain['size'] < 0.95 * big: continue
+        prev = [d for d in near(chain) if d['x1'] <= chain['x0'] + 0.8 and chain['x0'] - d['x1'] < 1.6]
+        if chain['text'] == '.' and prev and max(prev, key=lambda d: d['x1'])['text'] == 'Q': continue   # "Q.19"
+        if not re.match(r'[0-9A-Za-zα-ωΑ-Ω)\]}°]', chain['text']): continue   # scripts hang on a letter/digit/bracket
+        if c['text'] == '.':      # a decimal point inside a script run (73⁰.⁵¹) stays a point
+            if not any(d['x0'] >= c['x1'] - 0.8 and d['x0'] - c['x1'] < 1.6 and id(d) in small and d['text'].isdigit() for d in nb): continue
+        if c['text'].isalpha():
+            pool = [d for d in nb if id(d) in small and d['text'].isalpha() and abs(d['top'] - c['top']) < 1]
+            word = c['text']; cur = c          # the small letters touching this one (to the right), e.g. "t"+"h"
+            while True:
+                nx = [d for d in pool if d['x0'] >= cur['x1'] - 0.8 and d['x0'] - cur['x1'] < 1.6]
+                if not nx: break
+                cur = min(nx, key=lambda d: d['x0']); word += cur['text']
+            cur = c
+            while id(cur) in small:            # ... and to the left up to the full-size glyph
+                pv = [d for d in pool if d['x1'] <= cur['x0'] + 0.8 and cur['x0'] - d['x1'] < 1.6]
+                if not pv: break
+                cur = max(pv, key=lambda d: d['x1']); word = cur['text'] + word
+            if ORDINAL.search(chain['text'] + word): continue        # 2nd, 21st, 4th are not powers
+        mt, mb = chain['top'], chain['bottom']
+        if c['bottom'] < mb - 1: t = c['text'].translate(SUP)
+        elif c['top'] > mt + 1: t = c['text'].translate(SUBS)
+        else: continue
+        if t == c['text'] and c['text'] != '.': continue     # no script form for this letter: leave it as it is
+        c['text'] = t
+        d = mt - c['top']; c['top'] = mt; c['bottom'] = mb
+        if 'doctop' in c: c['doctop'] += d
+        if 'y0' in c and 'y1' in c: c['y0'] -= d; c['y1'] -= d
+        n += 1
+    return n
+
 # ---- reading one sheet ---------------------------------------------------------------------
 def parse_text_lines(lines):
     qs = []; section = None; cur = None; mode = None
@@ -136,6 +200,7 @@ def read_sheet(pdf_path):
     watermark_words = sorted({k[0] for k in wm})
     lines = []; texts = []
     for page, ws in zip(pdf.pages, words_by_page):
+        mark_scripts(page)
         boxes = [(w['x0'] - 0.5, w['top'] - 0.5, w['x1'] + 0.5, w['bottom'] + 0.5) for w in ws if (w['text'], round(w['x0']), round(w['top'])) in wm]
         if boxes:
             def keep(o, boxes=boxes):

@@ -14,7 +14,8 @@ def check(q):
     if len(o) != 4: why.append('options')
     if not (s.get('img') or (s.get('en') and all((x or {}).get('en') for x in o))): why.append('english')
     if not (s.get('img_hi') or (s.get('fig') and s.get('img') and s.get('hi')) or (s.get('hi') and all((x or {}).get('hi') for x in o))): why.append('hindi')
-    if (s.get('checks') or {}).get('hindi'): why.append('hindi-check')
+    # checks.hindi records why the OFFICIAL Hindi read was rejected; when machine Hindi (hi_mt) replaced it, that flag is history, not a fault
+    if (s.get('checks') or {}).get('hindi') and not s.get('hi_mt'): why.append('hindi-check')
     return why
 
 
