@@ -78,6 +78,10 @@ def run(job, dry, work, log=print):
         verified = q['answer'] is not None and q['complete_en'] and q['complete_hi'] and not q['checks'].get('hindi')
         stem['checks'] = {**q['checks'], 'verified': verified}
         ex = existing.get(key); script_fix = False
+        if ex and ex['id'] is not None and not q['fig']:
+            # qkey uses NFKC, which folds 26⁻¹⁹ into 26−19: the same key can hold the old flattened English
+            ex_en = (ex.get('stem') or {}).get('en') or ''
+            if ex_en != q['en'] and S.unscript(ex_en) == S.unscript(q['en']): script_fix = True
         if ex is None and not q['fig']:      # imported before the superscript fix: its key was made from the flattened text
             alt = S.qkey(S.unscript(q['en']), [S.unscript(o) for o in q['en_opts']])
             if alt != key and existing.get(alt) and existing[alt]['id'] is not None:
