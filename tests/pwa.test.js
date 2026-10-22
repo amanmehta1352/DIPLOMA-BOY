@@ -14,5 +14,11 @@ for (const ic of m.icons) {
 if (!m.icons.some(i => i.sizes === '512x512')) bad.push('no 512');
 if (!m.icons.some(i => i.purpose === 'maskable')) bad.push('no maskable');
 for (const s of ['rel="manifest"', 'rel="apple-touch-icon"', 'name="description"']) if (!html.includes(s)) bad.push('html ' + s);
+if (!fs.existsSync(path.join(root, 'sw.js'))) bad.push('no sw.js');
+if (!html.includes("serviceWorker.register('sw.js')")) bad.push('sw not registered');
+for (const f of ['privacy.html', 'terms.html', 'delete-data.html']) { if (!fs.existsSync(path.join(root, f))) bad.push('missing ' + f); else if (!html.includes('href="' + f + '"')) bad.push('no link ' + f); }
+const swSrc = fs.existsSync(path.join(root, 'sw.js')) ? fs.readFileSync(path.join(root, 'sw.js'), 'utf8') : '';
+for (const m2 of swSrc.matchAll(/'\.\/([^']+)'/g)) if (m2[1] && !fs.existsSync(path.join(root, m2[1]))) bad.push('sw shell missing ' + m2[1]);
+if (!html.includes('data-disclaimer')) bad.push('no disclaimer');
 console.log(JSON.stringify({ icons: m.icons.length, bad }));
 process.exit(bad.length ? 1 : 0);

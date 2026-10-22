@@ -88,6 +88,7 @@ h2{font-size:18px;margin:24px 0 10px;font-weight:700}
 .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .panel{background:var(--sheet);border:1px solid var(--rule);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden}
 .item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--rule);width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;cursor:pointer;min-height:64px}
+a.item{color:inherit;text-decoration:none}
 .item:first-child{border-top:0}
 .item .bar4{width:4px;align-self:stretch;border-radius:4px;flex:none}
 .item .tx{flex:1;min-width:0}
@@ -643,7 +644,10 @@ function vMe(){
   <h2>${L('डेटा','Data')}</h2>
   <div class="panel"><div class="item" style="cursor:default"><span class="tx"><b>${L('प्रगति इसी फ़ोन में सेव है','Progress is saved on this phone')}</b><span>${L('ब्राउज़र का डेटा मिटाने पर यह भी मिट जाएगी।','Clearing browser data erases it too.')}</span></span></div>
   <button class="item" data-a="reset-ask"><span class="tx"><b style="color:var(--bad)">${L('इस फ़ोन की प्रगति मिटाएँ','Erase progress on this phone')}</b></span></button></div>
-  <p class="small muted" style="margin:18px 0 8px">${L('PYQ: आधिकारिक पेपर / response sheet और आधिकारिक answer key से। प्रैक्टिस: Diploma Boy के अपने सवाल।','PYQ: official papers / response sheets with official keys. Practice: Diploma Boy’s own questions.')}</p>`;
+  <p class="small muted" style="margin:18px 0 8px">${L('PYQ: आधिकारिक पेपर / response sheet और आधिकारिक answer key से। प्रैक्टिस: Diploma Boy के अपने सवाल।','PYQ: official papers / response sheets with official keys. Practice: Diploma Boy’s own questions.')}</p>
+  <h2>${L('जानकारी','About')}</h2>
+  <div class="panel"><a class="item" href="privacy.html"><span class="tx"><b>${L('गोपनीयता नीति','Privacy policy')}</b></span></a><a class="item" href="terms.html"><span class="tx"><b>${L('उपयोग की शर्तें','Terms of use')}</b></span></a><a class="item" href="delete-data.html"><span class="tx"><b>${L('अपना डेटा मिटाएँ','Delete your data')}</b></span></a></div>
+  <p class="small muted" style="margin:12px 0 8px" data-disclaimer>${L('Diploma Boy एक निजी ऐप है। यह RRB, SSC या किसी सरकारी संस्था से जुड़ा नहीं है।','Diploma Boy is a private app. It is not affiliated with RRB, SSC or any government body.')}</p>`;
 }
 
 /* ============ QUESTION SHEET: practice · revise · mock · review ============ */
@@ -927,6 +931,7 @@ document.addEventListener('click',ev=>{
 });
 window.addEventListener('beforeunload',e=>{ if(V.sheet&&V.sheet.mode==='mock'&&!V.sheet.done){ e.preventDefault(); e.returnValue=''; } });
 (async()=>{ render(); await loadRemote(); render(); })();
+if('serviceWorker' in navigator && location.protocol==='https:') window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 
 </script>
 </body>
