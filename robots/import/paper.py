@@ -287,13 +287,22 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
                     q = sheet['questions'][i]; stems[i] = q['text']; opts[i] = [q['opts'].get(str(k + 1)) or '' for k in range(4)]
         return stems, opts
     a_hs, a_ho = hi_space(A, hiA)
-    pairs = {}
+    pairs = {}; idpairs = {}
     if B:
         b_txt = en_space(B, hiB)
         b_hs, b_ho = hi_space(B, hiB)
         a_h = [(a_hs[i] or '') + ' । ' + ' । '.join(x or '' for x in a_ho[i]) for i in range(len(a_hs))]
         b_h = [(b_hs[j] or '') + ' । ' + ' । '.join(x or '' for x in b_ho[j]) for j in range(len(b_hs))]
         pairs = match_sheets(A, B, [(a_txt, b_txt, 0.3, (3, 5)), (a_h, b_h, 0.7, (2, 4))], log)
+        # The English and Hindi sheets of one shift carry the SAME Question IDs (and Option IDs): pair by ID, exactly.
+        # Text matching is only the fallback for questions whose ID is not found in the other sheet.
+        bq = {(q.get('ids') or {}).get('q'): j for j, q in enumerate(B['questions']) if (q.get('ids') or {}).get('q')}
+        for i, q in enumerate(A['questions']):
+            qid = (q.get('ids') or {}).get('q')
+            if qid and qid in bq: pairs[i] = (bq[qid], 1.0, 1.0); idpairs[i] = bq[qid]
+        taken = set(idpairs.values())
+        for i in [k for k in pairs if k not in idpairs and pairs[k][0] in taken]: del pairs[i]
+        rep['id_paired'] = len(idpairs)
 
     # pictures
     pagesA = pagesB = None
@@ -337,7 +346,12 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
                 omap, conf, cells, M = map_options2(a_en, b_en, a_lay, b_lay, a_ho[i], b_ho[m[0]])
                 ans = qa['answer_pos']; bans = qb['answer_pos']
                 verdict = 'unclear'
-                if ans is not None and bans is not None:
+                ao_ = [(qa.get('ids') or {}).get(f'o{k + 1}') for k in range(4)]; bo_ = [(qb.get('ids') or {}).get(f'o{k + 1}') for k in range(4)]
+                by_id = i in idpairs and all(ao_) and set(ao_) == set(bo_)
+                if by_id:     # exact option mapping from the Option IDs
+                    omap = [bo_.index(x) for x in ao_]; conf = True; cells = [True] * 4
+                    if ans is not None and bans is not None: verdict = 'agree' if omap[ans] == bans else 'disagree'
+                elif ans is not None and bans is not None:
                     row = list(M[ans]); best = max(range(4), key=lambda y: row[y]); others = sorted(row, reverse=True)
                     if others[0] - others[1] >= 0.08: verdict = 'agree' if best == bans else 'disagree'
                 take = (verdict == 'agree' and m[1] >= 0.2) or (verdict == 'unclear' and m[1] >= 0.45 and m[2] >= 0.1)
