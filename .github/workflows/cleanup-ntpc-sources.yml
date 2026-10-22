@@ -1,0 +1,10 @@
+name: Cleanup NTPC sources
+# Started by Claude. Deletes the temporary branch that held the source PDFs for the NTPC import.
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" --delete ntpc-sources
