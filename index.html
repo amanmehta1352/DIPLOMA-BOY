@@ -305,7 +305,7 @@ async function loadRemote(){
       sb('exam_branches?select=exam_id,branch_id'),
       sb('subjects?select=id,slug,name_en,name_hi,branch_id&order=id'),
       sb('topics?select=id,slug,name_en,name_hi,subject_id,sort,is_chapter,unit_en,unit_hi&order=sort,id'),
-      sb('sources?select=id,exam_id,branch_id,paper_date,shift,note&order=paper_date.desc,shift'),
+      sb('sources?select=id,exam_id,branch_id,paper_date,shift,note,kind&order=paper_date.desc,shift'),
       sb('chapter_stats?select=chapter_id,kind,n'),
       sb('exam_sections?select=exam_id,sort,slug,name_hi,name_en,questions,qno_from,qno_to,subjects&order=exam_id,sort').catch(()=>[]),
       sb('paper_stats?select=source_id,n').catch(()=>[])]);
@@ -313,7 +313,7 @@ async function loadRemote(){
     const sS={}; su.forEach(s=>sS[s.id]=s.slug);
     DATA.branches=br.map(b=>({id:b.slug,hi:b.name_hi,en:b.name_en}));
     DATA.subjects=su.map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:s.branch_id==null?null:bS[s.branch_id]}));
-    const exs=ex.map(e=>({id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,family:e.family_slug||e.slug,fhi:e.family_hi||e.name_hi,fen:e.family_en||e.name_en,stage:e.stage_en?{hi:e.stage_hi||e.stage_en,en:e.stage_en}:null,stageSort:e.stage_sort||1,pattern:e.pattern||{},sections:secs.filter(x=>x.exam_id===e.id).map(x=>({id:x.slug,hi:x.name_hi,en:x.name_en,n:x.questions,from:x.qno_from,to:x.qno_to,subjects:x.subjects})),branches:eb.filter(x=>x.exam_id===e.id).map(x=>bS[x.branch_id]),ready:true}));
+    const exs=ex.map(e=>({id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,family:e.family_slug||e.slug,fhi:e.family_hi||e.name_hi,fen:e.family_en||e.name_en,stage:e.stage_en?{hi:e.stage_hi||e.stage_en,en:e.stage_en}:null,stageSort:e.stage_sort||1,pattern:e.pattern||{},sections:secs.filter(x=>x.exam_id===e.id).map(x=>({id:x.slug,hi:x.name_hi,en:x.name_en,n:x.questions,from:x.qno_from,to:x.qno_to,subjects:x.subjects})),branches:(eb.some(x=>x.exam_id===e.id)?eb.filter(x=>x.exam_id===e.id).map(x=>bS[x.branch_id]):br.map(b=>b.slug)),ready:true}));   /* an exam with no branch rows (RRB NTPC) is open to every branch */
     DATA.exams=[...exs,...DATA.exams.filter(e=>e.soon&&!exs.some(x=>x.id===e.id))];
     R.topics={}; tp.forEach(t=>R.topics[t.id]={id:t.id,hi:t.name_hi,en:t.name_en,subject:sS[t.subject_id],chapter:t.is_chapter,unit:t.unit_en?{hi:t.unit_hi,en:t.unit_en}:null,sort:t.sort});
     R.sources={}; src.forEach(x=>R.sources[x.id]={...x,exam:(exs.find(e=>e.dbid===x.exam_id)||{}).id,branch:bS[x.branch_id]||null});
@@ -560,7 +560,7 @@ function vPyq(){
       <button class="item" data-a="paper-practice" data-id="${s.id}"><span class="bar4" style="background:var(--ok)"></span><span class="tx"><b>${L('अभ्यास की तरह हल करें','Solve as practice')}</b><span>${L('बिना टाइमर, हर जवाब के बाद सही उत्तर','No timer, answer shown after each question')}</span></span><span class="chev">${ICON.chev}</span></button>
     </div>`; }
   return `${examSwitch()}<h1 style="margin-top:6px">PYQ</h1>
-  <p class="muted" style="margin:4px 0 14px">${patternCard(e)?L('सिर्फ़ आधिकारिक पेपर और answer key से।','Only from official papers and answer keys.'):L(`सिर्फ़ आधिकारिक पेपर। असली पैटर्न: ${p.questions||'—'} सवाल, ${p.minutes||'—'} मिनट, गलत पर −${negTxt(p.negative_per_wrong)}।`,`Official papers only. Real pattern: ${p.questions||'—'} questions, ${p.minutes||'—'} min, −${negTxt(p.negative_per_wrong)} per wrong.`)}</p>
+  <p class="muted" style="margin:4px 0 14px">${srcs.some(x=>x.kind==='third_party_copy')?L('उम्मीदवारों की response sheet की कॉपी से। आधिकारिक रिकॉर्ड से मिलान अभी बाकी है।','From copies of candidates’ response sheets. Not yet matched with an official record.'):patternCard(e)?L('सिर्फ़ आधिकारिक पेपर और answer key से।','Only from official papers and answer keys.'):L(`सिर्फ़ आधिकारिक पेपर। असली पैटर्न: ${p.questions||'—'} सवाल, ${p.minutes||'—'} मिनट, गलत पर −${negTxt(p.negative_per_wrong)}।`,`Official papers only. Real pattern: ${p.questions||'—'} questions, ${p.minutes||'—'} min, −${negTxt(p.negative_per_wrong)} per wrong.`)}</p>
   ${resumeCard()}
   ${patternCard(e)}
   <h2 style="margin-top:16px">${L('पेपर (साल और शिफ़्ट)','Papers (year and shift)')}</h2>
