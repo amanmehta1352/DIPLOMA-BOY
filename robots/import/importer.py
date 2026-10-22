@@ -40,7 +40,7 @@ def run(job, dry, work, log=print):
     rep['meta'] = meta
     aliases = [x['alias'] for x in R.fetch_all('subject_aliases', {'select': 'alias'})] if not R.OFFLINE else []
     exam_id, branch_id, fam, stage, br = R.resolve_path(job, meta, A['header'], log)
-    src_id, existed = R.get_source(exam_id, branch_id, meta, job, job['url'], sha, fam, stage, br, dry, log)
+    src_id, existed = R.get_source(exam_id, branch_id, meta, job, job.get('src_url') or job['url'], sha, fam, stage, br, dry, log)
     rep['source_id'] = src_id
 
     existing = {}; used_qno = set()

@@ -43,6 +43,9 @@ def drive_id(u):
 
 def download(u, dest):
     import requests
+    if u.startswith('file:'):      # PDF staged on the temporary ntpc-sources branch (the host blocks GitHub runners)
+        data = open(os.path.join(os.environ.get('SRC_DIR', '.'), u[5:]), 'rb').read()
+        open(dest, 'wb').write(data); return hashlib.sha256(data).hexdigest()
     if u.startswith('repo:'):      # a PDF the user sent by chat, kept in robots/import/inputs/
         data = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'inputs', u[5:]), 'rb').read()
         open(dest, 'wb').write(data); return hashlib.sha256(data).hexdigest()

@@ -24,6 +24,10 @@ jobs:
         shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ntpc-sources
+          path: ntpc-src
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
       - name: Tools
@@ -38,6 +42,7 @@ jobs:
       - name: Run
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          SRC_DIR: ${{ github.workspace }}/ntpc-src
         run: |
           A="--work work --jobs-file robots/import/inputs/ntpc_jobs.json --shard ${{ matrix.shard }}/16"
           for j in $(echo "${{ inputs.only }}" | tr ',' ' '); do A="$A --job $j"; done
