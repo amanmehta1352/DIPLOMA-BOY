@@ -672,6 +672,7 @@ function qBlock(q,mode,sel){
     if(sel===-1) after=`<div class="verdict skip">${L(`छोड़ा। सही उत्तर ${lab(q.a)} है।`,`Skipped. The answer is ${lab(q.a)}.`)}</div>`;
     else { const ok=sel===q.a; after=`<div class="verdict ${ok?'ok':'bad'}" role="status">${ok?L('सही जवाब','Correct'):L(`गलत। सही उत्तर ${lab(q.a)} है।`,`Wrong. The answer is ${lab(q.a)}.`)}${!ok&&mode!=='review'?`<div class="small" style="font-weight:500">${L('गलती बुक में जोड़ दिया।','Added to the mistake book.')}</div>`:''}</div>`; }
     if(q.sol&&q.sol.hi) after+=`<div class="sol"><b>${L('हल','Solution')}:</b> ${q.sol.hi}</div>`;
+    after+=repDone(q.id)?`<p class="small muted" style="margin:12px 0 0" data-rep-done>${L('रिपोर्ट भेज दी, धन्यवाद','Report sent, thank you')}</p>`:`<button class="chip" style="margin-top:12px" data-a="rep-ask" data-id="${q.id}" data-rep>${L('⚑ सवाल में गलती है?','⚑ Report a mistake')}</button>`;
   }
   return `${meta}${showText?`<div class="qtext">${TX(q.stem)}</div>`:''}${imgs}${q.stem.hi_mt&&S.lang!=='en'?`<div class="mt">हिंदी मशीन अनुवाद है, अंग्रेज़ी मूल प्रश्न है।</div>`:''}<div class="opts">${opts}</div>${after}`;
 }
@@ -744,6 +745,23 @@ function initPad(){ const c=$('#pad'); if(!c||c.dataset.ok) return; c.dataset.ok
   c.addEventListener('pointerup',()=>{ on=false; }); c.addEventListener('pointercancel',()=>{ on=false; }); }
 function closePad(){ const c=$('#pad'), z=V.sheet; if(c&&c.dataset.dirty) z.pad[z.i]=c.dataset.blank?null:c.toDataURL('image/png'); V.modal=null; saveMock(); rSheet(); }
 
+/* ---- report a wrong question: anonymous, one report per question per phone; 3 phones hide it (server rule) ---- */
+const RKEY='diploma-boy-reports';
+function repState(){ try{ const o=JSON.parse(localStorage.getItem(RKEY)||'null'); if(o&&o.dev&&o.done) return o; }catch(e){}
+  const dev=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():('d'+Date.now().toString(36)+Math.random().toString(36).slice(2,12));
+  return {dev,done:{}}; }
+function repSave(o){ try{ localStorage.setItem(RKEY,JSON.stringify(o)); }catch(e){} }
+function repDone(id){ return !!repState().done[id]; }
+async function repSend(id,reason){
+  const o=repState();
+  const r=await fetch(SB.url+'/rest/v1/rpc/report_question',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json','Content-Profile':'mtb'},body:JSON.stringify({p_question:id,p_device:o.dev,p_reason:reason,p_note:null})});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  const j=await r.json(); if(!j||!j.ok) throw new Error((j&&j.err)||'fail');
+  o.done[id]=reason; repSave(o); return j; }
+function vReport(id){
+  const rs=[['answer','उत्तर गलत लगता है','The answer looks wrong'],['question','सवाल या विकल्प में गलती है','Mistake in the question or options'],['hindi','हिंदी अनुवाद गलत है','Hindi translation is wrong'],['figure','चित्र नहीं दिख रहा या गलत है','Picture missing or wrong'],['other','कुछ और','Something else']];
+  return `<div class="modal" data-a="modal-close"><div class="box" data-stop="1" role="dialog" aria-modal="true" aria-label="${L('सवाल में गलती','Report a mistake')}"><div style="display:flex;align-items:center"><b style="font-size:18px;flex:1">${L('इस सवाल में क्या गलत है?','What is wrong with this question?')}</b><button class="icon-btn" data-a="modal-close" aria-label="${L('बंद करें','Close')}">${ICON.close}</button></div>
+  <div class="panel" style="margin-top:12px">${rs.map(x=>`<button class="item" data-a="rep-send" data-id="${id}" data-r="${x[0]}"><span class="tx"><b>${L(x[1],x[2])}</b></span></button>`).join('')}</div></div></div>`; }
 function vConfirm(msg,yes,act,danger){ return `<div class="modal" data-a="modal-close"><div class="box" data-stop="1" role="alertdialog" aria-modal="true"><p style="font-size:17px;margin:4px 0 16px">${msg}</p><div class="btn-row" style="margin:0"><button class="btn line" data-a="modal-close">${L('रुकें','Cancel')}</button><button class="btn saffron" style="${danger?'background:var(--bad);color:#fff':''}" data-a="${act}">${yes}</button></div></div></div>`; }
 
 /* ============ RENDER ============ */
@@ -889,6 +907,9 @@ document.addEventListener('click',ev=>{
     case 'reset-ask': V.modal=vConfirm(L('इस फ़ोन की सारी प्रगति, गलती बुक और मॉक मिट जाएँगे। यह वापस नहीं आएगा।','All progress, mistakes and mocks on this phone will be erased. This cannot be undone.'),L('मिटाएँ','Erase'),'reset',true); rSheet(); break;
     case 'reset': S.st={};S.tp={};S.days={};S.mis={};S.mocks=[];S.seen={}; V.modal=null; save(); render(); toast(L('प्रगति मिटा दी','Progress erased')); break;
     case 'modal-close': V.modal=null; rSheet(); break;
+    case 'rep-ask': V.modal=vReport(+el.dataset.id); rSheet(); break;
+    case 'rep-send': { const id=+el.dataset.id, why=el.dataset.r; V.modal=null; rSheet();
+      repSend(id,why).then(()=>{ rSheet(); toast(L('धन्यवाद, हम जाँचेंगे','Thanks, we will check it')); }).catch(()=>toast(L('अभी नहीं भेज पाए, इंटरनेट देखकर फिर कोशिश करें','Could not send. Check your internet and try again'))); break; }
     case 'pattern': clearInterval(TICK); startPattern(+el.dataset.id,+el.dataset.n); break;
     case 'close': clearInterval(TICK); { const bk=V.sheet&&V.sheet.meta&&V.sheet.meta.back;
       if(bk){ restoreBack(bk); break; }

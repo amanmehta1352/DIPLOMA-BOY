@@ -22,6 +22,7 @@ jobs:
       - run: node tests/clean.test.js
       - run: node tests/pattern.test.js
       - run: node tests/pwa.test.js
+      - run: node tests/report.test.js
       - run: node tests/pattern_return.test.js
       - if: always()
         uses: actions/upload-artifact@v4
