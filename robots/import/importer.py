@@ -68,6 +68,7 @@ def run(job, dry, work, log=print):
             if not q['en'] or not all(q['en_opts']): st['skip_no_english'] += 1; continue
             key = S.qkey(q['en'], q['en_opts'])
         stem = {'en': q['en'], 'hi': q['hi'], 'hi_mt': bool(q.get('hi_mt')), 'key': key}
+        if q['hi'] and not q.get('hi_mt') and q.get('hi_src'): stem['hi_src'] = q['hi_src']      # 'layer' = exact PDF text, 'ocr' = read from the picture
         if q['fig']: stem['fig'] = True
         for k_, lang in (('img', 'en'), ('img_hi', 'hi')):
             if q[k_]:
@@ -101,8 +102,9 @@ def run(job, dry, work, log=print):
                     if o2[kk].get('hi') == o2[kk].get('en'): o2[kk]['hi'] = q['en_opts'][k]
                     o2[kk]['en'] = q['en_opts'][k]; moved += 1
                 if moved == 4:
-                    if q['hi'] and (ex['stem'].get('hi_mt') or not ex['stem'].get('hi')) and (q.get('hi_mt') or not q['checks'].get('hindi')):
+                    if q['hi'] and (ex['stem'].get('hi_mt') or not ex['stem'].get('hi') or (q.get('hi_src') == 'layer' and ex['stem'].get('hi_src') != 'layer')) and (q.get('hi_mt') or not q['checks'].get('hindi')):
                         s2['hi'] = q['hi']; s2['hi_mt'] = bool(q.get('hi_mt'))
+                        if q.get('hi_src'): s2['hi_src'] = q['hi_src']
                         for k in range(4):
                             kk = pos.get(S.norm(S.unscript(q['en_opts'][k] or '')))
                             if kk is not None and q['hi_opts'][k]: o2[kk]['hi'] = q['hi_opts'][k]
@@ -111,8 +113,10 @@ def run(job, dry, work, log=print):
                 continue
             if ex['status'] == 'published':
                 # never touch the English of a published question; take the official Hindi if ours is verified and theirs is machine/missing
-                if q['hi'] and not q.get('hi_mt') and (not ex['stem'].get('hi') or ex['stem'].get('hi_mt')) and not q['checks'].get('hindi') and q['checks'].get('twin') in ('answers agree', 'strong match'):
+                better = not ex['stem'].get('hi') or ex['stem'].get('hi_mt') or (q.get('hi_src') == 'layer' and ex['stem'].get('hi_src') != 'layer')
+                if q['hi'] and not q.get('hi_mt') and better and not q['checks'].get('hindi') and q['checks'].get('twin') in ('answers agree', 'strong match'):
                     s2 = dict(ex['stem']); s2['hi'] = q['hi']; s2['hi_mt'] = False
+                    if q.get('hi_src'): s2['hi_src'] = q['hi_src']
                     o2 = [dict(o) for o in ex['options']]
                     if all(q['hi_opts']):
                         # option order of the published row may differ: map by English text

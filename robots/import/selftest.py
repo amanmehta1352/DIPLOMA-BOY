@@ -56,4 +56,5 @@ assert ''.join(c['text'] for c in cs) == '47⁻¹¹2thH₂O', ''.join(c['text'] 
 assert S.unscript('47⁻¹¹ ÷ 47¹⁶, H₂O, xᶻ') == '47−11 ÷ 4716, H2O, xz', S.unscript('47⁻¹¹ ÷ 47¹⁶, H₂O, xᶻ')
 assert S.qkey('26⁻¹⁹', ['a', 'b', 'c', 'd']) == S.qkey('26−19', ['a', 'b', 'c', 'd']), 'qkey folds scripts (NFKC): importer must compare the English itself'
 assert "S.unscript(ex_en) == S.unscript(q['en'])" in inspect.getsource(I.run)
+assert P.BROKEN.search('बढ़ा िदया') and not P.BROKEN.search('बढ़ा दिया'), 'a vowel sign cannot start a word'
 print('selftest ok')

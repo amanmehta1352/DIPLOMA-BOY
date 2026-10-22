@@ -237,6 +237,36 @@ def map_options(a_en, b_en, a_lay, b_lay, a_hi=None, b_hi=None, full=False):
 
 
 # ------------------------------------------------------------------ build
+
+BROKEN = re.compile(r'(?:^|\s)[\u093e-\u094c\u0901-\u0903\u094d]')
+def layer_hindi(pdf_path, sheet, log=print):
+    """Some sheets (RRB NTPC) carry a correct Hindi text layer that poppler (pdftotext) reads exactly, while pdfplumber
+    scrambles the vowel signs. Read it with pdftotext; use a question only when its Hindi is clean (no vowel sign
+    starting a word, no (cid:) glyphs, four options). The official Hindi then needs no OCR at all."""
+    try: txt = subprocess.run(['pdftotext', '-layout', pdf_path, '-'], capture_output=True, text=True, timeout=300).stdout
+    except Exception as e: log(f'pdftotext failed: {e}'); return {}
+    qs = S.parse_text_lines(txt.split('\n'))
+    sq = sheet['questions']
+    if len(qs) != len(sq) or any(a['qno'] != b['qno'] for a, b in zip(qs, sq)): log(f'layer Hindi: {len(qs)} vs {len(sq)} questions - not used'); return {}
+    out = {}
+    for j, (q, s) in enumerate(zip(qs, sq)):
+        if s['lang'] != 'hi': continue
+        opts = [q['opts'].get(str(k + 1)) or '' for k in range(4)]
+        t = q['text'] + ' ' + ' '.join(opts)
+        if not DEVA.search(q['text']) or '(cid:' in t or BROKEN.search(t) or not all(opts): continue
+        toks = [w for w in re.findall(r'\S+', t) if DEVA.search(w)]
+        if not toks or sum(1 for w in toks if len(w) == 1) / len(toks) > 0.15: continue          # "व म आ र": letters torn apart
+        if sum(1 for ln in q['text'].split('\n') if 0 < len(ln.strip()) <= 3) > 1: continue       # one syllable per line
+        wm = [w for w in sheet.get('watermark_words', []) if not w.startswith('http')]
+        def scrub(x):
+            for w in wm: x = re.sub(r'(?<![A-Za-z])' + re.escape(w) + r'(?![A-Za-z])', '', x)
+            return re.sub(r'[ \t]+', ' ', x).strip()
+        out[j] = {'text': scrub(q['text']), 'opts': [scrub(o) for o in opts]}
+    n_hi = sum(1 for s in sq if s['lang'] == 'hi')
+    if n_hi and len(out) < 0.8 * n_hi: log(f'layer Hindi: only {len(out)} of {n_hi} clean - the text layer is not trusted for this sheet'); return {}
+    log(f'layer Hindi: {len(out)} of {sum(1 for s in sq if s["lang"] == "hi")} Hindi questions read exactly from the PDF text')
+    return out
+
 def build(en_pdf, hi_pdf, work, log=print, dpi=150):
     """Returns {'questions': [...], 'report': {...}} for the backbone (English) sheet."""
     os.makedirs(work, exist_ok=True)
@@ -246,9 +276,12 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
     is_fig = lambda q: bool(q['figs']) or q['gap'] > 30
 
     # OCR every Hindi-shown question of both sheets (the text layer of Hindi is broken)
-    ocrA = H.ocr_sheet(en_pdf, A, [i for i, q in enumerate(A['questions']) if q['lang'] == 'hi'], os.path.join(work, 'ocrA')) if H.have_hindi_ocr() else {}
-    ocrB = H.ocr_sheet(hi_pdf, B, [j for j, q in enumerate(B['questions']) if q['lang'] == 'hi'], os.path.join(work, 'ocrB')) if (B and H.have_hindi_ocr()) else {}
+    layA = layer_hindi(en_pdf, A, log); layB = layer_hindi(hi_pdf, B, log) if B else {}
+    ocrA = H.ocr_sheet(en_pdf, A, [i for i, q in enumerate(A['questions']) if q['lang'] == 'hi' and i not in layA], os.path.join(work, 'ocrA')) if H.have_hindi_ocr() else {}
+    ocrB = H.ocr_sheet(hi_pdf, B, [j for j, q in enumerate(B['questions']) if q['lang'] == 'hi' and j not in layB], os.path.join(work, 'ocrB')) if (B and H.have_hindi_ocr()) else {}
     hiA = {i: hindi_of(A, i, ocrA) for i in ocrA}; hiB = {j: hindi_of(B, j, ocrB) for j in ocrB} if B else {}
+    hiA.update(layA); hiB.update(layB)
+    rep_layer = {'layer_hindi_A': len(layA), 'layer_hindi_B': len(layB)}
 
     # English-space texts for matching
     tr = Translator(log)
@@ -378,6 +411,8 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
         # figure questions: the Hindi picture carries the Hindi; an OCR'd Hindi text is kept only when it is clean
         if fig and rec['hi'] and not rec.get('hi_mt') and not (rec['en'] and ocr_clean(rec['hi'], rec['en'], (qb or qa)['text'])):
             rec['checks']['hindi'] = 'figure: Hindi text unclear, picture used'; rec['hi'] = None; rec['hi_opts'] = [None] * 4
+        if rec['hi'] and not rec.get('hi_mt'):
+            rec['hi_src'] = 'layer' if ((qb is not None and qb['lang'] == 'hi' and m and m[0] in layB) or (qa['lang'] == 'hi' and i in layA)) else 'ocr'
         if rec['hi'] and not rec.get('hi_mt'):      # each official option must also be free of OCR noise
             rec['hi_opts'] = [o if (o and ocr_clean(o, rec['en_opts'][k] or '', '')) else None for k, o in enumerate(rec['hi_opts'])]
         if rec['hi'] and rec['en']:
@@ -413,4 +448,5 @@ def build(en_pdf, hi_pdf, work, log=print, dpi=150):
                         'a_en': (A['questions'][k[0]]['text'][:200] if k else ''), 'score': k[1] if k else None})
         json.dump(dbg, open(os.path.join(work, '..', 'debug_pairs.json'), 'w'), ensure_ascii=False, indent=1)
     except Exception as e: log(f'debug dump failed {e}')
+    rep.update(rep_layer)
     return {'questions': out, 'report': rep, 'A': A, 'B': B}
