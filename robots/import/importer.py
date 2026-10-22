@@ -115,22 +115,28 @@ def run(job, dry, work, log=print):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--job', type=int, action='append', required=True); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--work', default='work')
+    ap.add_argument('--job', type=int, action='append', default=[]); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--work', default='work')
+    ap.add_argument('--jobs-file'); ap.add_argument('--shard', default='0/1')
     a = ap.parse_args()
     if not R.KEY: sys.exit('SUPABASE_SECRET_KEY नहीं मिली')
     bad = 0
+    file_jobs = {}
+    if a.jobs_file:       # jobs kept in a file (public URLs only): no import_jobs row; the shard picks every n-th job
+        allj = json.load(open(a.jobs_file)); k, n = map(int, a.shard.split('/'))
+        file_jobs = {x['id']: x for x in allj if (x['id'] - allj[0]['id']) % n == k and (not a.job or x['id'] in a.job)}
+        a.job = sorted(file_jobs)
     for j in a.job:
-        job = R.rest('GET', 'import_jobs', params={'id': f'eq.{j}'})[0]
+        job = file_jobs[j] if j in file_jobs else R.rest('GET', 'import_jobs', params={'id': f'eq.{j}'})[0]
         print(f'--- job {j}: {job["url"][:90]}', flush=True)
         try:
-            if not a.dry_run: R.rest('PATCH', 'import_jobs', {'status': 'running'}, params={'id': f'eq.{j}'})
+            if not a.dry_run and j not in file_jobs: R.rest('PATCH', 'import_jobs', {'status': 'running'}, params={'id': f'eq.{j}'})
             rep = run(job, a.dry_run, os.path.join(a.work, str(j)))
             print(json.dumps(rep, ensure_ascii=False), flush=True)
             open(os.path.join(a.work, f'report_{j}.json'), 'w').write(json.dumps(rep, ensure_ascii=False, indent=1))
-            if not a.dry_run: R.rest('PATCH', 'import_jobs', {'status': 'review', 'report': rep, 'source_id': rep.get('source_id')}, params={'id': f'eq.{j}'})
+            if not a.dry_run and j not in file_jobs: R.rest('PATCH', 'import_jobs', {'status': 'review', 'report': rep, 'source_id': rep.get('source_id')}, params={'id': f'eq.{j}'})
         except Exception as e:
             bad += 1; traceback.print_exc()
-            if not a.dry_run: R.rest('PATCH', 'import_jobs', {'status': 'failed', 'report': {'error': str(e)[:500]}}, params={'id': f'eq.{j}'})
+            if not a.dry_run and j not in file_jobs: R.rest('PATCH', 'import_jobs', {'status': 'failed', 'report': {'error': str(e)[:500]}}, params={'id': f'eq.{j}'})
     sys.exit(1 if bad else 0)
 
 if __name__ == '__main__': main()

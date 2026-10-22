@@ -1,0 +1,53 @@
+name: NTPC Import
+# Started by Claude. Papers listed in robots/import/inputs/ntpc_jobs.json (public URLs only). Draft only - never publishes.
+# 16 shards run in parallel; shard k takes every 16th paper. dry_run=true reads and reports without writing.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (nothing written)'
+        type: boolean
+        default: true
+      only:
+        description: 'Optional job ids (1000+) comma separated; empty = all'
+        default: ''
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Tools
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-hin tesseract-ocr-eng poppler-utils
+          pip install -q pdfplumber pymupdf pillow requests scikit-learn scipy
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "transformers==4.46.3" sentencepiece sacremoses einops IndicTransToolkit
+      - name: Self-test
+        run: python robots/import/selftest.py
+      - name: Run
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          A="--work work --jobs-file robots/import/inputs/ntpc_jobs.json --shard ${{ matrix.shard }}/16"
+          for j in $(echo "${{ inputs.only }}" | tr ',' ' '); do A="$A --job $j"; done
+          [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
+          python robots/import/importer.py $A
+      - name: Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ntpc-reports-${{ matrix.shard }}
+          path: |
+            work/report_*.json
+          if-no-files-found: ignore
