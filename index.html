@@ -674,7 +674,7 @@ function qBlock(q,mode,sel){
     if(q.sol&&q.sol.hi) after+=`<div class="sol"><b>${L('हल','Solution')}:</b> ${q.sol.hi}</div>`;
     after+=repDone(q.id)?`<p class="small muted" style="margin:12px 0 0" data-rep-done>${L('रिपोर्ट भेज दी, धन्यवाद','Report sent, thank you')}</p>`:`<button class="chip" style="margin-top:12px" data-a="rep-ask" data-id="${q.id}" data-rep>${L('⚑ सवाल में गलती है?','⚑ Report a mistake')}</button>`;
   }
-  return `${meta}${showText?`<div class="qtext">${TX(q.stem)}</div>`:''}${imgs}${q.stem.hi_mt&&S.lang!=='en'?`<div class="mt">हिंदी मशीन अनुवाद है, अंग्रेज़ी मूल प्रश्न है।</div>`:''}<div class="opts">${opts}</div>${after}`;
+  return `${meta}${showText?`<div class="qtext">${TX(q.stem)}</div>`:''}${imgs}${(q.stem.hi_mt||(q.opts||q.options||[]).some(o=>o&&o.mt))&&S.lang!=='en'?`<div class="mt">हिंदी मशीन अनुवाद है, अंग्रेज़ी मूल प्रश्न है।</div>`:''}<div class="opts">${opts}</div>${after}`;
 }
 function clock(s){ s=Math.max(0,s|0); const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=s%60; return (h?h+':':'')+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0'); }
 function topBar(title,sub,extra='',closeAct='close'){ return `<div class="sheet-top"><div class="wrap"><button class="icon-btn" data-a="${closeAct}" aria-label="${L('बंद करें','Close')}">${ICON.close}</button><div style="flex:1;min-width:0"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${title}</b>${sub?`<span class="small muted">${sub}</span>`:''}</div>${extra}</div>`; }
