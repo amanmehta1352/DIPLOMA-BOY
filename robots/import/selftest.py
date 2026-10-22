@@ -57,4 +57,5 @@ assert S.unscript('47⁻¹¹ ÷ 47¹⁶, H₂O, xᶻ') == '47−11 ÷ 4716, H2O,
 assert S.qkey('26⁻¹⁹', ['a', 'b', 'c', 'd']) == S.qkey('26−19', ['a', 'b', 'c', 'd']), 'qkey folds scripts (NFKC): importer must compare the English itself'
 assert "S.unscript(ex_en) == S.unscript(q['en'])" in inspect.getsource(I.run)
 assert P.BROKEN.search('बढ़ा िदया') and not P.BROKEN.search('बढ़ा दिया'), 'a vowel sign cannot start a word'
+assert P.fix_deva_space('रामकृ ष्ण और कू ड़े, रे ल, दिल्ली कै पिटल्स, भारत के शहर, यह है ठीक') == 'रामकृष्ण और कूड़े, रेल, दिल्ली कैपिटल्स, भारत के शहर, यह है ठीक'
 print('selftest ok')

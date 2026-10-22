@@ -238,6 +238,12 @@ def map_options(a_en, b_en, a_lay, b_lay, a_hi=None, b_hi=None, full=False):
 
 # ------------------------------------------------------------------ build
 
+DEVA_SP1 = re.compile(r'([क-ह]़?ृ) (?=[क-ह])')
+DEVA_SP2 = re.compile(r'(^|[ (])((?!के |से |ने |थे |दे |ले |वे |ये |है |पे |हे )[क-ह]़?[ूृेै]) (?=[क-ह])')
+def fix_deva_space(t):
+    """poppler puts a space after a glyph with an overhang (रामकृ ष्ण, कू ड़े, रे ल): join it back, never after real words (के, से, है ...)."""
+    return DEVA_SP2.sub(r'\1\2', DEVA_SP1.sub(r'\1', t or ''))
+
 BROKEN = re.compile(r'(?:^|\s)[\u093e-\u094c\u0901-\u0903\u094d]')
 def layer_hindi(pdf_path, sheet, log=print):
     """Some sheets (RRB NTPC) carry a correct Hindi text layer that poppler (pdftotext) reads exactly, while pdfplumber
@@ -261,7 +267,7 @@ def layer_hindi(pdf_path, sheet, log=print):
         def scrub(x):
             for w in wm: x = re.sub(r'(?<![A-Za-z])' + re.escape(w) + r'(?![A-Za-z])', '', x)
             return re.sub(r'[ \t]+', ' ', x).strip()
-        out[j] = {'text': scrub(q['text']), 'opts': [scrub(o) for o in opts]}
+        out[j] = {'text': fix_deva_space(scrub(q['text'])), 'opts': [fix_deva_space(scrub(o)) for o in opts]}
     n_hi = sum(1 for s in sq if s['lang'] == 'hi')
     if n_hi and len(out) < 0.8 * n_hi: log(f'layer Hindi: only {len(out)} of {n_hi} clean - the text layer is not trusted for this sheet'); return {}
     log(f'layer Hindi: {len(out)} of {sum(1 for s in sq if s["lang"] == "hi")} Hindi questions read exactly from the PDF text')
