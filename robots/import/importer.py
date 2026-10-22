@@ -77,10 +77,34 @@ def run(job, dry, work, log=print):
         opts = [{'en': q['en_opts'][k] or (str(k + 1) if q['fig'] else None), 'hi': q['hi_opts'][k] or (str(k + 1) if q['fig'] and stem.get('img_hi') else None)} for k in range(4)]
         verified = q['answer'] is not None and q['complete_en'] and q['complete_hi'] and not q['checks'].get('hindi')
         stem['checks'] = {**q['checks'], 'verified': verified}
-        ex = existing.get(key)
+        ex = existing.get(key); script_fix = False
+        if ex is None and not q['fig']:      # imported before the superscript fix: its key was made from the flattened text
+            alt = S.qkey(S.unscript(q['en']), [S.unscript(o) for o in q['en_opts']])
+            if alt != key and existing.get(alt) and existing[alt]['id'] is not None:
+                ex = existing[alt]; script_fix = True; existing[key] = ex
         if ex and ex['id'] is None:      # same question twice in one paper: the first copy is already queued for insert
             st['repeat_in_paper'] += 1; continue
         if ex:
+            if ex['status'] == 'published' and script_fix:
+                # same question, only the superscripts/subscripts were flattened before: put the exact maths back
+                s2 = dict(ex['stem']); s2['en'] = q['en']; s2['key'] = key
+                o2 = [dict(o) for o in ex['options']]
+                pos = {S.norm(S.unscript(o.get('en', ''))): k for k, o in enumerate(o2)}
+                moved = 0
+                for k in range(4):
+                    kk = pos.get(S.norm(S.unscript(q['en_opts'][k] or '')))
+                    if kk is None: continue
+                    if o2[kk].get('hi') == o2[kk].get('en'): o2[kk]['hi'] = q['en_opts'][k]
+                    o2[kk]['en'] = q['en_opts'][k]; moved += 1
+                if moved == 4:
+                    if q['hi'] and (ex['stem'].get('hi_mt') or not ex['stem'].get('hi')) and (q.get('hi_mt') or not q['checks'].get('hindi')):
+                        s2['hi'] = q['hi']; s2['hi_mt'] = bool(q.get('hi_mt'))
+                        for k in range(4):
+                            kk = pos.get(S.norm(S.unscript(q['en_opts'][k] or '')))
+                            if kk is not None and q['hi_opts'][k]: o2[kk]['hi'] = q['hi_opts'][k]
+                    patches.append((ex['id'], {'stem': s2, 'options': o2, 'content_hash': key})); st['superscripts_fixed'] += 1
+                else: st['superscripts_unmatched'] += 1
+                continue
             if ex['status'] == 'published':
                 # never touch the English of a published question; take the official Hindi if ours is verified and theirs is machine/missing
                 if q['hi'] and not q.get('hi_mt') and (not ex['stem'].get('hi') or ex['stem'].get('hi_mt')) and not q['checks'].get('hindi') and q['checks'].get('twin') in ('answers agree', 'strong match'):
@@ -97,7 +121,10 @@ def run(job, dry, work, log=print):
                 else: st['already_published'] += 1
                 continue
             # draft / hidden rows: replace with this clean read
-            patches.append((ex['id'], {'stem': stem, 'options': opts, 'answer': q['answer'], 'status': 'draft'}))
+            body = {'stem': stem, 'options': opts, 'answer': q['answer'], 'status': 'draft', 'content_hash': key}
+            if ex.get('source_qno') != q['order'] and q['order'] not in used_qno:      # back to its own number in the paper
+                used_qno.discard(ex.get('source_qno')); used_qno.add(q['order']); body['source_qno'] = q['order']
+            patches.append((ex['id'], body))
             st['restored' if ex['status'] == 'hidden' else 'updated'] += 1
             continue
         if q['answer'] is None: st['skip_no_answer'] += 1; continue

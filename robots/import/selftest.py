@@ -53,4 +53,5 @@ cs = [_ch('4', 10), _ch('7', 14.8), _ch('−', 19.6, 7.3, 114.5), _ch('1', 23.3,
       _ch('H', 100), _ch('2', 104.8, 7.3, 119.8), _ch('O', 108.5)]
 S.mark_scripts(_Pg(cs))
 assert ''.join(c['text'] for c in cs) == '47⁻¹¹2thH₂O', ''.join(c['text'] for c in cs)
+assert S.unscript('47⁻¹¹ ÷ 47¹⁶, H₂O, xᶻ') == '47−11 ÷ 4716, H2O, xz', S.unscript('47⁻¹¹ ÷ 47¹⁶, H₂O, xᶻ')
 print('selftest ok')

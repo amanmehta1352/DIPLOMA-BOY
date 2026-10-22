@@ -138,6 +138,14 @@ def mark_scripts(page):
         n += 1
     return n
 
+_UNS = {}
+for _a, _b in (('0123456789−-+()abcdefghijklmnoprstuvwxyz', '⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁻⁺⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ'), ('0123456789−-+()aehijklmnoprstuvx', '₀₁₂₃₄₅₆₇₈₉₋₋₊₍₎ₐₑₕᵢⱼₖₗₘₙₒₚᵣₛₜᵤᵥₓ')):
+    for x, y in zip(_a, _b): _UNS.setdefault(y, x)
+_UNS['⁻'] = '−'; _UNS['₋'] = '−'
+def unscript(t):
+    """The flattened form an older read produced (47⁻¹¹ -> 47−11): used only to find the same question imported before the fix."""
+    return ''.join(_UNS.get(ch, ch) for ch in (t or ''))
+
 # ---- reading one sheet ---------------------------------------------------------------------
 def parse_text_lines(lines):
     qs = []; section = None; cur = None; mode = None
