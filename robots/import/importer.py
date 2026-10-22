@@ -78,6 +78,8 @@ def run(job, dry, work, log=print):
         verified = q['answer'] is not None and q['complete_en'] and q['complete_hi'] and not q['checks'].get('hindi')
         stem['checks'] = {**q['checks'], 'verified': verified}
         ex = existing.get(key)
+        if ex and ex['id'] is None:      # same question twice in one paper: the first copy is already queued for insert
+            st['repeat_in_paper'] += 1; continue
         if ex:
             if ex['status'] == 'published':
                 # never touch the English of a published question; take the official Hindi if ours is verified and theirs is machine/missing
