@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "apps": [
+    {
+      "id": "diploma-boy",
+      "name": "Diploma Boy",
+      "icon": "🎓",
+      "repo": "amanmehta1352/DIPLOMA-BOY",
+      "status_base": "https://raw.githubusercontent.com/amanmehta1352/DIPLOMA-BOY/status/",
+      "site": "https://amanmehta1352.github.io/DIPLOMA-BOY/",
+      "workflows": {
+        "Tests": "tests.yml",
+        "Health Robot": "health-robot.yml",
+        "Daily backup": "daily-backup.yml",
+        "NTPC Import": "ntpc-import.yml",
+        "NTPC Chapter Tag": "ntpc-chapter-tag.yml",
+        "NTPC Rule Tag": "ntpc-rule-tag.yml",
+        "NTPC Subject Tag": "ntpc-subject-tag.yml",
+        "Import Robot": "import-robot.yml",
+        "Pattern rebuild": "pattern-rebuild.yml"
+      }
+    }
+  ]
+}

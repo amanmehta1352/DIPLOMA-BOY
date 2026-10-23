@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b5fff">
+<title>Control Room · Diploma Boy</title>
+<link rel="stylesheet" href="cr.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span id="appIcon">🎓</span><div><b id="appName">Control Room</b><small id="age">लोड हो रहा है…</small></div></div>
+  <div class="tools"><select id="appSel" aria-label="ऐप चुनें" hidden></select><button id="reload" class="icon" aria-label="ताज़ा करें">⟳</button></div>
+</header>
+<main id="view" aria-live="polite"><p class="empty">लोड हो रहा है…</p></main>
+<nav class="dock" id="dock" aria-label="हिस्से">
+  <button data-go="overview" class="on"><i>🟢</i><span>हाल</span></button>
+  <button data-go="questions"><i>📥</i><span>सवाल</span></button>
+  <button data-go="robots"><i>🤖</i><span>Robots</span></button>
+  <button data-go="backup"><i>💾</i><span>Backup</span></button>
+</nav>
+<script src="cr.js"></script>
+</body>
+</html>

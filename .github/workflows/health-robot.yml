@@ -1,0 +1,46 @@
+name: Health Robot
+# R12. Every 2 hours and after the other robots/tests finish. Writes COUNTS ONLY to branch `status`
+# (status.json + history.json). The Control Room (control/) reads them. No Claude usage.
+on:
+  schedule:
+    - cron: '17 */2 * * *'
+  workflow_run:
+    workflows: ['Tests', 'Daily backup', 'NTPC Import', 'NTPC Chapter Tag', 'NTPC Rule Tag', 'NTPC Subject Tag', 'Import Robot', 'Pattern rebuild']
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: health-robot
+  cancel-in-progress: false
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Selftest
+        run: python3 robots/health/selftest.py
+      - name: Previous report (if any)
+        run: |
+          mkdir -p prev
+          git fetch -q origin status:refs/remotes/origin/status 2>/dev/null || true
+          git show origin/status:status.json > prev/status.json 2>/dev/null || true
+          git show origin/status:history.json > prev/history.json 2>/dev/null || true
+      - name: Collect
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 robots/health/health.py --out out --prev-dir prev
+      - name: Publish to branch status
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd out
+          git init -q -b status
+          git add status.json history.json
+          git -c user.name=health-robot -c user.email=health-robot@users.noreply.github.com commit -q -m "status $(date -u +%FT%TZ)"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" status
