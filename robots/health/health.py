@@ -32,7 +32,7 @@ def now(): return datetime.now(timezone.utc)
 def iso(d): return d.strftime('%Y-%m-%dT%H:%M:%S+00:00')
 
 def rpc(name, args=None):
-    h = {'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Profile': 'mtb' if name != 'verify_nightly' else 'backup',
+    h = {'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Profile': 'mtb',
          'Content-Type': 'application/json', 'x-actor': 'health-robot'}
     s, b = http(f'{SB}/rest/v1/rpc/{name}', h, json.dumps(args or {}).encode(), 'POST')
     return json.loads(b)
@@ -64,7 +64,7 @@ def verify_if_due(d, prev):
     last = (prev or {}).get('backup_verify')
     if last and (now() - datetime.fromisoformat(last['checked_at'])).total_seconds() < 86400: return last
     try:
-        v = rpc('verify_nightly'); return {'checked_at': v.get('checked_at') or iso(now()), 'slot': v.get('slot'), 'backup_rows': v.get('backup_rows'),
+        v = rpc('verify_backup'); return {'checked_at': v.get('checked_at') or iso(now()), 'slot': v.get('slot'), 'backup_rows': v.get('backup_rows'),
                                            'missing_in_live': v.get('missing_in_live'), 'changed_since': v.get('changed_since')}
     except Exception as e: d['errors']['verify'] = type(e).__name__; return last
 
