@@ -306,7 +306,7 @@ async function loadRemote(){
       sb('subjects?select=id,slug,name_en,name_hi,branch_id&order=id'),
       sb('topics?select=id,slug,name_en,name_hi,subject_id,sort,is_chapter,unit_en,unit_hi&order=sort,id'),
       sb('sources?select=id,exam_id,branch_id,paper_date,shift,note,kind&order=paper_date.desc,shift'),
-      sb('chapter_stats?select=chapter_id,kind,n'),
+      sb('topic_stats_exam?select=topic_id,exam_id,kind,n'),
       sb('exam_sections?select=exam_id,sort,slug,name_hi,name_en,questions,qno_from,qno_to,subjects&order=exam_id,sort').catch(()=>[]),
       sb('paper_stats?select=source_id,n').catch(()=>[])]);
     const bS={}; br.forEach(b=>bS[b.id]=b.slug);
@@ -315,9 +315,10 @@ async function loadRemote(){
     DATA.subjects=su.map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:s.branch_id==null?null:bS[s.branch_id]}));
     const exs=ex.map(e=>({id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,family:e.family_slug||e.slug,fhi:e.family_hi||e.name_hi,fen:e.family_en||e.name_en,stage:e.stage_en?{hi:e.stage_hi||e.stage_en,en:e.stage_en}:null,stageSort:e.stage_sort||1,pattern:e.pattern||{},sections:secs.filter(x=>x.exam_id===e.id).map(x=>({id:x.slug,hi:x.name_hi,en:x.name_en,n:x.questions,from:x.qno_from,to:x.qno_to,subjects:x.subjects})),branches:(eb.some(x=>x.exam_id===e.id)?eb.filter(x=>x.exam_id===e.id).map(x=>bS[x.branch_id]):br.map(b=>b.slug)),ready:true}));   /* an exam with no branch rows (RRB NTPC) is open to every branch */
     DATA.exams=[...exs,...DATA.exams.filter(e=>e.soon&&!exs.some(x=>x.id===e.id))];
-    R.topics={}; tp.forEach(t=>R.topics[t.id]={id:t.id,hi:t.name_hi,en:t.name_en,subject:sS[t.subject_id],chapter:t.is_chapter,unit:t.unit_en?{hi:t.unit_hi,en:t.unit_en}:null,sort:t.sort});
+    R.topics={}; tp.forEach(t=>{ const inbox=t.slug==='inbox'; R.topics[t.id]={id:t.id,hi:inbox?'अन्य सवाल':t.name_hi,en:inbox?'Other questions':t.name_en,subject:sS[t.subject_id],chapter:t.is_chapter||inbox,unit:t.unit_en?{hi:t.unit_hi,en:t.unit_en}:null,sort:inbox?9998:t.sort}; });
     R.sources={}; src.forEach(x=>R.sources[x.id]={...x,exam:(exs.find(e=>e.dbid===x.exam_id)||{}).id,branch:bS[x.branch_id]||null});
-    R.stats={}; cs.forEach(x=>{ const s=R.stats[x.chapter_id]||(R.stats[x.chapter_id]={pyq:0,practice:0}); s[x.kind]=x.n; });
+    R.statsEx={}; cs.forEach(x=>{ (R.statsEx[x.topic_id]||(R.statsEx[x.topic_id]=[])).push(x); });
+    R.examFam={}; R.famOfSlug={}; exs.forEach(e=>{ R.examFam[e.dbid]=e.family; R.famOfSlug[e.id]=e.family; });
     R.pstat={}; ps.forEach(x=>R.pstat[x.source_id]=x.n);
     R.ok=true;
   }catch(e){ R.ok=false; }
@@ -331,9 +332,10 @@ async function paged(scope,base){
   S.seen[scope]=(S.seen[scope]||0)+rows.length; save(); return rows.map(norm);
 }
 // विषय / Practice view: by chapter (or whole subject), any exam
+function scopeSrc(){ const fams=myFams().map(f=>f.id); if(!fams.length) return ''; const ids=Object.values(R.sources).filter(x=>fams.includes(R.famOfSlug[x.exam])).map(x=>x.id); return `&or=(source_id.is.null,source_id.in.(${ids.join(',')||'0'}))`; }
 function fetchChapter(subj,chapterId,kind){
   const chs=chapterId?[chapterId]:chaptersOf(subj).map(t=>t.id); if(!chs.length) return Promise.resolve([]);
-  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&chapter_id=in.(${chs.join(',')})${kind?'&kind=eq.'+kind:''}`);   /* one question per same-type pattern; its chip opens the whole pattern */
+  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&topic_id=in.(${chs.join(',')})${kind?'&kind=eq.'+kind:''}${scopeSrc()}`);   /* one question per same-type pattern; its chip opens the whole pattern */
 }
 // PYQ view: one exam, by subject (exam's own papers only)
 function fetchExamSubject(exam,subj){
@@ -419,7 +421,9 @@ function subjectsHome(act,extraFn,title,lead,dimFn){
   return `<h1 style="margin-top:16px">${title}</h1><p class="muted" style="margin:4px 0 10px">${lead}</p>${stageChips()}${body}`; }
 function mySubjects(){ return [...COMMON.map(id=>byId(DATA.subjects,id)).filter(Boolean),...DATA.subjects.filter(s=>s.branch===S.branch)]; }
 function chaptersOf(subj){ return Object.values(R.topics).filter(t=>t.chapter&&t.subject===subj).sort((a,b)=>(a.sort||0)-(b.sort||0)||a.id-b.id); }
-function cnt(chId,kind){ const s=R.stats[chId]||{}; return kind?(s[kind]||0):((s.pyq||0)+(s.practice||0)); }
+// counts follow the student's families (myFams): practice (our own, no exam) always counts; PYQ/NTPC counts only from picked exams
+function inScope(examDbid){ if(!examDbid) return true; const fams=myFams().map(f=>f.id); return !fams.length||fams.includes(R.examFam[examDbid]); }
+function cnt(chId,kind){ const s={pyq:0,practice:0}; (R.statsEx[chId]||[]).forEach(x=>{ if(inScope(x.exam_id)) s[x.kind]=(s[x.kind]||0)+x.n; }); return kind?(s[kind]||0):((s.pyq||0)+(s.practice||0)); }
 function subjCount(subj,kind){ return chaptersOf(subj).reduce((a,t)=>a+cnt(t.id,kind),0); }
 const stat=id=>S.st[id]||{c:0,t:0};
 const todayCount=()=>S.days[today()]||0;
@@ -574,14 +578,14 @@ function vPyq(){
 /* --- Practice (our own questions) --- */
 function vPractice(){
   const v=V.view;
-  if(v&&v.subj){ const s=byId(DATA.subjects,v.subj)||{id:v.subj}; const chs=chaptersOf(s.id).filter(t=>cnt(t.id,'practice'));
+  if(v&&v.subj){ const s=byId(DATA.subjects,v.subj)||{id:v.subj}; const chs=chaptersOf(s.id).filter(t=>cnt(t.id));
     let last=null; const rows=chs.map(t=>{ let head=''; const u=t.unit?N(t.unit):''; if(u&&u!==last){ head=`<div class="item" style="min-height:0;padding:10px 14px;cursor:default;background:var(--paper)"><b class="small">${u}</b></div>`; last=u; }
-      return head+`<button class="item" data-a="start-ch" data-subj="${s.id}" data-ch="${t.id}" data-kind="practice"><span class="tx"><b>${N(t)}</b><span>${cnt(t.id,'practice')} ${L('सवाल','questions')}</span></span><span class="chev">${ICON.chev}</span></button>`; }).join('');
+      return head+`<button class="item" data-a="start-ch" data-subj="${s.id}" data-ch="${t.id}" ><span class="tx"><b>${N(t)}</b><span>${cnt(t.id)} ${L('सवाल','questions')}</span></span><span class="chev">${ICON.chev}</span></button>`; }).join('');
     return `${backBtn('back-practice',N(s))}
-    <button class="btn" style="margin-top:8px" data-a="start-ch" data-subj="${s.id}" data-kind="practice">${L('सभी अध्याय मिलाकर 20','20 from all chapters')}</button>
+    <button class="btn" style="margin-top:8px" data-a="start-ch" data-subj="${s.id}">${L('सभी अध्याय मिलाकर 20','20 from all chapters')}</button>
     <h2>${L('अध्याय','Chapters')}</h2><div class="panel">${rows}</div>`; }
-  return subjectsHome('open-psubj',s=>{const n=subjCount(s.id,'practice'); return n?`${n} ${L('सवाल','questions')}`:L('जल्द','Coming soon');},
-    L('प्रैक्टिस','Practice'),L('ये सवाल Diploma Boy ने ख़ुद लिखे हैं, अपने शब्दों में, हल के साथ। ये PYQ नहीं हैं।','These questions are written by Diploma Boy in our own words, with solutions. They are not PYQs.'),s=>!subjCount(s.id,'practice'));
+  return subjectsHome('open-psubj',s=>{const n=subjCount(s.id); return n?`${n} ${L('सवाल','questions')}`:L('जल्द','Coming soon');},
+    L('प्रैक्टिस','Practice'),L('हमारे अपने सवाल और चुनी हुई परीक्षाओं के सवाल। हर सवाल पर लिखा है कि वो PYQ है या प्रैक्टिस।','Our own questions plus questions from your chosen exams. Each question says whether it is a PYQ or Practice.'),s=>!subjCount(s.id));
 }
 
 /* --- गलती बुक --- */
