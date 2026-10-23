@@ -1,0 +1,26 @@
+name: NTPC Rule Tag
+# Started by Claude. Chapter keyword rules (robots/import/rule_tag.py) for NTPC questions still in "To be tagged".
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (report only)'
+        type: boolean
+        default: true
+      min_acc:
+        description: 'min rule accuracy on already-tagged questions, per subject'
+        default: '0.80'
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -q requests
+      - env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then python robots/import/rule_tag.py --dry-run --min-acc "${{ inputs.min_acc }}"; else python robots/import/rule_tag.py --apply --min-acc "${{ inputs.min_acc }}"; fi
