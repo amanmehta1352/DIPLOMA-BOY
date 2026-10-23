@@ -102,7 +102,7 @@ language sql security definer set search_path = backup, mtb, public as $$
     'missing_in_live', (select count(*) from b left join mtb.questions q using (id) where q.id is null),
     'changed_since', (select count(*) from b join mtb.questions q using (id)
                       where (q.stem, q.options, q.answer, q.kind, q.source_id, q.source_qno, q.content_hash, q.status, q.topic_id, q.chapter_id, q.solution, q.difficulty)
-                            is distinct from (b.stem, b.options, b.answer, b.kind, b.source_id, b.source_qno, b.content_hash, b.status, b.topic_id)),
+                            is distinct from (b.stem, b.options, b.answer, b.kind, b.source_id, b.source_qno, b.content_hash, b.status, b.topic_id, b.chapter_id, b.solution, b.difficulty)),
     'checked_at', now());
 $$;
 revoke all on function backup.verify_nightly(int) from public, anon, authenticated;
