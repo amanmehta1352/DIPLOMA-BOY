@@ -11,6 +11,7 @@ select jsonb_build_object(
   'figure_wait', (select count(*) from d where 'figure_not_reviewed' = any(pr)),
   'no_hindi', (select count(*) from d where 'hindi_missing' = any(pr)),
   'wrong_language', (select count(*) from d where 'english_wrong_language' = any(pr)),
+  'english_missing', (select count(*) from d where 'english_missing' = any(pr)),
   'no_answer_or_options', (select count(*) from d where 'answer' = any(pr) or 'options' = any(pr)),
   'duplicate', (select count(*) from d where 'duplicate_in_exam' = any(pr)));
 $$;
