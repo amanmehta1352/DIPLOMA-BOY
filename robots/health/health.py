@@ -57,6 +57,8 @@ def collect():
     except Exception as e: d['runs'] = None; d['errors']['github'] = type(e).__name__
     try: d['db'] = rpc('health_counts')
     except Exception as e: d['db'] = None; d['errors']['supabase'] = type(e).__name__ + (':' + str(e.code) if hasattr(e, 'code') else '')
+    try: d['cl'] = rpc('count_leak')
+    except Exception as e: d['cl'] = None; d['errors']['count_leak'] = type(e).__name__
     return d
 
 def verify_if_due(d, prev):
@@ -105,6 +107,14 @@ def build(d, prev=None, at=None):
         elif bv: checks.append(chk('restore', '♻️ Backup वापस पढ़ा जा सकता है', 'ok' if bv.get('missing_in_live') == 0 and bv.get('backup_rows') else 'bad', bv.get('backup_rows'),
                                  f"गायब: {bv.get('missing_in_live')} · backup के बाद बदले: {bv.get('changed_since')} · जाँच {bv.get('checked_at','')[:16]}"))
         else: checks.append(chk('restore', '♻️ Backup वापस पढ़ा जा सकता है', 'warn', None, 'अभी तक जाँच नहीं हुई'))
+    cl = d.get('cl')
+    if cl is not None:
+        lk = (cl.get('branch_leak') or 0) + (cl.get('inactive_exam') or 0)
+        checks.append(chk('leak', '🚰 दूसरे exam/branch के सवाल गलत जगह (leak)', 'ok' if lk == 0 else 'bad', lk, f"branch leak: {cl.get('branch_leak')} · बंद exam में live: {cl.get('inactive_exam')}"))
+        nc = (cl.get('nonchapter_leaf') or 0) + (cl.get('no_topic') or 0) + (cl.get('pattern_split') or 0)
+        checks.append(chk('counts', '🔢 गिनती और सूची मेल', 'ok' if nc == 0 else 'warn', nc, f"chapter नहीं वाले live: {cl.get('nonchapter_leaf')} · बिना topic: {cl.get('no_topic')} · pattern बँटे: {cl.get('pattern_split')}"))
+    elif (d.get('errors') or {}).get('count_leak'):
+        checks.append(chk('leak', '🚰 दूसरे exam/branch के सवाल गलत जगह (leak)', 'bad', None, 'जाँच नहीं चली: ' + str(d['errors']['count_leak'])))
     order = {'ok': 0, 'warn': 1, 'bad': 2}; overall = max((c['state'] for c in checks), key=lambda s: order[s], default='ok')
     robots = []
     if runs:
