@@ -11,7 +11,7 @@ def text_of(stem, opts):
     return ' '.join([(stem or {}).get('en', '') or ''] + [(o or {}).get('en', '') or '' for o in (opts or [])])
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--apply', action='store_true'); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--min-acc', type=float, default=0.80); ap.add_argument('--min-prob', type=float, default=0.55)
+    ap = argparse.ArgumentParser(); ap.add_argument('--apply', action='store_true'); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--min-acc', type=float, default=0.80); ap.add_argument('--min-prob', type=float, default=0.55); ap.add_argument('--status', default='draft', help='draft (imports) or published (NTPC questions already live in To be tagged)')
     a = ap.parse_args()
     from sklearn.feature_extraction.text import TfidfVectorizer
     from sklearn.linear_model import LogisticRegression
@@ -21,7 +21,7 @@ def main():
     chap = {t['id']: t for t in topics if t['is_chapter']}
     inbox = {t['subject_id']: t['id'] for t in topics if t['slug'] == 'inbox'}
     train = R.fetch_all('questions', {'select': 'id,chapter_id,topic_id,stem,options', 'status': 'eq.published', 'chapter_id': 'not.is.null'})
-    drafts = R.fetch_all('questions', {'select': 'id,topic_id,stem,options', 'status': 'eq.draft', 'topic_id': 'in.(' + ','.join(str(v) for v in inbox.values()) + ')'})
+    drafts = R.fetch_all('questions', {'select': 'id,topic_id,stem,options', 'status': 'eq.' + a.status, 'topic_id': 'in.(' + ','.join(str(v) for v in inbox.values()) + ')'})
     by_subj = collections.defaultdict(lambda: ([], []))
     for q in train:
         c = chap.get(q['chapter_id'])
