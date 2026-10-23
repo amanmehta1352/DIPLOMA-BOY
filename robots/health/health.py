@@ -59,6 +59,8 @@ def collect():
     except Exception as e: d['db'] = None; d['errors']['supabase'] = type(e).__name__ + (':' + str(e.code) if hasattr(e, 'code') else '')
     try: d['cl'] = rpc('count_leak')
     except Exception as e: d['cl'] = None; d['errors']['count_leak'] = type(e).__name__
+    try: d['qc'] = rpc('quality_counts')
+    except Exception as e: d['qc'] = None; d['errors']['quality'] = type(e).__name__
     return d
 
 def verify_if_due(d, prev):
@@ -115,6 +117,12 @@ def build(d, prev=None, at=None):
         checks.append(chk('counts', '🔢 गिनती और सूची मेल', 'ok' if nc == 0 else 'warn', nc, f"chapter नहीं वाले live: {cl.get('nonchapter_leaf')} · बिना topic: {cl.get('no_topic')} · pattern बँटे: {cl.get('pattern_split')}"))
     elif (d.get('errors') or {}).get('count_leak'):
         checks.append(chk('leak', '🚰 दूसरे exam/branch के सवाल गलत जगह (leak)', 'bad', None, 'जाँच नहीं चली: ' + str(d['errors']['count_leak'])))
+    qc = d.get('qc')
+    if qc is not None:
+        checks.append(chk('quality', '🔍 Draft सवाल: तैयार कितने', 'ok' if qc.get('drafts') == 0 or qc.get('ready') else 'warn', qc.get('ready'),
+                          f"कुल draft {qc.get('drafts')} · chapter नहीं {qc.get('no_chapter')} · तस्वीर जाँच बाकी {qc.get('figure_wait')} · बिना Hindi {qc.get('no_hindi')} · भाषा गलत {qc.get('wrong_language')} · duplicate {qc.get('duplicate')}"))
+    elif (d.get('errors') or {}).get('quality'):
+        checks.append(chk('quality', '🔍 Draft सवाल: तैयार कितने', 'warn', None, 'जाँच नहीं चली: ' + str(d['errors']['quality'])))
     order = {'ok': 0, 'warn': 1, 'bad': 2}; overall = max((c['state'] for c in checks), key=lambda s: order[s], default='ok')
     robots = []
     if runs:
