@@ -72,6 +72,12 @@ class Pages:
         a = np.asarray(im).astype(int); r, g, b = a[..., 0], a[..., 1], a[..., 2]
         pink = (r >= 215) & (r - g >= 12) & (r - b >= 12) & (g >= 140) & (b >= 140) & (abs(g - b) <= 40)
         a[pink] = 255
+        # faint Adda247 mark: near-white pixels with a tiny tint -> white
+        mn = a.min(axis=2); mx = a.max(axis=2)
+        a[(mn >= 225) & (mx - mn <= 22)] = 255
+        # the sheet colours the options: green = the correct answer, red = wrong. Any coloured pixel becomes black
+        # so the student cannot read the answer from the colour.
+        a[(mx - mn) > 45] = 0
         return Image.fromarray(a.astype('uint8'))
 
     @staticmethod
