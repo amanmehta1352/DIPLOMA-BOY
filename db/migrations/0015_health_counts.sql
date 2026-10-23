@@ -28,3 +28,9 @@ grant execute on function mtb.health_counts() to service_role;
 
 -- the Health Robot (service role) may also run the backup read-back check
 grant execute on function backup.verify_nightly(int) to service_role;
+
+-- PostgREST only exposes schema mtb: wrapper so the Health Robot can call the backup read-back check (applied live as 0015d)
+create or replace function mtb.verify_backup(p_slot int default null) returns jsonb
+language sql security definer set search_path = backup, mtb, public as $$ select backup.verify_nightly(p_slot) $$;
+revoke all on function mtb.verify_backup(int) from public, anon, authenticated;
+grant execute on function mtb.verify_backup(int) to service_role;
