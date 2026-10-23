@@ -114,7 +114,7 @@ def build(d, prev=None, at=None):
         nc = (cl.get('nonchapter_leaf') or 0) + (cl.get('no_topic') or 0) + (cl.get('pattern_split') or 0)
         checks.append(chk('counts', '🔢 गिनती और सूची मेल', 'ok' if nc == 0 else 'warn', nc, f"chapter नहीं वाले live: {cl.get('nonchapter_leaf')} · बिना topic: {cl.get('no_topic')} · pattern बँटे: {cl.get('pattern_split')}"))
     elif (d.get('errors') or {}).get('count_leak'):
-        checks.append(chk('leak', '🚰 दूसरे exam/branch के सवाल गलत जगह (leak)', 'warn', None, 'जाँच नहीं चली: ' + str(d['errors']['count_leak'])))
+        checks.append(chk('leak', '🚰 दूसरे exam/branch के सवाल गलत जगह (leak)', 'bad', None, 'जाँच नहीं चली: ' + str(d['errors']['count_leak'])))
     order = {'ok': 0, 'warn': 1, 'bad': 2}; overall = max((c['state'] for c in checks), key=lambda s: order[s], default='ok')
     robots = []
     if runs:

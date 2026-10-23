@@ -32,10 +32,10 @@ assert state(st(lambda d: d['db'].update(backup_last_at='2026-10-21T20:00:00+00:
 # bad rows live -> warn only (known debt), with reasons in detail
 s = st(lambda d: d['db'].update(published_failing_lock=5, published_failing_reasons={'hindi_missing': 5}))
 assert state(s, 'lock') == 'warn' and 'hindi_missing: 5' in next(c['detail'] for c in s['checks'] if c['id'] == 'lock') and s['overall'] == 'warn'
-# Count & Leak: leak -> bad; count mismatch -> warn; check failed to run -> warn, never crash
+# Count & Leak: leak -> bad; count mismatch -> warn; check failed to run -> bad, never crash
 assert state(st(lambda d: d['cl'].update(branch_leak=2)), 'leak') == 'bad'
 assert state(st(lambda d: d['cl'].update(pattern_split=1)), 'counts') == 'warn'
-s = st(lambda d: (d.update(cl=None), d['errors'].update(count_leak='HTTPError'))); assert state(s, 'leak') == 'warn'
+s = st(lambda d: (d.update(cl=None), d['errors'].update(count_leak='HTTPError'))); assert state(s, 'leak') == 'bad'
 # backup unreadable -> bad
 assert state(st(lambda d: d['backup_verify'].update(missing_in_live=3)), 'restore') == 'bad'
 # database unreachable -> red check, no crash
