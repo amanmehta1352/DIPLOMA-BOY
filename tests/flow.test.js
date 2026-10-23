@@ -17,8 +17,8 @@ async function run(w,scheme){
  await p.click('[data-a=close]');
  // 2) Practice
  await p.click('[data-a=tab][data-id=practice]'); await p.click('[data-a=open-psubj][data-subj=general-science]');
- await p.click('[data-a=start-ch][data-kind=practice][data-ch]'); await p.waitForSelector('[data-a=pick]',{timeout:20000});
- const prTag=await p.textContent('.qmeta .tag'); await p.click('[data-a=pick][data-i="1"]'); await p.screenshot({path:SHOT(`practice_${w}.png`)}); await p.click('[data-a=close]');
+ await p.click('[data-a=start-ch][data-ch]'); await p.waitForSelector('[data-a=pick]',{timeout:20000});
+ const prTag=await p.textContent('.qmeta .tag'); if(!/PYQ|Practice|प्रैक्टिस/.test(prTag)) errs.push('practice: question has no PYQ/Practice tag: '+prTag); await p.click('[data-a=pick][data-i="1"]'); await p.screenshot({path:SHOT(`practice_${w}.png`)}); await p.click('[data-a=close]');
  // 3) PYQ: SSC → paper → mock
  await p.click('[data-a=tab][data-id=pyq]'); await p.click('[data-a=exam][data-id=ssc-je-paper1]'); await p.screenshot({path:SHOT(`pyq_${w}.png`),fullPage:true});
  await p.click('[data-a=open-paper]'); await p.click('[data-a=mock-ask]'); await p.click('[data-a=mock-go]'); await p.waitForSelector('#tmr',{timeout:30000});
