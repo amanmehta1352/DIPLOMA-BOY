@@ -11,7 +11,7 @@ GOOD = {'site': {'ok': True, 'ms': 120, 'sw': 'db-v6'}, 'branches': 3, 'errors':
         'db': {'total': 10, 'by_exam': {'a': {'published': 6, 'draft': 3, 'hidden': 1}}, 'published_failing_lock': 0, 'published_failing_reasons': {},
                'draft_figure': 2, 'published_picture': 0, 'published_in_inbox': 0, 'reports_open': 0,
                'backup_last_at': '2026-10-23T02:00:00+00:00'},
-        'qc': {'drafts': 3, 'ready': 3, 'no_chapter': 0, 'figure_wait': 0, 'no_hindi': 0, 'wrong_language': 0, 'no_answer_or_options': 0, 'duplicate': 0},
+        'qc': {'drafts': 3, 'ready': 3, 'no_chapter': 0, 'figure_wait': 0, 'no_hindi': 0, 'wrong_language': 0, 'english_missing': 0, 'no_answer_or_options': 0, 'duplicate': 0},
         'cl': {'branch_leak': 0, 'inactive_exam': 0, 'nonchapter_leaf': 0, 'no_topic': 0, 'pattern_split': 0},
         'backup_verify': {'checked_at': '2026-10-23T03:00:00+00:00', 'slot': 5, 'backup_rows': 10, 'missing_in_live': 0, 'changed_since': 0}}
 def st(mod=None):
@@ -40,6 +40,8 @@ s = st(lambda d: (d.update(cl=None), d['errors'].update(count_leak='HTTPError'))
 # Quality: drafts exist but none ready -> warn with blocker counts; check failed -> warn
 assert state(st(lambda d: d['qc'].update(ready=0, no_chapter=3)), 'quality') == 'warn'
 s = st(lambda d: (d.update(qc=None), d['errors'].update(quality='HTTPError'))); assert state(s, 'quality') == 'warn'
+qd = next(c['detail'] for c in st()['checks'] if c['id'] == 'quality')
+assert 'अंग्रेज़ी गायब 0' in qd and 'उत्तर/options गलत 0' in qd, qd
 # backup unreadable -> bad
 assert state(st(lambda d: d['backup_verify'].update(missing_in_live=3)), 'restore') == 'bad'
 # database unreachable -> red check, no crash
