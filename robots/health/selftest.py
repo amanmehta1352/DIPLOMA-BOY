@@ -11,6 +11,7 @@ GOOD = {'site': {'ok': True, 'ms': 120, 'sw': 'db-v6'}, 'branches': 3, 'errors':
         'db': {'total': 10, 'by_exam': {'a': {'published': 6, 'draft': 3, 'hidden': 1}}, 'published_failing_lock': 0, 'published_failing_reasons': {},
                'draft_figure': 2, 'published_picture': 0, 'published_in_inbox': 0, 'reports_open': 0,
                'backup_last_at': '2026-10-23T02:00:00+00:00'},
+        'cl': {'branch_leak': 0, 'inactive_exam': 0, 'nonchapter_leaf': 0, 'no_topic': 0, 'pattern_split': 0},
         'backup_verify': {'checked_at': '2026-10-23T03:00:00+00:00', 'slot': 5, 'backup_rows': 10, 'missing_in_live': 0, 'changed_since': 0}}
 def st(mod=None):
     d = json.loads(json.dumps(GOOD))
@@ -31,6 +32,10 @@ assert state(st(lambda d: d['db'].update(backup_last_at='2026-10-21T20:00:00+00:
 # bad rows live -> warn only (known debt), with reasons in detail
 s = st(lambda d: d['db'].update(published_failing_lock=5, published_failing_reasons={'hindi_missing': 5}))
 assert state(s, 'lock') == 'warn' and 'hindi_missing: 5' in next(c['detail'] for c in s['checks'] if c['id'] == 'lock') and s['overall'] == 'warn'
+# Count & Leak: leak -> bad; count mismatch -> warn; check failed to run -> warn, never crash
+assert state(st(lambda d: d['cl'].update(branch_leak=2)), 'leak') == 'bad'
+assert state(st(lambda d: d['cl'].update(pattern_split=1)), 'counts') == 'warn'
+s = st(lambda d: (d.update(cl=None), d['errors'].update(count_leak='HTTPError'))); assert state(s, 'leak') == 'warn'
 # backup unreadable -> bad
 assert state(st(lambda d: d['backup_verify'].update(missing_in_live=3)), 'restore') == 'bad'
 # database unreachable -> red check, no crash
