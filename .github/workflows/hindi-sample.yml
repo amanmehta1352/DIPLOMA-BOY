@@ -19,6 +19,9 @@ jobs:
       - name: Sample
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
-        run: python3 robots/hindi/sample.py hindi_sample.json "${{ inputs.n }}"
+          N_INPUT: ${{ inputs.n }}
+        run: |
+          N=$(printf '%s' "$N_INPUT" | grep -E '^[0-9]{1,3}$' || echo 20)
+          python3 robots/hindi/sample.py hindi_sample.json "$N"
       - uses: actions/upload-artifact@v4
         with: { name: hindi-sample, path: hindi_sample.json }
