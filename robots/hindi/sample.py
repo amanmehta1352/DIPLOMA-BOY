@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'import'))
 import mt_enhi
 
 SB = os.environ.get('SUPABASE_URL', 'https://wobmtlcpszcntczkebtt.supabase.co').rstrip('/')
-KEY = os.environ['SUPABASE_SECRET_KEY'].strip()
+KEY = os.environ.get('SUPABASE_SECRET_KEY', '').strip()
 
 def fetch(limit):
     q = f"{SB}/rest/v1/questions?select=id,status,stem&stem->>hi_note=eq.english_only&status=eq.published&order=id&limit={limit}"

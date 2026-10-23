@@ -16,12 +16,14 @@ jobs:
         with: { python-version: '3.11' }
       - run: pip install -q torch --index-url https://download.pytorch.org/whl/cpu
       - run: pip install -q "transformers==4.46.3" sentencepiece sacremoses einops IndicTransToolkit
-      - name: Sample
+      - name: Fetch questions (key used here only)
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
           N_INPUT: ${{ inputs.n }}
         run: |
           N=$(printf '%s' "$N_INPUT" | grep -E '^[0-9]{1,3}$' || echo 20)
-          python3 robots/hindi/sample.py hindi_sample.json "$N"
+          python3 robots/hindi/sample.py fetch rows.json "$N"
+      - name: Translate (no secret in environment)
+        run: python3 robots/hindi/sample.py translate rows.json hindi_sample.json
       - uses: actions/upload-artifact@v4
         with: { name: hindi-sample, path: hindi_sample.json }
