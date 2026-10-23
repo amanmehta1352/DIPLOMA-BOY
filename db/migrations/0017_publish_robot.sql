@@ -12,13 +12,20 @@ begin
     where q.status = 'draft' and q.chapter_id is not null
       and (p_exam is null or s.exam_id = p_exam)
       and cardinality(publish_problems(q)) = 0
+      -- no twin draft in the same exam + paper date (two drafts of one question must not both go live)
+      and not exists (select 1 from questions o left join sources os on os.id = o.source_id
+        where o.status = 'draft' and o.id <> q.id and o.content_hash = q.content_hash
+          and o.source_id <> q.source_id and os.exam_id is not distinct from s.exam_id
+          and os.paper_date is not distinct from s.paper_date)
     order by q.id limit lim) x;
   insert into backup.publish_runs(actor, exam_id, dry, ids) values ('publish-robot', p_exam, p_dry, ids);
   if not p_dry and cardinality(ids) > 0 then
-    update questions set status = 'published', updated_at = now() where id = any(ids) and status = 'draft';
+    update questions set status = 'published', updated_at = now()
+    where id = any(ids) and status = 'draft' and chapter_id is not null;
     get diagnostics n = row_count;
   end if;
   return jsonb_build_object('dry', p_dry, 'eligible', cardinality(ids), 'published', n, 'limit', lim, 'exam', p_exam);
 end $$;
 revoke all on function mtb.publish_ready(int,int,boolean) from public, anon, authenticated;
 grant execute on function mtb.publish_ready(int,int,boolean) to service_role;
+-- 0017b (applied live, same text as above): twin-draft guard + chapter guard in the update.
