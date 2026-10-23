@@ -18,3 +18,5 @@ begin
 end $$;
 revoke all on function mtb.report_question(bigint,text,text,text) from public, anon, authenticated;
 grant execute on function mtb.report_question(bigint,text,text,text) to anon, authenticated;
+-- 0019b (applied live): global caps that do not depend on the caller's device string:
+-- max 2000 reports per hour in total, max 25 reports per question. Per-device 30/24h kept as a soft limit.
