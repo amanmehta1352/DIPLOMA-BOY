@@ -120,7 +120,7 @@ def build(d, prev=None, at=None):
     qc = d.get('qc')
     if qc is not None:
         checks.append(chk('quality', '🔍 Draft सवाल: तैयार कितने', 'ok' if qc.get('drafts') == 0 or qc.get('ready') else 'warn', qc.get('ready'),
-                          f"कुल draft {qc.get('drafts')} · chapter नहीं {qc.get('no_chapter')} · तस्वीर जाँच बाकी {qc.get('figure_wait')} · बिना Hindi {qc.get('no_hindi')} · भाषा गलत {qc.get('wrong_language')} · duplicate {qc.get('duplicate')}"))
+                          f"कुल draft {qc.get('drafts')} · chapter नहीं {qc.get('no_chapter')} · तस्वीर जाँच बाकी {qc.get('figure_wait')} · बिना Hindi {qc.get('no_hindi')} · भाषा गलत {qc.get('wrong_language')} · अंग्रेज़ी गायब {qc.get('english_missing')} · उत्तर/options गलत {qc.get('no_answer_or_options')} · duplicate {qc.get('duplicate')}"))
     elif (d.get('errors') or {}).get('quality'):
         checks.append(chk('quality', '🔍 Draft सवाल: तैयार कितने', 'warn', None, 'जाँच नहीं चली: ' + str(d['errors']['quality'])))
     order = {'ok': 0, 'warn': 1, 'bad': 2}; overall = max((c['state'] for c in checks), key=lambda s: order[s], default='ok')
