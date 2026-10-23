@@ -68,8 +68,14 @@ alter table mtb.audit_log enable row level security;   -- no policy: only servic
 
 create or replace function mtb.trg_audit_questions() returns trigger
 language plpgsql security definer set search_path = mtb, public as $$
-declare who text := coalesce(nullif(current_setting('request.headers', true), '')::json->>'x-actor', current_user);
+declare claims json := nullif(current_setting('request.jwt.claims', true), '')::json;
+        hdr json := nullif(current_setting('request.headers', true), '')::json;
+        who text;
 begin
+  -- actor comes from the verified JWT; the x-actor header is trusted ONLY for service_role (robots)
+  if claims->>'role' = 'service_role' then who := coalesce(nullif(hdr->>'x-actor', ''), 'service_role');
+  else who := coalesce(nullif(claims->>'email', ''), nullif(claims->>'role', ''), session_user);
+  end if;
   if new.status is distinct from old.status then insert into mtb.audit_log(actor, question_id, field, old_value, new_value) values (who, new.id, 'status', old.status, new.status); end if;
   if new.topic_id is distinct from old.topic_id then insert into mtb.audit_log(actor, question_id, field, old_value, new_value) values (who, new.id, 'topic_id', old.topic_id::text, new.topic_id::text); end if;
   if new.chapter_id is distinct from old.chapter_id then insert into mtb.audit_log(actor, question_id, field, old_value, new_value) values (who, new.id, 'chapter_id', old.chapter_id::text, new.chapter_id::text); end if;
@@ -95,7 +101,7 @@ language sql security definer set search_path = backup, mtb, public as $$
     'live_rows', (select count(*) from mtb.questions),
     'missing_in_live', (select count(*) from b left join mtb.questions q using (id) where q.id is null),
     'changed_since', (select count(*) from b join mtb.questions q using (id)
-                      where (q.stem, q.options, q.answer, q.kind, q.source_id, q.source_qno, q.content_hash, q.status, q.topic_id)
+                      where (q.stem, q.options, q.answer, q.kind, q.source_id, q.source_qno, q.content_hash, q.status, q.topic_id, q.chapter_id, q.solution, q.difficulty)
                             is distinct from (b.stem, b.options, b.answer, b.kind, b.source_id, b.source_qno, b.content_hash, b.status, b.topic_id)),
     'checked_at', now());
 $$;
@@ -103,4 +109,4 @@ revoke all on function backup.verify_nightly(int) from public, anon, authenticat
 
 -- speeds up the duplicate check in publish_problems (applied live as 0014c)
 create index if not exists questions_hash_idx on mtb.questions (content_hash);
--- NOTE: live history shows 0014 + 0014b (array_append fix) + 0014c (index); this file is the final combined result.
+-- NOTE: live history shows 0014 + 0014b (array_append fix) + 0014c (index) + 0014d (audit actor from JWT, verify solution/difficulty); this file is the final combined result.
