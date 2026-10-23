@@ -69,27 +69,28 @@ def main():
     a = ap.parse_args()
     subs = {s['id']: s['slug'] for s in R.fetch_all('subjects', {'select': 'id,slug'})}
     topics = R.fetch_all('topics', {'select': 'id,subject_id,slug,is_chapter'})
-    chap = {t['slug'] + '@' + str(t['subject_id']): t['id'] for t in topics if t['is_chapter']}
+    by_id = {t['id']: t for t in topics}
+    chap = {(t['slug'], t['subject_id']): t['id'] for t in topics if t['is_chapter']}
     inbox = {t['subject_id']: t['id'] for t in topics if t['slug'] == 'inbox'}
+    # tagged questions: chapter_id is the chapter topic; its subject comes from that chapter row
+    allq = R.fetch_all('questions', {'select': 'id,chapter_id,topic_id,stem,options', 'status': 'eq.published', 'chapter_id': 'not.is.null'})
     report = {'subjects': {}}; plan = []
     for sslug in RULES:
         sid = next((i for i, s in subs.items() if s == sslug), None)
         if sid is None or sid not in inbox: continue
         def text(q):
             s = q.get('stem') or {}; return ' '.join([s.get('en') or ''] + [(o or {}).get('en') or '' for o in (q.get('options') or [])])
-        tagged = R.fetch_all('questions', {'select': 'chapter_id,stem,options', 'status': 'eq.published', 'topic_id': f'eq.{sid}', 'chapter_id': 'not.is.null'})
+        tagged = [q for q in allq if q['chapter_id'] in by_id and by_id[q['chapter_id']]['subject_id'] == sid]
         ok = n = 0
         for q in tagged:
-            cs = [k for k, v in chap.items() if v == q['chapter_id']]
-            if not cs: continue
             p = predict(sslug, text(q)); n += 1
-            if p and chap.get(p + '@' + str(sid)) == q['chapter_id']: ok += 1
+            if p and chap.get((p, sid)) == q['chapter_id']: ok += 1
         acc = ok / n if n else 0.0
         drafts = R.fetch_all('questions', {'select': 'id,stem,options', 'status': 'eq.published', 'topic_id': f'eq.{inbox[sid]}'})
         moves = []
         for q in drafts:
             p = predict(sslug, text(q))
-            if p and (p + '@' + str(sid)) in chap: moves.append((q['id'], chap[p + '@' + str(sid)]))
+            if p and (p, sid) in chap: moves.append((q['id'], chap[(p, sid)]))
         report['subjects'][sslug] = {'rule_accuracy_on_tagged': round(acc, 3), 'checked': n, 'to_be_tagged': len(drafts), 'would_move': len(moves)}
         if acc >= a.min_acc: plan += moves
     print(json.dumps(report, ensure_ascii=False))
