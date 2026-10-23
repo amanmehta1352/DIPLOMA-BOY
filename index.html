@@ -318,7 +318,7 @@ async function loadRemote(){
     R.topics={}; tp.forEach(t=>{ const inbox=t.slug==='inbox'; R.topics[t.id]={id:t.id,hi:inbox?'अन्य सवाल':t.name_hi,en:inbox?'Other questions':t.name_en,subject:sS[t.subject_id],chapter:t.is_chapter||inbox,unit:t.unit_en?{hi:t.unit_hi,en:t.unit_en}:null,sort:inbox?9998:t.sort}; });
     R.sources={}; src.forEach(x=>R.sources[x.id]={...x,exam:(exs.find(e=>e.dbid===x.exam_id)||{}).id,branch:bS[x.branch_id]||null});
     R.statsEx={}; cs.forEach(x=>{ (R.statsEx[x.topic_id]||(R.statsEx[x.topic_id]=[])).push(x); });
-    R.examFam={}; R.famOfSlug={}; exs.forEach(e=>{ R.examFam[e.dbid]=e.family; R.famOfSlug[e.id]=e.family; });
+    R.examFam={}; R.famOfSlug={}; R.slugOfDb={}; exs.forEach(e=>{ R.examFam[e.dbid]=e.family; R.famOfSlug[e.id]=e.family; R.slugOfDb[e.dbid]=e.id; });
     R.pstat={}; ps.forEach(x=>R.pstat[x.source_id]=x.n);
     R.ok=true;
   }catch(e){ R.ok=false; }
@@ -332,7 +332,7 @@ async function paged(scope,base){
   S.seen[scope]=(S.seen[scope]||0)+rows.length; save(); return rows.map(norm);
 }
 // विषय / Practice view: by chapter (or whole subject), any exam
-function scopeSrc(){ const fams=myFams().map(f=>f.id); if(!fams.length) return ''; const ids=Object.values(R.sources).filter(x=>fams.includes(R.famOfSlug[x.exam])).map(x=>x.id); return `&or=(source_id.is.null,source_id.in.(${ids.join(',')||'0'}))`; }
+function scopeSrc(){ const fams=myFams().map(f=>f.id); if(!S.exam&&!fams.length) return ''; const ids=Object.values(R.sources).filter(x=>S.exam?x.exam===S.exam:fams.includes(R.famOfSlug[x.exam])).map(x=>x.id); return `&or=(source_id.is.null,source_id.in.(${ids.join(',')||'0'}))`; }
 function fetchChapter(subj,chapterId,kind){
   const chs=chapterId?[chapterId]:chaptersOf(subj).map(t=>t.id); if(!chs.length) return Promise.resolve([]);
   return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&topic_id=in.(${chs.join(',')})${kind?'&kind=eq.'+kind:''}${scopeSrc()}`);   /* one question per same-type pattern; its chip opens the whole pattern */
@@ -422,7 +422,8 @@ function subjectsHome(act,extraFn,title,lead,dimFn){
 function mySubjects(){ return [...COMMON.map(id=>byId(DATA.subjects,id)).filter(Boolean),...DATA.subjects.filter(s=>s.branch===S.branch)]; }
 function chaptersOf(subj){ return Object.values(R.topics).filter(t=>t.chapter&&t.subject===subj).sort((a,b)=>(a.sort||0)-(b.sort||0)||a.id-b.id); }
 // counts follow the student's families (myFams): practice (our own, no exam) always counts; PYQ/NTPC counts only from picked exams
-function inScope(examDbid){ if(!examDbid) return true; const fams=myFams().map(f=>f.id); return !fams.length||fams.includes(R.examFam[examDbid]); }
+// one rule for every count and list: the exam chip picked (S.exam) if any, else the student's families
+function inScope(examDbid){ if(!examDbid) return true; if(S.exam) return R.slugOfDb[examDbid]===S.exam; const fams=myFams().map(f=>f.id); return !fams.length||fams.includes(R.examFam[examDbid]); }
 function cnt(chId,kind){ const s={pyq:0,practice:0}; (R.statsEx[chId]||[]).forEach(x=>{ if(inScope(x.exam_id)) s[x.kind]=(s[x.kind]||0)+x.n; }); return kind?(s[kind]||0):((s.pyq||0)+(s.practice||0)); }
 function subjCount(subj,kind){ return chaptersOf(subj).reduce((a,t)=>a+cnt(t.id,kind),0); }
 const stat=id=>S.st[id]||{c:0,t:0};
