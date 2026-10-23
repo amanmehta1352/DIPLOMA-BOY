@@ -1,0 +1,26 @@
+name: NTPC Chapter Tag
+# Started by Claude. Moves NTPC questions from "To be tagged" to a chapter when the model is sure (published ones too).
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (report only)'
+        type: boolean
+        default: true
+      status:
+        description: 'published or draft'
+        default: 'published'
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -q requests scikit-learn
+      - env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then python robots/import/tag.py --dry-run --status "${{ inputs.status }}"; else python robots/import/tag.py --apply --status "${{ inputs.status }}"; fi
