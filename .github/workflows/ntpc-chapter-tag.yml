@@ -7,6 +7,12 @@ on:
         description: 'Dry run (report only)'
         type: boolean
         default: true
+      min_acc:
+        description: 'min subject CV accuracy'
+        default: '0.80'
+      min_prob:
+        description: 'min chapter probability'
+        default: '0.55'
       status:
         description: 'published or draft'
         default: 'published'
@@ -23,4 +29,4 @@ jobs:
       - env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: |
-          if [ "${{ inputs.dry_run }}" = "true" ]; then python robots/import/tag.py --dry-run --status "${{ inputs.status }}"; else python robots/import/tag.py --apply --status "${{ inputs.status }}"; fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then python robots/import/tag.py --dry-run --status "${{ inputs.status }}" --min-acc "${{ inputs.min_acc }}" --min-prob "${{ inputs.min_prob }}"; else python robots/import/tag.py --apply --status "${{ inputs.status }}" --min-acc "${{ inputs.min_acc }}" --min-prob "${{ inputs.min_prob }}"; fi
