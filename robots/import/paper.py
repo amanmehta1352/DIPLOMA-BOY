@@ -28,6 +28,8 @@ class Pages:
         os.makedirs(workdir, exist_ok=True)
         doc = fitz.open(pdf_path); plum = pdfplumber.open(pdf_path)
         paint = collections.defaultdict(list)
+        self.off = [(p.bbox[0], p.bbox[1]) for p in plum.pages]   # pdfplumber measures from the media box, the rendering from the crop box: some sheets differ by ~14 pt
+        sides = collections.defaultdict(list)
         for q in sheet['questions']:
             for (pi, x0, top, x1, bottom) in q['marks']: paint[pi].append((x0, top, x1, bottom))
         wm = set(sheet.get('watermark_words', []))
@@ -36,21 +38,53 @@ class Pages:
             im = Image.open(io.BytesIO(pix.tobytes('png'))).convert('RGB')
             dr = ImageDraw.Draw(im); k = self.k
             boxes = list(paint.get(i, []))
+            ws = plum.pages[i].extract_words()
             if wm:
-                for w in plum.pages[i].extract_words():
+                for w in ws:
                     if w['text'] in wm: boxes.append((w['x0'], w['top'], w['x1'], w['bottom']))
-            for w in plum.pages[i].extract_words():          # the "Q.12" label and "Ans" word are not part of the question
+            for w in ws:          # the "Q.12" label and "Ans" word are not part of the question
                 if re.match(r'Q\.\d+', w['text']) and w['x0'] < 120:
                     m = re.match(r'Q\.\d+', w['text']); frac = len(m.group(0)) / max(1, len(w['text']))
                     boxes.append((w['x0'], w['top'], w['x0'] + (w['x1'] - w['x0']) * frac, w['bottom']))
                 if w['text'] == 'Ans' and w['x0'] < 120: boxes.append((w['x0'], w['top'], w['x1'], w['bottom']))
-            ws = plum.pages[i].extract_words()
             keys = [w for w in ws if w['x0'] > 200 and re.match(r'^(Question|QuestionID|Option\d?(ID)?|Status|Chosen)', w['text'])]
-            for kw in keys:          # the side column (Question ID / Option IDs / Status) is not part of the question
-                for w in ws:
-                    if abs(w['top'] - kw['top']) < 2.5 and w['x0'] >= kw['x0'] - 1: boxes.append((w['x0'], w['top'], w['x1'], w['bottom']))
-            for (x0, t, x1, b) in boxes: dr.rectangle([x0 * k - 2, t * k - 2, x1 * k + 2, b * k + 2], fill='white')
+            if keys:          # the side box (Question ID / Option IDs / Status / Chosen) with its frame is not part of the question
+                grp = []
+                for kw in sorted(keys, key=lambda w: w['top']):
+                    if grp and kw['top'] - grp[-1]['top'] > 40: sides[i].append(grp); grp = []
+                    grp.append(kw)
+                sides[i].append(grp)
+                for g in sides[i]:
+                    gl = min(w['x0'] for w in g); gt = min(w['top'] for w in g); gb = max(w['bottom'] for w in g)
+                    for w in ws:
+                        if gt - 2 <= w['top'] <= gb + 2 and w['x0'] >= gl - 70: gb = max(gb, w['bottom']); gl = min(gl, w['x0'])
+                    boxes.append((gl - 70, gt - 14, 2000, gb + 14))
+            ox, oy = self.off[i]
+            for (x0, t, x1, b) in boxes: dr.rectangle([(x0 - ox) * k - 2, (t - oy) * k - 2, (x1 - ox) * k + 2, (b - oy) * k + 2], fill='white')
+            im = self.clean(im)
             self.imgs.append(im); self.size.append((page.rect.width, page.rect.height))
+
+    @staticmethod
+    def clean(im):
+        """Paint out the pale-pink Adda247 logo that lies under the questions (ticks/crosses/side box are painted above)."""
+        import numpy as np
+        from PIL import Image
+        a = np.asarray(im).astype(int); r, g, b = a[..., 0], a[..., 1], a[..., 2]
+        pink = (r >= 215) & (r - g >= 12) & (r - b >= 12) & (g >= 140) & (b >= 140) & (abs(g - b) <= 40)
+        a[pink] = 255
+        return Image.fromarray(a.astype('uint8'))
+
+    @staticmethod
+    def drop_rules(crop):
+        """Remove the thin full-width frame lines between questions."""
+        import numpy as np
+        from PIL import Image
+        a = np.asarray(crop.convert('RGB')).copy(); dark = (a.min(axis=2) < 215)
+        frac = dark.mean(axis=1); rows = np.where(frac > 0.6)[0]
+        if len(rows) and len(rows) <= 12: a[rows] = 255
+        cols = np.where(dark.mean(axis=0) > 0.9)[0]
+        if len(cols) and len(cols) <= 12: a[:, cols] = 255
+        return Image.fromarray(a)
 
     def block(self, q, x_right):
         """Picture of one question block (may continue on the next page), trimmed of white margins."""
@@ -58,11 +92,12 @@ class Pages:
         (p0, t0), (p1, t1) = q['start'], q['end']
         parts = []
         for p in range(p0, min(p1, len(self.imgs) - 1) + 1):
-            w, h = self.size[p]
-            top = (t0 - 3) if p == p0 else 40
-            bot = (t1 - 3) if p == p1 else h - 40
+            w, h = self.size[p]; ox, oy = self.off[p]
+            top = (t0 - oy - 3) if p == p0 else 40
+            bot = (t1 - oy - 14) if p == p1 else h - 40
             if bot - top < 6 or p in self.skip: continue
-            crop = self.imgs[p].crop((int(20 * self.k), int(top * self.k), int(min(w, x_right) * self.k), int(bot * self.k)))
+            crop = self.imgs[p].crop((int(56 * self.k), int(max(0, top) * self.k), int(min(w - 50, x_right) * self.k), int(min(h, bot) * self.k)))
+            crop = self.drop_rules(crop)
             bbox = ImageOps.invert(crop.convert('L')).point(lambda v: 255 if v > 40 else 0).getbbox()
             if bbox: parts.append(crop.crop((max(0, bbox[0] - 8), max(0, bbox[1] - 8), min(crop.width, bbox[2] + 8), min(crop.height, bbox[3] + 8))))
         if not parts: return None

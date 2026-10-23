@@ -240,7 +240,7 @@ def read_sheet(pdf_path):
             sz = tuple(im['srcsize'])
             if sz == cross_size: mark_hash[hashlib.md5(im['stream'].get_data()).hexdigest()] += 1
             elif sz not in MARKS and sz != (411, 488): hc[hashlib.md5(im['stream'].get_data()).hexdigest()] += 1
-    furniture = {k for k, v in hc.items() if v >= max(5, n_pages // 4)}
+    furniture = {k for k, v in hc.items() if v >= max(3, n_pages // 8)}
     has_small_tick = big_tick or any(tuple(im['srcsize']) == (16, 16) for p in pdf.pages for im in p.images)
     tick_hash = None
     if not has_small_tick:  # older sheets: tick and cross are both 31x21, told apart by picture content
