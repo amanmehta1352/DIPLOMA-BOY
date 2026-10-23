@@ -92,16 +92,19 @@ def build(d, prev=None, at=None):
         checks.append(chk('figures', '🖼️ Live picture वाले सवाल (जाँच बाकी)', 'ok' if pp == 0 else 'warn', pp, f"draft figure सवाल: {db.get('draft_figure')}"))
         ib = db.get('published_in_inbox') or 0
         checks.append(chk('inbox', '🏷️ बिना chapter (inbox) live सवाल', 'ok' if ib == 0 else 'warn', ib, 'chapter तय होना बाकी'))
-        ro = db.get('reports_open') or 0
-        checks.append(chk('reports', '🚩 Students की reports', 'ok' if ro == 0 else 'warn', ro, 'review करें'))
+        ro = db.get('reports_7d') or 0
+        checks.append(chk('reports', '🚩 Students की reports (पिछले 7 दिन)', 'ok' if ro == 0 else 'warn', ro, 'review करें' if ro else 'कोई नहीं'))
         ba = db.get('backup_last_at')
         if ba:
             age = (at - datetime.fromisoformat(ba)).total_seconds() / 3600
             checks.append(chk('backup', '💾 आख़िरी backup', 'ok' if age < 36 else ('warn' if age < 72 else 'bad'), round(age, 1), f'{round(age,1)} घंटे पहले'))
         else: checks.append(chk('backup', '💾 आख़िरी backup', 'bad', None, 'कोई backup नहीं'))
-        bv = d.get('backup_verify')
-        if bv: checks.append(chk('restore', '♻️ Backup वापस पढ़ा जा सकता है', 'ok' if bv.get('missing_in_live') == 0 and bv.get('backup_rows') else 'bad', bv.get('backup_rows'),
+        bv = d.get('backup_verify'); verr = (d.get('errors') or {}).get('verify')
+        if verr:
+            checks.append(chk('restore', '♻️ Backup वापस पढ़ा जा सकता है', 'bad', None, 'जाँच fail हुई: ' + str(verr) + (f" · पिछली सफल जाँच {bv.get('checked_at','')[:16]}" if bv else '')))
+        elif bv: checks.append(chk('restore', '♻️ Backup वापस पढ़ा जा सकता है', 'ok' if bv.get('missing_in_live') == 0 and bv.get('backup_rows') else 'bad', bv.get('backup_rows'),
                                  f"गायब: {bv.get('missing_in_live')} · backup के बाद बदले: {bv.get('changed_since')} · जाँच {bv.get('checked_at','')[:16]}"))
+        else: checks.append(chk('restore', '♻️ Backup वापस पढ़ा जा सकता है', 'warn', None, 'अभी तक जाँच नहीं हुई'))
     order = {'ok': 0, 'warn': 1, 'bad': 2}; overall = max((c['state'] for c in checks), key=lambda s: order[s], default='ok')
     robots = []
     if runs:

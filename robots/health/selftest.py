@@ -35,6 +35,11 @@ assert state(s, 'lock') == 'warn' and 'hindi_missing: 5' in next(c['detail'] for
 assert state(st(lambda d: d['backup_verify'].update(missing_in_live=3)), 'restore') == 'bad'
 # database unreachable -> red check, no crash
 s = st(lambda d: d.update(db=None, errors={'supabase': 'URLError'})); assert state(s, 'db') == 'bad' and s['overall'] == 'bad'
+# verify failed -> red even if an old good result exists; no result at all -> check still present (warn)
+s = st(lambda d: d.update(errors={'verify': 'HTTPError'})); assert state(s, 'restore') == 'bad' and s['overall'] == 'bad'
+s = st(lambda d: d.pop('backup_verify')); assert state(s, 'restore') == 'warn'
+# reports: only recent ones count
+assert state(st(lambda d: d['db'].update(reports_7d=2)), 'reports') == 'warn' and state(st(), 'reports') == 'ok'
 # site down
 assert state(st(lambda d: d.update(site={'ok': False})), 'site') == 'bad'
 # github unreachable

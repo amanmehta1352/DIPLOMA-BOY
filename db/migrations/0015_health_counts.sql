@@ -19,7 +19,7 @@ language sql stable security definer set search_path = mtb, public as $$
     'published_picture', (select count(*) from mtb.questions where status = 'published' and stem ? 'img'),
     'published_in_inbox', (select count(*) from mtb.questions q join mtb.topics t on t.id = q.topic_id where q.status = 'published' and t.slug = 'inbox'),
     'audit_rows', (select count(*) from mtb.audit_log),
-    'reports_open', (select count(*) from mtb.question_reports),
+    'reports_7d', (select count(*) from mtb.question_reports where created_at > now() - interval '7 days'),
     'backup_last_at', (select taken_at from lastb),
     'backup_last_slot', (select slot from lastb));
 $$;
