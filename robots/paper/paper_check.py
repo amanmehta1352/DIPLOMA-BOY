@@ -1,0 +1,26 @@
+"""Paper robot (R1). Pure checks on a paper BEFORE import. No network, no DB writes.
+Each check returns (ok, reason_hi). `check_paper(meta)` returns a verdict dict.
+meta = {url, host, exam_slug, paper_date, shift, expected_count, found_count, languages, sha256, already_sha256s, label}"""
+OFFICIAL_HOSTS = {'rrbcdg.gov.in', 'www.rrbcdg.gov.in', 'indianrailways.gov.in', 'ssc.gov.in', 'ssc.nic.in', 'rrbapply.gov.in'}
+ALLOWED_LANGS = {'en', 'hi'}
+
+def _host_ok(url, host):
+    h = (host or '').lower()
+    if not url.startswith('https://'): return False, 'लिंक https नहीं है'
+    if h not in OFFICIAL_HOSTS and not any(h.endswith('.' + o) for o in OFFICIAL_HOSTS if '.' in o and not o.startswith('www.')):
+        return False, f'आधिकारिक साइट नहीं: {h}'
+    return True, 'आधिकारिक साइट'
+
+def check_paper(m):
+    checks = []
+    def add(id, ok, why): checks.append({'id': id, 'ok': bool(ok), 'why_hi': why})
+    ok, why = _host_ok(m.get('url') or '', m.get('host')); add('official_source', ok, why)
+    add('exam_known', bool(m.get('exam_slug')), 'परीक्षा तय है' if m.get('exam_slug') else 'परीक्षा तय नहीं')
+    add('date_shift', bool(m.get('paper_date')) and bool(m.get('shift')), 'तारीख और shift हैं' if m.get('paper_date') and m.get('shift') else 'तारीख या shift नहीं')
+    langs = set(m.get('languages') or [])
+    add('language_en_hi_only', langs and langs <= ALLOWED_LANGS, 'सिर्फ़ English/Hindi' if langs and langs <= ALLOWED_LANGS else f'दूसरी भाषा: {sorted(langs - ALLOWED_LANGS) or "पता नहीं"}')
+    exp, got = m.get('expected_count'), m.get('found_count')
+    add('count_matches', exp and got == exp, f'सवाल {got}/{exp}' if exp else 'अपेक्षित संख्या नहीं')
+    add('not_imported_before', m.get('sha256') and m.get('sha256') not in set(m.get('already_sha256s') or []), 'नई फ़ाइल' if m.get('sha256') not in set(m.get('already_sha256s') or []) else 'यह फ़ाइल पहले import हो चुकी है')
+    passed = all(c['ok'] for c in checks)
+    return {'verdict': 'pass' if passed else 'reject', 'checks': checks}
