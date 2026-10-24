@@ -39,7 +39,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   console.log(JSON.stringify(res)); console.log('errors', errs);
   await b.close();
   if (res.skipped) process.exit(1);
-  const ok = res.a.clip && res.a.count === res.a.expectCount && !res.a.currentInside && res.a.dupes === 0
+  const ok = !res.a.clip && res.a.count === res.a.expectCount && !res.a.currentInside && res.a.dupes === 0
     && res.b.clipOpen && res.b.returnedTitle === 'T6' && res.b.returnedIndex === 5 && res.b.returnedLen === 6
     && res.c.backToSet && !res.c.emptyClip && errs.length === 0;
   process.exit(ok ? 0 : 1);
