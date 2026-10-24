@@ -68,6 +68,6 @@ async function findPattern() {
   console.log('synthetic classification', JSON.stringify(logic), logicOk ? 'OK' : 'FAIL');
   await b.close();
   console.log(JSON.stringify(out, null, 1)); console.log('errors', errs);
-  const bad = out.some(o => !o.clip || o.membersTotal !== o.expectMembers || o.related !== 0 || !o.resumeCard || !o.restored.clip || o.restored.mainId == null || o.overflow || o.tapH < 44 || o.main.pat);
+  const bad = out.some(o => !o.clip || o.membersTotal !== o.expectMembers || o.related !== 0 || !o.resumeCard || !o.restored.clip || o.restored.mainId == null || o.restored.mainId !== o.mainId || o.restored.solvedSame !== o.back.solvedSame || o.overflow || o.tapH < 44 || o.main.pat);
   process.exit(errs.length || bad || !logicOk ? 1 : 0);
 })();

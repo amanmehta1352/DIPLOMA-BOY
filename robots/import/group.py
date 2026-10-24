@@ -84,10 +84,12 @@ def main():
         # lead = lower id, question = higher id; relation 'same' is a machine guess and stays pending_review
         body = [{'question_id': hi, 'pattern_lead_id': lo, 'relation_type': 'same', 'confidence': sc,
                  'evidence': {'method': 'tfidf_cosine', 'threshold': TH}, 'algorithm_version': 1} for lo, hi, sc in E]
+        inserted = 0
         for k in range(0, len(body), 500):
             r = requests.post(URL + 'rpc/pattern_stage', headers=H, json={'p': body[k:k+500]}, timeout=120)
             if r.status_code >= 300: sys.exit('pattern_stage failed: ' + r.text[:300])
-        print(json.dumps({'staged_pending_review': len(body)}))
+            inserted += int(r.json() or 0)   # rows actually inserted; repeat runs skip existing candidates
+        print(json.dumps({'staged_pending_review': inserted, 'submitted': len(body)}))
         return
     if a.dry_run or a.sql: return
     key = os.environ.get('SUPABASE_SECRET_KEY')

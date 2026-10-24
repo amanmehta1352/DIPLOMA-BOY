@@ -40,3 +40,4 @@ begin
 end $$;
 
 revoke all on function mtb.pattern_stage(jsonb) from public, anon, authenticated;
+grant execute on function mtb.pattern_stage(jsonb) to service_role;

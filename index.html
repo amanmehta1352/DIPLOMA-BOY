@@ -832,15 +832,16 @@ function clipView(z){
   return `<div class="sheet" role="dialog" aria-modal="true">${topBar(L('Pattern Clip','Pattern clip'),L('आपके सवाल से जुड़े','Linked to your question'))}</div><div class="sheet-body" id="sbody"><div class="wrap"><h2 style="margin:6px 0 10px">${L('इस सवाल से जुड़े सवाल','Questions linked to this one')}</h2>${rows}<button class="btn line" data-a="close" style="margin-top:6px">${L('मूल सवाल पर लौटें','Back to my question')}</button></div></div></div>`; }
 function keepPattern(){ const z=V.sheet; if(!z||!z.meta||!z.meta.pat||z.loading) return; const m=z.meta, b=m.back, ids=kk=>(m.kinds[kk]||[]).map(q=>q.id);
   S.pat={pid:m.pat,cur:m.cur,kind:m.kind||null,clip:!!z.clip,i:z.i||0,kinds:{exact:ids('exact'),same:ids('same'),related:ids('related')},done:m.doneK||{},
-    back:b?{title:b.title,ids:b.list.map(q=>q.id),i:b.i,meta:b.meta||{}}:null};
+    back:b?{title:b.title,ids:b.list.map(q=>q.id),i:b.i,pick:b.pick,c:b.c||0,seen:b.seen||0,meta:b.meta||{}}:null};
   save(); }
 async function resumePattern(){ const P=S.pat; if(!P) return;
   const want=[...new Set([...P.kinds.exact,...P.kinds.same,...P.kinds.related,...(P.back?P.back.ids:[])])];
   V.sheet={mode:'practice',title:L('एक जैसे सवाल','Same-type questions'),list:[],i:0,pick:null,c:0,seen:0,loading:true,again:null,clip:true,meta:{pat:P.pid,cur:P.cur,kinds:{},doneK:P.done||{},kind:P.kind,back:null}}; rSheet();
-  let rows=[]; try{ rows=want.length?await fetchIds(want):[]; }catch(e){ rows=[]; }
+  let rows=[], failed=false; try{ rows=want.length?await fetchIds(want):[]; }catch(e){ failed=true; }
+  if(failed){ V.sheet=null; toast(L('अभी नहीं खुला, इंटरनेट देखकर फिर कोशिश करें','Could not open now. Check internet and try again.')); render(); return; }
   const by=new Map(rows.map(q=>[q.id,q])), pick=ids=>(ids||[]).map(id=>by.get(id)).filter(Boolean);
   const m=V.sheet.meta; PK.forEach(kk=>m.kinds[kk]=pick(P.kinds[kk]));
-  if(P.back){ const bl=pick(P.back.ids); m.back={title:P.back.title,list:bl,i:Math.min(P.back.i||0,Math.max(0,bl.length-1)),pick:null,c:0,seen:0,meta:P.back.meta||{},again:null}; }
+  if(P.back){ const bl=pick(P.back.ids); m.back={title:P.back.title,list:bl,i:Math.min(P.back.i||0,Math.max(0,bl.length-1)),pick:P.back.pick??null,c:P.back.c||0,seen:P.back.seen||0,meta:P.back.meta||{},again:null}; }
   const L2=m.kind&&m.kinds[m.kind]&&m.kinds[m.kind].length;
   V.sheet.loading=false;
   if(!P.clip&&L2){ V.sheet.list=m.kinds[m.kind]; V.sheet.i=Math.min(P.i||0,V.sheet.list.length-1); V.sheet.clip=false; }
@@ -965,11 +966,11 @@ document.addEventListener('click',ev=>{
     case 'pick':
       if(z.mode==='mock'){ z.ans[z.i]=+el.dataset.i; saveMock(); rSheet(); break; }
       if(z.mode==='review'||z.pick!=null) break;
-      { z.pick=+el.dataset.i; z.seen++; const q=z.list[z.i], ok=z.pick===q.a; if(ok) z.c++; bump(q,ok); toMistakes(q,ok); save(); if(z.i<z.list.length-1&&z.mode==='practice'){ S.last&&(S.last.c=z.c,S.last.seen=z.seen); save(); } rSheet();
+      { z.pick=+el.dataset.i; z.seen++; const q=z.list[z.i], ok=z.pick===q.a; if(z.meta&&z.meta.pat){ const kk=z.meta.kind; z.meta.doneK=z.meta.doneK||{}; z.meta.doneK[kk]=[...new Set([...(z.meta.doneK[kk]||[]),q.id])]; } if(ok) z.c++; bump(q,ok); toMistakes(q,ok); save(); if(z.i<z.list.length-1&&z.mode==='practice'){ S.last&&(S.last.c=z.c,S.last.seen=z.seen); save(); } rSheet();
         const f=document.querySelector('.verdict'); if(f) f.scrollIntoView({behavior:'smooth',block:'nearest'}); }
       break;
     case 'skip': case 'next':
-      if(z.meta&&z.meta.pat&&z.i>=z.list.length-1){ const kk=z.meta.kind; z.meta.doneK=z.meta.doneK||{}; z.meta.doneK[kk]=[...new Set([...(z.meta.doneK[kk]||[]),...z.list.slice(0,z.i+1).map(q=>q.id)])]; z.clip=true; z.pick=null; keepPattern(); rSheet(true); break; }
+      if(z.meta&&z.meta.pat&&z.i>=z.list.length-1){ z.clip=true; z.pick=null; keepPattern(); rSheet(true); break; }
       if(z.i<z.list.length-1){ z.i++; z.pick=null; keepLast(); rSheet(true); }
       else if(z.mode==='review'){ V.sheet=null; render(); }
       else { z.done=true; keepLast(); render(); rSheet(true); }
