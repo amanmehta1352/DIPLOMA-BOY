@@ -966,7 +966,7 @@ document.addEventListener('click',ev=>{
         const f=document.querySelector('.verdict'); if(f) f.scrollIntoView({behavior:'smooth',block:'nearest'}); }
       break;
     case 'skip': case 'next':
-      if(z.meta&&z.meta.pat&&z.i>=z.list.length-1){ z.pick=null; let found=false; for(const kk of PK){ const idx=(z.meta.kinds[kk]||[]).findIndex(q=>!(z.meta.doneK[kk]||[]).includes(q.id)); if(idx>=0){ z.meta.kind=kk; z.list=z.meta.kinds[kk]; z.i=idx; found=true; break; } } if(!found){ z.done=true; } keepPattern(); rSheet(true); break; }
+      if(z.meta&&z.meta.pat&&z.i>=z.list.length-1){ z.pick=null; let found=false; const start=PK.indexOf(z.meta.kind); for(let n=1;n<=PK.length;n++){ const kk=PK[(start+n)%PK.length]; const idx=(z.meta.kinds[kk]||[]).findIndex(q=>!(z.meta.doneK[kk]||[]).includes(q.id)); if(idx>=0){ z.meta.kind=kk; z.list=z.meta.kinds[kk]; z.i=idx; found=true; break; } } if(!found){ z.done=true; } keepPattern(); rSheet(true); break; }
       if(z.i<z.list.length-1){ z.i++; z.pick=null; keepLast(); rSheet(true); }
       else if(z.mode==='review'){ V.sheet=null; render(); }
       else { z.done=true; keepLast(); render(); rSheet(true); }
