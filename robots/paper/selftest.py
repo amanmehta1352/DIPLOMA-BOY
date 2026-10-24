@@ -15,4 +15,9 @@ assert v({'found_count': 99}) == 'reject'                                       
 assert v({'shift': None}) == 'reject'                                            # no shift
 assert v({'sha256': 'zzz'}) == 'reject'                                          # already imported
 assert v({'exam_slug': None}) == 'reject'
+# Hardening (review fixes)
+assert v({'host': 'www.rrbcdg.gov.in', 'url': 'https://some-coaching-site.com/p.pdf'}) == 'reject'  # host field must not be trusted
+assert v({'paper_date': '2024-02-30'}) == 'reject'                               # not a real date
+assert v({'expected_count': -1, 'found_count': -1}) == 'reject'                  # counts must be positive
+assert v({'expected_count': 0, 'found_count': 0}) == 'reject'
 print('paper selftest OK')
