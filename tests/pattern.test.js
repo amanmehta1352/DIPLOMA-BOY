@@ -13,7 +13,7 @@ const path=require('path'); const URL='file://'+path.resolve(__dirname,'../index
    V.sheet={mode:'practice',title:'T',list:[q],i:0,pick:null,c:0,seen:0,meta:{}}; rSheet();
    const chip=document.querySelector('.pat'); const hasChip=!!chip, h=chip?chip.getBoundingClientRect().height:0;
    chip.click(); await new Promise(r=>setTimeout(r,2500));
-   const n=V.sheet.list.length, inner=document.querySelectorAll('.pat').length, exams=new Set(V.sheet.list.map(x=>x.src&&x.src.exam)).size;
+   const all=[...V.sheet.meta.kinds.exact,...V.sheet.meta.kinds.same,...V.sheet.meta.kinds.related]; const n=all.length, inner=document.querySelectorAll('.pat').length, exams=new Set(all.map(x=>x.src&&x.src.exam)).size;
    const ch=await fetchChapter(lead.chapter_id&&byId(DATA.subjects,R.topics[lead.chapter_id].subject)?R.topics[lead.chapter_id].subject:null,lead.chapter_id,'pyq');
    return {patterns:reps.length,sizeOk,hasChip,tapH:h,opened:n,expect:lead.pattern_n-1,chipInsidePattern:inner,examsInPattern:exams,chapterShowsMembers:ch.some(x=>x.pat && x.id!==x.pat)};});
  out.push({w,scheme,...r}); await p.close(); }
