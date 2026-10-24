@@ -323,8 +323,8 @@ async function loadRemote(){
     R.ok=true;
   }catch(e){ R.ok=false; }
 }
-const QSEL='id,kind,topic_id,chapter_id,source_id,source_qno,stem,options,answer,solution,pattern_id,pattern_n';
-function norm(r){ const ch=R.topics[r.chapter_id]||R.topics[r.topic_id]||{}; return {id:r.id,kind:r.kind,topic:ch,subj:ch.subject,src:R.sources[r.source_id],qno:r.source_qno,stem:r.stem||{},opts:r.options||[],a:r.answer,sol:r.solution,pat:r.pattern_id,patn:r.pattern_n}; }
+const QSEL='id,kind,topic_id,chapter_id,source_id,source_qno,stem,options,answer,solution,pattern_id,pattern_n,pattern_rep';
+function norm(r){ const ch=R.topics[r.chapter_id]||R.topics[r.topic_id]||{}; return {id:r.id,kind:r.kind,topic:ch,subj:ch.subject,src:R.sources[r.source_id],qno:r.source_qno,stem:r.stem||{},opts:r.options||[],a:r.answer,sol:r.solution,pat:r.pattern_id,patn:r.pattern_n,rep:r.pattern_rep}; }
 function examSources(exam,branch){ return Object.values(R.sources).filter(s=>s.exam===exam&&(!s.branch||!branch||s.branch===branch)).sort((x,y)=>(y.paper_date||'').localeCompare(x.paper_date||'')||x.shift-y.shift); }
 async function paged(scope,base){
   const off=S.seen[scope]||0; let rows=await sb(base+'&order=id&limit=20&offset='+off);
@@ -841,6 +841,7 @@ async function resumePattern(){ const P=S.pat; if(!P) return;
   const L2=m.kind&&m.kinds[m.kind]&&m.kinds[m.kind].length;
   V.sheet.loading=false;
   if(L2){ V.sheet.list=m.kinds[m.kind]; V.sheet.i=Math.min(P.i||0,V.sheet.list.length-1); V.sheet.clip=false; }
+  else { const kind=PK.find(kk=>(m.kinds[kk]||[]).length); if(kind){ m.kind=kind; V.sheet.list=m.kinds[kind]; V.sheet.i=0; V.sheet.clip=false; } }
   rSheet(true); }
 async function startPattern(pid,n){ const z=V.sheet, ok=z&&z.mode==='practice'&&z.list&&z.list.length&&!(z.meta&&z.meta.pat);
   const cur=ok?z.list[z.i]:null; if(!cur) return;   /* the question the student is on: never listed inside its own clip */
@@ -965,7 +966,7 @@ document.addEventListener('click',ev=>{
         const f=document.querySelector('.verdict'); if(f) f.scrollIntoView({behavior:'smooth',block:'nearest'}); }
       break;
     case 'skip': case 'next':
-      if(z.meta&&z.meta.pat&&z.i>=z.list.length-1){ const left=PK.find(kk=>kk!==z.meta.kind&&(z.meta.kinds[kk]||[]).some(q=>!(z.meta.doneK[kk]||[]).includes(q.id))); z.pick=null; if(left){ z.meta.kind=left; z.list=z.meta.kinds[left]; z.i=0; } else { z.done=true; } keepPattern(); rSheet(true); break; }
+      if(z.meta&&z.meta.pat&&z.i>=z.list.length-1){ z.pick=null; let found=false; for(const kk of PK){ const idx=(z.meta.kinds[kk]||[]).findIndex(q=>!(z.meta.doneK[kk]||[]).includes(q.id)); if(idx>=0){ z.meta.kind=kk; z.list=z.meta.kinds[kk]; z.i=idx; found=true; break; } } if(!found){ z.done=true; } keepPattern(); rSheet(true); break; }
       if(z.i<z.list.length-1){ z.i++; z.pick=null; keepLast(); rSheet(true); }
       else if(z.mode==='review'){ V.sheet=null; render(); }
       else { z.done=true; keepLast(); render(); rSheet(true); }
