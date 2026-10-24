@@ -26,7 +26,11 @@ def pending(limit):
 def decide(decision, ids, reviewer):
     total = 0
     for k in range(0, len(ids), 200):
-        r = requests.post(URL + 'rpc/pattern_review', headers=headers(), json={'p_ids': ids[k:k+200], 'p_decision': decision, 'p_reviewer': reviewer}, timeout=60)
+        try:
+            r = requests.post(URL + 'rpc/pattern_review', headers=headers(), json={'p_ids': ids[k:k+200], 'p_decision': decision, 'p_reviewer': reviewer}, timeout=60)
+        except requests.RequestException as e:
+            print(json.dumps({'updated_before_failure': total, 'failed_at_batch_offset': k}), file=sys.stderr)
+            sys.exit('network error; updates above are confirmed, the rest were not sent: ' + type(e).__name__)
         if r.status_code >= 300:
             print(json.dumps({'updated_before_failure': total, 'failed_at_batch_offset': k}), file=sys.stderr)
             sys.exit('batch failed; updates above are confirmed, the rest were not sent: ' + r.text[:200])
