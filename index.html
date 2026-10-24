@@ -260,7 +260,7 @@ let S={lang:'both',theme:'auto',branch:null,exam:null,tab:'today',goal:30,examDa
 try{const o=JSON.parse(localStorage.getItem(KEY)||'null'); if(o) Object.assign(S,o);
   else{const v1=JSON.parse(localStorage.getItem('diploma-boy-v1')||'null'); if(v1){S.lang=v1.lang||S.lang;S.branch=v1.branch||null;}}}catch(e){}
 if(S.tab==='practice'&&!S.v3){S.tab='today';} S.v3=1;
-function save(){try{const {lang,theme,branch,exam,tab,goal,examDate,fams,stageF,last,st,tp,days,mis,mocks,seen,v3}=S;localStorage.setItem(KEY,JSON.stringify({lang,theme,branch,exam,tab,goal,examDate,fams,stageF,last,st,tp,days,mis,mocks,seen,v3}))}catch(e){}}
+function save(){try{const {lang,theme,branch,exam,tab,goal,examDate,fams,stageF,last,pat,st,tp,days,mis,mocks,seen,v3}=S;localStorage.setItem(KEY,JSON.stringify({lang,theme,branch,exam,tab,goal,examDate,fams,stageF,last,pat,st,tp,days,mis,mocks,seen,v3}))}catch(e){}}
 let V={sheet:null,view:null,modal:null};   // screen state, not saved
 
 /* ============ HELPERS ============ */
@@ -476,6 +476,7 @@ function primaryCard(){
   const card=(eye,t,sub,prog,btn,act,extra='',attrs='')=>`<div class="pcard"><div class="eyebrow">${eye}</div><div class="pt">${t}</div><p class="ps">${sub}</p>${prog!=null?`<div class="pbar"><i style="width:${prog}%"></i></div>`:''}<button class="btn pbtn" data-a="${act}" ${attrs}>${btn} ${ICON.arrow}</button>${extra}</div>`;
   if(pm){ const a=pm.ans.filter(x=>x!=null).length, left=Math.max(0,Math.round((pm.end-Date.now())/60000));
     return {k:'mock',h:card(L('अधूरा मॉक','Unfinished mock'),pm.title,L(`${a}/${pm.list.length} हल · ${left} मिनट बचे`,`${a}/${pm.list.length} answered · ${left} min left`),pct(a,pm.list.length),L('मॉक जारी रखें','Resume mock'),'m-resume',`<button class="linkbtn" data-a="m-drop-ask">${L('यह मॉक हटा दें','Discard this mock')}</button>`)}; }
+  if(S.pat&&S.pat.pid) return {k:'pat',h:card(L('Pattern Clip जारी रखें','Continue pattern clip'),L('एक जैसे सवाल','Same-type questions'),L('अपने सवाल पर वापस जाने के लिए','Return to your question when done'),null,L('जारी रखें','Continue'),'pat-resume')};
   if(last) return {k:'last',h:card(L('प्रैक्टिस जारी रखें','Continue practice'),last.title,L(`सवाल ${last.i+1} / ${last.ids.length}`,`Question ${last.i+1} of ${last.ids.length}`)+(last.subj?' · '+N(byId(DATA.subjects,last.subj)):''),pct(last.i,last.ids.length),L('जारी रखें','Resume practice'),'last-resume')};
   if(due) return {k:'due',h:card(L('आज का काम','Today’s task'),L(`${due} सवाल दोहराने हैं`,`${due} questions to revise`),L('पहले की गलतियाँ ठीक करना सबसे ज़्यादा अंक देता है।','Fixing old mistakes gains the most marks.'),null,L('दोहराना शुरू करें','Start revision'),'revise')};
   if(weak.length){ const w=weak[0], t=R.topics[w.id]; return {k:'weak',h:card(L('कमज़ोर अध्याय','Weak chapter'),N(t),L(`${w.t} में से ${w.acc}% सही · 20 सवाल और करें`,`${w.acc}% right of ${w.t} · do 20 more`),w.acc,L('अभ्यास करें','Practise now'),'start-ch','',`data-subj="${t.subject}" data-ch="${w.id}"`)}; }
@@ -686,6 +687,7 @@ function topBar(title,sub,extra='',closeAct='close'){ return `<div class="sheet-
 function vSheet(){
   const z=V.sheet; if(!z) return '';
   if(z.loading) return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,'')}</div><div class="sheet-body"><div class="wrap"><div class="empty">${L('सवाल आ रहे हैं…','Loading questions…')}</div></div></div></div>`;
+  if(z.clip&&z.meta&&z.meta.pat) return clipView(z);
   if(!z.list.length) return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,'')}</div><div class="sheet-body"><div class="wrap"><div class="empty">${R.ok?L('यहाँ अभी सवाल नहीं हैं।','No questions here yet.'):L('सवाल लाने के लिए इंटरनेट चालू करें।','Turn on internet to load questions.')}</div><button class="btn" data-a="close">${L('वापस जाएँ','Go back')}</button></div></div></div>`;
   if(z.done) return vResult();
   const q=z.list[z.i], n=z.list.length, mock=z.mode==='mock', review=z.mode==='review';
@@ -702,8 +704,8 @@ function vSheet(){
       <button class="btn quiet" style="flex:1" data-a="m-mark" aria-pressed="${!!z.mark[z.i]}">${z.mark[z.i]?L('निशान हटाएँ','Unmark'):L('बाद में देखें','Mark')}</button>
       <button class="btn" style="flex:1.2" data-a="m-next">${z.i<n-1?L('सेव, अगला','Save, next'):L('जमा करें','Submit')}</button></div></div>`
     :`<div class="sheet-foot"><div class="wrap">${sel!=null?`<button class="btn" data-a="next">${z.i<n-1?L('अगला सवाल','Next question'):(review?L('ख़त्म, बंद करें','Done, close'):L('सेट ख़त्म करें','Finish set'))}</button>`:`<button class="btn line" data-a="skip">${L('छोड़ें, अगला','Skip')}</button>`}</div></div>`;
-  return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,sub,extra,mock?'mock-exit':'close')}<div class="prog"><i style="width:${progW}%"></i></div>${secBar}</div>
-   <div class="sheet-body" id="sbody"><div class="wrap">${qBlock(q,review?'review':z.mode,sel)}${conf}${mock&&sel!=null?`<button class="btn quiet" style="margin-top:12px" data-a="m-clear">${L('जवाब हटाएँ','Clear answer')}</button>`:''}${mock&&z.pad[z.i]?`<p class="small muted" style="margin-top:10px">${L('इस सवाल का रफ़ पेज सेव है।','Rough work saved for this question.')}</p>`:''}</div></div>${foot}</div>`;
+  return `<div class="sheet" role="dialog" aria-modal="true">${topBar(z.title,sub,extra,z.meta&&z.meta.pat?'pat-clip':(mock?'mock-exit':'close'))}<div class="prog"><i style="width:${progW}%"></i></div>${secBar}</div>
+   <div class="sheet-body" id="sbody"><div class="wrap">${z.meta&&z.meta.pat?patInfo(z):''}${qBlock(q,review?'review':z.mode,sel)}${conf}${mock&&sel!=null?`<button class="btn quiet" style="margin-top:12px" data-a="m-clear">${L('जवाब हटाएँ','Clear answer')}</button>`:''}${mock&&z.pad[z.i]?`<p class="small muted" style="margin-top:10px">${L('इस सवाल का रफ़ पेज सेव है।','Rough work saved for this question.')}</p>`:''}</div></div>${foot}</div>`;
 }
 function vResult(){
   const z=V.sheet;
@@ -786,7 +788,7 @@ function render(){
   }
   rSheet();
 }
-function rSheet(top){ $('#layer').innerHTML=vSheet()+(V.modal||''); initPad(); document.body.style.overflow=V.sheet?'hidden':''; if(top){ const b=$('#sbody'); if(b) b.scrollTop=0; } }
+function rSheet(top){ if(V.sheet&&V.sheet.meta&&V.sheet.meta.pat&&!V.sheet.loading) keepPattern(); $('#layer').innerHTML=vSheet()+(V.modal||''); initPad(); document.body.style.overflow=V.sheet?'hidden':''; if(top){ const b=$('#sbody'); if(b) b.scrollTop=0; } }
 
 /* ============ ACTIONS ============ */
 async function openSet(title,loader,again,meta){
@@ -794,7 +796,7 @@ async function openSet(title,loader,again,meta){
   try{ V.sheet.list=await loader(); }catch(err){ V.sheet.list=[]; }
   V.sheet.loading=false; keepLast(); rSheet(true);
 }
-function keepLast(){ const z=V.sheet; if(!z||z.mode!=='practice'||!z.list.length) return;
+function keepLast(){ const z=V.sheet; if(!z||z.mode!=='practice'||!z.list.length||(z.meta&&z.meta.pat)) return;
   if(z.done||(z.i>=z.list.length-1&&z.pick!=null)){ S.last=null; save(); return; }
   S.last={title:z.title,subj:z.meta.subj||null,ch:z.meta.ch||null,kind:z.meta.kind||null,ids:z.list.map(q=>q.id),i:z.i,c:z.c,seen:z.seen}; save(); }
 async function resumeLast(){ const l=S.last; if(!l) return;
@@ -806,14 +808,52 @@ function startChapter(subj,ch,kind){
   const title=(t?N(t):N(s))+(kind==='pyq'?' · PYQ':kind==='practice'?' · '+L('प्रैक्टिस','Practice'):'');
   openSet(title,()=>fetchChapter(subj,ch?+ch:null,kind),()=>startChapter(subj,ch,kind),{subj,ch,kind});
 }
-function restoreBack(bk){ V.sheet={mode:'practice',title:bk.title,list:bk.list,i:bk.i,pick:bk.pick,c:bk.c,seen:bk.seen,loading:false,meta:bk.meta,again:bk.again}; rSheet(true); }
+function restoreBack(bk){ V.sheet={mode:'practice',title:bk.title,list:bk.list,i:bk.i,pick:bk.pick,c:bk.c,seen:bk.seen,loading:false,meta:bk.meta,again:bk.again}; S.pat=null; save(); keepLast(); rSheet(true); }
+/* ---- Pattern Clip: exact repeat / same pattern / related pattern, each separate ---- */
+const PK=['exact','same','related'];
+function patKey(q){ return ((q.stem&&(q.stem.en||q.stem.hi))||'').replace(/<[^>]+>/g,' ').toLowerCase().replace(/\s+/g,' ').trim(); }
+function patExact(a,b){ const k=patKey(a); return k.length>0 && k===patKey(b) && JSON.stringify(a.opts||[])===JSON.stringify(b.opts||[]); }
+function patSplit(cur,rows){ const others=rows.filter(x=>x.id!==cur.id);
+  /* related: no verified relation is stored yet (pattern_candidates is not live), so it stays empty rather than guessed */
+  return {exact:others.filter(x=>patExact(cur,x)), same:others.filter(x=>!patExact(cur,x)), related:[]}; }
+function patMeta(k){ return ({
+  exact:{t:L('बिल्कुल वही सवाल','Exact repeat'),d:L('परीक्षा में दोबारा आया, शब्द-दर-शब्द एक जैसा','Came again in an exam, word for word'),ev:L('टेक्स्ट और विकल्प बिल्कुल मिलते हैं (हमारी तुलना से)','Text and options match exactly (our comparison)')},
+  same:{t:L('समान हल का तरीका','Same pattern'),d:L('अलग सवाल, वही हल का तरीका (संख्या या नाम बदले हुए)','Different question, same method (numbers or names changed)'),ev:L('स्वचालित मिलान · मिलान स्कोर दर्ज नहीं · इंसानी समीक्षा बाकी','Automatic match · score not recorded · human review pending')},
+  related:{t:L('संबंधित अवधारणा','Related pattern'),d:L('अलग तरीका, वही अवधारणा','Different method, same concept'),ev:L('अभी कोई सत्यापित संबंधित सवाल उपलब्ध नहीं','No verified related questions available yet')}
+})[k]; }
+function patInfo(z){ const q=z.list[z.i], s=q.src, k=z.meta.kind, m=patMeta(k);
+  const where=s?`${N(byId(DATA.exams,s.exam)||{})} ${(s.paper_date||'').slice(0,4)}`:'';
+  const srcTxt=!s?L('अभ्यास सवाल','Practice question'):(s.kind==='third_party_copy'?L('उम्मीदवार की कॉपी · सत्यापित नहीं','Candidate copy · not verified'):L('आधिकारिक स्रोत','Official source'));
+  return `<div class="panel" style="padding:10px 12px;margin-bottom:10px"><b>${m.t}</b> <span class="small muted">· ${where?where+' · ':''}${srcTxt} · ${z.i+1}/${z.list.length}</span></div>`; }
+function clipView(z){
+  const k=z.meta.kinds||{}, done=z.meta.doneK||{};
+  const rows=PK.map(kk=>{ const list=k[kk]||[], n=list.length, d=(done[kk]||[]).filter(id=>list.some(q=>q.id===id)).length, m=patMeta(kk);
+    return `<div class="panel" style="padding:12px 14px;margin-bottom:10px"><b style="display:block">${m.t} <span class="small muted">· ${n}</span></b><p class="small muted" style="margin:4px 0 6px">${m.d}</p><p class="small" style="margin:0 0 8px">${m.ev}</p>${n?`<div class="small muted" style="margin-bottom:8px">${L(`हल किए: ${d} / ${n}`,`Solved: ${d} / ${n}`)}</div><button class="btn" data-a="pat-kind" data-k="${kk}">${d>=n?L('फिर से देखें','Review again'):L('सवाल खोलें','Open questions')}</button>`:`<button class="btn line" disabled>${L('कोई सवाल नहीं','No questions')}</button>`}</div>`; }).join('');
+  return `<div class="sheet" role="dialog" aria-modal="true">${topBar(L('Pattern Clip','Pattern clip'),L('आपके सवाल से जुड़े','Linked to your question'))}</div><div class="sheet-body" id="sbody"><div class="wrap"><h2 style="margin:6px 0 10px">${L('इस सवाल से जुड़े सवाल','Questions linked to this one')}</h2>${rows}<button class="btn line" data-a="close" style="margin-top:6px">${L('मूल सवाल पर लौटें','Back to my question')}</button></div></div></div>`; }
+function keepPattern(){ const z=V.sheet; if(!z||!z.meta||!z.meta.pat||z.loading) return; const m=z.meta, b=m.back, ids=kk=>(m.kinds[kk]||[]).map(q=>q.id);
+  S.pat={pid:m.pat,cur:m.cur,kind:m.kind||null,clip:!!z.clip,i:z.i||0,kinds:{exact:ids('exact'),same:ids('same'),related:ids('related')},done:m.doneK||{},
+    back:b?{title:b.title,ids:b.list.map(q=>q.id),i:b.i,meta:b.meta||{}}:null};
+  save(); }
+async function resumePattern(){ const P=S.pat; if(!P) return;
+  const want=[...new Set([...P.kinds.exact,...P.kinds.same,...P.kinds.related,...(P.back?P.back.ids:[])])];
+  V.sheet={mode:'practice',title:L('एक जैसे सवाल','Same-type questions'),list:[],i:0,pick:null,c:0,seen:0,loading:true,again:null,clip:true,meta:{pat:P.pid,cur:P.cur,kinds:{},doneK:P.done||{},kind:P.kind,back:null}}; rSheet();
+  let rows=[]; try{ rows=want.length?await fetchIds(want):[]; }catch(e){ rows=[]; }
+  const by=new Map(rows.map(q=>[q.id,q])), pick=ids=>(ids||[]).map(id=>by.get(id)).filter(Boolean);
+  const m=V.sheet.meta; PK.forEach(kk=>m.kinds[kk]=pick(P.kinds[kk]));
+  if(P.back){ const bl=pick(P.back.ids); m.back={title:P.back.title,list:bl,i:Math.min(P.back.i||0,Math.max(0,bl.length-1)),pick:null,c:0,seen:0,meta:P.back.meta||{},again:null}; }
+  const L2=m.kind&&m.kinds[m.kind]&&m.kinds[m.kind].length;
+  V.sheet.loading=false;
+  if(!P.clip&&L2){ V.sheet.list=m.kinds[m.kind]; V.sheet.i=Math.min(P.i||0,V.sheet.list.length-1); V.sheet.clip=false; }
+  rSheet(true); }
 async function startPattern(pid,n){ const z=V.sheet, ok=z&&z.mode==='practice'&&z.list&&z.list.length&&!(z.meta&&z.meta.pat);
-  const cur=ok?z.list[z.i]:null;   /* the question the student is on: never listed inside its own clip */
-  const back=ok?{title:z.title,list:z.list,i:z.i,pick:z.pick,c:z.c,seen:z.seen,meta:z.meta,again:z.again}:null;
-  await openSet(L('एक जैसे सवाल','Same-type questions'), async()=>{ const rs=await fetchPattern(pid); return cur?rs.filter(x=>x.id!==cur.id):rs; }, null, {pat:pid,back});
-  const s=V.sheet; if(!s||!s.meta||s.meta.pat!==pid) return;          /* student already left the clip */
-  if(!s.list.length){ if(back) restoreBack(back); else { V.sheet=null; render(); } return; }   /* nothing else: no empty clip */
-  s.title=L(`एक जैसे सवाल · ${s.list.length}`,`Same-type questions · ${s.list.length}`); rSheet(true); }
+  const cur=ok?z.list[z.i]:null; if(!cur) return;   /* the question the student is on: never listed inside its own clip */
+  const back={title:z.title,list:z.list,i:z.i,pick:z.pick,c:z.c,seen:z.seen,meta:z.meta,again:z.again};
+  V.sheet={mode:'practice',title:L('एक जैसे सवाल','Same-type questions'),list:[],i:0,pick:null,c:0,seen:0,loading:true,again:null,clip:true,meta:{pat:pid,cur:cur.id,kinds:{},doneK:{},kind:null,back}}; rSheet();
+  let rows=[]; try{ rows=await fetchPattern(pid); }catch(e){ rows=[]; }
+  const s=V.sheet; if(!s||!s.meta||s.meta.pat!==pid||s.meta.cur!==cur.id) return;   /* student already left the clip */
+  const sp=patSplit(cur,rows), total=sp.exact.length+sp.same.length+sp.related.length;
+  if(!total){ restoreBack(back); return; }   /* nothing else: no empty clip */
+  s.meta.kinds=sp; s.loading=false; rSheet(true); }
 function startExamSubject(subj){ const e=curExam(); if(!e) return; const s=byId(DATA.subjects,subj)||{};
   openSet(`${N(e)} · ${N(s)}`,()=>fetchExamSubject(e.id,subj),()=>startExamSubject(subj)); }
 function startPaperPractice(srcId){ const s=R.sources[srcId], e=curExam();
@@ -889,6 +929,9 @@ document.addEventListener('click',ev=>{
     case 'search': V.modal=vSearch(); rSheet(); setTimeout(()=>{const i=$('#qs'); if(i) i.focus();},50); break;
     case 'mini': startMini(); break;
     case 'last-resume': resumeLast(); break;
+    case 'pat-resume': resumePattern(); break;
+    case 'pat-clip': if(z&&z.meta&&z.meta.pat){ z.clip=true; z.pick=null; rSheet(true); } break;
+    case 'pat-kind': if(z&&z.meta&&z.meta.pat){ const kk=el.dataset.k, list=z.meta.kinds[kk]||[]; if(!list.length) break; z.meta.kind=kk; z.list=list; z.i=0; z.pick=null; z.clip=false; rSheet(true); } break;
     case 'exam': S.exam=id; V.view=null; save(); render(); break;
     case 'tab': go(id); break;
     case 'open-subj': go('learn',{subj:el.dataset.subj}); break;
@@ -916,7 +959,7 @@ document.addEventListener('click',ev=>{
     case 'rep-send': { const id=+el.dataset.id, why=el.dataset.r; V.modal=null; rSheet();
       repSend(id,why).then(()=>{ rSheet(); toast(L('धन्यवाद, हम जाँचेंगे','Thanks, we will check it')); }).catch(()=>toast(L('अभी नहीं भेज पाए, इंटरनेट देखकर फिर कोशिश करें','Could not send. Check your internet and try again'))); break; }
     case 'pattern': clearInterval(TICK); startPattern(+el.dataset.id,+el.dataset.n); break;
-    case 'close': clearInterval(TICK); { const bk=V.sheet&&V.sheet.meta&&V.sheet.meta.back;
+    case 'close': clearInterval(TICK); if(V.sheet&&V.sheet.meta&&V.sheet.meta.pat){ S.pat=null; save(); } { const bk=V.sheet&&V.sheet.meta&&V.sheet.meta.back;
       if(bk){ restoreBack(bk); break; }
       V.sheet=null; V.modal=null; render(); } break;
     case 'pick':
@@ -926,6 +969,7 @@ document.addEventListener('click',ev=>{
         const f=document.querySelector('.verdict'); if(f) f.scrollIntoView({behavior:'smooth',block:'nearest'}); }
       break;
     case 'skip': case 'next':
+      if(z.meta&&z.meta.pat&&z.i>=z.list.length-1){ const kk=z.meta.kind; z.meta.doneK=z.meta.doneK||{}; z.meta.doneK[kk]=[...new Set([...(z.meta.doneK[kk]||[]),...z.list.slice(0,z.i+1).map(q=>q.id)])]; z.clip=true; z.pick=null; keepPattern(); rSheet(true); break; }
       if(z.i<z.list.length-1){ z.i++; z.pick=null; keepLast(); rSheet(true); }
       else if(z.mode==='review'){ V.sheet=null; render(); }
       else { z.done=true; keepLast(); render(); rSheet(true); }

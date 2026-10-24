@@ -18,7 +18,8 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     // (a) current at index 0 of a 1-item practice list
     V.sheet = { mode: 'practice', title: 'T', list: [q], i: 0, pick: null, c: 0, seen: 0, loading: false, meta: { subj: q.subj }, again: null };
     await startPattern(q.pat, q.patn); await wait(200);
-    const a = { title: V.sheet.title, count: V.sheet.list.length, currentInside: V.sheet.list.some(x => x.id === q.id), dupes: V.sheet.list.length - new Set(V.sheet.list.map(x => x.id)).size, expectCount: q.patn - 1 };
+    const all = [...V.sheet.meta.kinds.exact, ...V.sheet.meta.kinds.same, ...V.sheet.meta.kinds.related];
+    const a = { clip: !!V.sheet.clip, title: V.sheet.title, count: all.length, currentInside: all.some(x => x.id === q.id), dupes: all.length - new Set(all.map(x => x.id)).size, expectCount: q.patn - 1 };
     document.querySelector('[data-a=close]').click(); await wait(150);
     // (b) current at index 5 of a 6-item list: return to index 5
     V.sheet = { mode: 'practice', title: 'T6', list: [filler, filler, filler, filler, filler, q], i: 5, pick: null, c: 0, seen: 0, loading: false, meta: { subj: q.subj }, again: null };
@@ -38,7 +39,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   console.log(JSON.stringify(res)); console.log('errors', errs);
   await b.close();
   if (res.skipped) process.exit(1);
-  const ok = res.a.count === res.a.expectCount && res.a.title.endsWith('· ' + res.a.expectCount) && !res.a.currentInside && res.a.dupes === 0
+  const ok = res.a.clip && res.a.count === res.a.expectCount && !res.a.currentInside && res.a.dupes === 0
     && res.b.clipOpen && res.b.returnedTitle === 'T6' && res.b.returnedIndex === 5 && res.b.returnedLen === 6
     && res.c.backToSet && !res.c.emptyClip && errs.length === 0;
   process.exit(ok ? 0 : 1);
