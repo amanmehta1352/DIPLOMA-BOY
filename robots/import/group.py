@@ -67,7 +67,7 @@ def patterns(rows):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--sql'); ap.add_argument('--stage', action='store_true', help='write pending candidates only (needs migration 0026)'); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--sql'); ap.add_argument('--stage', action='store_true', help='write pending candidates only (needs migration 0026)'); ap.add_argument('--limit', type=int, default=0, help='stage at most N pairs (0 = all); use small first runs'); a = ap.parse_args()
     rows = fetch(); pats = patterns(rows)
     vals = [(i, g[0], len(g)) for g in pats for i in g]
     print(json.dumps({'pyq': len(rows), 'patterns': len(pats), 'questions_in_patterns': len(vals), 'largest': max((len(g) for g in pats), default=0)}))
@@ -82,6 +82,7 @@ def main():
         if not key: sys.exit('no SUPABASE_SECRET_KEY: staging skipped')
         H = {'apikey': key, 'Authorization': 'Bearer ' + key, 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
         # lead = lower id, question = higher id; relation 'same' is a machine guess and stays pending_review
+        if a.limit: E = E[:a.limit]
         body = [{'question_id': hi, 'pattern_lead_id': lo, 'relation_type': 'same', 'confidence': sc,
                  'evidence': {'method': 'tfidf_cosine', 'threshold': TH}, 'algorithm_version': 1} for lo, hi, sc in E]
         inserted = 0
