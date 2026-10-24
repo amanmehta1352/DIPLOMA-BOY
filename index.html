@@ -335,7 +335,7 @@ async function paged(scope,base){
 function scopeSrc(){ const fams=myFams().map(f=>f.id); if(!S.exam&&!fams.length) return ''; const ids=Object.values(R.sources).filter(x=>S.exam?x.exam===S.exam:fams.includes(R.famOfSlug[x.exam])).map(x=>x.id); return `&or=(source_id.is.null,source_id.in.(${ids.join(',')||'0'}))`; }
 function fetchChapter(subj,chapterId,kind){
   const chs=chapterId?[chapterId]:chaptersOf(subj).map(t=>t.id); if(!chs.length) return Promise.resolve([]);
-  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&topic_id=in.(${chs.join(',')})${kind?'&kind=eq.'+kind:''}${scopeSrc()}`);   /* one question per same-type pattern; its chip opens the whole pattern */
+  return paged(`ch|${subj}|${chapterId||'all'}|${kind||'all'}`,`questions?select=${QSEL}&topic_id=in.(${chs.join(',')})&or=(pattern_id.is.null,pattern_rep.is.true)${kind?'&kind=eq.'+kind:''}${scopeSrc()}`);   /* one question per same-type pattern (the lead); its chip opens the whole pattern */
 }
 // PYQ view: one exam, by subject (exam's own papers only)
 function fetchExamSubject(exam,subj){
