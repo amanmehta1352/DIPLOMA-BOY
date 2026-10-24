@@ -9,9 +9,9 @@ language sql stable security definer set search_path to 'mtb', 'public'
 as $$
   select c.id, c.question_id, c.pattern_lead_id, c.relation_type, c.confidence, c.evidence, c.algorithm_version
   from mtb.pattern_candidates c
-  where c.status = 'pending_review' and c.id > p_after
+  where c.status = 'pending_review' and c.id > coalesce(p_after, 0)
   order by c.id
-  limit least(greatest(p_limit, 1), 500);
+  limit least(greatest(coalesce(p_limit, 50), 1), 500);
 $$;
 
 create or replace function mtb.pattern_review(p_ids bigint[], p_decision text, p_reviewer uuid)

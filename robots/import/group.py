@@ -82,6 +82,7 @@ def main():
         if not key: sys.exit('no SUPABASE_SECRET_KEY: staging skipped')
         H = {'apikey': key, 'Authorization': 'Bearer ' + key, 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
         # lead = lower id, question = higher id; relation 'same' is a machine guess and stays pending_review
+        if a.limit < 0: sys.exit('--limit must be 0 (all) or a positive number')
         if a.limit: E = E[:a.limit]
         body = [{'question_id': hi, 'pattern_lead_id': lo, 'relation_type': 'same', 'confidence': sc,
                  'evidence': {'method': 'tfidf_cosine', 'threshold': TH}, 'algorithm_version': 1} for lo, hi, sc in E]
