@@ -10,7 +10,10 @@ from datetime import date
 def _host_ok(url):
     # Hostname comes from the URL itself; a separate 'host' field is never trusted.
     if not url.startswith('https://'): return False, 'लिंक https नहीं है'
-    h = (urlsplit(url).hostname or '').lower()
+    try:
+        h = (urlsplit(url).hostname or '').lower()
+    except ValueError:
+        return False, 'लिंक का पता गलत है'
     if h not in OFFICIAL_HOSTS and not any(h.endswith('.' + o) for o in OFFICIAL_HOSTS if '.' in o and not o.startswith('www.')):
         return False, f'आधिकारिक साइट नहीं: {h or "पता नहीं"}'
     return True, 'आधिकारिक साइट'
