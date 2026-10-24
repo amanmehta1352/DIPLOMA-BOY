@@ -11,6 +11,7 @@ GOOD = {'site': {'ok': True, 'ms': 120, 'sw': 'db-v6'}, 'branches': 3, 'errors':
         'db': {'total': 10, 'by_exam': {'a': {'published': 6, 'draft': 3, 'hidden': 1}}, 'published_failing_lock': 0, 'published_failing_reasons': {},
                'draft_figure': 2, 'published_picture': 0, 'published_in_inbox': 0, 'reports_open': 0,
                'backup_last_at': '2026-10-23T02:00:00+00:00'},
+        'attrs': {'rows_changed_or_added': 0, 'questions': 22401, 'checked_at': '2026-10-24T03:00:00+00:00'},
         'qc': {'drafts': 3, 'ready': 3, 'no_chapter': 0, 'figure_wait': 0, 'no_hindi': 0, 'wrong_language': 0, 'english_missing': 0, 'no_answer_or_options': 0, 'duplicate': 0},
         'cl': {'branch_leak': 0, 'inactive_exam': 0, 'nonchapter_leaf': 0, 'no_topic': 0, 'pattern_split': 0},
         'backup_verify': {'checked_at': '2026-10-23T03:00:00+00:00', 'slot': 5, 'backup_rows': 10, 'missing_in_live': 0, 'changed_since': 0}}
