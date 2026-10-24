@@ -59,6 +59,8 @@ def collect():
     except Exception as e: d['db'] = None; d['errors']['supabase'] = type(e).__name__ + (':' + str(e.code) if hasattr(e, 'code') else '')
     try: d['cl'] = rpc('count_leak')
     except Exception as e: d['cl'] = None; d['errors']['count_leak'] = type(e).__name__
+    try: d['attrs'] = rpc('refresh_question_attributes')
+    except Exception as e: d['attrs'] = None; d['errors']['attributes'] = type(e).__name__
     try: d['qc'] = rpc('quality_counts')
     except Exception as e: d['qc'] = None; d['errors']['quality'] = type(e).__name__
     return d
