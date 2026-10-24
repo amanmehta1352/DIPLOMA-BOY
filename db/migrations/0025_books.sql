@@ -22,6 +22,14 @@ create table if not exists mtb.book_items (
   unique (book_id, question_id)
 );
 
+-- Each book item must point at a real question; a question with a book entry cannot be deleted (RESTRICT).
+do $$ begin
+  if not exists (select 1 from pg_constraint where conname = 'book_items_question_fk') then
+    alter table mtb.book_items add constraint book_items_question_fk
+      foreign key (question_id) references mtb.questions(id) on delete restrict;
+  end if;
+end $$;
+
 alter table mtb.books enable row level security;
 alter table mtb.book_items enable row level security;
 revoke all on mtb.books, mtb.book_items from anon, authenticated;
@@ -33,6 +41,8 @@ declare
   f jsonb; bid bigint; ver int; n int; run_no bigint;
 begin
   f := mtb.filter_questions(coalesce(p_filter,'{}'::jsonb), 100000);
+  -- Serialize builds of the same title so two runs cannot pick the same version.
+  perform pg_advisory_xact_lock(hashtext('build_book:' || p_title));
   select coalesce(max(version),0)+1 into ver from mtb.books where title = p_title;
   insert into mtb.books(title, filter, version, built_at, question_count)
     values (p_title, coalesce(p_filter,'{}'::jsonb), ver, now(), 0) returning id into bid;
