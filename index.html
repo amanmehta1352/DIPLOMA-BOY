@@ -423,7 +423,9 @@ function mySubjects(){ return [...COMMON.map(id=>byId(DATA.subjects,id)).filter(
 function chaptersOf(subj){ return Object.values(R.topics).filter(t=>t.chapter&&t.subject===subj).sort((a,b)=>(a.sort||0)-(b.sort||0)||a.id-b.id); }
 // counts follow the student's families (myFams): practice (our own, no exam) always counts; PYQ/NTPC counts only from picked exams
 // one rule for every count and list: the exam chip picked (S.exam) if any, else the student's families
-function inScope(examDbid){ if(!examDbid) return true; if(S.exam) return R.slugOfDb[examDbid]===S.exam; const fams=myFams().map(f=>f.id); return !fams.length||fams.includes(R.examFam[examDbid]); }
+// the exam chip (stage chip picked on the subjects screen, else S.exam) narrows every count
+function scopeExam(){ const st=myStages(); return S.stageF&&S.stageF!=='all'&&st.some(e=>e.id===S.stageF)?S.stageF:S.exam; }
+function inScope(examDbid){ if(!examDbid) return true; const ex=scopeExam(); if(ex) return R.slugOfDb[examDbid]===ex; const fams=myFams().map(f=>f.id); return !fams.length||fams.includes(R.examFam[examDbid]); }
 function cnt(chId,kind){ const s={pyq:0,practice:0}; (R.statsEx[chId]||[]).forEach(x=>{ if(inScope(x.exam_id)) s[x.kind]=(s[x.kind]||0)+x.n; }); return kind?(s[kind]||0):((s.pyq||0)+(s.practice||0)); }
 function subjCount(subj,kind){ return chaptersOf(subj).reduce((a,t)=>a+cnt(t.id,kind),0); }
 const stat=id=>S.st[id]||{c:0,t:0};
