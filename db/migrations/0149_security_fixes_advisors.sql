@@ -1,5 +1,5 @@
 -- Migration 0149: Supabase security advisor fixes (no data change).
--- STATUS 2026-10-31: part 3 applied as 0149a. Parts 1-2 to be run by the owner in the Supabase SQL Editor.
+-- STATUS 2026-10-31: COMPLETE. Part 3 applied as 0149a; parts 1-2 run by the owner in the SQL Editor (verified: advisor warnings gone).
 -- 1) public.rls_auto_enable() is an event-trigger helper; nobody should call it over the REST API.
 revoke execute on function public.rls_auto_enable() from public, anon, authenticated;
 
