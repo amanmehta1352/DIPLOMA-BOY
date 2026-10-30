@@ -1,0 +1,24 @@
+Per-level checksums for published, non-archived atoms, taken 2026-10-30 after migration 0111.
+Method: md5(string_agg(md5(row_to_json(a)::text), '' ORDER BY a.id)) grouped by level_id (NULL = shared).
+Sum of counts = 3071.
+
+level                  count  checksum
+__shared_null__           96  5a408578a1a3450d4b1801b0044fb6ce
+advanced_research         11  856a1b30684e634240b67cda5b060237
+banking                  121  f5f6e1f58acfac36a36b2416030c05cf
+class_11_12_arts           3  6c16c8954909eff148c803679ccdfe22
+class_11_12_com            3  6dcbb6ca4f271381d3f748f926036c60
+class_11_12_sci          257  8cba696e9d5da33b1418e24847104391
+class_6_8                220  89721e0a523575f3dced4ebd05730a6d
+class_9_10               288  2467cb19a89cc4a85dc4c3d532557666
+engineering              185  5f3f6e0c9437d87cc83ddc3a69c80915
+govt_basic               376  762dea1db849f58ebaf5573b6d4b230c
+govt_defence             337  438007bd1b6ec834586b721b3fd3d87c
+govt_technical           384  5b40a0276d36a2d5ea406d7e67bedf7f
+graduation_arts            3  af4ca89b08363e43e45da10c942bac6f
+graduation_com             4  4df3f993e64d034b148d49fe2f8aaad7
+graduation_sci            19  5053df5c22a11d83f0167a3945780bc4
+law_management            11  aae25ba1e2d62300e7e61aee4f52568b
+medical                  193  cc33b3b4f410f7eaca219ed3dbfc2903
+state_psc                336  48b6ec107aebc8fd87ac725503f55848
+upsc_civil               224  825386bfb2fc896a604ec5fa204bfee1
