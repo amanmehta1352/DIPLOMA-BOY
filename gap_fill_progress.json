@@ -21,7 +21,8 @@
     {"migration": "0113", "level": "govt_technical", "chapters": [403,404,405,406,407,408,409,410,411,412], "atoms": 40, "verified": true},
     {"migration": "0114", "level": "govt_technical", "chapters": [442,443,444,445,446,447,416], "atoms": 28, "verified": true},
     {"migration": "0115", "level": "govt_basic/govt_defence/state_psc/upsc_civil (416) + class_9_10 (883, 899)", "chapters": [416,883,899], "atoms": 24, "verified": true},
-    {"migration": "0116", "level": "banking", "chapters": [11,12,13,14,15,16,416], "atoms": 28, "verified": true}
+    {"migration": "0116", "level": "banking", "chapters": [11,12,13,14,15,16,416], "atoms": 28, "verified": true},
+    {"migration": "0117", "level": "class_6_8", "chapters": [883,889,891,892,894,896,898,899], "atoms": 32, "verified": true, "skipped_senior_only_chapters": [882,888,890,893,895,897]}
   ],
   "total_atoms_before": 3071,
   "total_atoms_now": 3163,
