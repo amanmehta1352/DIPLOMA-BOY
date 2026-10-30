@@ -1,0 +1,248 @@
+-- Medical final chapters 913,914,915,916,917,918,920 (28 atoms, level medical; 919 not in mission).
+-- Engineering chapters 870,871,873-883,885-889 (72 atoms, level engineering; 872 already has 5 atoms, not in batch).
+-- Mission label "0082". Total new: 100.
+-- FIX before apply:
+--   (a) 886-889 engineering formula/example/mcq rows were missing level_id (key sat in level slot). Added 'engineering'.
+--   (b) 878 Doppler example was flawed (v_s = v, denominator 0). Replaced with ambulance 30 m/s, f=500 Hz, v=330 m/s → f' = 500×330/300 = 550 Hz.
+--   (c) 888 O₂ bond order: antibonding electrons = 4 (not 2). BO = (8-4)/2 = 2.
+-- Checked: Carnot 50%/40%; v_rms O₂ 300 K ≈ 483 m/s; H n=2→1 ≈ 121.6 nm; electron λ ≈ 0.73 nm; proton r ≈ 1.04 cm; YDSE β = 0.5 mm; escape 11.2 km/s; string 50 Hz; stop distance 4.17 m; Hardy-Weinberg q=0.4; 10,000 J→10 J; glucose etc.
+
+with src as (
+  select v.chapter_id, v.level_id, v.atom_key, v.atom_type, v.atom_order, v.title, v.body::jsonb as body
+  from (values
+
+    -- ═══ MEDICAL (7 chapters) ═══
+    (913, 'medical', 'bio-hormones-concept', 'concept', 1, 'हार्मोन — NEET',
+     $j${"text":"Endocrine glands: pituitary (master), thyroid (T3/T4, calcitonin), parathyroid (PTH), adrenal (cortisol, adrenaline), pancreas (insulin, glucagon), gonads (testosterone, estrogen), pineal (melatonin)। Hormone types: protein (insulin), steroid (cortisol), amine (adrenaline)।","note":"NEET में hormone functions और disorders पूछे जाते हैं।"}$j$),
+    (913, 'medical', 'bio-hormones-formula', 'formula', 2, 'हार्मोन तथ्य',
+     $j${"formula":"Insulin: ↓ blood glucose · Glucagon: ↑ blood glucose · Thyroxine (T3/T4): ↑ metabolism · Cortisol: stress hormone · ADH: water reabsorption","explanation":"Disorders: diabetes (insulin), goiter/hypothyroidism (I), gigantism/acromegaly (GH excess), dwarfism (GH deficiency), Addison's (cortisol deficiency)"}$j$),
+    (913, 'medical', 'bio-hormones-example', 'example', 3, 'Medical application',
+     $j${"question":"Diabetes mellitus में कौन hormone deficient?","solution":"Insulin (β-cells of pancreas)","answer":"Insulin deficiency"}$j$),
+    (913, 'medical', 'bio-hormones-mcq', 'mcq', 4, 'NEET MCQs',
+     $j${"questions":[{"q":"Master gland?","options":["Thyroid","Pituitary","Adrenal","Pancreas"],"answer":1,"explanation":"Pituitary = master gland"},{"q":"Insulin कहाँ से?","options":["Liver","Pancreas (β-cells)","Kidney","Thyroid"],"answer":1,"explanation":"β-cells of Islets of Langerhans"}]}$j$),
+
+    (914, 'medical', 'bio-skeletal-concept', 'concept', 1, 'कंकाल-पेशी तंत्र — NEET',
+     $j${"text":"Skeletal system: 206 bones (adult), axial (80: skull, vertebral, ribs, sternum) + appendicular (126: limbs, girdles)। Bone types: long, short, flat, irregular। Joints: fibrous (immovable), cartilaginous (slightly movable), synovial (freely movable — ball-socket, hinge, pivot, gliding)। Muscle types: skeletal (voluntary), smooth (involuntary), cardiac।","note":"NEET में joints, bones, और muscle types पूछे जाते हैं।"}$j$),
+    (914, 'medical', 'bio-skeletal-formula', 'formula', 2, 'कंकाल तथ्य',
+     $j${"formula":"Total bones: 206 (adult), 300+ (newborn) · Axial: 80 · Appendicular: 126 · Smallest bone: stapes (ear) · Largest: femur","explanation":"Synovial joint types: ball-socket (shoulder, hip), hinge (elbow, knee), pivot (neck), gliding (wrist, ankle), saddle (thumb)"}$j$),
+    (914, 'medical', 'bio-skeletal-example', 'example', 3, 'Medical application',
+     $j${"question":"सबसे छोटी हड्डी कहाँ?","solution":"Stapes (middle ear)","answer":"कान में (stapes, ~3 mm)"}$j$),
+    (914, 'medical', 'bio-skeletal-mcq', 'mcq', 4, 'NEET MCQs',
+     $j${"questions":[{"q":"Adult में कुल bones?","options":["106","206","306","406"],"answer":1,"explanation":"206 adult bones"},{"q":"Shoulder joint type?","options":["Hinge","Ball-socket","Pivot","Saddle"],"answer":1,"explanation":"Shoulder = ball and socket"}]}$j$),
+
+    (915, 'medical', 'bio-repro-concept', 'concept', 1, 'जनन — NEET',
+     $j${"text":"Human reproduction: male (testes → sperm, testosterone), female (ovary → egg, estrogen/progesterone)। Spermatogenesis: testes, continuous from puberty। Oogenesis: begins in fetus, arrested at prophase I, completes only on fertilization। Menstrual cycle: 28 days (follicular → ovulation day 14 → luteal)। Fertilization: ampulla of fallopian tube।","note":"NEET में gametogenesis, menstrual cycle, और fertilization पूछे जाते हैं।"}$j$),
+    (915, 'medical', 'bio-repro-formula', 'formula', 2, 'जनन तथ्य',
+     $j${"formula":"Sperm: 200-300 million per ejaculation · Menstrual cycle: 28 days · Ovulation: day 14 · Fertilization site: ampulla (fallopian tube)","explanation":"Male: continuous spermatogenesis · Female: oogenesis arrested in prophase I until fertilization"}$j$),
+    (915, 'medical', 'bio-repro-example', 'example', 3, 'Medical application',
+     $j${"question":"Ovulation कब होता है?","solution":"28-day cycle में day 14 (LH surge के बाद)","answer":"Day 14 (मध्य चक्र)"}$j$),
+    (915, 'medical', 'bio-repro-mcq', 'mcq', 4, 'NEET MCQs',
+     $j${"questions":[{"q":"Fertilization कहाँ?","options":["Uterus","Ovary","Ampulla (fallopian tube)","Cervix"],"answer":2,"explanation":"Ampulla of fallopian tube"},{"q":"Ovulation किस hormone surge?","options":["FSH","LH","Estrogen","Progesterone"],"answer":1,"explanation":"LH surge → ovulation"}]}$j$),
+
+    (916, 'medical', 'bio-genetics-concept', 'concept', 1, 'आनुवंशिकी — NEET',
+     $j${"text":"Genetics: DNA structure (Watson-Crick double helix), genes (functional DNA unit), chromosomes (46 in human — 23 pairs)। Mendelian genetics: dominant/recessive, genotype/phenotype, Punnett square। Central dogma: DNA → RNA → protein। Genetic disorders: autosomal (sickle cell, cystic fibrosis), sex-linked (hemophilia, color blindness), chromosomal (Down syndrome — trisomy 21)।","note":"NEET में Mendelian ratios, DNA structure, और genetic disorders पूछे जाते हैं।"}$j$),
+    (916, 'medical', 'bio-genetics-formula', 'formula', 2, 'आनुवंशिकी सूत्र',
+     $j${"formula":"Monohybrid F2: 3:1 (phenotype), 1:2:1 (genotype) · Dihybrid F2: 9:3:3:1 · Human chromosomes: 46 (23 pairs)","explanation":"DNA base pairing: A=T, G≡C · Codon = 3 bases = 1 amino acid · Down syndrome = trisomy 21"}$j$),
+    (916, 'medical', 'bio-genetics-example', 'example', 3, 'Medical application',
+     $j${"question":"Aa × Aa cross। F2 phenotype ratio?","solution":"AA:Aa:aa = 1:2:1 → dominant:recessive = 3:1","answer":"3:1 (dominant:recessive)"}$j$),
+    (916, 'medical', 'bio-genetics-mcq', 'mcq', 4, 'NEET MCQs',
+     $j${"questions":[{"q":"Down syndrome क्या है?","options":["Trisomy 21","Monosomy X","Trisomy 18","XXY"],"answer":0,"explanation":"Trisomy 21 (extra chromosome 21)"},{"q":"Dihybrid F2 ratio?","options":["3:1","1:2:1","9:3:3:1","1:1"],"answer":2,"explanation":"Dihybrid = 9:3:3:1"}]}$j$),
+
+    (917, 'medical', 'bio-evol-concept', 'concept', 1, 'विकास — NEET',
+     $j${"text":"Evolution: Darwin (natural selection), Lamarck (inheritance of acquired characters - disproved), modern synthesis। Evidence: fossils, homology (same structure, different function), analogy (different structure, same function), vestigial organs (appendix, wisdom teeth)। Hardy-Weinberg equilibrium: p² + 2pq + q² = 1. Human evolution: Homo habilis → erectus → neanderthalensis → sapiens।","note":"NEET में natural selection, Hardy-Weinberg, और human evolution पूछे जाते हैं।"}$j$),
+    (917, 'medical', 'bio-evol-formula', 'formula', 2, 'विकास तथ्य',
+     $j${"formula":"Hardy-Weinberg: p² + 2pq + q² = 1 (p + q = 1) · p = dominant allele freq, q = recessive allele freq","explanation":"Natural selection = Darwin · Homologous organs = common ancestry · Analogous = convergent evolution · Vestigial = reduced function"}$j$),
+    (917, 'medical', 'bio-evol-example', 'example', 3, 'Medical application',
+     $j${"question":"p=0.6 (dominant), q=?","solution":"p + q = 1 → q = 1 - 0.6","answer":"q = 0.4"}$j$),
+    (917, 'medical', 'bio-evol-mcq', 'mcq', 4, 'NEET MCQs',
+     $j${"questions":[{"q":"Natural selection किसने दिया?","options":["Lamarck","Darwin","Mendel","Wallace"],"answer":1,"explanation":"Charles Darwin (Origin of Species, 1859)"},{"q":"Vestigial organ?","options":["Heart","Appendix","Liver","Kidney"],"answer":1,"explanation":"Appendix = vestigial (no function)"}]}$j$),
+
+    (918, 'medical', 'bio-disease-concept', 'concept', 1, 'रोग-प्रतिरक्षा — NEET',
+     $j${"text":"Immunity: innate (non-specific — skin, mucus, phagocytes) + acquired (specific — B cells, T cells, memory)। Vaccines: inactivated (polio Salk), live attenuated (BCG, MMR), toxoid (tetanus)। Diseases: infectious (malaria-Plasmodium, TB-Mycobacterium, AIDS-HIV, COVID-SARS-CoV-2) vs non-infectious (cancer, diabetes)। Passive immunity: antibodies transferred (mother→baby, antiserum)।","note":"NEET में immunity types, vaccines, और diseases पूछे जाते हैं।"}$j$),
+    (918, 'medical', 'bio-disease-formula', 'formula', 2, 'रोग-प्रतिरक्षा तथ्य',
+     $j${"formula":"Innate: non-specific (skin, phagocytes) · Acquired: specific (B, T cells) · Active: own antibodies (vaccine) · Passive: transferred antibodies (colostrum)","explanation":"Malaria: Plasmodium (female Anopheles) · TB: Mycobacterium tuberculosis · AIDS: HIV (retrovirus, CD4 T-cells)"}$j$),
+    (918, 'medical', 'bio-disease-example', 'example', 3, 'Medical application',
+     $j${"question":"BCG vaccine किस रोग के लिए?","solution":"BCG = Bacille Calmette-Guérin → TB","answer":"Tuberculosis (TB)"}$j$),
+    (918, 'medical', 'bio-disease-mcq', 'mcq', 4, 'NEET MCQs',
+     $j${"questions":[{"q":"AIDS में कौन cells target?","options":["RBC","CD4 T-helper cells","B cells","Platelets"],"answer":1,"explanation":"HIV attacks CD4 helper T-cells"},{"q":"Malaria किससे?","options":["Bacteria","Virus","Protozoa (Plasmodium)","Fungi"],"answer":2,"explanation":"Plasmodium (protozoan) via Anopheles mosquito"}]}$j$),
+
+    (920, 'medical', 'env-ecology-concept', 'concept', 1, 'पर्यावरण-पारिस्थितिकी — NEET',
+     $j${"text":"Environment & Ecology: ecosystem components (biotic + abiotic), food chain/web, trophic levels, energy flow (10% law), biogeochemical cycles (C, N, P, water)। Pollution types: air (PM2.5, SO₂, NO₂), water (BOD, heavy metals), soil, noise। Global warming (CO₂, CH₄, N₂O)। Ozone depletion (CFCs)। Biodiversity hotspots (India: Western Ghats, Eastern Himalaya, Indo-Burma, Sundaland)।","note":"NEET में ecosystem, pollution, और biodiversity पूछे जाते हैं।"}$j$),
+    (920, 'medical', 'env-ecology-formula', 'formula', 2, 'पारिस्थितिकी सूत्र',
+     $j${"formula":"10% energy flow between trophic levels · BOD = Biochemical Oxygen Demand · Greenhouse gases: CO₂ > CH₄ > N₂O > CFCs","explanation":"Food chain: producer → primary consumer → secondary → tertiary · Biodiversity hotspots India: 4 (Himalaya, Indo-Burma, Sundaland, Western Ghats)"}$j$),
+    (920, 'medical', 'env-ecology-example', 'example', 3, 'Medical application',
+     $j${"question":"10,000 J producers। Tertiary consumer को?","solution":"10% × 10% × 10% = 0.1% of 10,000 J","answer":"10 J"}$j$),
+    (920, 'medical', 'env-ecology-mcq', 'mcq', 4, 'NEET MCQs',
+     $j${"questions":[{"q":"10% energy law किसने?","options":["Darwin","Lindeman","Odum","Tansley"],"answer":1,"explanation":"Lindeman's 10% rule (1942)"},{"q":"Ozone depletion का main cause?","options":["CO₂","CFCs","SO₂","CH₄"],"answer":1,"explanation":"CFCs (chlorofluorocarbons)"}]}$j$),
+
+    -- ═══ ENGINEERING (18 chapters) ═══
+    (870, 'engineering', 'phy-meas-eng-concept', 'concept', 1, 'मापन — JEE',
+     $j${"text":"JEE में units, dimensions, error analysis, significant figures। Dimensional formula: [M^a L^b T^c]। Dimensional analysis for equation checking। Error: absolute, relative, percentage। Propagation of errors: sum/diff → absolute errors add; product/div → relative errors add। Least count of vernier (0.1 mm), screw gauge (0.01 mm)।","note":"JEE में dimensions और error propagation ज़रूरी हैं।"}$j$),
+    (870, 'engineering', 'phy-meas-eng-formula', 'formula', 2, 'मापन सूत्र',
+     $j${"formula":"[Force] = [MLT⁻²] · [Energy] = [ML²T⁻²] · [Pressure] = [ML⁻¹T⁻²] · % error = (Δa/a × 100)","explanation":"Sum/diff: Δz = Δx + Δy · Product z=xy: Δz/z = Δx/x + Δy/y · Vernier LC = 1 MSD - 1 VSD"}$j$),
+    (870, 'engineering', 'phy-meas-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"a = 5.0 ± 0.1 cm, b = 3.0 ± 0.2 cm। Area error?","solution":"A = ab। ΔA/A = Δa/a + Δb/b = 0.1/5 + 0.2/3 = 0.02 + 0.067 = 0.087। ΔA = 0.087 × 15 = 1.3","answer":"A = 15 ± 1.3 cm²"}$j$),
+    (870, 'engineering', 'phy-meas-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Dimensional formula of work?","options":["[MLT⁻¹]","[ML²T⁻²]","[MLT⁻²]","[ML²T⁻¹]"],"answer":1,"explanation":"W = F·d = MLT⁻² × L = ML²T⁻²"},{"q":"Vernier least count?","options":["0.01 mm","0.1 mm","1 mm","0.001 mm"],"answer":1,"explanation":"Standard vernier = 0.1 mm"}]}$j$),
+
+    (871, 'engineering', 'phy-motion-eng-concept', 'concept', 1, 'गति — JEE',
+     $j${"text":"JEE में kinematics: equations of motion (v=u+at, s=ut+½at², v²=u²+2as), relative motion, projectile motion, motion graphs (x-t, v-t, a-t)। Projectile: range R = u²sin2θ/g, max height H = u²sin²θ/2g, time T = 2usinθ/g। Non-uniform acceleration: a = dv/dt = v dv/dx।","note":"JEE में projectile और relative velocity ज़रूरी हैं।"}$j$),
+    (871, 'engineering', 'phy-motion-eng-formula', 'formula', 2, 'गति सूत्र',
+     $j${"formula":"v = u + at · s = ut + ½at² · v² = u² + 2as · R = u²sin2θ/g · H = u²sin²θ/2g · T = 2usinθ/g","explanation":"Relative: v_AB = v_A - v_B · a = dv/dt = v dv/dx"}$j$),
+    (871, 'engineering', 'phy-motion-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"u = 20 m/s, 30°। Range? (g=10)","solution":"R = u²sin2θ/g = 400 × sin60°/10 = 400 × 0.866/10","answer":"≈ 34.6 m"}$j$),
+    (871, 'engineering', 'phy-motion-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Max range कब? (angle)","options":["30°","45°","60°","90°"],"answer":1,"explanation":"R_max at θ = 45°"},{"q":"Projectile का max height? (u, 90°)","options":["0","u²/2g","u²/g","2u²/g"],"answer":1,"explanation":"H = u²/2g at θ=90°"}]}$j$),
+
+    (873, 'engineering', 'phy-work-eng-concept', 'concept', 1, 'कार्य-ऊर्जा — JEE',
+     $j${"text":"Work-energy theorem: W_net = ΔKE। Conservative forces: gravity, spring (PE defined)। Non-conservative: friction (no PE)। Power = dW/dt = F·v। Elastic collision: KE + momentum conserved। Inelastic: only momentum। Coefficient of restitution e = (v₂-v₁)/(u₁-u₂)।","note":"JEE में collisions और energy conservation ज़रूरी हैं।"}$j$),
+    (873, 'engineering', 'phy-work-eng-formula', 'formula', 2, 'कार्य-ऊर्जा सूत्र',
+     $j${"formula":"W = Fd cosθ · KE = ½mv² · PE = mgh · P = Fv · e = (v₂-v₁)/(u₁-u₂)","explanation":"Elastic: e=1 (KE conserved) · Inelastic: e=0 (KE lost) · Partially: 0<e<1"}$j$),
+    (873, 'engineering', 'phy-work-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"10 kg, v=5 m/s, μ=0.3। Stop होने तक distance? (g=10)","solution":"KE = ½×10×25 = 125 J। Friction f = 0.3×100 = 30 N। W = f×d → 125 = 30×d","answer":"d ≈ 4.17 m"}$j$),
+    (873, 'engineering', 'phy-work-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Elastic collision में conserved?","options":["Only momentum","Only KE","Both momentum and KE","Neither"],"answer":2,"explanation":"Elastic = both conserved"},{"q":"Power का unit?","options":["Joule","Watt","Newton","Pascal"],"answer":1,"explanation":"P = W/t = J/s = Watt"}]}$j$),
+
+    (874, 'engineering', 'phy-grav-eng-concept', 'concept', 1, 'गुरुत्वाकर्षण — JEE',
+     $j${"text":"Gravitation: Newton's law F = Gm₁m₂/r², G = 6.67×10⁻¹¹ N·m²/kg²। g at height h: g' = g(1-2h/R) (h<<R)। Escape velocity: v_e = √(2gR) = 11.2 km/s (Earth)। Orbital velocity: v_o = √(gR) = 7.9 km/s। Kepler's laws: T² ∝ r³। Satellite energy: E = -GMm/2r।","note":"JEE में escape velocity, orbital mechanics, Kepler ज़रूरी हैं।"}$j$),
+    (874, 'engineering', 'phy-grav-eng-formula', 'formula', 2, 'गुरुत्व सूत्र',
+     $j${"formula":"F = Gm₁m₂/r² · g' = g(1-2h/R) · v_e = √(2gR) · v_o = √(gR) · T² ∝ r³","explanation":"v_e Earth = 11.2 km/s · v_o Earth = 7.9 km/s · Satellite E = -GMm/2r (bound state)"}$j$),
+    (874, 'engineering', 'phy-grav-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"Earth surface g=9.8, R=6400km। Escape velocity?","solution":"v_e = √(2 × 9.8 × 6.4×10⁶) = √(1.2544×10⁸)","answer":"≈ 11.2 km/s"}$j$),
+    (874, 'engineering', 'phy-grav-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Earth escape velocity?","options":["7.9 km/s","11.2 km/s","2.4 km/s","18 km/s"],"answer":1,"explanation":"v_e Earth = 11.2 km/s"},{"q":"Kepler's third law?","options":["T ∝ r","T² ∝ r³","T³ ∝ r²","T² ∝ r"],"answer":1,"explanation":"T² ∝ r³ (law of periods)"}]}$j$),
+
+    (875, 'engineering', 'phy-press-eng-concept', 'concept', 1, 'दाब-तरल — JEE',
+     $j${"text":"Fluids: pressure P = F/A, Pascal's law, hydraulic lift। Buoyancy: F_b = ρ_fluid × V_sub × g। Archimedes principle। Bernoulli: P + ½ρv² + ρgh = constant (ideal fluid)। Viscosity: η, Poiseuille Q = πPr⁴/(8ηL)। Surface tension: T = F/L, capillary rise h = 2T cosθ/(ρgr)। Reynolds number: Re = ρvD/η (laminar <2000, turbulent >4000)।","note":"JEE में Bernoulli, viscosity, और surface tension ज़रूरी हैं।"}$j$),
+    (875, 'engineering', 'phy-press-eng-formula', 'formula', 2, 'दाब सूत्र',
+     $j${"formula":"P = F/A · F_b = ρVg · Bernoulli: P + ½ρv² + ρgh = const · Poiseuille: Q = πPr⁴/(8ηL) · h = 2Tcosθ/(ρgr)","explanation":"Terminal velocity: v_t = 2r²(ρ-σ)g/9η · Re = ρvD/η"}$j$),
+    (875, 'engineering', 'phy-press-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"Bernoulli: A₁=4cm², A₂=2cm², v₁=2 m/s। v₂?","solution":"A₁v₁ = A₂v₂ → 4×2 = 2×v₂","answer":"v₂ = 4 m/s"}$j$),
+    (875, 'engineering', 'phy-press-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Bernoulli का basis?","options":["Momentum","Energy conservation","Mass","Force"],"answer":1,"explanation":"Bernoulli = energy conservation for fluids"},{"q":"Capillary rise ∝?","options":["r","1/r","r²","1/r²"],"answer":1,"explanation":"h ∝ 1/r (narrow tube → higher rise)"}]}$j$),
+
+    (876, 'engineering', 'phy-heat-eng-concept', 'concept', 1, 'ऊष्मा — JEE',
+     $j${"text":"Thermal physics: heat Q = mcΔT (sensible), Q = mL (latent)। Thermal expansion: linear α, area 2α, volume 3α। Calorimetry: heat lost = heat gained। Newton's cooling: dT/dt ∝ (T-T_s)। Heat transfer: conduction (Q/t = kAΔT/L), convection, radiation (Stefan-Boltzmann: E = σT⁴)। Wien's law: λ_max T = b। Carnot efficiency: η = 1 - T_c/T_h।","note":"JEE में Carnot cycle, heat transfer, और thermodynamics ज़रूरी हैं।"}$j$),
+    (876, 'engineering', 'phy-heat-eng-formula', 'formula', 2, 'ऊष्मा सूत्र',
+     $j${"formula":"Q = mcΔT · Q = mL · Conduction: Q/t = kAΔT/L · Stefan: E = σT⁴ · Carnot: η = 1 - T_c/T_h","explanation":"Wien: λ_max × T = 2.9×10⁻³ m·K · Carnot max efficiency between T_h, T_c"}$j$),
+    (876, 'engineering', 'phy-heat-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"Carnot: T_h=600K, T_c=300K। Efficiency?","solution":"η = 1 - T_c/T_h = 1 - 300/600","answer":"50%"}$j$),
+    (876, 'engineering', 'phy-heat-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Carnot max efficiency T_h=500, T_c=300?","options":["30%","40%","50%","60%"],"answer":1,"explanation":"η = 1 - 300/500 = 0.4 = 40%"},{"q":"Stefan law: E ∝?","options":["T","T²","T³","T⁴"],"answer":3,"explanation":"E = σT⁴"}]}$j$),
+
+    (877, 'engineering', 'phy-wave-eng-concept', 'concept', 1, 'तरंगें — JEE',
+     $j${"text":"Waves: v = fλ, wave equation y = A sin(kx-ωt)। Superposition: interference (constructive/destructive), standing waves (nodes, antinodes)। Strings: v = √(T/μ), f_n = nv/2L (both ends fixed)। Beats: f_beat = |f₁ - f₂|। Doppler: f' = f(v±v_o)/(v∓v_s)।","note":"JEE में standing waves, beats, और Doppler ज़रूरी हैं।"}$j$),
+    (877, 'engineering', 'phy-wave-eng-formula', 'formula', 2, 'तरंग सूत्र',
+     $j${"formula":"v = fλ · v_string = √(T/μ) · f_n = nv/2L (fixed both) · f_beat = |f₁-f₂| · Doppler: f' = f(v±v_o)/(v∓v_s)","explanation":"Open pipe: f_n = nv/2L · Closed pipe: f_n = (2n-1)v/4L (odd harmonics)"}$j$),
+    (877, 'engineering', 'phy-wave-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"String, L=1m, T=100N, μ=0.01 kg/m। Fundamental?","solution":"v = √(100/0.01) = 100 m/s। f₁ = v/2L = 100/2","answer":"50 Hz"}$j$),
+    (877, 'engineering', 'phy-wave-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Closed pipe harmonics?","options":["All integer","Only odd","Only even","None"],"answer":1,"explanation":"Closed pipe = odd harmonics only"},{"q":"Beat frequency?","options":["f₁+f₂","f₁-f₂","f₁×f₂","f₁/f₂"],"answer":1,"explanation":"|f₁ - f₂|"}]}$j$),
+
+    (878, 'engineering', 'phy-sound-eng-concept', 'concept', 1, 'ध्वनि — JEE',
+     $j${"text":"Sound: longitudinal wave in air। Speed v = √(γRT/M) (air ~340 m/s at 20°C)। Intensity: I = P²/(2ρv)। Loudness (dB) = 10 log(I/I₀)। Doppler effect: moving source/observer। Shock waves: supersonic (mach number M = v/c)।","note":"JEE में sound speed, Doppler, और intensity ज़रूरी हैं।"}$j$),
+    (878, 'engineering', 'phy-sound-eng-formula', 'formula', 2, 'ध्वनि सूत्र',
+     $j${"formula":"v = √(γRT/M) · I = P²/(2ρv) · dB = 10 log(I/I₀) · Mach = v_source/v_sound","explanation":"I₀ = 10⁻¹² W/m² · Doppler source moving toward observer: f' = f × v/(v - v_s)"}$j$),
+    (878, 'engineering', 'phy-sound-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"Ambulance 30 m/s स्थिर listener की ओर, source frequency 500 Hz, sound speed 330 m/s। Listener को कितनी frequency सुनाई देगी?","solution":"f' = f × v/(v - v_s) = 500 × 330/(330 - 30) = 500 × 330/300","answer":"550 Hz"}$j$),
+    (878, 'engineering', 'phy-sound-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Sound speed in air ∝?","options":["√T","T","T²","1/T"],"answer":0,"explanation":"v ∝ √T (Kelvin)"},{"q":"Mach 2 का मतलब?","options":["2× sound speed","2 m/s","2 Hz","2 dB"],"answer":0,"explanation":"Mach 2 = 2× speed of sound"}]}$j$),
+
+    (879, 'engineering', 'lgt-eng-concept', 'concept', 1, 'प्रकाश — JEE',
+     $j${"text":"Optics: reflection (mirror formula 1/f = 1/v + 1/u), refraction (Snell: n₁sinθ₁ = n₂sinθ₂)। Lens formula: 1/f = 1/v - 1/u। Lens maker: 1/f = (n-1)(1/R₁ - 1/R₂)। Total internal reflection (critical angle sinθ_c = n₂/n₁)। Diffraction: single slit minima a sinθ = nλ। Interference (Young's double slit): β = λD/d।","note":"JEE में lens, TIR, interference, diffraction ज़रूरी हैं।"}$j$),
+    (879, 'engineering', 'lgt-eng-formula', 'formula', 2, 'प्रकाश सूत्र',
+     $j${"formula":"1/f = 1/v - 1/u · n₁sinθ₁ = n₂sinθ₂ · sinθ_c = n₂/n₁ · β = λD/d (YDSE) · a sinθ = nλ (single slit)","explanation":"Power P = 1/f (D) · Mirror: 1/f = 1/v + 1/u (sign convention)"}$j$),
+    (879, 'engineering', 'lgt-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"YDSE: λ=500nm, D=1m, d=1mm। Fringe width?","solution":"β = λD/d = 500×10⁻⁹ × 1 / 10⁻³","answer":"β = 0.5 mm"}$j$),
+    (879, 'engineering', 'lgt-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"TIR की condition?","options":["θ < θ_c","θ > θ_c","n₁ < n₂","θ = 0"],"answer":1,"explanation":"θ > θ_c, from denser to rarer"},{"q":"Fringe width β ∝?","options":["d","1/d","λ²","d²"],"answer":1,"explanation":"β = λD/d → β ∝ 1/d"}]}$j$),
+
+    (880, 'engineering', 'elec-eng-concept', 'concept', 1, 'विद्युत — JEE',
+     $j${"text":"Electrostatics: Coulomb's law F = kq₁q₂/r², k = 9×10⁹। Electric field E = F/q, potential V = kQ/r। Capacitor: C = Q/V, energy U = ½CV²। Dielectric: C = ε_r C₀। Kirchhoff's laws for circuits। Wheatstone bridge, potentiometer। RC, RL circuits।","note":"JEE में electrostatics, capacitors, और circuits ज़रूरी हैं।"}$j$),
+    (880, 'engineering', 'elec-eng-formula', 'formula', 2, 'विद्युत सूत्र',
+     $j${"formula":"F = kq₁q₂/r² · E = kQ/r² · V = kQ/r · C = ε₀A/d · U = ½CV² · Series: 1/C = 1/C₁ + 1/C₂ · Parallel: C = C₁ + C₂","explanation":"k = 1/(4πε₀) = 9×10⁹ N·m²/C²"}$j$),
+    (880, 'engineering', 'elec-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"C = 10 μF, V = 100V। Energy?","solution":"U = ½CV² = ½ × 10⁻⁵ × 10⁴","answer":"U = 0.05 J"}$j$),
+    (880, 'engineering', 'elec-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Capacitor energy?","options":["CV²","½CV²","CV","½C²V"],"answer":1,"explanation":"U = ½CV²"},{"q":"Series capacitor?","options":["C = C₁+C₂","1/C = 1/C₁+1/C₂","C = C₁×C₂","C = √(C₁C₂)"],"answer":1,"explanation":"Series: 1/C = sum of 1/Cᵢ"}]}$j$),
+
+    (881, 'engineering', 'mag-eng-concept', 'concept', 1, 'चुंबकत्व — JEE',
+     $j${"text":"Magnetic effects: Biot-Savart (B = μ₀I/2πr for wire), Ampere's law, solenoid (B = μ₀nI)। Lorentz force F = qvBsinθ, F = BIL for wire। Cyclotron: r = mv/(qB)। Magnetic moment μ = NIA। Torque τ = μ × B। Hall effect, moving coil galvanometer।","note":"JEE में Biot-Savart, Ampere, और cyclotron ज़रूरी हैं।"}$j$),
+    (881, 'engineering', 'mag-eng-formula', 'formula', 2, 'चुंबकत्व सूत्र',
+     $j${"formula":"B = μ₀I/2πr (long wire) · B = μ₀nI (solenoid) · F = qvBsinθ = BIL · r = mv/qB (cyclotron) · τ = NIAB sinθ","explanation":"μ₀ = 4π×10⁻⁷ T·m/A · Force direction: right-hand rule (F = qv×B)"}$j$),
+    (881, 'engineering', 'mag-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"Proton (m=1.67×10⁻²⁷, q=1.6×10⁻¹⁹) v=10⁶ m/s, B=1T। r?","solution":"r = mv/qB = 1.67×10⁻²⁷ × 10⁶ / (1.6×10⁻¹⁹ × 1)","answer":"r ≈ 1.04 cm"}$j$),
+    (881, 'engineering', 'mag-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Solenoid B field?","options":["μ₀I/2πr","μ₀nI","μ₀I/4πr²","μ₀I"],"answer":1,"explanation":"B = μ₀nI (inside solenoid)"},{"q":"Cyclotron radius ∝?","options":["v","1/v","v²","1/v²"],"answer":0,"explanation":"r = mv/qB → r ∝ v"}]}$j$),
+
+    (882, 'engineering', 'modern-eng-concept', 'concept', 1, 'आधुनिक भौतिकी — JEE',
+     $j${"text":"Modern Physics: photoelectric effect (Einstein: hf = φ + KE_max), de Broglie wavelength λ = h/p, Bohr model (E_n = -13.6/n² eV), X-rays (λ_min = hc/eV), nuclear binding energy (E = Δmc²)। Half-life t½ = 0.693/λ। Mass defect, nuclear fission/fusion। Radioactive decay N = N₀e^(-λt)।","note":"JEE में photoelectric, Bohr, और nuclear physics ज़रूरी हैं।"}$j$),
+    (882, 'engineering', 'modern-eng-formula', 'formula', 2, 'आधुनिक भौतिकी सूत्र',
+     $j${"formula":"E = hf = φ + KE_max · λ = h/p · E_n = -13.6/n² eV (H) · t½ = 0.693/λ · E = Δmc²","explanation":"h = 6.626×10⁻³⁴ J·s · Bohr radius = 0.53 Å · 1 amu = 931.5 MeV/c²"}$j$),
+    (882, 'engineering', 'modern-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"Electron (m=9.1×10⁻³¹) v=10⁶ m/s। de Broglie λ?","solution":"λ = h/(mv) = 6.626×10⁻³⁴/(9.1×10⁻³¹ × 10⁶)","answer":"λ ≈ 0.73 nm"}$j$),
+    (882, 'engineering', 'modern-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Bohr ground state energy?","options":["-13.6 eV","-3.4 eV","-1.51 eV","0 eV"],"answer":0,"explanation":"E₁ = -13.6 eV (hydrogen)"},{"q":"de Broglie λ ∝?","options":["p","1/p","p²","1/p²"],"answer":1,"explanation":"λ = h/p → λ ∝ 1/p"}]}$j$),
+
+    (883, 'engineering', 'mach-eng-concept', 'concept', 1, 'सरल मशीनें — JEE',
+     $j${"text":"Simple Machines: lever (MA = load/effort), pulley systems (MA = n for n pulleys), inclined plane (MA = 1/sinθ), screw (MA = 2πL/pitch), wheel-axle। Efficiency η = MA/VR × 100%। Reversible vs irreversible machines। Friction affects MA।","note":"JEE में mechanical advantage और efficiency ज़रूरी हैं।"}$j$),
+    (883, 'engineering', 'mach-eng-formula', 'formula', 2, 'मशीन सूत्र',
+     $j${"formula":"MA = Load/Effort · Velocity ratio VR = effort distance/load distance · η = MA/VR × 100%","explanation":"Pulley n: VR = n · Inclined plane: VR = 1/sinθ · Wheel-axle: VR = R/r"}$j$),
+    (883, 'engineering', 'mach-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"MA=4, VR=5। Efficiency?","solution":"η = 4/5 × 100%","answer":"80%"}$j$),
+    (883, 'engineering', 'mach-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Ideal machine में?","options":["MA > VR","MA = VR","MA < VR","MA = 0"],"answer":1,"explanation":"Ideal (no friction): MA = VR, η = 100%"},{"q":"Efficiency formula?","options":["VR/MA","MA/VR","MA×VR","MA+VR"],"answer":1,"explanation":"η = MA/VR"}]}$j$),
+
+    (885, 'engineering', 'matter-eng-concept', 'concept', 1, 'पदार्थ — JEE',
+     $j${"text":"States of matter: solid (definite shape/volume), liquid (definite volume), gas (neither)। Ideal gas: PV = nRT। Kinetic theory: v_rms = √(3RT/M)। Real gas: van der Waals equation (P + an²/V²)(V-nb) = nRT। Critical temperature, liquefaction। Phase diagrams।","note":"JEE में gas laws, kinetic theory, और van der Waals ज़रूरी हैं।"}$j$),
+    (885, 'engineering', 'matter-eng-formula', 'formula', 2, 'पदार्थ सूत्र',
+     $j${"formula":"PV = nRT · v_rms = √(3RT/M) · v_avg = √(8RT/πM) · v_mp = √(2RT/M) · van der Waals: (P + a/V²)(V-b) = RT","explanation":"R = 8.314 J/mol·K · v_rms > v_avg > v_mp · Critical point: (P_c, V_c, T_c)"}$j$),
+    (885, 'engineering', 'matter-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"O₂ (M=32) 300K। v_rms?","solution":"v_rms = √(3 × 8.314 × 300 / 0.032)","answer":"≈ 483 m/s"}$j$),
+    (885, 'engineering', 'matter-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"v_rms ∝?","options":["T","√T","T²","1/√T"],"answer":1,"explanation":"v_rms ∝ √T"},{"q":"Ideal gas equation?","options":["PV = nRT","PV = RT","P = nRT","V = nRT"],"answer":0,"explanation":"PV = nRT (ideal gas)"}]}$j$),
+
+    (886, 'engineering', 'atom-eng-concept', 'concept', 1, 'परमाणु संरचना — JEE',
+     $j${"text":"Atomic Structure: Bohr model (postulates, E_n = -13.6/n² eV), quantum numbers (n, l, m, s), Aufbau principle, Pauli exclusion, Hund's rule। de Broglie, Heisenberg uncertainty (Δx·Δp ≥ h/4π)। Photoelectric effect, atomic spectra (Lyman, Balmer, Paschen series)।","note":"JEE में Bohr, quantum numbers, और spectra ज़रूरी हैं।"}$j$),
+    (886, 'engineering', 'atom-eng-formula', 'formula', 2, 'परमाणु सूत्र',
+     $j${"formula":"E_n = -13.6/n² eV · r_n = 0.53n² Å · 1/λ = R(1/n₁² - 1/n₂²) · Δx·Δp ≥ h/4π","explanation":"Lyman: n→1 (UV) · Balmer: n→2 (visible) · Paschen: n→3 (IR) · R = 1.097×10⁷ m⁻¹"}$j$),
+    (886, 'engineering', 'atom-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"H में n=2 से n=1 transition। λ?","solution":"E = -13.6(1/4 - 1) = 10.2 eV। λ = hc/E = 1240/10.2","answer":"λ ≈ 121.6 nm (Lyman α)"}$j$),
+    (886, 'engineering', 'atom-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Balmer series किस region?","options":["UV","Visible","IR","X-ray"],"answer":1,"explanation":"Balmer (n→2) = visible"},{"q":"Heisenberg uncertainty?","options":["Δx·Δp ≥ h","Δx·Δp ≥ h/2π","Δx·Δp ≥ h/4π","Δx·Δp = 0"],"answer":2,"explanation":"Δx·Δp ≥ ħ/2 = h/4π"}]}$j$),
+
+    (887, 'engineering', 'periodic-eng-concept', 'concept', 1, 'आवर्त सारणी — JEE',
+     $j${"text":"Periodic Table: Mendeleev (atomic mass) → Moseley (atomic number)। Modern periodic law: properties periodic function of atomic number। Periods (7), groups (18)। Trends: atomic radius ↓ across, ↑ down; ionization energy ↑ across, ↓ down; electron affinity, electronegativity (F highest), metallic character ↑ down। Blocks: s, p, d, f।","note":"JEE में periodic trends और exceptions ज़रूरी हैं।"}$j$),
+    (887, 'engineering', 'periodic-eng-formula', 'formula', 2, 'आवर्त सारणी तथ्य',
+     $j${"formula":"Atomic radius: ↓ across period, ↑ down group · IE: ↑ across, ↓ down · EN: ↑ across, ↓ down (F = 4.0 highest)","explanation":"s-block: groups 1-2 · p-block: 13-18 · d-block: 3-12 (transition) · f-block: lanthanides + actinides"}$j$),
+    (887, 'engineering', 'periodic-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"Na, Mg, Al, Si। Atomic radius order?","solution":"Across period: radius decreases → Na > Mg > Al > Si","answer":"Na > Mg > Al > Si"}$j$),
+    (887, 'engineering', 'periodic-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"Highest electronegativity?","options":["O","F","Cl","N"],"answer":1,"explanation":"F = 4.0 (highest)"},{"q":"IE across period?","options":["Increases","Decreases","Constant","Random"],"answer":0,"explanation":"IE increases across period (smaller radius)"}]}$j$),
+
+    (888, 'engineering', 'bond-eng-concept', 'concept', 1, 'रासायनिक आबंधन — JEE',
+     $j${"text":"Chemical Bonding: ionic (metal + nonmetal, lattice energy), covalent (sharing, VSEPR, hybridization sp/sp²/sp³), coordinate (dative), metallic, H-bond, van der Waals। VSEPR: shape by electron pairs (linear, trigonal planar, tetrahedral, trigonal bipyramidal, octahedral)। Molecular orbital theory (bond order = (bonding - antibonding)/2)। Bond length, bond angle, dipole moment।","note":"JEE में VSEPR, hybridization, और MOT ज़रूरी हैं।"}$j$),
+    (888, 'engineering', 'bond-eng-formula', 'formula', 2, 'आबंधन सूत्र',
+     $j${"formula":"Bond order = (N_b - N_a)/2 · Hybridization: sp (linear, 180°), sp² (trigonal, 120°), sp³ (tetrahedral, 109.5°)","explanation":"VSEPR pairs: 2=linear, 3=trigonal, 4=tetrahedral, 5=trigonal bipyramidal, 6=octahedral"}$j$),
+    (888, 'engineering', 'bond-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"O₂ का bond order?","solution":"O₂: 8 bonding e⁻, 4 antibonding e⁻ → BO = (8-4)/2","answer":"BO = 2 (double bond)"}$j$),
+    (888, 'engineering', 'bond-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"CH₄ hybridization?","options":["sp","sp²","sp³","sp³d"],"answer":2,"explanation":"CH₄ = sp³ (tetrahedral)"},{"q":"Bond order N₂?","options":["1","2","3","2.5"],"answer":2,"explanation":"N₂ has triple bond (BO = 3)"}]}$j$),
+
+    (889, 'engineering', 'chem-react-eng-concept', 'concept', 1, 'अभिक्रियाएँ — JEE',
+     $j${"text":"Chemical kinetics: rate = -d[A]/dt, rate law, order (0, 1, 2, pseudo-1)। Arrhenius: k = Ae^(-Ea/RT)। Half-life: t½ = ln2/k (1st), 1/(k[A]₀) (2nd)। Thermodynamics: ΔG = ΔH - TΔS, spontaneity (ΔG<0)। Equilibrium: K_c, K_p, Le Chatelier's principle। Acids-bases: pH, pKa, buffer, Henderson-Hasselbalch।","note":"JEE में kinetics, thermodynamics, equilibrium ज़रूरी हैं।"}$j$),
+    (889, 'engineering', 'chem-react-eng-formula', 'formula', 2, 'अभिक्रिया सूत्र',
+     $j${"formula":"Rate = k[A]ⁿ · Arrhenius: k = Ae^(-Ea/RT) · ΔG = ΔH - TΔS · pH = -log[H⁺] · Henderson: pH = pKa + log([A⁻]/[HA])","explanation":"1st order: t½ = 0.693/k · ΔG° = -RT ln K · ΔG = 0 at equilibrium"}$j$),
+    (889, 'engineering', 'chem-react-eng-example', 'example', 3, 'JEE numerical',
+     $j${"question":"1st order, k=0.693 min⁻¹। t½?","solution":"t½ = 0.693/k = 0.693/0.693","answer":"1 min"}$j$),
+    (889, 'engineering', 'chem-react-eng-mcq', 'mcq', 4, 'JEE MCQs',
+     $j${"questions":[{"q":"1st order half-life?","options":["0.693/k","1/k","k/0.693","ln2k"],"answer":0,"explanation":"t½ = 0.693/k (independent of [A]₀)"},{"q":"Spontaneous reaction?","options":["ΔG > 0","ΔG = 0","ΔG < 0","ΔH < 0"],"answer":2,"explanation":"ΔG < 0 → spontaneous"}]}$j$)
+  ) as v(chapter_id, level_id, atom_key, atom_type, atom_order, title, body)
+)
+insert into mtb.atoms (chapter_id, level_id, atom_key, atom_type, atom_order, title, body, lang, status, archived, exam_tags, class_tags, subject_tag, difficulty, content_hash)
+select s.chapter_id, s.level_id, s.atom_key, s.atom_type, s.atom_order, s.title, s.body, 'hi', 'published', false,
+  '{}'::text[], '{}'::text[], 'general-science', 'medium', md5(s.body::text)
+from src s
+on conflict do nothing;
+
+-- VERIFY: select level_id, count(*) from mtb.atoms where chapter_id in (913,914,915,916,917,918,920,870,871,873,874,875,876,877,878,879,880,881,882,883,885,886,887,888,889) and status='published' and not archived group by level_id;  -- expect medical=28 new, engineering=72 new (existing per chapter counts may add)
