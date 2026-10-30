@@ -1,0 +1,105 @@
+-- Migration 0116: fill remaining banking gaps
+--  - maths 11 simplification, 12 algebra, 13 mensuration, 14 geometry, 15 trigonometry, 16 statistics (6 x 4 = 24)
+--  - general-awareness 416 current affairs for banking (1 x 4 = 4)
+-- Total 28 atoms. Level: banking. Subjects: maths (11-16), general-awareness (416).
+with src as (
+  select v.chapter_id, v.level_id, v.atom_key, v.atom_type, v.atom_order, v.title, v.body::jsonb as body, v.subject_tag, v.exam_tags, v.class_tags, v.difficulty
+  from (values
+    (11, 'banking', 'bank-simp-concept', 'concept', 1, 'Simplification — बैंकिंग',
+     $j${"text":"Simplification में BODMAS क्रम से हल करते हैं: Bracket, Of, Division, Multiplication, Addition, Subtraction। बड़ी संख्याओं को छोटे भागों में बाँटकर हल करने से समय बचता है। उत्तर को approximation से जाँच लें।","note":"BODMAS क्रम · approximation से जाँचें"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (11, 'banking', 'bank-simp-formula', 'formula', 2, 'मुख्य सूत्र',
+     $j${"formula":"(a + b)² = a² + 2ab + b² ; a² − b² = (a + b)(a − b)","explanation":"Squares के shortcut में ये पहचान बहुत उपयोगी हैं, जैसे 25² = 625"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (11, 'banking', 'bank-simp-example', 'example', 3, 'Numerical (Banking style)',
+     $j${"question":"(12 × 8) ÷ 4 + 6 − 2 का मान क्या है?","solution":"12 × 8 = 96; 96 ÷ 4 = 24; 24 + 6 − 2 = 28","answer":"28"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (11, 'banking', 'bank-simp-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"(15 × 4) − 20 ÷ 5 = ?","options":["56","52","64","48"],"answer":0,"explanation":"15 × 4 = 60; 20 ÷ 5 = 4; 60 − 4 = 56।"},{"q":"यदि a = 3, b = 2 हो, तो (a + b)² = ?","options":["13","25","36","20"],"answer":1,"explanation":"(3 + 2)² = 25।"}]}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+
+    (12, 'banking', 'bank-alg-concept', 'concept', 1, 'Algebra — बैंकिंग',
+     $j${"text":"Algebra में अज्ञात संख्या x को समीकरण से ज्ञात करते हैं। एक चर वाले रैखिक समीकरण में दोनों पक्षों पर एक ही क्रिया करके x को अलग करें। उम्र, पैसे और अनुपात वाले बैंकिंग प्रश्न इसी से हल होते हैं।","note":"x अलग करें · दोनों पक्षों पर समान क्रिया"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (12, 'banking', 'bank-alg-formula', 'formula', 2, 'मुख्य सूत्र',
+     $j${"formula":"ax + b = c ⇒ x = (c − b) ÷ a","explanation":"पहले जोड़/घटाव हटाएँ, फिर गुणा/भाग से x अलग करें"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (12, 'banking', 'bank-alg-example', 'example', 3, 'Numerical (Banking style)',
+     $j${"question":"यदि 3x + 7 = 22 हो, तो x का मान क्या है?","solution":"3x = 22 − 7 = 15; x = 15 ÷ 3 = 5","answer":"5"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (12, 'banking', 'bank-alg-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"यदि 2x − 5 = 13 हो, तो x = ?","options":["4","9","6","8"],"answer":1,"explanation":"2x = 18, इसलिए x = 9।"},{"q":"यदि x/4 + 2 = 6 हो, तो x = ?","options":["24","12","16","20"],"answer":2,"explanation":"x/4 = 4 ⇒ x = 16।"}]}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+
+    (13, 'banking', 'bank-mens-concept', 'concept', 1, 'Mensuration — बैंकिंग',
+     $j${"text":"Mensuration में क्षेत्रफल (area) और आयतन (volume) निकालते हैं। आयत का क्षेत्रफल = लंबाई × चौड़ाई; वृत्त का क्षेत्रफल = πr²। जब r 7 का गुणज हो, तो π = 22/7 लेना सबसे आसान रहता है। प्लॉट, टंकी और डिब्बों के सवाल इसी से बनते हैं।","note":"π = 22/7 (r 7 का गुणज हो तो)"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (13, 'banking', 'bank-mens-formula', 'formula', 2, 'मुख्य सूत्र',
+     $j${"formula":"वृत्त: क्षेत्रफल = πr², परिधि = 2πr ; घन: आयतन = a³","explanation":"a = घन की भुजा (side), r = वृत्त की त्रिज्या"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (13, 'banking', 'bank-mens-example', 'example', 3, 'Numerical (Banking style)',
+     $j${"question":"एक आयताकार प्लॉट 30 m × 20 m का है। उसका क्षेत्रफल कितना है?","solution":"क्षेत्रफल = 30 × 20 = 600 m²","answer":"600 m²"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (13, 'banking', 'bank-mens-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"त्रिज्या 7 cm वाले वृत्त का क्षेत्रफल (π = 22/7)?","options":["154 cm²","44 cm²","22 cm²","308 cm²"],"answer":0,"explanation":"22/7 × 7 × 7 = 154 cm²।"},{"q":"भुजा 4 cm वाले घन का आयतन?","options":["16 cm³","48 cm³","64 cm³","32 cm³"],"answer":2,"explanation":"4³ = 64 cm³।"}]}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+
+    (14, 'banking', 'bank-geo-concept', 'concept', 1, 'Geometry — बैंकिंग',
+     $j${"text":"Geometry में कोण, त्रिभुज और वृत्त के गुण पढ़ते हैं। किसी त्रिभुज के तीनों कोणों का योग 180° होता है। समकोण त्रिभुज में पाइथागोरस प्रमेय लागू होती है: कर्ण² = आधार² + लंब²।","note":"कोण योग 180° · पाइथागोरस प्रमेय"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (14, 'banking', 'bank-geo-formula', 'formula', 2, 'मुख्य सूत्र',
+     $j${"formula":"कर्ण² = आधार² + लंब² ; त्रिभुज का क्षेत्रफल = ½ × आधार × ऊँचाई","explanation":"समकोण त्रिभुज में कर्ण सबसे लंबी भुजा होती है"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (14, 'banking', 'bank-geo-example', 'example', 3, 'Numerical (Banking style)',
+     $j${"question":"आधार 6 cm और लंब 8 cm वाले समकोण त्रिभुज का कर्ण कितना है?","solution":"कर्ण² = 36 + 64 = 100; कर्ण = 10 cm","answer":"10 cm"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (14, 'banking', 'bank-geo-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"किसी त्रिभुज के दो कोण 50° और 70° हैं, तो तीसरा कोण?","options":["60°","50°","70°","80°"],"answer":0,"explanation":"180 − 50 − 70 = 60°।"},{"q":"आधार 10 cm और ऊँचाई 6 cm वाले त्रिभुज का क्षेत्रफल?","options":["60 cm²","15 cm²","30 cm²","16 cm²"],"answer":2,"explanation":"½ × 10 × 6 = 30 cm²।"}]}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+
+    (15, 'banking', 'bank-trig-concept', 'concept', 1, 'Trigonometry — बैंकिंग',
+     $j${"text":"Trigonometry में sin, cos और tan का संबंध समकोण त्रिभुज की भुजाओं से है। sin θ = लंब/कर्ण, cos θ = आधार/कर्ण, tan θ = लंब/आधार। बैंकिंग में मानक कोणों (0°, 30°, 45°, 60°, 90°) के मान याद होने चाहिए।","note":"sin30° = ½ · cos60° = ½ · tan45° = 1"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (15, 'banking', 'bank-trig-formula', 'formula', 2, 'मुख्य सूत्र',
+     $j${"formula":"sin²θ + cos²θ = 1 ; tan θ = sin θ ÷ cos θ","explanation":"इन सर्वसमिकाओं से कई जटिल सवाल सरल हो जाते हैं"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (15, 'banking', 'bank-trig-example', 'example', 3, 'Numerical (Banking style)',
+     $j${"question":"sin 30° + cos 60° का मान क्या है?","solution":"sin 30° = ½, cos 60° = ½; ½ + ½ = 1","answer":"1"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (15, 'banking', 'bank-trig-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"tan 45° का मान?","options":["0","1","√3","½"],"answer":1,"explanation":"tan 45° = 1।"},{"q":"cos 0° का मान?","options":["0","½","1","√2"],"answer":2,"explanation":"cos 0° = 1।"}]}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+
+    (16, 'banking', 'bank-stat-concept', 'concept', 1, 'Statistics — बैंकिंग',
+     $j${"text":"Statistics में औसत (mean), माध्यिका (median) और बहुलक (mode) से डेटा का सार निकालते हैं। औसत = सभी मानों का योग ÷ मानों की संख्या। बैंकिंग में तालिका और ग्राफ़ वाले डेटा-प्रश्न बहुत आते हैं।","note":"औसत = योग ÷ गिनती"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (16, 'banking', 'bank-stat-formula', 'formula', 2, 'मुख्य सूत्र',
+     $j${"formula":"औसत = योग ÷ n ; नया औसत = (पुराना योग + नया मान) ÷ (n + 1)","explanation":"नई संख्या जुड़ने पर पहले कुल योग निकालें, फिर औसत"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (16, 'banking', 'bank-stat-example', 'example', 3, 'Numerical (Banking style)',
+     $j${"question":"5 संख्याओं का औसत 20 है। उसमें 26 जोड़ने पर नया औसत क्या होगा?","solution":"पुराना योग = 5 × 20 = 100; नया योग = 126; नया औसत = 126 ÷ 6 = 21","answer":"21"}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+    (16, 'banking', 'bank-stat-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"संख्याएँ 10, 20, 30 का औसत?","options":["15","25","20","30"],"answer":2,"explanation":"60 ÷ 3 = 20।"},{"q":"4 संख्याओं का औसत 15 है। उनमें से 12 हटाने पर बची तीन संख्याओं का औसत?","options":["16","15","18","14"],"answer":0,"explanation":"कुल योग = 60; 60 − 12 = 48; 48 ÷ 3 = 16।"}]}$j$,
+     'maths', array[]::text[], array[]::text[], 'medium'),
+
+    (416, 'banking', 'bank-ca-concept', 'concept', 1, 'करंट अफेयर्स — बैंकिंग',
+     $j${"text":"बैंकिंग GA में RBI की नीतियाँ, वित्तीय समावेशन (financial inclusion) की योजनाएँ और बैंकिंग सुधार पूछे जाते हैं। पिछले 12 महीनों की RBI घोषणाएँ और सरकारी बैंकिंग योजनाएँ पढ़ें।","note":"RBI · वित्तीय समावेशन · बैंकिंग सुधार"}$j$,
+     'general-awareness', array['ibps-po','sbi-po']::text[], array[]::text[], 'medium'),
+    (416, 'banking', 'bank-ca-formula', 'formula', 2, 'मुख्य तथ्य',
+     $j${"formula":"तैयारी = RBI घोषणाएँ + बैंकिंग योजनाएँ + मासिक सारांश","explanation":"तारीख और उद्देश्य साथ-साथ याद रखें"}$j$,
+     'general-awareness', array['ibps-po','sbi-po']::text[], array[]::text[], 'medium'),
+    (416, 'banking', 'bank-ca-example', 'example', 3, 'सरल उदाहरण',
+     $j${"question":"भारतीय रिज़र्व बैंक (RBI) की स्थापना किस वर्ष हुई?","solution":"RBI की स्थापना 1 अप्रैल 1935 को हुई","answer":"1935"}$j$,
+     'general-awareness', array['ibps-po','sbi-po']::text[], array[]::text[], 'medium'),
+    (416, 'banking', 'bank-ca-mcq', 'mcq', 4, 'Banking GA MCQs',
+     $j${"questions":[{"q":"भारतीय रिज़र्व बैंक का मुख्यालय कहाँ है?","options":["Mumbai","Delhi","Kolkata","Chennai"],"answer":0,"explanation":"RBI का मुख्यालय मुंबई में है।"},{"q":"प्रधानमंत्री जन धन योजना किस वर्ष शुरू हुई?","options":["2014","2008","2016","2011"],"answer":0,"explanation":"PMJDY की शुरुआत 28 अगस्त 2014 को हुई।"}]}$j$,
+     'general-awareness', array['ibps-po','sbi-po']::text[], array[]::text[], 'medium')
+  ) as v(chapter_id, level_id, atom_key, atom_type, atom_order, title, body, subject_tag, exam_tags, class_tags, difficulty)
+)
+insert into mtb.atoms (chapter_id, level_id, atom_key, atom_type, atom_order, title, body, lang, status, archived, exam_tags, class_tags, subject_tag, difficulty, content_hash)
+select s.chapter_id, s.level_id, s.atom_key, s.atom_type, s.atom_order, s.title, s.body, 'hi', 'published', false,
+  s.exam_tags, s.class_tags, s.subject_tag, s.difficulty,
+  md5(s.body::text)
+from src s
+on conflict do nothing;
