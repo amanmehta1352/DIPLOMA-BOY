@@ -1,0 +1,87 @@
+-- Migration 0140: graduation_sci general-science biology 901-906 (6 x 4 = 24 atoms)
+with src as (
+  select v.chapter_id, v.level_id, v.atom_key, v.atom_type, v.atom_order, v.title, v.body::jsonb as body, v.subject_tag, v.exam_tags, v.class_tags, v.difficulty
+  from (values
+    (901, 'graduation_sci', 'gsci-cell-concept', 'concept', 1, 'कोशिका: जीवन की मूल इकाई',
+     $j${"text":"कोशिका सभी जीवों की संरचनात्मक और क्रियात्मक इकाई है। प्रोकैरियोटिक कोशिका में केंद्रक झिल्ली नहीं होती (जैसे जीवाणु), जबकि यूकैरियोटिक कोशिका में सुसंगठित केंद्रक होता है। कोशिका भित्ति पादप कोशिका में होती है, जंतु कोशिका में नहीं।","note":"माइटोकॉन्ड्रिया को कोशिका का ऊर्जा-गृह कहते हैं"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (901, 'graduation_sci', 'gsci-cell-formula', 'formula', 2, 'कोशिकांग और उनके कार्य',
+     $j${"formula":"केंद्रक → आनुवंशिक पदार्थ · राइबोसोम → प्रोटीन संश्लेषण · माइटोकॉन्ड्रिया → ATP (श्वसन) · गॉल्जी → स्रावण व पैकेजिंग","explanation":"प्रमुख कोशिकांग"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (901, 'graduation_sci', 'gsci-cell-example', 'example', 3, 'उदाहरण',
+     $j${"question":"ऊर्जा (ATP) उत्पादन का मुख्य स्थल कौन सा कोशिकांग है?","solution":"ATP का उत्पादन मुख्यतः श्वसन में माइटोकॉन्ड्रिया में होता है।","answer":"माइटोकॉन्ड्रिया"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (901, 'graduation_sci', 'gsci-cell-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"पादप कोशिका में कौन सी संरचना पाई जाती है जो जंतु कोशिका में नहीं होती?","options":["केंद्रक","कोशिका भित्ति","माइटोकॉन्ड्रिया","राइबोसोम"],"answer":1,"explanation":"कोशिका भित्ति केवल पादप कोशिका में होती है।"},{"q":"प्रोटीन संश्लेषण का स्थल कौन सा है?","options":["राइबोसोम","लाइसोसोम","रिक्तिका","गॉल्जी"],"answer":0,"explanation":"राइबोसोम प्रोटीन संश्लेषण करते हैं।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (902, 'graduation_sci', 'gsci-tissue-concept', 'concept', 1, 'ऊतक',
+     $j${"text":"समान संरचना और कार्य वाली कोशिकाओं का समूह ऊतक कहलाता है। पादप ऊतक दो प्रकार के हैं: विभज्योतक (वृद्धि) और स्थायी ऊतक। जंतु ऊतक चार प्रकार के हैं: उपकला, संयोजी, पेशी और तंत्रिका ऊतक।","note":"जाइलम जल व लवण का वहन करता है; फ्लोएम भोजन का"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (902, 'graduation_sci', 'gsci-tissue-formula', 'formula', 2, 'ऊतकों के प्रकार',
+     $j${"formula":"उपकला: सुरक्षा व अवशोषण · संयोजी: सहारा (रक्त, हड्डी) · पेशी: गति · तंत्रिका: संवेदना व संचार","explanation":"जंतु ऊतक और उनके मुख्य कार्य"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (902, 'graduation_sci', 'gsci-tissue-example', 'example', 3, 'उदाहरण',
+     $j${"question":"रक्त किस प्रकार का ऊतक है?","solution":"रक्त एक तरल संयोजी ऊतक है, क्योंकि यह शरीर के विभिन्न भागों को जोड़ता और सहारा देता है।","answer":"संयोजी ऊतक"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (902, 'graduation_sci', 'gsci-tissue-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"पादप में जल और लवण का वहन कौन सा ऊतक करता है?","options":["फ्लोएम","जाइलम","विभज्योतक","पैरेन्काइमा"],"answer":1,"explanation":"जाइलम जल और लवण का वहन करता है।"},{"q":"जंतु शरीर में पेशी ऊतक का मुख्य कार्य क्या है?","options":["संवेदना","गति","सुरक्षा","उत्सर्जन"],"answer":1,"explanation":"पेशी ऊतक गति के लिए जिम्मेदार है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (903, 'graduation_sci', 'gsci-animal-concept', 'concept', 1, 'जंतु जगत का वर्गीकरण',
+     $j${"text":"जंतु जगत को उनकी संरचना और लक्षणों के आधार पर वर्गीकृत किया जाता है, जैसे सममिति, देहगुहा और कंकाल। कशेरुकी में रीढ़ की हड्डी होती है (जैसे मछली, मेंढक, पक्षी, स्तनधारी), जबकि अकशेरुकी में नहीं (जैसे कीट, स्पंज, केंचुआ)।","note":"स्तनधारी: बाल, दुग्ध ग्रंथियाँ, जीवित शिशु को जन्म"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (903, 'graduation_sci', 'gsci-animal-formula', 'formula', 2, 'प्रमुख वर्ग',
+     $j${"formula":"मत्स्य (गिल्स से श्वसन) · उभयचर (जल व स्थल) · सरीसृप (शल्की त्वचा) · पक्षी (पंख) · स्तनधारी (दुग्ध ग्रंथि)","explanation":"कशेरुकी के पाँच मुख्य वर्ग"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (903, 'graduation_sci', 'gsci-animal-example', 'example', 3, 'उदाहरण',
+     $j${"question":"डॉल्फिन किस वर्ग का जंतु है?","solution":"डॉल्फिन जीवित शिशु को जन्म देती है और दुग्ध से पालती है, इसलिए यह स्तनधारी है।","answer":"स्तनधारी"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (903, 'graduation_sci', 'gsci-animal-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"मेंढक किस वर्ग का सदस्य है?","options":["मत्स्य","उभयचर","सरीसृप","पक्षी"],"answer":1,"explanation":"मेंढक उभयचर वर्ग का सदस्य है।"},{"q":"केंचुआ किस प्रकार का जंतु है?","options":["कशेरुकी","अकशेरुकी","उभयचर","सरीसृप"],"answer":1,"explanation":"केंचुआ अकशेरुकी है, इसमें रीढ़ की हड्डी नहीं होती।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (904, 'graduation_sci', 'gsci-plant-concept', 'concept', 1, 'पादप जगत का वर्गीकरण',
+     $j${"text":"पादप जगत में शैवाल, ब्रायोफाइटा, टेरिडोफाइटा, जिम्नोस्पर्म और एंजियोस्पर्म आते हैं। बीज रहित पौधे (ब्रायोफाइटा, टेरिडोफाइटा) बीज नहीं बनाते। एंजियोस्पर्म में फूल और फल होते हैं, और बीज बंद फल में होते हैं।","note":"जिम्नोस्पर्म: नग्न बीज (जैसे चीड़); एंजियोस्पर्म: ढके बीज"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (904, 'graduation_sci', 'gsci-plant-formula', 'formula', 2, 'पादप वर्गों की विशेषता',
+     $j${"formula":"शैवाल: जलीय, क्लोरोफिल · ब्रायोफाइटा: मॉस · टेरिडोफाइटा: फर्न · जिम्नोस्पर्म: नग्न बीज · एंजियोस्पर्म: फूल व फल","explanation":"मुख्य पादप समूह"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (904, 'graduation_sci', 'gsci-plant-example', 'example', 3, 'उदाहरण',
+     $j${"question":"फर्न (टेरिडोफाइटा) में प्रजनन किसके द्वारा होता है?","solution":"फर्न बीज नहीं बनाता, वह बीजाणु (spores) द्वारा प्रजनन करता है।","answer":"बीजाणु (spores)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (904, 'graduation_sci', 'gsci-plant-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"नग्न बीज वाले पौधे किस समूह में आते हैं?","options":["ब्रायोफाइटा","जिम्नोस्पर्म","एंजियोस्पर्म","शैवाल"],"answer":1,"explanation":"जिम्नोस्पर्म में बीज नग्न होते हैं।"},{"q":"मॉस किस समूह का पौधा है?","options":["शैवाल","ब्रायोफाइटा","टेरिडोफाइटा","एंजियोस्पर्म"],"answer":1,"explanation":"मॉस ब्रायोफाइटा समूह का पौधा है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (905, 'graduation_sci', 'gsci-nutrition-concept', 'concept', 1, 'पोषण',
+     $j${"text":"पोषण वह प्रक्रिया है जिससे जीव भोजन लेकर ऊर्जा और वृद्धि के लिए पोषक तत्व प्राप्त करते हैं। पोषक तत्वों में कार्बोहाइड्रेट, प्रोटीन, वसा, विटामिन, खनिज और जल आते हैं। स्वपोषी स्वयं भोजन बनाते हैं, जबकि परपोषी दूसरों पर निर्भर रहते हैं।","note":"स्वपोषी: पौधे (प्रकाश संश्लेषण); परपोषी: जंतु, कवक"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (905, 'graduation_sci', 'gsci-nutrition-formula', 'formula', 2, 'विटामिन की कमी',
+     $j${"formula":"विटामिन A → रतौंधी · विटामिन C → स्कर्वी · विटामिन D → रिकेट्स · विटामिन B₁ → बेरी-बेरी","explanation":"विटामिन की कमी से होने वाले रोग"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (905, 'graduation_sci', 'gsci-nutrition-example', 'example', 3, 'उदाहरण',
+     $j${"question":"रतौंधी किस विटामिन की कमी से होती है?","solution":"रतौंधी (रात में कम दिखना) विटामिन A की कमी से होती है।","answer":"विटामिन A"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (905, 'graduation_sci', 'gsci-nutrition-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"स्कर्वी किस विटामिन की कमी से होता है?","options":["विटामिन A","विटामिन B","विटामिन C","विटामिन D"],"answer":2,"explanation":"स्कर्वी विटामिन C की कमी से होता है।"},{"q":"कौन सा पोषक तत्व मुख्यतः ऊर्जा का स्रोत है?","options":["कार्बोहाइड्रेट","खनिज","विटामिन","जल"],"answer":0,"explanation":"कार्बोहाइड्रेट मुख्य ऊर्जा स्रोत है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (906, 'graduation_sci', 'gsci-photo-concept', 'concept', 1, 'प्रकाश संश्लेषण',
+     $j${"text":"प्रकाश संश्लेषण में हरे पौधे सूर्य के प्रकाश की ऊर्जा से CO₂ और जल से ग्लूकोज़ बनाते हैं और O₂ मुक्त करते हैं। यह क्लोरोप्लास्ट में क्लोरोफिल की उपस्थिति में होता है।","note":"प्रकाश संश्लेषण में मुक्त O₂ जल से आता है"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (906, 'graduation_sci', 'gsci-photo-formula', 'formula', 2, 'समग्र अभिक्रिया',
+     $j${"formula":"6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂ (सूर्य का प्रकाश, क्लोरोफिल)","explanation":"प्रकाश संश्लेषण का संतुलित समीकरण"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (906, 'graduation_sci', 'gsci-photo-example', 'example', 3, 'उदाहरण',
+     $j${"question":"प्रकाश संश्लेषण में पौधे कौन सी गैस वायुमंडल में छोड़ते हैं?","solution":"प्रकाश संश्लेषण में ऑक्सीजन (O₂) मुक्त होती है।","answer":"ऑक्सीजन (O₂)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (906, 'graduation_sci', 'gsci-photo-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"प्रकाश संश्लेषण के लिए कौन सा रंजक आवश्यक है?","options":["कैरोटीन","क्लोरोफिल","हीमोग्लोबिन","मेलेनिन"],"answer":1,"explanation":"क्लोरोफिल प्रकाश ऊर्जा को अवशोषित करता है।"},{"q":"प्रकाश संश्लेषण में CO₂ से क्या बनता है?","options":["प्रोटीन","ग्लूकोज़","वसा","विटामिन"],"answer":1,"explanation":"CO₂ और जल से ग्लूकोज़ बनता है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard')
+  ) as v(chapter_id, level_id, atom_key, atom_type, atom_order, title, body, subject_tag, exam_tags, class_tags, difficulty)
+)
+insert into mtb.atoms (chapter_id, level_id, atom_key, atom_type, atom_order, title, body, lang, status, archived, exam_tags, class_tags, subject_tag, difficulty, content_hash)
+select s.chapter_id, s.level_id, s.atom_key, s.atom_type, s.atom_order, s.title, s.body, 'hi', 'published', false, s.exam_tags, s.class_tags, s.subject_tag, s.difficulty, md5(s.body::text)
+from src s
+on conflict do nothing;
