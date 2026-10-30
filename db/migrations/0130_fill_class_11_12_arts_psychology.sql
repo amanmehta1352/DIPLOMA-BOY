@@ -1,0 +1,87 @@
+-- Migration 0130: class_11_12_arts psychology chapters 1157-1162 (6 x 4 = 24 atoms)
+with src as (
+  select v.chapter_id, v.level_id, v.atom_key, v.atom_type, v.atom_order, v.title, v.body::jsonb as body, v.subject_tag, v.exam_tags, v.class_tags, v.difficulty
+  from (values
+    (1157, 'class_11_12_arts', 'psy-intro-concept', 'concept', 1, 'मनोविज्ञान का परिचय',
+     $j${"text":"मनोविज्ञान मानव व्यवहार और मानसिक प्रक्रियाओं (सोच, भावना, स्मृति, अनुभव) का वैज्ञानिक अध्ययन है। विलियम जेम्स को आधुनिक मनोविज्ञान के प्रमुख संस्थापकों में गिना जाता है और भारत में पहली प्रयोगशाला कोलकाता में स्थापित हुई।","note":"मनोविज्ञान = मन और व्यवहार का विज्ञान"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1157, 'class_11_12_arts', 'psy-intro-formula', 'formula', 2, 'मनोविज्ञान की शाखाएँ',
+     $j${"formula":"नैदानिक (मानसिक रोग) · शैक्षिक (सीखना) · औद्योगिक (कार्यस्थल) · विकासात्मक (जीवन-भर विकास) · सामाजिक (सामाजिक प्रभाव)","explanation":"शाखा और उसका प्रमुख विषय"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1157, 'class_11_12_arts', 'psy-intro-example', 'example', 3, 'उदाहरण',
+     $j${"question":"कोई मनोवैज्ञानिक किसी बच्चे की पढ़ाई की आदतें सुधारने पर काम करता है। वह किस शाखा से जुड़ा है?","solution":"सीखने और पढ़ाई से जुड़ा कार्य शैक्षिक मनोविज्ञान का क्षेत्र है।","answer":"शैक्षिक मनोविज्ञान"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1157, 'class_11_12_arts', 'psy-intro-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"मनोविज्ञान किसका अध्ययन है?","options":["केवल शरीर","मानव व्यवहार और मानसिक प्रक्रियाएँ","केवल धन","केवल भूमि"],"answer":1,"explanation":"मनोविज्ञान मानव व्यवहार और मानसिक प्रक्रियाओं का विज्ञान है।"},{"q":"मानसिक रोगों से जुड़ी शाखा?","options":["शैक्षिक","नैदानिक","औद्योगिक","सामाजिक"],"answer":1,"explanation":"नैदानिक मनोविज्ञान मानसिक रोगों के निदान और उपचार से जुड़ा है।"}]}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1158, 'class_11_12_arts', 'psy-meth-concept', 'concept', 1, 'मनोविज्ञान की विधियाँ',
+     $j${"text":"मनोवैज्ञानिक वैज्ञानिक विधियों से अध्ययन करते हैं: प्रयोग (नियंत्रित परिस्थिति में चर बदलकर परिणाम देखना), सर्वेक्षण (प्रश्नावली से जानकारी), केस अध्ययन (एक व्यक्ति का गहन अध्ययन) और अवलोकन (व्यवहार को देखकर दर्ज करना)।","note":"प्रयोग में स्वतंत्र चर बदला जाता है, आश्रित चर मापा जाता है"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1158, 'class_11_12_arts', 'psy-meth-formula', 'formula', 2, 'चर (Variables)',
+     $j${"formula":"स्वतंत्र चर = जो बदला जाता है · आश्रित चर = जो मापा जाता है · नियंत्रित चर = जो स्थिर रखा जाता है","explanation":"प्रयोग के तीन प्रकार के चर"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1158, 'class_11_12_arts', 'psy-meth-example', 'example', 3, 'उदाहरण',
+     $j${"question":"एक प्रयोग में नींद की अवधि बदली जाती है और याददाश्त का स्कोर मापा जाता है। आश्रित चर कौन सा है?","solution":"मापा जाने वाला चर याददाश्त का स्कोर है, इसलिए वही आश्रित चर है।","answer":"याददाश्त का स्कोर"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1158, 'class_11_12_arts', 'psy-meth-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"जो चर प्रयोग में बदला जाता है, उसे क्या कहते हैं?","options":["आश्रित चर","स्वतंत्र चर","नियंत्रित चर","यादृच्छिक चर"],"answer":1,"explanation":"प्रयोगकर्ता जिस चर को बदलता है, वह स्वतंत्र चर है।"},{"q":"एक व्यक्ति का गहन अध्ययन किस विधि से होता है?","options":["सर्वेक्षण","केस अध्ययन","प्रयोग","अवलोकन"],"answer":1,"explanation":"केस अध्ययन में एक व्यक्ति का गहन अध्ययन होता है।"}]}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1159, 'class_11_12_arts', 'psy-bio-concept', 'concept', 1, 'जैविक आधार',
+     $j${"text":"व्यवहार के जैविक आधार में तंत्रिका तंत्र प्रमुख है। न्यूरॉन (तंत्रिका कोशिका) संदेश ले जाती है और synapse (संधि) पर न्यूरोट्रांसमीटर संदेश आगे बढ़ाते हैं। केंद्रीय तंत्रिका तंत्र में मस्तिष्क और मेरुरज्जु आते हैं।","note":"संदेश: डेंड्राइट → कोशिका-काय → एक्सॉन → synapse"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1159, 'class_11_12_arts', 'psy-bio-formula', 'formula', 2, 'तंत्रिका तंत्र के भाग',
+     $j${"formula":"तंत्रिका तंत्र = केंद्रीय (मस्तिष्क + मेरुरज्जु) + परिधीय (शेष शरीर की तंत्रिकाएँ)","explanation":"तंत्रिका तंत्र का मुख्य विभाजन"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1159, 'class_11_12_arts', 'psy-bio-example', 'example', 3, 'उदाहरण',
+     $j${"question":"हाथ गर्म चीज़ से छूने पर तुरंत हटाना किस क्रिया का उदाहरण है?","solution":"यह एक प्रतिवर्ती क्रिया है, जो मेरुरज्जु के स्तर पर होती है।","answer":"प्रतिवर्ती क्रिया"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1159, 'class_11_12_arts', 'psy-bio-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"तंत्रिका कोशिका को क्या कहते हैं?","options":["न्यूरॉन","सिनैप्स","एक्सॉन","डेंड्राइट"],"answer":0,"explanation":"तंत्रिका कोशिका को न्यूरॉन कहते हैं।"},{"q":"केंद्रीय तंत्रिका तंत्र में क्या शामिल है?","options":["हाथ की नसें","मस्तिष्क और मेरुरज्जु","केवल पैर","केवल त्वचा"],"answer":1,"explanation":"केंद्रीय तंत्रिका तंत्र में मस्तिष्क और मेरुरज्जु आते हैं।"}]}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1160, 'class_11_12_arts', 'psy-learn-concept', 'concept', 1, 'सीखना',
+     $j${"text":"सीखना अनुभव से व्यवहार में स्थायी परिवर्तन है। प्रमुख सिद्धांत हैं: शास्त्रीय अनुबंधन (पावलोव, कुत्ते का प्रयोग), क्रियाप्रसूत अनुबंधन (स्किनर, पुरस्कार और दंड) और अवलोकनात्मक अधिगम (बंडूरा, बोबो डॉल प्रयोग)।","note":"पावलोव = उद्दीपक-संबंध, स्किनर = परिणाम-आधारित"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1160, 'class_11_12_arts', 'psy-learn-formula', 'formula', 2, 'सिद्धांत और प्रवर्तक',
+     $j${"formula":"शास्त्रीय अनुबंधन → पावलोव · क्रियाप्रसूत अनुबंधन → स्किनर · अवलोकनात्मक अधिगम → बंडूरा","explanation":"सीखने के सिद्धांत और उनके प्रवर्तक"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1160, 'class_11_12_arts', 'psy-learn-example', 'example', 3, 'उदाहरण',
+     $j${"question":"घंटी बजाने पर कुत्ते के मुँह में लार आना किस प्रकार का अधिगम है?","solution":"यह पावलोव का शास्त्रीय अनुबंधन है, जहाँ तटस्थ उद्दीपक (घंटी) स्वाभाविक उद्दीपक (भोजन) के साथ जुड़कर प्रतिक्रिया लाता है।","answer":"शास्त्रीय अनुबंधन"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1160, 'class_11_12_arts', 'psy-learn-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"पुरस्कार और दंड से सीखना किस विचारक से जुड़ा है?","options":["पावलोव","स्किनर","बंडूरा","फ्रायड"],"answer":1,"explanation":"स्किनर ने क्रियाप्रसूत अनुबंधन में पुरस्कार और दंड पर कार्य किया।"},{"q":"बोबो डॉल प्रयोग किस सिद्धांत से जुड़ा है?","options":["शास्त्रीय अनुबंधन","अवलोकनात्मक अधिगम","क्रियाप्रसूत अनुबंधन","स्मृति"],"answer":1,"explanation":"बोबो डॉल प्रयोग बंडूरा का अवलोकनात्मक अधिगम प्रयोग है।"}]}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1161, 'class_11_12_arts', 'psy-motiv-concept', 'concept', 1, 'प्रेरणा और भावना',
+     $j${"text":"प्रेरणा वह शक्ति है जो व्यवहार को शुरू करती और दिशा देती है। मैस्लो का आवश्यकता-पदानुक्रम बताता है कि शारीरिक आवश्यकताएँ पहले और आत्म-सिद्धि सबसे ऊपर है। भावनाएँ शारीरिक, संज्ञानात्मक और व्यवहारिक घटकों से मिलकर बनती हैं।","note":"मैस्लो: शारीरिक → सुरक्षा → प्रेम → सम्मान → आत्म-सिद्धि"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1161, 'class_11_12_arts', 'psy-motiv-formula', 'formula', 2, 'आवश्यकता पदानुक्रम',
+     $j${"formula":"शारीरिक → सुरक्षा → सामाजिक (प्रेम व अपनापन) → सम्मान → आत्म-सिद्धि (सबसे ऊपर)","explanation":"मैस्लो के पाँच स्तर, नीचे से ऊपर"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1161, 'class_11_12_arts', 'psy-motiv-example', 'example', 3, 'उदाहरण',
+     $j${"question":"भूखे व्यक्ति के लिए सबसे पहली आवश्यकता कौन सी है?","solution":"मैस्लो के अनुसार भोजन जैसी शारीरिक आवश्यकताएँ सबसे पहले पूरी होनी चाहिए।","answer":"शारीरिक आवश्यकता"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1161, 'class_11_12_arts', 'psy-motiv-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"मैस्लो के पदानुक्रम में सबसे ऊपर कौन सी आवश्यकता है?","options":["शारीरिक","सुरक्षा","आत्म-सिद्धि","सम्मान"],"answer":2,"explanation":"आत्म-सिद्धि मैस्लो के पदानुक्रम में सबसे ऊपर है।"},{"q":"भावना के कितने प्रमुख घटक माने जाते हैं?","options":["एक","दो","तीन","चार"],"answer":2,"explanation":"भावना के तीन घटक: शारीरिक, संज्ञानात्मक और व्यवहारिक।"}]}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1162, 'class_11_12_arts', 'psy-pers-concept', 'concept', 1, 'व्यक्तित्व',
+     $j${"text":"व्यक्तित्व व्यक्ति के विचार, भावना और व्यवहार के स्थिर ढंग का योग है। फ्रायड ने मन को चेतन, अवचेतन और अचेतन में बाँटा और id, ego, superego की संरचना दी। ट्रेट सिद्धांत (आइज़ेंक, बिग फाइव) व्यक्तित्व को मापने के गुणों पर आधारित है।","note":"फ्रायड: id = इच्छा, ego = यथार्थ, superego = नैतिकता"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1162, 'class_11_12_arts', 'psy-pers-formula', 'formula', 2, 'फ्रायड की संरचना',
+     $j${"formula":"id (सुख की इच्छा) · ego (यथार्थ का सिद्धांत) · superego (नैतिक नियम)","explanation":"व्यक्तित्व के तीन घटक"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1162, 'class_11_12_arts', 'psy-pers-example', 'example', 3, 'उदाहरण',
+     $j${"question":"कोई व्यक्ति गलत काम से इसलिए रुकता है क्योंकि उसे अपराधबोध होता है। फ्रायड के अनुसार यह किस घटक का कार्य है?","solution":"नैतिक नियमों और अपराधबोध का कार्य superego करता है।","answer":"Superego"}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1162, 'class_11_12_arts', 'psy-pers-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"फ्रायड के अनुसार सुख की तुरंत इच्छा किस घटक से जुड़ी है?","options":["Ego","Superego","Id","Consciousness"],"answer":2,"explanation":"Id सुख की तुरंत इच्छा से जुड़ा है।"},{"q":"आइज़ेंक किस सिद्धांत से जुड़े हैं?","options":["ट्रेट सिद्धांत","शास्त्रीय अनुबंधन","मानवतावादी सिद्धांत","व्यवहारवाद"],"answer":0,"explanation":"आइज़ेंक ट्रेट सिद्धांत से जुड़े हैं।"}]}$j$,
+     'psychology', array[]::text[], array['class_11','class_12']::text[], 'medium')
+  ) as v(chapter_id, level_id, atom_key, atom_type, atom_order, title, body, subject_tag, exam_tags, class_tags, difficulty)
+)
+insert into mtb.atoms (chapter_id, level_id, atom_key, atom_type, atom_order, title, body, lang, status, archived, exam_tags, class_tags, subject_tag, difficulty, content_hash)
+select s.chapter_id, s.level_id, s.atom_key, s.atom_type, s.atom_order, s.title, s.body, 'hi', 'published', false, s.exam_tags, s.class_tags, s.subject_tag, s.difficulty, md5(s.body::text)
+from src s
+on conflict do nothing;
