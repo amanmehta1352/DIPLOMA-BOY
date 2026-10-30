@@ -1,4 +1,4 @@
-// Diploma Boy v4: Dashboard file is the app, Physics book from the server. Run: node tests/app.test.js
+// Diploma Boy v4: Dashboard file is the app; the student picks a level and sees only that level's content. Run: node tests/app.test.js
 const { chromium } = require('playwright');
 const http = require('http'), fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..'), SHOTS = path.join(__dirname, 'shots');
@@ -19,6 +19,16 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await p.goto(URL); await p.waitForFunction(() => window.BOOKS === undefined ? false : true).catch(() => {});
   await p.waitForTimeout(3500);
 
+  // First run: the level picker opens; nothing level-specific is shown before a choice
+  check('first run asks for the level', await p.isVisible('#qualModal.active'));
+  const qItems = await p.$$eval('.qual-item', e => e.map(x => x.dataset.q));
+  check('picker lists all school, job, entrance and higher levels', qItems.length >= 28 && qItems.includes('exam:class-10') && qItems.includes('exam:neet-ug') && qItems.includes('level:advanced_research'));
+  check('Diploma (Polytechnic) is a choice', qItems.includes('exam:diploma-polytechnic'));
+  check('picker cannot be closed before a choice', !(await p.isVisible('#qualClose')));
+  await p.screenshot({ path: path.join(SHOTS, 'v4-0-level-picker.png') });
+  await p.click('.qual-item[data-q="exam:ssc-je"]'); await p.waitForTimeout(3500);
+  check('SSC JE maps to govt_technical', await p.evaluate(() => DB.level === 'govt_technical'));
+
   // Dashboard: no invented numbers, no buddies / peers / toppers
   const dash = await p.textContent('#dashboard-view');
   check('dashboard renders (Hindi by default)', /मिशन कंट्रोल/.test(dash));
@@ -32,7 +42,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
   // Library: Physics from the server
   await p.click('.nav-item[data-view=library]'); await p.waitForTimeout(800);
   const books = await p.$$eval('#appGrid .app-icon', e => e.map(x => x.textContent.trim()));
-  check('library shows the Physics book', books.length === 1 && /Physics|भौतिकी/.test(books[0]));
+  check('SSC JE library: Physics book first + 7 subjects', books.length === 8 && /भौतिकी/.test(books[0]) && books.some(x => /सिविल/.test(x)));
   check('11 chapters badge', (await p.textContent('#appGrid .badge')).trim() === '11');
   check('library lists 11 chapters', (await p.$$eval('#chapterList [data-ch]', e => e.length)) === 11);
   await p.screenshot({ path: path.join(SHOTS, 'v4-2-library.png') });
@@ -40,7 +50,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await p.screenshot({ path: path.join(SHOTS, 'v4-2b-chapters.png') });
 
   // Open book: original physics reader in the frame, data from the server
-  await p.click('#appGrid .app-icon'); await p.waitForTimeout(4000);
+  await p.click('#chapterList [data-ch="1"]'); await p.waitForTimeout(4000);
   const fr = p.frame({ url: /book\.html/ });
   check('book frame loaded', !!fr);
   if (fr) {
@@ -56,7 +66,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
   // Formulas from the server
   await p.click('.nav-item[data-view=formulas]'); await p.waitForTimeout(3000);
   const nF = await p.$$eval('#formulaBox .card', e => e.length);
-  check('104 formulas', nF === 104);
+  check('formulas: 104 from the Physics book + this level\'s own', nF >= 104 + 100);
   await p.fill('#formulaSearch', 'dyne'); await p.waitForTimeout(300);
   check('formula search filters', (await p.$$eval('#formulaBox .card', e => e.length)) >= 1 && (await p.$$eval('#formulaBox .card', e => e.length)) < 10);
   await p.fill('#formulaSearch', ''); await p.waitForTimeout(300);
@@ -122,6 +132,41 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await p.click('[data-bk=apply]'); await p.waitForTimeout(1200);
   check('restore brings progress back', await p.evaluate(() => !!(DB.chapters['physics-baseline:1'] || {}).read && DB.quiz['physics-baseline:1'].c === 1));
   await p.click('#settingsClose'); await p.waitForTimeout(300);
+
+  // ---- Level filter: Class 10 sees only Class 9-10 content (no Physics book, no engineering, no PhD) ----
+  await p.click('#settingsBtn'); await p.waitForTimeout(300); await p.click('#qualOpenBtn'); await p.waitForTimeout(800);
+  check('picker can be closed once a level exists', await p.isVisible('#qualClose'));
+  await p.click('.qual-item[data-q="exam:class-10"]'); await p.waitForTimeout(3500);
+  await p.click('.nav-item[data-view=library]'); await p.waitForTimeout(800);
+  const b10 = await p.$$eval('#appGrid .app-icon', e => e.map(x => x.textContent.trim()));
+  check('Class 10: 3 subjects, no Physics book, no engineering', b10.length === 3 && !b10.some(x => /Physics|भौतिकी|Engineering|इंजीनियरिंग/.test(x)));
+  check('Class 10: every book is class_9_10', await p.evaluate(() => BOOKS.every(b => b.level === 'class_9_10' && b.kind === 'atoms')));
+  check('Class 10: ghost list does not carry SSC JE chapters', await p.evaluate(() => buildState().forgetting.length === 0));
+  await p.screenshot({ path: path.join(SHOTS, 'v4-13-library-class10.png') });
+  const before = reqs.length;
+  await p.click('#chapterList [data-ch] >> nth=0'); await p.waitForTimeout(3000);
+  const lec = await p.innerText('#lecture-view');
+  check('chapter shows concept, formula, example and check questions', /समझो|Concept/.test(lec) && /सूत्र|Formula/.test(lec) && /उदाहरण|example/i.test(lec) && /खुद को जाँचें|Check yourself/.test(lec));
+  check('chapter atoms requested only for class_9_10', reqs.slice(before).filter(u => /get_chapter_atoms/.test(u)).every(u => /p_level=class_9_10/.test(u)) && reqs.slice(before).some(u => /get_chapter_atoms/.test(u)));
+  await p.screenshot({ path: path.join(SHOTS, 'v4-14-chapter-lecture.png') });
+  await p.click('#lecture-view .mcq .quiz-opt >> nth=0'); await p.waitForTimeout(300);
+  check('check question answered and counted', await p.evaluate(() => Object.keys(DB.quiz).some(k => k.startsWith('s:class_9_10:') && DB.quiz[k].t === 1)));
+  await p.click('#modeReader'); await p.waitForTimeout(500);
+  check('reader view shows the same chapter', /समझो|Concept/.test(await p.innerText('#reader-view')));
+  await p.screenshot({ path: path.join(SHOTS, 'v4-15-chapter-reader.png') });
+  await p.click('#rNext'); await p.waitForTimeout(2500);
+  check('next chapter button moves on', await p.evaluate(() => { const b = BOOKS.find(x => x.id === bookState.bookId); return b.chapters.filter(avail)[1].n === bookState.ch; }));
+  await p.click('#backToLib'); await p.waitForTimeout(600);
+  await p.click('.nav-item[data-view=formulas]'); await p.waitForTimeout(3000);
+  check('Class 10 formulas: only this level (74), no Physics book formulas', (await p.$$eval('#formulaBox .card', e => e.length)) === 74 && !/dyne/.test(await p.innerText('#formulaBox')));
+  // PhD level: only its own 3 chapters
+  await p.evaluate(() => openQual()); await p.waitForTimeout(800);
+  await p.click('.qual-item[data-q="level:advanced_research"]'); await p.waitForTimeout(3500);
+  check('PhD: only advanced_research content (3 ready chapters)', await p.evaluate(() => BOOKS.length > 0 && BOOKS.every(b => b.level === 'advanced_research') && allChapters().length === 3));
+  await p.click('.nav-item[data-view=library]'); await p.waitForTimeout(600);
+  const phdTxt = await p.innerText('#library-view');
+  check('PhD library shows no class content', !/कक्षा 9|Class 9|प्रतिशत/.test(phdTxt.replace(/आज का विचार[\s\S]*?—[^\n]*/, '')));
+  await p.screenshot({ path: path.join(SHOTS, 'v4-16-library-phd.png') });
 
   // Old question bank never requested
   check('no question-bank requests', !reqs.some(u => /\/rest\/v1\/(atoms|questions|pyq|practice|mock|papers)/.test(u)));
