@@ -1,0 +1,51 @@
+question_id,stem_gist,proposed_subject,proposed_chapter_id,proposed_chapter,confidence,flag
+6091,Salary minus rent and bills - remaining share,maths,1,Percentage,medium,
+6104,Seven people sitting in a row facing north,reasoning,429,Seating Arrangement & Puzzle,high,
+6105,Walking at reduced speed reaches office late (Hindi only),maths,9,"Speed, Time, Distance",medium,en stem empty; Hindi text garbled
+6111,Six people on six floors of a building,reasoning,429,Seating Arrangement & Puzzle,high,
+6117,Properties of diagonals of a rhombus,maths,14,Geometry,high,
+6120,Letter series based on English alphabet,reasoning,423,Alphabet & Alphanumeric Series,high,
+6129,Six people on six floors of a building,reasoning,429,Seating Arrangement & Puzzle,high,
+6133,Nature of roots of 3x²+2x+5=0,maths,12,Algebra,high,
+6134,Price decreased 12% then raised 20%,maths,1,Percentage,high,
+6136,Word coding language (read this book),reasoning,426,Coding-Decoding,high,
+6143,Basis of seat allocation in Rajya Sabha,general-awareness,421,Polity,high,
+6145,Nature of roots of 2x²+4x+8=0,maths,12,Algebra,high,
+6148,Sex ratio as per Census 2011,general-awareness,418,Geography,medium,could be Static GK (422)
+6182,Season marking monsoon withdrawal,general-awareness,418,Geography,high,
+6193,Three of four letter-cluster pairs alike,reasoning,19,Odd One Out,high,
+6221,Letter-number pair relation (IV 17 : FR 6),reasoning,18,Analogy,high,
+6222,Walking at 2/3 speed reaches office late (Hindi only),maths,9,"Speed, Time, Distance",medium,en stem empty; Hindi text garbled
+6246,INC-5 plastic pollution treaty venue,general-awareness,416,Current Affairs,high,
+6247,Walking speed and office time (Hindi only),maths,9,"Speed, Time, Distance",medium,en stem empty; Hindi text garbled
+6250,Six people on six floors of a building,reasoning,429,Seating Arrangement & Puzzle,high,
+6257,2024 Booker Prize winner (Orbital),general-awareness,416,Current Affairs,high,
+6266,Gorakhnath Sharma vs State of Chhattisgarh case,general-awareness,416,Current Affairs,medium,could be Polity (421)
+6274,Host country of 2025 SEA Games,general-awareness,416,Current Affairs,high,
+6291,Dance form depicting Radha-Krishna love stories,general-awareness,38,Art & Culture,high,
+6292,Ratio 5:1:7 with LCM 7595 - find HCF,maths,10,"Number System, LCM & HCF",high,Hindi ratio differs from English (5:4:?) - check
+6309,Muhammad Tughlaq's agriculture department,general-awareness,419,History,high,
+6332,INA leader before Subhas Chandra Bose,general-awareness,419,History,high,
+6338,Six people on six floors of a building,reasoning,429,Seating Arrangement & Puzzle,high,
+6351,Letter-to-number code (QBOE = 76),reasoning,426,Coding-Decoding,high,
+6358,Seven people with exams on days of a week,reasoning,429,Seating Arrangement & Puzzle,high,
+6387,Digits of 6954381 rearranged in descending order,reasoning,423,Alphabet & Alphanumeric Series,low,no exact 'number arrangement' chapter
+6388,2024 Haryana assembly election result,general-awareness,416,Current Affairs,high,
+6395,AMU vs Naresh Agarwal Supreme Court case (2024),general-awareness,416,Current Affairs,medium,could be Polity (421)
+6410,Corresponding angles with a transversal,maths,14,Geometry,high,
+6424,National safety day/week in March 2025,general-awareness,416,Current Affairs,high,
+6435,Length of the Northern Plains,general-awareness,418,Geography,high,
+6441,Girish Karnad's literary language,general-awareness,38,Art & Culture,medium,could be Static GK (422)
+6448,Exercise KHANJAR-XII (March 2025),general-awareness,416,Current Affairs,high,
+6450,Six people on six floors of a building,reasoning,429,Seating Arrangement & Puzzle,high,
+6459,Numbers and symbols coded with letter codes,reasoning,426,Coding-Decoding,high,
+6467,Number-symbol series counting question,reasoning,423,Alphabet & Alphanumeric Series,high,
+6487,Year the Swadeshi Movement began,general-awareness,419,History,high,
+6490,Six people on six floors of a building,reasoning,429,Seating Arrangement & Puzzle,high,
+6506,Curved surface of a solid cylinder (Hindi only),maths,13,Mensuration,medium,en stem empty; Hindi text garbled
+6515,Number-symbol series counting question,reasoning,423,Alphabet & Alphanumeric Series,high,
+6516,Simplify sum of square roots (Hindi only + figure),maths,11,Simplification,medium,en stem empty; garbled; has figure
+6526,Fill 102 L and 224 L in identical containers,maths,10,"Number System, LCM & HCF",high,
+6547,Letter-cluster relation (RWKA : TULZ),reasoning,18,Analogy,high,
+6548,Six people on six floors of a building,reasoning,429,Seating Arrangement & Puzzle,high,
+6554,INC-5.2 session date and venue,general-awareness,416,Current Affairs,high,
