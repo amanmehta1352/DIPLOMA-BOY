@@ -1,0 +1,20 @@
+[
+{"id":"class_6_8","name_en":"Class 6-8","name_hi":"कक्षा 6-8","depth":1,"covers":"School 6-8, NTSE stage 1","sort":1},
+{"id":"class_9_10","name_en":"Class 9-10","name_hi":"कक्षा 9-10","depth":2,"covers":"Board 9-10, NTSE, Olympiad foundation","sort":2},
+{"id":"class_11_12_sci","name_en":"Class 11-12 Science","name_hi":"कक्षा 11-12 विज्ञान","depth":3,"covers":"Board PCM/PCB","sort":3},
+{"id":"class_11_12_com","name_en":"Class 11-12 Commerce","name_hi":"कक्षा 11-12 कॉमर्स","depth":3,"covers":"Board Commerce","sort":4},
+{"id":"class_11_12_arts","name_en":"Class 11-12 Arts","name_hi":"कक्षा 11-12 कला","depth":3,"covers":"Board Arts","sort":5},
+{"id":"govt_basic","name_en":"Govt Basic","name_hi":"सरकारी (सामान्य)","depth":2,"covers":"SSC CGL/CHSL/MTS, RRB NTPC/Group D, police","sort":6},
+{"id":"govt_technical","name_en":"Govt Technical","name_hi":"सरकारी (तकनीकी)","depth":3,"covers":"SSC JE, RRB JE, ITI, diploma PSU","sort":7},
+{"id":"banking","name_en":"Banking","name_hi":"बैंकिंग","depth":3,"covers":"IBPS, SBI, RBI, NABARD","sort":8},
+{"id":"govt_defence","name_en":"Defence","name_hi":"रक्षा","depth":3,"covers":"NDA, CDS, AFCAT, Agniveer","sort":9},
+{"id":"state_psc","name_en":"State PSC","name_hi":"राज्य PSC","depth":4,"covers":"UPPSC, BPSC, MPSC, RPSC","sort":10},
+{"id":"upsc_civil","name_en":"UPSC Civil","name_hi":"UPSC सिविल","depth":5,"covers":"UPSC CSE, CAPF","sort":11},
+{"id":"medical","name_en":"Medical","name_hi":"मेडिकल","depth":3,"covers":"NEET, AIIMS, nursing","sort":12},
+{"id":"engineering","name_en":"Engineering","name_hi":"इंजीनियरिंग","depth":4,"covers":"JEE Main/Advanced, BITSAT, CETs","sort":13},
+{"id":"graduation_sci","name_en":"Graduation Science","name_hi":"स्नातक विज्ञान","depth":4,"covers":"B.Sc, B.Tech 1-2 year","sort":14},
+{"id":"graduation_com","name_en":"Graduation Commerce","name_hi":"स्नातक कॉमर्स","depth":4,"covers":"B.Com, BBA, CA Foundation","sort":15},
+{"id":"graduation_arts","name_en":"Graduation Arts","name_hi":"स्नातक कला","depth":4,"covers":"BA","sort":16},
+{"id":"advanced_research","name_en":"Advanced Research","name_hi":"उच्च शोध","depth":6,"covers":"GATE, CSIR/UGC NET, PhD","sort":17},
+{"id":"law_management","name_en":"Law / Management","name_hi":"कानून / प्रबंधन","depth":5,"covers":"CLAT, CAT, XAT, MAT","sort":18}
+]

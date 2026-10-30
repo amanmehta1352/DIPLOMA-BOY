@@ -1,0 +1,7 @@
+Atoms backup NOT created as JSON in this session (2.3 MB payload, too large to move through tool output safely).
+Checksum for later verification (published & not archived):
+  rows: 3071
+  md5 aggregate: b2cb217749b7be3f51d2f8d2bd376d36
+  method: md5(string_agg(md5(row_to_json(a)::text), '' ORDER BY a.id)) over mtb.atoms where status='published' and not archived
+Full JSON backup: run from a machine with DB access, e.g.
+  psql "$DB_URL" -At -c "SELECT json_agg(row_to_json(a) ORDER BY a.id) FROM mtb.atoms a WHERE a.status='published' AND NOT a.archived;" > backups/atoms_2026-10-30.json
