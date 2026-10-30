@@ -21,8 +21,9 @@ const check = (name, v) => (v ? ok : bad).push(name);
 
   // Dashboard: no invented numbers, no buddies / peers / toppers
   const dash = await p.textContent('#dashboard-view');
-  check('dashboard renders', /MISSION CONTROL/.test(dash));
-  check('mission card comes before the time card', dash.indexOf('Mission') > -1 && dash.indexOf('Mission') < dash.indexOf('MIRROR'));
+  check('dashboard renders (Hindi by default)', /मिशन कंट्रोल/.test(dash));
+  check('Hindi mode: no English on dashboard', !/[A-Za-z]{3,}/.test(await p.innerText('#dashboard-view')));
+  check('mission card comes before the time card', dash.indexOf('आज का मिशन') > -1 && dash.indexOf('आज का मिशन') < dash.indexOf('आईना →'));
   check('no dummy name', !/Rahul|Aman|Priya|Topper|buddy|Buddies|rank #/i.test(dash));
   check('real status bar', !/9:41/.test(await p.content()));
   check('fresh user starts at zero XP', /⭐ 0/.test(dash));
@@ -78,7 +79,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
 
   // Mirror + dashboard with real numbers
   await p.click('.nav-item[data-view=mirror]'); await p.waitForTimeout(500);
-  check('mirror study = book + focus', (await p.textContent('#mirrorStudy')).trim() === '35m');
+  check('mirror study = book + focus', (await p.textContent('#mirrorStudy')).trim() === '35 मि.');
   await p.screenshot({ path: path.join(SHOTS, 'v4-8-mirror.png') });
   await p.click('.nav-item[data-view=dashboard]'); await p.waitForTimeout(800);
   check('dashboard XP real (35 + 20)', /⭐ 55/.test(await p.textContent('#dashboard-view')));
@@ -92,6 +93,14 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await p.screenshot({ path: path.join(SHOTS, 'v4-10-settings.png') });
   await p.click('#settingsClose'); await p.waitForTimeout(400);
   check('name + exam date used', /Aman/.test(await p.textContent('#dashboard-view .dash-header')) && /परीक्षा में \d+ दिन|days to exam/.test(await p.textContent('#dashboard-view .dash-header')));
+
+  // English mode: whole interface English; the book keeps its own language buttons
+  await p.evaluate(() => { Settings.lang = 'en'; Settings.save(); applySettings(); rerenderAll(); }); await p.waitForTimeout(500);
+  const enText = await p.innerText('#dashboard-view');
+  check('English mode: no Hindi on dashboard', !/[\u0900-\u097F]/.test(enText) && /MISSION CONTROL/.test(enText));
+  check('English mode: nav in English', /Library/.test(await p.innerText('#bottomNav')));
+  check('only two interface languages', (await p.$$eval('.lang-opt', e => e.map(x => x.dataset.lang).join())) === 'hi,en');
+  await p.screenshot({ path: path.join(SHOTS, 'v4-11-dashboard-english.png') });
 
   // Old question bank never requested
   check('no question-bank requests', !reqs.some(u => /\/rest\/v1\/(atoms|questions|pyq|practice|mock|papers)/.test(u)));

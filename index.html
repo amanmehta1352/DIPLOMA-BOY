@@ -39,6 +39,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .en-part{display:none}
 body.lang-en .en-part{display:inline}
 body.lang-en .hi-part{display:none}
+body.lang-hi *{letter-spacing:normal!important}   /* Devanagari breaks apart with letter-spacing */
 body.lang-both .en-part{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
 
 #cosmos{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -95,7 +96,7 @@ body.lang-both .en-part{display:block;font-size:11px;color:var(--muted);font-wei
 .theme-opt[data-t="sakura"] .dot{background:linear-gradient(135deg,#ffb7c5,#ff69b4)}
 .theme-opt[data-t="ocean"] .dot{background:linear-gradient(135deg,#4facfe,#00f2fe)}
 .theme-opt[data-t="forest"] .dot{background:linear-gradient(135deg,#a8e063,#56ab2f)}
-.lang-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px}
+.lang-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
 .lang-opt{padding:10px 6px;background:rgba(255,255,255,.04);border:1.5px solid var(--line2);border-radius:12px;color:var(--text);font-size:11px;font-weight:700;cursor:pointer}
 .lang-opt.on{background:rgba(255,255,255,.12);border-color:var(--accent);color:var(--accent)}
 .toggle-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:600}
@@ -108,9 +109,8 @@ body.lang-both .en-part{display:block;font-size:11px;color:var(--muted);font-wei
 .lib-header,.page-head{padding:12px 22px 20px}
 .eyebrow{font-size:10px;color:var(--accent);letter-spacing:.2em;font-weight:700;text-transform:uppercase;margin-bottom:5px}
 .page-title{font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1.05;background:linear-gradient(135deg,#fff 40%,var(--accent) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.page-title .en-part{-webkit-text-fill-color:var(--muted);font-size:16px}
+body.lang-both .page-title .en-part{-webkit-text-fill-color:var(--muted);font-size:16px}
 .subtitle{font-size:12.5px;color:var(--muted)}
-.subtitle .en-part{display:none}
 body.lang-both .subtitle .en-part{display:block}
 .add-book-btn{padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.05);border:1px dashed var(--accent);color:var(--accent);font-size:12px;font-weight:800;cursor:pointer;margin-top:10px}
 .search-wrap{padding:0 22px 18px}
@@ -320,7 +320,7 @@ body.lang-both .subtitle .en-part{display:block}
 .reader-nav button:disabled{opacity:.35}
 </style>
 </head>
-<body data-theme="cafefocus" class="lang-both">
+<body data-theme="cafefocus" class="lang-hi">
 
 <div id="cosmos"><div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div></div>
 <div class="wave-overlay" id="waveOverlay"></div>
@@ -332,47 +332,46 @@ body.lang-both .subtitle .en-part{display:block}
 
 <div class="settings-modal" id="settingsModal">
   <div class="settings-panel">
-    <div class="settings-header"><h2>⚙️ <span class="hi-part">सेटिंग्स</span><span class="en-part" style="display:inline">Settings</span></h2><button class="settings-close" id="settingsClose">✕</button></div>
+    <div class="settings-header"><h2>⚙️ <span class="hi-part">सेटिंग्स</span><span class="en-part">Settings</span></h2><button class="settings-close" id="settingsClose">✕</button></div>
     <div class="settings-group">
-      <div class="settings-group-title">🌐 Language / भाषा</div>
+      <div class="settings-group-title">🌐 <span class="hi-part">भाषा</span><span class="en-part">Language</span></div>
       <div class="lang-row">
-        <button class="lang-opt" data-lang="hi">हिंदी</button>
+        <button class="lang-opt on" data-lang="hi">हिंदी</button>
         <button class="lang-opt" data-lang="en">English</button>
-        <button class="lang-opt on" data-lang="both">Both</button>
       </div>
     </div>
     <div class="settings-group">
-      <div class="settings-group-title">🎨 Theme (10)</div>
+      <div class="settings-group-title">🎨 <span class="hi-part">थीम (10)</span><span class="en-part">Theme (10)</span></div>
       <div class="theme-scroll">
-        <button class="theme-opt on" data-t="cafefocus"><div class="dot"></div><div class="lbl">Cafe</div></button>
-        <button class="theme-opt" data-t="cosmic"><div class="dot"></div><div class="lbl">Cosmic</div></button>
-        <button class="theme-opt" data-t="cyberpunk"><div class="dot"></div><div class="lbl">Cyber</div></button>
-        <button class="theme-opt" data-t="vaporwave"><div class="dot"></div><div class="lbl">Vapor</div></button>
-        <button class="theme-opt" data-t="matrix"><div class="dot"></div><div class="lbl">Matrix</div></button>
-        <button class="theme-opt" data-t="sunset"><div class="dot"></div><div class="lbl">Sunset</div></button>
-        <button class="theme-opt" data-t="mono"><div class="dot"></div><div class="lbl">Mono</div></button>
-        <button class="theme-opt" data-t="sakura"><div class="dot"></div><div class="lbl">Sakura</div></button>
-        <button class="theme-opt" data-t="ocean"><div class="dot"></div><div class="lbl">Ocean</div></button>
-        <button class="theme-opt" data-t="forest"><div class="dot"></div><div class="lbl">Forest</div></button>
+        <button class="theme-opt on" data-t="cafefocus"><div class="dot"></div><div class="lbl"><span class="hi-part">कैफ़े</span><span class="en-part">Cafe</span></div></button>
+        <button class="theme-opt" data-t="cosmic"><div class="dot"></div><div class="lbl"><span class="hi-part">कॉस्मिक</span><span class="en-part">Cosmic</span></div></button>
+        <button class="theme-opt" data-t="cyberpunk"><div class="dot"></div><div class="lbl"><span class="hi-part">साइबर</span><span class="en-part">Cyber</span></div></button>
+        <button class="theme-opt" data-t="vaporwave"><div class="dot"></div><div class="lbl"><span class="hi-part">वेपर</span><span class="en-part">Vapor</span></div></button>
+        <button class="theme-opt" data-t="matrix"><div class="dot"></div><div class="lbl"><span class="hi-part">मैट्रिक्स</span><span class="en-part">Matrix</span></div></button>
+        <button class="theme-opt" data-t="sunset"><div class="dot"></div><div class="lbl"><span class="hi-part">सूर्यास्त</span><span class="en-part">Sunset</span></div></button>
+        <button class="theme-opt" data-t="mono"><div class="dot"></div><div class="lbl"><span class="hi-part">सादा</span><span class="en-part">Mono</span></div></button>
+        <button class="theme-opt" data-t="sakura"><div class="dot"></div><div class="lbl"><span class="hi-part">सकुरा</span><span class="en-part">Sakura</span></div></button>
+        <button class="theme-opt" data-t="ocean"><div class="dot"></div><div class="lbl"><span class="hi-part">सागर</span><span class="en-part">Ocean</span></div></button>
+        <button class="theme-opt" data-t="forest"><div class="dot"></div><div class="lbl"><span class="hi-part">जंगल</span><span class="en-part">Forest</span></div></button>
       </div>
     </div>
     <div class="settings-group">
-      <div class="settings-group-title">🔔 Preferences</div>
-      <div class="toggle-row"><span>🔊 Sound / ध्वनि</span><div class="toggle-switch on" data-toggle="sound"></div></div>
-      <div class="toggle-row"><span>🎊 Confetti</span><div class="toggle-switch on" data-toggle="confetti"></div></div>
-      <div class="toggle-row"><span>📳 Haptic</span><div class="toggle-switch on" data-toggle="haptic"></div></div>
+      <div class="settings-group-title">🔔 <span class="hi-part">पसंद</span><span class="en-part">Preferences</span></div>
+      <div class="toggle-row"><span>🔊 <span class="hi-part">आवाज़</span><span class="en-part">Sound</span></span><div class="toggle-switch on" data-toggle="sound"></div></div>
+      <div class="toggle-row"><span>🎊 <span class="hi-part">रंगीन पटाखे</span><span class="en-part">Confetti</span></span><div class="toggle-switch on" data-toggle="confetti"></div></div>
+      <div class="toggle-row"><span>📳 <span class="hi-part">कंपन</span><span class="en-part">Haptic</span></span><div class="toggle-switch on" data-toggle="haptic"></div></div>
     </div>
     <div class="settings-group">
-      <div class="settings-group-title">👤 Profile / प्रोफ़ाइल</div>
-      <div class="toggle-row"><label for="profName">नाम / Name</label><input id="profName" type="text" maxlength="30" autocomplete="given-name" style="width:55%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:inherit"></div>
-      <div class="toggle-row"><label for="profExam">परीक्षा तारीख़ / Exam date</label><input id="profExam" type="date" style="width:55%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:inherit"></div>
-      <div style="font-size:11.5px;color:var(--muted);padding:6px 2px 0">आपका data सिर्फ़ इसी फ़ोन पर रहता है। / Your data stays on this phone.</div>
+      <div class="settings-group-title">👤 <span class="hi-part">प्रोफ़ाइल</span><span class="en-part">Profile</span></div>
+      <div class="toggle-row"><label for="profName"><span class="hi-part">नाम</span><span class="en-part">Name</span></label><input id="profName" type="text" maxlength="30" autocomplete="given-name" style="width:55%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:inherit"></div>
+      <div class="toggle-row"><label for="profExam"><span class="hi-part">परीक्षा की तारीख़</span><span class="en-part">Exam date</span></label><input id="profExam" type="date" style="width:55%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:inherit"></div>
+      <div style="font-size:11.5px;color:var(--muted);padding:6px 2px 0"><span class="hi-part">आपकी पढ़ाई का हिसाब सिर्फ़ इसी फ़ोन पर रहता है।</span><span class="en-part">Your study record stays on this phone only.</span></div>
     </div>
     <div class="settings-group">
-      <div class="settings-group-title">📄 About</div>
-      <div class="toggle-row"><a href="privacy.html" style="color:inherit">Privacy Policy</a><span>›</span></div>
-      <div class="toggle-row"><a href="terms.html" style="color:inherit">Terms</a><span>›</span></div>
-      <div class="toggle-row"><a href="delete-data.html" style="color:inherit">Delete my data / डेटा हटाएँ</a><span>›</span></div>
+      <div class="settings-group-title">📄 <span class="hi-part">जानकारी</span><span class="en-part">About</span></div>
+      <div class="toggle-row"><a href="privacy.html" style="color:inherit"><span class="hi-part">गोपनीयता नीति</span><span class="en-part">Privacy Policy</span></a><span>›</span></div>
+      <div class="toggle-row"><a href="terms.html" style="color:inherit"><span class="hi-part">शर्तें</span><span class="en-part">Terms</span></a><span>›</span></div>
+      <div class="toggle-row"><a href="delete-data.html" style="color:inherit"><span class="hi-part">मेरा डेटा हटाएँ</span><span class="en-part">Delete my data</span></a><span>›</span></div>
     </div>
   </div>
 </div>
@@ -382,19 +381,19 @@ body.lang-both .subtitle .en-part{display:block}
   <div id="library-view" class="view">
     <div class="ios-status"><span></span><span></span></div>
     <div class="lib-header safe-top">
-      <div class="eyebrow">COSMIC LIBRARY</div>
+      <div class="eyebrow"><span class="hi-part">मेरी लाइब्रेरी</span><span class="en-part">COSMIC LIBRARY</span></div>
       <div class="page-title"><span class="hi-part">आपकी दुनिया</span><span class="en-part">Your Space</span></div>
       <div class="subtitle"><span class="hi-part">हर पन्ना एक नई दुनिया</span><span class="en-part">Every page, a new world</span></div>
       <button class="add-book-btn" id="addBookBtn"><span class="hi-part">+ किताब जोड़ें</span><span class="en-part">+ Add book</span></button>
     </div>
-    <div class="search-wrap"><div class="search-bar"><span>🔍</span><input type="text" id="searchInput" placeholder="Search / खोजें..."></div></div>
+    <div class="search-wrap"><div class="search-bar"><span>🔍</span><input type="text" id="searchInput" placeholder="किताब या अध्याय खोजें..."></div></div>
     <div class="quote-card" id="quoteCard"></div>
     <div class="continue-card" id="continueCard">
       <div class="continue-icon">📖</div>
       <div class="continue-info"><div class="lbl">LIVE · Continue</div><div class="title" id="continueTitle"></div><div class="prog"><i style="width:0%"></i></div></div>
       <div class="continue-arrow">→</div>
     </div>
-    <div class="sec-title"><h2><span class="hi-part">आपकी Books</span><span class="en-part">Your Books</span></h2><div class="count-pill" id="bookCount"></div></div>
+    <div class="sec-title"><h2><span class="hi-part">आपकी किताबें</span><span class="en-part">Your Books</span></h2><div class="count-pill" id="bookCount"></div></div>
     <div class="app-grid" id="appGrid"></div>
     <div id="chapterList" style="padding:26px 0 130px"></div>
   </div>
@@ -406,7 +405,7 @@ body.lang-both .subtitle .en-part{display:block}
   <div id="focus-view" class="view">
     <div class="ios-status"><span></span><span></span></div>
     <div class="focus-hero safe-top">
-      <h1><span class="hi-part">Deep Work.</span><span class="en-part">Deep Work.</span></h1>
+      <h1><span class="hi-part">गहरी पढ़ाई।</span><span class="en-part">Deep Work.</span></h1>
       <p><span class="hi-part">बाहर की दुनिया को भूल जाओ। सिर्फ 25 मिनट खुद पर और अपनी पढ़ाई पर खर्च करो।</span><span class="en-part">Forget the outside world. Spend 25 minutes only on yourself and your studies.</span></p>
     </div>
     <div class="focus-big">
@@ -418,7 +417,7 @@ body.lang-both .subtitle .en-part{display:block}
       <div class="focus-time" data-ftime>25:00</div>
     </div>
     <button class="focus-page-btn" data-fbtn>▶ Start</button>
-    <button class="btn" style="max-width:300px;margin:0 auto;display:flex" data-freset>↺ Reset / रीसेट</button>
+    <button class="btn" style="max-width:300px;margin:0 auto;display:flex" data-freset>↺ <span class="hi-part">रीसेट</span><span class="en-part">Reset</span></button>
     <div class="focus-stats" style="margin-top:20px" id="focusStats"></div>
   </div>
 
@@ -426,7 +425,7 @@ body.lang-both .subtitle .en-part{display:block}
   <div id="ghost-view" class="view">
     <div class="ios-status"><span></span><span></span></div>
     <div class="ghost-header safe-top">
-      <h1><span class="hi-part">Ghosts (भूत)</span><span class="en-part">Ghosts</span></h1>
+      <h1><span class="hi-part">भूत</span><span class="en-part">Ghosts</span></h1>
       <p><span class="hi-part">ये वो टॉपिक्स हैं जिन्हें आप भूल रहे हैं। इन्हें जल्द पकड़ो!</span><span class="en-part">Topics you are forgetting. Catch them before they vanish!</span></p>
     </div>
     <div id="ghostList"></div>
@@ -436,12 +435,12 @@ body.lang-both .subtitle .en-part{display:block}
   <div id="mirror-view" class="view">
     <div class="ios-status"><span></span><span></span></div>
     <div class="mirror-header safe-top">
-      <h1><span class="hi-part">Mirror (आईना)</span><span class="en-part">Mirror</span></h1>
+      <h1><span class="hi-part">आईना</span><span class="en-part">Mirror</span></h1>
       <p><span class="hi-part">यहाँ झूठ नहीं है। जो आपने किया है, वही दिखेगा।</span><span class="en-part">No lies here. You see exactly what you did.</span></p>
     </div>
     <div class="mirror-stats">
-      <div><div class="val" id="mirrorStudy">0m</div><div class="lbl"><span class="hi-part">Study Time</span><span class="en-part">Study Time</span></div></div>
-      <div><div class="val" id="mirrorWaste" style="color:var(--red)">0m</div><div class="lbl"><span class="hi-part">Wasted Time</span><span class="en-part">Wasted Time</span></div></div>
+      <div><div class="val" id="mirrorStudy">0m</div><div class="lbl"><span class="hi-part">पढ़ाई का समय</span><span class="en-part">Study Time</span></div></div>
+      <div><div class="val" id="mirrorWaste" style="color:var(--red)">0m</div><div class="lbl"><span class="hi-part">खाली गया समय</span><span class="en-part">Wasted Time</span></div></div>
     </div>
     <div id="mirrorList"></div>
   </div>
@@ -449,8 +448,8 @@ body.lang-both .subtitle .en-part{display:block}
   <!-- FORMULAS -->
   <div id="formulas-view" class="view">
     <div class="ios-status"><span></span><span></span></div>
-    <div class="page-head safe-top"><div class="eyebrow">FORMULA VAULT</div><div class="page-title"><span class="hi-part">सूत्र</span><span class="en-part">Formulas</span></div></div>
-    <div class="search-wrap"><div class="search-bar"><span>🔍</span><input type="text" id="formulaSearch" placeholder="सूत्र खोजें / Search formulas..."></div></div>
+    <div class="page-head safe-top"><div class="eyebrow"><span class="hi-part">सूत्र भंडार</span><span class="en-part">FORMULA VAULT</span></div><div class="page-title"><span class="hi-part">सूत्र</span><span class="en-part">Formulas</span></div></div>
+    <div class="search-wrap"><div class="search-bar"><span>🔍</span><input type="text" id="formulaSearch" placeholder="सूत्र खोजें..."></div></div>
     <div id="formulaBox" style="padding:0 0 120px"></div>
   </div>
 </div>
@@ -459,12 +458,12 @@ body.lang-both .subtitle .en-part{display:block}
 <div class="bottom-nav-wrap" id="bottomNavWrap">
   <nav class="bottom-nav" id="bottomNav">
     <div class="nav-highlight" id="navHighlight"></div>
-    <button class="nav-item" data-view="library"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span class="n-lbl">Library</span></button>
-    <button class="nav-item on" data-view="dashboard"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="n-lbl">Base</span></button>
-    <button class="nav-item" data-view="focus"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span class="n-lbl">Focus</span></button>
-    <button class="nav-item" data-view="ghost"><svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8v10l2-2 2 2 2-2 2 2 2-2 2 2V10a8 8 0 0 0-8-8z"/></svg><span class="n-lbl">Ghost</span></button>
-    <button class="nav-item" data-view="mirror"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="10" r="2"/></svg><span class="n-lbl">Mirror</span></button>
-    <button class="nav-item" data-view="formulas"><svg viewBox="0 0 24 24"><path d="M18 4H6l6 8-6 8h12"/></svg><span class="n-lbl">Formula</span></button>
+    <button class="nav-item" data-view="library"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span class="n-lbl"><span class="hi-part">लाइब्रेरी</span><span class="en-part">Library</span></span></button>
+    <button class="nav-item on" data-view="dashboard"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="n-lbl"><span class="hi-part">मुख्य</span><span class="en-part">Base</span></span></button>
+    <button class="nav-item" data-view="focus"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span class="n-lbl"><span class="hi-part">फ़ोकस</span><span class="en-part">Focus</span></span></button>
+    <button class="nav-item" data-view="ghost"><svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8v10l2-2 2 2 2-2 2 2 2-2 2 2V10a8 8 0 0 0-8-8z"/></svg><span class="n-lbl"><span class="hi-part">भूत</span><span class="en-part">Ghost</span></span></button>
+    <button class="nav-item" data-view="mirror"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="10" r="2"/></svg><span class="n-lbl"><span class="hi-part">आईना</span><span class="en-part">Mirror</span></span></button>
+    <button class="nav-item" data-view="formulas"><svg viewBox="0 0 24 24"><path d="M18 4H6l6 8-6 8h12"/></svg><span class="n-lbl"><span class="hi-part">सूत्र</span><span class="en-part">Formula</span></span></button>
   </nav>
 </div>
 
@@ -474,15 +473,15 @@ body.lang-both .subtitle .en-part{display:block}
     <h3 id="quizTitle">Quick Check</h3>
     <div class="q-text" id="quizQuestion"></div>
     <div id="quizOptions"></div>
-    <button class="btn" id="quizClose" style="margin-top:12px">बंद करें / Close</button>
+    <button class="btn" id="quizClose" style="margin-top:12px"><span class="hi-part">बंद करें</span><span class="en-part">Close</span></button>
   </div>
 </div>
 
 <!-- BOOK READER -->
 <div id="foundation-layer">
   <div class="foundation-topbar">
-    <button class="back-to-lib" id="backToLib">‹ Library</button>
-    <div class="mode-toggle"><button id="modeLecture" class="on">🎓 Lecture</button><button id="modeReader">📖 Reader</button></div>
+    <button class="back-to-lib" id="backToLib">‹ <span class="hi-part">लाइब्रेरी</span><span class="en-part">Library</span></button>
+    <div class="mode-toggle"><button id="modeLecture" class="on">🎓 <span class="hi-part">क्लास</span><span class="en-part">Lecture</span></button><button id="modeReader">📖 <span class="hi-part">पढ़ें</span><span class="en-part">Reader</span></button></div>
   </div>
   <div class="foundation-content" id="foundationContent">
     <div id="lecture-view"></div>
@@ -499,11 +498,12 @@ const LOWER = s => String(s).toLowerCase();
 
 // ═══ SETTINGS ═══
 const Settings = {
-  theme:'cafefocus', lang:'both', sound:true, confetti:true, haptic:true,
+  theme:'cafefocus', lang:'hi', sound:true, confetti:true, haptic:true,
   load(){ try { Object.assign(this, JSON.parse(localStorage.getItem('cosmic_settings')||'{}')); } catch(e){} },
   save(){ try { localStorage.setItem('cosmic_settings', JSON.stringify({theme:this.theme,lang:this.lang,sound:this.sound,confetti:this.confetti,haptic:this.haptic})); } catch(e){} }
 };
 Settings.load();
+if(Settings.lang!=='en') Settings.lang='hi';   // app interface: Hindi or English, one at a time
 function applySettings(){
   document.documentElement.setAttribute('data-theme', Settings.theme);
   document.body.setAttribute('data-theme', Settings.theme);
@@ -514,6 +514,8 @@ function applySettings(){
   document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('on', b.dataset.lang === Settings.lang));
   document.querySelectorAll('[data-toggle]').forEach(t => t.classList.toggle('on', !!Settings[t.dataset.toggle]));
   Sound.enabled = Settings.sound;
+  const hi=Settings.lang!=='en', ph={searchInput:hi?'किताब या अध्याय खोजें...':'Search books or chapters...',formulaSearch:hi?'सूत्र खोजें...':'Search formulas...'};
+  for(const id in ph){ const el=document.getElementById(id); if(el) el.placeholder=ph[id]; }
 }
 
 // ═══ SOUND / FX ═══
@@ -562,12 +564,13 @@ const SB={url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7Z
 async function sbGet(path){ const r=await fetch(SB.url+'/rest/v1/'+path,{headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Accept-Profile':'mtb'}}); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
 
 const QUOTES=[
-  {text:'सपने वो नहीं जो सोते हुए आएं, सपने वो हैं जो सोने न दें।',en:'Dreams are not what you see in sleep, but what keeps you from sleeping.',author:'APJ Abdul Kalam'},
-  {text:'सफलता का रहस्य निरंतरता है।',en:'The secret of success is consistency.',author:'Robin Sharma'},
-  {text:'जो आज कर सकते हो, उसे कल पर मत छोड़ो।',en:'Do not postpone what you can do today.',author:'Chanakya'},
-  {text:'असफलता सफलता की सीढ़ी है।',en:'Failure is the ladder to success.',author:'Unknown'}
+  {text:'सपने वो नहीं जो सोते हुए आएं, सपने वो हैं जो सोने न दें।',en:'Dreams are not what you see in sleep, but what keeps you from sleeping.',author:'APJ Abdul Kalam',authorHi:'ए.पी.जे. अब्दुल कलाम'},
+  {text:'सफलता का रहस्य निरंतरता है।',en:'The secret of success is consistency.',author:'Robin Sharma',authorHi:'रॉबिन शर्मा'},
+  {text:'जो आज कर सकते हो, उसे कल पर मत छोड़ो।',en:'Do not postpone what you can do today.',author:'Chanakya',authorHi:'चाणक्य'},
+  {text:'असफलता सफलता की सीढ़ी है।',en:'Failure is the ladder to success.',author:'Unknown',authorHi:'अज्ञात'}
 ];
-const L=(hi,en)=>Settings.lang==='en'?en:hi;   // short labels: one language
+const L=(hi,en)=>Settings.lang==='en'?en:hi;   // app interface: one language at a time
+const M=n=>L(`${n} मिनट`,`${n} min`), Mm=n=>L(`${n} मि.`,`${n}m`);
 function getDailyQuote(){ return QUOTES[Math.floor(Date.now()/86400000)%QUOTES.length]; }
 
 /* ---- saved on this phone ---- */
@@ -634,30 +637,30 @@ function buildState(){
     appOpens:DB.opens[k]||0,idle:dayIdleMin(k),week:[...Array(7)].reduce((a,_,i)=>a+dayStudyMin(addDays(-i)),0)};
   const t=d.t;
   STATE.timeTracking=[
-    {name:{hi:'Dashboard',en:'Dashboard'},time:mins(t.dashboard),icon:'◉',type:'mix'},
-    {name:{hi:'Library',en:'Library'},time:mins(t.library),icon:'📚',type:'mix'},
+    {name:{hi:'मुख्य पेज',en:'Dashboard'},time:mins(t.dashboard),icon:'◉',type:'mix'},
+    {name:{hi:'लाइब्रेरी',en:'Library'},time:mins(t.library),icon:'📚',type:'mix'},
     {name:{hi:'असली पढ़ाई (किताब)',en:'Actual study (book)'},time:mins(t.book),icon:'📖',type:'study'},
-    {name:{hi:'Focus Mode',en:'Focus Mode'},time:mins(t.focus),icon:'⚡',type:'study'},
-    {name:{hi:'Formulas',en:'Formulas'},time:mins(t.formulas),icon:'ƒ',type:'mix'},
-    {name:{hi:'Ghost + Mirror',en:'Ghost + Mirror'},time:mins((t.ghost||0)+(t.mirror||0)),icon:'👻',type:'mix'},
-    {name:{hi:'Idle (कुछ नहीं किया)',en:'Idle (no activity)'},time:mins(t.idle),icon:'😐',type:'waste'}];
+    {name:{hi:'फ़ोकस मोड',en:'Focus Mode'},time:mins(t.focus),icon:'⚡',type:'study'},
+    {name:{hi:'सूत्र',en:'Formulas'},time:mins(t.formulas),icon:'ƒ',type:'mix'},
+    {name:{hi:'भूत + आईना',en:'Ghost + Mirror'},time:mins((t.ghost||0)+(t.mirror||0)),icon:'👻',type:'mix'},
+    {name:{hi:'खाली (कुछ नहीं किया)',en:'Idle (no activity)'},time:mins(t.idle),icon:'😐',type:'waste'}];
   STATE.weekMood=[...Array(7)].map((_,i)=>{ const dd=new Date(); dd.setDate(dd.getDate()-6+i); const m=dayStudyMin(ymd(dd));
     return {day:['र','सो','मं','बु','गु','शु','श'][dd.getDay()],dayEn:'SMTWTFS'[dd.getDay()],min:m,status:m>=60?'great':m>=30?'good':m>=10?'okay':m>0?'bad':'zero'}; });
   const acc=q.t>=5?Math.round(q.c/q.t*100):null;
   STATE.readiness={score:acc==null?Math.round(cov*.5):Math.round(cov*.5+acc*.5),target:75,cov,acc};
-  STATE.career={progress:cov,nodes:[{label:'Start',pct:0,icon:'🎓'},{label:'20%',pct:20,icon:'📚'},{label:'40%',pct:40,icon:'🎯'},{label:'60%',pct:60,icon:'⚡'},{label:'80%',pct:80,icon:'🔥'},{label:'100%',pct:100,icon:'🏆'}]};
+  STATE.career={progress:cov,nodes:[{label:L('शुरू','Start'),pct:0,icon:'🎓'},{label:'20%',pct:20,icon:'📚'},{label:'40%',pct:40,icon:'🎯'},{label:'60%',pct:60,icon:'⚡'},{label:'80%',pct:80,icon:'🔥'},{label:'100%',pct:100,icon:'🏆'}]};
   const fs7=[...Array(7)].reduce((a,_,i)=>a+((DB.days[addDays(-i)]||{}).fs||0),0);
   const gl=ghostList(), revDone=readChapters().reduce((a,x)=>a+((DB.chapters[x.key]||{}).rev||0),0);
   STATE.radar=[
-    {label:'Concept',value:cov,color:'#f7b733'},{label:'Practice',value:Math.min(100,q.t*5),color:'#ffd23d'},{label:'Focus',value:Math.min(100,Math.round(fs7/14*100)),color:'#ff8a3d'},
-    {label:'Accuracy',value:acc==null?0:acc,color:'#3dff9f'},{label:'Coverage',value:openedPct(),color:'#b26bff'},{label:'Revision',value:gl.length?Math.min(100,Math.round(revDone/gl.length*50)):0,color:'#ff3d5c'}];
+    {label:L('समझ','Concept'),value:cov,color:'#f7b733'},{label:L('अभ्यास','Practice'),value:Math.min(100,q.t*5),color:'#ffd23d'},{label:L('फ़ोकस','Focus'),value:Math.min(100,Math.round(fs7/14*100)),color:'#ff8a3d'},
+    {label:L('सटीकता','Accuracy'),value:acc==null?0:acc,color:'#3dff9f'},{label:L('कवरेज','Coverage'),value:openedPct(),color:'#b26bff'},{label:L('दोहराव','Revision'),value:gl.length?Math.min(100,Math.round(revDone/gl.length*50)):0,color:'#ff3d5c'}];
   STATE.focus.sessionsToday=d.fs||0;
   STATE.forgetting=gl;
   STATE.weakTopics=Object.entries(DB.quiz).filter(([k,v])=>v.t>=3&&v.c/v.t<.6).map(([k,v])=>{ const x=allChapters().find(y=>y.key===k); return x?{name:x.c.t,acc:Math.round(v.c/v.t*100)}:null; }).filter(Boolean);
   const nu=nextUnread(), due=gl.filter(g=>g.urgent).length;
   STATE.mission=nu?{x:nu,title:{hi:`अध्याय ${nu.c.n}: ${nu.c.sh.hi||nu.c.t.hi} पढ़ें`+(due?' + 1 भूत पकड़ें':''),en:`Read chapter ${nu.c.n}: ${nu.c.sh.en||nu.c.t.en}`+(due?' + catch 1 ghost':'')},
-      sub:{hi:'Focus timer के साथ 25 मिनट, फिर अगला अध्याय।',en:'25 minutes with the focus timer, then the next chapter.'},time:'25 min',xpReward:25+(due?20:0)}
-    :(due?{x:null,title:{hi:`${due} भूत पकड़ें (revision)`,en:`Catch ${due} ghosts (revision)`},sub:{hi:'सारे अध्याय पढ़ लिए। अब दोहराने का समय।',en:'All chapters read. Time to revise.'},time:'15 min',xpReward:20*due}:null);
+      sub:{hi:'फ़ोकस टाइमर के साथ 25 मिनट, फिर अगला अध्याय।',en:'25 minutes with the focus timer, then the next chapter.'},time:M(25),xpReward:25+(due?20:0)}
+    :(due?{x:null,title:{hi:`${due} भूत पकड़ें (दोहराव)`,en:`Catch ${due} ghosts (revision)`},sub:{hi:'सारे अध्याय पढ़ लिए। अब दोहराने का समय।',en:'All chapters read. Time to revise.'},time:M(15),xpReward:20*due}:null);
   return STATE;
 }
 function saveState(){ try{ localStorage.setItem(DKEY,JSON.stringify(DB)); }catch(e){} }
@@ -676,14 +679,14 @@ function trackTick(){
   d.t[sec]=(d.t[sec]||0)+5;
   if(sec==='book'){ const f=bookFrame(); let n=bookState.ch; try{ if(f&&f.contentWindow&&f.contentWindow.__curCh) n=+f.contentWindow.__curCh()||n; }catch(e){}
     const key=chKey(bookState.bookId,n), r=DB.chapters[key]||(DB.chapters[key]={secs:0,first:Date.now()}); r.secs+=5; r.last=Date.now();
-    if(!r.read && r.secs>=120){ r.read=true; r.lastRev=Date.now(); showReward(T(`📖 अध्याय ${n} पढ़ा गया · Ghost में जुड़ा`,`📖 Chapter ${n} read · added to Ghost`)); }
+    if(!r.read && r.secs>=120){ r.read=true; r.lastRev=Date.now(); showReward(T(`📖 अध्याय ${n} पढ़ा गया · भूत में जुड़ा`,`📖 Chapter ${n} read · added to Ghost`)); }
     if(DB.lastBook==null||DB.lastBook.ch!==n){ DB.lastBook={b:bookState.bookId,ch:n}; } }
   if(Math.round(d.t[sec])%30===0) saveState();
 }
 setInterval(trackTick,5000);
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') saveState(); else lastTouch=Date.now(); });
 function updateStatusBars(){ const now=new Date(), t=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0'), on=navigator.onLine;
-  document.querySelectorAll('.ios-status').forEach(s=>{ const a=s.children; if(a[0]) a[0].textContent=t; if(a[1]) a[1].textContent=on?'● Online':'○ Offline'; }); }
+  document.querySelectorAll('.ios-status').forEach(s=>{ const a=s.children; if(a[0]) a[0].textContent=t; if(a[1]) a[1].textContent=on?L('● ऑनलाइन','● Online'):L('○ ऑफ़लाइन','○ Offline'); }); }
 setInterval(updateStatusBars,20000); window.addEventListener('online',updateStatusBars); window.addEventListener('offline',updateStatusBars);
 
 // ═══ NAV ═══
@@ -757,11 +760,11 @@ function renderLibrary(){
   document.querySelectorAll('.app-icon').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); openBook(el.dataset.book); }));
   document.getElementById('bookCount').innerHTML = `${owned.length} ${T('किताब','book(s)')}`;
   const qc=document.getElementById('quoteCard'), qt=getDailyQuote();
-  qc.innerHTML=`<div class="q-tag">Quote of the Day</div><div class="q-text">${T(esc(qt.text),esc(qt.en))}</div><div class="q-author">— <b>${esc(qt.author)}</b></div>`;
+  qc.innerHTML=`<div class="q-tag">${L('आज का विचार','Quote of the Day')}</div><div class="q-text">${L(esc(qt.text),esc(qt.en))}</div><div class="q-author">— <b>${esc(L(qt.authorHi,qt.author))}</b></div>`;
   const lb=DB.lastBook, b=lb&&BOOKS.find(x=>x.id===lb.b), c=b&&b.chapters.find(x=>x.n===lb.ch), cc=document.getElementById('continueCard');
   const fb=BOOKS.find(x=>x.owned);
-  if(c){ document.getElementById('continueTitle').innerHTML=`${T(esc(b.title.hi),esc(b.title.en))} · Ch ${c.n}`; }
-  else if(fb){ document.getElementById('continueTitle').innerHTML=`${T(esc(fb.title.hi),esc(fb.title.en))} · Ch 1`; }
+  if(c){ document.getElementById('continueTitle').innerHTML=`${L(esc(b.title.hi),esc(b.title.en))} · ${L('अध्याय','Ch')} ${c.n}`; }
+  else if(fb){ document.getElementById('continueTitle').innerHTML=`${L(esc(fb.title.hi),esc(fb.title.en))} · ${L('अध्याय','Ch')} 1`; }
   cc.style.display=fb?'':'none';
   cc.querySelector('.prog>i').style.width=coverage()+'%';
   cc.querySelector('.lbl').textContent=c?L('जारी रखें','Continue'):L('शुरू करें','Start');
@@ -771,7 +774,7 @@ function renderLibrary(){
     return `<div class="sec-title"><h2>${b.emoji} ${T(esc(b.title.hi)+' · अध्याय',esc(b.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${b.chapters.length}</div></div>
       <div style="padding:0 22px">${b.chapters.map(c=>{ const r=DB.chapters[chKey(b.id,c.n)]||null, st=r&&r.read?'read':r?'open':'new';
         const col={read:'var(--green)',open:'var(--orange)',new:'var(--line2)'}[st];
-        const tag={read:L('✓ पढ़ा','✓ Read'),open:L(`${mins(r&&r.secs)} min`,`${mins(r&&r.secs)} min`),new:L('नया','New')}[st];
+        const tag={read:L('✓ पढ़ा','✓ Read'),open:M(mins(r&&r.secs)),new:L('नया','New')}[st];
         return `<div class="item row" data-ch="${c.n}" data-b="${b.id}" style="cursor:pointer;min-height:56px;border-left-color:${col};font-size:13px">
           <span style="display:flex;gap:12px;align-items:center"><b style="font-size:18px;min-width:24px;color:${col}">${c.n}</b><span><b>${T(esc(noNum(c.t.hi)),esc(noNum(c.t.en)))}</b></span></span>
           <span class="pct" style="font-size:12px;color:${col};white-space:nowrap">${tag}</span></div>`; }).join('')}</div>`; }).join('');
@@ -806,7 +809,7 @@ function focusFinish(){
   const f=STATE.focus; clearInterval(focusInterval); f.running=false; f.end=null; f.remaining=f.duration;
   const d=dayRec(); d.fs=(d.fs||0)+1; try{ localStorage.removeItem(DKEY+'_focus'); }catch(e){}
   Sound.chime(); fireConfetti(80); saveState();
-  showReward(T('🎉 25 min focus पूरा! +25 XP','🎉 25 min focus complete! +25 XP'));
+  showReward(T('🎉 25 मिनट फ़ोकस पूरा! +25 अंक','🎉 25 min focus complete! +25 XP'));
   if(currentView==='dashboard') renderDashboard();
 }
 function focusRun(){ clearInterval(focusInterval); focusInterval=setInterval(()=>{ if(focusLeftSec()<=0) focusFinish(); updateFocusUI(); },1000); }
@@ -864,23 +867,23 @@ function renderDashboard(){
   const r=s.reality, cov=s.readiness.cov, nu=nextUnread();
 
   let priority='';
-  if(!SERVER_OK) priority+=`<div class="error-card reveal"><div>⚠️</div><div><b>System Alert:</b> ${T('सर्वर से कनेक्शन नहीं हुआ। किताबें और सवाल इंटरनेट आने पर दिखेंगे।','Could not reach the server. Books and questions will appear when you are online.')}</div></div>`;
+  if(!SERVER_OK) priority+=`<div class="error-card reveal"><div>⚠️</div><div><b>${L('सूचना:','System Alert:')}</b> ${T('सर्वर से कनेक्शन नहीं हुआ। किताबें और सवाल इंटरनेट आने पर दिखेंगे।','Could not reach the server. Books and questions will appear when you are online.')}</div></div>`;
   if(r.daysWithoutStudy!=null && r.daysWithoutStudy>=2 && !s.hasStudiedToday){
     priority+=`<div class="reality-card reveal">
-      <div class="reality-tag">⚠ REALITY CHECK</div>
+      <div class="reality-tag">⚠ ${L('सच्चाई','REALITY CHECK')}</div>
       <div class="reality-headline">${T(`आप <span class="warn">${r.daysWithoutStudy} दिन</span> से पढ़े नहीं।`,`You have not studied for <span class="warn">${r.daysWithoutStudy} days</span>.`)}</div>
       <div class="reality-sub">${T(`पिछली बार पढ़ाई: <b>${r.lastStudied.hi}</b> · पिछले 7 दिन में कुल <b>${r.week} मिनट</b>।`,`Last study: <b>${r.lastStudied.en}</b> · <b>${r.week} min</b> in the last 7 days.`)}</div>
       <div class="reality-grid">
-        <div class="rc-item"><div class="v">${r.appOpens}</div><div class="l">App Opens</div></div>
-        <div class="rc-item"><div class="v">${r.idle}m</div><div class="l">Idle</div></div>
-        <div class="rc-item"><div class="v">${s.studyTime}m</div><div class="l">Study</div></div>
+        <div class="rc-item"><div class="v">${r.appOpens}</div><div class="l">${L('ऐप खोला','App Opens')}</div></div>
+        <div class="rc-item"><div class="v">${Mm(r.idle)}</div><div class="l">${L('खाली','Idle')}</div></div>
+        <div class="rc-item"><div class="v">${Mm(s.studyTime)}</div><div class="l">${L('पढ़ाई','Study')}</div></div>
       </div>
-      <button class="btn danger" onclick="startMission()">⚡ ${L('अभी 25 min पढ़ो','Study 25 min now')}</button>
+      <button class="btn danger" onclick="startMission()">⚡ ${L('अभी 25 मिनट पढ़ो','Study 25 min now')}</button>
     </div>`;
   } else if(s.hasStudiedToday){
     priority+=`<div class="sunset-card reveal"><div class="head"><h3 style="color:var(--green)">🌅 ${T('आज की मेहनत','Today\'s effort')}</h3></div>
       <div class="sub">${T(`आज आपने <b>${s.studyTime} मिनट</b> पढ़ाई की।${s.studyTime>=60?' अब आराम करें!':''}`,`You studied <b>${s.studyTime} min</b> today.${s.studyTime>=60?' Now rest!':''}`)}</div>
-      <div class="sunset-stats"><div class="sunset-box"><div class="v">${s.focus.sessionsToday}</div><div class="l">Sessions</div></div><div class="sunset-box"><div class="v">${s.studyTime}m</div><div class="l">Study</div></div><div class="sunset-box"><div class="v">${s.studyTime+20*(dayRec().qc||0)}</div><div class="l">XP</div></div></div></div>`;
+      <div class="sunset-stats"><div class="sunset-box"><div class="v">${s.focus.sessionsToday}</div><div class="l">${L('सेशन','Sessions')}</div></div><div class="sunset-box"><div class="v">${Mm(s.studyTime)}</div><div class="l">${L('पढ़ाई','Study')}</div></div><div class="sunset-box"><div class="v">${s.studyTime+20*(dayRec().qc||0)}</div><div class="l">${L('अंक','XP')}</div></div></div></div>`;
   } else if(r.daysWithoutStudy==null){
     priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--accent)">👋 ${T('शुरुआत','Getting started')}</h3></div>
       <div class="sub">${T('यहाँ हर आँकड़ा आपकी असली पढ़ाई से बनेगा। पहला अध्याय खोलें, 2 मिनट पढ़ते ही वह "पढ़ा गया" में जुड़ जाएगा।','Every number here comes from your real study. Open the first chapter; after 2 minutes of reading it counts as read.')}</div>
@@ -888,45 +891,45 @@ function renderDashboard(){
   }
   const ms=s.mission;
   if(ms) priority+=`<div class="card reveal">
-      <div class="head"><div class="mission-xp">+${ms.xpReward} XP</div></div>
-      <div class="eyebrow">🎯 ${T('आज का Mission','Today\'s Mission')}</div>
+      <div class="head"><div class="mission-xp">+${ms.xpReward} ${L('अंक','XP')}</div></div>
+      <div class="eyebrow">🎯 ${L('आज का मिशन','Today\'s Mission')}</div>
       <div class="mission-title">${T(esc(ms.title.hi),esc(ms.title.en))}</div>
       <div class="sub">${T(esc(ms.sub.hi),esc(ms.sub.en))}</div>
       <div class="mission-meta"><span class="mm">⏱ ${ms.time}</span><span class="mm">📚 ${T(`${readChapters().length}/${allChapters().length} अध्याय पढ़े`,`${readChapters().length}/${allChapters().length} chapters read`)}</span></div>
-      <button class="btn primary" onclick="startMission()">🚀 ${L('Mission शुरू करें','Start Mission')}</button>
+      <button class="btn primary" onclick="startMission()">🚀 ${L('मिशन शुरू करें','Start Mission')}</button>
     </div>`;
   const left=allChapters().length-readChapters().length;
   if(daysToExam!=null && left>0){
     const perDay=Math.max(1,Math.ceil(left/Math.max(1,daysToExam)));
-    priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--yellow)">📈 Smart Catch-up</h3></div>
+    priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--yellow)">📈 ${L('स्मार्ट प्लान','Smart Catch-up')}</h3></div>
       <div class="sub">${T(`परीक्षा में <b>${daysToExam} दिन</b> बचे, <b>${left} अध्याय</b> बाकी। रोज़ <b>${perDay} अध्याय</b> पढ़ें।`,`<b>${daysToExam} days</b> to the exam, <b>${left} chapters</b> left. Read <b>${perDay} chapter(s)</b> a day.`)}</div>
       <button class="btn" onclick="startMission()">${L('अगला अध्याय पढ़ें →','Read the next chapter →')}</button></div>`;
   } else if(daysToExam==null){
-    priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--yellow)">📈 Smart Catch-up</h3></div>
+    priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--yellow)">📈 ${L('स्मार्ट प्लान','Smart Catch-up')}</h3></div>
       <div class="sub">${T('परीक्षा की तारीख़ डालें, फिर रोज़ का प्लान यहाँ बनेगा।','Add your exam date and a daily plan will appear here.')}</div>
       <button class="btn" onclick="document.getElementById('settingsBtn').click()">${L('तारीख़ डालें →','Add exam date →')}</button></div>`;
   }
   const pr=DB.promise, tomorrow=addDays(1), todayP=pr&&pr.date===ymd()?pr.min:null, tomP=pr&&pr.date===tomorrow?pr.min:null;
-  priority+=`<div class="card reveal" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><b style="font-size:13px">${todayP!=null?T(`आज का वादा: ${todayP} min · अभी ${s.studyTime} min ${s.studyTime>=todayP?'✓':''}`,`Today's promise: ${todayP} min · ${s.studyTime} min so far ${s.studyTime>=todayP?'✓':''}`):tomP!=null?T(`कल का वादा: ${tomP} min पढ़ना`,`Tomorrow's promise: ${tomP} min study`):T('कल के लिए वादा करें','Make a promise for tomorrow')}</b><button class="btn small" onclick="makePromise()">${L('नया वादा','New promise')}</button></div>`;
+  priority+=`<div class="card reveal" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><b style="font-size:13px">${todayP!=null?T(`आज का वादा: ${todayP} मिनट · अभी ${s.studyTime} मिनट ${s.studyTime>=todayP?'✓':''}`,`Today's promise: ${todayP} min · ${s.studyTime} min so far ${s.studyTime>=todayP?'✓':''}`):tomP!=null?T(`कल का वादा: ${tomP} मिनट पढ़ना`,`Tomorrow's promise: ${tomP} min study`):T('कल के लिए वादा करें','Make a promise for tomorrow')}</b><button class="btn small" onclick="makePromise()">${L('नया वादा','New promise')}</button></div>`;
 
   const wasted=s.timeTracking.filter(t=>t.type!=='study').reduce((a,t)=>a+t.time,0);
-  const verdict=total===0?T('आज अभी तक app में कोई समय दर्ज नहीं हुआ।','No time recorded in the app today yet.')
-    :wasted>s.studyTime?T(`आज <b>${wasted} मिनट</b> app घूमने या idle में गए, पढ़ाई <b>${s.studyTime} मिनट</b>। Focus Mode चालू करें।`,`<b>${wasted} min</b> went to browsing or idle today, study <b>${s.studyTime} min</b>. Start Focus Mode.`)
+  const verdict=total===0?T('आज अभी तक ऐप में कोई समय दर्ज नहीं हुआ।','No time recorded in the app today yet.')
+    :wasted>s.studyTime?T(`आज <b>${wasted} मिनट</b> ऐप घूमने या खाली बैठने में गए, पढ़ाई <b>${s.studyTime} मिनट</b>। फ़ोकस मोड चालू करें।`,`<b>${wasted} min</b> went to browsing or idle today, study <b>${s.studyTime} min</b>. Start Focus Mode.`)
     :T(`बढ़िया! आज का ज़्यादातर समय पढ़ाई में गया (<b>${s.studyTime} मिनट</b>)।`,`Great! Most of today went to study (<b>${s.studyTime} min</b>).`);
 
   v.innerHTML=`
     <div class="ios-status"><span></span><span></span></div>
     <div class="dash-header safe-top">
-      <div class="greeting">MISSION CONTROL</div>
+      <div class="greeting">${L('मिशन कंट्रोल','MISSION CONTROL')}</div>
       <div class="name">${s.user.name?esc(s.user.name):L('आपकी तैयारी','Your prep')}</div>
       <div class="sub-greeting">${greet} · ${daysToExam!=null?L(`परीक्षा में ${daysToExam} दिन`,`${daysToExam} days to exam`):L('परीक्षा तारीख़ सेट नहीं','Exam date not set')}</div>
     </div>
     ${priority}
 
     <div class="card reveal" onclick="switchView('mirror')" style="cursor:pointer">
-      <div class="head"><h3>📊 ${T('आपका समय कहाँ गया?','Where did your time go?')}</h3><span class="tag yellow">MIRROR →</span></div>
-      <div class="sub">${T(`आज का total: <b>${total} मिनट</b> — असली पढ़ाई <b>${s.studyTime} मिनट</b>`,`Today's total: <b>${total} min</b> — real study <b>${s.studyTime} min</b>`)}</div>
-      ${s.timeTracking.map(t=>`<div style="margin-bottom:10px"><div class="row"><span><b>${t.icon}</b> ${T(esc(t.name.hi),esc(t.name.en))}</span><span>${t.time} min</span></div><div class="bar"><i class="${t.type}" style="width:${(t.time/maxT)*100}%"></i></div></div>`).join('')}
+      <div class="head"><h3>📊 ${T('आपका समय कहाँ गया?','Where did your time go?')}</h3><span class="tag yellow">${L('आईना →','MIRROR →')}</span></div>
+      <div class="sub">${T(`आज का कुल: <b>${total} मिनट</b> — असली पढ़ाई <b>${s.studyTime} मिनट</b>`,`Today's total: <b>${total} min</b> — real study <b>${s.studyTime} min</b>`)}</div>
+      ${s.timeTracking.map(t=>`<div style="margin-bottom:10px"><div class="row"><span><b>${t.icon}</b> ${T(esc(t.name.hi),esc(t.name.en))}</span><span>${M(t.time)}</span></div><div class="bar"><i class="${t.type}" style="width:${(t.time/maxT)*100}%"></i></div></div>`).join('')}
       <div class="verdict">${verdict}</div>
     </div>
 
@@ -936,39 +939,39 @@ function renderDashboard(){
     </div>`:''}
 
     <div class="card reveal">
-      <div class="head"><h3>🎭 ${T('आपका हफ्ता','Your week')}</h3><span class="tag accent">STUDY LOG</span></div>
+      <div class="head"><h3>🎭 ${T('आपका हफ्ता','Your week')}</h3><span class="tag accent">${L('पढ़ाई का हिसाब','STUDY LOG')}</span></div>
       <div class="mood-grid">${s.weekMood.map(d=>`<div class="mood-day"><div class="mood-dot ${d.status}" title="${d.min} min">${({great:'😊',good:'🙂',okay:'😐',bad:'😔',zero:'💤'})[d.status]}</div><div class="d-label">${Settings.lang==='en'?d.dayEn:d.day}</div></div>`).join('')}</div>
-      <div class="sub" style="margin:10px 0 0">${T('😊 60+ min · 🙂 30+ · 😐 10+ · 😔 थोड़ा · 💤 कुछ नहीं','😊 60+ min · 🙂 30+ · 😐 10+ · 😔 a little · 💤 none')}</div>
+      <div class="sub" style="margin:10px 0 0">${T('😊 60+ मिनट · 🙂 30+ · 😐 10+ · 😔 थोड़ा · 💤 कुछ नहीं','😊 60+ min · 🙂 30+ · 😐 10+ · 😔 a little · 💤 none')}</div>
     </div>
 
     <div class="card reveal readiness">
-      <div class="tag accent" style="display:inline-block;margin-bottom:10px">EXAM READINESS</div>
+      <div class="tag accent" style="display:inline-block;margin-bottom:10px">${L('परीक्षा की तैयारी','EXAM READINESS')}</div>
       <div class="score">${s.readiness.score}%</div>
       <div style="font-size:14px;font-weight:700;margin:4px 0">${T('तैयारी स्तर','Preparation level')}</div>
-      <div class="sub" style="margin:8px 0">${T(`पढ़े अध्याय <b>${cov}%</b> · Quiz सटीकता <b>${s.readiness.acc==null?'—':s.readiness.acc+'%'}</b>`,`Chapters read <b>${cov}%</b> · Quiz accuracy <b>${s.readiness.acc==null?'—':s.readiness.acc+'%'}</b>`)}</div>
+      <div class="sub" style="margin:8px 0">${T(`पढ़े अध्याय <b>${cov}%</b> · क्विज़ सटीकता <b>${s.readiness.acc==null?'—':s.readiness.acc+'%'}</b>`,`Chapters read <b>${cov}%</b> · Quiz accuracy <b>${s.readiness.acc==null?'—':s.readiness.acc+'%'}</b>`)}</div>
       <div class="bar"><i style="width:${s.readiness.score}%;background:var(--accent)"></i></div>
-      <div class="row" style="margin-top:8px"><span>Target: <b>${s.readiness.target}%</b></span><span>${Math.max(0,s.readiness.target-s.readiness.score)}% gap</span></div>
+      <div class="row" style="margin-top:8px"><span>${L('लक्ष्य','Target')}: <b>${s.readiness.target}%</b></span><span>${Math.max(0,s.readiness.target-s.readiness.score)}% ${L('बाकी','gap')}</span></div>
     </div>
 
     <div class="card reveal">
-      <div class="head"><h3>🎓 Career Path</h3><span class="tag yellow">${s.career.progress}% DONE</span></div>
+      <div class="head"><h3>🎓 ${L('करियर पथ','Career Path')}</h3><span class="tag yellow">${s.career.progress}% ${L('पूरा','DONE')}</span></div>
       <div class="career-path">
         <div class="career-line"></div>
         <div class="career-progress" style="width:${s.career.progress}%"></div>
         <div class="career-nodes">${s.career.nodes.map(n=>{const ok=n.pct<=s.career.progress;return `<div class="career-node ${ok?'unlocked':''}"><div class="career-dot">${ok?'✓':n.icon}</div><div class="career-label">${n.label}</div></div>`;}).join('')}</div>
       </div>
       <div class="verdict" style="border-color:var(--yellow);background:rgba(255,210,61,.08)">🏆 ${(()=>{ const nx=s.career.nodes.find(n=>n.pct>s.career.progress); const all=allChapters().length;
-        return nx?T(`अगला पड़ाव: <b>${nx.label}</b> · ${Math.max(1,Math.ceil((nx.pct-s.career.progress)/100*all))} अध्याय बाकी`,`Next milestone: <b>${nx.label}</b> · ${Math.max(1,Math.ceil((nx.pct-s.career.progress)/100*all))} chapter(s) to go`):T('पूरी किताब पढ़ ली! अब Ghost में दोहराएँ।','Whole book read! Now revise in Ghost.'); })()}</div>
+        return nx?T(`अगला पड़ाव: <b>${nx.label}</b> · ${Math.max(1,Math.ceil((nx.pct-s.career.progress)/100*all))} अध्याय बाकी`,`Next milestone: <b>${nx.label}</b> · ${Math.max(1,Math.ceil((nx.pct-s.career.progress)/100*all))} chapter(s) to go`):T('पूरी किताब पढ़ ली! अब भूत वाले पेज पर दोहराएँ।','Whole book read! Now revise in Ghost.'); })()}</div>
     </div>
 
     <div class="card reveal">
-      <div class="head"><h3>📊 Prep Radar</h3><span class="tag accent">LIVE</span></div>
+      <div class="head"><h3>📊 ${L('तैयारी रडार','Prep Radar')}</h3><span class="tag accent">${L('लाइव','LIVE')}</span></div>
       <div class="radar-chart">${buildRadarChart(s.radar)}</div>
       <div class="legend">${s.radar.map(r=>`<div><i style="background:${r.color}"></i>${r.label} ${r.value}%</div>`).join('')}</div>
     </div>
 
     <div class="card reveal">
-      <div class="head"><h3>⚡ Focus Timer</h3><span class="tag purple">${s.focus.sessionsToday} today</span></div>
+      <div class="head"><h3>⚡ ${L('फ़ोकस टाइमर','Focus Timer')}</h3><span class="tag purple">${L(`आज ${s.focus.sessionsToday}`,`${s.focus.sessionsToday} today`)}</span></div>
       <div class="focus-circle">
         <svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="64" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/>
           <circle data-fcirc cx="70" cy="70" r="64" fill="none" stroke="var(--purple)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-focusPct)}"/></svg>
@@ -978,17 +981,17 @@ function renderDashboard(){
     </div>
 
     <div class="card reveal">
-      <div class="head"><h3>🧽 ${T('भूलने वाला curve','Forgetting curve')}</h3><span class="tag orange">GHOST →</span></div>
-      <div class="sub">${s.forgetting.length?T('पढ़े हुए अध्याय, सबसे कम याद वाले ऊपर (अनुमान) — अभी revise करें','Chapters you read, least remembered first (estimate) — revise now'):''}</div>
-      ${s.forgetting.slice(0,3).map(f=>`<div class="item ${f.urgent?'red':''} row" style="cursor:pointer" onclick="switchView('ghost')"><span><b>${T(esc(f.name.hi),esc(f.name.en))}</b><br><small style="color:var(--muted)">Review: ${T(f.nextReview.hi,f.nextReview.en)}</small></span><span class="pct">${f.retention}%</span></div>`).join('') || `<div class="sub">${T('अभी कोई अध्याय पढ़ा नहीं गया। पढ़े हुए अध्याय यहाँ दिखेंगे।','No chapter read yet. Chapters you read will appear here.')}</div>`}
+      <div class="head"><h3>🧽 ${T('भूलने का ग्राफ़','Forgetting curve')}</h3><span class="tag orange">${L('भूत →','GHOST →')}</span></div>
+      <div class="sub">${s.forgetting.length?T('पढ़े हुए अध्याय, सबसे कम याद वाले ऊपर (अनुमान) — अभी दोहराएँ','Chapters you read, least remembered first (estimate) — revise now'):''}</div>
+      ${s.forgetting.slice(0,3).map(f=>`<div class="item ${f.urgent?'red':''} row" style="cursor:pointer" onclick="switchView('ghost')"><span><b>${T(esc(f.name.hi),esc(f.name.en))}</b><br><small style="color:var(--muted)">${L('दोहराव','Review')}: ${L(f.nextReview.hi,f.nextReview.en)}</small></span><span class="pct">${f.retention}%</span></div>`).join('') || `<div class="sub">${T('अभी कोई अध्याय पढ़ा नहीं गया। पढ़े हुए अध्याय यहाँ दिखेंगे।','No chapter read yet. Chapters you read will appear here.')}</div>`}
     </div>
 
 
 
     <div class="stat-row reveal">
-      <div class="stat-card fire"><div class="v">🔥 ${s.streak}</div><div class="l">Streak</div></div>
-      <div class="stat-card star"><div class="v">⭐ ${s.xp}</div><div class="l">XP</div></div>
-      <div class="stat-card book"><div class="v">📚 ${BOOKS.filter(b=>b.owned).length}</div><div class="l">Books</div></div>
+      <div class="stat-card fire"><div class="v">🔥 ${s.streak}</div><div class="l">${L('लगातार दिन','Streak')}</div></div>
+      <div class="stat-card star"><div class="v">⭐ ${s.xp}</div><div class="l">${L('अंक','XP')}</div></div>
+      <div class="stat-card book"><div class="v">📚 ${BOOKS.filter(b=>b.owned).length}</div><div class="l">${L('किताबें','Books')}</div></div>
     </div>`;
 
   bindFocusControls(v);
@@ -996,11 +999,11 @@ function renderDashboard(){
 }
 function makePromise(){ const opts=[25,45,60,90], cur=DB.promise&&DB.promise.date===addDays(1)?DB.promise.min:null;
   const next=opts[(opts.indexOf(cur)+1)%opts.length]; DB.promise={date:addDays(1),min:next}; saveState();
-  showReward(T(`वादा सेव हुआ: कल ${next} min`,`Promise saved: ${next} min tomorrow`)); renderDashboard(); }
+  showReward(T(`वादा सेव हुआ: कल ${next} मिनट`,`Promise saved: ${next} min tomorrow`)); renderDashboard(); }
 function startMission(){
   Sound.success(); fireConfetti(40);
   const ms=buildState().mission;
-  if(ms&&ms.x){ if(!STATE.focus.running) toggleFocus(); openBook(ms.x.b.id,ms.x.c.n); showReward(T('🎯 Mission शुरू! Focus timer चालू','🎯 Mission started! Focus timer on')); return; }
+  if(ms&&ms.x){ if(!STATE.focus.running) toggleFocus(); openBook(ms.x.b.id,ms.x.c.n); showReward(T('🎯 मिशन शुरू! फ़ोकस टाइमर चालू','🎯 Mission started! Focus timer on')); return; }
   if(ms){ switchView('ghost'); return; }
   const fb=BOOKS.find(x=>x.owned); if(fb){ openBook(fb.id,1); }
 }
@@ -1018,7 +1021,7 @@ function renderGhost(){
     <div class="ghost-item">
       <div class="ghost-icon">👻</div>
       <div class="ghost-info"><h3>${T(esc(f.name.hi),esc(f.name.en))}</h3><p>${f.retention}% ${T('बचा है (अनुमान)','retained (estimate)')} · ${T(f.nextReview.hi,f.nextReview.en)}</p></div>
-      <button class="btn small" onclick="openQuiz('${f.id}')">Catch</button>
+      <button class="btn small" onclick="openQuiz('${f.id}')">${L('पकड़ो','Catch')}</button>
     </div>`).join('');
 }
 async function questionFor(x){
@@ -1042,7 +1045,7 @@ async function openQuiz(id){
   document.getElementById('quizOptions').innerHTML='';
   document.getElementById('quizModal').classList.add('active');
   const q=await questionFor(g.x);
-  if(!q){ quizItem=null; document.getElementById('quizQuestion').innerHTML=T('इस अध्याय का सवाल अभी नहीं आ सका। अध्याय दोबारा पढ़कर revise करें।','No question available right now. Revise by reading the chapter again.');
+  if(!q){ quizItem=null; document.getElementById('quizQuestion').innerHTML=T('इस अध्याय का सवाल अभी नहीं आ सका। अध्याय दोबारा पढ़कर दोहराएँ।','No question available right now. Revise by reading the chapter again.');
     document.getElementById('quizOptions').innerHTML=`<button class="quiz-opt" onclick="document.getElementById('quizModal').classList.remove('active');openBook('${g.x.b.id}',${g.x.c.n})">📖 ${L('अध्याय खोलें','Open chapter')}</button>`; return; }
   quizItem={id,g,q};
   document.getElementById('quizQuestion').innerHTML=T(esc(q.qHi),esc(q.qEn));
@@ -1062,7 +1065,7 @@ function answerQuiz(i){
     saveState(); document.getElementById('quizOptions').insertAdjacentHTML('beforeend',exp);
     setTimeout(()=>{
       document.getElementById('quizModal').classList.remove('active');
-      renderGhost(); showReward(T('✅ भूत पकड़ा! +20 XP','✅ Ghost caught! +20 XP'));
+      renderGhost(); showReward(T('✅ भूत पकड़ा! +20 अंक','✅ Ghost caught! +20 XP'));
     },1400);
   } else {
     btns[i].classList.add('wrong'); if(btns[ans]) btns[ans].classList.add('correct'); Sound.tap(); saveState();
@@ -1074,19 +1077,19 @@ document.getElementById('quizClose').addEventListener('click',()=>{ document.get
 // ═══ MIRROR ═══
 function renderMirror(){
   const s=buildState(), total=s.studyTime+s.wasteTime||1;
-  document.getElementById('mirrorStudy').textContent=s.studyTime+'m';
-  document.getElementById('mirrorWaste').textContent=s.wasteTime+'m';
+  document.getElementById('mirrorStudy').textContent=Mm(s.studyTime);
+  document.getElementById('mirrorWaste').textContent=Mm(s.wasteTime);
   const days=[...Array(7)].map((_,i)=>{ const k=addDays(-6+i); return {k,m:dayStudyMin(k),w:dayIdleMin(k),tot:dayTotalMin(k)}; }), mx=Math.max(1,...days.map(x=>x.m));
   document.getElementById('mirrorList').innerHTML=`
     <div class="card">
-      <div class="head"><h3>📊 ${T('विस्तृत उपयोग','Detailed app usage')}</h3></div>
+      <div class="head"><h3>📊 ${T('समय का पूरा हिसाब','Detailed app usage')}</h3></div>
       <div class="sub">${T('आज का असली टाइम ट्रैक (इसी फ़ोन पर मापा गया)','Today’s real time track (measured on this phone)')}</div>
-      <div style="margin-bottom:10px"><div class="row"><span>${T('असली पढ़ाई (किताब + Focus Mode)','Real study (book + Focus Mode)')}</span><span>${s.studyTime}m</span></div><div class="bar"><i class="study" style="width:${(s.studyTime/total)*100}%"></i></div></div>
-      <div><div class="row"><span>${T('Idle समय (90 सेकंड से ज़्यादा कुछ नहीं छुआ)','Idle time (no touch for 90+ s)')}</span><span>${s.wasteTime}m</span></div><div class="bar"><i class="waste" style="width:${(s.wasteTime/total)*100}%"></i></div></div>
+      <div style="margin-bottom:10px"><div class="row"><span>${T('असली पढ़ाई (किताब + फ़ोकस मोड)','Real study (book + Focus Mode)')}</span><span>${M(s.studyTime)}</span></div><div class="bar"><i class="study" style="width:${(s.studyTime/total)*100}%"></i></div></div>
+      <div><div class="row"><span>${T('खाली समय (90 सेकंड से ज़्यादा कुछ नहीं छुआ)','Idle time (no touch for 90+ s)')}</span><span>${M(s.wasteTime)}</span></div><div class="bar"><i class="waste" style="width:${(s.wasteTime/total)*100}%"></i></div></div>
     </div>
     <div class="card" style="border-color:rgba(178,107,255,.3)">
       <div class="head"><h3>📅 ${T('पिछले 7 दिन','Last 7 days')}</h3></div>
-      ${days.map(x=>`<div style="margin-bottom:8px"><div class="row"><span>${x.k.slice(8)}/${x.k.slice(5,7)}</span><span>${x.m}m ${T('पढ़ाई','study')} · ${x.w}m idle</span></div><div class="bar"><i class="study" style="width:${(x.m/mx)*100}%"></i></div></div>`).join('')}
+      ${days.map(x=>`<div style="margin-bottom:8px"><div class="row"><span>${x.k.slice(8)}/${x.k.slice(5,7)}</span><span>${L(`${x.m} मि. पढ़ाई · ${x.w} मि. खाली`,`${x.m}m study · ${x.w}m idle`)}</span></div><div class="bar"><i class="study" style="width:${(x.m/mx)*100}%"></i></div></div>`).join('')}
       <div class="verdict">${(()=>{ const w=days.reduce((a,x)=>a+x.m,0), act=days.filter(x=>x.m>0).length; return T(`इस हफ़्ते <b>${w} मिनट</b> पढ़ाई, <b>${act}/7 दिन</b> पढ़े।`,`<b>${w} min</b> of study this week, on <b>${act}/7 days</b>.`); })()}</div>
     </div>`;
 }
@@ -1102,7 +1105,7 @@ function renderFormulas(){
   const q=LOWER(formulaQ.trim()), hit=f=>!q||[f.f,f.fe,...(f.t||[]),...(f.s||[]),...(f.u||[])].some(x=>LOWER(x||'').includes(q));
   const html=FORMULAS.map(({b,rows})=>rows.map(ch=>{ const list=(ch.formulas||[]).filter(hit); if(!list.length) return '';
     return `<div class="sec-title" style="margin-top:6px"><h2>${T(esc(ch.title_hi),esc(ch.title_en))}</h2><div class="count-pill">${list.length}</div></div>
-      ${list.map(f=>`<div class="card"><div class="head"><h3>${T(esc((f.t||[])[0]||''),esc((f.t||[])[1]||''))}</h3><span class="tag accent">${esc(b.title.en)} · ${ch.ch_no}</span></div>
+      ${list.map(f=>`<div class="card"><div class="head"><h3>${T(esc((f.t||[])[0]||''),esc((f.t||[])[1]||''))}</h3><span class="tag accent">${L(esc(b.title.hi),esc(b.title.en))} · ${ch.ch_no}</span></div>
         <div class="board-formula" style="font-size:18px;font-family:inherit">${T(esc(f.f||''),esc(f.fe||f.f||''))}</div>
         ${f.s?`<div class="sub" style="margin:6px 0">${T(esc(f.s[0]||''),esc(f.s[1]||''))}</div>`:''}
         ${f.u?`<div class="sub" style="margin:0">💡 ${T(esc(f.u[0]||''),esc(f.u[1]||''))}</div>`:''}
@@ -1131,19 +1134,18 @@ function renderFoundation(reload){
   document.getElementById('modeReader').classList.toggle('on',bookState.mode==='reader');
   document.getElementById('lecture-view').classList.add('hidden'); document.getElementById('reader-view').classList.add('hidden'); document.getElementById('readerNav').classList.add('hidden');
   const host=document.getElementById('foundationContent'); let f=bookFrame();
-  const lang=Settings.lang==='en'?'en':Settings.lang==='hi'?'hi':'both';
   if(reload||!f){
     if(f) f.remove();
     f=document.createElement('iframe'); f.title=b.title.en; f.setAttribute('allow','fullscreen');
     f.style.cssText='display:block;width:100%;height:100%;border:0;background:#0f172a';
-    f.src='book.html?'+new URLSearchParams({b:b.id,ch:bookState.ch,tab:readerTab(),lang});
+    f.src='book.html?'+new URLSearchParams({b:b.id,ch:bookState.ch,tab:readerTab()});   // study content keeps the book's own language buttons
     f.addEventListener('load',()=>{ try{ ['pointerdown','scroll','touchstart','keydown'].forEach(ev=>f.contentWindow.addEventListener(ev,()=>{ lastTouch=Date.now(); },{passive:true,capture:true})); }catch(e){} });
     host.appendChild(f); host.style.paddingBottom='0'; host.style.overflow='hidden';
   } else {
-    try{ const w=f.contentWindow; if(w.setLang) w.setLang(lang); if(w.switchTab) w.switchTab(readerTab()); }catch(e){}
+    try{ const w=f.contentWindow; if(w.switchTab) w.switchTab(readerTab()); }catch(e){}
   }
   bookState.tab=null;
-  document.getElementById('continueTitle').innerHTML=`${T(esc(b.title.hi),esc(b.title.en))} · Ch ${bookState.ch}`;
+  document.getElementById('continueTitle').innerHTML=`${L(esc(b.title.hi),esc(b.title.en))} · ${L('अध्याय','Ch')} ${bookState.ch}`;
 }
 function closeBookLayer(){ const L=document.getElementById('foundation-layer'); if(!L.classList.contains('active')) return;
   L.classList.remove('active'); const f=bookFrame(); if(f) f.remove(); saveState(); }
