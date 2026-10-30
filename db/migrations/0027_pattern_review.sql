@@ -1,3 +1,4 @@
+-- STATUS (2026-10-30 audit): NOT APPLIED to production. Depends on 0026 (mtb.pattern_candidates). Do not apply without owner decision.
 -- 0027 Pattern candidate review (additive only). NOT APPLIED: needs explicit live-database approval.
 -- Reviewing changes only mtb.pattern_candidates.status. It never writes mtb.questions.pattern_id.
 -- Promotion of approved candidates to live patterns is a separate, later migration.

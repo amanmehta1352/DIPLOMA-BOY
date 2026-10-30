@@ -1,3 +1,5 @@
+-- STATUS (2026-10-30 audit): APPLIED LIVE via SQL editor, not via the migration tool, so it has no row in supabase_migrations.
+-- Its effects exist (mtb.atoms.archived column). DO NOT RE-RUN.
 -- 0040 Fix + metadata backfill (applied live as the same statements).
 -- 1) Slug collision: topic slug 'strength-of-materials' exists on civil (410) and mechanical (439).
 --    The 0039 insert joined by slug and wrote mechanical SOM atoms onto civil 410.

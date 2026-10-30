@@ -1,3 +1,5 @@
+-- STATUS (2026-10-30 audit): NOT APPLIED to production. mtb.pattern_candidates and mtb.pattern_stage() do not exist in the DB.
+-- Do not apply without owner decision. Kept unchanged below.
 -- 0026 Pattern review gate (additive only: no DROP, no DELETE, no change to live pattern_id).
 -- New matches from group.py land here as pending_review. They do not touch mtb.questions until a reviewer approves them.
 -- Existing mtb.pattern_apply is left as it is for now.
