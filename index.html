@@ -365,7 +365,11 @@ body.lang-both .subtitle .en-part{display:block}
       <div class="settings-group-title">👤 <span class="hi-part">प्रोफ़ाइल</span><span class="en-part">Profile</span></div>
       <div class="toggle-row"><label for="profName"><span class="hi-part">नाम</span><span class="en-part">Name</span></label><input id="profName" type="text" maxlength="30" autocomplete="given-name" style="width:55%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:inherit"></div>
       <div class="toggle-row"><label for="profExam"><span class="hi-part">परीक्षा की तारीख़</span><span class="en-part">Exam date</span></label><input id="profExam" type="date" style="width:55%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:inherit"></div>
-      <div style="font-size:11.5px;color:var(--muted);padding:6px 2px 0"><span class="hi-part">आपकी पढ़ाई का हिसाब सिर्फ़ इसी फ़ोन पर रहता है।</span><span class="en-part">Your study record stays on this phone only.</span></div>
+      <div style="font-size:11.5px;color:var(--muted);padding:6px 2px 0"><span class="hi-part">नाम सिर्फ़ इसी फ़ोन पर रहता है, बैकअप में भी नहीं जाता।</span><span class="en-part">Your name stays on this phone only, even with backup on.</span></div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">☁️ <span class="hi-part">बैकअप</span><span class="en-part">Backup</span></div>
+      <div id="backupBox"></div>
     </div>
     <div class="settings-group">
       <div class="settings-group-title">📄 <span class="hi-part">जानकारी</span><span class="en-part">About</span></div>
@@ -663,7 +667,7 @@ function buildState(){
     :(due?{x:null,title:{hi:`${due} भूत पकड़ें (दोहराव)`,en:`Catch ${due} ghosts (revision)`},sub:{hi:'सारे अध्याय पढ़ लिए। अब दोहराने का समय।',en:'All chapters read. Time to revise.'},time:M(15),xpReward:20*due}:null);
   return STATE;
 }
-function saveState(){ try{ localStorage.setItem(DKEY,JSON.stringify(DB)); }catch(e){} }
+function saveState(){ try{ localStorage.setItem(DKEY,JSON.stringify(DB)); }catch(e){} BK.dirty=true; }
 function loadState(){ try{ const o=JSON.parse(localStorage.getItem(DKEY)||'null'); if(o) Object.assign(DB,o); }catch(e){} }
 
 /* ---- real time tracking: every 5 s, the visible section gets the seconds; 90 s without a touch = idle ---- */
@@ -733,7 +737,7 @@ settingsModal.addEventListener('click',e=>{ if(e.target===settingsModal) setting
 document.querySelectorAll('.theme-opt').forEach(b=>b.addEventListener('click',()=>{ Settings.theme=b.dataset.t; applySettings(); Settings.save(); Sound.chime(); }));
 document.querySelectorAll('.lang-opt').forEach(b=>b.addEventListener('click',()=>{ Settings.lang=b.dataset.lang; applySettings(); Settings.save(); Sound.tap(); rerenderAll(); }));
 document.querySelectorAll('[data-toggle]').forEach(t=>t.addEventListener('click',()=>{ Settings[t.dataset.toggle]=!Settings[t.dataset.toggle]; applySettings(); Settings.save(); Sound.tap(); }));
-function fillProfile(){ const n=document.getElementById('profName'), d=document.getElementById('profExam'); if(n) n.value=DB.name||''; if(d){ d.value=DB.examDate||''; d.min=ymd(); } }
+function fillProfile(){ const n=document.getElementById('profName'), d=document.getElementById('profExam'); if(n) n.value=DB.name||''; if(d){ d.value=DB.examDate||''; d.min=ymd(); }  renderBackup(); }
 document.getElementById('profName').addEventListener('change',e=>{ DB.name=e.target.value.trim().slice(0,30); saveState(); rerenderAll(); });
 document.getElementById('profExam').addEventListener('change',e=>{ DB.examDate=e.target.value||null; saveState(); rerenderAll(); });
 
@@ -1160,6 +1164,83 @@ document.getElementById('backToLib').addEventListener('click',()=>{
   currentView=''; switchView('library');
 });
 window.addEventListener('popstate',()=>{ if(document.getElementById('foundation-layer').classList.contains('active')){ closeBookLayer(); document.getElementById('bottomNavWrap').classList.remove('hidden'); currentView=''; switchView('library'); } });
+
+
+// ═══ CLOUD BACKUP (opt-in). A secret code on this phone; the server keeps only a hash of it.
+//     Server: mtb.progress_save / mtb.progress_load. The name never leaves the phone.
+const BK={dirty:false,busy:false,pending:null,restoreOpen:false,eraseAsk:false,msg:''};
+const BKEY=DKEY+'_backup';
+function bkGet(){ try{ return JSON.parse(localStorage.getItem(BKEY)||'null'); }catch(e){ return null; } }
+function bkSet(o){ try{ o?localStorage.setItem(BKEY,JSON.stringify(o)):localStorage.removeItem(BKEY); }catch(e){} }
+function bkNewCode(){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', b=new Uint8Array(20); crypto.getRandomValues(b);
+  return [...b].map(x=>A[x%32]).join('').replace(/(.{4})(?!$)/g,'$1-'); }
+function bkClean(c){ return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
+async function sbRpc(fn,body,keepalive){ const r=await fetch(SB.url+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:!!keepalive,
+    headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Profile':'mtb','Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>null); if(!r.ok) throw new Error((j&&j.message)||('HTTP '+r.status)); return j; }
+function bkPayload(){ const o=JSON.parse(JSON.stringify(DB)); delete o.name; o._v=4; return o; }
+function bkWhen(iso){ if(!iso) return L('कभी नहीं','never'); const m=Math.round((Date.now()-new Date(iso))/60000);
+  return m<1?L('अभी','just now'):m<60?L(`${m} मिनट पहले`,`${m} min ago`):m<1440?L(`${Math.round(m/60)} घंटे पहले`,`${Math.round(m/60)} h ago`):new Date(iso).toLocaleDateString(); }
+async function backupNow(silent,keepalive){
+  const b=bkGet(); if(!b||BK.busy||!navigator.onLine) return;
+  BK.busy=true; BK.dirty=false;
+  try{ const t=await sbRpc('progress_save',{p_code:b.code,p_data:bkPayload()},keepalive); b.last=t; bkSet(b); if(!silent){ BK.msg=''; showReward(T('☁️ बैकअप हो गया','☁️ Backed up')); } }
+  catch(e){ BK.dirty=true; if(!silent) BK.msg=L('बैकअप नहीं हुआ। इंटरनेट जाँचें।','Backup failed. Check your internet.'); }
+  BK.busy=false; renderBackup();
+}
+setInterval(()=>{ if(BK.dirty) backupNow(true); },5*60*1000);
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden'&&BK.dirty&&bkGet()) backupNow(true,true); });
+window.addEventListener('online',()=>{ if(BK.dirty) backupNow(true); });
+function renderBackup(){
+  const box=document.getElementById('backupBox'); if(!box) return; const b=bkGet();
+  const note=t=>`<div style="font-size:12px;color:var(--muted);padding:4px 2px 10px;line-height:1.5">${t}</div>`;
+  const btn=(a,t,cls)=>`<button class="btn ${cls||''}" data-bk="${a}" style="margin-bottom:8px">${t}</button>`;
+  let h='';
+  if(b){
+    h+=`<div class="toggle-row" style="flex-direction:column;align-items:stretch;gap:6px"><span style="font-size:11px;color:var(--muted)">${L('आपका बैकअप code (इसे कहीं लिखकर रखें)','Your backup code (write it down somewhere)')}</span>
+      <b id="bkCode" style="font-family:ui-monospace,monospace;font-size:16px;letter-spacing:1px!important;word-break:break-all;color:var(--accent)">${esc(b.code)}</b></div>`;
+    h+=note(L(`आख़िरी बैकअप: <b>${bkWhen(b.last)}</b>। बदलाव होने पर हर 5 मिनट में अपने-आप बैकअप होता है।`,`Last backup: <b>${bkWhen(b.last)}</b>. Changes are backed up automatically every 5 minutes.`));
+    h+=btn('copy',L('📋 code कॉपी करें','📋 Copy code'))+btn('now',BK.busy?L('बैकअप हो रहा है…','Backing up…'):L('☁️ अभी बैकअप लें','☁️ Back up now'),'primary');
+    h+=btn('off',L('बैकअप बंद करें (server की copy मिटाएँ)','Turn off backup (clear the server copy)'));
+  } else {
+    h+=note(L('बैकअप बंद है। चालू करने पर आपकी पढ़ाई का हिसाब (पढ़े अध्याय, समय, quiz) एक गुप्त code के साथ server पर सेव होगा, ताकि phone बदलने पर वापस मिल सके। नाम नहीं जाता।',
+      'Backup is off. When on, your study record (chapters read, time, quiz) is saved on the server under a secret code, so you can get it back on a new phone. Your name is not sent.'));
+    h+=btn('on',L('☁️ बैकअप चालू करें','☁️ Turn on backup'),'primary');
+  }
+  if(BK.restoreOpen){
+    h+=`<div class="toggle-row" style="flex-direction:column;align-items:stretch;gap:8px"><label for="bkInput" style="font-size:12px">${L('पुराने phone का बैकअप code डालें','Enter the backup code from your old phone')}</label>
+      <input id="bkInput" autocomplete="off" autocapitalize="characters" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" style="min-height:44px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:16px ui-monospace,monospace">
+      ${BK.pending?`<div style="font-size:12.5px;color:var(--yellow)">${L(`बैकअप मिला (${bkWhen(BK.pending.updated_at)})। इस phone का अभी का हिसाब इससे बदल जाएगा।`,`Backup found (${bkWhen(BK.pending.updated_at)}). The current record on this phone will be replaced.`)}</div>`+btn('apply',L('✓ हाँ, बैकअप लगाएँ','✓ Yes, restore it'),'primary'):btn('find',L('🔍 बैकअप खोजें','🔍 Find backup'),'primary')}
+    </div>`;
+  } else h+=btn('restore',L('📲 पुराने phone से हिसाब लाएँ','📲 Restore from an old phone'));
+  h+=BK.eraseAsk?btn('erase2',L('⚠️ पक्का? इस phone का सारा हिसाब मिट जाएगा','⚠️ Sure? All progress on this phone will be erased'),'danger'):btn('erase',L('🗑 इस phone की प्रगति मिटाएँ','🗑 Erase progress on this phone'));
+  if(BK.msg) h+=note(`<span style="color:var(--red)">${BK.msg}</span>`);
+  box.innerHTML=h;
+  box.querySelectorAll('[data-bk]').forEach(el=>el.addEventListener('click',()=>bkAction(el.dataset.bk)));
+}
+async function bkAction(a){
+  Sound.tap(); BK.msg='';
+  if(a==='on'){ bkSet({code:bkNewCode(),last:null}); BK.dirty=true; renderBackup(); return backupNow(false); }
+  if(a==='now') return backupNow(false);
+  if(a==='copy'){ const c=(bkGet()||{}).code; try{ await navigator.clipboard.writeText(c); showReward(T('📋 code कॉपी हुआ','📋 Code copied')); }
+    catch(e){ const r=document.createRange(), el=document.getElementById('bkCode'); r.selectNodeContents(el); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); } return; }
+  if(a==='off'){ const b=bkGet(); if(b){ try{ await sbRpc('progress_save',{p_code:b.code,p_data:{}}); }catch(e){ BK.msg=L('server की copy नहीं मिट सकी, इंटरनेट जाँचकर फिर कोशिश करें।','Could not clear the server copy; check your internet and try again.'); renderBackup(); return; } }
+    bkSet(null); BK.dirty=false; renderBackup(); showReward(T('बैकअप बंद, server की copy मिट गई','Backup off, server copy cleared')); return; }
+  if(a==='restore'){ BK.restoreOpen=true; BK.pending=null; renderBackup(); const i=document.getElementById('bkInput'); if(i) i.focus(); return; }
+  if(a==='find'){ const c=bkClean(document.getElementById('bkInput').value);
+    if(c.length<20){ BK.msg=L('code पूरा नहीं है (20 अक्षर)।','The code is incomplete (20 characters).'); renderBackup(); return; }
+    try{ const r=await sbRpc('progress_load',{p_code:c}); if(!r||!r.data||!Object.keys(r.data).length){ BK.msg=L('इस code का कोई बैकअप नहीं मिला।','No backup found for this code.'); }
+      else { BK.pending={code:c.replace(/(.{4})(?!$)/g,'$1-'),...r}; } }
+    catch(e){ BK.msg=L('बैकअप नहीं खुल सका। इंटरनेट जाँचें।','Could not load the backup. Check your internet.'); }
+    renderBackup(); if(BK.pending===null){ const i=document.getElementById('bkInput'); if(i) i.value=c; } return; }
+  if(a==='apply'&&BK.pending){ const name=DB.name, d=BK.pending.data; delete d._v;
+    for(const k of Object.keys(DB)) delete DB[k]; Object.assign(DB,{name:'',examDate:null,days:{},chapters:{},quiz:{},promise:null,lastBook:null,owned:{},opens:{}},d,{name});
+    bkSet({code:BK.pending.code,last:BK.pending.updated_at}); BK.pending=null; BK.restoreOpen=false; saveState(); BK.dirty=false;
+    await loadBooks(); rerenderAll(); renderBackup(); fireConfetti(60); showReward(T('✅ आपका हिसाब वापस आ गया','✅ Your progress is back')); return; }
+  if(a==='erase'){ BK.eraseAsk=true; renderBackup(); return; }
+  if(a==='erase2'){ for(const k of Object.keys(DB)) delete DB[k]; Object.assign(DB,{name:'',examDate:null,days:{},chapters:{},quiz:{},promise:null,lastBook:null,owned:{},opens:{}});
+    BK.eraseAsk=false; saveState(); BK.dirty=false; fillProfile(); await loadBooks(); rerenderAll(); renderBackup(); showReward(T('इस phone की प्रगति मिट गई','Progress on this phone erased')); return; }
+}
 
 // ═══ INIT ═══
 loadState();

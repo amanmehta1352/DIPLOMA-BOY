@@ -102,6 +102,27 @@ const check = (name, v) => (v ? ok : bad).push(name);
   check('only two interface languages', (await p.$$eval('.lang-opt', e => e.map(x => x.dataset.lang).join())) === 'hi,en');
   await p.screenshot({ path: path.join(SHOTS, 'v4-11-dashboard-english.png') });
 
+  // Cloud backup (server mocked: nothing is written to the real database during tests)
+  const store = {}; let saved = null;
+  await p.route('**/rest/v1/rpc/progress_save', async r => { const b = JSON.parse(r.request().postData()); saved = b; store[b.p_code.replace(/[^A-Z0-9]/gi, '').toUpperCase()] = b.p_data;
+    await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(new Date().toISOString()) }); });
+  await p.route('**/rest/v1/rpc/progress_load', async r => { const b = JSON.parse(r.request().postData()); const d = store[b.p_code];
+    await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(d ? { data: d, updated_at: new Date().toISOString() } : null) }); });
+  await p.click('#settingsBtn'); await p.waitForTimeout(400);
+  check('backup off by default', await p.isVisible('[data-bk=on]'));
+  await p.click('[data-bk=on]'); await p.waitForTimeout(800);
+  const code = (await p.textContent('#bkCode')).trim();
+  check('backup code shown (20 chars)', /^[A-Z2-9]{4}(-[A-Z2-9]{4}){4}$/.test(code));
+  check('backup sent without the name', !!saved && !('name' in saved.p_data) && !!saved.p_data.chapters['physics-baseline:1']);
+  await p.evaluate(() => document.getElementById('backupBox').scrollIntoView()); await p.waitForTimeout(300);
+  await p.screenshot({ path: path.join(SHOTS, 'v4-12-backup.png') });
+  await p.click('[data-bk=erase]'); await p.click('[data-bk=erase2]'); await p.waitForTimeout(600);
+  check('erase clears this phone', await p.evaluate(() => Object.keys(DB.chapters).length === 0 && DB.name === ''));
+  await p.click('[data-bk=restore]'); await p.fill('#bkInput', code.toLowerCase()); await p.click('[data-bk=find]'); await p.waitForTimeout(500);
+  await p.click('[data-bk=apply]'); await p.waitForTimeout(1200);
+  check('restore brings progress back', await p.evaluate(() => !!(DB.chapters['physics-baseline:1'] || {}).read && DB.quiz['physics-baseline:1'].c === 1));
+  await p.click('#settingsClose'); await p.waitForTimeout(300);
+
   // Old question bank never requested
   check('no question-bank requests', !reqs.some(u => /\/rest\/v1\/(atoms|questions|pyq|practice|mock|papers)/.test(u)));
   check('no horizontal overflow', !(await p.evaluate(() => document.documentElement.scrollWidth > innerWidth)));
