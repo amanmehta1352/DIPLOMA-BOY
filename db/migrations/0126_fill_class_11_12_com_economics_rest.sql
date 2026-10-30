@@ -1,0 +1,87 @@
+-- Migration 0126: class_11_12_com economics-com chapters 1100-1105 (6 x 4 = 24 atoms) — gap left after 0122
+with src as (
+  select v.chapter_id, v.level_id, v.atom_key, v.atom_type, v.atom_order, v.title, v.body::jsonb as body, v.subject_tag, v.exam_tags, v.class_tags, v.difficulty
+  from (values
+    (1100, 'class_11_12_com', 'eco-prod-concept', 'concept', 1, 'उत्पादन और लागत',
+     $j${"text":"उत्पादन फलन बताता है कि साधनों (श्रम, पूंजी) से कितना उत्पादन होता है। अल्पकाल में कुछ साधन स्थिर रहते हैं, इसलिए परिवर्ती अनुपात का नियम लागू होता है। लागतें स्थिर (TFC) और परिवर्ती (TVC) होती हैं।","note":"TC = TFC + TVC"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1100, 'class_11_12_com', 'eco-prod-formula', 'formula', 2, 'लागत सूत्र',
+     $j${"formula":"TC = TFC + TVC ; AC = TC ÷ Q ; MC = ΔTC ÷ ΔQ","explanation":"औसत लागत प्रति इकाई लागत है, सीमांत लागत एक अतिरिक्त इकाई की लागत"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1100, 'class_11_12_com', 'eco-prod-example', 'example', 3, 'उदाहरण',
+     $j${"question":"TFC = ₹100, 10 इकाइयों पर TVC = ₹200। AC कितनी?","solution":"TC = 100 + 200 = ₹300; AC = 300 ÷ 10 = ₹30","answer":"₹30"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1100, 'class_11_12_com', 'eco-prod-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"उत्पादन शून्य होने पर भी कौन सी लागत रहती है?","options":["परिवर्ती लागत","स्थिर लागत","सीमांत लागत","औसत परिवर्ती लागत"],"answer":1,"explanation":"स्थिर लागत उत्पादन शून्य होने पर भी लगती है।"},{"q":"सीमांत लागत का सूत्र?","options":["TC ÷ Q","ΔTC ÷ ΔQ","TFC ÷ Q","TR − TC"],"answer":1,"explanation":"MC = ΔTC ÷ ΔQ।"}]}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1101, 'class_11_12_com', 'eco-mkt-concept', 'concept', 1, 'बाज़ार के रूप',
+     $j${"text":"पूर्ण प्रतियोगिता में अनेक विक्रेता और समरूप वस्तु होती है, इसलिए फर्म कीमत स्वीकारक है। एकाधिकार में एक विक्रेता होता है। एकाधिकारी प्रतियोगिता में वस्तु विभेद और अल्पाधिकार में कुछ बड़े विक्रेता होते हैं।","note":"पूर्ण प्रतियोगिता → एकाधिकारी प्रतियोगिता → अल्पाधिकार → एकाधिकार"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1101, 'class_11_12_com', 'eco-mkt-formula', 'formula', 2, 'संतुलन शर्त',
+     $j${"formula":"लाभ अधिकतम: MR = MC (और MC बढ़ रही हो) ; पूर्ण प्रतियोगिता में P = AR = MR","explanation":"हर बाज़ार में फर्म MR = MC पर उत्पादन करती है"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1101, 'class_11_12_com', 'eco-mkt-example', 'example', 3, 'उदाहरण',
+     $j${"question":"पूर्ण प्रतियोगिता में कीमत ₹50 है। फर्म की MR कितनी होगी?","solution":"पूर्ण प्रतियोगिता में P = AR = MR, इसलिए MR = ₹50","answer":"₹50"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1101, 'class_11_12_com', 'eco-mkt-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"पूर्ण प्रतियोगिता में फर्म होती है?","options":["कीमत निर्धारक","कीमत स्वीकारक","एकाधिकारी","अल्पाधिकारी"],"answer":1,"explanation":"अनेक विक्रेता होने से फर्म बाज़ार कीमत स्वीकार करती है।"},{"q":"कुछ बड़े विक्रेताओं वाला बाज़ार?","options":["एकाधिकार","पूर्ण प्रतियोगिता","अल्पाधिकार","एकाधिकारी प्रतियोगिता"],"answer":2,"explanation":"अल्पाधिकार में कुछ बड़े विक्रेता होते हैं।"}]}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1102, 'class_11_12_com', 'eco-macro-concept', 'concept', 1, 'समष्टि अर्थशास्त्र का परिचय',
+     $j${"text":"समष्टि अर्थशास्त्र पूरी अर्थव्यवस्था का अध्ययन करता है — राष्ट्रीय आय, रोज़गार, सामान्य कीमत स्तर और आर्थिक वृद्धि। 1929 की महामंदी के बाद केन्स ने इसे प्रमुख रूप दिया।","note":"व्यष्टि = एक इकाई, समष्टि = पूरी अर्थव्यवस्था"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1102, 'class_11_12_com', 'eco-macro-formula', 'formula', 2, 'आय का चक्रीय प्रवाह',
+     $j${"formula":"दो-क्षेत्रीय मॉडल: Y = C + S (आय = उपभोग + बचत) ; संतुलन: S = I","explanation":"परिवार और फर्मों के बीच आय और व्यय का प्रवाह"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1102, 'class_11_12_com', 'eco-macro-example', 'example', 3, 'उदाहरण',
+     $j${"question":"आय ₹1,000 और उपभोग ₹800 है। बचत कितनी?","solution":"S = Y − C = 1,000 − 800 = ₹200","answer":"₹200"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1102, 'class_11_12_com', 'eco-macro-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"समष्टि अर्थशास्त्र किसका अध्ययन है?","options":["एक फर्म","एक उपभोक्ता","पूरी अर्थव्यवस्था","एक वस्तु की कीमत"],"answer":2,"explanation":"समष्टि अर्थशास्त्र पूरी अर्थव्यवस्था का अध्ययन है।"},{"q":"आधुनिक समष्टि अर्थशास्त्र के जनक?","options":["एडम स्मिथ","जे.एम. केन्स","मार्शल","रिकार्डो"],"answer":1,"explanation":"केन्स को आधुनिक समष्टि अर्थशास्त्र का जनक माना जाता है।"}]}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1103, 'class_11_12_com', 'eco-ni-concept', 'concept', 1, 'राष्ट्रीय आय लेखांकन',
+     $j${"text":"राष्ट्रीय आय एक वर्ष में देश के निवासियों द्वारा उत्पादित अंतिम वस्तुओं-सेवाओं का मूल्य है। इसे उत्पाद (मूल्य वर्धित), आय और व्यय विधि से मापा जाता है।","note":"केवल अंतिम वस्तुएँ गिनें — दोहरी गणना से बचें"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1103, 'class_11_12_com', 'eco-ni-formula', 'formula', 2, 'मुख्य समुच्चय',
+     $j${"formula":"GDP = C + I + G + (X − M) ; GNP = GDP + विदेश से शुद्ध साधन आय ; NDP = GDP − मूल्यह्रास","explanation":"व्यय विधि और प्रमुख आय समुच्चय"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1103, 'class_11_12_com', 'eco-ni-example', 'example', 3, 'उदाहरण',
+     $j${"question":"C = 500, I = 200, G = 150, X = 80, M = 30 (करोड़ ₹)। GDP?","solution":"GDP = 500 + 200 + 150 + (80 − 30) = 900 करोड़ ₹","answer":"₹900 करोड़"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1103, 'class_11_12_com', 'eco-ni-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"NDP निकालने के लिए GDP में से क्या घटाते हैं?","options":["कर","मूल्यह्रास","आयात","सब्सिडी"],"answer":1,"explanation":"NDP = GDP − मूल्यह्रास।"},{"q":"दोहरी गणना से बचने के लिए कौन सी विधि उपयोगी है?","options":["मूल्य वर्धित विधि","केवल बिक्री जोड़ना","कच्चे माल को जोड़ना","कोई नहीं"],"answer":0,"explanation":"मूल्य वर्धित विधि मध्यवर्ती वस्तुओं को दोबारा नहीं गिनती।"}]}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1104, 'class_11_12_com', 'eco-money-concept', 'concept', 1, 'मुद्रा और बैंकिंग',
+     $j${"text":"मुद्रा विनिमय का माध्यम, मूल्य का माप और मूल्य संचय का साधन है। व्यावसायिक बैंक जमा लेकर ऋण देते हैं और साख सृजन करते हैं। भारतीय रिज़र्व बैंक (RBI) केंद्रीय बैंक है जो मौद्रिक नीति चलाता है।","note":"RBI के उपकरण: रेपो दर, CRR, SLR, खुले बाज़ार की क्रियाएँ"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1104, 'class_11_12_com', 'eco-money-formula', 'formula', 2, 'मुद्रा गुणक',
+     $j${"formula":"मुद्रा (साख) गुणक = 1 ÷ LRR ; कुल साख = प्रारंभिक जमा × (1 ÷ LRR)","explanation":"LRR = कानूनी आरक्षित अनुपात"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1104, 'class_11_12_com', 'eco-money-example', 'example', 3, 'उदाहरण',
+     $j${"question":"प्रारंभिक जमा ₹10,000 और LRR = 20% है। कुल साख सृजन?","solution":"गुणक = 1 ÷ 0.2 = 5; कुल साख = 10,000 × 5 = ₹50,000","answer":"₹50,000"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1104, 'class_11_12_com', 'eco-money-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"रेपो दर बढ़ाने से साख पर क्या असर?","options":["साख बढ़ती है","साख घटती है","कोई असर नहीं","मुद्रा छपती है"],"answer":1,"explanation":"रेपो दर बढ़ने से बैंकों के लिए उधार महँगा होता है, साख घटती है।"},{"q":"LRR = 10% हो तो मुद्रा गुणक?","options":["5","10","20","1"],"answer":1,"explanation":"गुणक = 1 ÷ 0.1 = 10।"}]}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+
+    (1105, 'class_11_12_com', 'eco-budget-concept', 'concept', 1, 'सरकारी बजट',
+     $j${"text":"सरकारी बजट एक वित्तीय वर्ष की अनुमानित प्राप्तियों और व्यय का विवरण है। प्राप्तियाँ राजस्व (कर, गैर-कर) और पूंजीगत (उधार, विनिवेश) होती हैं। बजट घाटे से सरकार की उधार आवश्यकता पता चलती है।","note":"राजस्व बनाम पूंजीगत — प्राप्ति और व्यय दोनों में"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1105, 'class_11_12_com', 'eco-budget-formula', 'formula', 2, 'घाटे के माप',
+     $j${"formula":"राजस्व घाटा = राजस्व व्यय − राजस्व प्राप्ति ; राजकोषीय घाटा = कुल व्यय − (कुल प्राप्ति − उधार) ; प्राथमिक घाटा = राजकोषीय घाटा − ब्याज भुगतान","explanation":"तीन प्रमुख घाटे"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1105, 'class_11_12_com', 'eco-budget-example', 'example', 3, 'उदाहरण',
+     $j${"question":"राजकोषीय घाटा ₹500 करोड़ और ब्याज भुगतान ₹200 करोड़ है। प्राथमिक घाटा?","solution":"प्राथमिक घाटा = 500 − 200 = ₹300 करोड़","answer":"₹300 करोड़"}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium'),
+    (1105, 'class_11_12_com', 'eco-budget-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"कौन सी पूंजीगत प्राप्ति है?","options":["आयकर","GST","सरकारी उधार","लाभांश"],"answer":2,"explanation":"उधार देयता बनाता है, इसलिए पूंजीगत प्राप्ति है।"},{"q":"राजकोषीय घाटा किसका संकेत देता है?","options":["सरकार की कुल उधार आवश्यकता","केवल ब्याज","कर संग्रह","निर्यात"],"answer":0,"explanation":"राजकोषीय घाटा सरकार की कुल उधार आवश्यकता दर्शाता है।"}]}$j$,
+     'economics-com', array[]::text[], array['class_11','class_12']::text[], 'medium')
+  ) as v(chapter_id, level_id, atom_key, atom_type, atom_order, title, body, subject_tag, exam_tags, class_tags, difficulty)
+)
+insert into mtb.atoms (chapter_id, level_id, atom_key, atom_type, atom_order, title, body, lang, status, archived, exam_tags, class_tags, subject_tag, difficulty, content_hash)
+select s.chapter_id, s.level_id, s.atom_key, s.atom_type, s.atom_order, s.title, s.body, 'hi', 'published', false, s.exam_tags, s.class_tags, s.subject_tag, s.difficulty, md5(s.body::text)
+from src s
+on conflict do nothing;
