@@ -1,0 +1,12 @@
+question_id,stem_gist,proposed_subject,proposed_chapter_id,proposed_chapter,confidence,flag
+6105,Walking at reduced speed reaches office late (Hindi only),maths,9,"Speed, Time, Distance",medium,en stem empty; Hindi text garbled
+6148,Sex ratio as per Census 2011,general-awareness,418,Geography,medium,could be Static GK (422)
+6222,Walking at 2/3 speed reaches office late (Hindi only),maths,9,"Speed, Time, Distance",medium,en stem empty; Hindi text garbled
+6247,Walking speed and office time (Hindi only),maths,9,"Speed, Time, Distance",medium,en stem empty; Hindi text garbled
+6266,Gorakhnath Sharma vs State of Chhattisgarh case,general-awareness,416,Current Affairs,medium,could be Polity (421)
+6292,Ratio 5:1:7 with LCM 7595 - find HCF,maths,10,"Number System, LCM & HCF",high,Hindi ratio differs from English (5:4:?) - check
+6387,Digits of 6954381 rearranged in descending order,reasoning,423,Alphabet & Alphanumeric Series,low,no exact 'number arrangement' chapter
+6395,AMU vs Naresh Agarwal Supreme Court case (2024),general-awareness,416,Current Affairs,medium,could be Polity (421)
+6441,Girish Karnad's literary language,general-awareness,38,Art & Culture,medium,could be Static GK (422)
+6506,Curved surface of a solid cylinder (Hindi only),maths,13,Mensuration,medium,en stem empty; Hindi text garbled
+6516,Simplify sum of square roots (Hindi only + figure),maths,11,Simplification,medium,en stem empty; garbled; has figure
