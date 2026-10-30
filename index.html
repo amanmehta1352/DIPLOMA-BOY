@@ -318,7 +318,7 @@ body.lang-both .subtitle .en-part{display:block}
 .reader-nav{position:fixed;bottom:14px;left:12px;right:12px;display:flex;gap:8px;justify-content:center;z-index:150;pointer-events:none}
 .reader-nav button{pointer-events:auto;padding:10px 16px;border-radius:100px;background:#fff;border:2px solid #3b82f6;color:#3b82f6;font-size:14px;font-weight:700;cursor:pointer;min-width:52px}
 .reader-nav button:disabled{opacity:.35}
-/* Level-wise chapters (atoms from the server), drawn with the Dashboard's own board + sheet styles */
+/* Level picker + library selection */
 .qual-group{margin-bottom:18px}
 .qual-group h3{font-size:12px;color:var(--accent);font-weight:800;margin:0 0 8px;letter-spacing:.04em}
 .qual-item{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 12px;margin-bottom:6px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:14px;font-weight:700;text-align:left;cursor:pointer}
@@ -326,16 +326,6 @@ body.lang-both .subtitle .en-part{display:block}
 .qual-item small{font-size:11px;color:var(--muted);font-weight:600;white-space:nowrap}
 .lvl-chip{display:inline-flex;align-items:center;gap:6px;margin:10px 0 0;padding:6px 12px;border-radius:100px;border:1px solid var(--accent);color:var(--accent);background:rgba(255,255,255,.04);font-size:12px;font-weight:800;cursor:pointer}
 .app-icon.sel .visual{outline:3px solid var(--accent);outline-offset:3px}
-.bx-note{font-size:13.5px;color:#f4d35e;line-height:1.6;margin:6px 0 10px}
-.bx-ans{font-size:15px;color:#3dff9f;font-weight:700;margin:6px 0 4px}
-.atom-fig{background:#fff;border-radius:8px;padding:8px;margin:10px 0 4px;text-align:center}
-.atom-fig img{max-width:100%;height:auto;display:block;margin:0 auto}
-.atom-cap{font-size:12px;color:#8fb89c;text-align:center;margin-bottom:8px}
-.reader-container .atom-cap{color:#64748b}
-.reader-container .quiz-opt{color:#1e293b;background:#f8fafc;border-color:#cbd5e1}
-.reader-container .quiz-opt.correct{background:#dcfce7;border-color:#16a34a;color:#166534}
-.reader-container .quiz-opt.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
-.mcq-exp{font-size:13px;line-height:1.5;margin:4px 0 12px;opacity:.9}
 </style>
 </head>
 <body data-theme="cafefocus" class="lang-hi">
@@ -1276,7 +1266,6 @@ function openBook(id,ch,tab){
 function readerTab(){ return bookState.tab||(bookState.mode==='lecture'?'teach':'notes'); }
 function renderFoundation(reload){
   const b=BOOKS.find(x=>x.id===bookState.bookId); if(!b) return;
-  if(b.kind==='atoms') return renderAtomChapter(b);
   document.getElementById('modeLecture').classList.toggle('on',bookState.mode==='lecture');
   document.getElementById('modeReader').classList.toggle('on',bookState.mode==='reader');
   document.getElementById('lecture-view').classList.add('hidden'); document.getElementById('reader-view').classList.add('hidden'); document.getElementById('readerNav').classList.add('hidden');
@@ -1285,14 +1274,17 @@ function renderFoundation(reload){
     if(f) f.remove();
     f=document.createElement('iframe'); f.title=b.title.en; f.setAttribute('allow','fullscreen');
     f.style.cssText='display:block;width:100%;height:100%;border:0;background:#0f172a';
-    f.src='book.html?'+new URLSearchParams({b:b.id,ch:bookState.ch,tab:readerTab()});   // study content keeps the book's own language buttons
+    f.src=b.kind==='atoms'
+      ? 'level-book.html?'+new URLSearchParams({l:b.level,s:b.subject.slug,ch:bookState.ch,tab:readerTab(),ui:Settings.lang==='en'?'en':'hi',ln:L(qualLabel().hi,qualLabel().en)})   // every level's chapters, drawn like the Physics book
+      : 'book.html?'+new URLSearchParams({b:b.id,ch:bookState.ch,tab:readerTab()});   // study content keeps the book's own language buttons
     f.addEventListener('load',()=>{ try{ ['pointerdown','scroll','touchstart','keydown'].forEach(ev=>f.contentWindow.addEventListener(ev,()=>{ lastTouch=Date.now(); },{passive:true,capture:true})); }catch(e){} });
     host.appendChild(f); host.style.paddingBottom='0'; host.style.overflow='hidden';
   } else {
     try{ const w=f.contentWindow; if(w.switchTab) w.switchTab(readerTab()); }catch(e){}
   }
   bookState.tab=null;
-  document.getElementById('continueTitle').innerHTML=`${L(esc(b.title.hi),esc(b.title.en))} · ${L('अध्याय','Ch')} ${bookState.ch}`;
+  const cn=b.chapters.find(x=>x.n===bookState.ch);
+  document.getElementById('continueTitle').innerHTML=`${L(esc(b.title.hi),esc(b.title.en))} · ${L('अध्याय','Ch')} ${cn?cn.no:bookState.ch}`;
 }
 function closeBookLayer(){ const L=document.getElementById('foundation-layer'); if(!L.classList.contains('active')) return;
   L.classList.remove('active'); const f=bookFrame(); if(f) f.remove(); document.getElementById('readerNav').classList.add('hidden'); saveState(); }
@@ -1301,63 +1293,14 @@ function closeBookLayer(){ const L=document.getElementById('foundation-layer'); 
 const ATOMS={};
 async function chapterAtoms(ch){ const k=DB.level+':'+ch; if(ATOMS[k]) return ATOMS[k];
   const rows=await sbGet(`rpc/get_chapter_atoms?p_chapter=${+ch}&p_level=${encodeURIComponent(DB.level)}`); ATOMS[k]=Array.isArray(rows)?rows:[]; return ATOMS[k]; }
-const nl=t=>esc(t).replace(/\n/g,'<br>');
-function svgImg(svg){ return `<img alt="" loading="lazy" src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(String(svg||''))}">`; }
-function mcqHtml(a,ai,sheet){ const qs=((a.body||{}).questions||[]).filter(q=>Array.isArray(q.options)&&q.options.length);
-  return qs.map((q,qi)=>`<div class="mcq" data-a="${ai}" data-q="${qi}">
-    <div class="${sheet?'':'bx-hi'}" style="${sheet?'font-weight:700;margin:6px 0':''}">${qi+1}. ${nl(q.q)}</div>
-    ${q.options.map((o,oi)=>`<button class="quiz-opt" data-o="${oi}">${esc(o)}</button>`).join('')}
-    <div class="mcq-exp"></div></div>`).join(''); }
-async function renderAtomChapter(b){
-  const lec=bookState.mode==='lecture', host=document.getElementById('foundationContent');
-  const f=bookFrame(); if(f) f.remove(); host.style.paddingBottom=''; host.style.overflow='';
-  document.getElementById('modeLecture').classList.toggle('on',lec); document.getElementById('modeReader').classList.toggle('on',!lec);
-  const lv=document.getElementById('lecture-view'), rv=document.getElementById('reader-view'), nav=document.getElementById('readerNav');
-  lv.classList.toggle('hidden',!lec); rv.classList.toggle('hidden',lec); nav.classList.remove('hidden');
-  const ready=b.chapters.filter(avail), idx=ready.findIndex(c=>c.n===bookState.ch), c=ready[idx];
-  document.getElementById('rPrev').disabled=idx<=0; document.getElementById('rNext').disabled=idx<0||idx>=ready.length-1;
-  const target=lec?lv:rv; if(!c){ target.innerHTML=''; return; }
-  document.getElementById('continueTitle').innerHTML=`${L(esc(b.title.hi),esc(b.title.en))} · ${L('अध्याय','Ch')} ${c.no}`;
-  const head=L(qualLabel().hi,qualLabel().en)+' · '+L(b.title.hi,b.title.en)+' · '+L(`अध्याय ${c.no}`,`Chapter ${c.no}`);
-  target.innerHTML=lec?`<div class="board-frame"><div class="board-title">${T(esc(c.t.hi),esc(c.t.en))}</div><div class="board-dur">${esc(head)}</div><div class="bx-hi">${L('लोड हो रहा है…','Loading…')}</div></div>`
-    :`<div class="reader-container"><div class="sheet-title">${T(esc(c.t.hi),esc(c.t.en))}</div><div class="reader-indicator">${L('लोड हो रहा है…','Loading…')}</div></div>`;
-  host.scrollTop=0;
-  let atoms; try{ atoms=await chapterAtoms(c.n); }catch(e){ atoms=null; }
-  if(bookState.bookId!==b.id||bookState.ch!==c.n||(bookState.mode==='lecture')!==lec) return;   // user moved on meanwhile
-  if(!atoms){ target.innerHTML=`<div class="empty-note">${T('अध्याय नहीं खुल सका। इंटरनेट जाँचें।','Could not open the chapter. Check your internet.')}</div>`; return; }
-  const own=atoms.filter(a=>!a.shared), shared=atoms.filter(a=>a.shared);
-  const ICON={concept:['💡','समझो','Concept'],formula:['✏️','सूत्र','Formula'],example:['🧮','हल किया उदाहरण','Solved example'],mcq:['✅','खुद को जाँचें','Check yourself'],svg:['🖼️','चित्र','Diagram']};
-  const part=(a,ai)=>{ const bd=a.body||{}, ic=ICON[a.type]; if(!ic) return '';
-    const label=`${ic[0]} ${L(ic[1],ic[2])}${a.title&&a.type!=='mcq'?' · '+esc(a.title):''}`;
-    let body='';
-    if(a.type==='concept'){ if(!bd.text) return ''; body=lec?`<div class="bx-hi">${nl(bd.text)}</div>${bd.note?`<div class="bx-note">📌 ${nl(bd.note)}</div>`:''}`:`<p>${nl(bd.text)}</p>${bd.note?`<p style="color:#b45309;margin-top:8px">📌 ${nl(bd.note)}</p>`:''}`; }
-    if(a.type==='formula'){ if(!bd.formula) return ''; body=(lec?`<div class="board-formula" style="font-size:18px">${esc(bd.formula)}</div>`:`<div class="formula-box">${esc(bd.formula)}</div>`)+(bd.explanation?(lec?`<div class="bx-hi">${nl(bd.explanation)}</div>`:`<p>${nl(bd.explanation)}</p>`):''); }
-    if(a.type==='example'){ if(!bd.question) return ''; body=(lec?`<div class="bx-hi"><b>${L('सवाल','Question')}:</b> ${nl(bd.question)}</div>${bd.solution?`<div class="bx-hi"><b>${L('हल','Solution')}:</b> ${nl(bd.solution)}</div>`:''}`
-      :`<p><b>${L('सवाल','Question')}:</b> ${nl(bd.question)}</p>${bd.solution?`<p><b>${L('हल','Solution')}:</b> ${nl(bd.solution)}</p>`:''}`)+(bd.answer?`<div class="${lec?'bx-ans':''}" style="${lec?'':'font-weight:800;color:#166534;margin-top:6px'}">✔ ${L('उत्तर','Answer')}: ${nl(bd.answer)}</div>`:''); }
-    if(a.type==='svg'){ if(!bd.svg) return ''; body=`<div class="atom-fig">${svgImg(bd.svg)}</div>${bd.caption?`<div class="atom-cap">${esc(bd.caption)}</div>`:''}`; }
-    if(a.type==='mcq'){ body=mcqHtml(a,ai,!lec); if(!body) return ''; }
-    return lec?`<div class="board-sec-h">${label}</div>${body}`:`<div class="panel"><div class="panel-header">${label}</div><div class="panel-body">${body}</div></div>`; };
-  const order=['concept','svg','formula','example','mcq'], all=[...own,...shared];
-  const parts=order.flatMap(t=>all.map((a,ai)=>a.type===t?part(a,ai):'')).join('');
-  const foot=`${L(`अध्याय ${idx+1} / ${ready.length}`,`Chapter ${idx+1} / ${ready.length}`)}`;
-  target.innerHTML=lec?`<div class="board-frame"><div class="board-title">${T(esc(c.t.hi),esc(c.t.en))}</div><div class="board-dur">${esc(head)}</div>${parts||`<div class="bx-hi">${L('इस अध्याय में अभी सामग्री नहीं','No content in this chapter yet')}</div>`}<div class="board-dur" style="margin-top:14px;text-align:center">${foot}</div></div><div style="height:70px"></div>`
-    :`<div class="reader-container"><div class="sheet-title">${T(esc(c.t.hi),esc(c.t.en))}</div><div class="reader-indicator" style="padding-top:0">${esc(head)}</div>${parts||`<p>${L('इस अध्याय में अभी सामग्री नहीं','No content in this chapter yet')}</p>`}<div class="reader-indicator">${foot}</div></div><div style="height:70px"></div>`;
-  target.querySelectorAll('.mcq').forEach(box=>{ const a=all[+box.dataset.a], q=((a.body||{}).questions||[]).filter(x=>Array.isArray(x.options)&&x.options.length)[+box.dataset.q];
-    box.querySelectorAll('.quiz-opt').forEach(btn=>btn.addEventListener('click',()=>{ if(box.dataset.done) return; box.dataset.done='1';
-      const pick=+btn.dataset.o, ok=pick===q.answer, btns=[...box.querySelectorAll('.quiz-opt')];
-      btns.forEach(x=>x.disabled=true); btn.classList.add(ok?'correct':'wrong'); if(!ok&&btns[q.answer]) btns[q.answer].classList.add('correct');
-      box.querySelector('.mcq-exp').innerHTML=(ok?L('✔ सही!','✔ Correct!'):L('✘ गलत।','✘ Not quite.'))+(q.explanation?' '+nl(q.explanation):'');
-      const key=chKey(b.id,c.n), qz=DB.quiz[key]||(DB.quiz[key]={c:0,t:0}), d=dayRec(); qz.t++; d.qt=(d.qt||0)+1;
-      if(ok){ qz.c++; d.qc=(d.qc||0)+1; Sound.success(); const r=DB.chapters[key]; if(r&&r.read){ r.rev=(r.rev||0)+1; r.lastRev=Date.now(); } } else Sound.tap();
-      saveState(); })); });
-}
-function stepChapter(dir){ const b=BOOKS.find(x=>x.id===bookState.bookId); if(!b||b.kind!=='atoms') return;
-  const ready=b.chapters.filter(avail), i=ready.findIndex(c=>c.n===bookState.ch), n=ready[i+dir]; if(!n) return;
-  Sound.tap(); bookState.ch=n.n; DB.lastBook={b:b.id,ch:n.n}; saveState(); renderFoundation(); }
+window.__levelQuiz=(ch,ok)=>{   // check questions answered inside level-book.html
+  const key=chKey(bookState.bookId,ch), qz=DB.quiz[key]||(DB.quiz[key]={c:0,t:0}), d=dayRec(); qz.t++; d.qt=(d.qt||0)+1;
+  if(ok){ qz.c++; d.qc=(d.qc||0)+1; Sound.success(); const r=DB.chapters[key]; if(r&&r.read){ r.rev=(r.rev||0)+1; r.lastRev=Date.now(); } } else Sound.tap();
+  saveState(); };
 document.getElementById('modeLecture').addEventListener('click',()=>{ bookState.mode='lecture'; Sound.tap(); renderFoundation(); });
 document.getElementById('modeReader').addEventListener('click',()=>{ bookState.mode='reader'; Sound.tap(); renderFoundation(); });
-document.getElementById('rPrev').addEventListener('click',()=>stepChapter(-1));
-document.getElementById('rNext').addEventListener('click',()=>stepChapter(1));
+document.getElementById('rPrev').addEventListener('click',()=>{});
+document.getElementById('rNext').addEventListener('click',()=>{});
 document.getElementById('backToLib').addEventListener('click',()=>{
   Sound.tap(); closeBookLayer();
   document.getElementById('bottomNavWrap').classList.remove('hidden');
