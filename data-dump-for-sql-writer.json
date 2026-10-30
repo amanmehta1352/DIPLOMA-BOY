@@ -1,0 +1,3152 @@
+{
+  "meta": {
+    "generated_at_utc": "2026-10-30T06:41:38Z",
+    "project": "Supabase 'Diploma Boy' (ref wobmtlcpszcntczkebtt), schema mtb",
+    "repo_branch": "amanmehta1352/DIPLOMA-BOY @ content-fill-database",
+    "how_built": "Tables fetched live via PostgREST with the app's public key (RLS shows only status='published' rows). Schema/constraints/hidden rows read via SQL and embedded verbatim. Read-only: nothing was inserted or changed.",
+    "sections": [
+      "schema",
+      "constraints_you_must_respect",
+      "app_read_logic",
+      "content_levels",
+      "exams",
+      "recommended_exam_tags",
+      "subjects",
+      "chapters_to_fill",
+      "general_science",
+      "non_chapter_topics_do_not_use",
+      "atom_key_pattern",
+      "body_structures",
+      "sample_atoms_chapter_880_all_types",
+      "formula_examples_both_levels",
+      "shared_svg",
+      "atom_304",
+      "chapter_899",
+      "hidden_rows_key_collision_risk",
+      "insert_template_sql",
+      "summary"
+    ]
+  },
+  "schema": {
+    "table": "mtb.atoms",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "bigint",
+        "is_nullable": "NO",
+        "column_default": null,
+        "identity": "GENERATED ALWAYS AS IDENTITY (sequence mtb.atoms_id_seq)",
+        "note": "NEVER supply id in INSERT — GENERATED ALWAYS rejects it."
+      },
+      {
+        "column_name": "chapter_id",
+        "data_type": "integer",
+        "is_nullable": "NO",
+        "column_default": null,
+        "note": "FK -> mtb.topics(id). Use topics where is_chapter=true."
+      },
+      {
+        "column_name": "level_id",
+        "data_type": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "note": "FK -> mtb.content_levels(id). NULL = shared atom shown at every level."
+      },
+      {
+        "column_name": "atom_key",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "column_name": "atom_type",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "allowed": [
+          "concept",
+          "formula",
+          "example",
+          "mcq",
+          "svg"
+        ]
+      },
+      {
+        "column_name": "atom_order",
+        "data_type": "integer",
+        "is_nullable": "NO",
+        "column_default": "0"
+      },
+      {
+        "column_name": "title",
+        "data_type": "text",
+        "is_nullable": "YES",
+        "column_default": null
+      },
+      {
+        "column_name": "body",
+        "data_type": "jsonb",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "column_name": "lang",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": "'hi'::text",
+        "allowed": [
+          "hi",
+          "en",
+          "both"
+        ]
+      },
+      {
+        "column_name": "status",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": "'published'::text",
+        "allowed": [
+          "draft",
+          "published",
+          "hidden"
+        ]
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": "NO",
+        "column_default": "now()"
+      },
+      {
+        "column_name": "updated_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "note": "No trigger: NOT auto-updated on UPDATE. Set updated_at = now() yourself in UPDATE statements."
+      },
+      {
+        "column_name": "exam_tags",
+        "data_type": "text[]",
+        "is_nullable": "YES",
+        "column_default": null
+      },
+      {
+        "column_name": "class_tags",
+        "data_type": "text[]",
+        "is_nullable": "YES",
+        "column_default": null,
+        "note": "Existing data is inconsistent: 522 rows NULL, 51 rows '{}'. Use '{}'::text[] for new rows."
+      },
+      {
+        "column_name": "subject_tag",
+        "data_type": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "note": "Convention: the chapter's mtb.subjects.slug."
+      },
+      {
+        "column_name": "difficulty",
+        "data_type": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "allowed": [
+          "easy",
+          "medium",
+          "hard"
+        ]
+      },
+      {
+        "column_name": "content_hash",
+        "data_type": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "note": "Not auto-computed. Convention: md5(body::text)."
+      },
+      {
+        "column_name": "archived",
+        "data_type": "boolean",
+        "is_nullable": "YES",
+        "column_default": "false"
+      }
+    ],
+    "columns_that_do_NOT_exist": [
+      "is_shared (use level_id IS NULL)",
+      "content_level on atoms (use level_id)",
+      "status on mtb.topics",
+      "name on mtb.subjects/topics (use name_en / name_hi)"
+    ],
+    "constraints": [
+      {
+        "name": "atoms_pkey",
+        "type": "PRIMARY KEY",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "atoms_chapter_id_fkey",
+        "type": "FOREIGN KEY",
+        "definition": "FOREIGN KEY (chapter_id) REFERENCES mtb.topics(id)"
+      },
+      {
+        "name": "atoms_level_id_fkey",
+        "type": "FOREIGN KEY",
+        "definition": "FOREIGN KEY (level_id) REFERENCES mtb.content_levels(id)"
+      },
+      {
+        "name": "atoms_atom_type_check",
+        "type": "CHECK",
+        "definition": "CHECK ((atom_type = ANY (ARRAY['concept','formula','example','mcq','svg'])))"
+      },
+      {
+        "name": "atoms_difficulty_check",
+        "type": "CHECK",
+        "definition": "CHECK ((difficulty = ANY (ARRAY['easy','medium','hard'])))"
+      },
+      {
+        "name": "atoms_lang_check",
+        "type": "CHECK",
+        "definition": "CHECK ((lang = ANY (ARRAY['hi','en','both'])))"
+      },
+      {
+        "name": "atoms_status_check",
+        "type": "CHECK",
+        "definition": "CHECK ((status = ANY (ARRAY['draft','published','hidden'])))"
+      }
+    ],
+    "indexes": [
+      {
+        "indexname": "atoms_pkey",
+        "indexdef": "CREATE UNIQUE INDEX atoms_pkey ON mtb.atoms USING btree (id)"
+      },
+      {
+        "indexname": "atoms_one_per_level",
+        "indexdef": "CREATE UNIQUE INDEX atoms_one_per_level ON mtb.atoms USING btree (chapter_id, atom_key, COALESCE(level_id, '*'::text))"
+      },
+      {
+        "indexname": "atoms_chapter_level",
+        "indexdef": "CREATE INDEX atoms_chapter_level ON mtb.atoms USING btree (chapter_id, level_id, atom_order)"
+      }
+    ],
+    "triggers": [],
+    "enum_types": "none — all 'enums' are text + CHECK constraints (values listed per column)",
+    "rls": {
+      "enabled": true,
+      "policies": [
+        {
+          "policyname": "read_published_atoms",
+          "cmd": "SELECT",
+          "roles": [
+            "public"
+          ],
+          "qual": "(status = 'published'::text)",
+          "with_check": null
+        }
+      ],
+      "note": "No INSERT/UPDATE policy: the anon/publishable key cannot write. Migrations applied with the service/postgres role (Supabase apply_migration) bypass RLS."
+    },
+    "id_state_at_dump": {
+      "max_id": 583,
+      "sequence": "mtb.atoms_id_seq",
+      "last_value": 583,
+      "total_rows": 583,
+      "active_rows": 573,
+      "hidden_or_archived_rows": 10
+    }
+  },
+  "constraints_you_must_respect": [
+    "Do not put id in the column list (GENERATED ALWAYS).",
+    "Required on INSERT (NOT NULL, no default): chapter_id, atom_key, atom_type, body. atom_order defaults to 0 — always set it explicitly.",
+    "level_id must be one of content_levels.id or NULL (shared).",
+    "Uniqueness is (chapter_id, atom_key, COALESCE(level_id,'*')) and it INCLUDES hidden/archived rows. With ON CONFLICT DO NOTHING a colliding row is silently skipped — always verify counts after insert.",
+    "Chapter 410 (civil Strength of Materials) already holds hidden rows with keys som-concept/som-formula/som-example/som-mcq (govt_technical + govt_basic) and som-diagram (shared). Use a different prefix there (e.g. csom-*).",
+    "atom_order must be unique per (chapter_id, level_id) in practice (no DB constraint, but the app sorts by atom_order,id and the shared row at order 5 sits next to level rows 1-4). Shared SVG convention: atom_order 5.",
+    "Set BOTH status and archived consistently. The app's notes query filters only via RLS (status='published'); a row with archived=true but status='published' WOULD still be shown. To hide: status='hidden', archived=true.",
+    "content_hash is not computed by the DB: supply md5(body::text).",
+    "updated_at is not auto-updated: set updated_at = now() in UPDATE statements.",
+    "difficulty only easy|medium|hard. lang only hi|en|both (all current rows are 'hi').",
+    "Never JOIN on topics.slug: 'strength-of-materials' exists for both civil (410) and mechanical (439). Use explicit chapter_id."
+  ],
+  "app_read_logic": {
+    "source": "index.html (read only, not modified), lines ~323-384",
+    "chapter_has_notes_index": "atoms?select=chapter_id,level_id  -> per chapter a Set of (level_id || '*')",
+    "notes_fetch_for_one_chapter": "atoms?select=id,atom_key,atom_type,atom_order,title,body,level_id&chapter_id=eq.<chId>&or=(level_id.eq.<exam.content_level>,level_id.is.null)&order=atom_order,id",
+    "meaning": [
+      "Level comes from the selected exam's content_level (SSC JE / RRB JE -> govt_technical, NTPC -> govt_basic).",
+      "Shared atoms (level_id NULL) are shown at every level, merged with that level's rows, ordered by atom_order then id.",
+      "The app does NOT read exam_tags, class_tags, subject_tag, difficulty or content_hash — they are metadata only.",
+      "No atoms for the chapter+level -> the app shows '🔒 इस अध्याय के नोट्स जल्द आएँगे।'"
+    ]
+  },
+  "content_levels": [
+    {
+      "id": "class_6_8",
+      "name_en": "Class 6-8",
+      "name_hi": "कक्षा 6-8",
+      "depth": 1,
+      "covers": "School 6-8, NTSE stage 1",
+      "sort": 1
+    },
+    {
+      "id": "class_9_10",
+      "name_en": "Class 9-10",
+      "name_hi": "कक्षा 9-10",
+      "depth": 2,
+      "covers": "Board 9-10, NTSE, Olympiad foundation",
+      "sort": 2
+    },
+    {
+      "id": "class_11_12_sci",
+      "name_en": "Class 11-12 Science",
+      "name_hi": "कक्षा 11-12 विज्ञान",
+      "depth": 3,
+      "covers": "Board PCM/PCB",
+      "sort": 3
+    },
+    {
+      "id": "class_11_12_com",
+      "name_en": "Class 11-12 Commerce",
+      "name_hi": "कक्षा 11-12 कॉमर्स",
+      "depth": 3,
+      "covers": "Board Commerce",
+      "sort": 4
+    },
+    {
+      "id": "class_11_12_arts",
+      "name_en": "Class 11-12 Arts",
+      "name_hi": "कक्षा 11-12 कला",
+      "depth": 3,
+      "covers": "Board Arts",
+      "sort": 5
+    },
+    {
+      "id": "govt_basic",
+      "name_en": "Govt Basic",
+      "name_hi": "सरकारी (सामान्य)",
+      "depth": 2,
+      "covers": "SSC CGL/CHSL/MTS, RRB NTPC/Group D, police",
+      "sort": 6
+    },
+    {
+      "id": "govt_technical",
+      "name_en": "Govt Technical",
+      "name_hi": "सरकारी (तकनीकी)",
+      "depth": 3,
+      "covers": "SSC JE, RRB JE, ITI, diploma PSU",
+      "sort": 7
+    },
+    {
+      "id": "banking",
+      "name_en": "Banking",
+      "name_hi": "बैंकिंग",
+      "depth": 3,
+      "covers": "IBPS, SBI, RBI, NABARD",
+      "sort": 8
+    },
+    {
+      "id": "govt_defence",
+      "name_en": "Defence",
+      "name_hi": "रक्षा",
+      "depth": 3,
+      "covers": "NDA, CDS, AFCAT, Agniveer",
+      "sort": 9
+    },
+    {
+      "id": "state_psc",
+      "name_en": "State PSC",
+      "name_hi": "राज्य PSC",
+      "depth": 4,
+      "covers": "UPPSC, BPSC, MPSC, RPSC",
+      "sort": 10
+    },
+    {
+      "id": "upsc_civil",
+      "name_en": "UPSC Civil",
+      "name_hi": "UPSC सिविल",
+      "depth": 5,
+      "covers": "UPSC CSE, CAPF",
+      "sort": 11
+    },
+    {
+      "id": "medical",
+      "name_en": "Medical",
+      "name_hi": "मेडिकल",
+      "depth": 3,
+      "covers": "NEET, AIIMS, nursing",
+      "sort": 12
+    },
+    {
+      "id": "engineering",
+      "name_en": "Engineering",
+      "name_hi": "इंजीनियरिंग",
+      "depth": 4,
+      "covers": "JEE Main/Advanced, BITSAT, CETs",
+      "sort": 13
+    },
+    {
+      "id": "graduation_sci",
+      "name_en": "Graduation Science",
+      "name_hi": "स्नातक विज्ञान",
+      "depth": 4,
+      "covers": "B.Sc, B.Tech 1-2 year",
+      "sort": 14
+    },
+    {
+      "id": "graduation_com",
+      "name_en": "Graduation Commerce",
+      "name_hi": "स्नातक कॉमर्स",
+      "depth": 4,
+      "covers": "B.Com, BBA, CA Foundation",
+      "sort": 15
+    },
+    {
+      "id": "graduation_arts",
+      "name_en": "Graduation Arts",
+      "name_hi": "स्नातक कला",
+      "depth": 4,
+      "covers": "BA",
+      "sort": 16
+    },
+    {
+      "id": "advanced_research",
+      "name_en": "Advanced Research",
+      "name_hi": "उच्च शोध",
+      "depth": 6,
+      "covers": "GATE, CSIR/UGC NET, PhD",
+      "sort": 17
+    },
+    {
+      "id": "law_management",
+      "name_en": "Law / Management",
+      "name_hi": "कानून / प्रबंधन",
+      "depth": 5,
+      "covers": "CLAT, CAT, XAT, MAT",
+      "sort": 18
+    }
+  ],
+  "content_levels_note": "level_id is constrained by FK to this list. Only govt_technical and govt_basic are used by any exam today.",
+  "exams": {
+    "rrb-je-cbt1": {
+      "id": 1,
+      "content_level": "govt_technical",
+      "family": "rrb-je",
+      "stage": "CBT-1",
+      "pattern_sections": [
+        "maths",
+        "reasoning",
+        "general-science",
+        "general-awareness"
+      ],
+      "exam_sections": [
+        {
+          "slug": "maths",
+          "name_en": "Mathematics",
+          "questions": 30,
+          "subjects": [
+            "maths"
+          ]
+        },
+        {
+          "slug": "reasoning",
+          "name_en": "General Intelligence & Reasoning",
+          "questions": 25,
+          "subjects": [
+            "reasoning"
+          ]
+        },
+        {
+          "slug": "general-awareness",
+          "name_en": "General Awareness",
+          "questions": 15,
+          "subjects": [
+            "general-awareness"
+          ]
+        },
+        {
+          "slug": "general-science",
+          "name_en": "General Science",
+          "questions": 30,
+          "subjects": [
+            "general-science"
+          ]
+        }
+      ],
+      "branches": [
+        "mechanical",
+        "civil",
+        "electrical",
+        "electronics",
+        "computer"
+      ]
+    },
+    "ssc-je-paper1": {
+      "id": 2,
+      "content_level": "govt_technical",
+      "family": "ssc-je",
+      "stage": "Paper-I",
+      "pattern_sections": [
+        "reasoning",
+        "general-awareness",
+        "branch-engineering"
+      ],
+      "exam_sections": [
+        {
+          "slug": "reasoning",
+          "name_en": "General Intelligence & Reasoning",
+          "questions": 50,
+          "subjects": [
+            "reasoning"
+          ]
+        },
+        {
+          "slug": "general-awareness",
+          "name_en": "General Awareness",
+          "questions": 50,
+          "subjects": [
+            "general-awareness",
+            "general-science"
+          ]
+        },
+        {
+          "slug": "engineering",
+          "name_en": "Engineering (your branch)",
+          "questions": 100,
+          "subjects": [
+            "branch-engineering"
+          ]
+        }
+      ],
+      "branches": [
+        "mechanical",
+        "civil",
+        "electrical"
+      ]
+    },
+    "rrb-je-cbt2": {
+      "id": 3,
+      "content_level": "govt_technical",
+      "family": "rrb-je",
+      "stage": "CBT-2",
+      "pattern_sections": [
+        "general-awareness",
+        "general-science",
+        "computer-basics",
+        "environment",
+        "branch-engineering"
+      ],
+      "exam_sections": [
+        {
+          "slug": "general-awareness",
+          "name_en": "General Awareness",
+          "questions": 15,
+          "subjects": [
+            "general-awareness"
+          ]
+        },
+        {
+          "slug": "physics-chemistry",
+          "name_en": "Physics & Chemistry",
+          "questions": 15,
+          "subjects": [
+            "general-science"
+          ]
+        },
+        {
+          "slug": "computer-basics",
+          "name_en": "Basics of Computers",
+          "questions": 10,
+          "subjects": [
+            "computer-basics"
+          ]
+        },
+        {
+          "slug": "environment",
+          "name_en": "Environment & Pollution Control",
+          "questions": 10,
+          "subjects": [
+            "environment"
+          ]
+        },
+        {
+          "slug": "technical",
+          "name_en": "Technical abilities (your branch)",
+          "questions": 100,
+          "subjects": [
+            "branch-engineering"
+          ]
+        }
+      ],
+      "branches": [
+        "mechanical",
+        "civil",
+        "electrical",
+        "electronics",
+        "computer"
+      ]
+    },
+    "rrb-ntpc-graduate-cbt-1": {
+      "id": 6,
+      "content_level": "govt_basic",
+      "family": "rrb-ntpc",
+      "stage": "Graduate CBT-1",
+      "pattern_sections": [
+        "general-awareness",
+        "maths",
+        "reasoning"
+      ],
+      "exam_sections": [
+        {
+          "slug": "general-awareness",
+          "name_en": "General Awareness",
+          "questions": 40,
+          "subjects": [
+            "general-awareness",
+            "general-science"
+          ]
+        },
+        {
+          "slug": "maths",
+          "name_en": "Mathematics",
+          "questions": 30,
+          "subjects": [
+            "maths"
+          ]
+        },
+        {
+          "slug": "reasoning",
+          "name_en": "General Intelligence & Reasoning",
+          "questions": 30,
+          "subjects": [
+            "reasoning"
+          ]
+        }
+      ],
+      "branches": []
+    },
+    "rrb-ntpc-graduate-cbt-2": {
+      "id": 7,
+      "content_level": "govt_basic",
+      "family": "rrb-ntpc",
+      "stage": "Graduate CBT-2",
+      "pattern_sections": [
+        "general-awareness",
+        "maths",
+        "reasoning"
+      ],
+      "exam_sections": [
+        {
+          "slug": "general-awareness",
+          "name_en": "General Awareness",
+          "questions": 50,
+          "subjects": [
+            "general-awareness",
+            "general-science"
+          ]
+        },
+        {
+          "slug": "maths",
+          "name_en": "Mathematics",
+          "questions": 35,
+          "subjects": [
+            "maths"
+          ]
+        },
+        {
+          "slug": "reasoning",
+          "name_en": "General Intelligence & Reasoning",
+          "questions": 35,
+          "subjects": [
+            "reasoning"
+          ]
+        }
+      ],
+      "branches": []
+    },
+    "rrb-ntpc-ug-cbt-1": {
+      "id": 8,
+      "content_level": "govt_basic",
+      "family": "rrb-ntpc",
+      "stage": "UG CBT-1",
+      "pattern_sections": [
+        "general-awareness",
+        "maths",
+        "reasoning"
+      ],
+      "exam_sections": [
+        {
+          "slug": "general-awareness",
+          "name_en": "General Awareness",
+          "questions": 40,
+          "subjects": [
+            "general-awareness",
+            "general-science"
+          ]
+        },
+        {
+          "slug": "maths",
+          "name_en": "Mathematics",
+          "questions": 30,
+          "subjects": [
+            "maths"
+          ]
+        },
+        {
+          "slug": "reasoning",
+          "name_en": "General Intelligence & Reasoning",
+          "questions": 30,
+          "subjects": [
+            "reasoning"
+          ]
+        }
+      ],
+      "branches": []
+    },
+    "rrb-ntpc-ug-cbt-2": {
+      "id": 9,
+      "content_level": "govt_basic",
+      "family": "rrb-ntpc",
+      "stage": "UG CBT-2",
+      "pattern_sections": [
+        "general-awareness",
+        "maths",
+        "reasoning"
+      ],
+      "exam_sections": [
+        {
+          "slug": "general-awareness",
+          "name_en": "General Awareness",
+          "questions": 50,
+          "subjects": [
+            "general-awareness",
+            "general-science"
+          ]
+        },
+        {
+          "slug": "maths",
+          "name_en": "Mathematics",
+          "questions": 35,
+          "subjects": [
+            "maths"
+          ]
+        },
+        {
+          "slug": "reasoning",
+          "name_en": "General Intelligence & Reasoning",
+          "questions": 35,
+          "subjects": [
+            "reasoning"
+          ]
+        }
+      ],
+      "branches": []
+    }
+  },
+  "exams_note": "There is no separate exam->subject table besides mtb.exam_sections.subjects. 'branch-engineering' resolves to the student's branch via mtb.exam_branches + mtb.subjects.branch_id (mechanical=1, civil=2, electrical=3; electronics=4 and computer=5 have NO subjects). NOTE: the GA section of SSC JE and all 4 NTPC exams includes general-science.",
+  "recommended_exam_tags": {
+    "civil-engineering|govt_technical": [
+      "rrb-je-cbt2",
+      "ssc-je-paper1"
+    ],
+    "computer-basics|govt_technical": [
+      "rrb-je-cbt2"
+    ],
+    "electrical-engineering|govt_technical": [
+      "rrb-je-cbt2",
+      "ssc-je-paper1"
+    ],
+    "environment|govt_technical": [
+      "rrb-je-cbt2"
+    ],
+    "general-awareness|govt_basic": [
+      "rrb-ntpc-graduate-cbt-1",
+      "rrb-ntpc-graduate-cbt-2",
+      "rrb-ntpc-ug-cbt-1",
+      "rrb-ntpc-ug-cbt-2"
+    ],
+    "general-awareness|govt_technical": [
+      "rrb-je-cbt1",
+      "rrb-je-cbt2",
+      "ssc-je-paper1"
+    ],
+    "general-science|govt_basic": [
+      "rrb-ntpc-graduate-cbt-1",
+      "rrb-ntpc-graduate-cbt-2",
+      "rrb-ntpc-ug-cbt-1",
+      "rrb-ntpc-ug-cbt-2"
+    ],
+    "general-science|govt_technical": [
+      "rrb-je-cbt1",
+      "rrb-je-cbt2",
+      "ssc-je-paper1"
+    ],
+    "maths|govt_basic": [
+      "rrb-ntpc-graduate-cbt-1",
+      "rrb-ntpc-graduate-cbt-2",
+      "rrb-ntpc-ug-cbt-1",
+      "rrb-ntpc-ug-cbt-2"
+    ],
+    "maths|govt_technical": [
+      "rrb-je-cbt1"
+    ],
+    "mechanical-engineering|govt_technical": [
+      "rrb-je-cbt2",
+      "ssc-je-paper1"
+    ],
+    "reasoning|govt_basic": [
+      "rrb-ntpc-graduate-cbt-1",
+      "rrb-ntpc-graduate-cbt-2",
+      "rrb-ntpc-ug-cbt-1",
+      "rrb-ntpc-ug-cbt-2"
+    ],
+    "reasoning|govt_technical": [
+      "rrb-je-cbt1",
+      "ssc-je-paper1"
+    ]
+  },
+  "recommended_exam_tags_note": "Derived from exam_sections (key = '<subject_slug>|<level>'). Existing rows tagged all govt_technical atoms with all 3 JE exams, which over-tags (e.g. maths is only in RRB JE CBT-1; branch engineering is not in RRB JE CBT-1). The app ignores exam_tags, so this is data hygiene only.",
+  "subjects": [
+    {
+      "id": 1,
+      "slug": "maths",
+      "name_en": "Mathematics",
+      "name_hi": "गणित",
+      "branch_id": null
+    },
+    {
+      "id": 2,
+      "slug": "reasoning",
+      "name_en": "Reasoning",
+      "name_hi": "रीज़निंग",
+      "branch_id": null
+    },
+    {
+      "id": 3,
+      "slug": "general-science",
+      "name_en": "General Science",
+      "name_hi": "सामान्य विज्ञान",
+      "branch_id": null
+    },
+    {
+      "id": 4,
+      "slug": "general-awareness",
+      "name_en": "General Awareness",
+      "name_hi": "सामान्य जागरूकता",
+      "branch_id": null
+    },
+    {
+      "id": 5,
+      "slug": "civil-engineering",
+      "name_en": "Civil Engineering",
+      "name_hi": "सिविल इंजीनियरिंग",
+      "branch_id": 2
+    },
+    {
+      "id": 6,
+      "slug": "mechanical-engineering",
+      "name_en": "Mechanical Engineering",
+      "name_hi": "मैकेनिकल इंजीनियरिंग",
+      "branch_id": 1
+    },
+    {
+      "id": 7,
+      "slug": "electrical-engineering",
+      "name_en": "Electrical Engineering",
+      "name_hi": "इलेक्ट्रिकल इंजीनियरिंग",
+      "branch_id": 3
+    },
+    {
+      "id": 8,
+      "slug": "computer-basics",
+      "name_en": "Basics of Computers",
+      "name_hi": "कंप्यूटर की बुनियादी बातें",
+      "branch_id": null
+    },
+    {
+      "id": 9,
+      "slug": "environment",
+      "name_en": "Environment & Pollution Control",
+      "name_hi": "पर्यावरण और प्रदूषण नियंत्रण",
+      "branch_id": null
+    },
+    {
+      "id": 14,
+      "slug": "part-a-general-engineering-civil-structural",
+      "name_en": "Part A General Engineering Civil & Structural",
+      "name_hi": "Part A General Engineering Civil & Structural",
+      "branch_id": null
+    },
+    {
+      "id": 15,
+      "slug": "ntpc-mixed",
+      "name_en": "NTPC (subject to be tagged)",
+      "name_hi": "NTPC (विषय टैग बाकी)",
+      "branch_id": null
+    }
+  ],
+  "chapters_to_fill": {
+    "maths": [
+      {
+        "id": 1,
+        "slug": "pct",
+        "name_en": "Percentage",
+        "name_hi": "प्रतिशत",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {
+          "banking": 5
+        }
+      },
+      {
+        "id": 2,
+        "slug": "pl",
+        "name_en": "Profit, Loss, Discount",
+        "name_hi": "लाभ-हानि, छूट",
+        "unit_en": null,
+        "sort": 1,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 3,
+        "slug": "si",
+        "name_en": "Simple & Compound Interest",
+        "name_hi": "साधारण व चक्रवृद्धि ब्याज",
+        "unit_en": null,
+        "sort": 2,
+        "active_atoms_by_level": {
+          "graduation_com": 4
+        }
+      },
+      {
+        "id": 4,
+        "slug": "ratio",
+        "name_en": "Ratio & Proportion",
+        "name_hi": "अनुपात, समानुपात, साझेदारी",
+        "unit_en": null,
+        "sort": 3,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 5,
+        "slug": "avg",
+        "name_en": "Average",
+        "name_hi": "औसत",
+        "unit_en": null,
+        "sort": 4,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 6,
+        "slug": "age",
+        "name_en": "Ages",
+        "name_hi": "आयु",
+        "unit_en": null,
+        "sort": 5,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 7,
+        "slug": "mix",
+        "name_en": "Mixture & Alligation",
+        "name_hi": "मिश्रण (एलीगेशन)",
+        "unit_en": null,
+        "sort": 6,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 8,
+        "slug": "tw",
+        "name_en": "Time & Work, Pipes",
+        "name_hi": "समय और कार्य, पाइप",
+        "unit_en": null,
+        "sort": 7,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 9,
+        "slug": "tsd",
+        "name_en": "Speed, Time, Distance",
+        "name_hi": "चाल, समय, दूरी, ट्रेन, नाव",
+        "unit_en": null,
+        "sort": 8,
+        "active_atoms_by_level": {
+          "govt_defence": 5
+        }
+      },
+      {
+        "id": 10,
+        "slug": "num",
+        "name_en": "Number System, LCM & HCF",
+        "name_hi": "संख्या पद्धति, LCM-HCF",
+        "unit_en": null,
+        "sort": 9,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 11,
+        "slug": "simp",
+        "name_en": "Simplification",
+        "name_hi": "सरलीकरण",
+        "unit_en": null,
+        "sort": 10,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 12,
+        "slug": "alg",
+        "name_en": "Algebra",
+        "name_hi": "बीजगणित",
+        "unit_en": null,
+        "sort": 11,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 13,
+        "slug": "mens",
+        "name_en": "Mensuration",
+        "name_hi": "क्षेत्रमिति",
+        "unit_en": null,
+        "sort": 12,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 14,
+        "slug": "geo",
+        "name_en": "Geometry",
+        "name_hi": "ज्यामिति",
+        "unit_en": null,
+        "sort": 13,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 15,
+        "slug": "trig",
+        "name_en": "Trigonometry",
+        "name_hi": "त्रिकोणमिति",
+        "unit_en": null,
+        "sort": 14,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 16,
+        "slug": "stat",
+        "name_en": "Statistics",
+        "name_hi": "सांख्यिकी (माध्य, माध्यिका, बहुलक)",
+        "unit_en": null,
+        "sort": 15,
+        "active_atoms_by_level": {}
+      }
+    ],
+    "reasoning": [
+      {
+        "id": 423,
+        "slug": "alphabet-word-order",
+        "name_en": "Alphabet & Alphanumeric Series",
+        "name_hi": "वर्णमाला और अक्षर-अंक श्रृंखला",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 425,
+        "slug": "blood-relation",
+        "name_en": "Blood Relation",
+        "name_hi": "रक्त संबंध",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 426,
+        "slug": "coding-decoding",
+        "name_en": "Coding-Decoding",
+        "name_hi": "कूट-लेखन",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 427,
+        "slug": "direction-sense",
+        "name_en": "Direction Sense",
+        "name_hi": "दिशा ज्ञान",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 428,
+        "slug": "mathematical-operations",
+        "name_en": "Mathematical Operations",
+        "name_hi": "गणितीय संक्रियाएँ",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 429,
+        "slug": "seating-arrangement-puzzle",
+        "name_en": "Seating Arrangement & Puzzle",
+        "name_hi": "बैठक व्यवस्था और पहेली",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 431,
+        "slug": "syllogism",
+        "name_en": "Syllogism",
+        "name_hi": "न्याय निगमन",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {
+          "law_management": 3
+        }
+      },
+      {
+        "id": 17,
+        "slug": "series",
+        "name_en": "Series",
+        "name_hi": "श्रृंखला",
+        "unit_en": null,
+        "sort": 16,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 18,
+        "slug": "analogy",
+        "name_en": "Analogy",
+        "name_hi": "सादृश्यता (Analogy)",
+        "unit_en": null,
+        "sort": 17,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 19,
+        "slug": "odd",
+        "name_en": "Odd One Out",
+        "name_hi": "विषम को चुनें",
+        "unit_en": null,
+        "sort": 18,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 27,
+        "slug": "venn",
+        "name_en": "Venn Diagram",
+        "name_hi": "वेन आरेख",
+        "unit_en": null,
+        "sort": 26,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 28,
+        "slug": "stmt",
+        "name_en": "Statements & Data Sufficiency",
+        "name_hi": "कथन, पर्याप्तता",
+        "unit_en": null,
+        "sort": 27,
+        "active_atoms_by_level": {}
+      }
+    ],
+    "general-awareness": [
+      {
+        "id": 415,
+        "slug": "computer",
+        "name_en": "Computer",
+        "name_hi": "कंप्यूटर",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 416,
+        "slug": "current-affairs",
+        "name_en": "Current Affairs",
+        "name_hi": "करंट अफेयर्स",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 417,
+        "slug": "economy",
+        "name_en": "Economy",
+        "name_hi": "अर्थव्यवस्था",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {
+          "class_11_12_com": 3
+        }
+      },
+      {
+        "id": 418,
+        "slug": "geography",
+        "name_en": "Geography",
+        "name_hi": "भूगोल",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {
+          "upsc_civil": 3
+        }
+      },
+      {
+        "id": 419,
+        "slug": "history",
+        "name_en": "History",
+        "name_hi": "इतिहास",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {
+          "class_11_12_arts": 3
+        }
+      },
+      {
+        "id": 421,
+        "slug": "polity",
+        "name_en": "Polity",
+        "name_hi": "राजव्यवस्था",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {
+          "state_psc": 3
+        }
+      },
+      {
+        "id": 422,
+        "slug": "static-gk",
+        "name_en": "Static GK",
+        "name_hi": "स्थिर सामान्य ज्ञान",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 38,
+        "slug": "cult",
+        "name_en": "Art & Culture",
+        "name_hi": "कला-संस्कृति",
+        "unit_en": null,
+        "sort": 37,
+        "active_atoms_by_level": {
+          "graduation_arts": 3
+        }
+      },
+      {
+        "id": 40,
+        "slug": "sci",
+        "name_en": "Science & Technology",
+        "name_hi": "विज्ञान और प्रौद्योगिकी",
+        "unit_en": null,
+        "sort": 39,
+        "active_atoms_by_level": {}
+      }
+    ],
+    "civil-engineering": [
+      {
+        "id": 401,
+        "slug": "building-materials",
+        "name_en": "Building Materials",
+        "name_hi": "निर्माण सामग्री",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 402,
+        "slug": "concrete-technology",
+        "name_en": "Concrete Technology",
+        "name_hi": "कंक्रीट प्रौद्योगिकी",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 403,
+        "slug": "environmental-engineering",
+        "name_en": "Environmental Engineering",
+        "name_hi": "पर्यावरण इंजीनियरिंग",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 404,
+        "slug": "estimating-costing",
+        "name_en": "Estimating & Costing",
+        "name_hi": "आकलन और लागत",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 405,
+        "slug": "fluid-mechanics-hydraulics",
+        "name_en": "Fluid Mechanics & Hydraulics",
+        "name_hi": "द्रव यांत्रिकी और हाइड्रोलिक्स",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 406,
+        "slug": "irrigation-hydrology",
+        "name_en": "Irrigation & Hydrology",
+        "name_hi": "सिंचाई और जल विज्ञान",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 407,
+        "slug": "rcc-design",
+        "name_en": "RCC Design",
+        "name_hi": "आरसीसी डिज़ाइन",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 408,
+        "slug": "soil-mechanics",
+        "name_en": "Soil Mechanics",
+        "name_hi": "मृदा यांत्रिकी",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 409,
+        "slug": "steel-structures",
+        "name_en": "Steel Structures",
+        "name_hi": "स्टील संरचनाएँ",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 410,
+        "slug": "strength-of-materials",
+        "name_en": "Strength of Materials",
+        "name_hi": "पदार्थों की सामर्थ्य",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 411,
+        "slug": "surveying",
+        "name_en": "Surveying",
+        "name_hi": "सर्वेक्षण",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 412,
+        "slug": "transportation-engineering",
+        "name_en": "Transportation Engineering",
+        "name_hi": "परिवहन इंजीनियरिंग",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      }
+    ],
+    "electrical-engineering": [
+      {
+        "id": 442,
+        "slug": "basic-electrical-circuits",
+        "name_en": "Basic Electrical & Circuits",
+        "name_hi": "मूल विद्युत और परिपथ",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 443,
+        "slug": "basic-electronics",
+        "name_en": "Basic Electronics",
+        "name_hi": "मूल इलेक्ट्रॉनिक्स",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 444,
+        "slug": "electrical-machines",
+        "name_en": "Electrical Machines",
+        "name_hi": "विद्युत मशीनें",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 445,
+        "slug": "measurements-instruments",
+        "name_en": "Measurements & Instruments",
+        "name_hi": "मापन और यंत्र",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 446,
+        "slug": "power-systems",
+        "name_en": "Power Systems",
+        "name_hi": "पावर सिस्टम",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 447,
+        "slug": "utilisation-estimation",
+        "name_en": "Utilisation & Estimation",
+        "name_hi": "उपयोग और आकलन",
+        "unit_en": null,
+        "sort": 0,
+        "active_atoms_by_level": {}
+      }
+    ]
+  },
+  "chapters_to_fill_note": "All of these have 0 govt_technical / govt_basic atoms. The few existing counts are starter-level atoms (banking, upsc_civil, …) that NTPC/JE students never see.",
+  "general_science": {
+    "all_chapters": [
+      {
+        "id": 870,
+        "slug": "phy-measurement",
+        "name_en": "Measurement & Units",
+        "name_hi": "माप और मात्रक",
+        "unit_en": "Physics",
+        "sort": 0,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1,
+          "class_6_8": 3
+        }
+      },
+      {
+        "id": 871,
+        "slug": "phy-motion",
+        "name_en": "Motion",
+        "name_hi": "गति",
+        "unit_en": "Physics",
+        "sort": 1,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "shared": 1,
+          "govt_basic": 4,
+          "class_9_10": 4
+        }
+      },
+      {
+        "id": 872,
+        "slug": "phy-force",
+        "name_en": "Force & Laws of Motion",
+        "name_hi": "बल और गति के नियम",
+        "unit_en": "Physics",
+        "sort": 2,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "shared": 1,
+          "govt_basic": 4,
+          "engineering": 5
+        }
+      },
+      {
+        "id": 873,
+        "slug": "phy-work-energy",
+        "name_en": "Work, Energy & Power",
+        "name_hi": "कार्य, ऊर्जा और शक्ति",
+        "unit_en": "Physics",
+        "sort": 3,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "shared": 1,
+          "govt_basic": 4
+        }
+      },
+      {
+        "id": 874,
+        "slug": "phy-gravitation",
+        "name_en": "Gravitation",
+        "name_hi": "गुरुत्वाकर्षण",
+        "unit_en": "Physics",
+        "sort": 4,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 875,
+        "slug": "phy-pressure",
+        "name_en": "Pressure & Fluids",
+        "name_hi": "दाब और तरल",
+        "unit_en": "Physics",
+        "sort": 5,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 876,
+        "slug": "phy-heat",
+        "name_en": "Heat & Thermodynamics",
+        "name_hi": "ऊष्मा और ताप",
+        "unit_en": "Physics",
+        "sort": 6,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 877,
+        "slug": "phy-waves",
+        "name_en": "Waves",
+        "name_hi": "तरंगें",
+        "unit_en": "Physics",
+        "sort": 7,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 878,
+        "slug": "phy-sound",
+        "name_en": "Sound",
+        "name_hi": "ध्वनि",
+        "unit_en": "Physics",
+        "sort": 8,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 879,
+        "slug": "phy-light",
+        "name_en": "Light & Optics",
+        "name_hi": "प्रकाश",
+        "unit_en": "Physics",
+        "sort": 9,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 880,
+        "slug": "phy-electricity",
+        "name_en": "Electricity",
+        "name_hi": "विद्युत",
+        "unit_en": "Physics",
+        "sort": 10,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 881,
+        "slug": "phy-magnetism",
+        "name_en": "Magnetic Effects of Current",
+        "name_hi": "धारा के चुंबकीय प्रभाव",
+        "unit_en": "Physics",
+        "sort": 11,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 882,
+        "slug": "phy-modern",
+        "name_en": "Modern Physics & Radioactivity",
+        "name_hi": "आधुनिक भौतिकी और रेडियोधर्मिता",
+        "unit_en": "Physics",
+        "sort": 12,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 883,
+        "slug": "phy-machines",
+        "name_en": "Simple Machines",
+        "name_hi": "सरल मशीनें",
+        "unit_en": "Physics",
+        "sort": 13,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 884,
+        "slug": "phy-others",
+        "name_en": "Physics: Other",
+        "name_hi": "भौतिकी: अन्य",
+        "unit_en": "Physics",
+        "sort": 14,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 885,
+        "slug": "chem-matter",
+        "name_en": "Matter & Its States",
+        "name_hi": "पदार्थ और उसकी अवस्थाएँ",
+        "unit_en": "Chemistry",
+        "sort": 15,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 886,
+        "slug": "chem-atom",
+        "name_en": "Atomic Structure",
+        "name_hi": "परमाणु संरचना",
+        "unit_en": "Chemistry",
+        "sort": 16,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1,
+          "class_11_12_sci": 5
+        }
+      },
+      {
+        "id": 887,
+        "slug": "chem-periodic",
+        "name_en": "Periodic Table",
+        "name_hi": "आवर्त सारणी",
+        "unit_en": "Chemistry",
+        "sort": 17,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 888,
+        "slug": "chem-bonding",
+        "name_en": "Chemical Bonding",
+        "name_hi": "रासायनिक आबंधन",
+        "unit_en": "Chemistry",
+        "sort": 18,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 889,
+        "slug": "chem-reactions",
+        "name_en": "Chemical Reactions & Equations",
+        "name_hi": "रासायनिक अभिक्रियाएँ",
+        "unit_en": "Chemistry",
+        "sort": 19,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1,
+          "graduation_sci": 3
+        }
+      },
+      {
+        "id": 890,
+        "slug": "chem-redox",
+        "name_en": "Oxidation & Reduction",
+        "name_hi": "ऑक्सीकरण और अपचयन",
+        "unit_en": "Chemistry",
+        "sort": 20,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 891,
+        "slug": "chem-acids",
+        "name_en": "Acids, Bases & Salts",
+        "name_hi": "अम्ल, क्षार और लवण",
+        "unit_en": "Chemistry",
+        "sort": 21,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 892,
+        "slug": "chem-metals",
+        "name_en": "Metals & Non-metals",
+        "name_hi": "धातु और अधातु",
+        "unit_en": "Chemistry",
+        "sort": 22,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 893,
+        "slug": "chem-carbon",
+        "name_en": "Carbon & Its Compounds",
+        "name_hi": "कार्बन और उसके यौगिक",
+        "unit_en": "Chemistry",
+        "sort": 23,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 894,
+        "slug": "chem-solutions",
+        "name_en": "Solutions & Mixtures",
+        "name_hi": "विलयन और मिश्रण",
+        "unit_en": "Chemistry",
+        "sort": 24,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 895,
+        "slug": "chem-electro",
+        "name_en": "Electrochemistry",
+        "name_hi": "विद्युत रसायन",
+        "unit_en": "Chemistry",
+        "sort": 25,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 896,
+        "slug": "chem-fuels",
+        "name_en": "Fuels & Combustion",
+        "name_hi": "ईंधन और दहन",
+        "unit_en": "Chemistry",
+        "sort": 26,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 897,
+        "slug": "chem-polymers",
+        "name_en": "Polymers & Plastics",
+        "name_hi": "बहुलक और प्लास्टिक",
+        "unit_en": "Chemistry",
+        "sort": 27,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 898,
+        "slug": "chem-corrosion",
+        "name_en": "Corrosion & Rusting",
+        "name_hi": "संक्षारण और जंग",
+        "unit_en": "Chemistry",
+        "sort": 28,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 899,
+        "slug": "chem-lab",
+        "name_en": "Laboratory Chemistry",
+        "name_hi": "प्रयोगशाला रसायन",
+        "unit_en": "Chemistry",
+        "sort": 29,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 900,
+        "slug": "chem-others",
+        "name_en": "Chemistry: Other",
+        "name_hi": "रसायन: अन्य",
+        "unit_en": "Chemistry",
+        "sort": 30,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 901,
+        "slug": "bio-cell",
+        "name_en": "Cell",
+        "name_hi": "कोशिका",
+        "unit_en": "Biology",
+        "sort": 31,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 902,
+        "slug": "bio-tissues",
+        "name_en": "Tissues",
+        "name_hi": "ऊतक",
+        "unit_en": "Biology",
+        "sort": 32,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 903,
+        "slug": "bio-animal",
+        "name_en": "Animal Kingdom",
+        "name_hi": "जंतु जगत",
+        "unit_en": "Biology",
+        "sort": 33,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 904,
+        "slug": "bio-plant",
+        "name_en": "Plant Kingdom",
+        "name_hi": "पादप जगत",
+        "unit_en": "Biology",
+        "sort": 34,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 905,
+        "slug": "bio-nutrition",
+        "name_en": "Nutrition",
+        "name_hi": "पोषण",
+        "unit_en": "Biology",
+        "sort": 35,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 906,
+        "slug": "bio-photosynthesis",
+        "name_en": "Photosynthesis",
+        "name_hi": "प्रकाश संश्लेषण",
+        "unit_en": "Biology",
+        "sort": 36,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 907,
+        "slug": "bio-digestion",
+        "name_en": "Digestive System",
+        "name_hi": "पाचन तंत्र",
+        "unit_en": "Biology",
+        "sort": 37,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 908,
+        "slug": "bio-respiration",
+        "name_en": "Respiration",
+        "name_hi": "श्वसन",
+        "unit_en": "Biology",
+        "sort": 38,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1,
+          "medical": 5
+        }
+      },
+      {
+        "id": 909,
+        "slug": "bio-circulation",
+        "name_en": "Circulatory System",
+        "name_hi": "परिसंचरण तंत्र",
+        "unit_en": "Biology",
+        "sort": 39,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 910,
+        "slug": "bio-transport",
+        "name_en": "Transport in Plants",
+        "name_hi": "पौधों में परिवहन",
+        "unit_en": "Biology",
+        "sort": 40,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 911,
+        "slug": "bio-excretion",
+        "name_en": "Excretion",
+        "name_hi": "उत्सर्जन",
+        "unit_en": "Biology",
+        "sort": 41,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 912,
+        "slug": "bio-nervous",
+        "name_en": "Nervous System & Sense Organs",
+        "name_hi": "तंत्रिका तंत्र और ज्ञानेंद्रियाँ",
+        "unit_en": "Biology",
+        "sort": 42,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 913,
+        "slug": "bio-hormones",
+        "name_en": "Hormones & Endocrine System",
+        "name_hi": "हार्मोन",
+        "unit_en": "Biology",
+        "sort": 43,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 914,
+        "slug": "bio-skeletal",
+        "name_en": "Skeletal & Muscular System",
+        "name_hi": "कंकाल और पेशी तंत्र",
+        "unit_en": "Biology",
+        "sort": 44,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 915,
+        "slug": "bio-reproduction",
+        "name_en": "Reproduction",
+        "name_hi": "जनन",
+        "unit_en": "Biology",
+        "sort": 45,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 916,
+        "slug": "bio-genetics",
+        "name_en": "Genetics & DNA",
+        "name_hi": "आनुवंशिकी और DNA",
+        "unit_en": "Biology",
+        "sort": 46,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 917,
+        "slug": "bio-evolution",
+        "name_en": "Heredity & Evolution",
+        "name_hi": "आनुवंशिकता और विकास",
+        "unit_en": "Biology",
+        "sort": 47,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 918,
+        "slug": "bio-diseases",
+        "name_en": "Diseases & Immunity",
+        "name_hi": "रोग और प्रतिरक्षा",
+        "unit_en": "Biology",
+        "sort": 48,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      },
+      {
+        "id": 919,
+        "slug": "bio-others",
+        "name_en": "Biology: Other",
+        "name_hi": "जीव विज्ञान: अन्य",
+        "unit_en": "Biology",
+        "sort": 49,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 920,
+        "slug": "env-ecology",
+        "name_en": "Environment & Ecology",
+        "name_hi": "पर्यावरण और पारिस्थितिकी",
+        "unit_en": "Environment",
+        "sort": 50,
+        "active_atoms_by_level": {
+          "govt_technical": 4,
+          "govt_basic": 4,
+          "shared": 1
+        }
+      }
+    ],
+    "skip_other_buckets": [
+      {
+        "id": 884,
+        "slug": "phy-others",
+        "name_en": "Physics: Other",
+        "name_hi": "भौतिकी: अन्य",
+        "unit_en": "Physics",
+        "sort": 14,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 900,
+        "slug": "chem-others",
+        "name_en": "Chemistry: Other",
+        "name_hi": "रसायन: अन्य",
+        "unit_en": "Chemistry",
+        "sort": 30,
+        "active_atoms_by_level": {}
+      },
+      {
+        "id": 919,
+        "slug": "bio-others",
+        "name_en": "Biology: Other",
+        "name_hi": "जीव विज्ञान: अन्य",
+        "unit_en": "Biology",
+        "sort": 49,
+        "active_atoms_by_level": {}
+      }
+    ],
+    "incomplete_real_chapters": [
+      {
+        "id": 899,
+        "slug": "chem-lab",
+        "name_en": "Laboratory Chemistry",
+        "name_hi": "प्रयोगशाला रसायन",
+        "unit_en": "Chemistry",
+        "sort": 29,
+        "active_atoms_by_level": {}
+      }
+    ],
+    "note": "Only 899 Laboratory Chemistry is missing (skipped by mistake in batch 5). Every other real GS chapter has 4 govt_technical + 4 govt_basic + 1 shared."
+  },
+  "mechanical_engineering_reference": [
+    {
+      "id": 432,
+      "slug": "engineering-materials",
+      "name_en": "Engineering Materials",
+      "name_hi": "इंजीनियरिंग सामग्री",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_technical": 4,
+        "shared": 1,
+        "govt_basic": 4
+      }
+    },
+    {
+      "id": 433,
+      "slug": "engineering-mechanics",
+      "name_en": "Engineering Mechanics",
+      "name_hi": "इंजीनियरिंग यांत्रिकी",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_technical": 4,
+        "shared": 1,
+        "govt_basic": 4
+      }
+    },
+    {
+      "id": 434,
+      "slug": "fluid-mechanics-machinery",
+      "name_en": "Fluid Mechanics & Machinery",
+      "name_hi": "द्रव यांत्रिकी और मशीनरी",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_technical": 4,
+        "shared": 1,
+        "govt_basic": 4
+      }
+    },
+    {
+      "id": 435,
+      "slug": "ic-engines",
+      "name_en": "IC Engines",
+      "name_hi": "आईसी इंजन",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_basic": 4,
+        "shared": 1,
+        "govt_technical": 4
+      }
+    },
+    {
+      "id": 436,
+      "slug": "production-engineering",
+      "name_en": "Production Engineering",
+      "name_hi": "उत्पादन इंजीनियरिंग",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_basic": 4,
+        "shared": 1,
+        "govt_technical": 4
+      }
+    },
+    {
+      "id": 437,
+      "slug": "refrigeration-air-conditioning",
+      "name_en": "Refrigeration & Air Conditioning",
+      "name_hi": "प्रशीतन और वातानुकूलन",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_basic": 4,
+        "shared": 1,
+        "govt_technical": 4
+      }
+    },
+    {
+      "id": 438,
+      "slug": "steam-boilers-turbines-power-plants",
+      "name_en": "Steam Boilers, Turbines & Power Plants",
+      "name_hi": "भाप बॉयलर, टर्बाइन और पावर प्लांट",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_basic": 4,
+        "shared": 1,
+        "govt_technical": 4
+      }
+    },
+    {
+      "id": 439,
+      "slug": "strength-of-materials",
+      "name_en": "Strength of Materials",
+      "name_hi": "पदार्थों की सामर्थ्य",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_basic": 4,
+        "shared": 1,
+        "govt_technical": 4
+      }
+    },
+    {
+      "id": 440,
+      "slug": "theory-of-machines",
+      "name_en": "Theory of Machines",
+      "name_hi": "मशीनों का सिद्धांत",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_basic": 4,
+        "shared": 1,
+        "govt_technical": 4
+      }
+    },
+    {
+      "id": 441,
+      "slug": "thermodynamics",
+      "name_en": "Thermodynamics",
+      "name_hi": "ऊष्मागतिकी",
+      "unit_en": null,
+      "sort": 0,
+      "active_atoms_by_level": {
+        "govt_basic": 4,
+        "shared": 1,
+        "govt_technical": 4,
+        "advanced_research": 3
+      }
+    }
+  ],
+  "non_chapter_topics_do_not_use": [
+    {
+      "id": 1079,
+      "slug": "inbox",
+      "name_en": "To be tagged",
+      "subject": "maths"
+    },
+    {
+      "id": 20,
+      "slug": "code",
+      "name_en": "Coding-Decoding",
+      "subject": "reasoning"
+    },
+    {
+      "id": 21,
+      "slug": "blood",
+      "name_en": "Blood Relation",
+      "subject": "reasoning"
+    },
+    {
+      "id": 22,
+      "slug": "dir",
+      "name_en": "Direction",
+      "subject": "reasoning"
+    },
+    {
+      "id": 23,
+      "slug": "opmath",
+      "name_en": "Mathematical Operations",
+      "subject": "reasoning"
+    },
+    {
+      "id": 24,
+      "slug": "alpha",
+      "name_en": "Alphanumeric Series",
+      "subject": "reasoning"
+    },
+    {
+      "id": 25,
+      "slug": "puzzle",
+      "name_en": "Puzzle & Seating",
+      "subject": "reasoning"
+    },
+    {
+      "id": 26,
+      "slug": "syl",
+      "name_en": "Syllogism",
+      "subject": "reasoning"
+    },
+    {
+      "id": 931,
+      "slug": "inbox",
+      "name_en": "To be tagged",
+      "subject": "reasoning"
+    },
+    {
+      "id": 29,
+      "slug": "phy",
+      "name_en": "Physics",
+      "subject": "general-science"
+    },
+    {
+      "id": 30,
+      "slug": "chem",
+      "name_en": "Chemistry",
+      "subject": "general-science"
+    },
+    {
+      "id": 31,
+      "slug": "bio",
+      "name_en": "Biology",
+      "subject": "general-science"
+    },
+    {
+      "id": 32,
+      "slug": "env",
+      "name_en": "Environment",
+      "subject": "general-science"
+    },
+    {
+      "id": 413,
+      "slug": "biology",
+      "name_en": "Biology",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 414,
+      "slug": "chemistry",
+      "name_en": "Chemistry",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 420,
+      "slug": "physics",
+      "name_en": "Physics",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 648,
+      "slug": "mixed-untagged",
+      "name_en": "Mixed (topic pending)",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 33,
+      "slug": "ca",
+      "name_en": "Current Affairs",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 34,
+      "slug": "pol",
+      "name_en": "Polity",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 35,
+      "slug": "hist",
+      "name_en": "History",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 36,
+      "slug": "geog",
+      "name_en": "Geography",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 37,
+      "slug": "econ",
+      "name_en": "Economy",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 39,
+      "slug": "misc",
+      "name_en": "Books & Misc",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 936,
+      "slug": "inbox",
+      "name_en": "To be tagged",
+      "subject": "general-awareness"
+    },
+    {
+      "id": 636,
+      "slug": "mixed-untagged",
+      "name_en": "Mixed (topic pending)",
+      "subject": "civil-engineering"
+    },
+    {
+      "id": 932,
+      "slug": "inbox",
+      "name_en": "To be tagged",
+      "subject": "civil-engineering"
+    },
+    {
+      "id": 660,
+      "slug": "mixed-untagged",
+      "name_en": "Mixed (topic pending)",
+      "subject": "mechanical-engineering"
+    },
+    {
+      "id": 937,
+      "slug": "inbox",
+      "name_en": "To be tagged",
+      "subject": "mechanical-engineering"
+    },
+    {
+      "id": 672,
+      "slug": "mixed-untagged",
+      "name_en": "Mixed (topic pending)",
+      "subject": "electrical-engineering"
+    },
+    {
+      "id": 942,
+      "slug": "inbox",
+      "name_en": "To be tagged",
+      "subject": "electrical-engineering"
+    },
+    {
+      "id": 951,
+      "slug": "inbox",
+      "name_en": "To be tagged",
+      "subject": "part-a-general-engineering-civil-structural"
+    },
+    {
+      "id": 1028,
+      "slug": "inbox",
+      "name_en": "To be tagged",
+      "subject": "ntpc-mixed"
+    }
+  ],
+  "non_chapter_topics_note": "These are units/legacy/inbox topics (is_chapter=false). Several duplicate real chapters (e.g. 20 'code' vs 426 'coding-decoding', 21 vs 425, 26 vs 431). Always use the is_chapter=true ids listed in chapters_to_fill.",
+  "atom_key_pattern": {
+    "examples": [
+      {
+        "id": 5,
+        "chapter_id": 872,
+        "level_id": null,
+        "atom_type": "svg",
+        "atom_key": "phy-force-diagram"
+      },
+      {
+        "id": 40,
+        "chapter_id": 433,
+        "level_id": "govt_technical",
+        "atom_type": "mcq",
+        "atom_key": "em-mcq"
+      },
+      {
+        "id": 120,
+        "chapter_id": 441,
+        "level_id": "govt_basic",
+        "atom_type": "formula",
+        "atom_key": "thd-formula"
+      },
+      {
+        "id": 182,
+        "chapter_id": 879,
+        "level_id": "govt_technical",
+        "atom_type": "formula",
+        "atom_key": "lgt-formula"
+      },
+      {
+        "id": 300,
+        "chapter_id": 893,
+        "level_id": "govt_technical",
+        "atom_type": "example",
+        "atom_key": "carb-example"
+      },
+      {
+        "id": 398,
+        "chapter_id": 906,
+        "level_id": "govt_technical",
+        "atom_type": "formula",
+        "atom_key": "photo-formula"
+      },
+      {
+        "id": 450,
+        "chapter_id": 911,
+        "level_id": null,
+        "atom_type": "svg",
+        "atom_key": "exc-diagram"
+      },
+      {
+        "id": 520,
+        "chapter_id": 920,
+        "level_id": "govt_basic",
+        "atom_type": "example",
+        "atom_key": "env-example"
+      },
+      {
+        "id": 560,
+        "chapter_id": 419,
+        "level_id": "class_11_12_arts",
+        "atom_type": "example",
+        "atom_key": "c1112a-hist-example"
+      },
+      {
+        "id": 580,
+        "chapter_id": 441,
+        "level_id": "advanced_research",
+        "atom_type": "example",
+        "atom_key": "adv-thermo-example"
+      }
+    ],
+    "pattern": "<chapter_prefix>-<role>, same key repeated across levels (uniqueness includes level). Roles used: concept | formula | example | mcq | diagram (svg uses 'diagram', not 'svg').",
+    "prefix_conventions": {
+      "govt_technical/govt_basic/shared": "short chapter prefix, e.g. elec, lgt, carb, photo, exc, em, thd, som",
+      "starter levels": "level prefix + topic, e.g. c910-motion-*, c1112a-hist-*, adv-thermo-*, bank-pct-*"
+    },
+    "recommended_for_new_rows": "Keep '<prefix>-concept', '<prefix>-formula', '<prefix>-example', '<prefix>-mcq' for level rows (same key in govt_technical and govt_basic) and '<prefix>-diagram' for the shared SVG. Make the prefix unique within the chapter and avoid som-* on chapter 410."
+  },
+  "body_structures": {
+    "concept": {
+      "keys": [
+        "text",
+        "note"
+      ],
+      "types": {
+        "text": "string (main explanation)",
+        "note": "string (exam tip)"
+      }
+    },
+    "formula": {
+      "keys": [
+        "formula",
+        "explanation"
+      ],
+      "types": {
+        "formula": "string",
+        "explanation": "string (symbols + units)"
+      }
+    },
+    "example": {
+      "keys": [
+        "question",
+        "solution",
+        "answer"
+      ],
+      "types": {
+        "question": "string",
+        "solution": "string (worked steps)",
+        "answer": "string"
+      }
+    },
+    "mcq": {
+      "keys": [
+        "questions"
+      ],
+      "types": {
+        "questions": "array of {q: string, options: string[4], answer: integer 0-3 (index into options), explanation: string}"
+      },
+      "current_practice": "2 questions per mcq atom, 4 distinct options, answer index usually 0 (app/players may shuffle; consider varying it)."
+    },
+    "svg": {
+      "keys": [
+        "svg",
+        "caption"
+      ],
+      "types": {
+        "svg": "string: full <svg viewBox='0 0 300 120' xmlns='http://www.w3.org/2000/svg'>…</svg>, single quotes inside",
+        "caption": "string"
+      }
+    },
+    "per_level_style": {
+      "govt_technical": "title like '<topic> — SSC JE / RRB JE', 'Numerical (JE style)', 'JE MCQs'; more formulas/numericals",
+      "govt_basic": "titles '<topic>', 'उदाहरण', 'अभ्यास प्रश्न'; simpler facts",
+      "shared": "svg only, atom_order 5, exam_tags '{}'"
+    }
+  },
+  "sample_atoms_chapter_880_all_types": [
+    {
+      "id": 194,
+      "chapter_id": 880,
+      "level_id": "govt_basic",
+      "atom_key": "elec-concept",
+      "atom_type": "concept",
+      "atom_order": 1,
+      "title": "विद्युत धारा",
+      "body": {
+        "note": "परीक्षा में धारा का मात्रक (ऐम्पियर) और ओम का नियम पूछे जाते हैं।",
+        "text": "विद्युत धारा आवेश के प्रवाह की दर है, मात्रक ऐम्पियर (A)। प्रतिरोध का मात्रक ओम (Ω) है। बल्ब, पंखा, हीटर घरेलू उपकरण हैं।"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [
+        "rrb-ntpc-graduate-cbt-1",
+        "rrb-ntpc-graduate-cbt-2",
+        "rrb-ntpc-ug-cbt-1",
+        "rrb-ntpc-ug-cbt-2"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "65f4dff199296c7dffa326799c2d1d2b",
+      "archived": false
+    },
+    {
+      "id": 190,
+      "chapter_id": 880,
+      "level_id": "govt_technical",
+      "atom_key": "elec-concept",
+      "atom_type": "concept",
+      "atom_order": 1,
+      "title": "विद्युत — SSC JE / RRB JE",
+      "body": {
+        "note": "JE में ओम का नियम, श्रेणी/समानांतर संयोजन और kWh अक्सर पूछे जाते हैं।",
+        "text": "ओम का नियम: V = IR (स्थिर ताप पर)। विद्युत शक्ति P = VI = I²R = V²/R। ऊर्जा का व्यावसायिक मात्रक kWh है। श्रेणी में कुल R = R₁+R₂; समानांतर में 1/R = 1/R₁+1/R₂।"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [
+        "rrb-je-cbt1",
+        "rrb-je-cbt2",
+        "ssc-je-paper1"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "758ef6d82036a041f2df73bd8713423a",
+      "archived": false
+    },
+    {
+      "id": 195,
+      "chapter_id": 880,
+      "level_id": "govt_basic",
+      "atom_key": "elec-formula",
+      "atom_type": "formula",
+      "atom_order": 2,
+      "title": "ओम का नियम",
+      "body": {
+        "formula": "V = I × R",
+        "explanation": "V = वोल्टेज (V), I = धारा (A), R = प्रतिरोध (Ω)"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [
+        "rrb-ntpc-graduate-cbt-1",
+        "rrb-ntpc-graduate-cbt-2",
+        "rrb-ntpc-ug-cbt-1",
+        "rrb-ntpc-ug-cbt-2"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "65072e30aeea21d7237793e269c72e9f",
+      "archived": false
+    },
+    {
+      "id": 191,
+      "chapter_id": 880,
+      "level_id": "govt_technical",
+      "atom_key": "elec-formula",
+      "atom_type": "formula",
+      "atom_order": 2,
+      "title": "शक्ति का सूत्र",
+      "body": {
+        "formula": "P = V²/R",
+        "explanation": "P = शक्ति (W), V = वोल्टेज (V), R = प्रतिरोध (Ω) · ऊर्जा (kWh) = किलोवाट × घंटे"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [
+        "rrb-je-cbt1",
+        "rrb-je-cbt2",
+        "ssc-je-paper1"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "8d0631c1c0da6bfd2cc6e46e2857fd5e",
+      "archived": false
+    },
+    {
+      "id": 196,
+      "chapter_id": 880,
+      "level_id": "govt_basic",
+      "atom_key": "elec-example",
+      "atom_type": "example",
+      "atom_order": 3,
+      "title": "उदाहरण",
+      "body": {
+        "answer": "3 A",
+        "question": "12 V के सेल से 4 Ω प्रतिरोध जुड़ा है। धारा कितनी है?",
+        "solution": "I = V / R = 12 / 4 = 3 A"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [
+        "rrb-ntpc-graduate-cbt-1",
+        "rrb-ntpc-graduate-cbt-2",
+        "rrb-ntpc-ug-cbt-1",
+        "rrb-ntpc-ug-cbt-2"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "aabefab6447ade590545cb0063c97feb",
+      "archived": false
+    },
+    {
+      "id": 192,
+      "chapter_id": 880,
+      "level_id": "govt_technical",
+      "atom_key": "elec-example",
+      "atom_type": "example",
+      "atom_order": 3,
+      "title": "Numerical (JE style)",
+      "body": {
+        "answer": "10 kWh",
+        "question": "2000 W का हीटर 5 घंटे चलता है। कुल ऊर्जा कितनी खर्च होगी?",
+        "solution": "ऊर्जा = 2 kW × 5 h = 10 kWh"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [
+        "rrb-je-cbt1",
+        "rrb-je-cbt2",
+        "ssc-je-paper1"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "fff3f59a94bec1afac1af7bf2878926a",
+      "archived": false
+    },
+    {
+      "id": 197,
+      "chapter_id": 880,
+      "level_id": "govt_basic",
+      "atom_key": "elec-mcq",
+      "atom_type": "mcq",
+      "atom_order": 4,
+      "title": "अभ्यास प्रश्न",
+      "body": {
+        "questions": [
+          {
+            "q": "विद्युत धारा का SI मात्रक क्या है?",
+            "answer": 0,
+            "options": [
+              "ऐम्पियर",
+              "वोल्ट",
+              "ओम",
+              "वाट"
+            ],
+            "explanation": "विद्युत धारा का SI मात्रक ऐम्पियर (A) है।"
+          },
+          {
+            "q": "प्रतिरोध का SI मात्रक क्या है?",
+            "answer": 0,
+            "options": [
+              "ओम",
+              "जूल",
+              "न्यूटन",
+              "हर्ट्ज़"
+            ],
+            "explanation": "प्रतिरोध का मात्रक ओम (Ω) है।"
+          }
+        ]
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [
+        "rrb-ntpc-graduate-cbt-1",
+        "rrb-ntpc-graduate-cbt-2",
+        "rrb-ntpc-ug-cbt-1",
+        "rrb-ntpc-ug-cbt-2"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "4dd59b0bf81a2b1e070db33350f44be5",
+      "archived": false
+    },
+    {
+      "id": 193,
+      "chapter_id": 880,
+      "level_id": "govt_technical",
+      "atom_key": "elec-mcq",
+      "atom_type": "mcq",
+      "atom_order": 4,
+      "title": "JE MCQs",
+      "body": {
+        "questions": [
+          {
+            "q": "ओम के नियम के अनुसार V, I और R का संबंध क्या है?",
+            "answer": 0,
+            "options": [
+              "V = IR",
+              "V = I/R",
+              "V = R/I",
+              "V = I + R"
+            ],
+            "explanation": "ओम के नियम के अनुसार V = IR।"
+          },
+          {
+            "q": "समानांतर संयोजन में दो 6 Ω प्रतिरोधों का कुल प्रतिरोध कितना है?",
+            "answer": 0,
+            "options": [
+              "3 Ω",
+              "6 Ω",
+              "12 Ω",
+              "36 Ω"
+            ],
+            "explanation": "1/R = 1/6 + 1/6 = 1/3, इसलिए R = 3 Ω।"
+          }
+        ]
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [
+        "rrb-je-cbt1",
+        "rrb-je-cbt2",
+        "ssc-je-paper1"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "847ee09964b84a00b7e9a228f44a309b",
+      "archived": false
+    },
+    {
+      "id": 198,
+      "chapter_id": 880,
+      "level_id": null,
+      "atom_key": "elec-diagram",
+      "atom_type": "svg",
+      "atom_order": 5,
+      "title": "सरल विद्युत परिपथ",
+      "body": {
+        "svg": "<svg viewBox='0 0 300 120' xmlns='http://www.w3.org/2000/svg'><rect x='40' y='30' width='220' height='60' fill='none' stroke='#64748b' stroke-width='3'/><rect x='20' y='50' width='16' height='20' fill='#f59e0b'/><rect x='130' y='25' width='40' height='14' fill='#60a5fa'/><text x='150' y='112' text-anchor='middle' fill='#64748b' font-size='11'>सेल, प्रतिरोध और तार</text></svg>",
+        "caption": "सरल परिपथ में सेल से धारा प्रतिरोध के रास्ते बहती है"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:02:34.493522+00:00",
+      "updated_at": "2026-10-30T05:02:34.493522+00:00",
+      "exam_tags": [],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "42a4e7f3d6642fb5a5d6ef1d079b289e",
+      "archived": false
+    }
+  ],
+  "formula_examples_both_levels": [
+    {
+      "id": 102,
+      "chapter_id": 439,
+      "level_id": "govt_basic",
+      "atom_key": "som-formula",
+      "atom_type": "formula",
+      "atom_order": 2,
+      "title": "प्रतिबल का सूत्र",
+      "body": {
+        "formula": "σ = F / A",
+        "explanation": "σ = प्रतिबल (N/m²), F = बल (N), A = क्षेत्रफल (m²)"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T04:37:58.437775+00:00",
+      "updated_at": "2026-10-30T04:37:58.437775+00:00",
+      "exam_tags": [
+        "rrb-ntpc-graduate-cbt-1",
+        "rrb-ntpc-graduate-cbt-2",
+        "rrb-ntpc-ug-cbt-1",
+        "rrb-ntpc-ug-cbt-2"
+      ],
+      "class_tags": null,
+      "subject_tag": "mechanical-engineering",
+      "difficulty": "medium",
+      "content_hash": "9a298707787c557059cfccad87ee3c67",
+      "archived": false
+    },
+    {
+      "id": 107,
+      "chapter_id": 439,
+      "level_id": "govt_technical",
+      "atom_key": "som-formula",
+      "atom_type": "formula",
+      "atom_order": 2,
+      "title": "सामान्य प्रतिबल",
+      "body": {
+        "formula": "σ = F / A",
+        "explanation": "σ = सामान्य प्रतिबल (Pa), F = बल (N), A = अनुप्रस्थ क्षेत्रफल (m²) · वृत्ताकार छड़ का A = π d² / 4"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T04:37:58.437775+00:00",
+      "updated_at": "2026-10-30T04:37:58.437775+00:00",
+      "exam_tags": [
+        "rrb-je-cbt1",
+        "rrb-je-cbt2",
+        "ssc-je-paper1"
+      ],
+      "class_tags": null,
+      "subject_tag": "mechanical-engineering",
+      "difficulty": "medium",
+      "content_hash": "d50e30224ef262effea606c91e94ef01",
+      "archived": false
+    }
+  ],
+  "shared_svg": {
+    "examples": [
+      {
+        "id": 5,
+        "chapter_id": 872,
+        "level_id": null,
+        "atom_key": "phy-force-diagram",
+        "atom_type": "svg",
+        "atom_order": 5,
+        "title": "बल और त्वरण",
+        "body": {
+          "svg": "<svg viewBox='0 0 300 120' xmlns='http://www.w3.org/2000/svg'><rect x='40' y='50' width='60' height='40' fill='#60a5fa' rx='6'/><text x='70' y='75' text-anchor='middle' fill='#0f172a' font-size='14' font-weight='bold'>m</text><line x1='100' y1='70' x2='180' y2='70' stroke='#14b8a6' stroke-width='3'/><polygon points='180,70 170,65 170,75' fill='#14b8a6'/><text x='140' y='62' text-anchor='middle' fill='#14b8a6' font-size='13' font-weight='bold'>F</text><line x1='190' y1='70' x2='260' y2='70' stroke='#f59e0b' stroke-width='3' stroke-dasharray='5,3'/><polygon points='260,70 250,65 250,75' fill='#f59e0b'/><text x='225' y='62' text-anchor='middle' fill='#f59e0b' font-size='13' font-weight='bold'>a</text><text x='150' y='108' text-anchor='middle' fill='#64748b' font-size='12'>F = ma</text></svg>",
+          "caption": "बल लगाने से वस्तु में त्वरण उत्पन्न होता है"
+        },
+        "lang": "hi",
+        "status": "published",
+        "created_at": "2026-10-30T03:53:39.657458+00:00",
+        "updated_at": "2026-10-30T03:53:39.657458+00:00",
+        "exam_tags": [],
+        "class_tags": null,
+        "subject_tag": "general-science",
+        "difficulty": "medium",
+        "content_hash": "496eb2bcaa66d89f8ce915e388c84d0a",
+        "archived": false
+      },
+      {
+        "id": 14,
+        "chapter_id": 871,
+        "level_id": null,
+        "atom_key": "phy-motion-diagram",
+        "atom_type": "svg",
+        "atom_order": 5,
+        "title": "वेग और त्वरण की दिशा",
+        "body": {
+          "svg": "<svg viewBox='0 0 300 120' xmlns='http://www.w3.org/2000/svg'><rect x='40' y='50' width='70' height='36' fill='#60a5fa' rx='8'/><circle cx='65' cy='90' r='8' fill='#0f172a'/><circle cx='95' cy='90' r='8' fill='#0f172a'/><line x1='120' y1='68' x2='200' y2='68' stroke='#14b8a6' stroke-width='3'/><polygon points='200,68 190,63 190,73' fill='#14b8a6'/><text x='160' y='58' text-anchor='middle' fill='#14b8a6' font-size='13' font-weight='bold'>v</text><text x='150' y='112' text-anchor='middle' fill='#64748b' font-size='12'>वेग = दूरी / समय</text></svg>",
+          "caption": "वेग की दिशा वस्तु की गति की दिशा में होती है"
+        },
+        "lang": "hi",
+        "status": "published",
+        "created_at": "2026-10-30T04:17:21.02009+00:00",
+        "updated_at": "2026-10-30T04:17:21.02009+00:00",
+        "exam_tags": [],
+        "class_tags": null,
+        "subject_tag": "general-science",
+        "difficulty": "medium",
+        "content_hash": "c9b2f77e87ca05c038fcd846b0c4b443",
+        "archived": false
+      },
+      {
+        "id": 23,
+        "chapter_id": 873,
+        "level_id": null,
+        "atom_key": "phy-work-diagram",
+        "atom_type": "svg",
+        "atom_order": 5,
+        "title": "बल से कार्य",
+        "body": {
+          "svg": "<svg viewBox='0 0 300 120' xmlns='http://www.w3.org/2000/svg'><rect x='60' y='50' width='60' height='40' fill='#60a5fa' rx='6'/><line x1='20' y1='70' x2='55' y2='70' stroke='#14b8a6' stroke-width='3'/><polygon points='55,70 46,65 46,75' fill='#14b8a6'/><text x='35' y='62' text-anchor='middle' fill='#14b8a6' font-size='12' font-weight='bold'>F</text><line x1='130' y1='100' x2='240' y2='100' stroke='#f59e0b' stroke-width='3' stroke-dasharray='5,3'/><polygon points='240,100 230,95 230,105' fill='#f59e0b'/><text x='185' y='92' text-anchor='middle' fill='#f59e0b' font-size='12' font-weight='bold'>s</text><text x='150' y='118' text-anchor='middle' fill='#64748b' font-size='12'>W = F × s</text></svg>",
+          "caption": "बल की दिशा में विस्थापन हो तो कार्य होता है"
+        },
+        "lang": "hi",
+        "status": "published",
+        "created_at": "2026-10-30T04:20:59.804064+00:00",
+        "updated_at": "2026-10-30T04:20:59.804064+00:00",
+        "exam_tags": [],
+        "class_tags": null,
+        "subject_tag": "general-science",
+        "difficulty": "medium",
+        "content_hash": "12b3d6eaa328330b45273dd0c0973735",
+        "archived": false
+      }
+    ],
+    "answers": {
+      "level_id_value": "NULL (not 'shared')",
+      "atom_key_pattern": "<prefix>-diagram",
+      "how_app_shows_it": "notes query uses or=(level_id.eq.<level>,level_id.is.null), so NULL-level rows appear at every level",
+      "metadata": "exam_tags '{}', subject_tag = subject slug, difficulty 'medium', atom_order 5"
+    }
+  },
+  "atom_304": {
+    "row": {
+      "id": 304,
+      "chapter_id": 893,
+      "level_id": "govt_basic",
+      "atom_key": "carb-example",
+      "atom_type": "example",
+      "atom_order": 3,
+      "title": "उदाहरण",
+      "body": {
+        "answer": "मेथेन (CH₄)",
+        "question": "घरेलू LPG और प्राकृतिक गैस का मुख्य घटक कौन सा है?",
+        "solution": "प्राकृतिक गैस का मुख्य घटक मेथेन (CH₄) है"
+      },
+      "lang": "hi",
+      "status": "published",
+      "created_at": "2026-10-30T05:10:56.692751+00:00",
+      "updated_at": "2026-10-30T05:10:56.692751+00:00",
+      "exam_tags": [
+        "rrb-ntpc-graduate-cbt-1",
+        "rrb-ntpc-graduate-cbt-2",
+        "rrb-ntpc-ug-cbt-1",
+        "rrb-ntpc-ug-cbt-2"
+      ],
+      "class_tags": null,
+      "subject_tag": "general-science",
+      "difficulty": "medium",
+      "content_hash": "941c78ed000dd19c2c096d99a048fc19",
+      "archived": false
+    },
+    "problem": "Question asks the main component of LPG AND natural gas; answer says methane. LPG is mainly propane + butane; natural gas is mainly methane.",
+    "suggested_fix": "Change only the question to natural gas, or change answer/solution to 'LPG: प्रोपेन + ब्यूटेन; प्राकृतिक गैस: मेथेन'. Recompute content_hash and set updated_at = now()."
+  },
+  "chapter_899": {
+    "topic": {
+      "id": 899,
+      "subject_id": 3,
+      "parent_id": null,
+      "slug": "chem-lab",
+      "name_en": "Laboratory Chemistry",
+      "name_hi": "प्रयोगशाला रसायन",
+      "sort": 29,
+      "is_chapter": true,
+      "unit_en": "Chemistry",
+      "unit_hi": "रसायन विज्ञान"
+    },
+    "atoms": [],
+    "note": "No atoms at all. Needs 4 govt_technical + 4 govt_basic + 1 shared svg like other GS chapters; subject_tag general-science."
+  },
+  "hidden_rows_key_collision_risk": [
+    {
+      "id": 91,
+      "chapter_id": 410,
+      "level_id": "govt_basic",
+      "atom_key": "som-mcq"
+    },
+    {
+      "id": 92,
+      "chapter_id": 410,
+      "level_id": "govt_basic",
+      "atom_key": "som-example"
+    },
+    {
+      "id": 93,
+      "chapter_id": 410,
+      "level_id": "govt_basic",
+      "atom_key": "som-formula"
+    },
+    {
+      "id": 94,
+      "chapter_id": 410,
+      "level_id": "govt_basic",
+      "atom_key": "som-concept"
+    },
+    {
+      "id": 95,
+      "chapter_id": 410,
+      "level_id": null,
+      "atom_key": "som-diagram"
+    },
+    {
+      "id": 96,
+      "chapter_id": 410,
+      "level_id": "govt_technical",
+      "atom_key": "som-mcq"
+    },
+    {
+      "id": 97,
+      "chapter_id": 410,
+      "level_id": "govt_technical",
+      "atom_key": "som-example"
+    },
+    {
+      "id": 98,
+      "chapter_id": 410,
+      "level_id": "govt_technical",
+      "atom_key": "som-formula"
+    },
+    {
+      "id": 99,
+      "chapter_id": 410,
+      "level_id": "govt_technical",
+      "atom_key": "som-concept"
+    },
+    {
+      "id": 527,
+      "chapter_id": 871,
+      "level_id": null,
+      "atom_key": "c910-motion-diagram"
+    }
+  ],
+  "hidden_rows_note": "All 10 have status='hidden', archived=true. They are invisible via RLS but still occupy the unique index.",
+  "insert_template_sql": "with src as (\n  select v.chapter_id, v.level_id, v.atom_key, v.atom_type, v.atom_order, v.title, v.body::jsonb as body\n  from (values\n    (899,'govt_technical','lab-concept','concept',1,'<title>',$j${\"text\":\"…\",\"note\":\"…\"}$j$),\n    (899,null,'lab-diagram','svg',5,'<title>',$j${\"svg\":\"<svg viewBox='0 0 300 120' xmlns='http://www.w3.org/2000/svg'>…</svg>\",\"caption\":\"…\"}$j$)\n  ) as v(chapter_id, level_id, atom_key, atom_type, atom_order, title, body)\n)\ninsert into mtb.atoms (chapter_id, level_id, atom_key, atom_type, atom_order, title, body, lang, status, archived, exam_tags, class_tags, subject_tag, difficulty, content_hash)\nselect s.chapter_id, s.level_id, s.atom_key, s.atom_type, s.atom_order, s.title, s.body, 'hi', 'published', false,\n  case when s.level_id='govt_technical' then array['rrb-je-cbt1','rrb-je-cbt2','ssc-je-paper1']::text[]\n       when s.level_id='govt_basic' then array['rrb-ntpc-graduate-cbt-1','rrb-ntpc-graduate-cbt-2','rrb-ntpc-ug-cbt-1','rrb-ntpc-ug-cbt-2']::text[]\n       else '{}'::text[] end,\n  '{}'::text[], 'general-science', 'medium', md5(s.body::text)\nfrom src s\non conflict do nothing;\n-- then verify: select level_id, count(*) from mtb.atoms where chapter_id=899 and status='published' and not archived group by 1;\n-- adjust exam_tags per recommended_exam_tags for the subject.",
+  "summary": {
+    "chapters_needing_content": 55,
+    "chapters_breakdown": {
+      "maths": 16,
+      "reasoning": 12,
+      "general-awareness": 8,
+      "civil-engineering": 12,
+      "electrical-engineering": 6,
+      "general-science (899)": 1
+    },
+    "atoms_to_write": 423,
+    "assumptions": "9 atoms/chapter (4 govt_technical + 4 govt_basic + 1 shared svg) for maths/reasoning/GA/GS; 5 (4 govt_technical + 1 svg) for civil/electrical; GA excludes 416 Current Affairs.",
+    "schema_surprises": [
+      "id is GENERATED ALWAYS (cannot insert explicit ids).",
+      "No is_shared column — shared means level_id IS NULL.",
+      "No triggers: updated_at and content_hash are never auto-set.",
+      "Unique key includes hidden rows (chapter 410 som-* keys are taken).",
+      "App ignores exam_tags/subject_tag/difficulty; visibility depends only on chapter_id + level_id + status (RLS).",
+      "archived=true alone does NOT hide a row from the app; status must be 'hidden'.",
+      "topics has no status column; subjects/topics use name_en/name_hi, not name.",
+      "GA section of SSC JE + NTPC includes general-science (so GS atoms reach NTPC students)."
+    ],
+    "insert_pitfalls": [
+      "ON CONFLICT DO NOTHING hides collisions — verify counts",
+      "slug collision 'strength-of-materials' (410 vs 439)",
+      "non-chapter duplicate topics (20-26, inbox ids) look like real chapters",
+      "jsonb inside dollar quotes: keep SVG attributes in single quotes"
+    ],
+    "columns_likely_forgotten": [
+      "atom_order (defaults to 0)",
+      "content_hash",
+      "subject_tag",
+      "difficulty",
+      "class_tags (use '{}')",
+      "status+archived pair",
+      "updated_at on UPDATE"
+    ]
+  }
+}
