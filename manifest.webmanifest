@@ -1,17 +1,30 @@
 {
   "name": "Diploma Boy",
   "short_name": "Diploma Boy",
-  "description": "RRB JE और SSC JE की तैयारी: PYQ, प्रैक्टिस और मॉक।",
+  "description": "Physics की किताब, सूत्र, Focus timer और पढ़ाई का सच्चा हिसाब।",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#F5F6F2",
-  "theme_color": "#16233A",
+  "background_color": "#0f111a",
+  "theme_color": "#0f111a",
   "lang": "hi",
   "icons": [
-    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
-    {"src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
