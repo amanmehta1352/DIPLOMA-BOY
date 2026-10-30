@@ -1,0 +1,28 @@
+{
+  "audit_timestamp": "2026-10-30T17:30+05:30",
+  "audit_note": "Query A/B from mission count all 116 chapters for every level (topics have no level/subject-level mapping), so raw gaps overstate. Applicable gaps below use subject-level applicability: civil/electrical only for govt_technical; GA current-affairs (416) for govt_basic, govt_defence, banking, state_psc, upsc_civil, govt_technical; non-syllabus 'others' buckets (884, 900, 919) excluded.",
+  "applicable_gaps_per_level": {
+    "govt_technical": {"chapters": 17, "atoms": 68, "remaining_chapters": [442,443,444,445,446,447,416]},
+    "govt_basic": {"chapters": 1, "atoms": 4, "remaining_chapters": [416]},
+    "medical": {"chapters": 0, "atoms": 0},
+    "engineering": {"chapters": 0, "atoms": 0},
+    "class_9_10": {"chapters": 2, "atoms": 8, "remaining_chapters": [883, 899]},
+    "class_11_12_sci": {"chapters": 0, "atoms": 0},
+    "class_6_8": {"chapters": 14, "atoms": 56, "note": "general-science chapters without class_6_8 atoms; exact list not yet enumerated"},
+    "govt_defence": {"chapters": 1, "atoms": 4, "remaining_chapters": [416]},
+    "banking": {"chapters": 7, "atoms": 28, "note": "6 maths chapters (names not yet enumerated) + 416"},
+    "state_psc": {"chapters": 1, "atoms": 4, "remaining_chapters": [416]},
+    "upsc_civil": {"chapters": 13, "atoms": 52, "note": "reasoning x12 + 416; optional maths x16 (+64) not included"}
+  },
+  "total_applicable_gap_atoms": 224,
+  "levels_to_fill": ["govt_technical", "govt_basic", "class_9_10", "class_6_8", "govt_defence", "banking", "state_psc", "upsc_civil"],
+  "levels_skip": ["medical", "engineering", "class_11_12_sci", "class_11_12_com", "class_11_12_arts", "graduation_com", "graduation_arts", "advanced_research", "law_management"],
+  "completed_batches": [
+    {"migration": "0113", "level": "govt_technical", "chapters": [403,404,405,406,407,408,409,410,411,412], "atoms": 40, "verified": true}
+  ],
+  "total_atoms_before": 3071,
+  "total_atoms_now": 3111,
+  "current_batch": 2,
+  "next_batch": {"level": "govt_technical", "chapters": [442,443,444,445,446,447,416], "note": "electrical 442-447 and GA 416; 416 also needed for 4 other levels"},
+  "stopped_reason": "Session scope: batch 1 completed and verified; remaining ~184 atoms to be filled in subsequent batches."
+}
