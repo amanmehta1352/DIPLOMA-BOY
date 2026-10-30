@@ -673,7 +673,7 @@ function bindMcq(root){
     if (box.dataset.done) return; box.dataset.done = '1';
     const ans = +box.dataset.ans, pick = +btn.dataset.o, ok = pick === ans, btns = [...box.querySelectorAll('.lb-opt')];
     btns.forEach(x => x.disabled = true); btn.classList.add(ok ? 'ok' : 'no'); if (!ok && btns[ans]) btns[ans].classList.add('ok');
-    box.querySelector('.lb-exp').innerHTML = (ok ? L('✔ सही!', '✔ Correct!') : L('✘ गलत।', '✘ Not quite.')) + (box.dataset.exp ? ' ' + box.dataset.exp : '');
+    box.querySelector('.lb-exp').innerHTML = (ok ? L('✔ सही!', '✔ Correct!') : L('✘ गलत।', '✘ Not quite.')) + (box.dataset.exp ? ' ' + nl(box.dataset.exp) : '');
     try { if (parent && parent.__levelQuiz) parent.__levelQuiz(curCh, ok); } catch (e) {}
   })));
 }
@@ -726,7 +726,11 @@ async function switchTab(tab){
   const box = document.getElementById('readerContent'), want = curCh;
   renderChapBar();
   let atoms;
-  try { atoms = await atomsFor(curCh); } catch (e) { box.innerHTML = `<div class="pending-card">${L('अध्याय नहीं खुल सका। इंटरनेट जाँचें।','Could not open the chapter. Check your internet.')}</div>`; return; }
+  try { atoms = await atomsFor(curCh); } catch (e) {
+    if (want === curCh && document.body.dataset.tabActive === tab)
+      box.innerHTML = `<div class="pending-card">${L('अध्याय नहीं खुल सका। इंटरनेट जाँचें।','Could not open the chapter. Check your internet.')}</div>`;
+    return;
+  }
   if (want !== curCh || document.body.dataset.tabActive !== tab) return;
   box.innerHTML = ({book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
   bindMcq(box); fracify(box);
