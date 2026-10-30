@@ -1,0 +1,87 @@
+-- Migration 0142: graduation_sci general-science biology 913-918 (6 x 4 = 24 atoms)
+with src as (
+  select v.chapter_id, v.level_id, v.atom_key, v.atom_type, v.atom_order, v.title, v.body::jsonb as body, v.subject_tag, v.exam_tags, v.class_tags, v.difficulty
+  from (values
+    (913, 'graduation_sci', 'gsci-endo-concept', 'concept', 1, 'हार्मोन और अंतःस्रावी तंत्र',
+     $j${"text":"अंतःस्रावी ग्रंथियाँ सीधे रक्त में हार्मोन छोड़ती हैं। हार्मोन कम मात्रा में भी प्रभावी होते हैं और लक्ष्य अंगों पर कार्य करते हैं। इंसुलिन (अग्न्याशय) रक्त शर्करा घटाता है, जबकि ग्लूकागॉन उसे बढ़ाता है। थायरॉक्सिन चयापचय नियंत्रित करता है।","note":"इंसुलिन की कमी से मधुमेह (diabetes mellitus)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (913, 'graduation_sci', 'gsci-endo-formula', 'formula', 2, 'प्रमुख ग्रंथियाँ और हार्मोन',
+     $j${"formula":"पीयूष (Pituitary) → वृद्धि हार्मोन · थायरॉइड → थायरॉक्सिन · अग्न्याशय → इंसुलिन · अधिवृक्क → एड्रेनालिन","explanation":"प्रमुख अंतःस्रावी ग्रंथियाँ"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (913, 'graduation_sci', 'gsci-endo-example', 'example', 3, 'उदाहरण',
+     $j${"question":"रक्त शर्करा को कम करने वाला हार्मोन कौन सा है?","solution":"रक्त शर्करा को कम करने वाला हार्मोन इंसुलिन है, जो अग्न्याशय द्वारा बनता है।","answer":"इंसुलिन"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (913, 'graduation_sci', 'gsci-endo-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"इंसुलिन किस ग्रंथि द्वारा बनता है?","options":["थायरॉइड","अग्न्याशय","अधिवृक्क","पीयूष"],"answer":1,"explanation":"इंसुलिन अग्न्याशय की बीटा कोशिकाओं द्वारा बनता है।"},{"q":"थायरॉक्सिन का मुख्य कार्य क्या है?","options":["रक्त शर्करा घटाना","चयापचय नियंत्रित करना","पाचन","उत्सर्जन"],"answer":1,"explanation":"थायरॉक्सिन चयापचय की दर नियंत्रित करता है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (914, 'graduation_sci', 'gsci-skel-concept', 'concept', 1, 'कंकाल तंत्र और पेशी तंत्र',
+     $j${"text":"मनुष्य के कंकाल में लगभग 206 हड्डियाँ होती हैं (वयस्क में)। कंकाल शरीर को सहारा देता है, अंगों की रक्षा करता है और गति में सहायक होता है। पेशियाँ संकुचन और शिथिलन से गति उत्पन्न करती हैं। कंकाल पेशी ऐच्छिक होती है, जबकि हृदय की पेशी अनैच्छिक होती है।","note":"अस्थि-मज्जा में रक्त कोशिकाएँ बनती हैं"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (914, 'graduation_sci', 'gsci-skel-formula', 'formula', 2, 'पेशी के प्रकार',
+     $j${"formula":"कंकाल पेशी → ऐच्छिक, धारीदार · चिकनी पेशी → अनैच्छिक, बिना धारी · हृदय पेशी → अनैच्छिक, धारीदार","explanation":"तीन प्रकार की पेशियाँ"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (914, 'graduation_sci', 'gsci-skel-example', 'example', 3, 'उदाहरण',
+     $j${"question":"वयस्क मनुष्य में लगभग कितनी हड्डियाँ होती हैं?","solution":"वयस्क मनुष्य में लगभग 206 हड्डियाँ होती हैं।","answer":"लगभग 206"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (914, 'graduation_sci', 'gsci-skel-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"हृदय की पेशी किस प्रकार की होती है?","options":["ऐच्छिक, धारीदार","अनैच्छिक, धारीदार","अनैच्छिक, बिना धारी","ऐच्छिक, बिना धारी"],"answer":1,"explanation":"हृदय की पेशी अनैच्छिक और धारीदार होती है।"},{"q":"अस्थि-मज्जा में क्या बनता है?","options":["हार्मोन","रक्त कोशिकाएँ","पाचक रस","एंजाइम"],"answer":1,"explanation":"अस्थि-मज्जा में रक्त कोशिकाएँ बनती हैं।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (915, 'graduation_sci', 'gsci-repro-concept', 'concept', 1, 'जनन',
+     $j${"text":"जनन वह प्रक्रिया है जिससे जीव अपने जैसे नए जीव उत्पन्न करते हैं। अलैंगिक जनन में एक ही जनक से संतति बनती है (जैसे विखंडन, मुकुलन, बीजाणु)। लैंगिक जनन में नर और मादा युग्मकों के संलयन से युग्मनज बनता है। मनुष्य में वृषण शुक्राणु और अंडाशय अंडाणु बनाते हैं।","note":"युग्मनज = निषेचित अंडाणु"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (915, 'graduation_sci', 'gsci-repro-formula', 'formula', 2, 'प्रमुख जनन अंग',
+     $j${"formula":"नर: वृषण → शुक्राणु · मादा: अंडाशय → अंडाणु · निषेचन → युग्मनज (2n) · निषेचन का स्थल: फैलोपियन नलिका","explanation":"मानव जनन के मुख्य घटक"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (915, 'graduation_sci', 'gsci-repro-example', 'example', 3, 'उदाहरण',
+     $j${"question":"मनुष्य में निषेचन किस स्थान पर होता है?","solution":"मनुष्य में निषेचन सामान्यतः फैलोपियन नलिका (oviduct) में होता है।","answer":"फैलोपियन नलिका"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (915, 'graduation_sci', 'gsci-repro-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"अलैंगिक जनन का एक उदाहरण है:","options":["निषेचन","विखंडन","परागण","संलयन"],"answer":1,"explanation":"विखंडन अलैंगिक जनन का उदाहरण है।"},{"q":"शुक्राणु किस अंग में बनते हैं?","options":["अंडाशय","वृषण","यकृत","वृक्क"],"answer":1,"explanation":"शुक्राणु वृषण में बनते हैं।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (916, 'graduation_sci', 'gsci-genetics-concept', 'concept', 1, 'आनुवंशिकी और DNA',
+     $j${"text":"DNA में चार नाइट्रोजनी क्षारक होते हैं: एडेनिन (A), थायमिन (T), ग्वानिन (G), सायटोसिन (C)। A सदैव T से और G सदैव C से जुड़ता है (पूरक क्षारक युग्म)। DNA एक द्विकुंडलित (double helix) संरचना है। जीन DNA का वह खंड है जो एक प्रोटीन या लक्षण का कोड करता है।","note":"A–T (2 हाइड्रोजन बंधन), G–C (3 हाइड्रोजन बंधन)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (916, 'graduation_sci', 'gsci-genetics-formula', 'formula', 2, 'पूरक क्षारक युग्म',
+     $j${"formula":"A = T · G ≡ C · DNA की कुल संरचना: 5′–ATGC–3′ का पूरक 3′–TACG–5′","explanation":"पूरकता का नियम (Chargaff)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (916, 'graduation_sci', 'gsci-genetics-example', 'example', 3, 'उदाहरण',
+     $j${"question":"यदि DNA की एक शृंखला में A की संख्या 20% है, तो दूसरी शृंखला में T का प्रतिशत क्या होगा?","solution":"पूरकता के नियम से A सदैव T से जुड़ता है। अतः दूसरी शृंखला में A (जो पहली में T है) = 20%, और जो दूसरी शृंखला में T है, वह पहली में A है = 20%।","answer":"20%"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (916, 'graduation_sci', 'gsci-genetics-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"DNA में एडेनिन (A) किससे जुड़ता है?","options":["G","C","T","A"],"answer":2,"explanation":"एडेनिन सदैव थायमिन (T) से जुड़ता है।"},{"q":"DNA की संरचना किस प्रकार की होती है?","options":["एकल कुंडली","द्विकुंडलित (double helix)","त्रिकोणीय","सीधी रेखा"],"answer":1,"explanation":"DNA द्विकुंडलित संरचना वाला होता है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (917, 'graduation_sci', 'gsci-heredity-concept', 'concept', 1, 'आनुवंशिकता और विकास',
+     $j${"text":"मेंडल ने मटर पर प्रयोग करके आनुवंशिकता के नियम दिए। प्रभावी (dominant) लक्षण प्रकट होता है, जबकि अप्रभावी (recessive) छिपा रहता है। प्राकृतिक चयन (डार्विन) में अनुकूल लक्षण वाले जीव अधिक जीवित रहते हैं और अपने लक्षण आगे देते हैं।","note":"मेंडल: प्रभाविता का नियम, पृथक्करण का नियम, स्वतंत्र अपव्यूहन का नियम"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (917, 'graduation_sci', 'gsci-heredity-formula', 'formula', 2, 'F₂ पीढ़ी का अनुपात',
+     $j${"formula":"एक संकर क्रॉस (Tt × Tt) में F₂ का जीनोटाइपिक अनुपात = 1 : 2 : 1 · फेनोटाइपिक अनुपात = 3 : 1","explanation":"मेंडेलियन एकसंकर क्रॉस का परिणाम"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (917, 'graduation_sci', 'gsci-heredity-example', 'example', 3, 'उदाहरण',
+     $j${"question":"एक संकर क्रॉस (Tt × Tt) में प्रभावी और अप्रभावी का फेनोटाइपिक अनुपात क्या है?","solution":"Tt × Tt से जीनोटाइप 1 TT : 2 Tt : 1 tt बनते हैं। प्रभावी (T) वाले 3 और अप्रभावी 1, इसलिए अनुपात 3 : 1।","answer":"3 : 1"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (917, 'graduation_sci', 'gsci-heredity-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"मेंडल ने किस पौधे पर प्रयोग किए?","options":["गेहूँ","मटर","धान","सरसों"],"answer":1,"explanation":"मेंडल ने मटर (Pisum sativum) पर प्रयोग किए।"},{"q":"प्राकृतिक चयन का सिद्धांत किसने दिया?","options":["मेंडल","डार्विन","लैमार्क","वाटसन"],"answer":1,"explanation":"प्राकृतिक चयन का सिद्धांत डार्विन ने दिया।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (918, 'graduation_sci', 'gsci-disease-concept', 'concept', 1, 'रोग और प्रतिरक्षा',
+     $j${"text":"रोग शरीर के कार्य में विकार है। संक्रामक रोग जीवाणु, विषाणु, कवक या प्रोटोज़ोआ से फैलते हैं (जैसे टायफाइड, कोविड-19)। अ-संक्रामक रोग संक्रमण से नहीं फैलते (जैसे मधुमेह)। प्रतिरक्षा तंत्र शरीर को रोगजनकों से बचाता है। टीकाकरण सक्रिय प्रतिरक्षा देता है।","note":"टीका: प्रतिजन (antigen) की निष्क्रिय या कमज़ोर मात्रा"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (918, 'graduation_sci', 'gsci-disease-formula', 'formula', 2, 'रोग और उनके कारक',
+     $j${"formula":"मलेरिया → प्रोटोज़ोआ (प्लाज़्मोडियम) · टायफाइड → जीवाणु (सैल्मोनेला) · पोलियो → विषाणु · दाद → कवक","explanation":"कुछ सामान्य रोग और उनके रोगजनक"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (918, 'graduation_sci', 'gsci-disease-example', 'example', 3, 'उदाहरण',
+     $j${"question":"मलेरिया किस रोगजनक से होता है?","solution":"मलेरिया प्लाज़्मोडियम नामक प्रोटोज़ोआ से होता है, जो मादा एनोफिलीज़ मच्छर द्वारा फैलता है।","answer":"प्लाज़्मोडियम (प्रोटोज़ोआ)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (918, 'graduation_sci', 'gsci-disease-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"मधुमेह किस प्रकार का रोग है?","options":["संक्रामक","अ-संक्रामक","परजीवी जनित","वायरल"],"answer":1,"explanation":"मधुमेह अ-संक्रामक रोग है।"},{"q":"टीकाकरण किसके लिए दिया जाता है?","options":["पाचन सुधार","प्रतिरक्षा विकसित करना","रक्त बढ़ाना","हड्डी मज़बूत करना"],"answer":1,"explanation":"टीकाकरण रोग से लड़ने की प्रतिरक्षा विकसित करता है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard')
+  ) as v(chapter_id, level_id, atom_key, atom_type, atom_order, title, body, subject_tag, exam_tags, class_tags, difficulty)
+)
+insert into mtb.atoms (chapter_id, level_id, atom_key, atom_type, atom_order, title, body, lang, status, archived, exam_tags, class_tags, subject_tag, difficulty, content_hash)
+select s.chapter_id, s.level_id, s.atom_key, s.atom_type, s.atom_order, s.title, s.body, 'hi', 'published', false, s.exam_tags, s.class_tags, s.subject_tag, s.difficulty, md5(s.body::text)
+from src s
+on conflict do nothing;
