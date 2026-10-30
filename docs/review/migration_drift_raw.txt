@@ -1,0 +1,108 @@
+DB applied: 163 | repo files: 144 | matched: 140 | DB-only: 23 | repo-only: 4
+
+## Fuzzy (name-based) matches — verify content
+  fix_atom_304  ->  0067_fix_atom_304.sql  (name~1.00)
+  atoms_gs_lab_chemistry  ->  0068_atoms_gs_lab_chemistry.sql  (name~1.00)
+  atoms_maths_ch1_percentage  ->  0069_atoms_maths_ch1_percentage.sql  (name~1.00)
+  atoms_maths_ch2_pl  ->  0070_atoms_maths_ch2_pl.sql  (name~1.00)
+  atoms_maths_ch3_si  ->  0071_atoms_maths_ch3_si.sql  (name~1.00)
+  atoms_maths_ch4_8  ->  0072_atoms_maths_ch4-8.sql  (name~1.00)
+  atoms_maths_ch9_13  ->  0073_atoms_maths_ch9-13.sql  (name~1.00)
+  atoms_maths_14_16_reasoning_423_425  ->  0087_atoms_class9_10_maths_reasoning.sql  (name~0.75)
+  atoms_reasoning_426_431  ->  0075_atoms_reasoning_ch3-7.sql  (name~0.67)
+  atoms_reasoning_17_19_27_28  ->  0076_atoms_reasoning_ch8-12.sql  (name~0.67)
+  atoms_ga_415_421  ->  0077_atoms_ga_ch1-5.sql  (name~0.67)
+  atoms_ga_civil_batch1  ->  0078_atoms_ga_civil_batch1.sql  (name~1.00)
+  atoms_medical_ch1_10  ->  0079_atoms_medical_ch1-10.sql  (name~1.00)
+  atoms_medical_ch11_20  ->  0080_atoms_medical_ch11-20.sql  (name~1.00)
+  atoms_medical_ch21_30  ->  0081_atoms_medical_ch21-30.sql  (name~1.00)
+  atoms_medical_ch31_40  ->  0082_atoms_medical_ch31-40.sql  (name~1.00)
+  atoms_medical_final_engineering_batch1  ->  0083_atoms_medical_final_engineering_batch1.sql  (name~1.00)
+  atoms_engineering_final_class9_10_physics  ->  0084_atoms_engineering_final_class9_10_physics.sql  (name~1.00)
+  atoms_class9_10_chem_bio  ->  0085_atoms_class9_10_chem_bio.sql  (name~1.00)
+  atoms_class9_10_bio_maths  ->  0086_atoms_class9_10_bio_maths.sql  (name~1.00)
+  atoms_class9_10_maths_reasoning  ->  0074_atoms_maths_ch14-16_reasoning_ch1-2.sql  (name~0.50)
+  atoms_class11_12_sci_phy_chem  ->  0088_atoms_class11_12_sci_phy_chem.sql  (name~1.00)
+  atoms_class11_12_sci_batch2  ->  0089_atoms_class11_12_sci_batch2.sql  (name~1.00)
+  atoms_class11_12_sci_batch3  ->  0090_atoms_class11_12_sci_batch3.sql  (name~1.00)
+  atoms_sci_finish_banking_start  ->  0091_atoms_sci_finish_banking_start.sql  (name~1.00)
+  atoms_banking_finish_defence_start  ->  0092_atoms_banking_finish_defence_start.sql  (name~1.00)
+  atoms_engineering_ch_chem1_math1  ->  0093_atoms_engineering_ch_chem1_math1.sql  (name~1.00)
+  atoms_defence_physics_chem_bio_banking  ->  0094_atoms_defence_physics_chem_bio_banking.sql  (name~1.00)
+
+## Number matches where names differ (possible content drift)
+  foundation_0001_core  ->  0001_core.sql
+  foundation_0002_branch_sources_ssc_je  ->  0002_branch_sources_ssc_je.sql
+  foundation_0003_chapters_three_views  ->  0003_chapters_three_views.sql
+  foundation_0004_mixed_to_chapters  ->  0004_mixed_to_chapters.md
+  foundation_0005_nightly_backup  ->  0005_nightly_backup.sql
+  0013_pattern_apply  ->  0013_question_reports.sql
+  0019_report_guard_no_auto_hide  ->  0019_report_guard.sql
+  0038_atoms_mech_batch1b  ->  0038_atoms_mech_batch2.sql
+  0039_atoms_mech_batch1c  ->  0039_atoms_mech_batch3.sql
+  atoms_0111_fix_atom_2053  ->  0111_fix_atom_2053.sql
+  atoms_0112_fix_trivial_quality_issues  ->  0112_fix_trivial_quality_issues.sql
+  atoms_0113_fill_govt_technical_civil_batch1  ->  0113_fill_govt_technical_civil_batch1.sql
+  atoms_0114_fill_govt_technical_electrical_ca_batch2  ->  0114_fill_govt_technical_electrical_ca_batch2.sql
+  atoms_0115_fill_ca416_levels_and_class910_gaps  ->  0115_fill_ca416_levels_and_class910_gaps.sql
+  atoms_0116_fill_banking_maths_ca  ->  0116_fill_banking_maths_ca_batch.sql
+  atoms_0117_fill_class_6_8_science  ->  0117_fill_class_6_8_science_batch.sql
+  atoms_0118_fill_upsc_civil_reasoning  ->  0118_fill_upsc_civil_reasoning_batch.sql
+  topics_0120_add_missing_chapters  ->  0120_add_missing_chapters.sql
+  atoms_0121_class_11_12_com_accountancy  ->  0121_fill_class_11_12_com_accountancy_batch.sql
+  atoms_0122_class_11_12_com_business_econ  ->  0122_fill_class_11_12_com_business_econ_batch.sql
+  atoms_0123_class_11_12_com_maths_graduation_com_adv_acc  ->  0123_fill_class_11_12_com_maths_adv_acc_batch.sql
+  atoms_0124_graduation_com_cost_business_law  ->  0124_fill_graduation_com_batch.sql
+  atoms_0125_cost_acc_arts_history  ->  0125_fill_cost_acc_and_arts_history_batch.sql
+  atoms_0126_class_11_12_com_economics_rest  ->  0126_fill_class_11_12_com_economics_rest.sql
+  atoms_0127_class_11_12_arts_political_science  ->  0127_fill_class_11_12_arts_political_science.sql
+  atoms_0128_class_11_12_arts_geography  ->  0128_fill_class_11_12_arts_geography.sql
+  atoms_0129_class_11_12_arts_sociology  ->  0129_fill_class_11_12_arts_sociology.sql
+  atoms_0130_class_11_12_arts_psychology  ->  0130_fill_class_11_12_arts_psychology.sql
+  atoms_0131_graduation_arts_advanced_history  ->  0131_fill_graduation_arts_advanced_history.sql
+  atoms_0132_graduation_arts_advanced_polity  ->  0132_fill_graduation_arts_advanced_polity.sql
+  atoms_0133_graduation_arts_advanced_geography  ->  0133_fill_graduation_arts_advanced_geography.sql
+  atoms_0134_law_management_legal_reasoning_aptitude  ->  0134_fill_law_management_legal_reasoning_aptitude.sql
+  atoms_0135_law_management_english_quant  ->  0135_fill_law_management_english_quant.sql
+  atoms_0136_graduation_sci_physics_batch1  ->  0136_fill_graduation_sci_physics_batch1.sql
+  atoms_0137_graduation_sci_chemistry_batch1  ->  0137_fill_graduation_sci_chemistry_batch1.sql
+  atoms_0138_graduation_sci_chemistry_batch2  ->  0138_fill_graduation_sci_chemistry_batch2.sql
+  atoms_0139_graduation_sci_chemistry_batch3  ->  0139_fill_graduation_sci_chemistry_batch3.sql
+  atoms_0140_graduation_sci_biology_batch1  ->  0140_fill_graduation_sci_biology_batch1.sql
+  atoms_0141_graduation_sci_biology_batch2  ->  0141_fill_graduation_sci_biology_batch2.sql
+  atoms_0142_graduation_sci_biology_batch3  ->  0142_fill_graduation_sci_biology_batch3.sql
+  atoms_0143_graduation_sci_biology_env  ->  0143_fill_graduation_sci_biology_env.sql
+  atoms_0144_graduation_sci_physics_rest  ->  0144_fill_graduation_sci_physics_rest.sql
+  atoms_0145_advanced_research_thermo_mcq  ->  0145_fill_advanced_research_thermo_mcq.sql
+  atoms_0146_missing_formula_4chapters  ->  0146_fill_missing_formula_atoms_4chapters.sql
+
+## Applied in DB, no repo file
+  import_pyq_rpc
+  import_practice_rpc
+  ntpc_prep_sources_kind_and_evidence
+  ntpc_mixed_subject_and_aliases
+  ntpc_exam_pattern_and_sections
+  question_reports
+  0014b_publish_problems_array_fix
+  0014c_questions_hash_index
+  0014d_audit_actor_and_verify_fields
+  0015b_verify_nightly_service_role
+  0015c_health_reports_7d
+  0015d_verify_backup_wrapper
+  0017b_publish_robot_guard
+  0018b_figure_queue_picture_only
+  0019b_report_global_caps
+  0020b_quality_english_missing
+  0021_question_attributes
+  0022_filter_questions
+  0023_refresh_question_attributes
+  0024_question_sets
+  0024b_question_sets_min10
+  backup_snapshot_2026_10_30
+  backup_snapshot_v2_pre_mission
+
+## Repo file, not applied in DB (by name)
+  0026_pattern_candidates.sql
+  0027_pattern_review.sql
+  0040_fix_som_collision_and_backfill.sql
+  0149_security_fixes_advisors.sql
