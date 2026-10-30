@@ -635,7 +635,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp
 const fracText = h => h.replace(/(^|[^\w./])(\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)(?![\w/])/g, (m, pre, a, b) => `${pre}<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`);
 const nl = s => fracText(esc(s)).replace(/\n/g, '<br>');
 /* formula text: one formula per line (split on " · "), and a bare "/100" (divide by) is written as "÷ 100" so it is not stacked under a word */
-const fx = s => String(s || '').split(/\s+·\s+/).map(x => `<div>${esc(x.replace(/(^|\s)\/(?=\s*\d)/g, '$1÷ '))}</div>`).join('');
+const fx = s => String(s || '').split(/\s+·\s+/).map(x => `<div>${esc(x.replace(/(^|\s)\/(?=\s*\d)/g, (m, pre, at, text) => /\d\s*$/.test(text.slice(0, at)) ? m : pre + '÷ '))}</div>`).join('');
 const noNum = t => String(t || '').replace(/^\s*\d+\.\s*/, '');
 async function get(path){
   const r = await fetch(SB.url + '/rest/v1/' + path, {headers:{apikey:SB.key, Authorization:'Bearer ' + SB.key, 'Accept-Profile':'mtb'}});
