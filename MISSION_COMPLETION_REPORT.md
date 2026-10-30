@@ -37,3 +37,11 @@ Graduation science and advanced content was written from general knowledge, not 
 
 ## Backup
 Take a fresh export from the Supabase dashboard before any further changes.
+
+## Verification update (2026-10-30, after report)
+- Snapshot checksum (published, not archived): 3,925 rows, md5 `e0af8d47499a7aab0b2d97edab3876b5`, taken 2026-10-30 16:43:50 UTC. This is a fingerprint, not a full JSON backup. A full export still needs to be taken from the Supabase dashboard or via `backups/export_atoms_by_level.sh` with DB_URL.
+- Structure: across 18 levels, 956 chapter-level pairs. Every pair has exactly 4 text atoms (concept, formula, example, mcq).
+- The 5 chapters with 5 atoms (banking 1, class_11_12_sci 886, engineering 872, govt_defence 9, medical 908) have a 5th atom of type `svg`. This is a diagram, not a defect. No change needed.
+- The 96 NULL-level atoms are all `svg` diagrams attached to chapters. They look intentionally shared across levels. Not assigned; awaiting owner decision.
+- Content review: formulas in the atoms written for graduation science (874–920) and advanced_research (441) were spot-checked for arithmetic and equation correctness. Source verification is still pending. Medical, law and engineering atoms have not been individually reviewed.
+- Open decisions for the owner: (1) backup/export, (2) NULL-level svg handling, (3) advanced_research scope, (4) content source review.
