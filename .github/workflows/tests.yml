@@ -14,16 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - run: npm i --no-save playwright@1.48.2 && npx playwright install --with-deps chromium
-      - run: mkdir -p tests/shots && node tests/flow.test.js
-      - run: node tests/design.test.js
-      - run: node tests/tree.test.js
-      - run: node tests/cbt.test.js
-      - run: node tests/home.test.js
-      - run: node tests/clean.test.js
-      - run: node tests/pattern.test.js
-      - run: node tests/pwa.test.js
-      - run: node tests/report.test.js
-      - run: node tests/pattern_return.test.js
+      - run: mkdir -p tests/shots && node tests/app.test.js
       - run: node tests/control.test.js
       - run: python3 robots/health/selftest.py
       - run: python3 robots/paper/selftest.py
