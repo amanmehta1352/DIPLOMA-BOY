@@ -1,0 +1,87 @@
+-- Migration 0141: graduation_sci general-science biology 907-912 (6 x 4 = 24 atoms)
+with src as (
+  select v.chapter_id, v.level_id, v.atom_key, v.atom_type, v.atom_order, v.title, v.body::jsonb as body, v.subject_tag, v.exam_tags, v.class_tags, v.difficulty
+  from (values
+    (907, 'graduation_sci', 'gsci-digest-concept', 'concept', 1, 'पाचन तंत्र',
+     $j${"text":"भोजन का पाचन मुख में लार एमाइलेज से शुरू होता है, आमाशय में पेप्सिन प्रोटीन का पाचन करता है, और छोटी आंत में अग्न्याशयी रस व आंत्र रस से पाचन पूरा होता है। पोषक तत्वों का अवशोषण मुख्यतः छोटी आंत की रसांकुरों (villi) द्वारा होता है।","note":"छोटी आंत सबसे लंबा भाग है और अवशोषण का मुख्य स्थल"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (907, 'graduation_sci', 'gsci-digest-formula', 'formula', 2, 'पाचक एंजाइम',
+     $j${"formula":"लार एमाइलेज → स्टार्च का पाचन · पेप्सिन → प्रोटीन · लाइपेज → वसा · ट्रिप्सिन → प्रोटीन (छोटी आंत)","explanation":"प्रमुख पाचक एंजाइम और उनके कार्य"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (907, 'graduation_sci', 'gsci-digest-example', 'example', 3, 'उदाहरण',
+     $j${"question":"वसा का पाचन किस एंजाइम से होता है?","solution":"वसा का पाचन लाइपेज एंजाइम से होता है, जो अग्न्याशय और आंत्र रस में पाया जाता है।","answer":"लाइपेज"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (907, 'graduation_sci', 'gsci-digest-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"प्रोटीन का पाचन आमाशय में किस एंजाइम से होता है?","options":["एमाइलेज","पेप्सिन","लाइपेज","माल्टेज"],"answer":1,"explanation":"पेप्सिन आमाशय में प्रोटीन का पाचन करता है।"},{"q":"पोषक तत्वों का अवशोषण मुख्यतः कहाँ होता है?","options":["मुख","आमाशय","छोटी आंत","बड़ी आंत"],"answer":2,"explanation":"अवशोषण का मुख्य स्थल छोटी आंत है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (908, 'graduation_sci', 'gsci-resp-concept', 'concept', 1, 'श्वसन',
+     $j${"text":"श्वसन में कोशिका ग्लूकोज़ का ऑक्सीकरण करके ऊर्जा (ATP) मुक्त करती है। अवायवीय श्वसन में ऑक्सीजन नहीं होती, और यीस्ट में यह किण्वन (fermentation) के रूप में होता है। ग्लाइकोलाइसिस कोशिका द्रव्य में होता है, जबकि क्रेब्स चक्र माइटोकॉन्ड्रिया में होता है।","note":"ग्लाइकोलाइसिस: 1 ग्लूकोज़ → 2 पाइरुवेट"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (908, 'graduation_sci', 'gsci-resp-formula', 'formula', 2, 'समग्र श्वसन अभिक्रिया',
+     $j${"formula":"C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ऊर्जा (ATP)","explanation":"वायवीय श्वसन का सामान्य समीकरण"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (908, 'graduation_sci', 'gsci-resp-example', 'example', 3, 'उदाहरण',
+     $j${"question":"ग्लाइकोलाइसिस किस कोशिकांग में होता है?","solution":"ग्लाइकोलाइसिस कोशिका द्रव्य (cytoplasm) में होता है, माइटोकॉन्ड्रिया में नहीं।","answer":"कोशिका द्रव्य"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (908, 'graduation_sci', 'gsci-resp-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"ग्लाइकोलाइसिस में एक ग्लूकोज़ से कितने पाइरुवेट बनते हैं?","options":["1","2","4","6"],"answer":1,"explanation":"ग्लाइकोलाइसिस में एक ग्लूकोज़ से 2 पाइरुवेट बनते हैं।"},{"q":"क्रेब्स चक्र कहाँ होता है?","options":["कोशिका द्रव्य","माइटोकॉन्ड्रिया","केंद्रक","राइबोसोम"],"answer":1,"explanation":"क्रेब्स चक्र माइटोकॉन्ड्रिया में होता है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (909, 'graduation_sci', 'gsci-circ-concept', 'concept', 1, 'परिसंचरण तंत्र',
+     $j${"text":"मनुष्य का हृदय चार कक्षों का होता है: दो अलिंद और दो निलय। बाएँ निलय से ऑक्सीजनयुक्त रक्त महाधमनी द्वारा पूरे शरीर में जाता है, और दाएँ अलिंद में अशुद्ध रक्त आता है। रक्त में लाल रक्त कणिकाएँ (RBC) ऑक्सीजन का वहन करती हैं, जिनमें हीमोग्लोबिन होता है।","note":"पल्मोनरी धमनी अशुद्ध रक्त फेफड़ों तक ले जाती है"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (909, 'graduation_sci', 'gsci-circ-formula', 'formula', 2, 'रक्त के घटक',
+     $j${"formula":"RBC → O₂ वहन (हीमोग्लोबिन) · WBC → रोग प्रतिरोधक क्षमता · प्लेटलेट्स → रक्त का थक्का बनाना · प्लाज़्मा → पोषक तत्व व अपशिष्ट का वहन","explanation":"रक्त के मुख्य घटक"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (909, 'graduation_sci', 'gsci-circ-example', 'example', 3, 'उदाहरण',
+     $j${"question":"मनुष्य में ऑक्सीजन का वहन कौन सी कोशिका करती है?","solution":"ऑक्सीजन का वहन लाल रक्त कणिकाएँ (RBC) करती हैं, जिनमें हीमोग्लोबिन होता है।","answer":"लाल रक्त कणिकाएँ (RBC)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (909, 'graduation_sci', 'gsci-circ-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"मनुष्य के हृदय में कितने कक्ष होते हैं?","options":["2","3","4","6"],"answer":2,"explanation":"मनुष्य का हृदय चार कक्षों का होता है।"},{"q":"रक्त का थक्का बनाने में कौन सहायक है?","options":["RBC","WBC","प्लेटलेट्स","प्लाज़्मा"],"answer":2,"explanation":"प्लेटलेट्स रक्त का थक्का बनाने में सहायक हैं।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (910, 'graduation_sci', 'gsci-ptransport-concept', 'concept', 1, 'पौधों में जल और पोषक परिवहन',
+     $j${"text":"पौधों में जल और खनिज लवण जाइलम द्वारा जड़ से पत्तियों तक जाते हैं। इसे वाष्पोत्सर्जन खिंचाव (transpiration pull) चलाता है। भोजन (शर्करा) फ्लोएम द्वारा पत्तियों से अन्य भागों तक जाता है, इसे स्थानांतरण (translocation) कहते हैं।","note":"वाष्पोत्सर्जन: पत्तियों के रंध्रों (stomata) से जल-वाष्प का निकलना"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (910, 'graduation_sci', 'gsci-ptransport-formula', 'formula', 2, 'वाष्पोत्सर्जन और प्रकाश संश्लेषण',
+     $j${"formula":"जाइलम → जल व खनिज (ऊपर की ओर) · फ्लोएम → भोजन (दोनों दिशाओं में) · रंध्र खुलने पर वाष्पोत्सर्जन बढ़ता है","explanation":"परिवहन के दो मुख्य ऊतक"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (910, 'graduation_sci', 'gsci-ptransport-example', 'example', 3, 'उदाहरण',
+     $j${"question":"पौधों में जल का ऊपर चढ़ना मुख्यतः किस बल से होता है?","solution":"वाष्पोत्सर्जन खिंचाव (transpiration pull) और जल अणुओं के बीच संसजन बल से जल ऊपर चढ़ता है।","answer":"वाष्पोत्सर्जन खिंचाव"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (910, 'graduation_sci', 'gsci-ptransport-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"पौधों में जल का वहन किस ऊतक द्वारा होता है?","options":["फ्लोएम","जाइलम","कॉर्क","कैम्बियम"],"answer":1,"explanation":"जल और खनिज का वहन जाइलम करता है।"},{"q":"पत्तियों से जल-वाष्प निकलने की प्रक्रिया क्या कहलाती है?","options":["प्रकाश संश्लेषण","श्वसन","वाष्पोत्सर्जन","स्थानांतरण"],"answer":2,"explanation":"पत्तियों से जल-वाष्प निकलने को वाष्पोत्सर्जन कहते हैं।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (911, 'graduation_sci', 'gsci-excr-concept', 'concept', 1, 'उत्सर्जन',
+     $j${"text":"उत्सर्जन शरीर से अपशिष्ट पदार्थ निकालने की प्रक्रिया है। मनुष्य में मुख्य उत्सर्जी अंग वृक्क (kidney) है, जो रक्त छानकर मूत्र बनाता है। वृक्क की इकाई नेफ्रॉन है। यूरिया यकृत (liver) में अमोनिया से बनता है।","note":"नेफ्रॉन = वृक्क की क्रियात्मक इकाई"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (911, 'graduation_sci', 'gsci-excr-formula', 'formula', 2, 'उत्सर्जी पदार्थ',
+     $j${"formula":"अमोनिया (जलीय जंतु) · यूरिया (स्तनधारी) · यूरिक अम्ल (पक्षी, सरीसृप)","explanation":"नाइट्रोजनी अपशिष्ट के प्रकार"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (911, 'graduation_sci', 'gsci-excr-example', 'example', 3, 'उदाहरण',
+     $j${"question":"मनुष्य में यूरिया किस अंग में बनता है?","solution":"मनुष्य में अमोनिया से यूरिया यकृत (liver) में बनता है, और वृक्क इसे मूत्र द्वारा बाहर निकालते हैं।","answer":"यकृत (liver)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (911, 'graduation_sci', 'gsci-excr-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"वृक्क की क्रियात्मक इकाई क्या है?","options":["नेफ्रॉन","न्यूरॉन","अल्वियोलाई","हेपेटोसाइट"],"answer":0,"explanation":"नेफ्रॉन वृक्क की क्रियात्मक इकाई है।"},{"q":"पक्षियों में मुख्य नाइट्रोजनी अपशिष्ट कौन सा है?","options":["अमोनिया","यूरिया","यूरिक अम्ल","कोई नहीं"],"answer":2,"explanation":"पक्षियों में मुख्य नाइट्रोजनी अपशिष्ट यूरिक अम्ल है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+
+    (912, 'graduation_sci', 'gsci-nerve-concept', 'concept', 1, 'तंत्रिका तंत्र और ज्ञानेंद्रियाँ',
+     $j${"text":"तंत्रिका तंत्र शरीर का नियंत्रण और समन्वय करता है। इकाई न्यूरॉन है। मस्तिष्क (ब्रेन) का सबसे बड़ा भाग सेरेब्रम है, जो इच्छा और सोच नियंत्रित करता है। अनुमस्तिष्क (सेरेबेलम) संतुलन और शरीर की गति को नियंत्रित करता है। मेडुला श्वसन और हृदय गति नियंत्रित करता है।","note":"प्रतिवर्ती क्रिया (reflex) में प्रतिक्रिया मस्तिष्क तक जाए बिना होती है"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (912, 'graduation_sci', 'gsci-nerve-formula', 'formula', 2, 'मस्तिष्क के भाग',
+     $j${"formula":"सेरेब्रम → सोच, इच्छा · सेरेबेलम → संतुलन · मेडुला → श्वसन व हृदय गति","explanation":"मस्तिष्क के तीन मुख्य भाग"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (912, 'graduation_sci', 'gsci-nerve-example', 'example', 3, 'उदाहरण',
+     $j${"question":"शरीर का संतुलन किस भाग द्वारा नियंत्रित होता है?","solution":"संतुलन और शरीर की गति का नियंत्रण अनुमस्तिष्क (सेरेबेलम) करता है।","answer":"अनुमस्तिष्क (सेरेबेलम)"}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard'),
+    (912, 'graduation_sci', 'gsci-nerve-mcq', 'mcq', 4, 'अभ्यास प्रश्न',
+     $j${"questions":[{"q":"तंत्रिका तंत्र की संरचनात्मक और क्रियात्मक इकाई क्या है?","options":["नेफ्रॉन","न्यूरॉन","कोशिका","ऊतक"],"answer":1,"explanation":"न्यूरॉन तंत्रिका तंत्र की इकाई है।"},{"q":"श्वसन और हृदय गति का नियंत्रण किस भाग से होता है?","options":["सेरेब्रम","सेरेबेलम","मेडुला","हाइपोथैलेमस"],"answer":2,"explanation":"मेडुला श्वसन और हृदय गति का नियंत्रण करता है।"}]}$j$,
+     'general-science', array[]::text[], array[]::text[], 'hard')
+  ) as v(chapter_id, level_id, atom_key, atom_type, atom_order, title, body, subject_tag, exam_tags, class_tags, difficulty)
+)
+insert into mtb.atoms (chapter_id, level_id, atom_key, atom_type, atom_order, title, body, lang, status, archived, exam_tags, class_tags, subject_tag, difficulty, content_hash)
+select s.chapter_id, s.level_id, s.atom_key, s.atom_type, s.atom_order, s.title, s.body, 'hi', 'published', false, s.exam_tags, s.class_tags, s.subject_tag, s.difficulty, md5(s.body::text)
+from src s
+on conflict do nothing;
