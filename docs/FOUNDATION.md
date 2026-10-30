@@ -14,6 +14,8 @@ sources (official paper/key, with url + sha256 + verified_at) · questions (kind
 status draft|published|hidden, content_hash; a `pyq` MUST have a source) ·
 profiles (exam, branch, target date, daily minutes, language) · attempts · revision_cards (spaced repetition 1-3-7-15-30 days).
 RLS: reference data + published questions readable by all; profiles/attempts/revision_cards only by their owner.
+Chapter notes (0028): content_levels (18 depths, e.g. govt_technical, govt_basic) · exams.content_level · atoms (chapter_id → topics, level_id or null = shared, type concept|formula|example|mcq|svg, body JSON).
+Same chapter, different depth per exam: the app reads atoms for curExam().level; a chapter with no atoms for that level shows "coming soon". Adding a level or notes = data, no code change.
 
 ## Why this survives growth
 - Per-user data is keyed by user + question id, never by screen → new screens reuse it.

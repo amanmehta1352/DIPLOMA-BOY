@@ -103,6 +103,17 @@ a.item{color:inherit;text-decoration:none}
 .scroller::-webkit-scrollbar{display:none}
 .tag{font-size:12px;font-weight:700;border-radius:6px;padding:1px 7px;background:var(--blue-soft);color:var(--blue);white-space:nowrap}
 .tag.pyq{background:var(--ink);color:var(--paper)}
+.tag.notes{background:var(--ok-soft);color:var(--ok)}
+.atom{padding:14px;border-top:1px solid var(--rule)} .atom:first-child{border-top:0}
+.atom h3{font-size:17px;margin:0 0 6px} .atom p{margin:4px 0}
+.atom .anote{background:var(--paper);border-radius:8px;padding:8px 10px;font-size:14px;color:var(--ink2);margin-top:8px}
+.atom .afx{background:var(--blue-soft);color:var(--blue);border-radius:8px;padding:12px;text-align:center;font-size:19px;font-weight:700;margin:8px 0;overflow-x:auto}
+.atom .asol{background:var(--paper);border-radius:8px;padding:8px 10px;font-family:ui-monospace,monospace;font-size:14px;white-space:pre-wrap}
+.atom .aans{color:var(--ok);font-weight:700;margin-top:6px}
+.atom .aq{margin-top:12px} .atom .aopt{display:block;width:100%;text-align:left;border:1px solid var(--rule);background:var(--sheet);color:inherit;border-radius:10px;padding:10px 12px;margin:6px 0;min-height:44px;font:inherit;cursor:pointer}
+.atom .aopt.right{border-color:var(--ok);background:var(--ok-soft)} .atom .aopt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.atom .aexp{font-size:14px;color:var(--ink2);margin-top:4px}
+.atom .asvg{text-align:center} .atom .asvg svg{max-width:100%;height:auto}
 .hero{padding:28px 0 8px}
 .hero p{margin:8px 0 0;color:var(--ink2)}
 .bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 24px}
@@ -299,27 +310,29 @@ const backBtn=(act,label)=>`<div style="display:flex;align-items:center;gap:4px;
 async function sb(path){ const r=await fetch(SB.url+'/rest/v1/'+path,{headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Accept-Profile':'mtb'}}); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
 async function loadRemote(){
   try{
-    const [br,ex,eb,su,tp,src,cs,secs,ps]=await Promise.all([
+    const [br,ex,eb,su,tp,src,cs,secs,ps,nt]=await Promise.all([
       sb('branches?select=id,slug,name_en,name_hi,sort&order=sort'),
-      sb('exams?select=id,slug,name_en,name_hi,active,pattern,family_slug,family_hi,family_en,stage_hi,stage_en,stage_sort&active=eq.true&order=id'),
+      sb('exams?select=id,slug,name_en,name_hi,active,pattern,family_slug,family_hi,family_en,stage_hi,stage_en,stage_sort,content_level&active=eq.true&order=id'),
       sb('exam_branches?select=exam_id,branch_id'),
       sb('subjects?select=id,slug,name_en,name_hi,branch_id&order=id'),
       sb('topics?select=id,slug,name_en,name_hi,subject_id,sort,is_chapter,unit_en,unit_hi&order=sort,id'),
       sb('sources?select=id,exam_id,branch_id,paper_date,shift,note,kind&order=paper_date.desc,shift'),
       sb('topic_stats_exam?select=topic_id,exam_id,kind,n'),
       sb('exam_sections?select=exam_id,sort,slug,name_hi,name_en,questions,qno_from,qno_to,subjects&order=exam_id,sort').catch(()=>[]),
-      sb('paper_stats?select=source_id,n').catch(()=>[])]);
+      sb('paper_stats?select=source_id,n').catch(()=>[]),
+      sb('atoms?select=chapter_id,level_id').catch(()=>[])]);
     const bS={}; br.forEach(b=>bS[b.id]=b.slug);
     const sS={}; su.forEach(s=>sS[s.id]=s.slug);
     DATA.branches=br.map(b=>({id:b.slug,hi:b.name_hi,en:b.name_en}));
     DATA.subjects=su.map(s=>({id:s.slug,hi:s.name_hi,en:s.name_en,branch:s.branch_id==null?null:bS[s.branch_id]}));
-    const exs=ex.map(e=>({id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,family:e.family_slug||e.slug,fhi:e.family_hi||e.name_hi,fen:e.family_en||e.name_en,stage:e.stage_en?{hi:e.stage_hi||e.stage_en,en:e.stage_en}:null,stageSort:e.stage_sort||1,pattern:e.pattern||{},sections:secs.filter(x=>x.exam_id===e.id).map(x=>({id:x.slug,hi:x.name_hi,en:x.name_en,n:x.questions,from:x.qno_from,to:x.qno_to,subjects:x.subjects})),branches:(eb.some(x=>x.exam_id===e.id)?eb.filter(x=>x.exam_id===e.id).map(x=>bS[x.branch_id]):br.map(b=>b.slug)),ready:true}));   /* an exam with no branch rows (RRB NTPC) is open to every branch */
+    const exs=ex.map(e=>({id:e.slug,dbid:e.id,hi:e.name_hi,en:e.name_en,family:e.family_slug||e.slug,fhi:e.family_hi||e.name_hi,fen:e.family_en||e.name_en,stage:e.stage_en?{hi:e.stage_hi||e.stage_en,en:e.stage_en}:null,stageSort:e.stage_sort||1,level:e.content_level||null,pattern:e.pattern||{},sections:secs.filter(x=>x.exam_id===e.id).map(x=>({id:x.slug,hi:x.name_hi,en:x.name_en,n:x.questions,from:x.qno_from,to:x.qno_to,subjects:x.subjects})),branches:(eb.some(x=>x.exam_id===e.id)?eb.filter(x=>x.exam_id===e.id).map(x=>bS[x.branch_id]):br.map(b=>b.slug)),ready:true}));   /* an exam with no branch rows (RRB NTPC) is open to every branch */
     DATA.exams=[...exs,...DATA.exams.filter(e=>e.soon&&!exs.some(x=>x.id===e.id))];
     R.topics={}; tp.forEach(t=>{ const inbox=t.slug==='inbox'; R.topics[t.id]={id:t.id,hi:inbox?'अध्याय तय नहीं (छँटाई बाकी)':t.name_hi,en:inbox?'Chapter not set yet':t.name_en,subject:sS[t.subject_id],chapter:t.is_chapter||inbox,unit:t.unit_en?{hi:t.unit_hi,en:t.unit_en}:null,sort:inbox?9998:t.sort}; });
     R.sources={}; src.forEach(x=>R.sources[x.id]={...x,exam:(exs.find(e=>e.dbid===x.exam_id)||{}).id,branch:bS[x.branch_id]||null});
     R.statsEx={}; cs.forEach(x=>{ (R.statsEx[x.topic_id]||(R.statsEx[x.topic_id]=[])).push(x); });
     R.examFam={}; R.famOfSlug={}; R.slugOfDb={}; exs.forEach(e=>{ R.examFam[e.dbid]=e.family; R.famOfSlug[e.id]=e.family; R.slugOfDb[e.dbid]=e.id; });
     R.pstat={}; ps.forEach(x=>R.pstat[x.source_id]=x.n);
+    R.notes={}; nt.forEach(x=>{ (R.notes[x.chapter_id]||(R.notes[x.chapter_id]=new Set())).add(x.level_id||'*'); });
     R.ok=true;
   }catch(e){ R.ok=false; }
 }
@@ -344,6 +357,32 @@ function fetchExamSubject(exam,subj){
   if(!sids.length||!tids.length) return Promise.resolve([]);
   return paged(`ex|${exam}|${subj}`,`questions?select=${QSEL}&source_id=in.(${sids.join(',')})&topic_id=in.(${tids.join(',')})`);
 }
+/* ---- Chapter notes (atoms): same chapter, depth chosen by the exam's content level ---- */
+const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function curLevel(){ const e=curExam(); return (e&&e.level)||null; }
+function hasNotes(chId){ const s=(R.notes||{})[chId], lv=curLevel(); return !!(s&&lv&&s.has(lv)); }
+function tex(f){ const SUP={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻','+':'⁺'};
+  return esc(String(f||'').replace(/\\times/g,'×').replace(/\\cdot/g,'·').replace(/\\quad/g,'   ').replace(/\\vec\{(\w)\}/g,'$1⃗').replace(/\\Delta/g,'Δ').replace(/\\theta/g,'θ').replace(/\\mu/g,'μ')
+    .replace(/\^\{([-+0-9]+)\}/g,(m,x)=>[...x].map(c=>SUP[c]||c).join('')).replace(/\^([0-9])/g,(m,x)=>SUP[x]).replace(/_\{(\w+)\}/g,'$1').replace(/[{}]/g,'')); }
+async function loadNotes(chId){ const lv=curLevel(), key=chId+'|'+lv; V.notes=V.notes||{}; if(V.notes[key]) return;
+  V.notes[key]={loading:true,list:[]};
+  try{ const rows=lv?await sb(`atoms?select=id,atom_key,atom_type,atom_order,title,body,level_id&chapter_id=eq.${chId}&or=(level_id.eq.${lv},level_id.is.null)&order=atom_order,id`):[];
+    V.notes[key]={loading:false,list:hasNotes(chId)?rows:[]}; }   /* a shared diagram alone is not a chapter's notes */
+  catch(e){ V.notes[key]={loading:false,list:[],err:true}; }
+  if(V.view&&V.view.ch===chId) render(); }
+function atomHTML(a,i){ const b=a.body||{}, t=a.title?`<h3>${esc(a.title)}</h3>`:'';
+  if(a.atom_type==='concept') return `<div class="atom">${t}<p>${esc(b.text)}</p>${b.note?`<div class="anote">💡 ${esc(b.note)}</div>`:''}</div>`;
+  if(a.atom_type==='formula') return `<div class="atom">${t}<div class="afx">${tex(b.formula)}</div>${b.explanation?`<p class="small">${esc(b.explanation)}</p>`:''}</div>`;
+  if(a.atom_type==='example') return `<div class="atom">${t}<p><b>${L('प्रश्न','Q')}:</b> ${esc(b.question)}</p><div class="asol">${esc(b.solution)}</div><div class="aans">✓ ${esc(b.answer)}</div></div>`;
+  if(a.atom_type==='mcq') return `<div class="atom">${t}${(b.questions||[]).map((q,qi)=>{ const pk=(V.apick||{})[a.id+':'+qi];
+    return `<div class="aq"><b>${qi+1}. ${esc(q.q)}</b>${(q.options||[]).map((o,oi)=>`<button class="aopt ${pk==null?'':oi===q.answer?'right':oi===pk?'wrong':''}" data-a="atom-pick" data-id="${a.id}" data-q="${qi}" data-i="${oi}" ${pk==null?'':'disabled'}>${'ABCD'[oi]||oi+1}. ${esc(o)}</button>`).join('')}${pk!=null&&q.explanation?`<div class="aexp">💡 ${esc(q.explanation)}</div>`:''}</div>`; }).join('')}</div>`;
+  if(a.atom_type==='svg') return `<div class="atom">${t}<div class="asvg">${b.svg||''}</div>${b.caption?`<p class="small muted" style="text-align:center">${esc(b.caption)}</p>`:''}</div>`;
+  return ''; }
+function notesBlock(chId){ const lv=curLevel(), n=(V.notes||{})[chId+'|'+lv];
+  if(!n){ setTimeout(()=>loadNotes(chId),0); return `<h2>${L('नोट्स','Notes')}</h2><div class="panel"><div class="empty">${L('लोड हो रहा है…','Loading…')}</div></div>`; }
+  if(n.loading) return `<h2>${L('नोट्स','Notes')}</h2><div class="panel"><div class="empty">${L('लोड हो रहा है…','Loading…')}</div></div>`;
+  if(!n.list.length) return `<h2>${L('नोट्स','Notes')}</h2><div class="panel"><div class="empty">🔒 ${L('इस अध्याय के नोट्स जल्द आएँगे।','Notes for this chapter are coming soon.')}</div></div>`;
+  return `<h2>${L('नोट्स','Notes')}</h2><div class="panel">${n.list.map(atomHTML).join('')}</div>`; }
 async function fetchPattern(pid){ return (await sb(`questions?select=${QSEL}&pattern_id=eq.${pid}&order=id`)).map(norm); }   /* every exam, every year */
 async function fetchPaper(srcId){ return (await sb(`questions?select=${QSEL}&source_id=eq.${srcId}&order=source_qno`)).map(norm); }
 async function fetchIds(ids){ const out=[]; for(let i=0;i<ids.length;i+=40) out.push(...await sb(`questions?select=${QSEL}&id=in.(${ids.slice(i,i+40).join(',')})`)); return out.map(norm); }
@@ -540,11 +579,12 @@ function vLearn(){
     ${sv.t?`<div class="panel" style="padding:12px 14px;margin-bottom:12px"><b>${L(`${sv.t} हल, ${pct(sv.c,sv.t)}% सही`,`${sv.t} done, ${pct(sv.c,sv.t)}% right`)}</b><div class="meter"><i style="width:${pct(sv.c,sv.t)}%"></i></div></div>`:''}
     <button class="btn" data-a="start-ch" data-subj="${t.subject}" data-ch="${t.id}" ${p+pr?'':'disabled'}>${L('सब मिलाकर 20 सवाल','20 questions, all types')}</button>
     <div class="btn-row"><button class="btn line" data-a="start-ch" data-subj="${t.subject}" data-ch="${t.id}" data-kind="pyq" ${p?'':'disabled'}>${L('सिर्फ़ PYQ','PYQ only')} (${p})</button>
-    <button class="btn quiet" data-a="start-ch" data-subj="${t.subject}" data-ch="${t.id}" data-kind="practice" ${pr?'':'disabled'}>${L('सिर्फ़ प्रैक्टिस','Practice only')} (${pr})</button></div>`; }
+    <button class="btn quiet" data-a="start-ch" data-subj="${t.subject}" data-ch="${t.id}" data-kind="practice" ${pr?'':'disabled'}>${L('सिर्फ़ प्रैक्टिस','Practice only')} (${pr})</button></div>
+    ${notesBlock(t.id)}`; }
   if(v&&v.subj){ const s=byId(DATA.subjects,v.subj)||{id:v.subj}; const chs=chaptersOf(s.id);
     let last=null; const rows=chs.map(t=>{ let head=''; const u=t.unit?N(t.unit):''; if(u&&u!==last){ head=`<div class="item" style="min-height:0;padding:10px 14px;cursor:default;background:var(--paper)"><b class="small">${u}</b></div>`; last=u; }
       const sv=S.tp[t.id]||{c:0,t:0};
-      return head+`<button class="item" data-a="open-ch" data-ch="${t.id}"><span class="tx"><b>${N(t)}</b><span>${countLine(cnt(t.id,'pyq'),cnt(t.id,'practice'))}${sv.t?` · ${pct(sv.c,sv.t)}% ${L('सही','right')}`:''}</span></span><span class="chev">${ICON.chev}</span></button>`; }).join('');
+      return head+`<button class="item" data-a="open-ch" data-ch="${t.id}"><span class="tx"><b>${N(t)}${hasNotes(t.id)?` <span class="tag notes">${L('नोट्स','Notes')}</span>`:''}</b><span>${countLine(cnt(t.id,'pyq'),cnt(t.id,'practice'))}${sv.t?` · ${pct(sv.c,sv.t)}% ${L('सही','right')}`:''}</span></span><span class="chev">${ICON.chev}</span></button>`; }).join('');
     return `${backBtn('back-learn',N(s))}
     <p class="muted small" style="margin:0 0 12px 48px">${L('हर अध्याय में सभी परीक्षाओं के PYQ और हमारे प्रैक्टिस सवाल।','Each chapter has PYQs from every exam plus our practice questions.')}</p>
     <button class="btn" data-a="start-ch" data-subj="${s.id}" ${subjCount(s.id)?'':'disabled'}>${L('पूरे विषय से 20 सवाल','20 questions from the whole subject')}</button>
@@ -933,6 +973,7 @@ document.addEventListener('click',ev=>{
     case 'tab': go(id); break;
     case 'open-subj': go('learn',{subj:el.dataset.subj}); break;
     case 'open-ch': go('learn',{subj:(R.topics[el.dataset.ch]||{}).subject,ch:+el.dataset.ch}); break;
+    case 'atom-pick': { V.apick=V.apick||{}; const k=id+':'+el.dataset.q; if(V.apick[k]==null){ V.apick[k]=+el.dataset.i; const y=window.scrollY; render(); window.scrollTo(0,y); } break; }
     case 'back-learn': go('learn',V.view&&V.view.ch?{subj:V.view.subj}:null); break;
     case 'open-psubj': go('practice',{subj:el.dataset.subj}); break;
     case 'back-practice': go('practice'); break;
