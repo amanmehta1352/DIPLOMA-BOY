@@ -157,19 +157,20 @@ function diagramTab(atoms){
   return `<div class="notes-theme"><div class="notes-paper">${d.map(a => `<div class="panel orange"><div class="panel-header">🖼️ ${esc(a.title || '')}</div><div class="panel-body"><div class="lb-fig">${svgImg(a.body.svg)}</div>${a.body.caption ? `<div class="lb-cap">${esc(a.body.caption)}</div>` : ''}</div></div>`).join('')
     || `<p>${L('इस अध्याय का चित्र अभी तैयार नहीं है।','No diagram for this chapter yet.')}</p>`}</div></div>`;
 }
+let loadSeq = 0;   /* only the newest chapter/tab request may draw */
 async function switchTab(tab){
   if (!['book','notes','teach','formula','diagram'].includes(tab)) tab = tab === '3d' ? 'diagram' : 'notes';
   document.body.dataset.tabActive = tab;
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  const box = document.getElementById('readerContent'), want = curCh;
+  const box = document.getElementById('readerContent'), seq = ++loadSeq;
   renderChapBar();
   let atoms;
   try { atoms = await atomsFor(curCh); } catch (e) {
-    if (want === curCh && document.body.dataset.tabActive === tab)
+    if (seq === loadSeq)
       box.innerHTML = `<div class="pending-card">${L('अध्याय नहीं खुल सका। इंटरनेट जाँचें।','Could not open the chapter. Check your internet.')}</div>`;
     return;
   }
-  if (want !== curCh || document.body.dataset.tabActive !== tab) return;
+  if (seq !== loadSeq) return;
   box.innerHTML = ({book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
   bindMcq(box); fracify(box);
   window.scrollTo(0, 0); try { (document.scrollingElement || document.documentElement).scrollTop = 0; } catch (e) {}
