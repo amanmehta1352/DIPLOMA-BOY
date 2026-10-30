@@ -396,6 +396,7 @@ body.lang-both .subtitle .en-part{display:block}
     </div>
     <div class="sec-title"><h2><span class="hi-part">आपकी Books</span><span class="en-part">Your Books</span></h2><div class="count-pill" id="bookCount"></div></div>
     <div class="app-grid" id="appGrid"></div>
+    <div id="chapterList" style="padding:26px 0 130px"></div>
   </div>
 
   <!-- DASHBOARD -->
@@ -566,6 +567,7 @@ const QUOTES=[
   {text:'जो आज कर सकते हो, उसे कल पर मत छोड़ो।',en:'Do not postpone what you can do today.',author:'Chanakya'},
   {text:'असफलता सफलता की सीढ़ी है।',en:'Failure is the ladder to success.',author:'Unknown'}
 ];
+const L=(hi,en)=>Settings.lang==='en'?en:hi;   // short labels: one language
 function getDailyQuote(){ return QUOTES[Math.floor(Date.now()/86400000)%QUOTES.length]; }
 
 /* ---- saved on this phone ---- */
@@ -601,6 +603,7 @@ async function loadBooks(){
   }catch(e){ SERVER_OK=false; }
 }
 const chKey=(b,n)=>b+':'+n;
+const noNum=t=>String(t||'').replace(/^\s*\d+\.\s*/,'');
 function allChapters(){ return BOOKS.filter(b=>b.owned).flatMap(b=>b.chapters.map(c=>({b,c,key:chKey(b.id,c.n)}))); }
 function readChapters(){ return allChapters().filter(x=>(DB.chapters[x.key]||{}).read); }
 function coverage(){ const all=allChapters(); return all.length?Math.round(readChapters().length/all.length*100):0; }
@@ -761,7 +764,18 @@ function renderLibrary(){
   else if(fb){ document.getElementById('continueTitle').innerHTML=`${T(esc(fb.title.hi),esc(fb.title.en))} · Ch 1`; }
   cc.style.display=fb?'':'none';
   cc.querySelector('.prog>i').style.width=coverage()+'%';
-  cc.querySelector('.lbl').innerHTML=c?T('जारी रखें','Continue'):T('शुरू करें','Start');
+  cc.querySelector('.lbl').textContent=c?L('जारी रखें','Continue'):L('शुरू करें','Start');
+  // Chapters of every book, straight from the server list, with your own reading status
+  document.getElementById('chapterList').innerHTML=owned.map(b=>{
+    const done=b.chapters.filter(c=>(DB.chapters[chKey(b.id,c.n)]||{}).read).length;
+    return `<div class="sec-title"><h2>${b.emoji} ${T(esc(b.title.hi)+' · अध्याय',esc(b.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${b.chapters.length}</div></div>
+      <div style="padding:0 22px">${b.chapters.map(c=>{ const r=DB.chapters[chKey(b.id,c.n)]||null, st=r&&r.read?'read':r?'open':'new';
+        const col={read:'var(--green)',open:'var(--orange)',new:'var(--line2)'}[st];
+        const tag={read:L('✓ पढ़ा','✓ Read'),open:L(`${mins(r&&r.secs)} min`,`${mins(r&&r.secs)} min`),new:L('नया','New')}[st];
+        return `<div class="item row" data-ch="${c.n}" data-b="${b.id}" style="cursor:pointer;min-height:56px;border-left-color:${col};font-size:13px">
+          <span style="display:flex;gap:12px;align-items:center"><b style="font-size:18px;min-width:24px;color:${col}">${c.n}</b><span><b>${T(esc(noNum(c.t.hi)),esc(noNum(c.t.en)))}</b></span></span>
+          <span class="pct" style="font-size:12px;color:${col};white-space:nowrap">${tag}</span></div>`; }).join('')}</div>`; }).join('');
+  document.querySelectorAll('#chapterList [data-ch]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch); }));
 }
 document.getElementById('searchInput').addEventListener('input',renderLibrary);
 document.getElementById('addBookBtn').addEventListener('click',()=>{
@@ -784,7 +798,7 @@ function updateFocusUI(){
     const r=parseFloat(c.getAttribute('r')), C=focusC(r);
     c.setAttribute('stroke-dasharray',C); c.style.strokeDashoffset=C*(1-rem/f.duration);
   });
-  document.querySelectorAll('[data-fbtn]').forEach(b=>b.innerHTML=f.running?T('⏸ Pause','⏸ Pause'):T('▶ Start','▶ Start'));
+  document.querySelectorAll('[data-fbtn]').forEach(b=>b.textContent=f.running?L('⏸ रोकें','⏸ Pause'):L('▶ शुरू करें','▶ Start'));
   const fs=document.getElementById('focusStats');
   if(fs) fs.innerHTML=T(`आज ${dayRec().fs||0} सेशन पूरे · ${mins((dayRec().t||{}).focus)} मिनट`,`${dayRec().fs||0} sessions completed today · ${mins((dayRec().t||{}).focus)} min`);
 }
@@ -843,7 +857,7 @@ function renderDashboard(){
   const v=document.getElementById('dashboard-view'), s=buildState();
   const daysToExam=s.examDate?Math.max(0,Math.round((s.examDate-new Date(ymd()+'T00:00:00'))/86400000)):null;
   const h=new Date().getHours();
-  const greet=h<12?T('सुप्रभात','Good morning'):h<17?T('नमस्ते','Good afternoon'):T('शुभ संध्या','Good evening');
+  const greet=h<12?L('सुप्रभात','Good morning'):h<17?L('नमस्ते','Good afternoon'):L('शुभ संध्या','Good evening');
   const total=s.timeTracking.reduce((a,b)=>a+b.time,0);
   const maxT=Math.max(1,...s.timeTracking.map(t=>t.time));
   const C=focusC(64), focusPct=focusLeftSec()/s.focus.duration;
@@ -861,7 +875,7 @@ function renderDashboard(){
         <div class="rc-item"><div class="v">${r.idle}m</div><div class="l">Idle</div></div>
         <div class="rc-item"><div class="v">${s.studyTime}m</div><div class="l">Study</div></div>
       </div>
-      <button class="btn danger" onclick="startMission()">⚡ ${T('अभी 25 min पढ़ो','Study 25 min now')}</button>
+      <button class="btn danger" onclick="startMission()">⚡ ${L('अभी 25 min पढ़ो','Study 25 min now')}</button>
     </div>`;
   } else if(s.hasStudiedToday){
     priority+=`<div class="sunset-card reveal"><div class="head"><h3 style="color:var(--green)">🌅 ${T('आज की मेहनत','Today\'s effort')}</h3></div>
@@ -870,34 +884,42 @@ function renderDashboard(){
   } else if(r.daysWithoutStudy==null){
     priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--accent)">👋 ${T('शुरुआत','Getting started')}</h3></div>
       <div class="sub">${T('यहाँ हर आँकड़ा आपकी असली पढ़ाई से बनेगा। पहला अध्याय खोलें, 2 मिनट पढ़ते ही वह "पढ़ा गया" में जुड़ जाएगा।','Every number here comes from your real study. Open the first chapter; after 2 minutes of reading it counts as read.')}</div>
-      <button class="btn primary" onclick="startMission()">📖 ${T('पहला अध्याय खोलें','Open the first chapter')}</button></div>`;
+</div>`;
   }
+  const ms=s.mission;
+  if(ms) priority+=`<div class="card reveal">
+      <div class="head"><div class="mission-xp">+${ms.xpReward} XP</div></div>
+      <div class="eyebrow">🎯 ${T('आज का Mission','Today\'s Mission')}</div>
+      <div class="mission-title">${T(esc(ms.title.hi),esc(ms.title.en))}</div>
+      <div class="sub">${T(esc(ms.sub.hi),esc(ms.sub.en))}</div>
+      <div class="mission-meta"><span class="mm">⏱ ${ms.time}</span><span class="mm">📚 ${T(`${readChapters().length}/${allChapters().length} अध्याय पढ़े`,`${readChapters().length}/${allChapters().length} chapters read`)}</span></div>
+      <button class="btn primary" onclick="startMission()">🚀 ${L('Mission शुरू करें','Start Mission')}</button>
+    </div>`;
   const left=allChapters().length-readChapters().length;
   if(daysToExam!=null && left>0){
     const perDay=Math.max(1,Math.ceil(left/Math.max(1,daysToExam)));
     priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--yellow)">📈 Smart Catch-up</h3></div>
       <div class="sub">${T(`परीक्षा में <b>${daysToExam} दिन</b> बचे, <b>${left} अध्याय</b> बाकी। रोज़ <b>${perDay} अध्याय</b> पढ़ें।`,`<b>${daysToExam} days</b> to the exam, <b>${left} chapters</b> left. Read <b>${perDay} chapter(s)</b> a day.`)}</div>
-      <button class="btn" onclick="startMission()">${T('अगला अध्याय पढ़ें →','Read the next chapter →')}</button></div>`;
+      <button class="btn" onclick="startMission()">${L('अगला अध्याय पढ़ें →','Read the next chapter →')}</button></div>`;
   } else if(daysToExam==null){
     priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--yellow)">📈 Smart Catch-up</h3></div>
       <div class="sub">${T('परीक्षा की तारीख़ डालें, फिर रोज़ का प्लान यहाँ बनेगा।','Add your exam date and a daily plan will appear here.')}</div>
-      <button class="btn" onclick="document.getElementById('settingsBtn').click()">${T('तारीख़ डालें →','Add exam date →')}</button></div>`;
+      <button class="btn" onclick="document.getElementById('settingsBtn').click()">${L('तारीख़ डालें →','Add exam date →')}</button></div>`;
   }
   const pr=DB.promise, tomorrow=addDays(1), todayP=pr&&pr.date===ymd()?pr.min:null, tomP=pr&&pr.date===tomorrow?pr.min:null;
-  priority+=`<div class="card reveal" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><b style="font-size:13px">${todayP!=null?T(`आज का वादा: ${todayP} min · अभी ${s.studyTime} min ${s.studyTime>=todayP?'✓':''}`,`Today's promise: ${todayP} min · ${s.studyTime} min so far ${s.studyTime>=todayP?'✓':''}`):tomP!=null?T(`कल का वादा: ${tomP} min पढ़ना`,`Tomorrow's promise: ${tomP} min study`):T('कल के लिए वादा करें','Make a promise for tomorrow')}</b><button class="btn small" onclick="makePromise()">${T('नया वादा','New promise')}</button></div>`;
+  priority+=`<div class="card reveal" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><b style="font-size:13px">${todayP!=null?T(`आज का वादा: ${todayP} min · अभी ${s.studyTime} min ${s.studyTime>=todayP?'✓':''}`,`Today's promise: ${todayP} min · ${s.studyTime} min so far ${s.studyTime>=todayP?'✓':''}`):tomP!=null?T(`कल का वादा: ${tomP} min पढ़ना`,`Tomorrow's promise: ${tomP} min study`):T('कल के लिए वादा करें','Make a promise for tomorrow')}</b><button class="btn small" onclick="makePromise()">${L('नया वादा','New promise')}</button></div>`;
 
   const wasted=s.timeTracking.filter(t=>t.type!=='study').reduce((a,t)=>a+t.time,0);
   const verdict=total===0?T('आज अभी तक app में कोई समय दर्ज नहीं हुआ।','No time recorded in the app today yet.')
     :wasted>s.studyTime?T(`आज <b>${wasted} मिनट</b> app घूमने या idle में गए, पढ़ाई <b>${s.studyTime} मिनट</b>। Focus Mode चालू करें।`,`<b>${wasted} min</b> went to browsing or idle today, study <b>${s.studyTime} min</b>. Start Focus Mode.`)
     :T(`बढ़िया! आज का ज़्यादातर समय पढ़ाई में गया (<b>${s.studyTime} मिनट</b>)।`,`Great! Most of today went to study (<b>${s.studyTime} min</b>).`);
-  const ms=s.mission;
 
   v.innerHTML=`
     <div class="ios-status"><span></span><span></span></div>
     <div class="dash-header safe-top">
       <div class="greeting">MISSION CONTROL</div>
-      <div class="name">${s.user.name?esc(s.user.name):T('आपकी तैयारी','Your prep')}</div>
-      <div class="sub-greeting">${greet} · ${daysToExam!=null?T(`${daysToExam} दिन बचे`,`${daysToExam} days left`):T('परीक्षा तारीख़ सेट नहीं','Exam date not set')}</div>
+      <div class="name">${s.user.name?esc(s.user.name):L('आपकी तैयारी','Your prep')}</div>
+      <div class="sub-greeting">${greet} · ${daysToExam!=null?L(`परीक्षा में ${daysToExam} दिन`,`${daysToExam} days to exam`):L('परीक्षा तारीख़ सेट नहीं','Exam date not set')}</div>
     </div>
     ${priority}
 
@@ -961,14 +983,7 @@ function renderDashboard(){
       ${s.forgetting.slice(0,3).map(f=>`<div class="item ${f.urgent?'red':''} row" style="cursor:pointer" onclick="switchView('ghost')"><span><b>${T(esc(f.name.hi),esc(f.name.en))}</b><br><small style="color:var(--muted)">Review: ${T(f.nextReview.hi,f.nextReview.en)}</small></span><span class="pct">${f.retention}%</span></div>`).join('') || `<div class="sub">${T('अभी कोई अध्याय पढ़ा नहीं गया। पढ़े हुए अध्याय यहाँ दिखेंगे।','No chapter read yet. Chapters you read will appear here.')}</div>`}
     </div>
 
-    ${ms?`<div class="card reveal">
-      <div class="head"><div class="mission-xp">+${ms.xpReward} XP</div></div>
-      <div class="eyebrow">🎯 ${T('आज का Mission','Today\'s Mission')}</div>
-      <div class="mission-title">${T(esc(ms.title.hi),esc(ms.title.en))}</div>
-      <div class="sub">${T(esc(ms.sub.hi),esc(ms.sub.en))}</div>
-      <div class="mission-meta"><span class="mm">⏱ ${ms.time}</span><span class="mm">📚 ${T(`${readChapters().length}/${allChapters().length} अध्याय पढ़े`,`${readChapters().length}/${allChapters().length} chapters read`)}</span></div>
-      <button class="btn primary" onclick="startMission()">🚀 ${T('Mission शुरू करें','Start Mission')}</button>
-    </div>`:''}
+
 
     <div class="stat-row reveal">
       <div class="stat-card fire"><div class="v">🔥 ${s.streak}</div><div class="l">Streak</div></div>
@@ -1028,7 +1043,7 @@ async function openQuiz(id){
   document.getElementById('quizModal').classList.add('active');
   const q=await questionFor(g.x);
   if(!q){ quizItem=null; document.getElementById('quizQuestion').innerHTML=T('इस अध्याय का सवाल अभी नहीं आ सका। अध्याय दोबारा पढ़कर revise करें।','No question available right now. Revise by reading the chapter again.');
-    document.getElementById('quizOptions').innerHTML=`<button class="quiz-opt" onclick="document.getElementById('quizModal').classList.remove('active');openBook('${g.x.b.id}',${g.x.c.n})">📖 ${T('अध्याय खोलें','Open chapter')}</button>`; return; }
+    document.getElementById('quizOptions').innerHTML=`<button class="quiz-opt" onclick="document.getElementById('quizModal').classList.remove('active');openBook('${g.x.b.id}',${g.x.c.n})">📖 ${L('अध्याय खोलें','Open chapter')}</button>`; return; }
   quizItem={id,g,q};
   document.getElementById('quizQuestion').innerHTML=T(esc(q.qHi),esc(q.qEn));
   document.getElementById('quizOptions').innerHTML=q.options.map((o,i)=>`<button class="quiz-opt" data-i="${i}">${esc(o)}</button>`).join('');
@@ -1091,7 +1106,7 @@ function renderFormulas(){
         <div class="board-formula" style="font-size:18px;font-family:inherit">${T(esc(f.f||''),esc(f.fe||f.f||''))}</div>
         ${f.s?`<div class="sub" style="margin:6px 0">${T(esc(f.s[0]||''),esc(f.s[1]||''))}</div>`:''}
         ${f.u?`<div class="sub" style="margin:0">💡 ${T(esc(f.u[0]||''),esc(f.u[1]||''))}</div>`:''}
-        <button class="btn small" style="margin-top:10px" onclick="openBook('${b.id}',${ch.ch_no},'formula')">📖 ${T('किताब में देखें','Open in book')}</button></div>`).join('')}`; }).join('')).join('');
+        <button class="btn small" style="margin-top:10px" onclick="openBook('${b.id}',${ch.ch_no},'formula')">📖 ${L('किताब में देखें','Open in book')}</button></div>`).join('')}`; }).join('')).join('');
   box.innerHTML=html||`<div class="empty-note">${q?T('कुछ नहीं मिला','Nothing found'):T('अभी कोई सूत्र नहीं','No formulas yet')}</div>`;
 }
 document.getElementById('formulaSearch').addEventListener('input',e=>{ formulaQ=e.target.value; renderFormulas(); });

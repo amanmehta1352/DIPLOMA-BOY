@@ -22,6 +22,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
   // Dashboard: no invented numbers, no buddies / peers / toppers
   const dash = await p.textContent('#dashboard-view');
   check('dashboard renders', /MISSION CONTROL/.test(dash));
+  check('mission card comes before the time card', dash.indexOf('Mission') > -1 && dash.indexOf('Mission') < dash.indexOf('MIRROR'));
   check('no dummy name', !/Rahul|Aman|Priya|Topper|buddy|Buddies|rank #/i.test(dash));
   check('real status bar', !/9:41/.test(await p.content()));
   check('fresh user starts at zero XP', /⭐ 0/.test(dash));
@@ -32,7 +33,10 @@ const check = (name, v) => (v ? ok : bad).push(name);
   const books = await p.$$eval('#appGrid .app-icon', e => e.map(x => x.textContent.trim()));
   check('library shows the Physics book', books.length === 1 && /Physics|भौतिकी/.test(books[0]));
   check('11 chapters badge', (await p.textContent('#appGrid .badge')).trim() === '11');
+  check('library lists 11 chapters', (await p.$$eval('#chapterList [data-ch]', e => e.length)) === 11);
   await p.screenshot({ path: path.join(SHOTS, 'v4-2-library.png') });
+  await p.evaluate(() => document.getElementById('chapterList').scrollIntoView()); await p.waitForTimeout(300);
+  await p.screenshot({ path: path.join(SHOTS, 'v4-2b-chapters.png') });
 
   // Open book: original physics reader in the frame, data from the server
   await p.click('#appGrid .app-icon'); await p.waitForTimeout(4000);
@@ -87,7 +91,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await p.fill('#profExam', '2027-03-01'); await p.dispatchEvent('#profExam', 'change');
   await p.screenshot({ path: path.join(SHOTS, 'v4-10-settings.png') });
   await p.click('#settingsClose'); await p.waitForTimeout(400);
-  check('name + exam date used', /Aman/.test(await p.textContent('#dashboard-view .dash-header')) && /दिन बचे|days left/.test(await p.textContent('#dashboard-view .dash-header')));
+  check('name + exam date used', /Aman/.test(await p.textContent('#dashboard-view .dash-header')) && /परीक्षा में \d+ दिन|days to exam/.test(await p.textContent('#dashboard-view .dash-header')));
 
   // Old question bank never requested
   check('no question-bank requests', !reqs.some(u => /\/rest\/v1\/(atoms|questions|pyq|practice|mock|papers)/.test(u)));
