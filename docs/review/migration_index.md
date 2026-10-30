@@ -1,6 +1,6 @@
 # Migration index (repo file ↔ production history), 2026-10-30
 
-- Production history: `supabase_migrations.schema_migrations` (166 entries after 0150).
+- Production history: `supabase_migrations.schema_migrations` (164 entries after 0150).
 - 23 migrations that were applied but missing from the repo were **reconstructed byte-for-byte** from the stored statements (md5 verified for all 23), then given a free suffix so no existing number changed. Two of them (`0001a`, `0003a`) had an expired import-token literal redacted.
 
 | Production name | Repo file |
