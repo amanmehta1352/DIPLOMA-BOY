@@ -18,11 +18,13 @@
   "levels_to_fill": ["govt_technical", "govt_basic", "class_9_10", "class_6_8", "govt_defence", "banking", "state_psc", "upsc_civil"],
   "levels_skip": ["medical", "engineering", "class_11_12_sci", "class_11_12_com", "class_11_12_arts", "graduation_com", "graduation_arts", "advanced_research", "law_management"],
   "completed_batches": [
-    {"migration": "0113", "level": "govt_technical", "chapters": [403,404,405,406,407,408,409,410,411,412], "atoms": 40, "verified": true}
+    {"migration": "0113", "level": "govt_technical", "chapters": [403,404,405,406,407,408,409,410,411,412], "atoms": 40, "verified": true},
+    {"migration": "0114", "level": "govt_technical", "chapters": [442,443,444,445,446,447,416], "atoms": 28, "verified": true},
+    {"migration": "0115", "level": "govt_basic/govt_defence/state_psc/upsc_civil (416) + class_9_10 (883, 899)", "chapters": [416,883,899], "atoms": 24, "verified": true}
   ],
   "total_atoms_before": 3071,
-  "total_atoms_now": 3111,
-  "current_batch": 2,
-  "next_batch": {"level": "govt_technical", "chapters": [442,443,444,445,446,447,416], "note": "electrical 442-447 and GA 416; 416 also needed for 4 other levels"},
+  "total_atoms_now": 3163,
+  "current_batch": 4,
+  "next_batch": {"level": "banking", "chapters": "416 (banking) + 6 banking maths chapters (IDs to enumerate first)", "note": "After banking: class_6_8 general-science (14 chapters, enumerate IDs first), then upsc_civil reasoning x12"},
   "stopped_reason": "Session scope: batch 1 completed and verified; remaining ~184 atoms to be filled in subsequent batches."
 }
