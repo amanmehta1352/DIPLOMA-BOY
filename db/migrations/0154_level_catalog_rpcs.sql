@@ -1,0 +1,6 @@
+-- 0154: APPLIED LIVE 2026-10-31 (name: level_catalog_rpcs). Read-only RPCs for the level-wise app.
+-- get_qualifications(): 18 levels (+ chapter counts) and active exams mapped to a content level.
+-- get_level_catalog(p_level): subjects touched by that level, each with ALL its chapters and the atom count at that level (0 = coming soon).
+-- get_chapter_atoms(p_chapter, p_level): concept/formula/example/mcq/svg atoms where level_id = p_level OR level_id IS NULL (shared svg).
+-- get_level_formulas(p_level): formula atoms of one level with chapter + subject names.
+-- All SECURITY DEFINER, search_path pinned, no grants changed. Bodies: see live definitions (pg_get_functiondef).
