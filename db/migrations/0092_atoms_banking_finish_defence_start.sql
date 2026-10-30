@@ -85,7 +85,7 @@ with src as (
      $j${"questions":[{"q":"RBI कब स्थापित?","options":["1935","1947","1949","1950"],"answer":0,"explanation":"RBI: 1 April 1935"},{"q":"Repo rate क्या है?","options":["Bank→RBI","RBI→Bank","Both","None"],"answer":1,"explanation":"Repo = RBI lends to banks"}]}$j$),
 
     (418, 'banking', 'geo-bank-concept', 'concept', 1, 'भूगोल — Banking',
-     $j${"text":"Geography: 7 continents, 5 oceans। Longest river (Nile/Africa, Amazon/South America), highest peak (Everest), largest desert (Sahara)। भारत: 28 states, 8 UTs, longest river Ganga, highest peak K2 (PoK), largest state Rajasthan, smallest Goa। RBI headquarters Mumbai।","note":"Banking में rivers, capitals, और India facts ज़रूरी हैं।"}$j$),
+     $j${"text":"Geography: 7 continents, 5 oceans। Longest river (Nile/Africa, Amazon/South America), highest peak (Everest), largest desert (Sahara)। भारत: 28 states, 8 UTs, longest river Ganga, highest peak Kangchenjunga (Sikkim), largest state Rajasthan, smallest Goa। RBI headquarters Mumbai।","note":"Banking में rivers, capitals, और India facts ज़रूरी हैं।"}$j$),
     (418, 'banking', 'geo-bank-formula', 'formula', 2, 'भूगोल तथ्य',
      $j${"formula":"7 continents, 5 oceans · Largest: Asia, Pacific · Longest river: Nile (Africa), Amazon (S.America)","explanation":"India: 28 states + 8 UTs · RBI HQ = Mumbai · Capital = Delhi"}$j$),
     (418, 'banking', 'geo-bank-example', 'example', 3, 'Banking numerical',
@@ -176,7 +176,7 @@ with src as (
      $j${"questions":[{"q":"Bullet KE ∝?","options":["v","v²","v³","1/v"],"answer":1,"explanation":"KE = ½mv² → ∝ v²"},{"q":"Power unit?","options":["J","W","N","Pa"],"answer":1,"explanation":"Power = Watt (J/s)"}]}$j$),
 
     (874, 'govt_defence', 'grav-def-concept', 'concept', 1, 'गुरुत्वाकर्षण — NDA/CDS',
-     $j${"text":"Gravitation: g=9.8 m/s²। Variation with altitude/depth। Escape velocity v_e=11.2 km/s (rockets)۔ Satellite motion, orbital velocity v_o=7.9 km/s. Missile trajectory: ballistic। Gravity effect on projectile (parabolic path)। Kepler's laws।","note":"Defence में escape velocity और ballistic trajectory ज़रूरी हैं।"}$j$),
+     $j${"text":"Gravitation: g=9.8 m/s²। Variation with altitude/depth। Escape velocity v_e=11.2 km/s (rockets)। Satellite motion, orbital velocity v_o=7.9 km/s. Missile trajectory: ballistic। Gravity effect on projectile (parabolic path)। Kepler's laws।","note":"Defence में escape velocity और ballistic trajectory ज़रूरी हैं।"}$j$),
     (874, 'govt_defence', 'grav-def-formula', 'formula', 2, 'गुरुत्व सूत्र',
      $j${"formula":"g = GM/R² = 9.8 m/s² · v_e = √(2gR) = 11.2 km/s · v_o = √(gR) = 7.9 km/s · T² ∝ r³","explanation":"g' at height h: g(1-2h/R) · Missile (ballistic) trajectory: parabola (ideal) / ellipse (long range)"}$j$),
     (874, 'govt_defence', 'grav-def-example', 'example', 3, 'Defence numerical',
