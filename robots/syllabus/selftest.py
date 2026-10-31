@@ -10,3 +10,6 @@ assert W.changed_ids({'x': '1', 'y': '2'}, {'x': '1', 'y': '9'}) == ['y']   # on
 assert W.changed_ids({'new': '1'}, {}) == []                       # first sight is baseline
 assert W.changed_ids({'x': '1'}, {'x': '1'}) == []
 print('syllabus selftest OK')
+d = W.documents('<a href="/docs/syllabus-je.pdf">SSC JE Syllabus</a> <a href="/about">About</a> <a href="http://x.org/n.pdf">Notification</a> <a href="https://ssc.gov.in/notif">Syllabus</a>', 'https://ssc.gov.in')
+assert [x['url'] for x in d] == ['https://ssc.gov.in/docs/syllabus-je.pdf', 'https://ssc.gov.in/notif'], d   # https only, syllabus/notice links only
+print('documents selftest OK')
