@@ -435,6 +435,17 @@ body[data-tab-active="teach"] .lang-toggle{display:none!important}
   .book-chap.soon{opacity:.45;cursor:default}
   .lb-ans{font-weight:800;color:#166534;margin-top:8px}
   .teach-theme .lb-ans{color:#3dff9f}
+  /* review mode (owner preview of robot drafts) */
+  .lb-review{margin:8px 10px 4px;padding:10px 12px;border-radius:10px;background:#fef3c7;border:1.5px dashed #d97706;color:#78350f;font-size:13px;line-height:1.5}
+  .lb-review b{color:#92400e}
+  .lb-review .bad{color:#b91c1c;font-weight:700}
+  .lb-pts{margin:0;padding-left:20px}
+  .lb-pts li{margin:4px 0;line-height:1.6}
+  .lb-tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+  .lb-tbl th,.lb-tbl td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}
+  .lb-tbl th{background:#eff6ff;color:#1e3a8a}
+  .lb-tblw{overflow-x:auto}
+  .teach-theme .lb-pts li{color:#e8e4d0}
 </style>
 </head>
 <body data-lang="hi">
@@ -677,7 +688,10 @@ function renderChapBar(){
 
 /* ---- check questions (the chapter's own 2 questions) ---- */
 function mcqBlock(atoms, sheet){
-  const qs = byType(atoms, 'mcq').flatMap(a => (a.body.questions || [])).filter(q => Array.isArray(q.options) && q.options.length);
+  return mcqHtml(byType(atoms, 'mcq').flatMap(a => (a.body.questions || [])));
+}
+function mcqHtml(list){
+  const qs = (list || []).filter(q => q && Array.isArray(q.options) && q.options.length);
   return qs.map((q, i) => `<div class="lb-mcq" data-ans="${+q.answer}" data-exp="${esc(q.explanation || '')}">
       <div class="lb-q">${i + 1}. ${nl(q.q)}</div>
       ${q.options.map((o, j) => `<button class="lb-opt" data-o="${j}">${esc(o)}</button>`).join('')}
@@ -781,6 +795,88 @@ function diagramTab(atoms){
   return `<div class="notes-theme"><div class="notes-paper">${d.map(a => `<div class="panel orange"><div class="panel-header">🖼️ ${esc(a.title || '')}</div><div class="panel-body"><div class="lb-fig">${svgImg(a.body.svg)}</div>${a.body.caption ? `<div class="lb-cap">${esc(a.body.caption)}</div>` : ''}</div></div>`).join('')
     || `<p>${L('इस अध्याय का चित्र अभी तैयार नहीं है।','No diagram for this chapter yet.')}</p>`}</div></div>`;
 }
+
+/* ---- review mode: the owner's preview of robot drafts. Opens only with ?review=<code>; students never see drafts ---- */
+const REVIEW = (Q.get('review') || '').trim();
+const DRAFTS = {};
+async function post(fn, args){
+  const r = await fetch(SB.url + '/rest/v1/rpc/' + fn, {method:'POST', headers:{apikey:SB.key, Authorization:'Bearer ' + SB.key, 'Content-Profile':'mtb', 'Accept-Profile':'mtb', 'Content-Type':'application/json'}, body:JSON.stringify(args)});
+  if (!r.ok) throw new Error('HTTP ' + r.status); return r.json();
+}
+async function draftFor(id){ if (!(id in DRAFTS)) DRAFTS[id] = await post('draft_review_get', {p_level:LEVEL, p_chapter:+id, p_code:REVIEW}); return DRAFTS[id]; }
+const arr = x => Array.isArray(x) ? x : [];
+const pts = list => `<ul class="lb-pts">${arr(list).map(x => `<li>${nl(x)}</li>`).join('')}</ul>`;
+const lines = list => arr(list).map(x => `<div>${esc(x)}</div>`).join('');
+function tbl(t){
+  const rows = arr(t).filter(r => Array.isArray(r) && r.length); if (rows.length < 2) return '';
+  return `<div class="lb-tblw"><table class="lb-tbl"><tr>${rows[0].map(c => `<th>${nl(c)}</th>`).join('')}</tr>${rows.slice(1).map(r => `<tr>${r.map(c => `<td>${nl(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+}
+function reviewBanner(r){
+  const ck = r.checks || {}, prob = arr(ck.problems), so = ck.second_opinion;
+  return `<div class="lb-review">📝 <b>${L('ड्राफ्ट — सिर्फ़ आपके देखने के लिए। छात्रों को नहीं दिखता।','Draft: only for your review. Students do not see it.')}</b><br>`
+    + `${L('हालत','Status')}: <b class="${r.status === 'draft' ? '' : 'bad'}">${esc(r.status)}</b> · ${esc(r.model || '')}`
+    + (so ? ` · ${L('दूसरे AI से जाँच','Second opinion')}: ${10 - arr(so.disagree).length}/10 ${L('मिले','agree')}` : '')
+    + (prob.length ? `<br><span class="bad">${prob.map(esc).join('<br>')}</span>` : '') + '</div>';
+}
+function dNoteTitles(d){
+  return [...arr(d.notes).map(n => n.title), ...arr(d.solved).map((x, i) => L(`हल किया सवाल ${i + 1}`, `Solved question ${i + 1}`)),
+    ...(arr(d.mistakes).length ? [L('आम गलतियाँ','Common mistakes')] : []), ...(arr(d.revision).length ? [L('जल्दी दोहराओ','Quick revision')] : []),
+    ...(arr(d.practice).length ? [L(`अभ्यास (${arr(d.practice).length} सवाल)`, `Practice (${arr(d.practice).length} questions)`)] : [])];
+}
+function dTeachTitles(d){
+  return [...arr(d.teach).map(t => t.heading), ...arr(d.solved).map((x, i) => L(`चलो हल करें ${i + 1}`, `Let us solve ${i + 1}`)), ...(arr(d.practice).length ? [L('अब तुम बताओ','Your turn')] : [])];
+}
+function dBook(r){
+  const d = r.data || {}, c = cur();
+  const chaps = CHAPTERS.map((m, i) => `<button class="book-chap${m.id === curCh ? ' active' : ''}${m.n ? '' : ' soon'}" ${m.n ? `onclick="setChapter(${m.id})"` : 'disabled'}><b>${i + 1}</b>${m.n ? '' : '🔒 '}${esc(noNum(L(m.hi, m.en)))}</button>`).join('');
+  const li = (T, tab) => T.map((x, i) => `<li><button class="book-item" onclick="bookGo('${tab}',${i})"><span class="bi-n">${i + 1}.</span><span>${esc(x)}</span></button></li>`).join('');
+  const k = x => arr(d[x]).length;
+  return reviewBanner(r) + '<div class="book-wrap">'
+    + `<div class="book-hero"><div class="book-num">${noOf(c)}</div><div><div class="book-title">${esc(noNum(L(c.hi, c.en)))}</div>`
+    + `<div class="book-stats">${esc(LEVEL_NAME)} · ${esc(L(SUBJECT.hi, SUBJECT.en))}<br>${L(`📑 ${k('notes')} विषय · 🎓 ${k('teach')} पाठ · ∑ ${k('formulas')} सूत्र · 🧮 ${k('solved')} हल · ✅ ${k('practice')} अभ्यास`, `📑 ${k('notes')} topics · 🎓 ${k('teach')} lessons · ∑ ${k('formulas')} formulas · 🧮 ${k('solved')} solved · ✅ ${k('practice')} practice`)}</div></div></div>`
+    + `<div class="book-actions"><button class="book-act" onclick="switchTab('notes')"><b>✦</b>${H('नोट्स','Notes')}</button><button class="book-act" onclick="switchTab('teach')"><b>◉</b>${H('क्लास','Teach')}</button><button class="book-act" onclick="switchTab('formula')"><b>∑</b>${H('सूत्र','Formula')}</button><button class="book-act" onclick="switchTab('diagram')"><b>🖼️</b>${H('चित्र','Diagram')}</button></div>`
+    + `<div class="book-card"><div class="book-h">${H('📑 नोट्स — विषय-सूची', '📑 Notes — contents')}</div><ol class="book-list">${li(dNoteTitles(d), 'notes')}</ol></div>`
+    + `<div class="book-card"><div class="book-h">${H('🎓 Teach — पाठ', '🎓 Teach — lessons')}</div><ol class="book-list">${li(dTeachTitles(d), 'teach')}</ol></div>`
+    + `<div class="book-card"><div class="book-h">${H('📚 ड्राफ्ट वाले अध्याय', '📚 Chapters with a draft')}</div><div class="book-chaps">${chaps}</div></div>`
+    + '</div>';
+}
+function dSolved(x, i, teach){
+  const steps = `<div class="${teach ? 'teach-formula' : 'formula-box'}" style="text-align:left">${lines(x.steps)}</div>`;
+  const ans = x.answer ? `<div class="lb-ans">✔ ${L('उत्तर','Answer')}: ${nl(x.answer)}</div>` : '';
+  return teach
+    ? `<div class="teach-sec"><div class="teach-sec-h">🧮 ${L(`चलो हल करें ${i + 1}`, `Let us solve ${i + 1}`)}</div><div class="teach-text"><div class="teach-ex"><strong>${L('सवाल:','Question:')}</strong> ${nl(x.question)}</div>${steps}${ans}</div></div>`
+    : `<div class="panel green"><div class="panel-header">🧮 ${L(`हल किया सवाल ${i + 1}`, `Solved question ${i + 1}`)}</div><div class="panel-body"><p><strong>${L('सवाल','Question')}:</strong> ${nl(x.question)}</p>${steps}${ans}</div></div>`;
+}
+function dNotes(r){
+  const d = r.data || {}, c = cur(), p = [];
+  arr(d.notes).forEach(n => p.push(`<div class="panel blue"><div class="panel-header">📑 ${esc(n.title)}</div><div class="panel-body">${pts(n.points)}${tbl(n.table)}</div></div>`));
+  arr(d.solved).forEach((x, i) => p.push(dSolved(x, i, false)));
+  if (arr(d.mistakes).length) p.push(`<div class="panel red"><div class="panel-header">⚠️ ${L('आम गलतियाँ','Common mistakes')}</div><div class="panel-body">${pts(d.mistakes)}</div></div>`);
+  if (arr(d.revision).length) p.push(`<div class="panel purple"><div class="panel-header">🔁 ${L('जल्दी दोहराओ','Quick revision')}</div><div class="panel-body">${pts(d.revision)}</div></div>`);
+  const m = mcqHtml(d.practice); if (m) p.push(`<div class="panel red"><div class="panel-header">✅ ${L('अभ्यास','Practice')}</div><div class="panel-body">${m}</div></div>`);
+  return reviewBanner(r) + `<div class="notes-theme"><div class="notes-paper">${PENDING()}<div style="text-align:center;font-weight:800;font-size:20px;color:#1d4ed8;margin:4px 0 12px">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))}</div>${p.join('')}</div></div>`;
+}
+function dTeach(r){
+  const d = r.data || {}, c = cur(), s = [];
+  teachLang = currentLang === 'en' ? 'english' : currentLang === 'both' ? 'bilingual' : 'hindi';
+  arr(d.teach).forEach(t => s.push(`<div class="teach-sec"><div class="teach-sec-h">🎓 ${esc(t.heading)}</div><div class="teach-text"><p>${nl(t.explain)}</p>${t.example ? `<div class="teach-ex">${nl(t.example)}</div>` : ''}</div></div>`));
+  arr(d.solved).forEach((x, i) => s.push(dSolved(x, i, true)));
+  const m = mcqHtml(d.practice); if (m) s.push(`<div class="teach-sec"><div class="teach-sec-h">✅ ${L('अब तुम बताओ','Your turn')}</div><div class="teach-text">${m}</div></div>`);
+  const langs = [['hindi','हिंदी'],['english','English'],['bilingual','Bilingual'],['hinglish','Hinglish']];
+  const sw = `<div class="lang-switcher">${langs.map(l => `<button class="lang-btn${l[0] === teachLang ? ' active' : ''}" onclick="setTeachLang('${l[0]}', this)">${l[1]}</button>`).join('')}</div>`
+    + `<div class="lang-pending" id="teachPending" style="display:${teachLang === 'hindi' ? 'none' : 'block'}">${H('इस अध्याय का पाठ अभी सिर्फ़ हिंदी में है।', 'English version of this chapter is coming. The content below is shown in Hindi.')}</div>`;
+  return reviewBanner(r) + `<div class="teach-theme">${sw}<div class="teach-title">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))} — ${L('क्लास में आपका स्वागत है!','welcome to the class!')}</div>${s.join('')}</div>`;
+}
+function dFormula(r){
+  const d = r.data || {}, f = arr(d.formulas), ex = arr(d.solved), total = f.length + ex.length;
+  const card = (cat, title, body, sub) => `<div class="fcard cat-basic" data-cat="${cat}"><div class="top-row"><span class="cat-chip basic">● ${esc(LEVEL_NAME)}</span><span class="counter"></span></div><div class="fcard-title">${esc(title || '')}</div><div class="formula-box-demo">${body}</div>${sub ? `<div class="fcard-sub" style="margin-top:4px">${sub}</div>` : ''}</div>`;
+  const cards = f.map(x => card('formula', x.title, fx(x.formula), [x.units ? `${L('इकाई','Unit')}: ${nl(x.units)}` : '', x.note ? nl(x.note) : ''].filter(Boolean).join('<br>'))).join('')
+    + ex.map((x, i) => card('example', L(`हल किया सवाल ${i + 1}`, `Solved question ${i + 1}`), lines(x.steps), nl(x.question))).join('');
+  const chips = [['all', H('सभी','All'), total], ['formula', H('सूत्र','Formulas'), f.length], ['example', H('हल किए उदाहरण','Worked examples'), ex.length]].filter(x => x[0] === 'all' || x[2])
+    .map(x => `<button class="filter-chip${x[0] === 'all' ? ' active' : ''}" data-filter="${x[0]}">${x[1]} (${x[2]})</button>`).join('');
+  return reviewBanner(r) + PENDING() + `<div class="filter-wrap"><div class="filter-chips" id="formulaChips">${chips}</div></div><div class="cards-list" id="formulaCards">${cards}</div>`
+    + `<div class="formula-note">${H('👆 ऊपर-नीचे scroll करो — filter chips sticky रहेंगी।<br>Filter दबाओ — उस category के cards दिखेंगे।', '👆 Scroll up and down — filter chips stay sticky.<br>Tap a filter to show only that category.')}</div>`;
+}
 let loadSeq = 0;   /* only the newest chapter/tab request may draw */
 async function switchTab(tab){
   if (!['book','notes','teach','formula','diagram'].includes(tab)) tab = tab === '3d' ? 'diagram' : 'notes';
@@ -788,14 +884,14 @@ async function switchTab(tab){
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   const box = document.getElementById('readerContent'), seq = ++loadSeq;
   renderChapBar();
-  let atoms;
-  try { atoms = await atomsFor(curCh); } catch (e) {
+  let atoms, rv = REVIEW && tab !== 'diagram';
+  try { atoms = rv ? await draftFor(curCh) : await atomsFor(curCh); if (rv && !atoms) throw new Error('no draft'); } catch (e) {
     if (seq === loadSeq)
       box.innerHTML = `<div class="pending-card">${L('अध्याय नहीं खुल सका। इंटरनेट जाँचें।','Could not open the chapter. Check your internet.')}</div>`;
     return;
   }
   if (seq !== loadSeq) return;
-  box.innerHTML = ({book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
+  box.innerHTML = (rv ? {book:dBook, notes:dNotes, teach:dTeach, formula:dFormula} : {book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
   bindMcq(box); fracify(box); if (tab === 'formula') applyFormulaFilter('all');
   window.scrollTo(0, 0); try { (document.scrollingElement || document.documentElement).scrollTop = 0; } catch (e) {}
 }
@@ -806,6 +902,11 @@ document.querySelectorAll('.lang-toggle .lang-btn').forEach(b => b.classList.tog
     const cat = await get('rpc/get_level_catalog?p_level=' + encodeURIComponent(LEVEL));
     SUBJECT = (cat || []).find(s => s.slug === SUBJ); if (!SUBJECT) throw new Error('subject');
     CHAPTERS = (SUBJECT.chapters || []).map(c => ({id:c.id, hi:c.hi, en:c.en, n:c.n}));
+    if (REVIEW) {   /* review mode: only chapters that have a robot draft can be opened */
+      const have = new Set((await post('draft_review_list', {p_code:REVIEW})).filter(x => x.level_id === LEVEL).map(x => x.chapter_id));
+      CHAPTERS.forEach(c => { c.n = have.has(c.id) ? 1 : 0; });
+      if (!have.size) throw new Error('no drafts');
+    }
     if (!CHAPTERS.some(c => c.id === curCh && c.n)) curCh = (ready()[0] || {}).id || 0;
     if (!curCh) throw new Error('empty');
     await switchTab(Q.get('tab') || 'notes');
