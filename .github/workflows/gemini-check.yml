@@ -1,28 +1,37 @@
 name: Gemini key check
-# Manual check: says only whether GEMINI_API_KEY is set and its length. The key value is never printed.
+# Manual check. Reports whether GEMINI_API_KEY is set, lists models, makes one test call,
+# and posts the result as an issue comment. The key value is never printed.
 on:
   workflow_dispatch:
 permissions:
   contents: read
+  issues: write
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GH_TOKEN: ${{ github.token }}
     steps:
-      - name: Is the key set?
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - name: Run checks and report
         run: |
-          if [ -z "$GEMINI_API_KEY" ]; then echo "GEMINI_API_KEY: MISSING"; exit 1; fi
-          echo "GEMINI_API_KEY: set (length ${#GEMINI_API_KEY})"
-      - name: Gemini test call
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          code=$(curl -s -o /tmp/g.json -w "%{http_code}" -X POST \
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
-            -H "x-goog-api-key: $GEMINI_API_KEY" -H "Content-Type: application/json" \
-            -d '{"contents":[{"parts":[{"text":"Say OK"}]}]}')
-          echo "HTTP $code"
-          if [ "$code" != "200" ]; then head -c 400 /tmp/g.json | sed "s/$GEMINI_API_KEY/[hidden]/g"; exit 1; fi
-          echo "Gemini answered: OK"
+          R=/tmp/report.md; : > $R
+          if [ -z "$GEMINI_API_KEY" ]; then echo "GEMINI_API_KEY: MISSING" >> $R; else echo "GEMINI_API_KEY: set (length ${#GEMINI_API_KEY})" >> $R; fi
+          if [ -n "$GEMINI_API_KEY" ]; then
+            code=$(curl -s -o /tmp/m.json -w "%{http_code}" "https://generativelanguage.googleapis.com/v1beta/models?pageSize=100" -H "x-goog-api-key: $GEMINI_API_KEY")
+            echo "List models HTTP $code" >> $R
+            if [ "$code" = "200" ]; then
+              echo "Flash models: $(jq -r '.models[].name' /tmp/m.json | grep -i flash | tr '\n' ' ')" >> $R
+            else
+              head -c 300 /tmp/m.json | sed "s/$GEMINI_API_KEY/[hidden]/g" >> $R; echo >> $R
+            fi
+            for M in gemini-2.5-flash gemini-2.0-flash gemini-1.5-flash; do
+              code=$(curl -s -o /tmp/g.json -w "%{http_code}" -X POST "https://generativelanguage.googleapis.com/v1beta/models/$M:generateContent" -H "x-goog-api-key: $GEMINI_API_KEY" -H "Content-Type: application/json" -d '{"contents":[{"parts":[{"text":"Say OK"}]}]}')
+              echo "Test $M: HTTP $code" >> $R
+              [ "$code" = "200" ] && break
+              head -c 200 /tmp/g.json | sed "s/$GEMINI_API_KEY/[hidden]/g" >> $R; echo >> $R
+            done
+          fi
+          cat $R
+          gh issue create -R "$GITHUB_REPOSITORY" -t "Gemini key check $(date -u +%F_%T)" -b "$(printf '```\n%s\n```' "$(cat $R)")" || true
