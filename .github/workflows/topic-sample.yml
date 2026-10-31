@@ -1,0 +1,32 @@
+name: Topic sample (review only)
+# Writes a few short notes for missing topics of one level, for a human to read. Writes nothing to the database.
+on:
+  workflow_dispatch:
+    inputs:
+      level:
+        description: 'Level id (e.g. govt_technical)'
+        default: 'govt_technical'
+      count:
+        description: 'How many topics'
+        default: '5'
+permissions:
+  contents: read
+concurrency: topic-sample
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Self-test
+        run: python robots/sample/selftest.py
+      - name: Write sample
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python robots/sample/topic_sample.py --level "${{ inputs.level }}" --count "${{ inputs.count }}" --out out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: topic-sample
+          path: out/topic_sample.json
