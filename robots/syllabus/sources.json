@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "note": "Official syllabus / notice pages the Syllabus Watcher checks. A change is detected by the text of the page, so a busy homepage can trigger often: prefer the exact syllabus page. verify=true means the URL was not checked from the build environment yet; confirm on the first GitHub run and set verify=false.",
+  "sources": [
+    {"id": "ssc-home", "exam": "SSC (CGL, JE, CHSL)", "url": "https://ssc.gov.in", "verify": true}
+  ]
+}

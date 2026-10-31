@@ -1,0 +1,40 @@
+name: Syllabus Watcher
+# Checks the official syllabus/notice pages once a day. Keeps only fingerprints (branch syllabus-state).
+# A change becomes a command for the Health Robot (visible in the Control Room). No AI, no secrets printed.
+on:
+  schedule:
+    - cron: '23 3 * * *'   # 08:53 IST
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: syllabus-watch
+  cancel-in-progress: false
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Self-test
+        run: python3 robots/syllabus/selftest.py
+      - name: Previous state
+        run: |
+          mkdir -p prev
+          git fetch -q origin syllabus-state:refs/remotes/origin/syllabus-state 2>/dev/null || true
+          git show origin/syllabus-state:syllabus_state.json > prev/state.json 2>/dev/null || true
+      - name: Watch
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python3 robots/syllabus/watch.py --prev prev/state.json --out out
+      - name: Publish state to branch syllabus-state
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd out
+          git init -q -b syllabus-state
+          git add syllabus_state.json
+          git -c user.name=syllabus-watch -c user.email=syllabus-watch@users.noreply.github.com commit -q -m "syllabus state $(date -u +%FT%TZ)"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" syllabus-state

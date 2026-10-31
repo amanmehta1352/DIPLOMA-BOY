@@ -24,6 +24,7 @@ ROBOT_WORKFLOWS = {  # workflow name -> (label_hi, what it does)
     'Writer Robot': ('✍️ Writer', 'Chapter content लिखना (draft)'),
     'Solver Robot': ('🧮 Solver', 'सवालों के हल लिखना (draft)'),
     'Dispatcher': ('📨 Dispatcher', 'आपकी command से robot चलाना'),
+    'Syllabus Watcher': ('📜 Syllabus', 'सरकारी syllabus पेज बदले या नहीं'),
     'Health Robot': ('🩺 Health', 'यह रिपोर्ट'),
 }
 

@@ -187,7 +187,9 @@ def main():
         ids = {int(x) for x in a.only.split(',') if x.strip()}
         queue = sorted([c for c in chapters if (not a.level or c['l'] == a.level) and c['c'] in ids
                         and done.get((c['l'], c['c']), {}).get('status') != 'approved'], key=lambda c: (order.get(c['l'], 99), c['c']))
-    lines = [f'# Writer robot report', f'queue left before this run: {len(queue)}', '']
+    cfg = json.load(open(os.path.join(HERE, '..', 'ecosystem', 'config.json'), encoding='utf-8'))
+    AUTO_OK, AUTO_MAX, approved_now = bool(cfg.get('auto_approve')), int(cfg.get('auto_approve_max_per_run', 5)), 0
+    lines = [f'# Writer robot report', f'queue left before this run: {len(queue)}', f'auto-approve: {"on" if AUTO_OK else "off"}', '']
     for c in queue[:a.count]:
         L = levels[c['l']]
         want = f"DB|{c['l']}|{c['c']}"
@@ -218,6 +220,12 @@ def main():
         if data is not None and not a.dry_run:
             rpc('draft_save', {'p': {'level_id': c['l'], 'chapter_id': c['c'], 'status': status, 'data': data,
                                      'provider': 'gemini', 'model': model, 'checks': checks}})
+            if status == 'draft' and AUTO_OK and approved_now < AUTO_MAX:
+                # Automatic approval: the database re-checks the same rules (no problems, second AI agreed on all answers).
+                r = rpc('auto_approve_draft', {'p_level': c['l'], 'p_chapter': c['c']})
+                if r == 'approved': approved_now += 1
+                lines[-1] += f' · auto: {r}'
+                print(lines[-1], flush=True)
         if a.dry_run and data is not None:
             os.makedirs('writer-out', exist_ok=True)
             json.dump(data, open(f"writer-out/{c['l']}_{c['c']}.json", 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
