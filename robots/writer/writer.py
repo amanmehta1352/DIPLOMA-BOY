@@ -30,13 +30,15 @@ def hide(s):
     return s
 
 
-def http(url, headers, body=None, method='POST', timeout=180):
+def http(url, headers, body=None, method='POST', timeout=300):
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             return r.status, r.read()
     except urllib.error.HTTPError as e:
         return e.code, e.read()
+    except (TimeoutError, urllib.error.URLError, OSError) as e:   # slow or dropped answer: treat like a busy server
+        return 504, str(e).encode()
 
 
 # ---------- Gemini ----------
@@ -176,20 +178,23 @@ def main():
         for k, v in {'{l}': c['l'], '{c}': str(c['c']), '{lhi}': L['hi'], '{len}': L['en'], '{depth}': L['depth'],
                      '{s}': c['s'], '{se}': c['se'], '{h}': c['h'], '{e}': c['e']}.items():
             prompt = prompt.replace(k, v)
-        status, checks, model, data = 'rejected', {}, None, None
-        try:
-            txt, model = gemini(prompt, WRITE_MODELS)
-            data = shuffle_options(parse_json(txt), want)
-            prob = check_structure(data, want)
-            checks['structure'] = prob
-            if not prob:
-                diff, cm = second_opinion(data)
-                checks['second_opinion'] = {'model': cm, 'disagree': diff}
-                if len(diff) > 2: prob.append(f'second opinion disagrees on {len(diff)} of 10 answers')
-            status = 'draft' if not prob else 'rejected'
-            checks['problems'] = prob
-        except Exception as e:
-            checks['error'] = hide(e)[:300]
+        for attempt in range(2):
+          status, checks, model, data = 'rejected', {}, None, None
+          try:
+              txt, model = gemini(prompt, WRITE_MODELS)
+              data = shuffle_options(parse_json(txt), want)
+              prob = check_structure(data, want)
+              checks['structure'] = prob
+              if not prob:
+                  diff, cm = second_opinion(data)
+                  checks['second_opinion'] = {'model': cm, 'disagree': diff}
+                  if len(diff) > 2: prob.append(f'second opinion disagrees on {len(diff)} of 10 answers')
+              status = 'draft' if not prob else 'rejected'
+              checks['problems'] = prob
+          except Exception as e:
+              checks['error'] = hide(e)[:300]
+          if status == 'draft': break
+          time.sleep(10)
         size = sum(len(s) for s in strings(data)) if data else 0
         lines.append(f"- {want} {c['h']} ({c['s']}): **{status}** · {model} · {size} chars · {'; '.join(checks.get('problems', [])) or checks.get('error', '') or 'all checks passed'}")
         print(lines[-1], flush=True)
