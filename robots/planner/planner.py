@@ -86,6 +86,39 @@ def run(offline=False):
     return coverage(chapters, atoms, sols, targets)
 
 
+def _toks(s):
+    """Pure: (all lowercase words, abbreviations). A word of 3+ letters, or an all-capital abbreviation (IC, RCC, SI)."""
+    words = re.findall(r'[A-Za-z]+', s)
+    plain = {w.lower() for w in words if len(w) > 2}
+    abbr = {w.lower() for w in words if w.isupper() and len(w) >= 2}
+    return plain | abbr, abbr
+
+
+def topic_return(lines, chapter_titles):
+    """Pure: which topics have no matching chapter. A line is split on commas and semicolons, so each topic is compared
+    on its own. A topic is covered when at least 60% of its words appear in one chapter title, and every abbreviation
+    in it (IC, RCC, ...) appears in that title too."""
+    stop = {'and', 'of', 'the', 'in', 'to', 'a', 'an', 'for', 'with', 'its', 'on', 'by', 'or', 'etc', 'based', 'use', 'uses'}
+    titles = [_toks(t)[0] - stop for t in chapter_titles]
+    seen, covered, missing = set(), 0, []
+    for line in lines:
+        for part in re.split(r'[,;]', line):
+            part = part.strip()
+            need, abbr = _toks(part)
+            need = need - stop
+            if not need: continue
+            key = frozenset(need)
+            if key in seen: continue
+            seen.add(key)
+            ok = False
+            for tt in titles:
+                if abbr and not abbr <= tt: continue
+                if len(need & tt) / len(need) >= 0.6: ok = True; break
+            if ok: covered += 1
+            else: missing.append(part)
+    return {'topics': len(seen), 'covered': covered, 'missing': missing}
+
+
 def syllabus_handover(units_path, prev_path, out_dir, level='medical', exam='NEET UG'):
     """Reads the reader's output, compares with the last run, writes syllabus_return.json.
     If the number of missing units changed, a command goes to the Health Robot (visible in the Control Room)."""
@@ -94,6 +127,19 @@ def syllabus_handover(units_path, prev_path, out_dir, level='medical', exam='NEE
     titles = [c['e'] for c in json.load(open(os.path.join(ROOT, 'robots', 'writer', 'chapters.json'), encoding='utf-8')) if c['l'] == level]
     ret = syllabus_return(units, titles)
     ret.update({'level': level, 'exam': exam, 'chapters_in_level': len(titles), 'note': 'word match only; check the list by hand'})
+    # topic lines from the coaching/syllabus pages, per level (govt_technical: SSC JE + RRB JE)
+    pages = {}
+    for d in doc.get('documents', []):
+        if 'lines' in d and d.get('level'):
+            pages.setdefault(d['level'], []).extend(d['lines'])
+    failed = {d['level'] for d in doc.get('documents', []) if 'error' in d and d.get('level')}
+    ptitles = {}
+    for lv, lines in pages.items():
+        ct = [c['e'] for c in json.load(open(os.path.join(ROOT, 'robots', 'writer', 'chapters.json'), encoding='utf-8')) if c['l'] == lv]
+        ptitles[lv] = topic_return(lines, ct)
+        ptitles[lv]['chapters_in_level'] = len(ct)
+        ptitles[lv]['incomplete'] = lv in failed   # a page of this level could not be read today
+    ret['pages'] = ptitles
     prev = {}
     if prev_path and os.path.exists(prev_path):
         try: prev = json.load(open(prev_path, encoding='utf-8'))
