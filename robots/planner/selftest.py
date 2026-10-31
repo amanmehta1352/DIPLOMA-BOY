@@ -36,7 +36,11 @@ U = [{'subject': 'PHYSICS', 'unit': '1', 'title': 'PHYSICS AND MEASUREMENT'}, {'
 R = P.syllabus_return(U, ['Units & Measurement', 'Force & Laws of Motion', 'Respiration in Plants'])
 assert R['covered'] == 2 and [m['unit'] for m in R['missing']] == ['9'], R
 print('syllabus return selftest OK')
-T = P.topic_return(['Structural Analysis', 'Concrete Structures', 'Thermodynamics basics and heat engines', 'Login'], ['Structural Analysis of Frames', 'Concrete'])
-# 'Structural Analysis' is covered; 'Concrete Structures' has only half its words in 'Concrete' (below 60%), so it is missing; 'Login' is 1 word: skipped
-assert T['covered'] == 1 and T['missing'] == ['Concrete Structures', 'Thermodynamics basics and heat engines'], T
+T = P.topic_return(['Structural Analysis', 'Concrete Structures', 'Thermodynamics basics and heat engines', 'Surveying', 'Steel, Timber'], ['Structural Analysis of Frames', 'Concrete', 'Surveying'])
+assert T['covered'] == 2 and T['missing'] == ['Concrete Structures', 'Thermodynamics basics and heat engines', 'Steel', 'Timber'], T
+# abbreviations must match: "IC Engine Cycles" is not covered by "Steam Engine Cycles"
+A = P.topic_return(['IC Engine Cycles'], ['Steam Engine Cycles'])
+assert A['covered'] == 0 and A['missing'] == ['IC Engine Cycles'], A
+B = P.topic_return(['IC Engine Cycles'], ['IC Engine Cycles and Performance'])
+assert B['covered'] == 1, B
 print('topic return selftest OK')

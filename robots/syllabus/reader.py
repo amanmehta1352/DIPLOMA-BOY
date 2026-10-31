@@ -145,7 +145,7 @@ def main():
                 result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'level': d.get('level'), 'lines': lines})
                 print(f"read page {d['label'][:60]!r}: {len(lines)} lines")
             except Exception as e:
-                result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'error': type(e).__name__ + ': ' + str(e)[:160]})
+                result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'level': d.get('level'), 'error': type(e).__name__ + ': ' + str(e)[:160]})
                 print('failed page', d['label'][:60], type(e).__name__)
             continue
         try:
@@ -158,7 +158,7 @@ def main():
                 result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'units': units})
                 print(f"read {d['label'][:60]!r}: {len(units)} units")
         except Exception as e:
-            result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'error': type(e).__name__ + ': ' + str(e)[:160]})
+            result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'level': d.get('level'), 'error': type(e).__name__ + ': ' + str(e)[:160]})
             print('failed', d['label'][:60], type(e).__name__)
     os.makedirs(a.out, exist_ok=True)
     json.dump(result, open(os.path.join(a.out, 'syllabus_units.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
