@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Diploma Boy · Step-by-step Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* =========================================
+     THEMES & VARIABLES
+  ========================================= */
+  :root {
+    --bg: #fdfdf7; --text-main: #111827; --text-muted: #6b7280; 
+    --border: #d1d5db; --ink-blue: #1d4ed8; --ink-red: #dc2626; --ink-green: #16a34a;
+    --line-color: rgba(220, 38, 38, 0.2); --base-size: 14px;
+    --chart-color1: #1d4ed8; --chart-color2: #dc2626;
+    --bar-blue: #93c5fd; --bar-red: #fca5a5; --bar-green: #86efac;
+  }
+  [data-theme="black"] {
+    --bg: #0f172a; --text-main: #f8fafc; --text-muted: #94a3b8; 
+    --border: #334155; --ink-blue: #38bdf8; --ink-red: #f87171; --ink-green: #4ade80;
+    --line-color: rgba(255, 255, 255, 0.1);
+    --chart-color1: #38bdf8; --chart-color2: #f87171;
+    --bar-blue: #1e3a8a; --bar-red: #7f1d1d; --bar-green: #14532d;
+  }
+  [data-theme="green"] {
+    --bg: #0f3d22; --text-main: #f0fdf4; --text-muted: #86efac; 
+    --border: #22c55e; --ink-blue: #93c5fd; --ink-red: #fca5a5; --ink-green: #fde047;
+    --line-color: rgba(255, 255, 255, 0.1);
+    --chart-color1: #93c5fd; --chart-color2: #fca5a5;
+    --bar-blue: #1e40af; --bar-red: #991b1b; --bar-green: #166534;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  
+  body { 
+    background: var(--bg); color: var(--text-main); 
+    font-family: 'Poppins', sans-serif; font-size: 12px;
+    height: 100dvh; overflow: hidden; display: flex; flex-direction: column;
+    padding-top: env(safe-area-inset-top); transition: background 0.3s, color 0.3s;
+  }
+
+  /* =========================================
+     TOP CONTROLS & XP
+  ========================================= */
+  .top-bar { display: flex; flex-direction: column; padding: 4px 8px; border-bottom: 1px solid var(--border); flex-shrink: 0; gap: 4px; }
+  .controls-row { display: flex; justify-content: space-between; align-items: center; gap: 4px; flex-wrap: wrap;}
+  
+  .lang-toggle { display: flex; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .lang-btn { background: transparent; border: none; padding: 2px 6px; font-size: 10px; font-weight: 700; color: var(--text-muted); cursor: pointer; }
+  .lang-btn.active { background: var(--ink-blue); color: #fff; }
+  
+  .right-controls { display: flex; gap: 4px; align-items: center;}
+  .theme-btn, .font-btn, .icon-btn {
+    background: transparent; border: 1px solid var(--border); font-size: 12px;
+    padding: 1px 5px; border-radius: 3px; cursor: pointer; color: var(--text-main); font-weight: bold; display: flex; align-items: center; justify-content: center;
+  }
+  .xp-badge { background: #fef08a; color: #854d0e; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 10px; border: 1px solid #ca8a04;}
+
+  /* =========================================
+     HIERARCHY NAVIGATION
+  ========================================= */
+  .topic-bar { display: flex; overflow-x: auto; gap: 6px; padding: 6px 8px; background: var(--bg); border-bottom: 1px solid var(--border); scrollbar-width: none; }
+  .topic-bar::-webkit-scrollbar { display: none; }
+  .topic-tab { background: rgba(0,0,0,0.05); border: 1px solid var(--border); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; white-space: nowrap; cursor: pointer; color: var(--text-muted); }
+  .topic-tab.active { background: var(--ink-blue); color: white; border-color: var(--ink-blue); }
+
+  .type-bar { display: flex; overflow-x: auto; gap: 6px; padding: 4px 8px 6px; background: var(--bg); border-bottom: 2px dashed var(--border); scrollbar-width: none; }
+  .type-bar::-webkit-scrollbar { display: none; }
+  .type-tab { background: transparent; border: 1px solid var(--border); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 12px; white-space: nowrap; cursor: pointer; color: var(--text-muted); }
+  .type-tab.active { background: var(--ink-blue); color: white; border-color: var(--ink-blue); }
+
+  /* =========================================
+     MAGIC SLIDER & PROGRESS
+  ========================================= */
+  .slider-box { padding: 6px 8px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.02); display: flex; align-items: center; gap: 8px; }
+  .slider-box label { font-size: 11px; font-weight: 600; color: var(--ink-blue); white-space: nowrap;}
+  input[type=range] { flex: 1; accent-color: var(--ink-blue); height: 4px; border-radius: 2px;}
+  #slider-val { font-size: 12px; font-weight: bold; color: var(--ink-red); width: 30px; text-align: right;}
+  
+  .progress-bar { height: 3px; background: var(--border); width: 100%; position: absolute; bottom: 0; left: 0; }
+  .progress-fill { height: 100%; background: var(--ink-green); width: 0%; transition: width 0.3s ease; }
+
+  /* =========================================
+     VISUALIZATION (PIE CHART)
+  ========================================= */
+  .viz-container { display: flex; align-items: center; justify-content: space-around; padding: 8px; background: var(--bg); border-bottom: 1px dashed var(--border); }
+  .pie-chart { width: 60px; height: 60px; border-radius: 50%; background: conic-gradient(var(--chart-color1) 0% 60%, var(--chart-color2) 60% 100%); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+  .viz-legend { font-family: 'Kalam', cursive; font-size: 14px; line-height: 1.4;}
+  .viz-legend span { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; }
+
+  /* =========================================
+     QUESTION & TABS
+  ========================================= */
+  .question-area { padding: 6px 8px 6px 12px; border-bottom: 2px solid var(--ink-red); flex-shrink: 0; background: var(--bg); font-family: 'Kalam', cursive; position: relative;}
+  .q-text { font-size: 14px; line-height: 1.3; margin-bottom: 2px; }
+  .q-text.hi { color: var(--text-muted); font-size: 12px; }
+  .hide-lang { display: none !important; }
+
+  .method-tabs { display: flex; overflow-x: auto; gap: 6px; padding: 6px 8px; background: var(--bg); border-bottom: 1px dashed var(--border); flex-shrink: 0; scrollbar-width: none; }
+  .method-tabs::-webkit-scrollbar { display: none; }
+  .m-tab { background: transparent; border: 1px solid var(--ink-blue); color: var(--ink-blue); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; white-space: nowrap; cursor: pointer; }
+  .m-tab.active { background: var(--ink-blue); color: #fff; }
+  .m-tab.primary { border-width: 2px; font-weight: 800; } /* Highlight Universal Methods */
+
+  /* =========================================
+     MAIN SCROLL AREA & HANDWRITTEN STEPS
+  ========================================= */
+  .content { flex: 1; overflow-y: auto; padding: 8px 8px 70px 12px; display: flex; flex-direction: column; gap: 4px; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; position: relative; }
+  .content::before { content: ''; position: absolute; top: 0; bottom: 0; left: 8px; border-left: 1.5px solid var(--line-color); z-index: 0; }
+
+  .math-step { font-family: 'Kalam', cursive; font-size: var(--base-size); line-height: 1.3; color: var(--text-main); display: none; position: relative; z-index: 1; padding-left: 4px; margin-bottom: 8px; transition: opacity 0.3s; }
+  .math-step.visible { display: block; animation: writeIn 0.2s ease-out forwards; opacity: 0; }
+  
+  .focus-active .math-step.visible { opacity: 0.3; }
+  .focus-active .math-step.visible.current-focus { opacity: 1; font-weight: bold; text-shadow: 0 0 1px rgba(0,0,0,0.2); }
+
+  .step-text-row { display: flex; justify-content: space-between; align-items: flex-start; }
+  .step-en { font-size: calc(var(--base-size) - 1px); margin-bottom: 1px; }
+  .step-hi { font-size: calc(var(--base-size) - 2px); color: var(--text-muted); margin-bottom: 2px; }
+
+  /* Pen Elements */
+  .arr { color: var(--ink-blue); font-weight: bold; margin-right: 2px; font-size: 14px;}
+  .arr-down { color: var(--ink-blue); font-weight: bold; font-size: 18px; line-height: 1; display: block; margin: 2px 0;}
+  .rough-line { border-bottom: 2px solid var(--ink-blue); padding-bottom: 1px; display: inline-block; transform: rotate(-1deg); }
+  .rough-circle { border: 2px solid var(--ink-red); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; padding: 0 6px; display: inline-block; transform: rotate(-3deg); color: var(--ink-red); font-weight: bold; }
+  .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 3px; font-size: calc(var(--base-size) - 1px); line-height: 1.1; position: relative; top: -1px; transform: rotate(-1deg); }
+  .frac .num { border-bottom: 2px solid var(--text-main); padding: 0 3px; white-space: nowrap;}
+  .frac .den { padding: 2px 3px 0 3px; white-space: nowrap;}
+
+  /* FORMATS */
+  .rough-table { display: grid; grid-template-columns: 1fr 1fr 1fr; text-align: center; margin: 10px 0; font-size: calc(var(--base-size) + 1px); width: 100%; border: 2px solid var(--ink-blue); border-radius: 6px; overflow: hidden; background: rgba(255,255,255,0.5); }
+  [data-theme="black"] .rough-table { background: rgba(255,255,255,0.05); }
+  .rough-table > div { padding: 6px 2px; border-bottom: 1px solid var(--ink-blue); border-right: 1px solid var(--ink-blue); }
+  .rough-table > div:nth-child(3n) { border-right: none; }
+  .rough-table > div:nth-last-child(-n+3) { border-bottom: none; }
+  .rough-table .arr-down { font-size: 20px; margin: 0; }
+
+  .bar-container { margin: 10px 0; width: 100%; font-family: 'Kalam', cursive; font-size: 14px; display: flex; flex-direction: column; gap: 6px;}
+  .bar-row { display: flex; align-items: center; width: 100%; gap: 4px;}
+  .bar { height: 30px; display: flex; align-items: center; justify-content: center; color: #111; font-weight: bold; border: 1.5px solid var(--ink-blue); border-radius: 4px; }
+  .bar-inc { background: var(--bar-blue); width: 100%; }
+  .bar-exp { background: var(--bar-red); }
+  .bar-sav { background: var(--bar-green); }
+
+  .venn-container { position: relative; width: 100%; height: 160px; margin: 10px 0; display: flex; justify-content: center; align-items: center;}
+  .venn-circle { width: 110px; height: 110px; border-radius: 50%; position: absolute; display: flex; align-items: center; justify-content: center; font-family: 'Kalam', cursive; font-size: 16px; font-weight: bold; }
+  .v-left { background: rgba(29, 78, 216, 0.2); border: 2px solid var(--ink-blue); left: 15%; top: 20px; }
+  .v-right { background: rgba(220, 38, 38, 0.2); border: 2px solid var(--ink-red); right: 15%; top: 20px; }
+  .v-overlap { position: absolute; z-index: 10; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-family: 'Poppins'; font-size: 12px; font-weight: bold; color: var(--text-main); line-height: 1.2;}
+  .v-label-left { position: absolute; left: 18%; top: 80px; color: var(--ink-blue); font-size: 18px;}
+  .v-label-right { position: absolute; right: 18%; top: 80px; color: var(--ink-red); font-size: 18px;}
+
+  /* Tools & Alerts */
+  .tools-row { display: flex; gap: 6px; margin-top: 4px; }
+  .tool-btn { background: rgba(0,0,0,0.05); border: 1px solid var(--border); border-radius: 4px; font-size: 10px; padding: 2px 6px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 4px; }
+  .why-box { display: none; background: #fef08a; color: #854d0e; font-size: 11px; padding: 4px 8px; border-radius: 4px; margin-top: 4px; border-left: 3px solid #ca8a04; font-family: 'Poppins'; }
+  [data-theme="black"] .why-box { background: rgba(250,204,21,0.2); color: #fde047; border-color: #facc15; }
+  [data-theme="green"] .why-box { background: rgba(250,204,21,0.2); color: #fef08a; border-color: #facc15; }
+  .trap-box { display: block; background: #fee2e2; color: #991b1b; font-size: 12px; padding: 8px; border-radius: 6px; border: 1px dashed #dc2626; margin-top: 6px; font-family: 'Poppins'; font-weight: 600; }
+  [data-theme="black"] .trap-box { background: rgba(220,38,38,0.2); color: #fca5a5; border-color: #f87171; }
+  [data-theme="green"] .trap-box { background: rgba(220,38,38,0.2); color: #fca5a5; border-color: #f87171; }
+
+  /* =========================================
+     FINAL ANSWER, QUIZ & SHARE
+  ========================================= */
+  .final-ans { display: none; text-align: center; margin-top: 10px; margin-bottom: 10px; border-top: 1.5px dashed var(--border); padding-top: 10px; }
+  .final-ans.visible { display: block; animation: popIn 0.3s ease-out forwards; }
+  .ans-title { font-size: 12px; color: var(--text-muted); font-family: 'Poppins';}
+  .ans-val { font-size: 22px; font-weight: bold; color: var(--ink-green); font-family: 'Kalam';}
+
+  .share-btn { background: #25D366; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;}
+
+  .quiz-box { display: none; background: var(--bg); border: 2px solid var(--ink-blue); border-radius: 8px; padding: 10px; margin-top: 15px; text-align: left; font-family: 'Poppins'; }
+  .quiz-box.visible { display: block; animation: popIn 0.3s ease-out forwards; }
+  .quiz-q { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+  .quiz-opt { display: block; width: 100%; text-align: left; background: var(--border); border: none; padding: 8px; margin-bottom: 6px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: 0.2s; }
+  .quiz-opt:hover { background: rgba(29, 78, 216, 0.2); }
+  .quiz-opt.correct { background: #16a34a; color: white; }
+  .quiz-opt.wrong { background: #dc2626; color: white; }
+
+  /* =========================================
+     BOTTOM ACTIONS
+  ========================================= */
+  .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg); padding: 6px 8px; border-top: 1px solid var(--border); z-index: 100; padding-bottom: calc(6px + env(safe-area-inset-bottom)); display: flex; gap: 6px;}
+  .action-btn { background: var(--ink-blue); color: #fff; border: none; padding: 8px; font-family: 'Kalam', cursive; font-size: 16px; font-weight: 700; border-radius: 6px; flex: 1; cursor: pointer; }
+  .next-q-btn { background: var(--ink-green); display: none; }
+  .action-btn:active { transform: scale(0.99); }
+  .action-btn.hidden { display: none; }
+
+  /* =========================================
+     MODALS
+  ========================================= */
+  .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px;}
+  .modal.visible { display: flex; }
+  .formula-content { background: var(--bg); padding: 15px; border-radius: 10px; width: 100%; max-width: 400px; border: 2px solid var(--ink-blue); max-height: 80vh; overflow-y: auto;}
+  .formula-content h3 { color: var(--ink-blue); margin-bottom: 10px; font-family: 'Kalam'; font-size: 20px;}
+  .f-item { font-family: 'Kalam'; font-size: 16px; margin-bottom: 8px; padding: 5px; border-bottom: 1px dashed var(--border);}
+  .guide-box { background: rgba(22, 163, 74, 0.1); border: 1px solid var(--ink-green); padding: 10px; border-radius: 8px; margin-bottom: 15px; font-family: 'Poppins'; font-size: 12px; }
+  
+  .scratchpad-content { background: #fff; width: 100%; height: 100%; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; position: relative;}
+  .sp-header { padding: 10px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;}
+  .sp-canvas-wrap { flex: 1; background: #ffffff; position: relative; }
+  canvas { width: 100%; height: 100%; touch-action: none; display: block; }
+
+  /* Diploma Boy additions (data from the server) */
+  .quiz-exp { display: none; font-size: 12px; margin-top: 6px; color: var(--text-main); }
+  .quiz-box.answered .quiz-exp { display: block; }
+  .empty-note { font-family: 'Poppins'; font-size: 13px; color: var(--text-muted); text-align: center; padding: 30px 12px; }
+  .review-pill { font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 10px; background: #fde68a; color: #92400e; border: 1px dashed #d97706; }
+  .left-controls { display: flex; gap: 4px; align-items: center; }
+  .unit b, .math-step b { color: var(--ink-red); }
+  @keyframes writeIn { from { opacity: 0; transform: translateX(-5px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+</style>
+</head>
+<body data-theme="white">
+
+  <div class="top-bar">
+    <div class="controls-row">
+      <div class="left-controls">
+      <button class="icon-btn" onclick="goBack()" title="Back">←</button>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('hi')">हिं</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('both')">दो</button>
+      </div>
+      </div>
+      <div class="xp-badge" id="xp-display">⭐ 0 XP</div><span class="review-pill" id="review-pill" style="display:none">DRAFT</span>
+      <div class="right-controls">
+        <button class="icon-btn" onclick="openScratchpad()" title="Rough Work">📝</button>
+        <button class="icon-btn" onclick="toggleFocusMode()" id="focus-btn" title="Focus Mode">🔦</button>
+        <button class="icon-btn" onclick="toggleFormula()">📖</button>
+        <button class="font-btn" onclick="changeFont(-1)">A-</button>
+        <button class="font-btn" onclick="changeFont(1)">A+</button>
+        <button class="theme-btn" onclick="cycleTheme()">🌓</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-bar" id="topic-bar"></div>
+  <div class="type-bar" id="type-bar"></div>
+
+  <div class="slider-box" id="slider-box" style="display:none">
+    <label>🎮 Magic %</label>
+    <input type="range" id="magic-slider" min="5" max="50" value="15" step="5" oninput="updateMagic(this.value)">
+    <span id="slider-val">15%</span>
+  </div>
+
+  <div class="viz-container" id="viz-container" style="display:none">
+    <div class="pie-chart" id="pie-chart"></div>
+    <div class="viz-legend" id="viz-legend"></div>
+  </div>
+
+  <div class="question-area">
+    <div class="q-text en" id="q-en"></div>
+    <div class="q-text hi" id="q-hi"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <div class="method-tabs" id="method-tabs"></div>
+
+  <div class="content" id="content-area">
+    <div id="steps-wrapper"></div>
+    
+    <div class="final-ans" id="ans-box">
+      <div class="ans-title" id="ans-title">Final Answer</div>
+      <div class="ans-val" id="ans-val"></div>
+      <button class="share-btn" onclick="shareSolution()">📤 Share Solution</button>
+    </div>
+
+    <div class="quiz-box" id="quiz-box"></div>
+  </div>
+
+  <div class="action-bar" id="action-bar">
+    <button class="action-btn" id="next-btn" onclick="revealNext()">✍️ Solve Step 1</button>
+    <button class="action-btn next-q-btn" id="next-q-btn" onclick="loadNextQuestion()">🔄 Next Question</button>
+  </div>
+
+  <div class="modal" id="formula-modal" onclick="toggleFormula()">
+    <div class="formula-content" onclick="event.stopPropagation()">
+      <h3>📖 Guide & Formulas</h3>
+      
+      <!-- NEW: Format Guide -->
+      <div class="guide-box">
+        <b>💡 कौन सा फॉर्मेट कब यूज़ करें?</b><br>
+        • <b>Base-100:</b> कॉन्सेप्ट क्लियर करने और Income/Exp, Election में सबसे सेफ।<br>
+        • <b>Fraction (भिन्न):</b> एग्जाम में स्पीड बढ़ाने के लिए सबसे बेस्ट (जैसे 25% = 1/4)।<br>
+        • <b>Table / Venn:</b> सिर्फ विजुअल समझने के लिए।
+      </div>
+
+      <div id="formula-list"></div>
+      <button class="action-btn" style="margin-top:10px;" onclick="toggleFormula()">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="scratchpad-modal">
+    <div class="scratchpad-content">
+      <div class="sp-header">
+        <span style="font-weight: bold; color: var(--ink-blue);">📝 Rough Work</span>
+        <div style="display: flex; gap: 8px;">
+          <button class="icon-btn" onclick="clearCanvas()">🗑️ Clear</button>
+          <button class="icon-btn" onclick="closeScratchpad()">❌ Close</button>
+        </div>
+      </div>
+      <div class="sp-canvas-wrap">
+        <canvas id="scratchpad"></canvas>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* Diploma Boy step-by-step solutions. Look and behaviour are the owner's masterclass template;
+     questions come from the server (mtb.get_chapter_solutions: approved only; review code: drafts too).
+     URL: solve.html?l=<level>&ch=<chapter id>&s=<subject slug>&ln=<level name>&ui=<hi|en>[&slot=n][&review=<code>] */
+  const SB = {url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'}; // publishable key
+  const Q = new URLSearchParams(location.search);
+  const LEVEL = Q.get('l') || '', CHAPTER = +Q.get('ch') || 0, REVIEW = (Q.get('review') || '').trim();
+  let tIdx = 0, currentLang = Q.get('ui') === 'en' ? 'en' : 'hi', currentMethod = 0, stepIdx = 0, totalSteps = 0;
+  let currentFontSize = 14;
+  let xp = 0, focusMode = false;
+  try { const s = localStorage.getItem('solve_lang'); if (!Q.get('ui') && ['hi','en','both'].includes(s)) currentLang = s; } catch (e) {}
+
+  let syllabusData = [];      /* [{id, name:{en,hi}, types:[{id, name:{en,hi}, item, slot}]}] built from the server */
+  let currentTopic = null, currentType = null;
+
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const T = x => !x ? '' : (typeof x === 'string' ? x : (currentLang === 'en' ? x.en : x.hi) || x.en || x.hi || '');
+  const TB = x => !x ? '' : (typeof x === 'string' ? x : (currentLang === 'both' ? `${x.en} · ${x.hi}` : T(x)));
+
+  /* only the pen-and-paper elements of the template may appear in step html */
+  const OK_TAGS = new Set(['DIV','SPAN','B','SUB','SUP','BR']);
+  const OK_CLASS = new Set(['arr','arr-down','rough-line','rough-circle','frac','num','den','rough-table','bar-container','bar-row','bar','bar-inc','bar-exp','bar-sav','venn-container','venn-circle','v-left','v-right','v-overlap','v-label-left','v-label-right']);
+  function cleanHtml(html) {
+    const t = document.createElement('template'); t.innerHTML = String(html || '');
+    (function walk(n) {
+      [...n.childNodes].forEach(c => {
+        if (c.nodeType === 3) return;
+        if (c.nodeType !== 1 || !OK_TAGS.has(c.tagName)) { c.replaceWith(document.createTextNode(c.textContent || '')); return; }
+        [...c.attributes].forEach(a => {
+          if (a.name === 'class') { const k = a.value.split(/\s+/).filter(x => OK_CLASS.has(x)); k.length ? c.setAttribute('class', k.join(' ')) : c.removeAttribute('class'); }
+          else if (a.name === 'style' && /^\s*width\s*:\s*\d+(\.\d+)?%\s*;?\s*$/.test(a.value) && /\bbar\b/.test(c.className)) {}
+          else c.removeAttribute(a.name);
+        });
+        walk(c);
+      });
+    })(t.content);
+    return t.innerHTML;
+  }
+
+  document.getElementById('xp-display').innerText = `⭐ ${xp} XP`;
+  document.documentElement.style.setProperty('--base-size', currentFontSize + 'px');
+
+  function goBack() { if (history.length > 1) history.back(); else location.href = 'level-book.html' + location.search.replace(/[?&]slot=\d+/, ''); }
+  function cycleTheme() {
+    const themes = ['white', 'black', 'green'];
+    tIdx = (tIdx + 1) % themes.length;
+    document.body.setAttribute('data-theme', themes[tIdx]);
+    try { localStorage.setItem('solve_theme', tIdx); } catch (e) {}
+  }
+  function changeFont(dir) {
+    currentFontSize = Math.max(10, Math.min(22, currentFontSize + dir));
+    document.documentElement.style.setProperty('--base-size', currentFontSize + 'px');
+  }
+  function setLang(lang) {
+    currentLang = lang;
+    try { localStorage.setItem('solve_lang', lang); } catch (e) {}
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+    renderTopicBar(); renderTypeBar(); updateUIForType();
+  }
+  function toggleFormula() { document.getElementById('formula-modal').classList.toggle('visible'); }
+
+  function toggleFocusMode() {
+    focusMode = !focusMode;
+    document.body.classList.toggle('focus-active', focusMode);
+    document.getElementById('focus-btn').style.background = focusMode ? 'var(--ink-blue)' : 'transparent';
+    document.getElementById('focus-btn').style.color = focusMode ? '#fff' : 'var(--text-main)';
+    updateFocusHighlight();
+  }
+  function updateFocusHighlight() {
+    if (!focusMode) return;
+    document.querySelectorAll('.math-step').forEach(el => el.classList.remove('current-focus'));
+    const current = document.getElementById(`step-${stepIdx - 1}`);
+    if (current) current.classList.add('current-focus');
+  }
+
+  function addXP(amount) {
+    xp += amount;
+    document.getElementById('xp-display').innerText = `⭐ ${xp} XP`;
+  }
+
+  function formatMath(text) {
+    if (!text) return text;
+    return text.replace(/(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/g, (match, num, den) => {
+      return `<span class="frac"><span class="num">${num}</span><span class="den">${den}</span></span>`;
+    });
+  }
+  function speakText(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = currentLang === 'en' ? 'en-IN' : 'hi-IN';
+      msg.rate = 0.9;
+      window.speechSynthesis.speak(msg);
+    }
+  }
+  function toggleWhy(id) {
+    const el = document.getElementById(id);
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function renderTopicBar() {
+    const bar = document.getElementById('topic-bar');
+    bar.innerHTML = syllabusData.map((t) =>
+      `<div class="topic-tab ${currentTopic && t.id === currentTopic.id ? 'active' : ''}" onclick="setTopic('${t.id}')">${esc(TB(t.name))}</div>`
+    ).join('');
+  }
+
+  function renderTypeBar() {
+    const bar = document.getElementById('type-bar');
+    bar.innerHTML = currentTopic ? currentTopic.types.map((t) =>
+      `<div class="type-tab ${t.id === currentType.id ? 'active' : ''}" onclick="setType('${t.id}')">${esc(TB(t.name))}</div>`
+    ).join('') : '';
+  }
+
+  function setTopic(id) {
+    currentTopic = syllabusData.find(t => t.id === id);
+    currentType = currentTopic.types[0];
+    renderTopicBar();
+    renderTypeBar();
+    updateUIForType();
+  }
+
+  function setType(id) {
+    currentType = currentTopic.types.find(t => t.id === id);
+    renderTypeBar();
+    updateUIForType();
+  }
+
+  function updateUIForType() {
+    if (!currentType) return;
+    const d = currentType.item;
+    const viz = d.viz && d.viz.kind === 'pie' && Array.isArray(d.viz.parts) ? d.viz.parts : null;
+    document.getElementById('viz-container').style.display = viz ? 'flex' : 'none';
+    if (viz) {
+      const cols = ['var(--chart-color1)', 'var(--chart-color2)', 'var(--ink-green)', 'var(--text-muted)'];
+      let at = 0;
+      const stops = viz.map((p, i) => { const a = at; at += +p.pct || 0; return `${cols[i % 4]} ${a}% ${at}%`; });
+      if (at < 100) stops.push(`var(--border) ${at}% 100%`);
+      document.getElementById('pie-chart').style.background = `conic-gradient(${stops.join(', ')})`;
+      document.getElementById('viz-legend').innerHTML = viz.map((p, i) => `<div><span style="background: ${cols[i % 4]}"></span>${esc(T(p))} (${+p.pct}%)</div>`).join('');
+    }
+
+    document.getElementById('q-en').innerHTML = formatMath(esc(d.q.en));
+    document.getElementById('q-hi').innerHTML = formatMath(esc(d.q.hi));
+
+    const mTabs = document.getElementById('method-tabs');
+    mTabs.innerHTML = d.methods.map((m, i) =>
+      `<div class="m-tab ${i === 0 ? 'active' : ''} ${m.primary ? 'primary' : ''}" onclick="loadMethod(${i}, this)">${esc(TB(m.name))}</div>`
+    ).join('');
+
+    const qz = d.quiz, qb = document.getElementById('quiz-box');
+    qb.innerHTML = `<div class="quiz-q">🧠 ${currentLang === 'en' ? 'Quick Test' : 'छोटा टेस्ट'}: ${formatMath(esc(T(qz.q)))}</div>`
+      + qz.options.map((o, i) => `<button class="quiz-opt" data-i="${i}" onclick="checkQuiz(this, ${i === qz.answer})">${formatMath(esc(T(o)))}</button>`).join('')
+      + (qz.explain ? `<div class="quiz-exp">💡 ${formatMath(esc(T(qz.explain)))}</div>` : '');
+
+    document.getElementById('formula-list').innerHTML = (d.formulas || []).map((f, i) => `<div class="f-item">${i + 1}. ${formatMath(esc(T(f)))}</div>`).join('');
+    document.getElementById('ans-title').innerText = currentLang === 'en' ? 'Final Answer' : 'अंतिम उत्तर';
+
+    loadMethod(0, mTabs.querySelector('.m-tab'));
+  }
+
+  function loadMethod(index, btn) {
+    currentMethod = index;
+    stepIdx = 0;
+    document.querySelectorAll('.m-tab').forEach(t => t.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    const methodData = currentType.item.methods[index];
+    const wrapper = document.getElementById('steps-wrapper');
+    wrapper.innerHTML = '';
+
+    methodData.steps.forEach((step, i) => {
+      let html = '';
+      const textEn = formatMath(esc(step.en)), textHi = formatMath(esc(step.hi));
+
+      html += `<div class="step-text-row"><div>`;
+      if (currentLang === 'en') html += `<div class="step-en">${textEn}</div>`;
+      else if (currentLang === 'hi') html += `<div class="step-hi">${textHi}</div>`;
+      else html += `<div class="step-en">${textEn}</div><div class="step-hi">${textHi}</div>`;
+      html += `</div><div class="tools-row">`;
+      html += `<button class="tool-btn" data-say="${esc(currentLang === 'en' ? step.en : step.hi)}" onclick="speakText(this.dataset.say)">🔊</button>`;
+      if (step.why) html += `<button class="tool-btn" onclick="toggleWhy('why-${i}')">🤔 ?</button>`;
+      html += `</div></div>`;
+
+      const mathHtml = step.html ? formatMath(cleanHtml(step.html)) : '';
+      html += `<div style="margin-top: 4px;">${mathHtml}</div>`;
+
+      if (step.why) html += `<div class="why-box" id="why-${i}">💡 ${formatMath(esc(T(step.why)))}</div>`;
+      if (step.trap) html += `<div class="trap-box">${formatMath(esc(T(step.trap)))}</div>`;
+
+      const div = document.createElement('div');
+      div.className = 'math-step';
+      div.id = `step-${i}`;
+      div.innerHTML = html;
+      wrapper.appendChild(div);
+    });
+
+    totalSteps = methodData.steps.length;
+    document.getElementById('ans-box').classList.remove('visible');
+    document.getElementById('quiz-box').classList.remove('visible');
+    document.getElementById('quiz-box').classList.remove('answered');
+    document.querySelectorAll('.quiz-opt').forEach(b => { b.className = 'quiz-opt'; });
+
+    document.getElementById('ans-val').innerHTML = formatMath(esc(currentLang === 'both' ? `${methodData.answer.en} · ${methodData.answer.hi}` : T(methodData.answer)));
+
+    const btnEl = document.getElementById('next-btn');
+    const nqBtn = document.getElementById('next-q-btn');
+    btnEl.classList.remove('hidden');
+    btnEl.innerHTML = currentLang === 'en' ? `✍️ Solve Step 1` : `✍️ स्टेप 1 हल करो`;
+    nqBtn.style.display = 'none';
+    nqBtn.innerHTML = currentLang === 'en' ? '🔄 Next Question' : '🔄 अगला सवाल';
+
+    document.getElementById('progress-fill').style.width = '0%';
+    document.getElementById('content-area').scrollTo({ top: 0, behavior: 'smooth' });
+    if (focusMode) document.body.classList.remove('focus-active');
+  }
+
+  function revealNext() {
+    const btn = document.getElementById('next-btn');
+    const ansBox = document.getElementById('ans-box');
+    const quizBox = document.getElementById('quiz-box');
+    const content = document.getElementById('content-area');
+    const progressFill = document.getElementById('progress-fill');
+
+    if (stepIdx < totalSteps) {
+      const el = document.getElementById(`step-${stepIdx}`);
+      el.classList.add('visible');
+
+      setTimeout(() => {
+        const y = el.getBoundingClientRect().top + content.scrollTop - 10;
+        content.scrollTo({ top: y, behavior: 'smooth' });
+      }, 50);
+
+      stepIdx++;
+      addXP(10);
+      progressFill.style.width = ((stepIdx / totalSteps) * 100) + '%';
+      updateFocusHighlight();
+
+      if (stepIdx < totalSteps) {
+        btn.innerHTML = currentLang === 'en' ? `✍️ Solve Step ${stepIdx + 1}` : `✍️ स्टेप ${stepIdx + 1} हल करो`;
+      } else {
+        btn.classList.add('hidden');
+        document.getElementById('next-q-btn').style.display = 'block';
+        ansBox.classList.add('visible');
+        quizBox.classList.add('visible');
+        setTimeout(() => {
+          const y = ansBox.getBoundingClientRect().top + content.scrollTop - 10;
+          content.scrollTo({ top: y, behavior: 'smooth' });
+        }, 300);
+      }
+    }
+  }
+
+  function shareSolution() {
+    const qText = currentLang === 'en' ? currentType.item.q.en : currentType.item.q.hi;
+    const ans = document.getElementById('ans-val').innerText;
+    const text = `${qText}\n\n${currentLang === 'en' ? 'Answer' : 'उत्तर'}: ${ans}\n\nSolve more at Diploma Boy App.`;
+    if (navigator.share) navigator.share({ title: 'Diploma Boy', text: text }).catch(() => {});
+    else if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => {
+      const b = document.querySelector('.share-btn'), o = b.innerHTML; b.innerHTML = '✅ Copied'; setTimeout(() => b.innerHTML = o, 1500);
+    }).catch(() => {});
+  }
+
+  function checkQuiz(btn, isCorrect) {
+    if (btn.parentNode.classList.contains('answered')) return;
+    btn.parentNode.classList.add('answered');
+    if (isCorrect) { btn.classList.add('correct'); addXP(50); }
+    else {
+      btn.classList.add('wrong');
+      const right = btn.parentNode.querySelector(`.quiz-opt[data-i="${currentType.item.quiz.answer}"]`); if (right) right.classList.add('correct');
+    }
+    try { if (!REVIEW && parent && parent !== window && parent.__levelQuiz) parent.__levelQuiz(CHAPTER, !!isCorrect); } catch (e) {}
+  }
+
+  const canvas = document.getElementById('scratchpad');
+  const ctx = canvas.getContext('2d');
+  let isDrawing = false;
+  function openScratchpad() { document.getElementById('scratchpad-modal').classList.add('visible'); setTimeout(resizeCanvas, 10); }
+  function closeScratchpad() { document.getElementById('scratchpad-modal').classList.remove('visible'); }
+  function resizeCanvas() { canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#1d4ed8'; }
+  function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+  canvas.addEventListener('mousedown', startDrawing); canvas.addEventListener('mousemove', draw); canvas.addEventListener('mouseup', stopDrawing); canvas.addEventListener('mouseout', stopDrawing);
+  canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e.touches[0]); }, {passive: false});
+  canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e.touches[0]); }, {passive: false}); canvas.addEventListener('touchend', stopDrawing);
+  function getPos(e) { const rect = canvas.getBoundingClientRect(); return { x: e.clientX - rect.left, y: e.clientY - rect.top }; }
+  function startDrawing(e) { isDrawing = true; const pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); }
+  function draw(e) { if (!isDrawing) return; const pos = getPos(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); }
+  function stopDrawing() { isDrawing = false; }
+
+  function loadNextQuestion() {
+    const all = syllabusData.flatMap(t => t.types.map(x => [t, x]));
+    const i = all.findIndex(p => p[1] === currentType), n = all[(i + 1) % all.length];
+    currentTopic = n[0]; currentType = n[1];
+    renderTopicBar(); renderTypeBar(); updateUIForType();
+  }
+
+  async function rpc(fn, args) {
+    const r = await fetch(SB.url + '/rest/v1/rpc/' + fn, {method:'POST', headers:{apikey:SB.key, Authorization:'Bearer ' + SB.key, 'Content-Profile':'mtb', 'Accept-Profile':'mtb', 'Content-Type':'application/json'}, body:JSON.stringify(args)});
+    if (!r.ok) throw new Error('HTTP ' + r.status); return r.json();
+  }
+  function showEmpty(msg) {
+    document.getElementById('steps-wrapper').innerHTML = `<div class="empty-note">${msg}</div>`;
+    document.getElementById('action-bar').style.display = 'none';
+    document.querySelector('.question-area').style.display = 'none';
+  }
+  (async function load() {
+    try { const th = +localStorage.getItem('solve_theme'); if (th) { tIdx = th % 3; document.body.setAttribute('data-theme', ['white','black','green'][tIdx]); } } catch (e) {}
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.getAttribute('onclick') === `setLang('${currentLang}')`));
+    showEmpty(currentLang === 'en' ? 'Loading…' : 'लोड हो रहा है…');
+    let items;
+    try {
+      items = REVIEW ? await rpc('solution_review_get', {p_level: LEVEL, p_chapter: CHAPTER, p_code: REVIEW})
+                     : await rpc('get_chapter_solutions', {p_level: LEVEL, p_chapter: CHAPTER});
+    } catch (e) { showEmpty('सवाल लोड नहीं हुए। इंटरनेट जाँचें। / Could not load. Check your internet.'); return; }
+    items = (items || []).filter(x => x && x.data && x.data.q && Array.isArray(x.data.methods) && x.data.methods.length);
+    if (!items.length) { showEmpty('इस अध्याय के हल किए सवाल जल्द आएँगे। / Step-by-step solutions for this chapter are coming soon.'); return; }
+    if (REVIEW) document.getElementById('review-pill').style.display = '';
+    const byTopic = {};
+    items.forEach(x => {
+      const d = x.data, tk = (d.topic && d.topic.key) || 'main';
+      if (!byTopic[tk]) { byTopic[tk] = {id: tk, name: d.topic || {en: 'Questions', hi: 'सवाल'}, types: []}; syllabusData.push(byTopic[tk]); }
+      byTopic[tk].types.push({id: ((d.type && d.type.key) || 't') + '_' + x.slot, name: d.type || {en: 'Q' + x.slot, hi: 'सवाल ' + x.slot}, item: d, slot: x.slot});
+    });
+    const want = +Q.get('slot');
+    const hit = want && syllabusData.flatMap(t => t.types.map(y => [t, y])).find(p => p[1].slot === want);
+    currentTopic = hit ? hit[0] : syllabusData[0];
+    currentType = hit ? hit[1] : currentTopic.types[0];
+    document.getElementById('action-bar').style.display = '';
+    document.querySelector('.question-area').style.display = '';
+    document.getElementById('steps-wrapper').innerHTML = '';
+    renderTopicBar();
+    renderTypeBar();
+    updateUIForType();
+  })();
+</script>
+</body>
+</html>

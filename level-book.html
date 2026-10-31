@@ -446,6 +446,9 @@ body[data-tab-active="teach"] .lang-toggle{display:none!important}
   .lb-tbl th{background:#eff6ff;color:#1e3a8a}
   .lb-tblw{overflow-x:auto}
   .teach-theme .lb-pts li{color:#e8e4d0}
+  /* step-by-step solutions entry (opens solve.html) */
+  .lb-solve{display:flex;align-items:center;justify-content:center;gap:8px;width:calc(100% - 20px);margin:8px 10px 2px;padding:11px 12px;border-radius:12px;border:2px solid #1d4ed8;background:#eff6ff;color:#1d4ed8;font:700 15px 'Noto Sans Devanagari','Inter',sans-serif;cursor:pointer}
+  .lb-solve small{font-weight:600;color:#475569}
 </style>
 </head>
 <body data-lang="hi">
@@ -877,6 +880,16 @@ function dFormula(r){
   return reviewBanner(r) + PENDING() + `<div class="filter-wrap"><div class="filter-chips" id="formulaChips">${chips}</div></div><div class="cards-list" id="formulaCards">${cards}</div>`
     + `<div class="formula-note">${H('👆 ऊपर-नीचे scroll करो — filter chips sticky रहेंगी।<br>Filter दबाओ — उस category के cards दिखेंगे।', '👆 Scroll up and down — filter chips stay sticky.<br>Tap a filter to show only that category.')}</div>`;
 }
+let SOLVE = {};   /* chapter id -> number of step-by-step solved questions (approved; with a review code also drafts) */
+function solveBtn(){
+  const n = SOLVE[curCh]; if (!n) return '';
+  return `<button class="lb-solve" onclick="openSolve()">✍️ ${L('स्टेप-बाय-स्टेप हल करो','Solve step by step')} <small>(${n} ${L('सवाल','questions')})</small></button>`;
+}
+function openSolve(){
+  const q = new URLSearchParams({l:LEVEL, s:SUBJ, ch:String(curCh), ln:LEVEL_NAME, ui:currentLang === 'en' ? 'en' : 'hi'});
+  if (REVIEW) q.set('review', REVIEW);
+  location.href = 'solve.html?' + q.toString();
+}
 let loadSeq = 0;   /* only the newest chapter/tab request may draw */
 async function switchTab(tab){
   if (!['book','notes','teach','formula','diagram'].includes(tab)) tab = tab === '3d' ? 'diagram' : 'notes';
@@ -891,7 +904,8 @@ async function switchTab(tab){
     return;
   }
   if (seq !== loadSeq) return;
-  box.innerHTML = (rv ? {book:dBook, notes:dNotes, teach:dTeach, formula:dFormula} : {book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
+  const sb = (tab === 'book' || tab === 'notes') ? solveBtn() : '';
+  box.innerHTML = sb + (rv ? {book:dBook, notes:dNotes, teach:dTeach, formula:dFormula} : {book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
   bindMcq(box); fracify(box); if (tab === 'formula') applyFormulaFilter('all');
   window.scrollTo(0, 0); try { (document.scrollingElement || document.documentElement).scrollTop = 0; } catch (e) {}
 }
@@ -909,6 +923,7 @@ document.querySelectorAll('.lang-toggle .lang-btn').forEach(b => b.classList.tog
     }
     if (!CHAPTERS.some(c => c.id === curCh && c.n)) curCh = (ready()[0] || {}).id || 0;
     if (!curCh) throw new Error('empty');
+    try { SOLVE = REVIEW ? await post('solution_review_counts', {p_level:LEVEL, p_code:REVIEW}) : await post('get_level_solution_counts', {p_level:LEVEL}); } catch (e) { SOLVE = {}; }
     await switchTab(Q.get('tab') || 'notes');
     document.getElementById('bookLoading').remove();
   } catch (e) {

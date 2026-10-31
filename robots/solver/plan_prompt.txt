@@ -1,0 +1,18 @@
+You plan step-by-step solved questions for ONE chapter of an Indian exam-prep app.
+
+Level: {level_en} ({depth})
+Subject: {subject_en} ({subject_hi})
+Chapter: {chapter_en} ({chapter_hi})
+
+Decide first: does this chapter have numerical or logical problems that can be solved in AT LEAST 2 genuinely
+different ways (for example Base-100, Fraction, Formula, Table, Bar model, Venn, Shortcut, Unit analysis,
+Ratio, Graph reading, Elimination)? Pure fact/theory chapters (history dates, definitions only) are NOT a fit.
+
+Reply ONLY with JSON:
+{"fit": true or false,
+ "reason": "one short line",
+ "topics": [ {"key": "short_snake_case", "en": "2-3 words", "hi": "2-3 शब्द",
+              "types": [ {"key": "short_snake_case", "en": "2-4 words", "hi": "2-4 शब्द", "difficulty": 1|2|3} ] } ]}
+
+If fit is true: 2 to 4 topics, and EXACTLY 5 types in total across all topics (the 5 most important question types
+of this chapter at this level, easy to hard). Topic and type keys must be unique. If fit is false: "topics": [].
