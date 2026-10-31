@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '17 */2 * * *'
   workflow_run:
-    workflows: ['Tests', 'Daily backup', 'NTPC Import', 'NTPC Chapter Tag', 'NTPC Rule Tag', 'NTPC Subject Tag', 'Import Robot', 'Pattern rebuild']
+    workflows: ['Tests', 'Daily backup', 'NTPC Import', 'NTPC Chapter Tag', 'NTPC Rule Tag', 'NTPC Subject Tag', 'Import Robot', 'Pattern rebuild', 'Pattern rebuild (one transaction)', 'Writer Robot', 'Solver Robot']
     types: [completed]
   workflow_dispatch:
 permissions:

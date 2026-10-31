@@ -29,3 +29,14 @@ a.btn.line{background:transparent;color:var(--pri);border:1px solid var(--pri)}
 .dock button{flex:1;min-height:56px;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:12px;cursor:pointer;color:var(--muted)}
 .dock button i{font-style:normal;font-size:20px}.dock button span{font-size:12.5px}.dock button.on{color:var(--pri);background:color-mix(in srgb,var(--pri) 10%,transparent)}
 svg.spark{width:100%;height:70px}
+/* Command tab (cmd.js) */
+.field{display:block;margin:0 0 12px}.field>span{display:block;font-size:14px;color:var(--muted);margin-bottom:4px}
+.field input[type=text],.field input[type=number],.field input[type=password],.field select,.field textarea{width:100%;min-height:48px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font:inherit;padding:8px 10px}
+.field textarea{min-height:72px;resize:vertical}
+.check{display:flex;align-items:center;gap:10px;min-height:48px}.check input{width:24px;height:24px}
+button.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:48px;padding:0 16px;border-radius:12px;border:1px solid var(--pri);background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
+button.btn.line{background:transparent;color:var(--pri)}button.btn:disabled{opacity:.6}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.msg{border-radius:12px;padding:10px 12px;margin-bottom:12px;border:1px solid var(--line)}.msg.ok{background:var(--okbg);color:var(--ok);border-color:var(--ok)}.msg.bad{background:var(--badbg);color:var(--bad);border-color:var(--bad)}
+details.rep summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--pri)}
+details.rep pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;background:var(--bg);border-radius:10px;padding:10px;max-height:60vh;overflow:auto}

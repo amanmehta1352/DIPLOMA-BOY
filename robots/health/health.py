@@ -20,6 +20,10 @@ ROBOT_WORKFLOWS = {  # workflow name -> (label_hi, what it does)
     'NTPC Subject Tag': ('🏷️ Subject Tag', 'सवाल subject में'),
     'Import Robot': ('📥 Import (SSC)', 'SSC JE import'),
     'Pattern rebuild': ('🔁 Pattern', 'एक जैसे सवाल जोड़ना'),
+    'Pattern rebuild (one transaction)': ('🔁 Pattern', 'एक जैसे सवाल जोड़ना'),
+    'Writer Robot': ('✍️ Writer', 'Chapter content लिखना (draft)'),
+    'Solver Robot': ('🧮 Solver', 'सवालों के हल लिखना (draft)'),
+    'Dispatcher': ('📨 Dispatcher', 'आपकी command से robot चलाना'),
     'Health Robot': ('🩺 Health', 'यह रिपोर्ट'),
 }
 
