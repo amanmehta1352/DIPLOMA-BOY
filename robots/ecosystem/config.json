@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "note": "Switches for the automatic robots. auto_approve=false stops all automatic publishing to students at once (kill switch).",
+  "auto_approve": true,
+  "auto_approve_max_per_run": 5
+}
