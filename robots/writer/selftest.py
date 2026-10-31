@@ -1,0 +1,20 @@
+"""Offline self-test for the writer's checks (no network)."""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import writer as w
+good = {'id': 'DB|x|1',
+  'notes': [{'title': f'विषय {i}', 'points': ['बिंदु एक ' * 30, 'बिंदु दो ' * 30]} for i in range(6)],
+  'teach': [{'heading': f'पाठ {i}', 'explain': 'समझाओ ' * 200, 'example': 'समझो ऐसे'} for i in range(4)],
+  'formulas': [{'title': f'सूत्र {i}', 'formula': 'v = s/t', 'units': 'm/s', 'note': ''} for i in range(6)],
+  'solved': [{'question': 'सवाल', 'steps': ['a', 'b'], 'answer': '5 m/s'} for i in range(3)],
+  'practice': [{'q': f'q{i}', 'options': ['1', '2', '3', '4'], 'answer': i % 4, 'explanation': ''} for i in range(10)],
+  'mistakes': ['a', 'b', 'c'], 'revision': list('abcdef')}
+assert w.check_structure(good, 'DB|x|1') == [], w.check_structure(good, 'DB|x|1')
+bad = dict(good, practice=good['practice'][:9]); assert any('practice' in p for p in w.check_structure(bad, 'DB|x|1'))
+bad = dict(good, id='DB|x|2'); assert any('id' in p for p in w.check_structure(bad, 'DB|x|1'))
+bad = dict(good, revision=['<div>x</div>'] * 6); assert any('HTML' in p for p in w.check_structure(bad, 'DB|x|1'))
+bad = dict(good, practice=[dict(q, answer=4) for q in good['practice']]); assert any('answer 0-3' in p for p in w.check_structure(bad, 'DB|x|1'))
+assert w.parse_json('```json\n{"a": 1}\n```') == {'a': 1}
+t = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'prompt.txt'), encoding='utf-8').read()
+assert '{l}' in t and '${' not in t
+print('writer selftest ok')

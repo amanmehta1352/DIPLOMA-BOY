@@ -1,0 +1,46 @@
+name: Writer Robot
+# Writes deep chapter content with free Gemini, checks it, saves it as a DRAFT (never shown in the app until approved).
+# The report is posted as an issue. Keys are never printed.
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'How many chapters this run'
+        default: '3'
+      level:
+        description: 'Only this level (empty = priority order)'
+        default: 'govt_technical'
+      dry_run:
+        description: 'Dry run (write nothing to the server)'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  issues: write
+concurrency: writer-robot
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Self-test
+        run: python robots/writer/selftest.py
+      - name: Write
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          A="--count ${{ inputs.count }}"
+          [ -n "${{ inputs.level }}" ] && A="$A --level ${{ inputs.level }}"
+          [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
+          python robots/writer/writer.py $A
+      - name: Report
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f writer-report.md ] || echo "Writer robot failed before writing a report." > writer-report.md
+          gh issue create -R "$GITHUB_REPOSITORY" -t "Writer robot report $(date -u +%F_%H%M)" -F writer-report.md || true
