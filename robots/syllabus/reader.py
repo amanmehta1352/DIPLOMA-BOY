@@ -55,6 +55,7 @@ def read_pdf(url):
 def html_text(raw):
     """Pure: HTML page -> visible text (scripts, styles and tags removed)."""
     t = re.sub(r'(?is)<(script|style|noscript|nav|footer|header)[^>]*>.*?</\1>', ' ', raw)
+    t = re.sub(r'(?i)</td>|</th>', ' | ', t)
     t = re.sub(r'(?i)<br\s*/?>|</(p|li|h[1-6]|tr|div)>', '\n', t)
     t = re.sub(r'(?s)<[^>]+>', ' ', t)
     import html as H
@@ -74,7 +75,7 @@ def fetch_html(url):
     raise last
 
 
-MENU = re.compile(r'login|register|courses|enrol|download|exams?\b|notification|subscribe|follow us|home|privacy|terms|cookie|click here|read more|contact|about us', re.I)
+MENU = re.compile(r'login|register|courses?\b|enrol|download|exams?\b|notification|subscribe|follow us|home|privacy|terms|cookie|click here|read more|contact|about us|CBSE|IIT|MBA|IELTS|GMAT|Study Abroad|Foundation \(|Judiciary|Board', re.I)
 
 
 def topic_lines(lines):
