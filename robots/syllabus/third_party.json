@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "note": "Syllabus pages published by coaching sites that follow the official syllabus (Drishti for UPSC, Oliveboard and PW for RRB/SSC JE, Extramarks for NCERT Class 11 Physics). Read as text every day. Owner decision on 31 Oct 2026: use third-party pages when official links are not reachable.",
+  "documents": [
+    {
+      "id": "upsc-drishti-prelims",
+      "level": "upsc_civil",
+      "exam": "UPSC Prelims (Drishti)",
+      "url": "https://www.drishtiias.com/upsc-syllabus",
+      "parser": "html"
+    },
+    {
+      "id": "upsc-drishti-mains",
+      "level": "upsc_civil",
+      "exam": "UPSC Mains (Drishti)",
+      "url": "https://www.drishtiias.com/mains/mains-syllabus",
+      "parser": "html"
+    },
+    {
+      "id": "rrb-je-oliveboard",
+      "level": "govt_technical",
+      "exam": "RRB JE CBT 1 and 2 (Oliveboard)",
+      "url": "https://www.oliveboard.in/rrb-je-syllabus/",
+      "parser": "html"
+    },
+    {
+      "id": "ssc-je-civil-pw",
+      "level": "govt_technical",
+      "exam": "SSC JE Civil (PW)",
+      "url": "https://www.pw.live/ae-je/exams/ssc-je-civil-engineering-syllabus",
+      "parser": "html"
+    },
+    {
+      "id": "ssc-je-mech-pw",
+      "level": "govt_technical",
+      "exam": "SSC JE Mechanical (PW)",
+      "url": "https://www.pw.live/ae-je/exams/ssc-je-mechanical-engineering-syllabus",
+      "parser": "html"
+    },
+    {
+      "id": "ncert-physics-11-extramarks",
+      "level": "class_11_12_sci",
+      "exam": "NCERT Class 11 Physics (Extramarks)",
+      "url": "https://www.extramarks.com/studymaterials/cbse/cbse-class-11-physics-syllabus/",
+      "parser": "html"
+    }
+  ]
+}
