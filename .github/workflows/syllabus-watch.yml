@@ -25,16 +25,25 @@ jobs:
           mkdir -p prev
           git fetch -q origin syllabus-state:refs/remotes/origin/syllabus-state 2>/dev/null || true
           git show origin/syllabus-state:syllabus_state.json > prev/state.json 2>/dev/null || true
+          git show origin/syllabus-state:syllabus_return.json > prev/return.json 2>/dev/null || true
       - name: Watch
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: python3 robots/syllabus/watch.py --prev prev/state.json --out out
+      - name: Read syllabus PDFs
+        run: |
+          pip install -q pdfplumber
+          python3 robots/syllabus/reader.py --state out/syllabus_state.json --out out
+      - name: Planner return (official units vs our chapters)
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python3 robots/planner/planner.py --units out/syllabus_units.json --prev prev/return.json --out out
       - name: Publish state to branch syllabus-state
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd out
           git init -q -b syllabus-state
-          git add syllabus_state.json
+          git add syllabus_state.json syllabus_units.json syllabus_return.json
           git -c user.name=syllabus-watch -c user.email=syllabus-watch@users.noreply.github.com commit -q -m "syllabus state $(date -u +%FT%TZ)"
           git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" syllabus-state

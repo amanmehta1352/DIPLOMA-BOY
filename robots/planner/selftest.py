@@ -31,3 +31,8 @@ real = P.run(offline=True)
 assert real['total']['chapters'] == 956 and len(real['levels']) == 18, (real['total'], len(real['levels']))
 assert all(v['target'] > 0 for v in real['levels'].values())
 print('planner selftest OK')
+# syllabus return: a unit is covered when most of its words appear in one chapter title
+U = [{'subject': 'PHYSICS', 'unit': '1', 'title': 'PHYSICS AND MEASUREMENT'}, {'subject': 'PHYSICS', 'unit': '3', 'title': 'LAWS OF MOTION'}, {'subject': 'BIOLOGY', 'unit': '9', 'title': 'BREATHING AND EXCHANGE OF GASES'}]
+R = P.syllabus_return(U, ['Units & Measurement', 'Force & Laws of Motion', 'Respiration in Plants'])
+assert R['covered'] == 2 and [m['unit'] for m in R['missing']] == ['9'], R
+print('syllabus return selftest OK')
