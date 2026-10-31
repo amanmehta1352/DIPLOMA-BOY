@@ -111,7 +111,7 @@ def split_topics(line):
     return [re.sub(r'\s+', ' ', p).strip() for p in out]
 
 
-EXAM_INFO = re.compile(r'name of the post|number of questions|duration|negative marking|marks|pattern|eligibility|salary|age limit|qualification|vacancies|exam date|admit card|application|fee|selection process|medical|document verification|cbt|tier|paper ?[- ]?[iv12]+\b|general (awareness|intelligence|science|engineering)\b|^(mathematics|physics|chemistry|biology|english|reasoning|science)$', re.I)
+EXAM_INFO = re.compile(r'junior engineer|depot material|chemical & metallurgical|\bjunior\b.*\(|name of the post|number of questions|duration|negative marking|marks|pattern|eligibility|salary|age limit|qualification|vacancies|exam date|admit card|application|fee|selection process|medical|document verification|cbt|tier|paper ?[- ]?[iv12]+\b|general (awareness|intelligence|science|engineering)\b|^(mathematics|physics|chemistry|biology|english|reasoning|science)$', re.I)
 
 
 def is_topic(part):
