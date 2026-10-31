@@ -1,0 +1,724 @@
+{
+ "schema": 1,
+ "app": "diploma-boy",
+ "at": "2026-10-31T16:37:16+00:00",
+ "overall": "warn",
+ "checks": [
+  {
+   "id": "site",
+   "label_hi": "🌐 ऐप खुल रहा है",
+   "state": "ok",
+   "count": null,
+   "detail": "56 ms · sw db-v18",
+   "link": "https://amanmehta1352.github.io/DIPLOMA-BOY/"
+  },
+  {
+   "id": "tests",
+   "label_hi": "✅ Tests (main)",
+   "state": "ok",
+   "count": 7,
+   "detail": "आख़िरी: success · पिछले 7 में 7 पास",
+   "link": "https://github.com/amanmehta1352/DIPLOMA-BOY/actions"
+  },
+  {
+   "id": "branches",
+   "label_hi": "🌿 पुरानी branches",
+   "state": "warn",
+   "count": 80,
+   "detail": "ज़्यादा हों तो साफ़ करें",
+   "link": null
+  },
+  {
+   "id": "lock",
+   "label_hi": "🔒 Publish ताले की शर्तें तोड़ने वाले live सवाल",
+   "state": "warn",
+   "count": 189,
+   "detail": "hindi_missing: 180 · english_missing: 9",
+   "link": null
+  },
+  {
+   "id": "figures",
+   "label_hi": "🖼️ Live picture वाले सवाल (जाँच बाकी)",
+   "state": "ok",
+   "count": 0,
+   "detail": "draft figure सवाल: 1168",
+   "link": null
+  },
+  {
+   "id": "inbox",
+   "label_hi": "🏷️ बिना chapter (inbox) live सवाल",
+   "state": "warn",
+   "count": 1177,
+   "detail": "chapter तय होना बाकी",
+   "link": null
+  },
+  {
+   "id": "reports",
+   "label_hi": "🚩 Students की reports (पिछले 7 दिन)",
+   "state": "warn",
+   "count": 1,
+   "detail": "review करें",
+   "link": null
+  },
+  {
+   "id": "backup",
+   "label_hi": "💾 आख़िरी backup",
+   "state": "ok",
+   "count": 19.5,
+   "detail": "19.5 घंटे पहले",
+   "link": null
+  },
+  {
+   "id": "restore",
+   "label_hi": "♻️ Backup वापस पढ़ा जा सकता है",
+   "state": "ok",
+   "count": 22401,
+   "detail": "गायब: 0 · backup के बाद बदले: 0 · जाँच 2026-10-31T15:55",
+   "link": null
+  },
+  {
+   "id": "leak",
+   "label_hi": "🚰 दूसरे exam/branch के सवाल गलत जगह (leak)",
+   "state": "ok",
+   "count": 0,
+   "detail": "branch leak: 0 · बंद exam में live: 0",
+   "link": null
+  },
+  {
+   "id": "counts",
+   "label_hi": "🔢 गिनती और सूची मेल",
+   "state": "warn",
+   "count": 2153,
+   "detail": "chapter नहीं वाले live: 2153 · बिना topic: 0 · pattern बँटे: 0",
+   "link": null
+  },
+  {
+   "id": "quality",
+   "label_hi": "🔍 Draft सवाल: तैयार कितने",
+   "state": "warn",
+   "count": 0,
+   "detail": "कुल draft 1205 · chapter नहीं 1168 · तस्वीर जाँच बाकी 1168 · बिना Hindi 244 · भाषा गलत 16 · अंग्रेज़ी गायब 2 · उत्तर/options गलत 0 · duplicate 0",
+   "link": null
+  }
+ ],
+ "robots": [
+  {
+   "id": "Syllabus Watcher",
+   "label_hi": "📜 Syllabus",
+   "what_hi": "सरकारी syllabus पेज बदले या नहीं",
+   "last_run": "2026-10-31T16:37:01Z",
+   "result": "queued",
+   "branch": "main"
+  },
+  {
+   "id": "Tests",
+   "label_hi": "✅ Tests",
+   "what_hi": "हर बदलाव पर ऐप के सारे tests",
+   "last_run": "2026-10-31T16:37:00Z",
+   "result": "queued",
+   "branch": "main"
+  },
+  {
+   "id": "Health Robot",
+   "label_hi": "🩺 Health",
+   "what_hi": "यह रिपोर्ट",
+   "last_run": "2026-10-31T16:36:51Z",
+   "result": "in_progress",
+   "branch": "main"
+  },
+  {
+   "id": "Dispatcher",
+   "label_hi": "📨 Dispatcher",
+   "what_hi": "आपकी command से robot चलाना",
+   "last_run": "2026-10-31T14:58:53Z",
+   "result": "success",
+   "branch": "main"
+  }
+ ],
+ "numbers": {
+  "published": 19502,
+  "draft": 1205,
+  "hidden": 1694,
+  "by_exam": {
+   "practice": {
+    "published": 510
+   },
+   "rrb-je-cbt1": {
+    "hidden": 93,
+    "published": 1306
+   },
+   "ssc-je-paper1": {
+    "draft": 71,
+    "hidden": 350,
+    "published": 3742
+   },
+   "rrb-ntpc-ug-cbt-1": {
+    "draft": 532,
+    "hidden": 646,
+    "published": 7313
+   },
+   "rrb-ntpc-ug-cbt-2": {
+    "draft": 15,
+    "hidden": 14,
+    "published": 212
+   },
+   "rrb-ntpc-graduate-cbt-1": {
+    "draft": 545,
+    "hidden": 464,
+    "published": 6074
+   },
+   "rrb-ntpc-graduate-cbt-2": {
+    "draft": 42,
+    "hidden": 127,
+    "published": 345
+   }
+  },
+  "total": 22401
+ },
+ "backup_verify": {
+  "checked_at": "2026-10-31T15:55:10.187169+00:00",
+  "slot": 5,
+  "backup_rows": 22401,
+  "missing_in_live": 0,
+  "changed_since": 0
+ },
+ "site": {
+  "url": "https://amanmehta1352.github.io/DIPLOMA-BOY/",
+  "ok": true,
+  "bytes": 130281,
+  "ms": 56,
+  "sw": "db-v18"
+ },
+ "errors": {},
+ "coverage": {
+  "levels": {
+   "advanced_research": {
+    "chapters": 3,
+    "chapters_full": 0,
+    "target": 90,
+    "have": 12,
+    "per_type": {
+     "concept": {
+      "have": 3,
+      "target": 12
+     },
+     "formula": {
+      "have": 3,
+      "target": 9
+     },
+     "example": {
+      "have": 3,
+      "target": 9
+     },
+     "mcq": {
+      "have": 3,
+      "target": 30
+     },
+     "solution": {
+      "have": 0,
+      "target": 30
+     }
+    },
+    "pct": 13
+   },
+   "banking": {
+    "chapters": 37,
+    "chapters_full": 0,
+    "target": 1110,
+    "have": 148,
+    "per_type": {
+     "concept": {
+      "have": 37,
+      "target": 148
+     },
+     "formula": {
+      "have": 37,
+      "target": 111
+     },
+     "example": {
+      "have": 37,
+      "target": 111
+     },
+     "mcq": {
+      "have": 37,
+      "target": 370
+     },
+     "solution": {
+      "have": 0,
+      "target": 370
+     }
+    },
+    "pct": 13
+   },
+   "class_11_12_arts": {
+    "chapters": 37,
+    "chapters_full": 0,
+    "target": 1110,
+    "have": 148,
+    "per_type": {
+     "concept": {
+      "have": 37,
+      "target": 148
+     },
+     "formula": {
+      "have": 37,
+      "target": 111
+     },
+     "example": {
+      "have": 37,
+      "target": 111
+     },
+     "mcq": {
+      "have": 37,
+      "target": 370
+     },
+     "solution": {
+      "have": 0,
+      "target": 370
+     }
+    },
+    "pct": 13
+   },
+   "class_11_12_com": {
+    "chapters": 33,
+    "chapters_full": 0,
+    "target": 990,
+    "have": 132,
+    "per_type": {
+     "concept": {
+      "have": 33,
+      "target": 132
+     },
+     "formula": {
+      "have": 33,
+      "target": 99
+     },
+     "example": {
+      "have": 33,
+      "target": 99
+     },
+     "mcq": {
+      "have": 33,
+      "target": 330
+     },
+     "solution": {
+      "have": 0,
+      "target": 330
+     }
+    },
+    "pct": 13
+   },
+   "class_11_12_sci": {
+    "chapters": 64,
+    "chapters_full": 0,
+    "target": 1920,
+    "have": 256,
+    "per_type": {
+     "concept": {
+      "have": 64,
+      "target": 256
+     },
+     "formula": {
+      "have": 64,
+      "target": 192
+     },
+     "example": {
+      "have": 64,
+      "target": 192
+     },
+     "mcq": {
+      "have": 64,
+      "target": 640
+     },
+     "solution": {
+      "have": 0,
+      "target": 640
+     }
+    },
+    "pct": 13
+   },
+   "class_6_8": {
+    "chapters": 63,
+    "chapters_full": 0,
+    "target": 1890,
+    "have": 252,
+    "per_type": {
+     "concept": {
+      "have": 63,
+      "target": 252
+     },
+     "formula": {
+      "have": 62,
+      "target": 189
+     },
+     "example": {
+      "have": 63,
+      "target": 189
+     },
+     "mcq": {
+      "have": 64,
+      "target": 630
+     },
+     "solution": {
+      "have": 0,
+      "target": 630
+     }
+    },
+    "pct": 13
+   },
+   "class_9_10": {
+    "chapters": 74,
+    "chapters_full": 0,
+    "target": 2220,
+    "have": 296,
+    "per_type": {
+     "concept": {
+      "have": 74,
+      "target": 296
+     },
+     "formula": {
+      "have": 74,
+      "target": 222
+     },
+     "example": {
+      "have": 74,
+      "target": 222
+     },
+     "mcq": {
+      "have": 74,
+      "target": 740
+     },
+     "solution": {
+      "have": 0,
+      "target": 740
+     }
+    },
+    "pct": 13
+   },
+   "engineering": {
+    "chapters": 46,
+    "chapters_full": 0,
+    "target": 1380,
+    "have": 184,
+    "per_type": {
+     "concept": {
+      "have": 46,
+      "target": 184
+     },
+     "formula": {
+      "have": 46,
+      "target": 138
+     },
+     "example": {
+      "have": 46,
+      "target": 138
+     },
+     "mcq": {
+      "have": 46,
+      "target": 460
+     },
+     "solution": {
+      "have": 0,
+      "target": 460
+     }
+    },
+    "pct": 13
+   },
+   "govt_basic": {
+    "chapters": 95,
+    "chapters_full": 0,
+    "target": 2850,
+    "have": 380,
+    "per_type": {
+     "concept": {
+      "have": 95,
+      "target": 380
+     },
+     "formula": {
+      "have": 95,
+      "target": 285
+     },
+     "example": {
+      "have": 95,
+      "target": 285
+     },
+     "mcq": {
+      "have": 95,
+      "target": 950
+     },
+     "solution": {
+      "have": 0,
+      "target": 950
+     }
+    },
+    "pct": 13
+   },
+   "govt_defence": {
+    "chapters": 85,
+    "chapters_full": 0,
+    "target": 2550,
+    "have": 340,
+    "per_type": {
+     "concept": {
+      "have": 85,
+      "target": 340
+     },
+     "formula": {
+      "have": 85,
+      "target": 255
+     },
+     "example": {
+      "have": 85,
+      "target": 255
+     },
+     "mcq": {
+      "have": 85,
+      "target": 850
+     },
+     "solution": {
+      "have": 0,
+      "target": 850
+     }
+    },
+    "pct": 13
+   },
+   "govt_technical": {
+    "chapters": 113,
+    "chapters_full": 0,
+    "target": 3390,
+    "have": 457,
+    "per_type": {
+     "concept": {
+      "have": 113,
+      "target": 452
+     },
+     "formula": {
+      "have": 113,
+      "target": 339
+     },
+     "example": {
+      "have": 113,
+      "target": 339
+     },
+     "mcq": {
+      "have": 113,
+      "target": 1130
+     },
+     "solution": {
+      "have": 5,
+      "target": 1130
+     }
+    },
+    "pct": 13
+   },
+   "graduation_arts": {
+    "chapters": 16,
+    "chapters_full": 0,
+    "target": 480,
+    "have": 64,
+    "per_type": {
+     "concept": {
+      "have": 16,
+      "target": 64
+     },
+     "formula": {
+      "have": 16,
+      "target": 48
+     },
+     "example": {
+      "have": 16,
+      "target": 48
+     },
+     "mcq": {
+      "have": 16,
+      "target": 160
+     },
+     "solution": {
+      "have": 0,
+      "target": 160
+     }
+    },
+    "pct": 13
+   },
+   "graduation_com": {
+    "chapters": 16,
+    "chapters_full": 0,
+    "target": 480,
+    "have": 64,
+    "per_type": {
+     "concept": {
+      "have": 16,
+      "target": 64
+     },
+     "formula": {
+      "have": 16,
+      "target": 48
+     },
+     "example": {
+      "have": 16,
+      "target": 48
+     },
+     "mcq": {
+      "have": 16,
+      "target": 160
+     },
+     "solution": {
+      "have": 0,
+      "target": 160
+     }
+    },
+    "pct": 13
+   },
+   "graduation_sci": {
+    "chapters": 51,
+    "chapters_full": 0,
+    "target": 1530,
+    "have": 204,
+    "per_type": {
+     "concept": {
+      "have": 51,
+      "target": 204
+     },
+     "formula": {
+      "have": 51,
+      "target": 153
+     },
+     "example": {
+      "have": 51,
+      "target": 153
+     },
+     "mcq": {
+      "have": 51,
+      "target": 510
+     },
+     "solution": {
+      "have": 0,
+      "target": 510
+     }
+    },
+    "pct": 13
+   },
+   "law_management": {
+    "chapters": 21,
+    "chapters_full": 0,
+    "target": 630,
+    "have": 84,
+    "per_type": {
+     "concept": {
+      "have": 21,
+      "target": 84
+     },
+     "formula": {
+      "have": 21,
+      "target": 63
+     },
+     "example": {
+      "have": 21,
+      "target": 63
+     },
+     "mcq": {
+      "have": 21,
+      "target": 210
+     },
+     "solution": {
+      "have": 0,
+      "target": 210
+     }
+    },
+    "pct": 13
+   },
+   "medical": {
+    "chapters": 48,
+    "chapters_full": 0,
+    "target": 1440,
+    "have": 192,
+    "per_type": {
+     "concept": {
+      "have": 48,
+      "target": 192
+     },
+     "formula": {
+      "have": 48,
+      "target": 144
+     },
+     "example": {
+      "have": 48,
+      "target": 144
+     },
+     "mcq": {
+      "have": 48,
+      "target": 480
+     },
+     "solution": {
+      "have": 0,
+      "target": 480
+     }
+    },
+    "pct": 13
+   },
+   "state_psc": {
+    "chapters": 85,
+    "chapters_full": 0,
+    "target": 2550,
+    "have": 340,
+    "per_type": {
+     "concept": {
+      "have": 85,
+      "target": 340
+     },
+     "formula": {
+      "have": 85,
+      "target": 255
+     },
+     "example": {
+      "have": 85,
+      "target": 255
+     },
+     "mcq": {
+      "have": 85,
+      "target": 850
+     },
+     "solution": {
+      "have": 0,
+      "target": 850
+     }
+    },
+    "pct": 13
+   },
+   "upsc_civil": {
+    "chapters": 69,
+    "chapters_full": 0,
+    "target": 2070,
+    "have": 276,
+    "per_type": {
+     "concept": {
+      "have": 69,
+      "target": 276
+     },
+     "formula": {
+      "have": 69,
+      "target": 207
+     },
+     "example": {
+      "have": 69,
+      "target": 207
+     },
+     "mcq": {
+      "have": 69,
+      "target": 690
+     },
+     "solution": {
+      "have": 0,
+      "target": 690
+     }
+    },
+    "pct": 13
+   }
+  },
+  "total": {
+   "chapters": 956,
+   "chapters_full": 0,
+   "pct": 13
+  }
+ }
+}
