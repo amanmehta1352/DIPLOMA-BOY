@@ -55,3 +55,6 @@ for junk in ['Name of the Posts Junior Engineer (JE)', 'General Awareness', 'Mat
 for real in ['Voltage Regulation', 'Gas Turbine and Jet Propulsion', 'Continuity Equation']:
     assert P.is_topic(real), real
 print('exam-info filter selftest OK')
+for post in ['Junior Engineer (IT)', 'Depot Materials Superintendent (DMS)', 'Chemical & Metallurgical Assistant (CMA)']:
+    assert not P.is_topic(post), post
+print('post-name filter selftest OK')
