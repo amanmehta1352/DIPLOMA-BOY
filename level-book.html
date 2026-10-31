@@ -897,6 +897,9 @@ async function post(fn, args){
   if (!r.ok) throw new Error('HTTP ' + r.status); return r.json();
 }
 async function draftFor(id){ if (!(id in DRAFTS)) DRAFTS[id] = await post('draft_review_get', {p_level:LEVEL, p_chapter:+id, p_code:REVIEW}); return DRAFTS[id]; }
+/* students: an approved robot draft ({data,status}) for the chapter, or null. Only approved rows are ever returned. */
+let APPROVED = new Set(); const APPROVED_DATA = {};
+async function approvedFor(id){ if (!APPROVED.has(+id)) return null; if (!(id in APPROVED_DATA)) APPROVED_DATA[id] = await post('get_chapter_book', {p_level:LEVEL, p_chapter:+id}); return APPROVED_DATA[id]; }
 const arr = x => Array.isArray(x) ? x : [];
 const pts = list => `<ul class="lb-pts">${arr(list).map(x => `<li>${nl(x)}</li>`).join('')}</ul>`;
 const lines = list => arr(list).map(x => `<div>${bookMath(x)}</div>`).join('');
@@ -905,6 +908,7 @@ function tbl(t){
   return `<div class="lb-tblw"><table class="lb-tbl"><tr>${rows[0].map(c => `<th>${nl(c)}</th>`).join('')}</tr>${rows.slice(1).map(r => `<tr>${r.map(c => `<td>${nl(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
 }
 function reviewBanner(r){
+  if (!REVIEW) return '';   /* students never see the draft banner */
   const ck = r.checks || {}, prob = arr(ck.problems), so = ck.second_opinion;
   return `<div class="lb-review">📝 <b>${L('ड्राफ्ट — सिर्फ़ आपके देखने के लिए। छात्रों को नहीं दिखता।','Draft: only for your review. Students do not see it.')}</b><br>`
     + `${L('हालत','Status')}: <b class="${r.status === 'draft' ? '' : 'bad'}">${esc(r.status)}</b> · ${esc(r.model || '')}`
@@ -998,15 +1002,20 @@ async function switchTab(tab){
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   const box = document.getElementById('readerContent'), seq = ++loadSeq;
   renderChapBar();
-  let atoms, rv = REVIEW && tab !== 'diagram';
-  try { atoms = rv ? await draftFor(curCh) : await atomsFor(curCh); if (rv && !atoms) throw new Error('no draft'); } catch (e) {
+  let atoms, rv = REVIEW && tab !== 'diagram', ap = null;
+  try {
+    if (rv) atoms = await draftFor(curCh);
+    else { ap = tab !== 'diagram' ? await approvedFor(curCh) : null; atoms = ap ? ap : await atomsFor(curCh); }
+    if (rv && !atoms) throw new Error('no draft');
+  } catch (e) {
     if (seq === loadSeq)
       box.innerHTML = `<div class="pending-card">${L('अध्याय नहीं खुल सका। इंटरनेट जाँचें।','Could not open the chapter. Check your internet.')}</div>`;
     return;
   }
   if (seq !== loadSeq) return;
   const sb = (tab === 'book' || tab === 'notes') ? solveBtn() : '';
-  box.innerHTML = sb + (rv ? {book:dBook, notes:dNotes, teach:dTeach, formula:dFormula} : {book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
+  const draftView = rv || !!ap;
+  box.innerHTML = sb + (draftView ? {book:dBook, notes:dNotes, teach:dTeach, formula:dFormula} : {book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
   bindMcq(box); fracify(box); if (tab === 'formula') applyFormulaFilter('all');
   window.scrollTo(0, 0); try { (document.scrollingElement || document.documentElement).scrollTop = 0; } catch (e) {}
 }
@@ -1024,6 +1033,7 @@ document.querySelectorAll('.lang-toggle .lang-btn').forEach(b => b.classList.tog
     }
     if (!CHAPTERS.some(c => c.id === curCh && c.n)) curCh = (ready()[0] || {}).id || 0;
     if (!curCh) throw new Error('empty');
+    if (!REVIEW) { try { APPROVED = new Set((await post('get_level_book_ids', {p_level:LEVEL})).map(Number)); } catch (e) { APPROVED = new Set(); } }
     try { SOLVE = REVIEW ? await post('solution_review_counts', {p_level:LEVEL, p_code:REVIEW}) : await post('get_level_solution_counts', {p_level:LEVEL}); } catch (e) { SOLVE = {}; }
     await switchTab(Q.get('tab') || 'notes');
     document.getElementById('bookLoading').remove();
