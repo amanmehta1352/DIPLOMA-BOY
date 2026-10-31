@@ -438,6 +438,13 @@
     updateUIForType();
   }
 
+  /* AI writers tend to put the right option first: show the options in a mixed order (same order for one question) */
+  function quizOrder(n) {
+    const seed = String(currentType.id) + CHAPTER; let h = 0; for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    const o = [...Array(n).keys()];
+    for (let i = n - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [o[i], o[j]] = [o[j], o[i]]; }
+    return o;
+  }
   function updateUIForType() {
     if (!currentType) return;
     const d = currentType.item;
@@ -462,7 +469,7 @@
 
     const qz = d.quiz, qb = document.getElementById('quiz-box');
     qb.innerHTML = `<div class="quiz-q">🧠 ${currentLang === 'en' ? 'Quick Test' : 'छोटा टेस्ट'}: ${formatMath(esc(T(qz.q)))}</div>`
-      + qz.options.map((o, i) => `<button class="quiz-opt" data-i="${i}" onclick="checkQuiz(this, ${i === qz.answer})">${formatMath(esc(T(o)))}</button>`).join('')
+      + quizOrder(qz.options.length).map(i => `<button class="quiz-opt" data-i="${i}" onclick="checkQuiz(this, ${i === qz.answer})">${formatMath(esc(T(qz.options[i])))}</button>`).join('')
       + (qz.explain ? `<div class="quiz-exp">💡 ${formatMath(esc(T(qz.explain)))}</div>` : '');
 
     document.getElementById('formula-list').innerHTML = (d.formulas || []).map((f, i) => `<div class="f-item">${i + 1}. ${formatMath(esc(T(f)))}</div>`).join('');
