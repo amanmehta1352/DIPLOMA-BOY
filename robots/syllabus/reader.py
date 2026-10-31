@@ -78,6 +78,16 @@ def fetch_html(url):
 MENU = re.compile(r'login|register|courses?\b|enrol|download|exams?\b|notification|subscribe|follow us|home|privacy|terms|cookie|click here|read more|contact|about us|CBSE|IIT|MBA|IELTS|GMAT|Study Abroad|Foundation \(|Judiciary|Board', re.I)
 
 
+def list_items(raw):
+    """Pure: the text of each <li> (topic lists on coaching pages), short menu items removed, duplicates removed."""
+    import html as H
+    out = []
+    for x in re.findall(r'(?is)<li[^>]*>(.*?)</li>', raw):
+        t = re.sub(r'(?s)<[^>]+>', ' ', x); t = re.sub(r'\s+', ' ', H.unescape(t)).strip()
+        if 6 <= len(t) <= 120 and not MENU.search(t) and t not in out: out.append(t)
+    return out
+
+
 def topic_lines(lines):
     """Pure: keep lines that look like syllabus content (long sentences or comma lists), drop menus and buttons."""
     out = []
@@ -117,13 +127,14 @@ def main():
     for fname in ('official_pdfs.json', 'third_party.json'):
         try:
             for o in json.load(open(os.path.join(here, fname), encoding='utf-8'))['documents']:
-                pick.append({'source': o['id'], 'label': o['exam'] + ' (' + o.get('year', '') + ')' if o.get('year') else o['exam'], 'url': o['url'], 'parser': o.get('parser', 'text'), 'level': o.get('level')})
+                pick.append({'source': o['id'], 'label': o['exam'] + ' (' + o.get('year', '') + ')' if o.get('year') else o['exam'], 'url': o['url'], 'parser': o.get('parser', 'text'), 'level': o.get('level'), 'mode': o.get('mode')})
         except Exception as e: print(fname, 'not read:', type(e).__name__)
     result = {'schema': 1, 'documents': []}
     for d in pick:
         if d.get('parser') == 'html':
             try:
-                lines = topic_lines(text_lines(html_text(fetch_html(d['url']))))
+                raw = fetch_html(d['url'])
+                lines = list_items(raw) if d.get('mode') == 'list' else topic_lines(text_lines(html_text(raw)))
                 result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'level': d.get('level'), 'lines': lines})
                 print(f"read page {d['label'][:60]!r}: {len(lines)} lines")
             except Exception as e:

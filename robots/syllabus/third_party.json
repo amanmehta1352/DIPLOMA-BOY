@@ -28,14 +28,16 @@
       "level": "govt_technical",
       "exam": "SSC JE Civil (PW)",
       "url": "https://www.pw.live/ae-je/exams/ssc-je-civil-engineering-syllabus",
-      "parser": "html"
+      "parser": "html",
+      "mode": "list"
     },
     {
       "id": "ssc-je-mech-pw",
       "level": "govt_technical",
       "exam": "SSC JE Mechanical (PW)",
       "url": "https://www.pw.live/ae-je/exams/ssc-je-mechanical-engineering-syllabus",
-      "parser": "html"
+      "parser": "html",
+      "mode": "list"
     },
     {
       "id": "ncert-physics-11-extramarks",
