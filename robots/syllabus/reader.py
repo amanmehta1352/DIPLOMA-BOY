@@ -74,6 +74,19 @@ def fetch_html(url):
     raise last
 
 
+MENU = re.compile(r'login|register|courses|enrol|download|exams?\b|notification|subscribe|follow us|home|privacy|terms|cookie|click here|read more|contact|about us', re.I)
+
+
+def topic_lines(lines):
+    """Pure: keep lines that look like syllabus content (long sentences or comma lists), drop menus and buttons."""
+    out = []
+    for l in lines:
+        if len(l) < 35 or MENU.search(l): continue
+        if ',' not in l and ':' not in l and not re.search(r'\b(unit|chapter|law|theory|motion|energy|force|current|wave|optics|cell|atom)\b', l, re.I): continue
+        if l not in out: out.append(l)
+    return out
+
+
 def text_lines(text, limit=600):
     """Generic: keep meaningful lines (for syllabus documents that are not 'UNIT n' style). Pure."""
     out = []
@@ -109,7 +122,7 @@ def main():
     for d in pick:
         if d.get('parser') == 'html':
             try:
-                lines = text_lines(html_text(fetch_html(d['url'])))
+                lines = topic_lines(text_lines(html_text(fetch_html(d['url']))))
                 result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'level': d.get('level'), 'lines': lines})
                 print(f"read page {d['label'][:60]!r}: {len(lines)} lines")
             except Exception as e:
