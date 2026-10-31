@@ -1,7 +1,36 @@
 {
-  "schema": 1,
-  "note": "Official syllabus / notice pages the Syllabus Watcher checks. A change is detected by the text of the page, so a busy homepage can trigger often: prefer the exact syllabus page. verify=true means the URL was not checked from the build environment yet; confirm on the first GitHub run and set verify=false.",
+  "schema": 2,
+  "note": "Official pages checked daily. The watcher also records every syllabus/notification document it can find linked from these pages (in the state branch). verify=true: not reached from the build sandbox yet; the first GitHub run decides.",
   "sources": [
-    {"id": "ssc-home", "exam": "SSC (CGL, JE, CHSL)", "url": "https://ssc.gov.in", "verify": true}
+    {
+      "id": "ssc-home",
+      "exam": "SSC JE / CGL",
+      "url": "https://ssc.gov.in",
+      "verify": true
+    },
+    {
+      "id": "rrb-cdg",
+      "exam": "RRB JE / NTPC",
+      "url": "https://www.rrbcdg.gov.in",
+      "verify": true
+    },
+    {
+      "id": "nta-neet",
+      "exam": "NEET UG",
+      "url": "https://neet.nta.nic.in",
+      "verify": true
+    },
+    {
+      "id": "upsc-home",
+      "exam": "UPSC CSE",
+      "url": "https://upsc.gov.in",
+      "verify": true
+    },
+    {
+      "id": "ncert-home",
+      "exam": "NCERT books (base of most syllabi)",
+      "url": "https://ncert.nic.in",
+      "verify": true
+    }
   ]
 }

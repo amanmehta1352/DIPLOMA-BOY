@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "note": "Switches for the automatic robots. auto_approve=false stops all automatic publishing to students at once (kill switch).",
-  "auto_approve": true,
+  "note": "auto_approve=false: drafts wait for a supervised check. Set true only after a checked sample of syllabus-driven drafts.",
+  "auto_approve": false,
   "auto_approve_max_per_run": 5
 }
