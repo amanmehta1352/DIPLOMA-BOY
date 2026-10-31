@@ -7,7 +7,7 @@ Used by the Health Robot (every 2 h): the result goes into status.json under "co
 Counts only, no AI, no secrets in the output.
 A chapter counts toward a type only up to its target, so one fat chapter cannot hide an empty one.
 """
-import json, os, sys, urllib.request, urllib.error
+import json, os, re, sys, urllib.request, urllib.error
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -86,5 +86,54 @@ def run(offline=False):
     return coverage(chapters, atoms, sols, targets)
 
 
+def syllabus_handover(units_path, prev_path, out_dir, level='medical', exam='NEET UG'):
+    """Reads the reader's output, compares with the last run, writes syllabus_return.json.
+    If the number of missing units changed, a command goes to the Health Robot (visible in the Control Room)."""
+    doc = json.load(open(units_path, encoding='utf-8')) if os.path.exists(units_path) else {'documents': []}
+    units = [u for d in doc.get('documents', []) if 'units' in d for u in d['units']]
+    titles = [c['e'] for c in json.load(open(os.path.join(ROOT, 'robots', 'writer', 'chapters.json'), encoding='utf-8')) if c['l'] == level]
+    ret = syllabus_return(units, titles)
+    ret.update({'level': level, 'exam': exam, 'chapters_in_level': len(titles), 'note': 'word match only; check the list by hand'})
+    prev = {}
+    if prev_path and os.path.exists(prev_path):
+        try: prev = json.load(open(prev_path, encoding='utf-8'))
+        except Exception: prev = {}
+    os.makedirs(out_dir, exist_ok=True)
+    json.dump(ret, open(os.path.join(out_dir, 'syllabus_return.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    changed = prev.get('missing') is not None and len(prev.get('missing', [])) != len(ret['missing'])
+    print(f"{exam}: units {ret['units']} · covered {ret['covered']} · missing {len(ret['missing'])}" + (' · changed' if changed else ''))
+    if (changed or prev.get('missing') is None) and SB_KEY_ENV():
+        import urllib.request as R
+        body = json.dumps({'p_robot': 'health', 'p_args': {}, 'p_note': f"Syllabus {exam}: {len(ret['missing'])} units without a chapter (of {ret['units']})"}).encode()
+        h = {'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
+        try:
+            with R.urlopen(R.Request(f'{SB}/rest/v1/rpc/cmd_enqueue_auto', body, h, method='POST'), timeout=60) as r: print('handover to Health: command', r.read().decode()[:20])
+        except Exception as e: print('handover failed:', type(e).__name__)
+    return ret
+
+
+def SB_KEY_ENV():
+    return bool(KEY)
+
+
+def syllabus_return(units, chapter_titles):
+    """Pure: which official syllabus units have no matching chapter yet.
+    A unit is covered when most of its significant words appear in one chapter title (English)."""
+    stop = {'and', 'of', 'the', 'in', 'to', 'a', 'an', 'for', 'with', 'its', 'on', 'by'}
+    words = lambda s: {w for w in re.findall(r'[a-z]+', s.lower()) if w not in stop and len(w) > 2}
+    titles = [words(t) for t in chapter_titles]
+    missing, covered = [], []
+    for u in units:
+        need = words(u['title'])
+        if not need: continue
+        best = max((len(need & t) / len(need) for t in titles), default=0)
+        (covered if best >= 0.5 else missing).append({'subject': u['subject'], 'unit': u['unit'], 'title': u['title']})
+    return {'units': len(units), 'covered': len(covered), 'missing': missing}
+
+
 if __name__ == '__main__':
-    print(json.dumps(run('--offline' in sys.argv), ensure_ascii=False, indent=1))
+    a = sys.argv[1:]
+    if '--units' in a:
+        syllabus_handover(a[a.index('--units') + 1], a[a.index('--prev') + 1] if '--prev' in a else '', a[a.index('--out') + 1] if '--out' in a else 'out')
+    else:
+        print(json.dumps(run('--offline' in sys.argv), ensure_ascii=False, indent=1))
