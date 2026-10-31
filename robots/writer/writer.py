@@ -10,7 +10,7 @@ Checks before saving:
      more than 2 disagreements -> rejected
 A chapter that fails is saved with status 'rejected' (and its reasons) so it is retried later, never shown.
 """
-import argparse, json, os, re, sys, time, urllib.request, urllib.error
+import argparse, json, os, random, re, sys, time, urllib.request, urllib.error
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SB = os.environ.get('SUPABASE_URL', 'https://wobmtlcpszcntczkebtt.supabase.co').rstrip('/')
@@ -113,6 +113,16 @@ def check_structure(d, want_id):
     return p
 
 
+def shuffle_options(d, seed):
+    """AI models tend to put the right answer in the same place; mix option order (same order every rerun)."""
+    rnd = random.Random(seed)
+    for x in d.get('practice', []):
+        if isinstance(x, dict) and isinstance(x.get('options'), list) and len(x['options']) == 4 and isinstance(x.get('answer'), int) and 0 <= x['answer'] <= 3:
+            right = x['options'][x['answer']]; order = list(range(4)); rnd.shuffle(order)
+            x['options'] = [x['options'][i] for i in order]; x['answer'] = x['options'].index(right)
+    return d
+
+
 def second_opinion(d):
     qs = [{'n': i, 'q': x['q'], 'options': x['options']} for i, x in enumerate(d.get('practice', []))]
     prompt = ('Solve each multiple-choice question carefully. Reply only with JSON: {"answers": [index, ...]} '
@@ -164,7 +174,7 @@ def main():
         status, checks, model, data = 'rejected', {}, None, None
         try:
             txt, model = gemini(prompt, WRITE_MODELS)
-            data = parse_json(txt)
+            data = shuffle_options(parse_json(txt), want)
             prob = check_structure(data, want)
             checks['structure'] = prob
             if not prob:
