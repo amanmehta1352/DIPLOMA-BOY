@@ -196,6 +196,10 @@ const check = (name, v) => (v ? ok : bad).push(name);
   check('no horizontal overflow', !(await p.evaluate(() => document.documentElement.scrollWidth > innerWidth)));
   check('no page errors', errs.length === 0);
 
+  // Robot drafts: a wrong review code shows nothing (drafts are only for the owner)
+  const pr = await ctx.newPage(); await pr.goto(URL + 'level-book.html?l=govt_technical&s=maths&ch=1&review=WRONGCODEWRONGCODEWRONG'); await pr.waitForTimeout(4000);
+  check('wrong review code shows no draft', (await pr.$$eval('.lb-review', e => e.length)) === 0 && (await pr.$$eval('.lb-mcq', e => e.length)) === 0);
+  await pr.close();
   await b.close(); srv.close();
   console.log('PASS', ok.length, ok.join(' | '));
   if (bad.length) { console.log('FAIL', bad.length, bad.join(' | ')); if (errs.length) console.log('errors:', errs); process.exit(1); }

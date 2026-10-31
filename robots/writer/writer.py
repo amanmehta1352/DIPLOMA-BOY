@@ -147,6 +147,7 @@ def main():
     ap.add_argument('--count', type=int, default=3)
     ap.add_argument('--level', default='')
     ap.add_argument('--dry-run', action='store_true')
+    ap.add_argument('--only', default='', help='chapter ids (comma separated) to (re)write even if a draft exists; approved drafts are never overwritten')
     ap.add_argument('--report', default='writer-report.md')
     a = ap.parse_args()
     if not GKEY: sys.exit('GEMINI_API_KEY missing')
@@ -163,6 +164,10 @@ def main():
     queue = [c for c in chapters if (not a.level or c['l'] == a.level)
              and ((c['l'], c['c']) not in done or (done[(c['l'], c['c'])]['status'] == 'rejected' and done[(c['l'], c['c'])]['attempts'] < 3))]
     queue.sort(key=lambda c: (order.get(c['l'], 99), c['c']))
+    if a.only:
+        ids = {int(x) for x in a.only.split(',') if x.strip()}
+        queue = sorted([c for c in chapters if (not a.level or c['l'] == a.level) and c['c'] in ids
+                        and done.get((c['l'], c['c']), {}).get('status') != 'approved'], key=lambda c: (order.get(c['l'], 99), c['c']))
     lines = [f'# Writer robot report', f'queue left before this run: {len(queue)}', '']
     for c in queue[:a.count]:
         L = levels[c['l']]

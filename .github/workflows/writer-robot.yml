@@ -10,6 +10,9 @@ on:
       level:
         description: 'Only this level (empty = priority order)'
         default: 'govt_technical'
+      only:
+        description: 'Only these chapter ids, comma separated (rewrites existing drafts)'
+        default: ''
       dry_run:
         description: 'Dry run (write nothing to the server)'
         type: boolean
@@ -35,6 +38,7 @@ jobs:
         run: |
           A="--count ${{ inputs.count }}"
           [ -n "${{ inputs.level }}" ] && A="$A --level ${{ inputs.level }}"
+          [ -n "${{ inputs.only }}" ] && A="$A --only ${{ inputs.only }}"
           [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
           python robots/writer/writer.py $A
       - name: Report
