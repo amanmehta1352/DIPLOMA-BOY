@@ -1,0 +1,150 @@
+{
+ "units": 49,
+ "covered": 21,
+ "missing": [
+  {
+   "subject": "PHYSICS",
+   "unit": "2",
+   "title": "KINEMATICS"
+  },
+  {
+   "subject": "PHYSICS",
+   "unit": "7",
+   "title": "PROPERTIES OF SOLIDS AND LIQUIDS"
+  },
+  {
+   "subject": "PHYSICS",
+   "unit": "9",
+   "title": "KINETIC THEORY OF GASES"
+  },
+  {
+   "subject": "PHYSICS",
+   "unit": "11",
+   "title": "ELECTROSTATICS"
+  },
+  {
+   "subject": "PHYSICS",
+   "unit": "14",
+   "title": "ELECTROMAGNETIC INDUCTION AND ALTERNATING CURRENTS"
+  },
+  {
+   "subject": "PHYSICS",
+   "unit": "17",
+   "title": "DUAL NATURE OF MATTER AND RADIATION"
+  },
+  {
+   "subject": "PHYSICS",
+   "unit": "18",
+   "title": "ATOMS AND NUCLEI"
+  },
+  {
+   "subject": "PHYSICS",
+   "unit": "19",
+   "title": "ELECTRONIC DEVICES"
+  },
+  {
+   "subject": "PHYSICS",
+   "unit": "20",
+   "title": "EXPERIMENTAL SKILLS"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "I",
+   "title": "SOME BASIC CONCEPTS IN CHEMISTRY"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "6",
+   "title": "EQUILIBRIUM"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "7",
+   "title": "REDOX REACTIONS AND ELECTROCHEMISTRY"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "9",
+   "title": "CLASSIFICATION OF ELEMENTS AND PERIODICITY IN PROPERTIES"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "10",
+   "title": "P- BLOCK ELEMENTS"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "11",
+   "title": "d - and f- BLOCK ELEMENTS"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "13",
+   "title": "PURIFICATION AND CHARACTERISATION OF ORGANIC COMPOUNDS"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "14",
+   "title": "SOME BASIC PRINCIPLES OF ORGANIC CHEMISTRY"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "16",
+   "title": "ORGANIC COMPOUNDS CONTAINING HALOGENS"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "17",
+   "title": "ORGANIC COMPOUNDS CONTAINING OXYGEN"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "18",
+   "title": "ORGANIC COMPOUNDS CONTAINING NITROGEN"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "19",
+   "title": "BIOMOLECULES"
+  },
+  {
+   "subject": "CHEMISTRY",
+   "unit": "20",
+   "title": "PRINCIPLES RELATED TO PRACTICAL CHEMISTRY"
+  },
+  {
+   "subject": "BIOLOGY",
+   "unit": "1",
+   "title": "Diversity in Living World"
+  },
+  {
+   "subject": "BIOLOGY",
+   "unit": "2",
+   "title": "Structural Organisation in Animals and Plants"
+  },
+  {
+   "subject": "BIOLOGY",
+   "unit": "3",
+   "title": "Cell Structure and Function"
+  },
+  {
+   "subject": "BIOLOGY",
+   "unit": "5",
+   "title": "Human Physiology"
+  },
+  {
+   "subject": "BIOLOGY",
+   "unit": "8",
+   "title": "Biology and Human Welfare"
+  },
+  {
+   "subject": "BIOLOGY",
+   "unit": "9",
+   "title": "Biotechnology and Its Applications"
+  }
+ ],
+ "level": "medical",
+ "exam": "NEET UG",
+ "chapters_in_level": 48,
+ "note": "word match only; check the list by hand"
+}
