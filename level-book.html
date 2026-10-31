@@ -446,6 +446,25 @@ body[data-tab-active="teach"] .lang-toggle{display:none!important}
   .lb-tbl th{background:#eff6ff;color:#1e3a8a}
   .lb-tblw{overflow-x:auto}
   .teach-theme .lb-pts li{color:#e8e4d0}
+  /* universal notebook: every solved question is written like the owner's masterclass page (scoped to .nb-card) */
+  .nb-card{--nb-bg:#fdfdf7;--nb-text:#111827;--nb-muted:#6b7280;--nb-blue:#1d4ed8;--nb-red:#dc2626;--nb-green:#16a34a;
+    position:relative;background:var(--nb-bg);color:var(--nb-text);border:1px solid #d1d5db;border-radius:10px;margin:10px 0;padding:10px 10px 10px 18px;
+    font-family:'Kalam',cursive;font-size:16px;line-height:1.35;text-align:left;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .nb-card::before{content:'';position:absolute;top:0;bottom:0;left:10px;border-left:1.5px solid rgba(220,38,38,.25)}
+  .nb-q{border-bottom:2px solid var(--nb-red);padding-bottom:6px;margin-bottom:8px;font-size:16px}
+  .nb-q small{display:block;font-family:'Poppins','Noto Sans Devanagari',sans-serif;font-size:11px;font-weight:700;color:var(--nb-blue);letter-spacing:.3px;margin-bottom:2px}
+  .nb-step{display:none;position:relative;margin:0 0 6px;padding-left:2px}
+  .nb-step.on{display:block;animation:nbIn .2s ease-out}
+  .nb-arr{color:var(--nb-blue);font-weight:bold;margin-right:4px}
+  .nb-ans{display:none;text-align:center;border-top:1.5px dashed #d1d5db;margin-top:8px;padding-top:8px}
+  .nb-ans.on{display:block;animation:nbIn .3s ease-out}
+  .nb-ans small{display:block;font-family:'Poppins',sans-serif;font-size:12px;color:var(--nb-muted)}
+  .nb-circle{display:inline-block;border:2px solid var(--nb-red);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;padding:0 8px;transform:rotate(-2deg);color:var(--nb-red);font-weight:bold;font-size:19px}
+  .nb-next{display:block;width:100%;margin-top:8px;padding:8px;border:none;border-radius:6px;background:var(--nb-blue);color:#fff;font:700 16px 'Kalam',cursive;cursor:pointer}
+  .nb-next.all{background:none;color:var(--nb-blue);border:1px solid var(--nb-blue);font-size:13px;padding:4px;margin-top:4px}
+  .nb-card .frac .num{border-bottom-color:var(--nb-text)}
+  .nb-card .frac,.nb-card .frac *{font-family:'Kalam',cursive!important;font-weight:400!important;color:var(--nb-text)}
+  @keyframes nbIn{from{opacity:0;transform:translateX(-5px)}to{opacity:1;transform:none}}
   /* step-by-step solutions entry (opens solve.html) */
   .lb-solve{display:flex;align-items:center;justify-content:center;gap:8px;width:calc(100% - 20px);margin:8px 10px 2px;padding:11px 12px;border-radius:12px;border:2px solid #1d4ed8;background:#eff6ff;color:#1d4ed8;font:700 15px 'Noto Sans Devanagari','Inter',sans-serif;cursor:pointer}
   .lb-solve small{font-weight:600;color:#475569}
@@ -750,7 +769,7 @@ function notesTab(atoms){
   byType(atoms, 'concept').forEach(a => p.push(`<div class="panel blue"><div class="panel-header">💡 ${esc(a.title || L('समझो','Concept'))}</div><div class="panel-body"><p>${nl(a.body.text)}</p>${a.body.note ? `<div class="teach-ex" style="background:#fffbeb;color:#92400e;border-left-color:#f59e0b;margin-top:10px">📌 ${nl(a.body.note)}</div>` : ''}</div></div>`));
   byType(atoms, 'svg').forEach(a => p.push(`<div class="panel orange"><div class="panel-header">🖼️ ${esc(a.title || L('चित्र','Diagram'))}</div><div class="panel-body"><div class="lb-fig">${svgImg(a.body.svg)}</div>${a.body.caption ? `<div class="lb-cap">${esc(a.body.caption)}</div>` : ''}</div></div>`));
   byType(atoms, 'formula').forEach(a => p.push(`<div class="panel purple"><div class="panel-header">✏️ ${esc(a.title || L('सूत्र','Formula'))}</div><div class="panel-body"><div class="formula-box">${fx(a.body.formula)}</div>${a.body.explanation ? `<p>${nl(a.body.explanation)}</p>` : ''}</div></div>`));
-  byType(atoms, 'example').forEach(a => p.push(`<div class="panel green"><div class="panel-header">🧮 ${esc(a.title || L('हल किया उदाहरण','Solved example'))}</div><div class="panel-body"><p><strong>${L('सवाल','Question')}:</strong> ${nl(a.body.question)}</p>${a.body.solution ? `<div class="formula-box" style="text-align:left">${fx(a.body.solution)}</div>` : ''}${a.body.answer ? `<div class="lb-ans">✔ ${L('उत्तर','Answer')}: ${nl(a.body.answer)}</div>` : ''}</div></div>`));
+  byType(atoms, 'example').forEach((a, i) => p.push(`<div class="panel green"><div class="panel-header">🧮 ${esc(a.title || L('हल किया उदाहरण','Solved example'))}</div><div class="panel-body">${nbCard(L(`सवाल ${i + 1}`, `Question ${i + 1}`), a.body.question, splitSteps(a.body.solution), a.body.answer)}</div></div>`));
   const m = mcqBlock(atoms, true); if (m) p.push(`<div class="panel red"><div class="panel-header">✅ ${L('खुद को जाँचें','Check yourself')}</div><div class="panel-body">${m}</div></div>`);
   return `<div class="notes-theme"><div class="notes-paper">${PENDING()}<div style="text-align:center;font-weight:800;font-size:20px;color:#1d4ed8;margin:4px 0 12px">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))}</div>${p.join('') || `<p>${L('इस अध्याय में अभी सामग्री नहीं।','No content in this chapter yet.')}</p>`}</div></div>`;
 }
@@ -766,7 +785,7 @@ function teachTab(atoms){
   byType(atoms, 'concept').forEach(a => s.push(`<div class="teach-sec"><div class="teach-sec-h">💡 ${esc(a.title || L('समझो','Concept'))}</div><div class="teach-text"><p>${nl(a.body.text)}</p>${a.body.note ? `<div class="teach-ex"><strong>${L('याद रखो:','Remember:')}</strong> ${nl(a.body.note)}</div>` : ''}</div></div>`));
   byType(atoms, 'svg').forEach(a => s.push(`<div class="teach-sec"><div class="teach-sec-h">🖼️ ${esc(a.title || L('चित्र से समझो','See it'))}</div><div class="lb-fig">${svgImg(a.body.svg)}</div>${a.body.caption ? `<div class="lb-cap">${esc(a.body.caption)}</div>` : ''}</div>`));
   byType(atoms, 'formula').forEach(a => s.push(`<div class="teach-sec"><div class="teach-sec-h">✏️ ${esc(a.title || L('सूत्र','Formula'))}</div><div class="teach-formula">${fx(a.body.formula)}</div>${a.body.explanation ? `<div class="teach-text"><p>${nl(a.body.explanation)}</p></div>` : ''}</div>`));
-  byType(atoms, 'example').forEach(a => s.push(`<div class="teach-sec"><div class="teach-sec-h">🧮 ${L('चलो एक सवाल हल करें','Let us solve one')}</div><div class="teach-text"><div class="teach-ex"><strong>${L('सवाल:','Question:')}</strong> ${nl(a.body.question)}</div>${a.body.solution ? `<div class="teach-formula" style="text-align:left">${fx(a.body.solution)}</div>` : ''}${a.body.answer ? `<div class="lb-ans">✔ ${L('उत्तर','Answer')}: ${nl(a.body.answer)}</div>` : ''}</div></div>`));
+  byType(atoms, 'example').forEach((a, i) => s.push(`<div class="teach-sec"><div class="teach-sec-h">🧮 ${L('चलो एक सवाल हल करें','Let us solve one')}</div>${nbCard(L(`सवाल ${i + 1}`, `Question ${i + 1}`), a.body.question, splitSteps(a.body.solution), a.body.answer)}</div>`));
   const m = mcqBlock(atoms, false); if (m) s.push(`<div class="teach-sec"><div class="teach-sec-h">✅ ${L('अब तुम बताओ','Your turn')}</div><div class="teach-text">${m}</div></div>`);
   const langs = [['hindi','हिंदी'],['english','English'],['bilingual','Bilingual'],['hinglish','Hinglish']];
   const sw = `<div class="lang-switcher">${langs.map(l => `<button class="lang-btn${l[0] === teachLang ? ' active' : ''}" onclick="setTeachLang('${l[0]}', this)">${l[1]}</button>`).join('')}</div>`
@@ -844,11 +863,10 @@ function dBook(r){
     + '</div>';
 }
 function dSolved(x, i, teach){
-  const steps = `<div class="${teach ? 'teach-formula' : 'formula-box'}" style="text-align:left">${lines(x.steps)}</div>`;
-  const ans = x.answer ? `<div class="lb-ans">✔ ${L('उत्तर','Answer')}: ${nl(x.answer)}</div>` : '';
+  const card = nbCard(L(`सवाल ${i + 1}`, `Question ${i + 1}`), x.question, x.steps, x.answer);
   return teach
-    ? `<div class="teach-sec"><div class="teach-sec-h">🧮 ${L(`चलो हल करें ${i + 1}`, `Let us solve ${i + 1}`)}</div><div class="teach-text"><div class="teach-ex"><strong>${L('सवाल:','Question:')}</strong> ${nl(x.question)}</div>${steps}${ans}</div></div>`
-    : `<div class="panel green"><div class="panel-header">🧮 ${L(`हल किया सवाल ${i + 1}`, `Solved question ${i + 1}`)}</div><div class="panel-body"><p><strong>${L('सवाल','Question')}:</strong> ${nl(x.question)}</p>${steps}${ans}</div></div>`;
+    ? `<div class="teach-sec"><div class="teach-sec-h">🧮 ${L(`चलो हल करें ${i + 1}`, `Let us solve ${i + 1}`)}</div>${card}</div>`
+    : `<div class="panel green"><div class="panel-header">🧮 ${L(`हल किया सवाल ${i + 1}`, `Solved question ${i + 1}`)}</div><div class="panel-body">${card}</div></div>`;
 }
 function dNotes(r){
   const d = r.data || {}, c = cur(), p = [];
@@ -880,13 +898,34 @@ function dFormula(r){
   return reviewBanner(r) + PENDING() + `<div class="filter-wrap"><div class="filter-chips" id="formulaChips">${chips}</div></div><div class="cards-list" id="formulaCards">${cards}</div>`
     + `<div class="formula-note">${H('👆 ऊपर-नीचे scroll करो — filter chips sticky रहेंगी।<br>Filter दबाओ — उस category के cards दिखेंगे।', '👆 Scroll up and down — filter chips stay sticky.<br>Tap a filter to show only that category.')}</div>`;
 }
+/* one solved question as a notebook card: question, steps revealed one at a time (✍️), circled final answer */
+function nbCard(label, question, steps, answer){
+  const st = arr(steps).map(x => String(x || '').trim()).filter(Boolean);
+  return `<div class="nb-card"><div class="nb-q"><small>${esc(label)}</small>${nbMath(question)}</div>`
+    + st.map(x => `<div class="nb-step"><span class="nb-arr">➔</span>${nbMath(x)}</div>`).join('')
+    + (answer ? `<div class="nb-ans"><small>${L('अंतिम उत्तर','Final Answer')}</small><span class="nb-circle">${nbMath(answer)}</span></div>` : '')
+    + `<button class="nb-next" data-n="1">✍️ ${L('स्टेप 1 हल करो','Solve Step 1')}</button><button class="nb-next all">${L('पूरा हल एक साथ देखो','Show the full solution')}</button></div>`;
+}
+/* the masterclass page's own fraction rule (spaces allowed: 25 / 125), and * written as × */
+const nbMath = t => esc(t).replace(/(\d)\s*\*\s*(?=[\d(])/g, '$1 × ').replace(/\)\s*\*\s*/g, ') × ')
+  .replace(/(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/g, '<span class="frac"><span class="num">$1</span><span class="den">$2</span></span>').replace(/\n/g, '<br>');
+const splitSteps = t => String(t || '').split(/\n|\s+·\s+/).map(x => x.trim()).filter(Boolean);
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('.nb-next'); if (!b) return;
+  const card = b.closest('.nb-card'), hidden = [...card.querySelectorAll('.nb-step:not(.on)')];
+  if (b.classList.contains('all')) hidden.forEach(x => x.classList.add('on')); else if (hidden[0]) hidden[0].classList.add('on');
+  const left = card.querySelectorAll('.nb-step:not(.on)').length, main = card.querySelector('.nb-next:not(.all)'), done = card.querySelectorAll('.nb-step.on').length;
+  if (!left) { card.querySelectorAll('.nb-next').forEach(x => x.remove()); const a = card.querySelector('.nb-ans'); if (a) a.classList.add('on'); }
+  else main.textContent = '✍️ ' + L(`स्टेप ${done + 1} हल करो`, `Solve Step ${done + 1}`);
+});
 let SOLVE = {};   /* chapter id -> number of step-by-step solved questions (approved; with a review code also drafts) */
 function solveBtn(){
   const n = SOLVE[curCh]; if (!n) return '';
   return `<button class="lb-solve" onclick="openSolve()">✍️ ${L('स्टेप-बाय-स्टेप हल करो','Solve step by step')} <small>(${n} ${L('सवाल','questions')})</small></button>`;
 }
 function openSolve(){
-  const q = new URLSearchParams({l:LEVEL, s:SUBJ, ch:String(curCh), ln:LEVEL_NAME, ui:currentLang === 'en' ? 'en' : 'hi'});
+  const c = cur() || {};
+  const q = new URLSearchParams({l:LEVEL, s:SUBJ, ch:String(curCh), cn:c.en || '', ln:LEVEL_NAME, ui:currentLang === 'en' ? 'en' : 'hi'});
   if (REVIEW) q.set('review', REVIEW);
   location.href = 'solve.html?' + q.toString();
 }
