@@ -34,9 +34,19 @@ def parse_units(text):
 
 def read_pdf(url):
     import pdfplumber
-    req = urllib.request.Request(url, headers={'User-Agent': 'diploma-boy-syllabus-reader/1.0'})
-    with urllib.request.urlopen(req, timeout=90) as r: data = r.read()
-    with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as f: f.write(data); name = f.name
+    import time
+    data, last = None, None
+    for attempt in range(3):          # official sites are often slow or drop the first connection
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (diploma-boy-syllabus-reader)'})
+            with urllib.request.urlopen(req, timeout=150) as r: data = r.read()
+            break
+        except Exception as e:
+            last = e
+            if attempt < 2: time.sleep(20 * (attempt + 1))   # no wait after the last try
+    if data is None: raise last
+    with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as f:
+        f.write(data); name = f.name
     try:
         with pdfplumber.open(name) as p: return '\n'.join((pg.extract_text() or '') for pg in p.pages)
     finally: os.unlink(name)
