@@ -6,7 +6,7 @@ on:
     - cron: '23 3 * * *'   # 08:53 IST
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: syllabus-watch
   cancel-in-progress: false

@@ -7,6 +7,7 @@ First time a source is seen it is only recorded (no alert). A later change write
 Only fingerprints are stored, never page text. Keys never printed.
 """
 import argparse, hashlib, html, json, os, re, sys, urllib.request, urllib.error
+from datetime import datetime, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SB = os.environ.get('SUPABASE_URL', 'https://wobmtlcpszcntczkebtt.supabase.co').rstrip('/')
@@ -52,7 +53,7 @@ def main():
     changed = changed_ids(now, prev)
     fp = {**prev, **now}   # keep old fingerprints if a source failed this time
     os.makedirs(a.out, exist_ok=True)
-    state = {'schema': 1, 'checked_at': __import__('datetime').datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+    state = {'schema': 1, 'checked_at': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
              'fingerprints': fp, 'changed': changed, 'errors': errors, 'sources': len(src)}
     json.dump(state, open(os.path.join(a.out, 'syllabus_state.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'sources {len(src)} · checked {len(now)} · changed {changed or "none"} · errors {errors or "none"}')
