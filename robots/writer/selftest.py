@@ -17,4 +17,8 @@ bad = dict(good, practice=[dict(q, answer=4) for q in good['practice']]); assert
 assert w.parse_json('```json\n{"a": 1}\n```') == {'a': 1}
 t = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'prompt.txt'), encoding='utf-8').read()
 assert '{l}' in t and '${' not in t
+import copy
+sh = w.shuffle_options(copy.deepcopy(good), 'DB|x|1')
+assert all(q['options'][q['answer']] == o['options'][o['answer']] for q, o in zip(sh['practice'], good['practice']))
+assert len({q['answer'] for q in sh['practice']}) > 1
 print('writer selftest ok')
