@@ -53,7 +53,7 @@ def collect():
     try:
         sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'planner'))
         import planner; d['coverage'] = planner.run()
-    except Exception as e: d['coverage'] = None; d['errors']['coverage'] = type(e).__name__
+    except Exception as e: d['coverage'] = None; d['errors']['coverage'] = str(e)[:200]
     try:
         t = time.time(); s, b = http(SITE + '?health=' + str(int(t))); d['site'] = {'ok': s == 200, 'bytes': len(b), 'ms': int((time.time() - t) * 1000)}
         s, b = http(SITE + 'sw.js?h=' + str(int(t))); import re; m = re.search(r"VERSION\s*=\s*'([^']+)'", b.decode('utf8', 'ignore')); d['site']['sw'] = m.group(1) if m else None

@@ -63,8 +63,11 @@ def _get(path):
     out, off = [], 0
     while True:
         req = urllib.request.Request(f'{SB}/rest/v1/{path}&limit=1000&offset={off}', headers=h)
-        with urllib.request.urlopen(req, timeout=60) as r:
-            rows = json.loads(r.read())
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                rows = json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"{path.split('?')[0]}: HTTP {e.code} {e.read()[:120].decode('utf8', 'ignore')}".replace(KEY, '[hidden]') if KEY else str(e.code))
         out += rows
         if len(rows) < 1000: return out
         off += 1000
