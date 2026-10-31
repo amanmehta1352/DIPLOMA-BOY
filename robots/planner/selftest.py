@@ -50,3 +50,8 @@ assert S['covered'] == 2 and S['missing'] == [], S
 N = P.topic_return(['Kinematics'], ['Electric Charges'], syn=P.load_synonyms())
 assert N['covered'] == 0, N
 print('synonym selftest OK')
+for junk in ['Name of the Posts Junior Engineer (JE)', 'General Awareness', 'Mathematics', 'Number of Questions CBT 1: 100']:
+    assert not P.is_topic(junk), junk
+for real in ['Voltage Regulation', 'Gas Turbine and Jet Propulsion', 'Continuity Equation']:
+    assert P.is_topic(real), real
+print('exam-info filter selftest OK')
