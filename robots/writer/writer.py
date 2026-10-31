@@ -108,6 +108,12 @@ def check_structure(d, want_id):
             and all(isinstance(o, str) and o.strip() for o in x['options']) and isinstance(x.get('answer'), int) and 0 <= x['answer'] <= 3
         if not ok: p.append(f'practice[{i}]: needs q, 4 options, answer 0-3')
         elif len({o.strip() for o in x['options']}) < 4: p.append(f'practice[{i}]: duplicate options')
+        else:   # the worked answer must end at the same answer as the right option (symmetric with the solved examples)
+            right = x['options'][x['answer']]; nums = re.findall(r'\d+(?:\.\d+)?', right.replace(',', ''))
+            exp = str(x.get('explanation') or '').replace(',', '')
+            if not exp.strip(): p.append(f'practice[{i}]: explanation missing')
+            elif nums and not all(n in exp for n in nums): p.append(f'practice[{i}]: explanation does not reach the right option ({right})')
+            if re.search(r'\*', exp): p.append(f'practice[{i}]: use × not *')
     n('mistakes', 3, 5); n('revision', 6, 10)
     bad = [s for s in strings(d) if BAD.search(s)]
     if bad: p.append(f'HTML/LaTeX found ({len(bad)}): {bad[0][:60]}')

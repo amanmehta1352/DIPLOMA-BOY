@@ -7,7 +7,7 @@ good = {'id': 'DB|x|1',
   'teach': [{'heading': f'पाठ {i}', 'explain': 'समझाओ ' * 200, 'example': 'समझो ऐसे'} for i in range(4)],
   'formulas': [{'title': f'सूत्र {i}', 'formula': 'v = s/t', 'units': 'm/s', 'note': ''} for i in range(6)],
   'solved': [{'question': 'सवाल', 'steps': ['a', 'b'], 'answer': '5 m/s'} for i in range(3)],
-  'practice': [{'q': f'q{i}', 'options': ['1', '2', '3', '4'], 'answer': i % 4, 'explanation': ''} for i in range(10)],
+  'practice': [{'q': f'q{i}', 'options': ['1', '2', '3', '4'], 'answer': i % 4, 'explanation': f'माना x = {i % 4 + 1}\nअतः उत्तर = {i % 4 + 1}'} for i in range(10)],
   'mistakes': ['a', 'b', 'c'], 'revision': list('abcdef')}
 assert w.check_structure(good, 'DB|x|1') == [], w.check_structure(good, 'DB|x|1')
 bad = dict(good, practice=good['practice'][:9]); assert any('practice' in p for p in w.check_structure(bad, 'DB|x|1'))
@@ -21,4 +21,8 @@ import copy
 sh = w.shuffle_options(copy.deepcopy(good), 'DB|x|1')
 assert all(q['options'][q['answer']] == o['options'][o['answer']] for q, o in zip(sh['practice'], good['practice']))
 assert len({q['answer'] for q in sh['practice']}) > 1
+bad = copy.deepcopy(good); bad['practice'][0]['explanation'] = 'अतः उत्तर = 9'
+assert any('right option' in p for p in w.check_structure(bad, 'DB|x|1'))
+bad = copy.deepcopy(good); bad['practice'][0]['explanation'] += ' 2 * 3'
+assert any('×' in p for p in w.check_structure(bad, 'DB|x|1'))
 print('writer selftest ok')
