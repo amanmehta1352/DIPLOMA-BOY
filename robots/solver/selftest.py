@@ -3,7 +3,7 @@ import copy, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from checks import check_item, scan_html
 B = lambda e, h: {'en': e, 'hi': h}
-step = lambda h: {'en': 'Step.', 'hi': 'कदम।', 'html': h}
+step = lambda h: {'en': 'Margin = 60 - 40 = 20.', 'hi': 'अंतर = 60 - 40 = 20।', 'html': h}
 good = {
   'topic': {'key': 'election', **B('Election', 'चुनाव')}, 'type': {'key': 'two', **B('2 Candidates', '2 उम्मीदवार')},
   'difficulty': 1, 'q': B('Winner gets 60% and wins by 1200 votes. Total?', 'विजेता को 60% मिले, 1200 से जीता। कुल?'),
@@ -16,13 +16,18 @@ good = {
     {'key': 'fraction', 'primary': True, 'name': B('Fraction (Fast)', 'भिन्न'),
      'steps': [step('<div class="bar-container"><div class="bar-row"><div class="bar bar-exp" style="width:60%">60</div><div class="bar bar-sav" style="width:40%">40</div></div></div>'),
                step('<div class="arr">➔</div> 5 × 1200 = <span class="rough-circle">6000</span>')],
-     'answer': {**B('6000 votes', '6000 वोट'), 'value': '6,000', 'unit': 'votes'}}],
+     'answer': {**B('6000 votes', '6000 वोट'), 'value': '6,000', 'unit': 'votes'}},
+    {'key': 'table', 'primary': False, 'name': B('Table', 'टेबल'),
+     'steps': [step('<div class="rough-table"><div>W</div><div>L</div><div>M</div><div>60</div><div>40</div><div>20</div></div>'),
+               step('<div class="arr">➔</div> <span class="rough-circle">6000</span>')],
+     'answer': {**B('6000 votes', '6000 वोट'), 'value': 6000, 'unit': 'votes'}}],
   'quiz': {'q': B('Margin depends on?', 'अंतर किस पर?'), 'options': [B('a', 'क'), B('b', 'ख'), B('c', 'ग')], 'answer': 1, 'explain': B('e', 'ए')},
   'formulas': [B('x% of y', 'y का x%')]}
 assert check_item(good) == [], check_item(good)
 def bad(fn, word, units=False):
     d = copy.deepcopy(good); fn(d); p = check_item(d, units); assert any(word in x for x in p), (word, p)
-bad(lambda d: d['methods'].pop(), 'at least 2')
+bad(lambda d: d['methods'].pop(), 'at least 3')
+bad(lambda d: [x.update(en='Simplify.') for x in d['methods'][0]['steps']], 'vague')
 bad(lambda d: d['methods'][1]['answer'].update(value=5000), 'different answers')
 bad(lambda d: d['methods'][0]['steps'][0].update(html='<img src=x onerror=alert(1)>'), 'tag <img>')
 bad(lambda d: d['methods'][0]['steps'][0].update(html='<span class="x" onclick="a()">1</span>'), 'attribute onclick')

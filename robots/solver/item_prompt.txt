@@ -8,13 +8,32 @@ Already written in this chapter (do NOT repeat these questions): {previous}
 
 Rules:
 1. Write your own original question (never copy a book or website). Realistic exam style for this level.
-2. Give 2 to 4 genuinely different methods (e.g. Base-100, Fraction, Formula, Table, Bar Model, Venn, Shortcut,
-   Unit analysis, Ratio). The first method is the safest universal one ("primary": true); a fast exam method is also
-   "primary": true; extra visual or shortcut methods are "primary": false.
+2. Solve the question by EVERY method from this list that genuinely works for it, each one complete from start to answer
+   (at least 3 methods, usually 4 or 5). Use these exact method names (en / hi):
+     "Base-100 (Universal)" / "Base-100 (पक्का तरीका)"   - assume 100 and work it out
+     "Fraction (Fast)" / "भिन्न (तेज़)"                  - % as fractions, e.g. 25% = 1/4
+     "Bar Model" / "बार मॉडल"                            - bars drawn with the bar-container html
+     "Table" / "टेबल"                                    - rough-table with ↓ change rows
+     "Venn Diagram" / "वेन आरेख"                          - only when there are two overlapping groups
+     "Formula" / "सूत्र"                                  - the standard formula, substituted step by step
+     "Ratio" / "अनुपात"                                   - initial : final ratios
+     "Shortcut" / "शॉर्टकट"                               - the exam rule, with the reason in "why"
+     "Unit Analysis" / "इकाई विश्लेषण"                    - Physics/Chemistry: track the units
+   The first method is "Base-100 (Universal)" (or "Formula" when Base-100 does not apply) with "primary": true;
+   "Fraction (Fast)" is also "primary": true; the others are "primary": false.
    Every method must reach the SAME final answer; answer.value is that answer as a plain number (no unit, no % sign)
    or, only if the answer is not a number, a short text.
 3. Every text field has both "en" and "hi". Hindi is simple spoken Hindi; technical words may stay in English.
-4. Each step is one small move: "en"/"hi" explain it in words (one short sentence), "html" shows the written work.
+4. Each step is one small move written like a teacher on a notebook. "en"/"hi" say the step WITH its numbers,
+   e.g. "Assume income as 100.", "New Exp = 70 + 14 = 84.", "Change = (30 - 26)/30 × 100 = 13.33% Decrease."
+   Never write vague steps like "Identify the values" or "Simplify". "html" shows the same working on the notebook.
+   Example (one method of a question "A man spends 60% of his income; income and expenditure both rise 15%; % change in saving?"):
+   {"key": "base100", "primary": true, "name": {"en": "Base-100 (Universal)", "hi": "Base-100 (पक्का तरीका)"}, "steps": [
+     {"en": "Assume income as 100.", "hi": "आय 100 मान लेते हैं।", "html": "<div class=\"arr\">➔</div> Income = <span class=\"rough-line\">100</span>", "why": {"en": "% means per 100.", "hi": "% का मतलब प्रति 100।"}},
+     {"en": "Expenditure = 60, Saving = 40.", "hi": "व्यय = 60, बचत = 40।", "html": "<div class=\"arr\">➔</div> Exp = <span class=\"rough-line\">60</span>, Sav = <span class=\"rough-line\">40</span>"},
+     {"en": "New Income = 115, New Exp = 69.", "hi": "नई आय = 115, नया व्यय = 69।", "html": "<div class=\"arr\">➔</div> 115 - 69 = <span class=\"rough-line\">46</span>"},
+     {"en": "% Change = (46 - 40)/40 × 100 = 15%.", "hi": "% बदलाव = (46 - 40)/40 × 100 = 15%।", "html": "<div class=\"arr\">➔</div> Req % = <span class=\"rough-circle\">15%</span>", "trap": {"en": "⚠️ Trap: Don't just write 15%. Calculate first.", "hi": "⚠️ ध्यान दें: सीधे 15% मत लिखना।"}}],
+    "answer": {"en": "15% Increase", "hi": "15% वृद्धि", "value": 15, "unit": "%"}}
 5. "html" may use ONLY the following (no other tags, attributes, styles or classes):
    <div class="arr">➔</div> at the start of a written line
    <span class="rough-line">value</span> for an important intermediate value

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Diploma Boy · Step-by-step Solutions</title>
+<title>Percentage - Ultimate Masterclass</title>
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 <style>
   /* =========================================
@@ -203,13 +203,10 @@
   .sp-canvas-wrap { flex: 1; background: #ffffff; position: relative; }
   canvas { width: 100%; height: 100%; touch-action: none; display: block; }
 
-  /* Diploma Boy additions (data from the server) */
+  /* Diploma Boy: questions from the server use the same look */
   .quiz-exp { display: none; font-size: 12px; margin-top: 6px; color: var(--text-main); }
   .quiz-box.answered .quiz-exp { display: block; }
   .empty-note { font-family: 'Poppins'; font-size: 13px; color: var(--text-muted); text-align: center; padding: 30px 12px; }
-  .review-pill { font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 10px; background: #fde68a; color: #92400e; border: 1px dashed #d97706; }
-  .left-controls { display: flex; gap: 4px; align-items: center; }
-  .unit b, .math-step b { color: var(--ink-red); }
   @keyframes writeIn { from { opacity: 0; transform: translateX(-5px); } to { opacity: 1; transform: translateX(0); } }
   @keyframes popIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 </style>
@@ -218,15 +215,12 @@
 
   <div class="top-bar">
     <div class="controls-row">
-      <div class="left-controls">
-      <button class="icon-btn" onclick="goBack()" title="Back">←</button>
       <div class="lang-toggle">
         <button class="lang-btn active" onclick="setLang('hi')">हिं</button>
         <button class="lang-btn" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('both')">दो</button>
       </div>
-      </div>
-      <div class="xp-badge" id="xp-display">⭐ 0 XP</div><span class="review-pill" id="review-pill" style="display:none">DRAFT</span>
+      <div class="xp-badge" id="xp-display">⭐ 0 XP</div>
       <div class="right-controls">
         <button class="icon-btn" onclick="openScratchpad()" title="Rough Work">📝</button>
         <button class="icon-btn" onclick="toggleFocusMode()" id="focus-btn" title="Focus Mode">🔦</button>
@@ -241,15 +235,18 @@
   <div class="topic-bar" id="topic-bar"></div>
   <div class="type-bar" id="type-bar"></div>
 
-  <div class="slider-box" id="slider-box" style="display:none">
+  <div class="slider-box" id="slider-box">
     <label>🎮 Magic %</label>
     <input type="range" id="magic-slider" min="5" max="50" value="15" step="5" oninput="updateMagic(this.value)">
     <span id="slider-val">15%</span>
   </div>
 
-  <div class="viz-container" id="viz-container" style="display:none">
+  <div class="viz-container" id="viz-container">
     <div class="pie-chart" id="pie-chart"></div>
-    <div class="viz-legend" id="viz-legend"></div>
+    <div class="viz-legend" id="viz-legend">
+      <div><span style="background: var(--chart-color1)"></span>Income (100%)</div>
+      <div><span style="background: var(--chart-color2)"></span>Expenditure (<span id="viz-exp">60</span>%)</div>
+    </div>
   </div>
 
   <div class="question-area">
@@ -289,7 +286,13 @@
         • <b>Table / Venn:</b> सिर्फ विजुअल समझने के लिए।
       </div>
 
-      <div id="formula-list"></div>
+      <div id="formula-list">
+      <div class="f-item">1. x% of y = (x/100) × y</div>
+      <div class="f-item">2. Successive Change = a + b + (a×b)/100</div>
+      <div class="f-item">3. Price increase r% ➔ Cons. Decrease = [r/(100+r)]×100</div>
+      <div class="f-item">4. Price decrease r% ➔ Cons. Increase = [r/(100-r)]×100</div>
+      <div class="f-item">5. If both Inc & Exp change same %, Saving changes by same %.</div>
+      </div>
       <button class="action-btn" style="margin-top:10px;" onclick="toggleFormula()">Close</button>
     </div>
   </div>
@@ -310,20 +313,99 @@
   </div>
 
 <script>
-  /* Diploma Boy step-by-step solutions. Look and behaviour are the owner's masterclass template;
-     questions come from the server (mtb.get_chapter_solutions: approved only; review code: drafts too).
-     URL: solve.html?l=<level>&ch=<chapter id>&s=<subject slug>&ln=<level name>&ui=<hi|en>[&slot=n][&review=<code>] */
+  /* Diploma Boy: this is the owner's masterclass page unchanged. The built-in Percentage questions below stay as they are
+     (shown in Percentage chapters); questions written by the Solver robot come from the server and are added as more topics.
+     URL: solve.html?l=<level>&ch=<chapter id>&cn=<chapter name in English>[&review=<owner code>] */
   const SB = {url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'}; // publishable key
   const Q = new URLSearchParams(location.search);
   const LEVEL = Q.get('l') || '', CHAPTER = +Q.get('ch') || 0, REVIEW = (Q.get('review') || '').trim();
-  let tIdx = 0, currentLang = Q.get('ui') === 'en' ? 'en' : 'hi', currentMethod = 0, stepIdx = 0, totalSteps = 0;
-  let currentFontSize = 14;
+  const STANDALONE = !LEVEL;   /* opened on its own: exactly the original page */
+  const IS_PERCENT = STANDALONE || /percent/i.test(Q.get('cn') || '');
+  let tIdx = 0, currentLang = 'hi', currentMethod = 0, stepIdx = 0, totalSteps = 0;
+  let currentMagicVal = 15, currentFontSize = 14;
   let xp = 0, focusMode = false;
-  try { const s = localStorage.getItem('solve_lang'); if (!Q.get('ui') && ['hi','en','both'].includes(s)) currentLang = s; } catch (e) {}
 
-  let syllabusData = [];      /* [{id, name:{en,hi}, types:[{id, name:{en,hi}, item, slot}]}] built from the server */
-  let currentTopic = null, currentType = null;
+  let syllabusData = [
+    {
+      id: 'income',
+      name: 'Income & Exp',
+      types: [
+        {
+          id: 'inc_same',
+          name: 'Same % Change',
+          q_en: 'A man spends 60% of his income. If his income and expenditure both increase by {v}%. Find the % change in his saving.',
+          q_hi: 'एक व्यक्ति अपनी आय का 60% खर्च करता है। यदि आय और व्यय दोनों में {v}% की वृद्धि होती है, तो बचत में प्रतिशत परिवर्तन ज्ञात कीजिए।',
+          hasSlider: true, hasChart: true, base: 60,
+          quizQ: "अगर व्यक्ति 50% खर्च करता और दोनों में 10% की वृद्धि होती, तो बचत में क्या होता?",
+          quizOpts: ["10% कमी", "10% वृद्धि", "5% वृद्धि"],
+          quizAnsIdx: 1,
+          // Added Fraction as primary, Bar for visual
+          methods: ['Base-100 (Universal)', 'Fraction (Fast)', 'Bar Model', 'Table', 'Shortcut']
+        },
+        {
+          id: 'inc_diff',
+          name: 'Diff % Change',
+          q_en: 'A man spends 70% of his income. If his income increases by 10% and expenditure by 20%. Find % change in saving.',
+          q_hi: 'एक व्यक्ति 70% खर्च करता है। यदि आय 10% और व्यय 20% बढ़े, तो बचत में % बदलाव ज्ञात करें।',
+          hasSlider: false, hasChart: false,
+          quizQ: "अगर आय 20% बढ़े और व्यय 10% बढ़े, तो बचत में क्या होगा?",
+          quizOpts: ["वृद्धि", "कमी", "समान"],
+          quizAnsIdx: 0,
+          methods: ['Base-100 (Universal)', 'Fraction (Fast)', 'Shortcut']
+        }
+      ]
+    },
+    {
+      id: 'election',
+      name: 'Election',
+      types: [
+        {
+          id: 'elec_2cand',
+          name: '2 Candidates',
+          q_en: 'In an election between 2 candidates, the winner gets 60% of valid votes and wins by 1200 votes. Find total valid votes.',
+          q_hi: '2 उम्मीदवारों के चुनाव में, विजेता को 60% वैध वोट मिले और वह 1200 वोटों से जीता। कुल वैध वोट ज्ञात करें।',
+          hasSlider: false, hasChart: false,
+          quizQ: "जीत का अंतर हमेशा किस चीज़ पर निर्भर करता है?",
+          quizOpts: ["कुल वोटों पर", "वैध वोटों पर", "अवैध वोटों पर"],
+          quizAnsIdx: 1,
+          methods: ['Base-100 (Universal)', 'Fraction (Fast)', 'Venn Diagram']
+        },
+        {
+          id: 'elec_margin',
+          name: 'Margin with Invalid',
+          q_en: 'Total votes 1000. 10% invalid. Winner gets 60% of valid, loser 40%. Find margin.',
+          q_hi: 'कुल 1000 वोट। 10% अवैध। विजेता 60%, हारने वाला 40%। जीत का अंतर?',
+          hasSlider: false, hasChart: false,
+          quizQ: "10% वोट अवैध होने का मतलब क्या है?",
+          quizOpts: ["90% वोट वैध हैं", "10% वोट वैध हैं", "सभी वोट वैध हैं"],
+          quizAnsIdx: 0,
+          methods: ['Base-100 (Universal)', 'Fraction (Fast)', 'Table']
+        }
+      ]
+    },
+    {
+      id: 'price',
+      name: 'Price/Cons',
+      types: [
+        {
+          id: 'price_inc',
+          name: 'Price Increase',
+          q_en: 'The price of sugar increases by 25%. By what % should a person decrease his consumption to keep the expenditure same?',
+          q_hi: 'चीनी का दाम 25% बढ़ता है। खर्च समान रखने के लिए खपत कितने % कम करें?',
+          hasSlider: false, hasChart: false,
+          quizQ: "दाम 25% बढ़ने पर खपत 20% क्यों कम होती है?",
+          quizOpts: ["25/(100+25)×100", "25/(100-25)×100", "25/100×100"],
+          quizAnsIdx: 0,
+          // Fraction first because it's the fastest for Price/Cons
+          methods: ['Fraction (Fast)', 'Formula']
+        }
+      ]
+    }
+  ];
 
+  const TEMPLATE_TOPICS = syllabusData.slice();
+  let currentTopic = syllabusData[0];
+  let currentType = currentTopic.types[0];
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const T = x => !x ? '' : (typeof x === 'string' ? x : (currentLang === 'en' ? x.en : x.hi) || x.en || x.hi || '');
   const TB = x => !x ? '' : (typeof x === 'string' ? x : (currentLang === 'both' ? `${x.en} · ${x.hi}` : T(x)));
@@ -348,15 +430,22 @@
     return t.innerHTML;
   }
 
+  /* AI writers tend to put the right option first: show the options in a mixed order (same order for one question) */
+  function quizOrder(n) {
+    const seed = String(currentType.id) + CHAPTER; let h = 0; for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    const o = [...Array(n).keys()];
+    for (let i = n - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [o[i], o[j]] = [o[j], o[i]]; }
+    return o;
+  }
+
+
   document.getElementById('xp-display').innerText = `⭐ ${xp} XP`;
   document.documentElement.style.setProperty('--base-size', currentFontSize + 'px');
 
-  function goBack() { if (history.length > 1) history.back(); else location.href = 'level-book.html' + location.search.replace(/[?&]slot=\d+/, ''); }
   function cycleTheme() {
     const themes = ['white', 'black', 'green'];
     tIdx = (tIdx + 1) % themes.length;
     document.body.setAttribute('data-theme', themes[tIdx]);
-    try { localStorage.setItem('solve_theme', tIdx); } catch (e) {}
   }
   function changeFont(dir) {
     currentFontSize = Math.max(10, Math.min(22, currentFontSize + dir));
@@ -364,13 +453,12 @@
   }
   function setLang(lang) {
     currentLang = lang;
-    try { localStorage.setItem('solve_lang', lang); } catch (e) {}
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
     document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
-    renderTopicBar(); renderTypeBar(); updateUIForType();
+    updateUIForType(); 
   }
   function toggleFormula() { document.getElementById('formula-modal').classList.toggle('visible'); }
-
+  
   function toggleFocusMode() {
     focusMode = !focusMode;
     document.body.classList.toggle('focus-active', focusMode);
@@ -412,21 +500,25 @@
 
   function renderTopicBar() {
     const bar = document.getElementById('topic-bar');
-    bar.innerHTML = syllabusData.map((t) =>
-      `<div class="topic-tab ${currentTopic && t.id === currentTopic.id ? 'active' : ''}" onclick="setTopic('${t.id}')">${esc(TB(t.name))}</div>`
+    bar.innerHTML = syllabusData.map((t) => 
+      `<div class="topic-tab ${t.id === currentTopic.id ? 'active' : ''}" onclick="setTopic('${t.id}')">${typeof t.name === 'string' ? t.name : esc(TB(t.name))}</div>`
     ).join('');
   }
 
   function renderTypeBar() {
     const bar = document.getElementById('type-bar');
-    bar.innerHTML = currentTopic ? currentTopic.types.map((t) =>
-      `<div class="type-tab ${t.id === currentType.id ? 'active' : ''}" onclick="setType('${t.id}')">${esc(TB(t.name))}</div>`
-    ).join('') : '';
+    bar.innerHTML = currentTopic.types.map((t) => 
+      `<div class="type-tab ${t.id === currentType.id ? 'active' : ''}" onclick="setType('${t.id}')">${typeof t.name === 'string' ? t.name : esc(TB(t.name))}</div>`
+    ).join('');
   }
 
   function setTopic(id) {
     currentTopic = syllabusData.find(t => t.id === id);
     currentType = currentTopic.types[0];
+    currentMagicVal = 15;
+    document.getElementById('magic-slider').value = 15;
+    document.getElementById('slider-val').innerText = '15%';
+    
     renderTopicBar();
     renderTypeBar();
     updateUIForType();
@@ -438,16 +530,42 @@
     updateUIForType();
   }
 
-  /* AI writers tend to put the right option first: show the options in a mixed order (same order for one question) */
-  function quizOrder(n) {
-    const seed = String(currentType.id) + CHAPTER; let h = 0; for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-    const o = [...Array(n).keys()];
-    for (let i = n - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [o[i], o[j]] = [o[j], o[i]]; }
-    return o;
-  }
   function updateUIForType() {
-    if (!currentType) return;
+    if (currentType.item) return updateUIForItem();
+    document.getElementById('formula-list').innerHTML = TEMPLATE_FORMULAS;
+    document.getElementById('ans-title').innerText = 'Final Answer';
+    document.getElementById('viz-legend').innerHTML = TEMPLATE_LEGEND;
+    document.getElementById('slider-box').style.display = currentType.hasSlider ? 'flex' : 'none';
+    document.getElementById('viz-container').style.display = currentType.hasChart ? 'flex' : 'none';
+
+    if (currentType.hasChart) {
+      document.getElementById('viz-exp').innerText = currentType.base;
+      document.getElementById('pie-chart').style.background = `conic-gradient(var(--chart-color1) 0% ${currentType.base}%, var(--chart-color2) ${currentType.base}% 100%)`;
+    }
+
+    let qEn = currentType.q_en.replace(/{v}/g, currentMagicVal);
+    let qHi = currentType.q_hi.replace(/{v}/g, currentMagicVal);
+    document.getElementById('q-en').innerHTML = formatMath(qEn);
+    document.getElementById('q-hi').innerHTML = formatMath(qHi);
+
+    const mTabs = document.getElementById('method-tabs');
+    // Add 'primary' class to Base-100 and Fraction to show they are universal
+    mTabs.innerHTML = currentType.methods.map((m, i) => {
+      let isPrimary = m.includes('Universal') || m.includes('Fast');
+      return `<div class="m-tab ${i === 0 ? 'active' : ''} ${isPrimary ? 'primary' : ''}" onclick="loadMethod(${i}, this)">${m}</div>`;
+    }).join('');
+
+    document.getElementById('quiz-box').innerHTML = `<div class="quiz-q">🧠 Quick Test: ${currentType.quizQ}</div>`;
+    currentType.quizOpts.forEach((opt, i) => {
+      document.getElementById('quiz-box').innerHTML += `<button class="quiz-opt" onclick="checkQuiz(this, ${i === currentType.quizAnsIdx})">${opt}</button>`;
+    });
+
+    loadMethod(0, mTabs.querySelector('.m-tab'));
+  }
+
+  function updateUIForItem() {
     const d = currentType.item;
+    document.getElementById('slider-box').style.display = 'none';
     const viz = d.viz && d.viz.kind === 'pie' && Array.isArray(d.viz.parts) ? d.viz.parts : null;
     document.getElementById('viz-container').style.display = viz ? 'flex' : 'none';
     if (viz) {
@@ -475,10 +593,306 @@
     document.getElementById('formula-list').innerHTML = (d.formulas || []).map((f, i) => `<div class="f-item">${i + 1}. ${formatMath(esc(T(f)))}</div>`).join('');
     document.getElementById('ans-title').innerText = currentLang === 'en' ? 'Final Answer' : 'अंतिम उत्तर';
 
-    loadMethod(0, mTabs.querySelector('.m-tab'));
+    loadItemMethod(0, mTabs.querySelector('.m-tab'));
   }
 
+  function updateMagic(val) {
+    currentMagicVal = parseInt(val);
+    document.getElementById('slider-val').innerText = val + '%';
+    
+    document.getElementById('content-area').scrollTo({ top: 0, behavior: 'smooth' });
+    
+    let qEn = currentType.q_en.replace(/{v}/g, currentMagicVal);
+    let qHi = currentType.q_hi.replace(/{v}/g, currentMagicVal);
+    document.getElementById('q-en').innerHTML = formatMath(qEn);
+    document.getElementById('q-hi').innerHTML = formatMath(qHi);
+    
+    loadMethod(currentMethod, document.querySelectorAll('.m-tab')[currentMethod]);
+  }
+
+  function getStepsForMethod(methodName, v, type) {
+    // 1. INCOME/EXP (SAME %)
+    if (type.id === 'inc_same') {
+      const base = type.base;
+      const inc = 100 * (1 + v/100), exp = base * (1 + v/100);
+      const sav = inc - exp, old_sav = 100 - base;
+      const diff = sav - old_sav, percent = (diff / old_sav) * 100;
+      const ansVal = percent.toFixed(0) + "%";
+      const I2 = 500, E2 = 500 * (base/100), S2 = I2 - E2;
+      const Inc2 = I2 * (v/100), Exp2 = E2 * (v/100), Sav2 = Inc2 - Exp2;
+
+      if (methodName.includes('Base-100')) {
+        return {
+          steps: [
+            { en: `Assume income as 100.`, hi: `आय 100 मान लेते हैं।`, html: `<div class="arr">➔</div> Income = <span class="rough-line">100</span>`, why_en: "% means per 100.", why_hi: "% का मतलब प्रति 100।" },
+            { en: `Expenditure = ${base}.`, hi: `व्यय = ${base}।`, html: `<div class="arr">➔</div> Exp = <span class="rough-line">${base}</span>` },
+            { en: `Initial Saving = ${old_sav}.`, hi: `पुरानी बचत = ${old_sav}।`, html: `<div class="arr">➔</div> Saving = <span class="rough-line">${old_sav}</span>` },
+            { en: `New Income = ${inc}.`, hi: `नई आय = ${inc}।`, html: `<div class="arr">➔</div> New Inc = <span class="rough-line">${inc}</span>` },
+            { en: `New Exp = ${exp}.`, hi: `नया व्यय = ${exp}।`, html: `<div class="arr">➔</div> New Exp = <span class="rough-line">${exp}</span>` },
+            { en: `New Saving = ${sav}.`, hi: `नई बचत = ${sav}।`, html: `<div class="arr">➔</div> New Sav = <span class="rough-line">${sav}</span>` },
+            { en: `% Change = ${ansVal}.`, hi: `% बदलाव = ${ansVal}।`, html: `<div class="arr">➔</div> Req % = <span class="rough-circle">${ansVal}</span>`, trap_en: "⚠️ Trap: Don't just write " + v + "%. Calculate first.", trap_hi: "⚠️ ध्यान दें: सीधे " + v + "% मत लिखना।" }
+          ],
+          ans_en: `${ansVal} Increase`, ans_hi: `${ansVal} वृद्धि`
+        };
+      }
+      if (methodName.includes('Fraction')) {
+        // Universal Fraction Method
+        return {
+          steps: [
+            { en: "Convert % to fraction. Let Inc=5, Exp=3, Sav=2.", hi: "% को भिन्न में बदलें। माना आय=5, व्यय=3, बचत=2।", html: `<div class="arr">➔</div> I:E:S = 5:3:2` },
+            { en: `Apply ${v}% increase to both I and E.`, hi: `I और E दोनों में ${v}% की वृद्धि करें।`, html: `<div class="arr">➔</div> New I = 5 × (1 + ${v}/100)` },
+            { en: "Since both increase by same factor, their ratio remains same.", hi: "चूँकि दोनों समान अनुपात में बढ़े हैं, उनका अनुपात वही रहेगा।", html: `<div class="arr">➔</div> New Ratio = 5:3:2` },
+            { en: `Saving also increases by exactly ${v}%.`, hi: `बचत भी ठीक ${v}% बढ़ जाएगी।`, html: `<div class="arr">➔</div> Req % = <span class="rough-circle">${v}%</span>`, why_en: "Multiplying both terms of (I-E) by same factor.", why_hi: "(I-E) के दोनों पदों को समान संख्या से गुणा किया गया है।" }
+          ],
+          ans_en: `${v}% Increase`, ans_hi: `${v}% वृद्धि`
+        };
+      }
+      if (methodName.includes('Bar Model')) {
+        return {
+          steps: [
+            { en: "Represent Income, Exp, Sav using bars.", hi: "आय, व्यय, बचत को बार से दर्शाएं।", html: `
+              <div class="bar-container">
+                <div class="bar-row"><div class="bar bar-inc">Income (100)</div></div>
+                <div class="bar-row"><div class="bar bar-exp" style="width: ${base}%;">Exp (${base})</div><div class="bar bar-sav" style="width: ${100-base}%;">Sav (${old_sav})</div></div>
+              </div>
+            ` },
+            { en: "Increase all bars by the given %.", hi: "सभी बार को दिए गए % से बढ़ाएं।", html: `
+              <div class="bar-container">
+                <div class="bar-row"><div class="bar bar-inc" style="width: 100%;">New Inc (${inc})</div></div>
+                <div class="bar-row"><div class="bar bar-exp" style="width: ${exp}%;">New Exp (${exp})</div><div class="bar bar-sav" style="width: ${sav}%;">New Sav (${sav})</div></div>
+              </div>
+            ` },
+            { en: "Compare old and new saving bars.", hi: "पुरानी और नई बचत के बार की तुलना करें।", html: `<div class="arr">➔</div> Old Sav = ${old_sav}, New Sav = ${sav}` },
+            { en: `% Change = ${ansVal}.`, hi: `% बदलाव = ${ansVal}।`, html: `<div class="arr">➔</div> Req % = <span class="rough-circle">${ansVal}</span>` }
+          ],
+          ans_en: `${ansVal} Increase`, ans_hi: `${ansVal} वृद्धि`
+        };
+      }
+      if (methodName.includes('Table')) {
+        return {
+          steps: [
+            { en: `Let Income = 500.`, hi: `माना आय = 500।`, html: `<div class="rough-table"><div>IN</div><div>EX</div><div>SAV</div><div>500</div><div>- ${E2}</div><div>= ${S2}</div></div>`, why_en: "Took 500 for easy numbers.", why_hi: "आसान नंबरों के लिए 500 लिया।" },
+            { en: `Increase by ${v}%.`, hi: `${v}% की वृद्धि करें।`, html: `<div class="rough-table"><div>IN</div><div>EX</div><div>SAV</div><div>500</div><div>- ${E2}</div><div>= ${S2}</div><div class="arr-down">↓ +${Inc2}</div><div class="arr-down">↓ +${Exp2}</div><div class="arr-down">↓ +${Sav2}</div><div>${500+Inc2}</div><div>${E2+Exp2}</div><div>= ${S2+Sav2}</div></div>` },
+            { en: `Calculate % change.`, hi: `प्रतिशत बदलाव निकालें।`, html: `<div class="arr">➔</div> Req % = (${Sav2}/${S2}) × 100 = <span class="rough-circle">${ansVal}</span>` }
+          ],
+          ans_en: `${ansVal} Increase`, ans_hi: `${ansVal} वृद्धि`
+        };
+      }
+      if (methodName.includes('Shortcut')) {
+        return {
+          steps: [
+            { en: "Rule: If both terms change by same %, result also changes by same %.", hi: "नियम: यदि दोनों समान % बदलें, तो परिणाम भी उतना ही बदलेगा।", html: `<div class="arr">➔</div> S = I - E` },
+            { en: `Since both increased by ${v}%.`, hi: `चूँकि दोनों ${v}% बढ़े हैं।`, html: `<div class="arr">➔</div> Increase = <span class="rough-line">${v}%</span>` },
+            { en: `Saving also increases directly by ${v}%.`, hi: `बचत भी सीधे ${v}% बढ़ जाएगी।`, html: `<div class="arr">➔</div> Direct Ans = <span class="rough-circle">${v}%</span>`, why_en: "(aX - aY) = a(X-Y)", why_hi: "(aX - aY) = a(X-Y)" }
+          ],
+          ans_en: `${v}% Increase`, ans_hi: `${v}% वृद्धि`
+        };
+      }
+    }
+
+    // 2. INCOME/EXP (DIFF %)
+    if (type.id === 'inc_diff') {
+      if (methodName.includes('Base-100')) {
+        return {
+          steps: [
+            { en: "Income = 100, Exp = 70, Saving = 30.", hi: "आय = 100, व्यय = 70, बचत = 30।", html: `<div class="arr">➔</div> Initial: 100, 70, 30` },
+            { en: "New Income = 110 (10% inc).", hi: "नई आय = 110 (10% बढ़ी)।", html: `<div class="arr">➔</div> New Inc = 110` },
+            { en: "New Exp = 84 (20% inc).", hi: "नया व्यय = 84 (20% बढ़ा)।", html: `<div class="arr">➔</div> New Exp = 70 + 14 = 84` },
+            { en: "New Saving = 110 - 84 = 26.", hi: "नई बचत = 110 - 84 = 26।", html: `<div class="arr">➔</div> New Sav = 26` },
+            { en: "Change = (30 - 26)/30 × 100 = 13.33% Decrease.", hi: "बदलाव = (30 - 26)/30 × 100 = 13.33% कमी।", html: `<div class="arr">➔</div> Req % = <span class="rough-circle">13.33%</span>` }
+          ],
+          ans_en: "13.33% Decrease", ans_hi: "13.33% कमी"
+        };
+      }
+      if (methodName.includes('Fraction')) {
+         return {
+          steps: [
+            { en: "Let Inc=100, Exp=70, Sav=30 (Ratio 10:7:3).", hi: "माना आय=100, व्यय=70, बचत=30 (अनुपात 10:7:3)।", html: `<div class="arr">➔</div> I:E:S = 10:7:3` },
+            { en: "Inc +10% -> 11. Exp +20% -> 8.4.", hi: "आय +10% -> 11। व्यय +20% -> 8.4।", html: `<div class="arr">➔</div> New I = 11, New E = 8.4` },
+            { en: "New Sav = 11 - 8.4 = 2.6.", hi: "नई बचत = 11 - 8.4 = 2.6।", html: `<div class="arr">➔</div> New Sav = 2.6` },
+            { en: "Change = (3 - 2.6)/3 × 100 = 13.33% Decrease.", hi: "बदलाव = (3 - 2.6)/3 × 100 = 13.33% कमी।", html: `<div class="arr">➔</div> Req % = <span class="rough-circle">13.33%</span>` }
+          ],
+          ans_en: "13.33% Decrease", ans_hi: "13.33% कमी"
+        };
+      }
+      if (methodName.includes('Shortcut')) {
+        return {
+          steps: [
+            { en: "Net Change = [(I×x%) - (E×y%)] / (I-E)", hi: "नेट बदलाव = [(I×x%) - (E×y%)] / (I-E)", html: `<div class="arr">➔</div> Formula = (Ix - Ey) / (I-E)` },
+            { en: "= (100×10 - 70×20) / 30", hi: "= (100×10 - 70×20) / 30", html: `<div class="arr">➔</div> = (1000 - 1400) / 30` },
+            { en: "= -400 / 30 = -13.33%", hi: "= -400 / 30 = -13.33%", html: `<div class="arr">➔</div> = <span class="rough-circle">13.33% Decrease</span>` }
+          ],
+          ans_en: "13.33% Decrease", ans_hi: "13.33% कमी"
+        };
+      }
+    }
+
+    // 3. ELECTION (2 CANDIDATES)
+    if (type.id === 'elec_2cand') {
+      if (methodName.includes('Base-100')) {
+        return {
+          steps: [
+            { en: "Winner gets 60%, Loser gets 40%.", hi: "विजेता 60%, हारने वाला 40%।", html: `<div class="arr">➔</div> Win = 60%, Lose = 40%` },
+            { en: "Margin % = 60% - 40% = 20%.", hi: "अंतर % = 20%।", html: `<div class="arr">➔</div> Diff = 20%` },
+            { en: "Given, 20% = 1200 votes.", hi: "दिया है, 20% = 1200 वोट।", html: `<div class="arr">➔</div> 20% = 1200` },
+            { en: "Total Valid = 100% = (1200 / 20) × 100", hi: "कुल वैध = 100% = (1200 / 20) × 100", html: `<div class="arr">➔</div> 100% = <span class="rough-circle">6000</span>` }
+          ],
+          ans_en: "6000 Votes", ans_hi: "6000 वोट"
+        };
+      }
+      if (methodName.includes('Fraction')) {
+        return {
+          steps: [
+            { en: "Winner : Loser = 60 : 40 = 3 : 2", hi: "विजेता : हारने वाला = 3 : 2", html: `<div class="arr">➔</div> Ratio = 3 : 2` },
+            { en: "Difference in parts = 3 - 2 = 1 part.", hi: "भागों का अंतर = 1 भाग।", html: `<div class="arr">➔</div> Diff = 1 part` },
+            { en: "1 part = 1200. Total (5 parts) = 6000.", hi: "1 भाग = 1200। कुल (5 भाग) = 6000।", html: `<div class="arr">➔</div> Total = 5 × 1200 = <span class="rough-circle">6000</span>` }
+          ],
+          ans_en: "6000 Votes", ans_hi: "6000 वोट"
+        };
+      }
+      if (methodName.includes('Venn')) {
+        return {
+          steps: [
+            { en: "Represent the two candidates using two intersecting circles (100% total).", hi: "दोनों उम्मीदवारों को दो गोलों से दर्शाएं (कुल 100%)।", html: `
+              <div class="venn-container">
+                <div class="venn-circle v-left"></div>
+                <div class="venn-circle v-right"></div>
+                <div class="v-overlap">Margin<br>20%</div>
+                <div class="v-label-left">A: 60%</div>
+                <div class="v-label-right">B: 40%</div>
+              </div>
+            ` },
+            { en: "The gap between them is the margin.", hi: "उनके बीच का अंतर ही जीत का अंतर है।", html: `<div class="arr">➔</div> Margin = 20%` },
+            { en: "Given, 20% = 1200 votes.", hi: "दिया है, 20% = 1200 वोट।", html: `<div class="arr">➔</div> 20% = 1200` },
+            { en: "Calculate 100%.", hi: "100% निकालें।", html: `<div class="arr">➔</div> 100% = <span class="rough-circle">6000</span>` }
+          ],
+          ans_en: "6000 Votes", ans_hi: "6000 वोट"
+        };
+      }
+    }
+
+    // 4. ELECTION (MARGIN WITH INVALID)
+    if (type.id === 'elec_margin') {
+      if (methodName.includes('Base-100')) {
+        return {
+          steps: [
+            { en: "Total votes = 1000. Invalid = 10%.", hi: "कुल 1000। अवैध = 10%।", html: `<div class="arr">➔</div> Invalid = 100` },
+            { en: "Valid Votes = 1000 - 100 = 900.", hi: "वैध वोट = 900।", html: `<div class="arr">➔</div> Valid = 900` },
+            { en: "Margin = 60% - 40% = 20%.", hi: "अंतर = 20%।", html: `<div class="arr">➔</div> Diff = 20%` },
+            { en: "Margin Votes = 20% of 900.", hi: "अंतर वोट = 900 का 20%।", html: `<div class="arr">➔</div> 900 × 20/100 = <span class="rough-circle">180</span>` }
+          ],
+          ans_en: "180 Votes", ans_hi: "180 वोट"
+        };
+      }
+      if (methodName.includes('Fraction')) {
+        return {
+          steps: [
+            { en: "Valid votes = 90% of 1000 = 900.", hi: "वैध वोट = 1000 का 90% = 900।", html: `<div class="arr">➔</div> Valid = 900` },
+            { en: "Winner:Loser = 60:40 = 3:2.", hi: "विजेता:हारने वाला = 3:2।", html: `<div class="arr">➔</div> Ratio = 3:2` },
+            { en: "Margin = 1 part = 1/5 of 900.", hi: "अंतर = 1 भाग = 900 का 1/5।", html: `<div class="arr">➔</div> 1/5 × 900` },
+            { en: "Result = 180.", hi: "परिणाम = 180।", html: `<div class="arr">➔</div> <span class="rough-circle">180</span>` }
+          ],
+          ans_en: "180 Votes", ans_hi: "180 वोट"
+        };
+      }
+      if (methodName.includes('Table')) {
+        return {
+          steps: [
+            { en: "Total = 1000 | Invalid = 100", hi: "कुल = 1000 | अवैध = 100", html: `<div class="rough-table"><div>Total</div><div>Invalid</div><div>Valid</div><div>1000</div><div>- 100</div><div>= 900</div></div>` },
+            { en: "Winner (60%) = 540 | Loser (40%) = 360", hi: "विजेता (60%) = 540 | हारने वाला = 360", html: `<div class="rough-table"><div>Winner</div><div>Loser</div><div>Margin</div><div>540</div><div>- 360</div><div>= 180</div></div>` }
+          ],
+          ans_en: "180 Votes", ans_hi: "180 वोट"
+        };
+      }
+    }
+
+    // 5. PRICE / CONSUMPTION
+    if (type.id === 'price_inc') {
+      if (methodName.includes('Fraction')) {
+        return {
+          steps: [
+            { en: "Price increase 25% = 1/4.", hi: "दाम 25% बढ़ा = 1/4।", html: `<div class="arr">➔</div> Inc = 1/4` },
+            { en: "To keep expense same, Cons decrease = 1/(4+1) = 1/5.", hi: "खर्च समान रखने के लिए खपत कमी = 1/(4+1) = 1/5।", html: `<div class="arr">➔</div> Dec = 1/5` },
+            { en: "1/5 in % = 20%.", hi: "1/5 प्रतिशत में = 20%।", html: `<div class="arr">➔</div> 1/5 = <span class="rough-circle">20%</span>`, why_en: "Inverse ratio concept", why_hi: "व्युत्क्रम अनुपात का कॉन्सेप्ट" }
+          ],
+          ans_en: "20% Decrease", ans_hi: "20% कमी"
+        };
+      }
+      if (methodName.includes('Formula')) {
+        return {
+          steps: [
+            { en: "Formula: [r / (100 + r)] × 100", hi: "सूत्र: [r / (100 + r)] × 100", html: `<div class="arr">➔</div> [r / (100 + r)] × 100` },
+            { en: "Here r = 25%", hi: "यहाँ r = 25%", html: `<div class="arr">➔</div> [25 / (100 + 25)] × 100` },
+            { en: "Solve denominator", hi: "हल करें", html: `<div class="arr">➔</div> (25 / 125) × 100` },
+            { en: "Final calculation", hi: "अंतिम गणना", html: `<div class="arr">➔</div> 1/5 × 100 = <span class="rough-circle">20%</span>` }
+          ],
+          ans_en: "20% Decrease", ans_hi: "20% कमी"
+        };
+      }
+    }
+    return { steps: [], ans_en: "", ans_hi: "" };
+  }
+  function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
   function loadMethod(index, btn) {
+    if (currentType.item) return loadItemMethod(index, btn);
+    currentMethod = index;
+    stepIdx = 0;
+    document.querySelectorAll('.m-tab').forEach(t => t.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+
+    const methodName = currentType.methods[index];
+    const methodData = getStepsForMethod(methodName, currentMagicVal, currentType);
+
+    const wrapper = document.getElementById('steps-wrapper');
+    wrapper.innerHTML = '';
+    
+    methodData.steps.forEach((step, i) => {
+      let html = '';
+      const textEn = formatMath(step.en), textHi = formatMath(step.hi);
+      
+      html += `<div class="step-text-row"><div>`;
+      if (currentLang === 'en') html += `<div class="step-en">${textEn}</div>`;
+      else if (currentLang === 'hi') html += `<div class="step-hi">${textHi}</div>`;
+      else html += `<div class="step-en">${textEn}</div><div class="step-hi">${textHi}</div>`;
+      html += `</div><div class="tools-row">`;
+      html += `<button class="tool-btn" onclick="speakText('${currentLang === 'en' ? textEn.replace(/'/g, "\\'") : textHi.replace(/'/g, "\\'")}')">🔊</button>`;
+      if (step.why_en || step.why_hi) html += `<button class="tool-btn" onclick="toggleWhy('why-${i}')">🤔 ?</button>`;
+      html += `</div></div>`;
+
+      const mathHtml = step.html ? formatMath(step.html) : '';
+      html += `<div style="margin-top: 4px;">${mathHtml}</div>`;
+
+      if (step.why_en || step.why_hi) html += `<div class="why-box" id="why-${i}">💡 ${currentLang === 'en' ? step.why_en : step.why_hi}</div>`;
+      if (step.trap_en || step.trap_hi) html += `<div class="trap-box">${currentLang === 'en' ? step.trap_en : step.trap_hi}</div>`;
+      
+      const div = document.createElement('div');
+      div.className = 'math-step';
+      div.id = `step-${i}`;
+      div.innerHTML = html;
+      wrapper.appendChild(div);
+    });
+
+    totalSteps = methodData.steps.length;
+    document.getElementById('ans-box').classList.remove('visible');
+    document.getElementById('quiz-box').classList.remove('visible');
+    document.getElementById('quiz-box').classList.remove('answered');
+    document.querySelectorAll('.quiz-opt').forEach(b => { b.className = 'quiz-opt'; });
+    
+    document.getElementById('ans-val').innerHTML = formatMath(currentLang === 'en' ? methodData.ans_en : methodData.ans_hi);
+    
+    const btnEl = document.getElementById('next-btn');
+    const nqBtn = document.getElementById('next-q-btn');
+    btnEl.classList.remove('hidden');
+    btnEl.innerHTML = `✍️ Solve Step 1`;
+    nqBtn.style.display = 'none';
+    
+    document.getElementById('progress-fill').style.width = '0%';
+    document.getElementById('content-area').scrollTo({ top: 0, behavior: 'smooth' });
+    if (focusMode) document.body.classList.remove('focus-active');
+  }
+
+  function loadItemMethod(index, btn) {
     currentMethod = index;
     stepIdx = 0;
     document.querySelectorAll('.m-tab').forEach(t => t.classList.remove('active'));
@@ -544,7 +958,7 @@
     if (stepIdx < totalSteps) {
       const el = document.getElementById(`step-${stepIdx}`);
       el.classList.add('visible');
-
+      
       setTimeout(() => {
         const y = el.getBoundingClientRect().top + content.scrollTop - 10;
         content.scrollTo({ top: y, behavior: 'smooth' });
@@ -554,9 +968,9 @@
       addXP(10);
       progressFill.style.width = ((stepIdx / totalSteps) * 100) + '%';
       updateFocusHighlight();
-
+      
       if (stepIdx < totalSteps) {
-        btn.innerHTML = currentLang === 'en' ? `✍️ Solve Step ${stepIdx + 1}` : `✍️ स्टेप ${stepIdx + 1} हल करो`;
+        btn.innerHTML = `✍️ Solve Step ${stepIdx + 1}`;
       } else {
         btn.classList.add('hidden');
         document.getElementById('next-q-btn').style.display = 'block';
@@ -571,24 +985,23 @@
   }
 
   function shareSolution() {
-    const qText = currentLang === 'en' ? currentType.item.q.en : currentType.item.q.hi;
+    const qText = document.getElementById('q-en').innerText;
     const ans = document.getElementById('ans-val').innerText;
-    const text = `${qText}\n\n${currentLang === 'en' ? 'Answer' : 'उत्तर'}: ${ans}\n\nSolve more at Diploma Boy App.`;
-    if (navigator.share) navigator.share({ title: 'Diploma Boy', text: text }).catch(() => {});
-    else if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => {
-      const b = document.querySelector('.share-btn'), o = b.innerHTML; b.innerHTML = '✅ Copied'; setTimeout(() => b.innerHTML = o, 1500);
-    }).catch(() => {});
+    const text = `Check out this math solution!\n\nQuestion: ${qText}\nAnswer: ${ans}\n\nSolve more at Diploma Boy App.`;
+    if (navigator.share) navigator.share({ title: 'Math Solution', text: text }).catch(console.error);
+    else { navigator.clipboard.writeText(text); alert('Solution copied to clipboard!'); }
   }
 
   function checkQuiz(btn, isCorrect) {
     if (btn.parentNode.classList.contains('answered')) return;
     btn.parentNode.classList.add('answered');
+    try { if (!STANDALONE && !REVIEW && parent && parent !== window && parent.__levelQuiz) parent.__levelQuiz(CHAPTER, !!isCorrect); } catch (e) {}
     if (isCorrect) { btn.classList.add('correct'); addXP(50); }
     else {
       btn.classList.add('wrong');
-      const right = btn.parentNode.querySelector(`.quiz-opt[data-i="${currentType.item.quiz.answer}"]`); if (right) right.classList.add('correct');
+      if (currentType.item) { const r = btn.parentNode.querySelector(`.quiz-opt[data-i="${currentType.item.quiz.answer}"]`); if (r) r.classList.add('correct'); }
+      else btn.parentNode.querySelectorAll('.quiz-opt').forEach(o => { if (o.innerText === currentType.quizOpts[currentType.quizAnsIdx]) o.classList.add('correct'); });
     }
-    try { if (!REVIEW && parent && parent !== window && parent.__levelQuiz) parent.__levelQuiz(CHAPTER, !!isCorrect); } catch (e) {}
   }
 
   const canvas = document.getElementById('scratchpad');
@@ -607,46 +1020,46 @@
   function stopDrawing() { isDrawing = false; }
 
   function loadNextQuestion() {
-    const all = syllabusData.flatMap(t => t.types.map(x => [t, x]));
-    const i = all.findIndex(p => p[1] === currentType), n = all[(i + 1) % all.length];
-    currentTopic = n[0]; currentType = n[1];
-    renderTopicBar(); renderTypeBar(); updateUIForType();
+    if (currentTopic.id === 'income') {
+      const bases = [50, 60, 70, 80];
+      currentType.base = bases[Math.floor(Math.random() * bases.length)];
+      updateUIForType();
+    } else {
+      let currIdx = currentTopic.types.findIndex(t => t.id === currentType.id);
+      let nextIdx = (currIdx + 1) % currentTopic.types.length;
+      setType(currentTopic.types[nextIdx].id);
+    }
   }
 
   async function rpc(fn, args) {
     const r = await fetch(SB.url + '/rest/v1/rpc/' + fn, {method:'POST', headers:{apikey:SB.key, Authorization:'Bearer ' + SB.key, 'Content-Profile':'mtb', 'Accept-Profile':'mtb', 'Content-Type':'application/json'}, body:JSON.stringify(args)});
     if (!r.ok) throw new Error('HTTP ' + r.status); return r.json();
   }
+  const TEMPLATE_FORMULAS = document.getElementById('formula-list').innerHTML;
+  const TEMPLATE_LEGEND = document.getElementById('viz-legend').innerHTML;
   function showEmpty(msg) {
-    document.getElementById('steps-wrapper').innerHTML = `<div class="empty-note">${msg}</div>`;
-    document.getElementById('action-bar').style.display = 'none';
+    ['topic-bar','type-bar','slider-box','viz-container','method-tabs','action-bar'].forEach(id => document.getElementById(id).style.display = 'none');
     document.querySelector('.question-area').style.display = 'none';
+    document.getElementById('steps-wrapper').innerHTML = `<div class="empty-note">${msg}</div>`;
   }
-  (async function load() {
-    try { const th = +localStorage.getItem('solve_theme'); if (th) { tIdx = th % 3; document.body.setAttribute('data-theme', ['white','black','green'][tIdx]); } } catch (e) {}
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.getAttribute('onclick') === `setLang('${currentLang}')`));
-    showEmpty(currentLang === 'en' ? 'Loading…' : 'लोड हो रहा है…');
-    let items;
-    try {
-      items = REVIEW ? await rpc('solution_review_get', {p_level: LEVEL, p_chapter: CHAPTER, p_code: REVIEW})
-                     : await rpc('get_chapter_solutions', {p_level: LEVEL, p_chapter: CHAPTER});
-    } catch (e) { showEmpty('सवाल लोड नहीं हुए। इंटरनेट जाँचें। / Could not load. Check your internet.'); return; }
-    items = (items || []).filter(x => x && x.data && x.data.q && Array.isArray(x.data.methods) && x.data.methods.length);
-    if (!items.length) { showEmpty('इस अध्याय के हल किए सवाल जल्द आएँगे। / Step-by-step solutions for this chapter are coming soon.'); return; }
-    if (REVIEW) document.getElementById('review-pill').style.display = '';
+  (async function start() {
+    let items = [];
+    if (!STANDALONE) {
+      try {
+        items = REVIEW ? await rpc('solution_review_get', {p_level: LEVEL, p_chapter: CHAPTER, p_code: REVIEW})
+                       : await rpc('get_chapter_solutions', {p_level: LEVEL, p_chapter: CHAPTER});
+      } catch (e) { items = []; }
+      items = (items || []).filter(x => x && x.data && x.data.q && Array.isArray(x.data.methods) && x.data.methods.length);
+    }
+    syllabusData = IS_PERCENT ? TEMPLATE_TOPICS.slice() : [];
     const byTopic = {};
     items.forEach(x => {
-      const d = x.data, tk = (d.topic && d.topic.key) || 'main';
+      const d = x.data, tk = 'srv_' + ((d.topic && d.topic.key) || 'main');
       if (!byTopic[tk]) { byTopic[tk] = {id: tk, name: d.topic || {en: 'Questions', hi: 'सवाल'}, types: []}; syllabusData.push(byTopic[tk]); }
-      byTopic[tk].types.push({id: ((d.type && d.type.key) || 't') + '_' + x.slot, name: d.type || {en: 'Q' + x.slot, hi: 'सवाल ' + x.slot}, item: d, slot: x.slot});
+      byTopic[tk].types.push({id: tk + '_' + x.slot, name: d.type || {en: 'Q' + x.slot, hi: 'सवाल ' + x.slot}, item: d, slot: x.slot});
     });
-    const want = +Q.get('slot');
-    const hit = want && syllabusData.flatMap(t => t.types.map(y => [t, y])).find(p => p[1].slot === want);
-    currentTopic = hit ? hit[0] : syllabusData[0];
-    currentType = hit ? hit[1] : currentTopic.types[0];
-    document.getElementById('action-bar').style.display = '';
-    document.querySelector('.question-area').style.display = '';
-    document.getElementById('steps-wrapper').innerHTML = '';
+    if (!syllabusData.length) { showEmpty('इस अध्याय के हल किए सवाल जल्द आएँगे। / Step-by-step solutions for this chapter are coming soon.'); return; }
+    currentTopic = syllabusData[0]; currentType = currentTopic.types[0];
     renderTopicBar();
     renderTypeBar();
     updateUIForType();

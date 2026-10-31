@@ -13,6 +13,10 @@ on:
       chapter:
         description: 'Only this chapter id (0 = all)'
         default: '0'
+      redo:
+        description: 'Rewrite existing drafts of the chosen chapter (approved ones are kept)'
+        type: boolean
+        default: false
       dry_run:
         description: 'Dry run (write nothing to the server)'
         type: boolean
@@ -38,6 +42,7 @@ jobs:
         run: |
           A="--count ${{ inputs.count }} --chapter ${{ inputs.chapter }}"
           [ -n "${{ inputs.level }}" ] && A="$A --level ${{ inputs.level }}"
+          [ "${{ inputs.redo }}" = "true" ] && A="$A --redo"
           [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
           python robots/solver/solver.py $A
       - name: Report

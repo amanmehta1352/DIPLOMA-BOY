@@ -71,7 +71,7 @@ def check_item(d, need_units=False):
         if not (isinstance(d.get(k), dict) and d[k].get('key') and _bi(d[k])): p.append(f'{k}: needs key + en + hi')
     if not _bi(d.get('q')): p.append('q: needs en + hi')
     ms = d.get('methods')
-    if not isinstance(ms, list) or len(ms) < 2: p.append('methods: need at least 2'); ms = ms if isinstance(ms, list) else []
+    if not isinstance(ms, list) or len(ms) < 3: p.append('methods: need at least 3 (every method that works)'); ms = ms if isinstance(ms, list) else []
     if len({str((m or {}).get('key')) for m in ms}) < len(ms): p.append('methods: duplicate keys')
     answers = []
     for i, m in enumerate(ms):
@@ -90,6 +90,9 @@ def check_item(d, need_units=False):
             bold += h.bold
             for k in ('why', 'trap'):
                 if k in s and s[k] is not None and not _bi(s[k]): p.append(f'methods[{i}].steps[{j}].{k}: needs en + hi')
+        texts = [s.get('en', '') for s in steps if isinstance(s, dict)]
+        if texts and sum(1 for x in texts if re.search(r'\d', x)) < 0.6 * len(texts):
+            p.append(f'methods[{i}]: steps must show the numbers (too many vague steps)')
         if steps and isinstance(steps[-1], dict) and scan_html(steps[-1].get('html', '')).circles < 1:
             p.append(f'methods[{i}]: last step must circle the answer')
         a = m.get('answer')

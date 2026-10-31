@@ -157,6 +157,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
     check('check question answered and counted in the app', await p.evaluate(() => Object.keys(DB.quiz).some(k => k.startsWith('s:class_9_10:') && DB.quiz[k].t === 1)));
     await p.click('#modeReader'); await p.waitForTimeout(1500);
     check('Reader = Notes tab (notebook paper)', await lf.$('#readerContent .notes-paper') !== null);
+    check('solved examples are notebook cards (masterclass look)', (await lf.$$eval('#readerContent .nb-card', e => e.length)) >= 1);
     check('fractions are drawn stacked (25/100 style)', (await lf.$$eval('#readerContent .frac', e => e.length)) > 0);
     await p.screenshot({ path: path.join(SHOTS, 'v4-15-chapter-reader.png') });
     for (const t of ['book', 'formula', 'diagram']) { await lf.click(`.nav-btn[data-tab="${t}"]`); await p.waitForTimeout(900); }
@@ -213,6 +214,8 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await ps.click('#next-btn'); await ps.click('#next-btn'); await ps.waitForTimeout(400);
   check('solutions page: steps reveal one by one, answer shown', (await ps.$$eval('.math-step.visible', e => e.length)) === 2 && await ps.isVisible('#ans-box'));
   check('solutions page: unsafe html removed', (await ps.$$eval('.math-step img', e => e.length)) === 0 && !(await ps.evaluate(() => window.HACK)) && serr.length === 0);
+  await ps.goto(URL + 'solve.html?l=govt_technical&ch=1&cn=Percentage'); await ps.waitForTimeout(1500);
+  check('Percentage: the masterclass questions stay (slider + 5 methods) and server topics are added', (await ps.$$eval('.topic-tab', e => e.map(x => x.textContent).join('|'))) === 'Income & Exp|Election|Price/Cons|चुनाव' && (await ps.$$eval('.m-tab', e => e.length)) === 5 && await ps.isVisible('#slider-box'));
   await ps.close();
   await b.close(); srv.close();
   console.log('PASS', ok.length, ok.join(' | '));

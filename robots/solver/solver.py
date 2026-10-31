@@ -43,6 +43,7 @@ def main():
     ap.add_argument('--level', default='')
     ap.add_argument('--chapter', type=int, default=0)
     ap.add_argument('--dry-run', action='store_true')
+    ap.add_argument('--redo', action='store_true', help='rewrite existing drafts of the chosen chapters (approved ones are kept)')
     ap.add_argument('--report', default='solver-report.md')
     a = ap.parse_args()
     if not W.GKEY: sys.exit('GEMINI_API_KEY missing')
@@ -87,7 +88,7 @@ def main():
         for slot, (tp, t) in enumerate(slots, start=1):
             if written >= a.count: break
             st = done.get(slot)
-            if st and (st[0] in ('draft', 'approved') or st[1] >= 3): continue
+            if st and (st[0] == 'approved' or (not a.redo and (st[0] == 'draft' or st[1] >= 3))): continue
             prompt = fill(item_tpl, **ctx, topic_key=tp['key'], topic_en=tp['en'], topic_hi=tp['hi'], type_key=t['key'],
                           type_en=t['en'], type_hi=t['hi'], difficulty=int(t.get('difficulty') or 2),
                           previous=json.dumps(previous, ensure_ascii=False) if previous else 'none')
