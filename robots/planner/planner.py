@@ -111,12 +111,16 @@ def split_topics(line):
     return [re.sub(r'\s+', ' ', p).strip() for p in out]
 
 
+EXAM_INFO = re.compile(r'name of the post|number of questions|duration|negative marking|marks|pattern|eligibility|salary|age limit|qualification|vacancies|exam date|admit card|application|fee|selection process|medical|document verification|cbt|tier|paper ?[- ]?[iv12]+\b|general (awareness|intelligence|science|engineering)\b|^(mathematics|physics|chemistry|biology|english|reasoning|science)$', re.I)
+
+
 def is_topic(part):
     """Pure: a short noun-phrase topic, not a sentence, question, FAQ or page text. Brackets must be balanced."""
     if part.count('(') != part.count(')') or part.count('[') != part.count(']'): return False
     words = part.split()
     if not 1 <= len(words) <= 8: return False
     if QUESTION.search(part): return False
+    if EXAM_INFO.search(part): return False          # exam structure, subject names, pay and eligibility are not topics
     if sum(c.isdigit() for c in part) > 2: return False
     return True
 
