@@ -1,0 +1,28 @@
+name: Gemini key check
+# Manual check: says only whether GEMINI_API_KEY is set and its length. The key value is never printed.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Is the key set?
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then echo "GEMINI_API_KEY: MISSING"; exit 1; fi
+          echo "GEMINI_API_KEY: set (length ${#GEMINI_API_KEY})"
+      - name: Gemini test call
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          code=$(curl -s -o /tmp/g.json -w "%{http_code}" -X POST \
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
+            -H "x-goog-api-key: $GEMINI_API_KEY" -H "Content-Type: application/json" \
+            -d '{"contents":[{"parts":[{"text":"Say OK"}]}]}')
+          echo "HTTP $code"
+          if [ "$code" != "200" ]; then head -c 400 /tmp/g.json | sed "s/$GEMINI_API_KEY/[hidden]/g"; exit 1; fi
+          echo "Gemini answered: OK"
