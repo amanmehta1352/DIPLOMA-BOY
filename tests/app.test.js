@@ -162,6 +162,18 @@ const check = (name, v) => (v ? ok : bad).push(name);
     for (const t of ['book', 'formula', 'diagram']) { await lf.click(`.nav-btn[data-tab="${t}"]`); await p.waitForTimeout(900); }
     check('book, formula and diagram tabs render', /book-chaps|fcard|lb-fig|notes-paper/.test(await lf.innerHTML('#readerContent')));
     await lf.click('.nav-btn[data-tab="book"]'); await p.waitForTimeout(900);
+    // same controls as the Physics book: language buttons, Book contents list, Teach language buttons, formula filter
+    check('level book has the hi / EN / both language buttons', (await lf.$$eval('.lang-toggle .lang-btn', e => e.map(x => x.dataset.lang).join())) === 'hi,en,both');
+    check('Book tab lists notes and lessons that jump into the tab', (await lf.$$eval('.book-list .book-item', e => e.length)) >= 2);
+    await lf.click('.nav-btn[data-tab="notes"]'); await p.waitForTimeout(900);
+    await lf.click('.lang-toggle .lang-btn[data-lang="en"]'); await p.waitForTimeout(1200);
+    check('EN button switches the book and shows the Hindi-only note', await lf.evaluate(() => document.body.dataset.lang === 'en') && await lf.evaluate(() => !!document.querySelector('.lang-pending')));
+    await lf.click('.lang-toggle .lang-btn[data-lang="hi"]'); await p.waitForTimeout(1200);
+    await lf.click('.nav-btn[data-tab="teach"]'); await p.waitForTimeout(900);
+    check('Teach tab has Hindi / English / Bilingual / Hinglish buttons', (await lf.$$eval('.lang-switcher .lang-btn', e => e.length)) === 4);
+    await lf.click('.nav-btn[data-tab="formula"]'); await p.waitForTimeout(900);
+    check('Formula tab has filter chips', (await lf.$$eval('#formulaChips .filter-chip', e => e.length)) >= 1);
+    await lf.click('.nav-btn[data-tab="book"]'); await p.waitForTimeout(900);
     await p.screenshot({ path: path.join(SHOTS, 'v4-15b-chapter-book.png') });
     const second = await p.evaluate(() => { const b = BOOKS.find(x => x.id === bookState.bookId); return b.chapters.filter(avail)[1].n; });
     await lf.evaluate(id => setChapter(id), second); await p.waitForTimeout(1500);

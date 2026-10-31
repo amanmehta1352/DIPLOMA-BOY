@@ -442,6 +442,11 @@ body[data-tab-active="teach"] .lang-toggle{display:none!important}
 <div id="app">
   <div class="top-bar">
     <div class="top-title" id="readerTitle"></div>
+    <div class="lang-toggle">
+      <button class="lang-btn" data-lang="hi" onclick="setLang('hi')">हिं</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="both" onclick="setLang('both')">दो</button>
+    </div>
   </div>
 
   <div class="view" id="view-reader">
@@ -625,11 +630,13 @@ function fracify(root){
 const SB = {url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'}; // publishable key
 const Q = new URLSearchParams(location.search);
 const LEVEL = Q.get('l') || '', SUBJ = Q.get('s') || '', UI = Q.get('ui') === 'en' ? 'en' : 'hi', LEVEL_NAME = Q.get('ln') || '';
-document.body.dataset.lang = UI;
+let currentLang = UI;
+try { const sv = localStorage.getItem('lvl_lang'); if (!Q.get('ui') && ['hi','en','both'].includes(sv)) currentLang = sv; } catch (e) {}
+document.body.dataset.lang = currentLang;
 let SUBJECT = null, CHAPTERS = [], curCh = +Q.get('ch') || 0;
 const ATOMS = {};
 const H = (hi, en) => `<span class="hi">${hi}</span><span class="en">${en}</span>`;
-const L = (hi, en) => UI === 'en' ? en : hi;
+const L = (hi, en) => currentLang === 'en' ? en : currentLang === 'both' ? `${hi} · ${en}` : hi;   /* plain-text labels follow the language buttons */
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 /* plain number fractions in running text (25/100, 1/4) are drawn stacked, like the Physics book's formula boxes */
 const fracText = h => h.replace(/(^|[^\w./])(\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)(?![\w/])/g, (m, pre, a, b) => `${pre}<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`);
@@ -647,8 +654,16 @@ const cur = () => CHAPTERS.find(c => c.id === curCh);
 const noOf = c => CHAPTERS.indexOf(c) + 1;
 const byType = (atoms, t) => atoms.filter(a => a.type === t && a.body);
 const svgImg = svg => `<img alt="" loading="lazy" src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(String(svg || ''))}">`;
+function pageScroller(){ const b = document.body; return (b.scrollHeight > b.clientHeight + 1 && /auto|scroll/.test(getComputedStyle(b).overflowY)) ? b : (document.scrollingElement || document.documentElement); }
 window.__curCh = () => curCh;   /* read by the app shell to count reading time */
 
+const PENDING = () => `<div class="lang-pending" style="display:${currentLang === 'hi' ? 'none' : 'block'}">${H('इस अध्याय का पाठ अभी सिर्फ़ हिंदी में है।', 'English version of this chapter is coming. The content below is shown in Hindi.')}</div>`;
+function setLang(lang){
+  currentLang = lang; try { localStorage.setItem('lvl_lang', lang); } catch (e) {}
+  document.body.dataset.lang = lang;
+  document.querySelectorAll('.lang-toggle .lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  switchTab(document.body.dataset.tabActive || 'notes');
+}
 function setChapter(id){
   const c = CHAPTERS.find(x => x.id === id); if (!c || !c.n) return;
   curCh = id; switchTab(document.body.dataset.tabActive || 'notes');
@@ -679,6 +694,25 @@ function bindMcq(root){
 }
 
 /* ---- the five tabs ---- */
+function topicTitles(atoms){
+  const t = [];
+  byType(atoms, 'concept').forEach(a => t.push(a.title || L('समझो','Concept')));
+  byType(atoms, 'svg').forEach(a => t.push(a.title || L('चित्र','Diagram')));
+  byType(atoms, 'formula').forEach(a => t.push(a.title || L('सूत्र','Formula')));
+  byType(atoms, 'example').forEach(a => t.push(a.title || L('हल किया उदाहरण','Solved example')));
+  if (mcqBlock(atoms)) t.push(L('खुद को जाँचें','Check yourself'));
+  return t;
+}
+function bookGo(tab, i){
+  switchTab(tab).then(() => requestAnimationFrame(() => {
+    const el = document.querySelectorAll(tab === 'teach' ? '#readerContent .teach-sec' : '#readerContent .panel')[i];
+    if (!el) return;
+    el.scrollIntoView({block:'start'});
+    const tb = document.querySelector('.top-bar'), off = (tb ? tb.getBoundingClientRect().height : 56) + 12;
+    try { pageScroller().scrollTop -= off; } catch (e) {}
+    el.classList.add('book-flash'); setTimeout(() => el.classList.remove('book-flash'), 1600);
+  }));
+}
 function bookTab(atoms){
   const c = cur(), n = t => byType(atoms, t).length;
   const chaps = CHAPTERS.map((m, i) => `<button class="book-chap${m.id === curCh ? ' active' : ''}${m.n ? '' : ' soon'}" ${m.n ? `onclick="setChapter(${m.id})"` : 'disabled'}><b>${i + 1}</b>${m.n ? '' : '🔒 '}${esc(noNum(L(m.hi, m.en)))}</button>`).join('');
@@ -688,6 +722,9 @@ function bookTab(atoms){
     + `<div class="book-stats">${esc(LEVEL_NAME)} · ${esc(L(SUBJECT.hi, SUBJECT.en))}<br>${L(`💡 ${n('concept')} समझ · ∑ ${n('formula')} सूत्र · 🧮 ${n('example')} उदाहरण · ✅ ${byType(atoms,'mcq').reduce((a,x)=>a+((x.body.questions||[]).length),0)} सवाल · 🖼️ ${n('svg')} चित्र`,
         `💡 ${n('concept')} concept · ∑ ${n('formula')} formula · 🧮 ${n('example')} example · ✅ ${byType(atoms,'mcq').reduce((a,x)=>a+((x.body.questions||[]).length),0)} questions · 🖼️ ${n('svg')} diagram`)}</div></div></div>`
     + `<div class="book-actions"><button class="book-act" onclick="switchTab('notes')"><b>✦</b>${H('नोट्स','Notes')}</button><button class="book-act" onclick="switchTab('teach')"><b>◉</b>${H('क्लास','Teach')}</button><button class="book-act" onclick="switchTab('formula')"><b>∑</b>${H('सूत्र','Formula')}</button><button class="book-act" onclick="switchTab('diagram')"><b>🖼️</b>${H('चित्र','Diagram')}</button></div>`
+    + (() => { const T = topicTitles(atoms), li = tab => T.map((x, i) => `<li><button class="book-item" onclick="bookGo('${tab}',${i})"><span class="bi-n">${i + 1}.</span><span>${esc(x)}</span></button></li>`).join('');
+        return T.length ? `<div class="book-card"><div class="book-h">${H('📑 नोट्स — विषय-सूची', '📑 Notes — contents')}</div><ol class="book-list">${li('notes')}</ol></div>`
+          + `<div class="book-card"><div class="book-h">${H('🎓 Teach — पाठ', '🎓 Teach — lessons')}</div><ol class="book-list">${li('teach')}</ol></div>` : ''; })()
     + `<div class="book-card"><div class="book-h">${H(`📚 पूरी किताब: ${esc(SUBJECT.hi)} (${rd} तैयार${soon ? `, ${soon} जल्द` : ''})`, `📚 Whole book: ${esc(SUBJECT.en)} (${rd} ready${soon ? `, ${soon} coming soon` : ''})`)}</div><div class="book-chaps">${chaps}</div></div>`
     + '</div>';
 }
@@ -698,22 +735,47 @@ function notesTab(atoms){
   byType(atoms, 'formula').forEach(a => p.push(`<div class="panel purple"><div class="panel-header">✏️ ${esc(a.title || L('सूत्र','Formula'))}</div><div class="panel-body"><div class="formula-box">${fx(a.body.formula)}</div>${a.body.explanation ? `<p>${nl(a.body.explanation)}</p>` : ''}</div></div>`));
   byType(atoms, 'example').forEach(a => p.push(`<div class="panel green"><div class="panel-header">🧮 ${esc(a.title || L('हल किया उदाहरण','Solved example'))}</div><div class="panel-body"><p><strong>${L('सवाल','Question')}:</strong> ${nl(a.body.question)}</p>${a.body.solution ? `<div class="formula-box" style="text-align:left">${fx(a.body.solution)}</div>` : ''}${a.body.answer ? `<div class="lb-ans">✔ ${L('उत्तर','Answer')}: ${nl(a.body.answer)}</div>` : ''}</div></div>`));
   const m = mcqBlock(atoms, true); if (m) p.push(`<div class="panel red"><div class="panel-header">✅ ${L('खुद को जाँचें','Check yourself')}</div><div class="panel-body">${m}</div></div>`);
-  return `<div class="notes-theme"><div class="notes-paper"><div style="text-align:center;font-weight:800;font-size:20px;color:#1d4ed8;margin:4px 0 12px">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))}</div>${p.join('') || `<p>${L('इस अध्याय में अभी सामग्री नहीं।','No content in this chapter yet.')}</p>`}</div></div>`;
+  return `<div class="notes-theme"><div class="notes-paper">${PENDING()}<div style="text-align:center;font-weight:800;font-size:20px;color:#1d4ed8;margin:4px 0 12px">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))}</div>${p.join('') || `<p>${L('इस अध्याय में अभी सामग्री नहीं।','No content in this chapter yet.')}</p>`}</div></div>`;
+}
+let teachLang = 'hindi';
+function setTeachLang(l, btn){
+  teachLang = l;
+  document.querySelectorAll('.lang-switcher .lang-btn').forEach(b => b.classList.toggle('active', b === btn));
+  const pend = document.getElementById('teachPending'); if (pend) pend.style.display = l === 'hindi' ? 'none' : 'block';
 }
 function teachTab(atoms){
   const c = cur(), s = [];
+  teachLang = currentLang === 'en' ? 'english' : currentLang === 'both' ? 'bilingual' : 'hindi';
   byType(atoms, 'concept').forEach(a => s.push(`<div class="teach-sec"><div class="teach-sec-h">💡 ${esc(a.title || L('समझो','Concept'))}</div><div class="teach-text"><p>${nl(a.body.text)}</p>${a.body.note ? `<div class="teach-ex"><strong>${L('याद रखो:','Remember:')}</strong> ${nl(a.body.note)}</div>` : ''}</div></div>`));
   byType(atoms, 'svg').forEach(a => s.push(`<div class="teach-sec"><div class="teach-sec-h">🖼️ ${esc(a.title || L('चित्र से समझो','See it'))}</div><div class="lb-fig">${svgImg(a.body.svg)}</div>${a.body.caption ? `<div class="lb-cap">${esc(a.body.caption)}</div>` : ''}</div>`));
   byType(atoms, 'formula').forEach(a => s.push(`<div class="teach-sec"><div class="teach-sec-h">✏️ ${esc(a.title || L('सूत्र','Formula'))}</div><div class="teach-formula">${fx(a.body.formula)}</div>${a.body.explanation ? `<div class="teach-text"><p>${nl(a.body.explanation)}</p></div>` : ''}</div>`));
   byType(atoms, 'example').forEach(a => s.push(`<div class="teach-sec"><div class="teach-sec-h">🧮 ${L('चलो एक सवाल हल करें','Let us solve one')}</div><div class="teach-text"><div class="teach-ex"><strong>${L('सवाल:','Question:')}</strong> ${nl(a.body.question)}</div>${a.body.solution ? `<div class="teach-formula" style="text-align:left">${fx(a.body.solution)}</div>` : ''}${a.body.answer ? `<div class="lb-ans">✔ ${L('उत्तर','Answer')}: ${nl(a.body.answer)}</div>` : ''}</div></div>`));
   const m = mcqBlock(atoms, false); if (m) s.push(`<div class="teach-sec"><div class="teach-sec-h">✅ ${L('अब तुम बताओ','Your turn')}</div><div class="teach-text">${m}</div></div>`);
-  return `<div class="teach-theme"><div class="teach-title">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))} — ${L('क्लास में आपका स्वागत है!','welcome to the class!')}</div>${s.join('') || `<div class="teach-text"><p>${L('इस अध्याय में अभी सामग्री नहीं।','No content in this chapter yet.')}</p></div>`}</div>`;
+  const langs = [['hindi','हिंदी'],['english','English'],['bilingual','Bilingual'],['hinglish','Hinglish']];
+  const sw = `<div class="lang-switcher">${langs.map(l => `<button class="lang-btn${l[0] === teachLang ? ' active' : ''}" onclick="setTeachLang('${l[0]}', this)">${l[1]}</button>`).join('')}</div>`
+    + `<div class="lang-pending" id="teachPending" style="display:${teachLang === 'hindi' ? 'none' : 'block'}">${H('इस अध्याय का पाठ अभी सिर्फ़ हिंदी में है।', 'English version of this chapter is coming. The content below is shown in Hindi.')}</div>`;
+  return `<div class="teach-theme">${sw}<div class="teach-title">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))} — ${L('क्लास में आपका स्वागत है!','welcome to the class!')}</div>${s.join('') || `<div class="teach-text"><p>${L('इस अध्याय में अभी सामग्री नहीं।','No content in this chapter yet.')}</p></div>`}</div>`;
 }
 function formulaTab(atoms){
-  const f = byType(atoms, 'formula'), c = cur();
-  const cards = f.map((a, i) => `<div class="fcard cat-basic"><div class="top-row"><span class="cat-chip basic">● ${esc(LEVEL_NAME)}</span><span class="counter">${i + 1} / ${f.length}</span></div><div class="fcard-title">${esc(a.title || '')}</div><div class="formula-box-demo">${fx(a.body.formula)}</div>${a.body.explanation ? `<div class="fcard-sub" style="margin-top:4px">${nl(a.body.explanation)}</div>` : ''}</div>`).join('');
-  return `<div class="cards-list" id="formulaCards">${cards || `<div class="pending-card">${L('इस अध्याय में अभी कोई सूत्र नहीं।','No formula in this chapter yet.')}</div>`}</div>`;
+  const f = byType(atoms, 'formula'), ex = byType(atoms, 'example').filter(a => a.body.solution), c = cur(), total = f.length + ex.length;
+  const card = (cat, a, title, body, sub) => `<div class="fcard cat-basic" data-cat="${cat}"><div class="top-row"><span class="cat-chip basic">● ${esc(LEVEL_NAME)}</span><span class="counter"></span></div><div class="fcard-title">${esc(title || '')}</div><div class="formula-box-demo">${body}</div>${sub ? `<div class="fcard-sub" style="margin-top:4px">${nl(sub)}</div>` : ''}</div>`;
+  const cards = f.map(a => card('formula', a, a.title, fx(a.body.formula), a.body.explanation)).join('')
+    + ex.map(a => card('example', a, a.title || L('हल किया उदाहरण','Solved example'), fx(a.body.solution), a.body.question)).join('');
+  const chips = [['all', H('सभी','All'), total], ['formula', H('सूत्र','Formulas'), f.length], ['example', H('हल किए उदाहरण','Worked examples'), ex.length]].filter(x => x[0] === 'all' || x[2])
+    .map(x => `<button class="filter-chip${x[0] === 'all' ? ' active' : ''}" data-filter="${x[0]}">${x[1]} (${x[2]})</button>`).join('');
+  return PENDING() + (total ? `<div class="filter-wrap"><div class="filter-chips" id="formulaChips">${chips}</div></div>` : '')
+    + `<div class="cards-list" id="formulaCards">${cards || `<div class="pending-card">${L('इस अध्याय में अभी कोई सूत्र नहीं।','No formula in this chapter yet.')}</div>`}</div>`
+    + (total ? `<div class="formula-note">${H('👆 ऊपर-नीचे scroll करो — filter chips sticky रहेंगी।<br>Filter दबाओ — उस category के cards दिखेंगे।', '👆 Scroll up and down — filter chips stay sticky.<br>Tap a filter to show only that category.')}</div>` : '');
 }
+function applyFormulaFilter(filter){
+  document.querySelectorAll('#formulaChips .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === filter));
+  const cards = [...document.querySelectorAll('#formulaCards .fcard')];
+  cards.forEach(card => { card.style.display = (filter === 'all' || card.dataset.cat === filter) ? 'flex' : 'none'; });
+  const vis = cards.filter(c => c.style.display !== 'none');
+  vis.forEach((card, i) => { const k = card.querySelector('.counter'); if (k) k.textContent = (i + 1) + ' / ' + vis.length; });
+  try { pageScroller().scrollTo({top:0, behavior:'smooth'}); } catch (e) { window.scrollTo({top:0, behavior:'smooth'}); }
+}
+document.addEventListener('click', e => { const chip = e.target.closest('#formulaChips .filter-chip'); if (chip) applyFormulaFilter(chip.dataset.filter); });
 function diagramTab(atoms){
   const d = byType(atoms, 'svg');
   return `<div class="notes-theme"><div class="notes-paper">${d.map(a => `<div class="panel orange"><div class="panel-header">🖼️ ${esc(a.title || '')}</div><div class="panel-body"><div class="lb-fig">${svgImg(a.body.svg)}</div>${a.body.caption ? `<div class="lb-cap">${esc(a.body.caption)}</div>` : ''}</div></div>`).join('')
@@ -734,9 +796,10 @@ async function switchTab(tab){
   }
   if (seq !== loadSeq) return;
   box.innerHTML = ({book:bookTab, notes:notesTab, teach:teachTab, formula:formulaTab, diagram:diagramTab})[tab](atoms);
-  bindMcq(box); fracify(box);
+  bindMcq(box); fracify(box); if (tab === 'formula') applyFormulaFilter('all');
   window.scrollTo(0, 0); try { (document.scrollingElement || document.documentElement).scrollTop = 0; } catch (e) {}
 }
+document.querySelectorAll('.lang-toggle .lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
 (async function load(){
   const msg = t => { const m = document.getElementById('bookLoadingMsg'); if (m) m.innerHTML = t; };
   try {
