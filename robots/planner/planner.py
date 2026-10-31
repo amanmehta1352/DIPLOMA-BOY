@@ -90,7 +90,7 @@ def syllabus_handover(units_path, prev_path, out_dir, level='medical', exam='NEE
     """Reads the reader's output, compares with the last run, writes syllabus_return.json.
     If the number of missing units changed, a command goes to the Health Robot (visible in the Control Room)."""
     doc = json.load(open(units_path, encoding='utf-8')) if os.path.exists(units_path) else {'documents': []}
-    units = [u for d in doc.get('documents', []) if 'units' in d for u in d['units']]
+    units = [u for d in doc.get('documents', []) if 'units' in d and d.get('level', level) == level for u in d['units']]
     titles = [c['e'] for c in json.load(open(os.path.join(ROOT, 'robots', 'writer', 'chapters.json'), encoding='utf-8')) if c['l'] == level]
     ret = syllabus_return(units, titles)
     ret.update({'level': level, 'exam': exam, 'chapters_in_level': len(titles), 'note': 'word match only; check the list by hand'})

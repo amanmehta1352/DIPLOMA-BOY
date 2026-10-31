@@ -42,6 +42,17 @@ def read_pdf(url):
     finally: os.unlink(name)
 
 
+def text_lines(text, limit=600):
+    """Generic: keep meaningful lines (for syllabus documents that are not 'UNIT n' style). Pure."""
+    out = []
+    for raw in text.splitlines():
+        line = re.sub(r'\s+', ' ', raw).strip()
+        if len(line) < 12 or re.fullmatch(r'[\d\s.,/-]+', line): continue
+        out.append(line)
+        if len(out) >= limit: break
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--state', required=True); ap.add_argument('--out', default='out'); a = ap.parse_args()
     st = json.load(open(a.state, encoding='utf-8')) if os.path.exists(a.state) else {}
@@ -55,12 +66,23 @@ def main():
     seen, pick = set(), []
     for d in (preferred or docs):
         if d['source'] not in seen: seen.add(d['source']); pick.append(d)
+    # explicit official PDFs (official_pdfs.json): read every day, whatever the watcher found
+    try:
+        here = os.path.dirname(os.path.abspath(__file__))
+        for o in json.load(open(os.path.join(here, 'official_pdfs.json'), encoding='utf-8'))['documents']:
+            pick.append({'source': o['id'], 'label': o['exam'] + ' (' + o.get('year', '') + ')', 'url': o['url'], 'parser': o.get('parser', 'text'), 'level': o.get('level')})
+    except Exception as e: print('official list not read:', type(e).__name__)
     result = {'schema': 1, 'documents': []}
     for d in pick:
         try:
-            units = parse_units(read_pdf(d['url']))
-            result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'units': units})
-            print(f"read {d['label'][:60]!r}: {len(units)} units")
+            txt = read_pdf(d['url'])
+            if d.get('parser') == 'text':
+                result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'level': d.get('level'), 'lines': text_lines(txt)})
+                print(f"read {d['label'][:60]!r}: {len(text_lines(txt))} lines")
+            else:
+                units = parse_units(txt)
+                result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'units': units})
+                print(f"read {d['label'][:60]!r}: {len(units)} units")
         except Exception as e:
             result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'error': type(e).__name__ + ': ' + str(e)[:160]})
             print('failed', d['label'][:60], type(e).__name__)
