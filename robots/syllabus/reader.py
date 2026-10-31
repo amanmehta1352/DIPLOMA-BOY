@@ -42,9 +42,11 @@ def read_pdf(url):
             with urllib.request.urlopen(req, timeout=150) as r: data = r.read()
             break
         except Exception as e:
-            last = e; time.sleep(20 * (attempt + 1))
+            last = e
+            if attempt < 2: time.sleep(20 * (attempt + 1))   # no wait after the last try
     if data is None: raise last
-    with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as f: f.write(data); name = f.name
+    with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as f:
+        f.write(data); name = f.name
     try:
         with pdfplumber.open(name) as p: return '\n'.join((pg.extract_text() or '') for pg in p.pages)
     finally: os.unlink(name)
