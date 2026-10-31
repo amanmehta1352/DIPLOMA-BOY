@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "note": "How much content each chapter should have, per level. Edit numbers here (reviewed in git). A level missing from 'levels' uses 'default'. Solutions = approved step-by-step solutions (solution_items).",
+  "default": { "concept": 4, "formula": 3, "example": 3, "mcq": 10, "solution": 10 },
+  "levels": {}
+}
