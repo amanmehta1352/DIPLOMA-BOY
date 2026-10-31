@@ -44,3 +44,9 @@ assert A['covered'] == 0 and A['missing'] == ['IC Engine Cycles'], A
 B = P.topic_return(['IC Engine Cycles'], ['IC Engine Cycles and Performance'])
 assert B['covered'] == 1, B
 print('topic return selftest OK')
+# synonyms: "Kinematics" is covered by a chapter called "Motion in a Straight Line" (listed pair), but not by an unrelated chapter
+S = P.topic_return(['Kinematics', 'Electrostatics'], ['Motion in a Straight Line', 'Electric Charges'], syn=P.load_synonyms())
+assert S['covered'] == 2 and S['missing'] == [], S
+N = P.topic_return(['Kinematics'], ['Electric Charges'], syn=P.load_synonyms())
+assert N['covered'] == 0, N
+print('synonym selftest OK')

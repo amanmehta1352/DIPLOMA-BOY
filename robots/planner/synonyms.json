@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "note": "Words that mean the same thing in a syllabus and in our chapter names. Pairs are checked both ways. Keep this list short and reviewed: a wrong pair hides a missing topic.",
+  "pairs": [
+    ["kinematics", "motion"],
+    ["electrostatics", "electric"],
+    ["thermodynamics", "heat"],
+    ["optics", "light"],
+    ["alternating", "ac"],
+    ["magnetism", "magnetic"],
+    ["semiconductor", "semiconductors"],
+    ["sound", "waves"],
+    ["gravitation", "gravity"]
+  ]
+}

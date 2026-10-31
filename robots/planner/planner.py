@@ -121,12 +121,30 @@ def is_topic(part):
     return True
 
 
-def topic_return(lines, chapter_titles):
+def load_synonyms():
+    try:
+        pairs = json.load(open(os.path.join(HERE, 'synonyms.json'), encoding='utf-8'))['pairs']
+    except Exception:
+        return {}
+    m = {}
+    for a, b in pairs:
+        m.setdefault(a, set()).add(b); m.setdefault(b, set()).add(a)
+    return m
+
+
+def expand(tokens, syn):
+    out = set(tokens)
+    for t in tokens: out |= syn.get(t, set())
+    return out
+
+
+def topic_return(lines, chapter_titles, syn=None):
     """Pure: which topics have no matching chapter. A line is split on commas and semicolons, so each topic is compared
     on its own. A topic is covered when at least 60% of its words appear in one chapter title, and every abbreviation
     in it (IC, RCC, ...) appears in that title too."""
     stop = {'and', 'of', 'the', 'in', 'to', 'a', 'an', 'for', 'with', 'its', 'on', 'by', 'or', 'etc', 'based', 'use', 'uses'}
-    titles = [_toks(t)[0] - stop for t in chapter_titles]
+    syn = load_synonyms() if syn is None else syn
+    titles = [expand(_toks(t)[0] - stop, syn) for t in chapter_titles]
     seen, covered, missing = set(), 0, []
     for line in lines:
         for part in split_topics(line):
