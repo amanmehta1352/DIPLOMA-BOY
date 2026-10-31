@@ -97,8 +97,23 @@ def _toks(s):
 QUESTION = re.compile(r'\?|^(what|how|why|when|which|who|is|are|can|do|does|should|will)\b|\b(is|are|was|were|covers|includes|marks|questions|exam|eligibility|salary|syllabus pdf|download)\b', re.I)
 
 
+def split_topics(line):
+    """Pure: split on commas and semicolons that are outside brackets; drop table bars and broken brackets."""
+    out, cur, depth = [], '', 0
+    for ch in line.replace('|', ' ').replace('\u2022', ' '):
+        if ch in '([': depth += 1
+        elif ch in ')]': depth = max(0, depth - 1)
+        if ch in ',;' and depth == 0:
+            out.append(cur); cur = ''
+        else:
+            cur += ch
+    out.append(cur)
+    return [re.sub(r'\s+', ' ', p).strip() for p in out]
+
+
 def is_topic(part):
-    """Pure: a short noun-phrase topic, not a sentence, question, FAQ or page text."""
+    """Pure: a short noun-phrase topic, not a sentence, question, FAQ or page text. Brackets must be balanced."""
+    if part.count('(') != part.count(')') or part.count('[') != part.count(']'): return False
     words = part.split()
     if not 1 <= len(words) <= 8: return False
     if QUESTION.search(part): return False
@@ -114,8 +129,7 @@ def topic_return(lines, chapter_titles):
     titles = [_toks(t)[0] - stop for t in chapter_titles]
     seen, covered, missing = set(), 0, []
     for line in lines:
-        for part in re.split(r'[,;]', line):
-            part = part.strip()
+        for part in split_topics(line):
             if not is_topic(part): continue
             need, abbr = _toks(part)
             need = need - stop
