@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "note": "Official syllabus PDFs, with the level they serve. Found on official sites (NTA, NMC, SSC, RRB, NCERT) by search on 31 Oct 2026. The reader reads each one every day. 'year' says which cycle the document belongs to. NEET UG is read from the NTA page by the watcher (same document), so it is not repeated here.",
+  "documents": [
+    {
+      "id": "ssc-je-indicative",
+      "level": "govt_technical",
+      "exam": "SSC JE (Civil, Mechanical, Electrical)",
+      "year": "current",
+      "url": "https://ssc.nic.in/Downloads/portal/english/Syllabus-JE%20Eamination.pdf",
+      "parser": "text",
+      "note": "SSC 'Indicative Syllabus' for Junior Engineers."
+    },
+    {
+      "id": "rrb-je-cen03-2024",
+      "level": "govt_technical",
+      "exam": "RRB JE (CEN 03/2024)",
+      "year": "2024",
+      "url": "https://www.rrbkolkata.gov.in/file/CEN%2003%202024_JE_English.pdf",
+      "parser": "text",
+      "note": "Official RRB notice of an earlier cycle; used until the CEN 04/2026 main notification PDF is found."
+    },
+    {
+      "id": "ncert-physics-xi-xii",
+      "level": "class_11_12_sci",
+      "exam": "NCERT Physics (XI-XII)",
+      "year": "current",
+      "url": "https://ncert.nic.in/pdf/syllabus/desm_s_Physics.pdf",
+      "parser": "text",
+      "note": "NCERT / CBSE syllabus for Physics classes XI-XII."
+    }
+  ]
+}
