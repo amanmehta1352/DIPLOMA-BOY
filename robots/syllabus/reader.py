@@ -52,6 +52,28 @@ def read_pdf(url):
     finally: os.unlink(name)
 
 
+def html_text(raw):
+    """Pure: HTML page -> visible text (scripts, styles and tags removed)."""
+    t = re.sub(r'(?is)<(script|style|noscript|nav|footer|header)[^>]*>.*?</\1>', ' ', raw)
+    t = re.sub(r'(?i)<br\s*/?>|</(p|li|h[1-6]|tr|div)>', '\n', t)
+    t = re.sub(r'(?s)<[^>]+>', ' ', t)
+    import html as H
+    return H.unescape(t)
+
+
+def fetch_html(url):
+    import time
+    last = None
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (diploma-boy-syllabus-reader)'})
+            with urllib.request.urlopen(req, timeout=120) as r: return r.read().decode('utf8', 'ignore')
+        except Exception as e:
+            last = e
+            if attempt < 2: time.sleep(15 * (attempt + 1))
+    raise last
+
+
 def text_lines(text, limit=600):
     """Generic: keep meaningful lines (for syllabus documents that are not 'UNIT n' style). Pure."""
     out = []
@@ -76,14 +98,24 @@ def main():
     seen, pick = set(), []
     for d in (preferred or docs):
         if d['source'] not in seen: seen.add(d['source']); pick.append(d)
-    # explicit official PDFs (official_pdfs.json): read every day, whatever the watcher found
-    try:
-        here = os.path.dirname(os.path.abspath(__file__))
-        for o in json.load(open(os.path.join(here, 'official_pdfs.json'), encoding='utf-8'))['documents']:
-            pick.append({'source': o['id'], 'label': o['exam'] + ' (' + o.get('year', '') + ')', 'url': o['url'], 'parser': o.get('parser', 'text'), 'level': o.get('level')})
-    except Exception as e: print('official list not read:', type(e).__name__)
+    # explicit lists, read every day: official PDFs and third-party syllabus pages
+    here = os.path.dirname(os.path.abspath(__file__))
+    for fname in ('official_pdfs.json', 'third_party.json'):
+        try:
+            for o in json.load(open(os.path.join(here, fname), encoding='utf-8'))['documents']:
+                pick.append({'source': o['id'], 'label': o['exam'] + ' (' + o.get('year', '') + ')' if o.get('year') else o['exam'], 'url': o['url'], 'parser': o.get('parser', 'text'), 'level': o.get('level')})
+        except Exception as e: print(fname, 'not read:', type(e).__name__)
     result = {'schema': 1, 'documents': []}
     for d in pick:
+        if d.get('parser') == 'html':
+            try:
+                lines = text_lines(html_text(fetch_html(d['url'])))
+                result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'level': d.get('level'), 'lines': lines})
+                print(f"read page {d['label'][:60]!r}: {len(lines)} lines")
+            except Exception as e:
+                result['documents'].append({'source': d['source'], 'label': d['label'], 'url': d['url'], 'error': type(e).__name__ + ': ' + str(e)[:160]})
+                print('failed page', d['label'][:60], type(e).__name__)
+            continue
         try:
             txt = read_pdf(d['url'])
             if d.get('parser') == 'text':
