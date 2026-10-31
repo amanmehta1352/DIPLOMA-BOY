@@ -37,5 +37,6 @@ R = P.syllabus_return(U, ['Units & Measurement', 'Force & Laws of Motion', 'Resp
 assert R['covered'] == 2 and [m['unit'] for m in R['missing']] == ['9'], R
 print('syllabus return selftest OK')
 T = P.topic_return(['Structural Analysis', 'Concrete Structures', 'Thermodynamics basics and heat engines', 'Login'], ['Structural Analysis of Frames', 'Concrete'])
-assert T['covered'] == 1 and T['missing'] == ['Thermodynamics basics and heat engines'], T   # 'Login' is 1 word: skipped
+# 'Structural Analysis' is covered; 'Concrete Structures' has only half its words in 'Concrete' (below 60%), so it is missing; 'Login' is 1 word: skipped
+assert T['covered'] == 1 and T['missing'] == ['Concrete Structures', 'Thermodynamics basics and heat engines'], T
 print('topic return selftest OK')
