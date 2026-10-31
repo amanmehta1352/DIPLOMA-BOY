@@ -82,9 +82,16 @@ def list_items(raw):
     """Pure: the text of each <li> (topic lists on coaching pages), short menu items removed, duplicates removed."""
     import html as H
     out = []
-    for x in re.findall(r'(?is)<li[^>]*>(.*?)</li>', raw):
-        t = re.sub(r'(?s)<[^>]+>', ' ', x); t = re.sub(r'\s+', ' ', H.unescape(t)).strip()
+    def add(t):
+        t = re.sub(r'\s+', ' ', H.unescape(re.sub(r'(?s)<[^>]+>', ' ', t))).strip()
         if 6 <= len(t) <= 120 and not MENU.search(t) and t not in out: out.append(t)
+    for x in re.findall(r'(?is)<li[^>]*>(.*?)</li>', raw): add(x)
+    # table cells with a comma list of topics: one topic per comma (e.g. "Engineering Mechanics, Strength of Materials, ...")
+    for x in re.findall(r'(?is)<td[^>]*>(.*?)</td>', raw):
+        t = re.sub(r'\s+', ' ', H.unescape(re.sub(r'(?s)<[^>]+>', ' ', x))).strip()
+        if len(t) >= 20 and ',' in t and not MENU.search(t):
+            for part in t.split(','):
+                add(part.split(':')[-1])
     return out
 
 
