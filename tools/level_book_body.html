@@ -411,7 +411,8 @@ document.addEventListener('click', e => {
 });
 /* a worked answer written out on the notebook (all steps shown), used under every practice question */
 const expSteps = t => String(t || '').replace(/^\s*(✔|✘)?\s*(correct|सही)[!।.:]?\s*/i, '')
-  .split(/\n|(?<=।)\s+|;\s+|(?<=[.!?])\s+(?=[A-Z(\u0900-\u097F])|\s*(?:⇒|=>)\s*/).map(x => x.trim()).filter(Boolean);
+  .split(/\n|(?<=।)\s+|;\s+|(?<=[.!?])\s+(?=[A-Z(\u0900-\u097F])|\s*(?:⇒|=>)\s*/).map(x => x.trim()).filter(Boolean)
+  .filter(x => !/^(अतः\s*)?(सही\s*)?उत्तर\s*[=:]?\s*\d?\s*$|^hence,?\s*answer\s*[=:]?\s*\d?\s*$/i.test(x));   /* the circled right option below is the answer line */
 function nbSolution(steps, answer){
   return `<div class="nb-card"><div class="nb-q"><small>${L('हल','Solution')}</small></div>`
     + arr(steps).map(x => `<div class="nb-step on"><span class="nb-arr">➔</span>${nbMath(x)}</div>`).join('')
