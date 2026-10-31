@@ -53,13 +53,23 @@ function coverageHtml(c) {
   return `<div class="card"><div class="row"><div><b>कुल भराव ${num(c.total.pct)}%</b><small>${num(c.total.chapters_full)} / ${num(c.total.chapters)} chapter पूरे</small></div></div></div>
   <div class="card"><table><thead><tr><th>Level</th><th>chapter</th><th>पूरे</th><th>भराव</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
+function syllabusHtml(sy) {
+  if (!sy) return '<p class="empty">सिलेबस की रिपोर्ट अभी नहीं आई</p>';
+  const lv = Object.entries(sy.levels || {}).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${num(v.topics)}</td><td>${num(v.covered)}</td><td>${num(v.missing_count)}</td><td>${v.incomplete ? 'अधूरा' : ''}</td></tr>`).join('');
+  const med = sy.medical ? `<div class="card"><b>NEET UG (official PDF)</b><small>${num(sy.medical.units)} units · हमारे chapters में ${num(sy.medical.covered)} · missing ${num((sy.medical.missing || []).length)} (पहले 25)</small>${(sy.medical.missing || []).map(t => `<small>• ${esc(t)}</small>`).join('')}</div>` : '';
+  const ul = (arr) => (arr || []).map(t => `<small>• ${esc(t)}</small>`).join('');
+  return `<div class="stale">${esc(sy.note || 'मसौदा')}</div>${med}
+  <div class="card"><table><thead><tr><th>Level</th><th>topics</th><th>मिले</th><th>missing</th><th></th></tr></thead><tbody>${lv}</tbody></table></div>
+  ${Object.entries(sy.levels || {}).map(([k, v]) => `<div class="card"><b>${esc(k)} · missing (पहले 25)</b>${ul(v.missing)}</div>`).join('')}`;
+}
 function vQuestions(st) {
   const n = st.numbers || {}, by = n.by_exam || {};
   const rows = Object.keys(by).sort().map(k => `<tr><td>${esc(k)}</td><td>${num(by[k].published)}</td><td>${num(by[k].draft)}</td><td>${num(by[k].hidden)}</td></tr>`).join('');
   return `<div class="card"><div class="row"><div><b>कुल सवाल ${num(n.total)}</b><small>live ${num(n.published)} · draft ${num(n.draft)} · hidden ${num(n.hidden)}</small></div></div></div>
   <h2>Live सवाल (समय के साथ)</h2><div class="card">${spark(S.hist.map(x => x.published).filter(v => typeof v === 'number'))}</div>
   <h2>Exam के हिसाब से</h2><div class="card"><table><thead><tr><th>Exam</th><th>live</th><th>draft</th><th>hidden</th></tr></thead><tbody>${rows}</tbody></table></div>
-  <h2>Content योजना (level-wise भराव)</h2>${coverageHtml(st.coverage)}`;
+  <h2>Content योजना (level-wise भराव)</h2>${coverageHtml(st.coverage)}
+  <h2>सिलेबस (मसौदा)</h2>${syllabusHtml(st.syllabus)}`;
 }
 function vRobots(st) {
   const wf = S.app.workflows || {}, repo = S.app.repo;

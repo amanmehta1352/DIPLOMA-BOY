@@ -52,6 +52,10 @@ def collect():
     """Live inputs. Every part is optional: a failing source becomes a red check, never a crash."""
     d = {'errors': {}}
     try:
+        s, b = http(f'https://raw.githubusercontent.com/{REPO}/syllabus-state/syllabus_return.json?h={int(time.time())}')
+        d['syllabus'] = json.loads(b)
+    except Exception as e: d['syllabus'] = None; d['errors']['syllabus'] = type(e).__name__
+    try:
         sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'planner'))
         import planner; d['coverage'] = planner.run()
     except Exception as e: d['coverage'] = None; d['errors']['coverage'] = str(e)[:200]
@@ -146,8 +150,17 @@ def build(d, prev=None, at=None):
     status = {'schema': 1, 'app': APP, 'at': iso(at), 'overall': overall, 'checks': checks, 'robots': robots,
               'numbers': {'published': tot('published'), 'draft': tot('draft'), 'hidden': tot('hidden'), 'by_exam': by, 'total': (db or {}).get('total')},
               'backup_verify': d.get('backup_verify'), 'site': {'url': SITE, **site}, 'errors': d.get('errors', {}),
-              'coverage': d.get('coverage')}
+              'coverage': d.get('coverage'), 'syllabus': syllabus_summary(d.get('syllabus'))}
     return status
+
+def syllabus_summary(r):
+    """Counts and the first 25 missing topics per level, from the syllabus reader. Marked as a draft (not checked by a person)."""
+    if not r: return None
+    out = {'draft': True, 'note': 'मसौदा: अभी किसी ने जाँचा नहीं है। शब्द-मिलान पर आधारित।', 'medical': {'units': r.get('units'), 'covered': r.get('covered'), 'missing': [m['title'] for m in (r.get('missing') or [])][:25]}, 'levels': {}}
+    for lv, v in (r.get('pages') or {}).items():
+        out['levels'][lv] = {'topics': v.get('topics'), 'covered': v.get('covered'), 'missing_count': len(v.get('missing') or []),
+                             'missing': (v.get('missing') or [])[:25], 'chapters': v.get('chapters_in_level'), 'incomplete': bool(v.get('incomplete'))}
+    return out
 
 def history_row(st):
     n = st['numbers']; f = next((c['count'] for c in st['checks'] if c['id'] == 'lock'), None)
