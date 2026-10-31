@@ -36,3 +36,6 @@ U = [{'subject': 'PHYSICS', 'unit': '1', 'title': 'PHYSICS AND MEASUREMENT'}, {'
 R = P.syllabus_return(U, ['Units & Measurement', 'Force & Laws of Motion', 'Respiration in Plants'])
 assert R['covered'] == 2 and [m['unit'] for m in R['missing']] == ['9'], R
 print('syllabus return selftest OK')
+T = P.topic_return(['Structural Analysis', 'Concrete Structures', 'Thermodynamics basics and heat engines', 'Login'], ['Structural Analysis of Frames', 'Concrete'])
+assert T['covered'] == 1 and T['missing'] == ['Thermodynamics basics and heat engines'], T   # 'Login' is 1 word: skipped
+print('topic return selftest OK')

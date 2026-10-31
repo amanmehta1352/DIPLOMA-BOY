@@ -86,6 +86,22 @@ def run(offline=False):
     return coverage(chapters, atoms, sols, targets)
 
 
+def topic_return(lines, chapter_titles):
+    """Pure: which topic lines from the watched pages have no matching chapter (word overlap, >= 60% of the topic's words)."""
+    stop = {'and', 'of', 'the', 'in', 'to', 'a', 'an', 'for', 'with', 'its', 'on', 'by', 'or', 'etc', 'based', 'use', 'uses'}
+    words = lambda s: {w for w in re.findall(r'[a-z]+', s.lower()) if w not in stop and len(w) > 2}
+    titles = [words(t) for t in chapter_titles]
+    seen, covered, missing = set(), 0, []
+    for l in lines:
+        need = words(l)
+        if len(need) < 2 or frozenset(need) in seen: continue
+        seen.add(frozenset(need))
+        best = max((len(need & t) / len(need) for t in titles), default=0)
+        if best >= 0.6: covered += 1
+        else: missing.append(l)
+    return {'topics': len(seen), 'covered': covered, 'missing': missing}
+
+
 def syllabus_handover(units_path, prev_path, out_dir, level='medical', exam='NEET UG'):
     """Reads the reader's output, compares with the last run, writes syllabus_return.json.
     If the number of missing units changed, a command goes to the Health Robot (visible in the Control Room)."""
@@ -94,6 +110,17 @@ def syllabus_handover(units_path, prev_path, out_dir, level='medical', exam='NEE
     titles = [c['e'] for c in json.load(open(os.path.join(ROOT, 'robots', 'writer', 'chapters.json'), encoding='utf-8')) if c['l'] == level]
     ret = syllabus_return(units, titles)
     ret.update({'level': level, 'exam': exam, 'chapters_in_level': len(titles), 'note': 'word match only; check the list by hand'})
+    # topic lines from the coaching/syllabus pages, per level (govt_technical: SSC JE + RRB JE)
+    pages = {}
+    for d in doc.get('documents', []):
+        if 'lines' in d and d.get('level'):
+            pages.setdefault(d['level'], []).extend(d['lines'])
+    ptitles = {}
+    for lv, lines in pages.items():
+        ct = [c['e'] for c in json.load(open(os.path.join(ROOT, 'robots', 'writer', 'chapters.json'), encoding='utf-8')) if c['l'] == lv]
+        ptitles[lv] = topic_return(lines, ct)
+        ptitles[lv]['chapters_in_level'] = len(ct)
+    ret['pages'] = ptitles
     prev = {}
     if prev_path and os.path.exists(prev_path):
         try: prev = json.load(open(prev_path, encoding='utf-8'))
