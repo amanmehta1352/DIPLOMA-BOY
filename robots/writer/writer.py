@@ -131,6 +131,17 @@ def shuffle_options(d, seed):
     return d
 
 
+def tidy_explanations(d):
+    """The circled right option is shown under every worked answer, so a closing 'अतः उत्तर = …' line is dropped
+    (AI writers often put an option number there, which is wrong after the options are mixed)."""
+    for x in d.get('practice', []):
+        if isinstance(x, dict) and isinstance(x.get('explanation'), str):
+            lines = [l for l in x['explanation'].split('\n') if l.strip()]
+            while lines and re.match(r'^\s*(अतः\s*)?(सही\s*)?उत्तर\s*[=:]', lines[-1]): lines.pop()
+            x['explanation'] = '\n'.join(lines)
+    return d
+
+
 def second_opinion(d):
     qs = [{'n': i, 'q': x['q'], 'options': x['options']} for i, x in enumerate(d.get('practice', []))]
     prompt = ('Solve each multiple-choice question carefully. Reply only with JSON: {"answers": [index, ...]} '
@@ -188,7 +199,7 @@ def main():
           status, checks, model, data = 'rejected', {}, None, None
           try:
               txt, model = gemini(prompt, WRITE_MODELS)
-              data = shuffle_options(parse_json(txt), want)
+              data = tidy_explanations(shuffle_options(parse_json(txt), want))
               prob = check_structure(data, want)
               checks['structure'] = prob
               if not prob:
