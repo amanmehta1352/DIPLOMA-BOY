@@ -31,6 +31,18 @@
       "exam": "NCERT books (base of most syllabi)",
       "url": "https://ncert.nic.in",
       "verify": true
+    },
+    {
+      "id": "rrb-apply",
+      "exam": "RRB JE / NTPC (CEN notifications)",
+      "url": "https://www.rrbapply.gov.in",
+      "verify": true
+    },
+    {
+      "id": "rrb-indianrailways",
+      "exam": "RRB notices (official)",
+      "url": "https://rrb.indianrailways.gov.in",
+      "verify": true
     }
   ]
 }
