@@ -1,0 +1,55 @@
+You write ONE solved question for an Indian exam-prep app. Output ONLY one JSON object in the exact contract below.
+No text outside the JSON.
+
+Level: {level_en} ({depth})
+Subject: {subject_en}; chapter: {chapter_en} ({chapter_hi})
+Topic: {topic_en}; question type: {type_en} ({type_hi}); difficulty: {difficulty} (1 easy - 3 hard)
+Already written in this chapter (do NOT repeat these questions): {previous}
+
+Rules:
+1. Write your own original question (never copy a book or website). Realistic exam style for this level.
+2. Give 2 to 4 genuinely different methods (e.g. Base-100, Fraction, Formula, Table, Bar Model, Venn, Shortcut,
+   Unit analysis, Ratio). The first method is the safest universal one ("primary": true); a fast exam method is also
+   "primary": true; extra visual or shortcut methods are "primary": false.
+   Every method must reach the SAME final answer; answer.value is that answer as a plain number (no unit, no % sign)
+   or, only if the answer is not a number, a short text.
+3. Every text field has both "en" and "hi". Hindi is simple spoken Hindi; technical words may stay in English.
+4. Each step is one small move: "en"/"hi" explain it in words (one short sentence), "html" shows the written work.
+5. "html" may use ONLY the following (no other tags, attributes, styles or classes):
+   <div class="arr">➔</div> at the start of a written line
+   <span class="rough-line">value</span> for an important intermediate value
+   <span class="rough-circle">answer</span> ONLY in the last step of each method, around the final answer
+   <span class="frac"><span class="num">a</span><span class="den">b</span></span> for a fraction (plain a/b of two numbers is also fine)
+   <b>unit</b> for units; in Physics/Chemistry/Engineering EVERY unit is bold, e.g. <b>m/s²</b>, <b>mol/L</b>, <b>kΩ</b>
+   <sub>, <sup>, <br>
+   Table (3 cells per row):
+   <div class="rough-table"><div>head</div><div>head</div><div>head</div><div>v</div><div>v</div><div>v</div></div>
+   with <div class="arr-down">↓ +15</div> cells for a change row
+   Bar model: <div class="bar-container"><div class="bar-row"><div class="bar bar-inc" style="width:100%">Income (100)</div></div>
+   <div class="bar-row"><div class="bar bar-exp" style="width:60%">Exp (60)</div><div class="bar bar-sav" style="width:40%">Sav (40)</div></div></div>
+   (widths in one bar-row must add up to at most 100%; scale bars to the largest value)
+   Venn (two sets): <div class="venn-container"><div class="venn-circle v-left"></div><div class="venn-circle v-right"></div>
+   <div class="v-overlap">Both<br>10%</div><div class="v-label-left">A: 40%</div><div class="v-label-right">B: 50%</div></div>
+6. Add "why" only on the step where a student usually asks "why?"; add "trap" (start with ⚠️) only on the step where
+   students usually make a known mistake. Each under 25 words. Omit the keys otherwise.
+7. "viz": a pie chart ONLY if the question is about parts of a whole (pct values total at most 100), else null.
+8. "quiz": one concept question (not a recalculation of the same numbers), 3 options, "answer" = index 0-2, "explain".
+9. "formulas": 2 to 5 formulas or rules used, each in en and hi.
+10. Recalculate every number twice before answering.
+
+Contract:
+{"topic": {"key": "{topic_key}", "en": "{topic_en}", "hi": "{topic_hi}"},
+ "type": {"key": "{type_key}", "en": "{type_en}", "hi": "{type_hi}"},
+ "difficulty": {difficulty},
+ "q": {"en": "...", "hi": "..."},
+ "viz": null,
+ "methods": [
+   {"key": "base100", "primary": true, "name": {"en": "Base-100 (Universal)", "hi": "Base-100 (पक्का तरीका)"},
+    "steps": [ {"en": "...", "hi": "...", "html": "<div class=\"arr\">➔</div> ...", "why": {"en": "...", "hi": "..."}},
+               {"en": "...", "hi": "...", "html": "<div class=\"arr\">➔</div> ... = <span class=\"rough-circle\">...</span>",
+                "trap": {"en": "⚠️ ...", "hi": "⚠️ ..."}} ],
+    "answer": {"en": "15% Increase", "hi": "15% वृद्धि", "value": 15, "unit": "%"}}
+ ],
+ "quiz": {"q": {"en": "...", "hi": "..."}, "options": [{"en": "...", "hi": "..."}, {"en": "...", "hi": "..."}, {"en": "...", "hi": "..."}],
+          "answer": 0, "explain": {"en": "...", "hi": "..."}},
+ "formulas": [{"en": "...", "hi": "..."}]}

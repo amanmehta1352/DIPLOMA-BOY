@@ -200,6 +200,20 @@ const check = (name, v) => (v ? ok : bad).push(name);
   const pr = await ctx.newPage(); await pr.goto(URL + 'level-book.html?l=govt_technical&s=maths&ch=1&review=WRONGCODEWRONGCODEWRONG'); await pr.waitForTimeout(4000);
   check('wrong review code shows no draft', (await pr.$$eval('.lb-review', e => e.length)) === 0 && (await pr.$$eval('.lb-mcq', e => e.length)) === 0);
   await pr.close();
+  // Step-by-step solutions page (owner's masterclass format) from server data; unsafe html is removed
+  const B2 = (e, h) => ({en: e, hi: h}), stp = h => ({en: 'Step.', hi: 'कदम।', html: h});
+  const sol = {topic: {key: 'e', ...B2('Election', 'चुनाव')}, type: {key: 't', ...B2('Two', 'दो')}, q: B2('Q 60%', 'सवाल 60%'),
+    methods: [{key: 'a', primary: true, name: B2('Base-100', 'Base-100'), steps: [stp('<div class="arr">➔</div> 20% <img src=x onerror="window.HACK=1">'), stp('<span class="rough-circle">6000</span>')], answer: {...B2('6000', '6000'), value: 6000}},
+              {key: 'b', primary: true, name: B2('Fraction', 'भिन्न'), steps: [stp('1/5'), stp('<span class="rough-circle">6000</span>')], answer: {...B2('6000', '6000'), value: 6000}}],
+    quiz: {q: B2('q', 'q'), options: [B2('a', 'क'), B2('b', 'ख'), B2('c', 'ग')], answer: 1}};
+  const ps = await ctx.newPage(); const serr = []; ps.on('pageerror', e => serr.push(e.message));
+  await ps.route('**/rest/v1/rpc/get_chapter_solutions', r => r.fulfill({json: [{slot: 1, data: sol}]}));
+  await ps.goto(URL + 'solve.html?l=govt_technical&ch=1'); await ps.waitForTimeout(1500);
+  check('solutions page: 2 method tabs', (await ps.$$eval('.m-tab', e => e.length)) === 2);
+  await ps.click('#next-btn'); await ps.click('#next-btn'); await ps.waitForTimeout(400);
+  check('solutions page: steps reveal one by one, answer shown', (await ps.$$eval('.math-step.visible', e => e.length)) === 2 && await ps.isVisible('#ans-box'));
+  check('solutions page: unsafe html removed', (await ps.$$eval('.math-step img', e => e.length)) === 0 && !(await ps.evaluate(() => window.HACK)) && serr.length === 0);
+  await ps.close();
   await b.close(); srv.close();
   console.log('PASS', ok.length, ok.join(' | '));
   if (bad.length) { console.log('FAIL', bad.length, bad.join(' | ')); if (errs.length) console.log('errors:', errs); process.exit(1); }
