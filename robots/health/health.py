@@ -51,6 +51,10 @@ def collect():
     """Live inputs. Every part is optional: a failing source becomes a red check, never a crash."""
     d = {'errors': {}}
     try:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'planner'))
+        import planner; d['coverage'] = planner.run()
+    except Exception as e: d['coverage'] = None; d['errors']['coverage'] = type(e).__name__
+    try:
         t = time.time(); s, b = http(SITE + '?health=' + str(int(t))); d['site'] = {'ok': s == 200, 'bytes': len(b), 'ms': int((time.time() - t) * 1000)}
         s, b = http(SITE + 'sw.js?h=' + str(int(t))); import re; m = re.search(r"VERSION\s*=\s*'([^']+)'", b.decode('utf8', 'ignore')); d['site']['sw'] = m.group(1) if m else None
     except Exception as e: d['site'] = {'ok': False}; d['errors']['site'] = type(e).__name__
@@ -140,7 +144,8 @@ def build(d, prev=None, at=None):
     by = (db or {}).get('by_exam', {}); tot = lambda k: sum((v.get(k) or 0) for v in by.values())
     status = {'schema': 1, 'app': APP, 'at': iso(at), 'overall': overall, 'checks': checks, 'robots': robots,
               'numbers': {'published': tot('published'), 'draft': tot('draft'), 'hidden': tot('hidden'), 'by_exam': by, 'total': (db or {}).get('total')},
-              'backup_verify': d.get('backup_verify'), 'site': {'url': SITE, **site}, 'errors': d.get('errors', {})}
+              'backup_verify': d.get('backup_verify'), 'site': {'url': SITE, **site}, 'errors': d.get('errors', {}),
+              'coverage': d.get('coverage')}
     return status
 
 def history_row(st):

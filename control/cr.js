@@ -47,12 +47,19 @@ function spark(vals) {
   const pts = vals.map((v, i) => `${(i * W / (vals.length - 1)).toFixed(1)},${(H - 4 - (v - min) / r * (H - 8)).toFixed(1)}`).join(' ');
   return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="live सवालों का इतिहास"><polyline fill="none" stroke="var(--pri)" stroke-width="2" points="${pts}"/></svg>`;
 }
+function coverageHtml(c) {
+  if (!c || !c.levels) return '<p class="empty">भराव की जाँच अभी नहीं हुई</p>';
+  const rows = Object.entries(c.levels).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${num(v.chapters)}</td><td>${num(v.chapters_full)}</td><td>${num(v.pct)}%</td></tr>`).join('');
+  return `<div class="card"><div class="row"><div><b>कुल भराव ${num(c.total.pct)}%</b><small>${num(c.total.chapters_full)} / ${num(c.total.chapters)} chapter पूरे</small></div></div></div>
+  <div class="card"><table><thead><tr><th>Level</th><th>chapter</th><th>पूरे</th><th>भराव</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
 function vQuestions(st) {
   const n = st.numbers || {}, by = n.by_exam || {};
   const rows = Object.keys(by).sort().map(k => `<tr><td>${esc(k)}</td><td>${num(by[k].published)}</td><td>${num(by[k].draft)}</td><td>${num(by[k].hidden)}</td></tr>`).join('');
   return `<div class="card"><div class="row"><div><b>कुल सवाल ${num(n.total)}</b><small>live ${num(n.published)} · draft ${num(n.draft)} · hidden ${num(n.hidden)}</small></div></div></div>
   <h2>Live सवाल (समय के साथ)</h2><div class="card">${spark(S.hist.map(x => x.published).filter(v => typeof v === 'number'))}</div>
-  <h2>Exam के हिसाब से</h2><div class="card"><table><thead><tr><th>Exam</th><th>live</th><th>draft</th><th>hidden</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  <h2>Exam के हिसाब से</h2><div class="card"><table><thead><tr><th>Exam</th><th>live</th><th>draft</th><th>hidden</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <h2>Content योजना (level-wise भराव)</h2>${coverageHtml(st.coverage)}`;
 }
 function vRobots(st) {
   const wf = S.app.workflows || {}, repo = S.app.repo;

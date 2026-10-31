@@ -21,6 +21,7 @@ jobs:
       - run: python3 robots/writer/selftest.py
       - run: python3 robots/solver/selftest.py
       - run: python3 robots/dispatcher/selftest.py
+      - run: python3 robots/planner/selftest.py
       - if: always()
         uses: actions/upload-artifact@v4
         with: { name: screenshots, path: tests/shots }
