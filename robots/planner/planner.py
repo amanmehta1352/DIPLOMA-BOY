@@ -94,6 +94,18 @@ def _toks(s):
     return plain | abbr, abbr
 
 
+QUESTION = re.compile(r'\?|^(what|how|why|when|which|who|is|are|can|do|does|should|will)\b|\b(is|are|was|were|covers|includes|marks|questions|exam|eligibility|salary|syllabus pdf|download)\b', re.I)
+
+
+def is_topic(part):
+    """Pure: a short noun-phrase topic, not a sentence, question, FAQ or page text."""
+    words = part.split()
+    if not 1 <= len(words) <= 8: return False
+    if QUESTION.search(part): return False
+    if sum(c.isdigit() for c in part) > 2: return False
+    return True
+
+
 def topic_return(lines, chapter_titles):
     """Pure: which topics have no matching chapter. A line is split on commas and semicolons, so each topic is compared
     on its own. A topic is covered when at least 60% of its words appear in one chapter title, and every abbreviation
@@ -104,6 +116,7 @@ def topic_return(lines, chapter_titles):
     for line in lines:
         for part in re.split(r'[,;]', line):
             part = part.strip()
+            if not is_topic(part): continue
             need, abbr = _toks(part)
             need = need - stop
             if not need: continue
