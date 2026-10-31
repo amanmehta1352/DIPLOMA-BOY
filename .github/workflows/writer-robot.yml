@@ -17,6 +17,9 @@ on:
         description: 'Dry run (write nothing to the server)'
         type: boolean
         default: false
+      command_id:
+        description: 'Control Room command number (filled by the Dispatcher; leave empty)'
+        default: ''
 permissions:
   contents: read
   issues: write
@@ -48,3 +51,8 @@ jobs:
         run: |
           [ -f writer-report.md ] || echo "Writer robot failed before writing a report." > writer-report.md
           gh issue create -R "$GITHUB_REPOSITORY" -t "Writer robot report $(date -u +%F_%H%M)" -F writer-report.md || true
+      - name: Report to Control Room
+        if: always() && inputs.command_id != ''
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python robots/dispatcher/report.py --id "${{ inputs.command_id }}" --file writer-report.md

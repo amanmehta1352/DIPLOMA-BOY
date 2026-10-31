@@ -73,6 +73,7 @@ const VIEWS = { overview: vOverview, questions: vQuestions, robots: vRobots, bac
 function render() {
   document.querySelectorAll('#dock button').forEach(b => b.classList.toggle('on', b.dataset.go === S.route));
   const root = $('view');
+  if (S.route === 'command' && window.CMD) { try { window.CMD.render(root); } catch (e) { root.innerHTML = `<div class="card"><b>यह हिस्सा नहीं खुला</b><small>${esc(e.message)}</small></div>`; } return; }
   if (!S.status) { $('age').textContent = 'रिपोर्ट नहीं मिली'; root.innerHTML = `<div class="card"><b>⚠️ रिपोर्ट नहीं मिली</b><small>${esc(S.err)} — Health Robot एक बार चलना चाहिए (Actions → Health Robot → Run workflow)।</small></div>`; return; }
   const st = S.status, mins = (Date.now() - new Date(st.at)) / 60000;
   $('age').textContent = 'रिपोर्ट ' + ago(st.at);

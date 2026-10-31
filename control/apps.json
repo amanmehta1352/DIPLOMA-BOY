@@ -17,7 +17,16 @@
         "NTPC Rule Tag": "ntpc-rule-tag.yml",
         "NTPC Subject Tag": "ntpc-subject-tag.yml",
         "Import Robot": "import-robot.yml",
-        "Pattern rebuild": "pattern-rebuild.yml"
+        "Pattern rebuild": "pattern-rebuild.yml",
+        "Pattern rebuild (one transaction)": "pattern-rebuild.yml",
+        "Writer Robot": "writer-robot.yml",
+        "Solver Robot": "solver-robot.yml",
+        "Dispatcher": "dispatcher.yml"
+      },
+      "commands": {
+        "rpc_base": "https://wobmtlcpszcntczkebtt.supabase.co/rest/v1/rpc/",
+        "key": "sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R",
+        "schema": "mtb"
       }
     }
   ]

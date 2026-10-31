@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "note": "Robots the owner can start from the Control Room. Keys must also be in mtb._cmd_robot_ok (migration 0159). Inputs not listed here are dropped.",
+  "robots": {
+    "writer":  { "workflow": "writer-robot.yml",   "label_hi": "✍️ Writer (chapter लिखना)", "reports": true,
+                 "inputs": { "count": {"type": "int", "min": 1, "max": 20, "default": 3},
+                             "level": {"type": "slug", "default": "govt_technical"},
+                             "only": {"type": "ids", "default": ""},
+                             "dry_run": {"type": "bool", "default": false} } },
+    "solver":  { "workflow": "solver-robot.yml",   "label_hi": "🧮 Solver (हल लिखना)", "reports": true,
+                 "inputs": { "count": {"type": "int", "min": 1, "max": 50, "default": 5},
+                             "level": {"type": "slug", "default": "govt_technical"},
+                             "chapter": {"type": "int", "min": 0, "max": 100000, "default": 0},
+                             "redo": {"type": "bool", "default": false},
+                             "dry_run": {"type": "bool", "default": false} } },
+    "health":  { "workflow": "health-robot.yml",   "label_hi": "🩺 Health रिपोर्ट", "inputs": {} },
+    "backup":  { "workflow": "daily-backup.yml",   "label_hi": "💾 Backup अभी", "inputs": {} },
+    "pattern": { "workflow": "pattern-rebuild.yml", "label_hi": "🔁 Pattern दोबारा बनाना", "inputs": {} },
+    "tests":   { "workflow": "tests.yml",          "label_hi": "✅ Tests चलाना", "inputs": {} }
+  }
+}
