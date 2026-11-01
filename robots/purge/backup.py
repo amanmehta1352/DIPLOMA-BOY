@@ -2,7 +2,7 @@
 
    python3 robots/purge/backup.py --out out
 
-Writes out/questions_draft_hidden.json.gz (all columns) and out/backup_counts.json.
+Writes out/questions_all.json.gz (all columns) and out/backup_counts.json.
 Env: SUPABASE_SECRET_KEY (never printed). Refuses to continue if the counts do not match the database.
 """
 import argparse, gzip, json, os, urllib.request, urllib.error
@@ -28,15 +28,16 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--out', default='out'); a = ap.parse_args()
     if not KEY: raise SystemExit('SUPABASE_SECRET_KEY missing')
     os.makedirs(a.out, exist_ok=True)
-    rows = {s: fetch_all(s) for s in ('draft', 'hidden')}
+    statuses = ('draft', 'hidden', 'published')          # full backup: every question
+    rows = {s: fetch_all(s) for s in statuses}
     counts = {s: len(v) for s, v in rows.items()}
-    _, cr = get('questions?select=id&status=eq.draft&limit=1')
-    _, cr2 = get('questions?select=id&status=eq.hidden&limit=1')
-    expect = {'draft': int(cr.split('/')[-1]) if '/' in cr and cr.split('/')[-1].isdigit() else None,
-              'hidden': int(cr2.split('/')[-1]) if '/' in cr2 and cr2.split('/')[-1].isdigit() else None}
+    expect = {}
+    for s in statuses:
+        _, cr = get(f'questions?select=id&status=eq.{s}&limit=1')
+        expect[s] = int(cr.split('/')[-1]) if '/' in cr and cr.split('/')[-1].isdigit() else None
     ok = all(expect[s] is None or expect[s] == counts[s] for s in counts)
-    allrows = rows['draft'] + rows['hidden']
-    with gzip.open(os.path.join(a.out, 'questions_draft_hidden.json.gz'), 'wt', encoding='utf-8') as f:
+    allrows = [r for s in statuses for r in rows[s]]
+    with gzip.open(os.path.join(a.out, 'questions_all.json.gz'), 'wt', encoding='utf-8') as f:
         json.dump(allrows, f, ensure_ascii=False)
     json.dump({'counts': counts, 'database_counts': expect, 'match': ok}, open(os.path.join(a.out, 'backup_counts.json'), 'w'), indent=1)
     print('backup', counts, 'database', expect, 'match', ok)
