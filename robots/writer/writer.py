@@ -245,6 +245,23 @@ def hindi_ok(d):
     return bool(sections) and all(_hindi_major(t) for t in sections.values())
 
 
+COPY_THRESHOLD = 0.20
+_FP = None
+
+
+def copyright_score(d):
+    """Share of the chapter's 3-word sequences found in the hashed NCERT fingerprints; None if they cannot be loaded."""
+    global _FP
+    try:
+        sys.path.insert(0, os.path.join(HERE, '..', 'copyright'))
+        import ngram as NG
+        if _FP is None: _FP = NG.load_fingerprint_files()[0]
+        if not _FP: return None
+        return NG.score(' '.join(strings(d)), _FP)[0]
+    except Exception:
+        return None
+
+
 def second_opinion(d):
     qs = [{'n': i, 'q': x['q'], 'options': x['options']} for i, x in enumerate(d.get('practice', []))]
     prompt = ('Solve each multiple-choice question carefully. Reply only with JSON: {"answers": [index, ...]} '
@@ -318,6 +335,10 @@ def main():
                   checks['second_opinion'] = {'model': cm, 'disagree': diff}
                   if len(diff) > 2: prob.append(f'second opinion disagrees on {len(diff)} of 10 answers')
                   if not hindi_ok(data): prob.append('not Hindi (Devanagari is not the majority)')
+                  cs = copyright_score(data)          # automatic gate: the draft must not copy the NCERT text we hold
+                  checks['copyright_overlap'] = None if cs is None else round(cs, 3)
+                  if cs is None: prob.append('copyright check unavailable (no fingerprints loaded)')
+                  elif cs > COPY_THRESHOLD: prob.append(f'copyright overlap {cs:.0%} is above {COPY_THRESHOLD:.0%}')
               status = 'draft' if not prob else 'rejected'
               checks['problems'] = prob
           except Exception as e:
