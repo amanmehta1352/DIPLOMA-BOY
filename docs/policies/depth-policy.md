@@ -14,4 +14,4 @@ Status: **proposed.** These numbers are **design choices, not official standards
 
 Total atoms per chapter (proposed): class_6_8 = 5, class_9_10 = 10, class_11_12 = 12, NEET/JEE = 15, SSC/Banking = 10, UPSC = 10, GATE/PhD = 15.
 
-Note: the table rows sum to these totals only for class_6_8 (2+0+1+2 = 5) and class_9_10 (3+2+2+3 = 10). Other levels need a decision: class_11_12 rows sum to 12, NEET/JEE sums to 17, SSC/Banking sums to 10, UPSC sums to 10, GATE/PhD sums to 15. NEET/JEE needs confirmation (15 vs 17).
+Check: every row sums to its total (class_6_8 5, class_9_10 10, class_11_12 12, NEET/JEE 15, SSC/Banking 10, UPSC 10, GATE/PhD 15). No open count question here.
