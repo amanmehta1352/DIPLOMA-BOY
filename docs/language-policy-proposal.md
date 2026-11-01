@@ -1,58 +1,50 @@
-# Language policy — proposal (for CEO approval)
+# Language policy — fixed standard (for CEO approval)
 
-Status: **proposed, not approved.** No seed rows are inserted. Schema: `db/migrations/0166_exam_language_policy.sql` and `0167_chapter_language_policy.sql`.
+Status: **proposed.** No seed rows yet. Schema: `db/migrations/0166_exam_language_policy.sql`, `db/migrations/0167_chapter_language_policy.sql`.
 
-Research date: 1 Nov 2026. Students: 0 users, so medium-wise student data is skipped; `use_student_medium` stays FALSE.
+## Fixed rules (no in-house overrides)
+1. Every exam and board follows its own official medium. We do not add, remove or reorder languages.
+2. `primary_lang` = the language the official notice lists first as the exam or board's default. `secondary_lang` = the next official option. Where the notice gives no order, both are listed in the order the notice prints them, and the row is marked `needs check`.
+3. A row changes only when the official notice changes. Each row carries `source_url`.
+4. Where a row is based on a secondary source (news or coaching site), it stays `proposed` until someone opens the official PDF.
+5. Student medium (`use_student_medium`) stays FALSE until there are 1000+ users.
 
-## How to read the verification column
-- **Official page seen**: an official site appeared in search results and the excerpt confirmed the language line.
-- **Secondary only**: language taken from coaching or news sites that quote the notification. The official PDF was not opened, so confirm before approval.
-- **CEO decision**: internal decision, not an exam rule.
+## Findings (1 Nov 2026)
 
-## Findings per exam
-
-| Exam | Primary | Secondary | Regional options | Source URL | Verified |
+| Exam / board | Official medium (from sources) | primary | secondary | Source | Verification |
 |---|---|---|---|---|---|
-| NEET (UG) | en | hi | 11 regional: Assamese, Bengali, Gujarati, Kannada, Malayalam, Marathi, Odia, Punjabi, Tamil, Telugu, Urdu (state-wise centres) | NTA bulletin (not opened); reports cite it, e.g. https://www.pw.live/news/neet-ug-2026-languages-list-nta-notification | Secondary only. English booklet for English; Hindi/regional get bilingual booklet with English; English is final in disputes. |
-| JEE Main | en | hi | 11 regional (13 languages total, bilingual at specified centres) | NTA JEE Main 2026 bulletin (PDF in search results, text unreadable); https://www.pw.live/iit-jee/exams/jee-main-exam-language-options | Secondary only. English prevails in discrepancy. 2026 cycle is over; 2027 language list not yet published. |
-| UPSC CSE | en | hi | Compulsory Indian-language paper (qualifying) — candidate chooses from Indian languages | https://www.upsc.gov.in/examinations/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026 (official page, medium line not in excerpt) | Secondary only for medium. Medium is English or Hindi; both papers offered in both. |
-| SSC CGL | en | hi | None | https://ssc.gov.in (notification not opened); reports cite it | Secondary only. Bilingual, except English Comprehension section which is English only. |
-| RRB NTPC | en | hi | Regional options: up to 13 regional languages (state-wise), per 2019 CRP RRB VIII policy | https://www.taxtmi.com/news?id=21576 (2019 policy notice) | Secondary only for the 2026 notification. The 2019 policy is official-type text, but NTPC 2026 notice not opened. |
-| CBSE Class 9–10 | per subject (see CEO table) | per subject | Schools must offer at least one Indian language as medium from preparatory to Class 12 | https://organiser.org/2026/04/04/347020/bharat/cbse-mandates-three-language-rule-for-class-10-boards-by-2031-board-will-now-cover-all-22-languages/amp/ (news); CBSE circular not opened | CEO decision for subject split. Medium rule is secondary only. |
-| CBSE Class 11–12 | en | hi | Schools must offer at least one Indian language as medium | https://www.selfstudys.com/books/cbse-syllabus/english/12th/11th/2678 (secondary); CBSE Notification 40/2026 is official but excerpt does not show medium | Secondary only. Answers cannot mix English and Hindi. **Needs CEO call on primary.** |
-| UPPSC (PCS) | hi | en | None | https://uppsc.up.nic.in (official site listed; notification not opened) | Secondary only. Prelims bilingual (Hindi and English); Mains in Hindi or English; Hindi proficiency mandatory for eligibility. **Primary chosen as Hindi because it is the state exam; CEO to confirm.** |
-| BPSC (72nd CCE) | hi | en | None | https://bpsc.bihar.gov.in (notification not opened); reports cite it | Secondary only. Prelims in Hindi and English; Mains in English or Hindi (candidate's choice); General Hindi is qualifying. **Primary chosen as Hindi; CEO to confirm.** |
+| NEET UG | 13 languages: English, Hindi, Assamese, Bengali, Gujarati, Kannada, Malayalam, Marathi, Odia, Punjabi, Tamil, Telugu, Urdu. Hindi/regional get a bilingual booklet (language + English); English gets English only. English is final in translation disputes. | en | hi | NTA NEET UG 2026 bulletin (not opened); https://www.pw.live/news/neet-ug-2026-languages-list-nta-notification | Secondary only. **Conflicts with the belief that NEET is English-only; the bulletin decides.** |
+| JEE Main | 13 languages; English at all centres, others at specified centres. English prevails. | en | hi | NTA JEE Main 2026 bulletin (not opened) | Secondary only. 2026 is past; 2027 bulletin pending. |
+| UPSC CSE | English and Hindi (medium for papers). Plus a compulsory Indian-language qualifying paper. | en | hi | https://www.upsc.gov.in/examinations/Civil%20Services%20%28Preliminary%29%20Examination%2C%202026 (official page; medium line not in excerpt) | Official page seen; medium line not confirmed. |
+| SSC CGL | English and Hindi, except English Comprehension (English only). | en | hi | ssc.gov.in notice (not opened) | Secondary only. |
+| RRB NTPC | English, Hindi, plus regional options by state (policy from CRP RRB VIII, 2019). | en | hi | https://www.taxtmi.com/news?id=21576 | 2019 policy text seen; 2026 notice not opened. |
+| CBSE Class 9–10 | English and Hindi as medium; schools must offer an Indian-language medium option. | en | hi | CBSE circular not opened; https://organiser.org/2026/04/04/347020/bharat/cbse-mandates-three-language-rule-for-class-10-boards-by-2031-board-will-now-cover-all-22-languages/amp/ (news) | Secondary only. |
+| CBSE Class 11–12 | English and Hindi as medium; answers cannot mix the two. | en | hi | CBSE Notification 40/2026 (official, medium line not in excerpt) | Official notice exists; medium line not confirmed. |
+| UPPSC (PCS) | Prelims in English and Hindi; Mains in Hindi or English; Hindi proficiency mandatory. | en | hi | https://uppsc.up.nic.in (not opened) | Secondary only. Order not stated in sources: `needs check`. |
+| BPSC (72nd CCE) | Prelims in Hindi and English; Mains in English or Hindi (candidate's choice); General Hindi qualifying. | en | hi | https://bpsc.bihar.gov.in (not opened) | Secondary only. Order not stated: `needs check`. |
 
-## Points that need a human decision
-1. **CBSE Class 11–12 primary**: English or Hindi? Set as English here; not decided.
-2. **UPPSC and BPSC primary**: set as Hindi because these are state exams. Confirm.
-3. **NEET primary is English**: notification says English is final in translation disputes. Confirm this is the right base for the writer.
-4. **Which regional languages to cover later**: we currently cover English and Hindi only. Regional languages are listed for reference, not planned.
+## What changed from the earlier draft
+- **CBSE subject split removed.** The earlier CEO table (Social Science primary Hindi) is not an official CBSE rule. CBSE's default medium is English, with Hindi as the other option. The split can come back only if the CEO asks for it, and then it needs a source too.
+- **UPPSC and BPSC primary changed from Hindi to English** to follow the order in the sources. Both are `needs check`.
 
-## Class 9–10 subject split (CEO decision, Nov 2026)
+## Robots (fixed plan)
 
-| Subject | Primary | Secondary |
-|---|---|---|
-| Science (Physics, Chemistry, Biology) | en | hi |
-| Mathematics | en | hi |
-| Social Science (History, Geography, Polity, Economics) | hi | en |
-| English (as subject) | en | — |
-| Hindi (as subject) | hi | — |
+| Robot | Job | Input | Output | Stops when |
+|---|---|---|---|---|
+| **language-policy-research** | Opens each official notice, finds the medium clause, writes or updates a policy row with `source_url`. Runs on new notices (similar to the existing syllabus-watch robot). | exam or board list | proposed rows + a diff for review | notice cannot be opened, or the medium clause is missing |
+| **language-standard-check** | Before any content is published, compares the content's language with the policy row. Blocks publish on mismatch. Plugs into the existing publish gate (migration 0014). | content row, policy row | pass or block with reason | policy row not approved |
+| **writer** (existing `robots/writer`) | Writes the item in `primary_lang` only. | approved policy row | draft in primary | policy missing |
+| **translator** (existing Hindi/MT path, `robots/hindi`) | Produces `secondary_lang` from the approved primary text. | draft in primary | draft in secondary | translation fails key checks |
+| **QA** (existing copyright and cross-check robots) | Checks both language versions for figures, terms and answer keys. | both drafts | pass or fix list | any mismatch |
 
-Reason given: formulas are standard in English in Science/Maths; Social Science is natural in Hindi. Both versions are stored and the app filters by the student's chosen language. Goes into `mtb.chapter_language_policy` (0167), one row per chapter and level.
+Order: research → CEO approval → seed rows → writer → translator → QA → language-standard-check → publish.
 
-## Limits of this research
-- Most sources are coaching or news sites. Official PDFs were not downloaded; verify each row against the official notice before approval.
-- JEE Main 2026 and NEET 2026 are past dates; the 2027 bulletins may change languages. Re-check when released.
-- The `mtb.exams` table has more than the 9 rows above. Only those 9 were researched; the rest are not in this proposal.
-- Student medium data was not checked (no users yet).
+## Open questions (only the CEO can decide)
+1. Confirm each row against the official PDF before approval. The research robot's first run is the way to do this.
+2. NEET: confirm the bulletin's language list. If it lists 13 options, the policy above stands.
+3. CBSE 11–12: confirm the medium clause in Notification 40/2026.
 
-## Workflow once approved
-1. Insert approved rows into `exam_language_policy` and `chapter_language_policy` (service role, separate data commit).
-2. Writer writes in `primary_lang`; translator produces `secondary_lang`; QA checks both.
-3. Only `status = approved` (or `approved = true`) drives content generation.
-
-## Tests planned after approval
-- NEET chapter 1 → English
+## Tests after approval
+- NEET chapter 1 → English primary, Hindi secondary
 - Class 9 chapter 1 (Science) → English primary, Hindi secondary
 - UPSC chapter 1 → English and Hindi
