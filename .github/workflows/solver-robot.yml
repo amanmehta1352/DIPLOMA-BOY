@@ -1,6 +1,7 @@
 name: Solver Robot
 # Writes step-by-step solved questions (owner's masterclass format) with free Gemini, checks them,
 # saves them as DRAFTS (students only see approved ones). Report posted as an issue. Keys are never printed.
+run-name: Solver · ${{ inputs.source || github.event_name }}
 on:
   schedule:
     - cron: '11 23 * * *'   # 04:41 IST, daily (after the Writer)
@@ -48,10 +49,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # GitHub cron and the Supabase schedule both start this robot; only the first one in 6 hours works.
+          # GitHub cron and the Supabase schedule both start this robot; only the first scheduled start in 6 hours works.
+          # Manual runs (owner, Dispatcher) are never counted and never skipped.
           since=$(date -u -d '-6 hours' +%FT%TZ)
           n=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/solver-robot.yml/runs?created=%3E%3D$since&per_page=30" \
-              --jq "[.workflow_runs[] | select(.id < $GITHUB_RUN_ID) | select(.conclusion == \"success\" or .status != \"completed\")] | length")
+              --jq "[.workflow_runs[] | select(.id < $GITHUB_RUN_ID) | select(.display_title | test(\"schedule|pgcron\")) | select(.conclusion == \"success\" or .status != \"completed\")] | length")
           echo "earlier runs in 6 h: $n"
           if [ "$n" -gt 0 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; fi
       - name: Self-test

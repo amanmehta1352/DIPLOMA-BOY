@@ -60,7 +60,9 @@ def pdf_text(url):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--count', type=int, default=10); ap.add_argument('--level', default='class_9_10'); ap.add_argument('--out', default='out'); a = ap.parse_args()
-    refs = json.load(open(os.path.join(HERE, 'references.json'), encoding='utf-8'))['documents']
+    R = json.load(open(os.path.join(HERE, 'references.json'), encoding='utf-8'))
+    if a.level not in R.get('levels', []): sys.exit(f"no reference books for {a.level} (covered: {R.get('levels')})")
+    refs = R['documents']
     ref_set, got, failed = set(), [], []
     for r in refs:
         try:

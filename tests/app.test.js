@@ -229,9 +229,10 @@ const check = (name, v) => (v ? ok : bad).push(name);
     const book = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'chapter_book.json'), 'utf8'));
     await pb.route('**/rest/v1/rpc/get_level_book_ids*', r => r.fulfill({ json: [1] }));
     await pb.route('**/rest/v1/rpc/get_chapter_book*', r => r.fulfill({ json: book }));
-    await pb.goto(URL + 'level-book.html?l=class_9_10&s=maths&ch=1&tab=reader&ui=hi'); await pb.waitForTimeout(4000);
-    const txt = await pb.innerText('#readerContent').catch(() => '');
     const firstNote = (book.data.notes[0] || {}).title || '';
+    await pb.goto(URL + 'level-book.html?l=class_9_10&s=maths&ch=1&tab=reader&ui=hi');
+    await pb.waitForFunction(t => (document.querySelector('#readerContent') || {}).innerText?.includes(t), firstNote, { timeout: 20000 }).catch(() => {});
+    const txt = await pb.innerText('#readerContent').catch(() => '');
     check('approved robot book opens for students (notes from the book)', firstNote.length > 0 && txt.includes(firstNote));
     check('approved robot book: no page errors', berr.length === 0);
     await pb.close(); }
