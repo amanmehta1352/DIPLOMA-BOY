@@ -27,12 +27,15 @@ FREE_KEYS = {
     'groq': os.environ.get('GROQ_API_KEY', '').strip(),
     'nvidia': os.environ.get('NVIDIA_API_KEY', '').strip(),
     'sambanova': os.environ.get('SAMBANOVA_API_KEY', '').strip(),
+    'cloudflare': os.environ.get('CLOUDFLARE_API_TOKEN', '').strip(),
 }
+CF_ACCOUNT = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '').strip()
 # Backup writers, used only when every Gemini model fails. Each is OpenAI-compatible; model names can be overridden by env.
 FREE_PROVIDERS = [
     ('groq', 'https://api.groq.com/openai/v1/chat/completions', os.environ.get('GROQ_WRITE_MODEL', 'openai/gpt-oss-120b')),
     ('nvidia', 'https://integrate.api.nvidia.com/v1/chat/completions', os.environ.get('NVIDIA_WRITE_MODEL', '')),   # no verified large model yet: set NVIDIA_WRITE_MODEL to enable
     ('sambanova', 'https://api.sambanova.ai/v1/chat/completions', os.environ.get('SAMBANOVA_WRITE_MODEL', 'Meta-Llama-3.3-70B-Instruct')),
+    ('cloudflare', f'https://api.cloudflare.com/client/v4/accounts/{CF_ACCOUNT}/ai/v1/chat/completions', os.environ.get('CLOUDFLARE_WRITE_MODEL', '@cf/meta/llama-3.3-70b-instruct-fp8-fast')),
 ]
 
 
@@ -65,8 +68,9 @@ def gemini(prompt, models, json_out=True, temperature=0.4, deadline=None):
             cfg = {'temperature': temperature}
             if json_out: cfg['responseMimeType'] = 'application/json'
             body = json.dumps({'contents': [{'parts': [{'text': prompt}]}], 'generationConfig': cfg}).encode()
+            left = int(deadline - time.time()) if deadline else 300
             s, b = http(f'https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent',
-                        {'x-goog-api-key': GKEY, 'Content-Type': 'application/json'}, body)
+                        {'x-goog-api-key': GKEY, 'Content-Type': 'application/json'}, body, timeout=max(10, min(300, left)))
             if s == 200:
                 try:
                     d = json.loads(b)
@@ -89,10 +93,10 @@ def free_write(prompt):
     last = ''
     for name, url, model in FREE_PROVIDERS:
         key = FREE_KEYS[name]
-        if not key or not model:
-            last = f'{name}: key or model missing'; continue
+        if not key or not model or (name == 'cloudflare' and not CF_ACCOUNT):
+            last = f'{name}: key, model or account missing'; continue
         body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': prompt}],
-                           'temperature': 0.4, 'response_format': {'type': 'json_object'}}).encode()
+                           'temperature': 0.4, 'max_tokens': 8192, 'response_format': {'type': 'json_object'}}).encode()
         s, b = http(url, {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, body, timeout=240)
         if s == 200:
             try:
