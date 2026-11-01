@@ -1,0 +1,74 @@
+{
+ "concepts": [
+  {
+   "title": "What is Force?",
+   "body": "Force is a push or pull that can change the state of motion or shape of an object. It is a vector quantity, meaning it has both magnitude and direction. The SI unit of force is the newton (N). For example, when you push a door to open it, you apply a force."
+  },
+  {
+   "title": "Newton's First Law and Inertia",
+   "body": "Newton's First Law states that an object will remain at rest or in uniform motion unless acted upon by an external force. This tendency to resist changes in motion is called inertia. Mass is the measure of inertia; a heavier object resists changes in motion more than a lighter one. For instance, a truck is harder to stop than a bicycle because of its greater mass."
+  },
+  {
+   "title": "Newton's Third Law",
+   "body": "Newton's Third Law states that for every action, there is an equal and opposite reaction. Importantly, action and reaction forces act on different bodies, so they do not cancel each other out. For example, when you jump, your feet push the ground (action), and the ground pushes you upward (reaction)."
+  }
+ ],
+ "formulas": [
+  {
+   "title": "Force and Acceleration",
+   "body": "F = m x a (F in newton N, m in kg, a in m/s^2). Here, F is force, m is mass, and a is acceleration. The dimensional formula is [F] = [M][L][T^-2]."
+  },
+  {
+   "title": "Momentum and Force",
+   "body": "p = m x v (p in kg m/s, m in kg, v in m/s). Momentum (p) is the product of mass and velocity. Force can also be expressed as F = (change in p) / (change in t) (F in N, p in kg m/s, t in s). The dimensional formula is [F] = [M][L][T^-2]."
+  }
+ ],
+ "examples": [
+  {
+   "title": "Everyday Example",
+   "body": "When you kick a football, your foot applies a force that changes the ball's motion. The force exerted by your foot accelerates the ball forward."
+  },
+  {
+   "title": "Applied Example",
+   "body": "In rocket propulsion, the engine exerts a force on the gases expelled backward (action), and the gases exert an equal and opposite force on the rocket, propelling it forward (reaction)."
+  }
+ ],
+ "mcqs": [
+  {
+   "question": "What is the SI unit of force?",
+   "options": [
+    "Joule",
+    "Newton",
+    "Pascal",
+    "Watt"
+   ],
+   "answer_index": 1,
+   "difficulty": "easy",
+   "explanation": "The SI unit of force is the newton (N). Joule is the unit of energy, Pascal is the unit of pressure, and Watt is the unit of power."
+  },
+  {
+   "question": "A car of mass 1000 kg accelerates at 2 m/s^2. What is the force exerted by the engine?",
+   "options": [
+    "500 N",
+    "1000 N",
+    "2000 N",
+    "4000 N"
+   ],
+   "answer_index": 2,
+   "difficulty": "medium",
+   "explanation": "Using F = m x a, F = 1000 kg x 2 m/s^2 = 2000 N. The other options are incorrect calculations."
+  },
+  {
+   "question": "Why does a person feel a backward push when firing a gun?",
+   "options": [
+    "Due to inertia",
+    "Due to gravity",
+    "Due to Newton's Third Law",
+    "Due to friction"
+   ],
+   "answer_index": 2,
+   "difficulty": "medium",
+   "explanation": "According to Newton's Third Law, the gun exerts a force on the bullet forward, and the bullet exerts an equal and opposite force on the gun backward. Inertia, gravity, and friction are not the primary reasons for this phenomenon."
+  }
+ ]
+}

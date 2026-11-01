@@ -1,0 +1,38 @@
+{
+ "topic": "Class 9 Physics (CBSE): Force and Laws of Motion",
+ "writer": "deepseek/deepseek-chat",
+ "fact_checker_en": "gemini",
+ "fact_checker_hi": "deepseek (via OpenRouter)",
+ "verifier": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+ "attempts": [
+  {
+   "n": 1,
+   "problems": [],
+   "fact_check": {
+    "correct": true,
+    "reason": ""
+   },
+   "mcq_verify": {
+    "agree": 3,
+    "total": 3,
+    "details": [
+     "mcq1: stored 1, verifier 1, agree",
+     "mcq2: stored 2, verifier 2, agree",
+     "mcq3: stored 2, verifier 2, agree"
+    ]
+   }
+  }
+ ],
+ "status": "ok",
+ "checker_on_v1": {
+  "flagged_wrong": true,
+  "reason": "The statement 'If you stop pushing, friction eventually brings it to rest due to inertia' is incorrect. Friction is the external force that opposes motion and brings the cart to a stop, whereas inertia is the tendency of the cart to maintain its state of motion and resist stopping."
+ },
+ "translator": "gemini-3.5-flash",
+ "hindi_fact_check": {
+  "correct": true,
+  "reason": ""
+ },
+ "hindi_formal_words_found": [],
+ "hindi_problems": []
+}
