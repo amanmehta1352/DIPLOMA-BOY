@@ -346,8 +346,11 @@ def main():
                   if cs is None: prob.append('copyright check unavailable (no fingerprints loaded)')
                   elif cs > COPY_THRESHOLD: prob.append(f'copyright overlap {cs:.0%} is above {COPY_THRESHOLD:.0%}')
                   # Only NCERT science is checked against a reference. Other subjects are held for the owner, never auto-published.
-                  checks['copyright_covered'] = bool(re.search(r'science|physics|chemistry|biology', c['se'], re.I)) and cs is not None and cs <= COPY_THRESHOLD
-                  if not checks['copyright_covered'] and not prob: prob.append('no copyright reference for this subject: held for owner review')
+                  # The reference is the NCERT Class 9-10 science set only: exact level and subject match.
+                  checks['copyright_covered'] = (c['l'] == 'class_9_10' and bool(re.search(r'science|physics|chemistry|biology', c['se'], re.I))
+                                                 and cs is not None and cs <= COPY_THRESHOLD)
+                  if not checks['copyright_covered']:
+                      checks['held'] = 'no copyright reference for this subject; kept as draft for owner review'   # stays a draft, never auto-published
               status = 'draft' if not prob else 'rejected'
               checks['problems'] = prob
           except Exception as e:
