@@ -30,8 +30,8 @@ FREE_KEYS = {
 }
 # Backup writers, used only when every Gemini model fails. Each is OpenAI-compatible; model names can be overridden by env.
 FREE_PROVIDERS = [
-    ('groq', 'https://api.groq.com/openai/v1/chat/completions', os.environ.get('GROQ_WRITE_MODEL', 'llama-3.3-70b-versatile')),
-    ('nvidia', 'https://integrate.api.nvidia.com/v1/chat/completions', os.environ.get('NVIDIA_WRITE_MODEL', 'nvidia/llama-3.1-nemotron-70b-instruct')),
+    ('groq', 'https://api.groq.com/openai/v1/chat/completions', os.environ.get('GROQ_WRITE_MODEL', 'openai/gpt-oss-120b')),
+    ('nvidia', 'https://integrate.api.nvidia.com/v1/chat/completions', os.environ.get('NVIDIA_WRITE_MODEL', '')),   # no verified large model yet: set NVIDIA_WRITE_MODEL to enable
     ('sambanova', 'https://api.sambanova.ai/v1/chat/completions', os.environ.get('SAMBANOVA_WRITE_MODEL', 'Meta-Llama-3.3-70B-Instruct')),
 ]
 
@@ -55,11 +55,13 @@ def http(url, headers, body=None, method='POST', timeout=300):
 
 
 # ---------- Gemini ----------
-def gemini(prompt, models, json_out=True, temperature=0.4):
-    """Returns (text, model). Tries each model; waits and retries on 429/500/503."""
+def gemini(prompt, models, json_out=True, temperature=0.4, deadline=None):
+    """Returns (text, model). Tries each model; waits and retries on 429/500/503. Stops at the deadline (epoch seconds)."""
     last = ''
     for m in models:
         for attempt in range(4):
+            if deadline and time.time() > deadline:
+                raise RuntimeError('Gemini deadline passed: ' + last)
             cfg = {'temperature': temperature}
             if json_out: cfg['responseMimeType'] = 'application/json'
             body = json.dumps({'contents': [{'parts': [{'text': prompt}]}], 'generationConfig': cfg}).encode()
@@ -83,25 +85,32 @@ def free_write(prompt):
     last = ''
     for name, url, model in FREE_PROVIDERS:
         key = FREE_KEYS[name]
-        if not key:
-            last = f'{name}: key missing'; continue
+        if not key or not model:
+            last = f'{name}: key or model missing'; continue
         body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': prompt}],
                            'temperature': 0.4, 'response_format': {'type': 'json_object'}}).encode()
         s, b = http(url, {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, body, timeout=240)
         if s == 200:
             try:
                 d = json.loads(b)
-                return d['choices'][0]['message'].get('content') or '', f'{name}:{model}'
+                ch = d['choices'][0]
+                txt = (ch.get('message') or {}).get('content') or ''
             except Exception as e:
                 last = f'{name}: bad response {e}'; continue
+            if not txt.strip() or ch.get('finish_reason') == 'length':   # empty or cut off: try the next provider
+                last = f'{name}: unusable content (finish {ch.get("finish_reason")})'; continue
+            return txt, f'{name}:{model}'
         last = f'{name}: HTTP {s} {hide(b[:160])}'
     raise RuntimeError('free providers failed: ' + last)
+
+
+GEMINI_BUDGET = int(os.environ.get('GEMINI_BUDGET_SECONDS', '900'))   # total time for Gemini per chapter before backups start
 
 
 def write_text(prompt):
     """Gemini first; backup free providers only if Gemini fails completely."""
     try:
-        return gemini(prompt, WRITE_MODELS)
+        return gemini(prompt, WRITE_MODELS, deadline=time.time() + GEMINI_BUDGET)
     except RuntimeError as g_err:
         try:
             return free_write(prompt)
@@ -234,7 +243,10 @@ def second_opinion(d):
     if ORKEY:
         txt, m = openrouter(prompt)          # a different company checks the answers
     else:
-        txt, m = gemini(prompt, CHECK_MODELS, temperature=0)
+        try:
+            txt, m = gemini(prompt, CHECK_MODELS, temperature=0)
+        except RuntimeError:                 # Gemini down: a free provider still checks, so the chapter is not rejected
+            txt, m = free_write(prompt)
     got = parse_json(txt).get('answers', [])
     diff = [i for i, x in enumerate(d['practice']) if i >= len(got) or got[i] != x['answer']]
     return diff, m
