@@ -115,12 +115,33 @@ def gemini_solve(q):
     return None                       # could not get an answer at all: never counted as a real mismatch
 
 
+def groq_solve(q):
+    """Backup solver (different company from DeepSeek and Gemini): Groq gpt-oss-120b with written working. None if unavailable."""
+    key = os.environ.get('GROQ_API_KEY', '').strip()
+    if not key: return None
+    opts = '\n'.join(f'{i}) {o}' for i, o in enumerate(q['options']))
+    prompt = ('Solve this physics question carefully. Show the arithmetic step by step and double-check it. '
+              'Then end with one final line exactly like {"answer_index": N} where N is 0, 1, 2 or 3. If no option equals your result, use {"answer_index": -1}.\n\n'
+              + q['question'] + '\n' + opts)
+    for n in range(3):
+        try:
+            txt = R.chat('https://api.groq.com/openai/v1/chat/completions', key, os.environ.get('GROQ_WRITE_MODEL', 'openai/gpt-oss-120b'), prompt, 180)
+            hit = re.findall(r'"answer_index"\s*:\s*(-?[0-3])', txt)
+            if hit: return int(hit[-1])
+        except Exception:
+            pass
+        time.sleep(20 * (n + 1))
+    return None
+
+
 def strong_verify(d):
     """Returns (agree, total, details): stored answer vs Gemini's worked solution."""
     agree, det = 0, []
     for i, q in enumerate(d['mcqs']):
-        got = gemini_solve(q); ok = got == q['answer_index']; agree += ok
-        det.append(f'mcq{i + 1}: stored {q["answer_index"]}, gemini {got}, {"agree" if ok else ("ERROR (no answer)" if got is None else "DISAGREE")}')
+        got, who = gemini_solve(q), 'gemini'
+        if got is None: got, who = groq_solve(q), 'groq (gemini busy)'
+        ok = got == q['answer_index']; agree += ok
+        det.append(f'mcq{i + 1}: stored {q["answer_index"]}, {who} {got}, {"agree" if ok else ("ERROR (no answer)" if got is None else "DISAGREE")}')
     return agree, len(d['mcqs']), det
 
 
