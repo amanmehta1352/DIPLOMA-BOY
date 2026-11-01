@@ -1,0 +1,19 @@
+name: OpenRouter key check
+# Says only whether the secret is set and whether OpenRouter answers. Never prints the key.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+    steps:
+      - name: Check
+        run: |
+          if [ -z "$OPENROUTER_API_KEY" ]; then echo "OPENROUTER_API_KEY: MISSING"; exit 1; fi
+          echo "OPENROUTER_API_KEY: set"
+          code=$(curl -s -o /tmp/r.json -w "%{http_code}" https://openrouter.ai/api/v1/models -H "Authorization: Bearer $OPENROUTER_API_KEY")
+          echo "models endpoint: HTTP $code"
