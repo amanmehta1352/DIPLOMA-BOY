@@ -250,14 +250,20 @@ _FP = None
 
 
 def copyright_score(d):
-    """Share of the chapter's 3-word sequences found in the hashed NCERT fingerprints; None if they cannot be loaded."""
+    """Share of the chapter's 3-word sequences (counted with repeats) found in the hashed NCERT fingerprints.
+    None when the fingerprints for Hindi and English are not both loaded, so the gate cannot judge."""
     global _FP
     try:
         sys.path.insert(0, os.path.join(HERE, '..', 'copyright'))
         import ngram as NG
-        if _FP is None: _FP = NG.load_fingerprint_files()[0]
+        if _FP is None:
+            hs, langs = NG.load_fingerprint_files()
+            _FP = hs if (langs.get('hi') and langs.get('en')) else set()
         if not _FP: return None
-        return NG.score(' '.join(strings(d)), _FP)[0]
+        words = NG.words(' '.join(strings(d)))
+        grams = [NG.fp(tuple(words[i:i + 3])) for i in range(len(words) - 2)]
+        if not grams: return 0.0
+        return sum(1 for g in grams if g in _FP) / len(grams)
     except Exception:
         return None
 
@@ -346,9 +352,10 @@ def main():
           if status == 'draft': break
           time.sleep(10)
         size = sum(len(s) for s in strings(data)) if data else 0
-        lines.append(f"- {want} {c['h']} ({c['s']}): **{status}** · {model} · {size} chars · {'; '.join(checks.get('problems', [])) or checks.get('error', '') or 'all checks passed'}")
+        cs_txt = 'copy n/a' if checks.get('copyright_overlap') is None else f"copy {checks['copyright_overlap']:.1%}"
+        lines.append(f"- {want} {c['h']} ({c['s']}): **{status}** · {model} · {size} chars · {cs_txt} · {'; '.join(checks.get('problems', [])) or checks.get('error', '') or 'all checks passed'}")
         print(lines[-1], flush=True)
-        if data is not None and not a.dry_run:
+        if data is not None and not a.dry_run and not checks.get('error'):   # infrastructure errors never count as rejections
             rpc('draft_save', {'p': {'level_id': c['l'], 'chapter_id': c['c'], 'status': status, 'data': data,
                                      'provider': 'gemini', 'model': model, 'checks': checks}})
             # Auto-approve only when the second opinion came from a different company (OpenRouter); a Gemini fallback never publishes.
