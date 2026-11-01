@@ -64,11 +64,14 @@ def main():
     if a.level not in R.get('levels', []): sys.exit(f"no reference books for {a.level} (covered: {R.get('levels')})")
     refs = R['documents']
     ref_set, got, failed = set(), [], []
+    streak = 0
     for r in refs:
+        if streak >= 3:          # three in a row failed: the site is not reachable now, do not spend an hour retrying
+            failed.append({'id': r['id'], 'error': 'skipped after 3 failures in a row'}); continue
         try:
-            t = pdf_text(r['url']); ref_set |= trigrams(t); got.append(r['id'])
+            t = pdf_text(r['url']); ref_set |= trigrams(t); got.append(r['id']); streak = 0
         except Exception as e:
-            failed.append({'id': r['id'], 'error': type(e).__name__ + ': ' + str(e)[:120]})
+            failed.append({'id': r['id'], 'error': type(e).__name__ + ': ' + str(e)[:120]}); streak += 1
     complete = not failed                      # scores are only meaningful against the full reference set
     chapters = json.load(open(os.path.join(HERE, '..', 'writer', 'chapters.json'), encoding='utf-8'))
     science = [c['c'] for c in chapters if c['l'] == a.level and re.search(r'science|physics|chemistry|biology', c['se'], re.I)]
