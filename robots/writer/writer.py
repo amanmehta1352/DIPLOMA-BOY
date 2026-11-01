@@ -160,12 +160,18 @@ DEVA = re.compile(r'[\u0900-\u097F]')
 LATIN = re.compile(r'[A-Za-z]')
 
 
-def hindi_ok(d):
-    """Pure: the chapter is written in Hindi (Devanagari letters are the majority; English terms in brackets are allowed)."""
-    text = ' '.join(strings({k: d.get(k) for k in ('notes', 'teach', 'revision', 'solved', 'mistakes')}) )
-    text += ' ' + ' '.join(str(x.get('q', '')) + ' ' + str(x.get('explanation', '')) for x in d.get('practice', []) if isinstance(x, dict))
+def _hindi_major(text):
     dv, la = len(DEVA.findall(text)), len(LATIN.findall(text))
     return dv > 0 and dv >= la
+
+
+def hindi_ok(d):
+    """Pure: every teaching section is in Hindi (Devanagari is the majority in each; English terms in brackets are allowed).
+    Formulas are not checked (they are symbols). A missing section is left to the structure check."""
+    sections = {k: ' '.join(strings(d.get(k))) for k in ('notes', 'teach', 'solved', 'mistakes', 'revision') if d.get(k)}
+    prac = [x for x in d.get('practice', []) if isinstance(x, dict)]
+    if prac: sections['practice'] = ' '.join(str(x.get('q', '')) + ' ' + str(x.get('explanation', '')) for x in prac)
+    return bool(sections) and all(_hindi_major(t) for t in sections.values())
 
 
 def second_opinion(d):
