@@ -1,0 +1,45 @@
+{
+ "date": "2026-11-01",
+ "branch": {
+  "name": "content-fill-database",
+  "ahead_of_main": 132,
+  "behind_main": 118,
+  "files_differ": 313
+ },
+ "workflows": {
+  "total": 20,
+  "scheduled": {
+   "dispatcher": "every 15 min",
+   "health": "every 2 h",
+   "daily_backup": "02:11 IST",
+   "syllabus_watch": "08:53 IST"
+  }
+ },
+ "db": {
+  "tables": 35,
+  "atoms_published": 3925,
+  "atoms_shared": 96,
+  "chapters": 956,
+  "chapters_with_atoms": 956,
+  "planner_fill_pct": 13,
+  "questions": {
+   "published": 18323,
+   "hidden": 2873,
+   "draft": 1
+  },
+  "published_with_solution": 1814,
+  "chapter_drafts_approved": 3,
+  "solution_items_approved": 5,
+  "profiles": 0,
+  "robot_commands_done": 1
+ },
+ "keys": {
+  "GEMINI_API_KEY": true,
+  "SUPABASE_SECRET_KEY": true,
+  "OPENROUTER_API_KEY": true
+ },
+ "cross_check_last": {
+  "checked": 30,
+  "agree": 26
+ }
+}
