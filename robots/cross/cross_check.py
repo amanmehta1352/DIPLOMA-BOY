@@ -15,7 +15,8 @@ MODEL = os.environ.get('OPENROUTER_MODEL', 'openrouter/auto')
 
 def parse_index(text, n):
     """Pure: the option number (1..n) from a reply, or None."""
-    m = re.search(r'\b([1-9])\b', text or '')
+    t = (text or '').strip()
+    m = re.match(r'^\W*([1-9])\b', t) or re.search(r'(?:answer|option|उत्तर)\D{0,12}([1-9])\b', t, re.I) or re.search(r'\b([1-9])\b', t[-40:])
     if not m: return None
     k = int(m.group(1))
     return k if 1 <= k <= n else None
@@ -32,12 +33,13 @@ def question_prompt(q):
 
 
 def call_openrouter(prompt):
-    body = json.dumps({'model': MODEL, 'messages': [{'role': 'user', 'content': prompt}], 'max_tokens': 5}).encode()
+    body = json.dumps({'model': MODEL, 'messages': [{'role': 'user', 'content': prompt}], 'max_tokens': 300}).encode()
     req = urllib.request.Request('https://openrouter.ai/api/v1/chat/completions', body,
                                  {'Authorization': 'Bearer ' + ORKEY, 'Content-Type': 'application/json'})
     with urllib.request.urlopen(req, timeout=90) as r:
         d = json.loads(r.read())
-    return d['choices'][0]['message']['content'], d.get('model', MODEL)
+    msg = d['choices'][0]['message']
+    return (msg.get('content') or ''), d.get('model', MODEL)
 
 
 def fetch_sample(n):
@@ -56,7 +58,7 @@ def main():
         try:
             txt, model = call_openrouter(question_prompt(q))
             k = parse_index(txt, len(q['options']))
-            res.append({'id': q['id'], 'model': model, 'model_answer': k, 'stored_answer': q['answer'] + 1, 'agree': agree(k, q['answer'])})
+            res.append({'id': q['id'], 'model': model, 'model_answer': k, 'stored_answer': q['answer'] + 1, 'agree': agree(k, q['answer']), 'reply_head': txt[:80]})
         except Exception as e:
             res.append({'id': q['id'], 'error': type(e).__name__ + ': ' + str(e)[:160]})
     os.makedirs(a.out, exist_ok=True)
