@@ -2,6 +2,7 @@
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import planner as P
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 T = {'default': {'concept': 1, 'formula': 1, 'example': 1, 'mcq': 2, 'solution': 2}, 'levels': {'lvl_b': {'mcq': 1, 'solution': 0}}}
 chapters = [{'l': 'lvl_a', 'c': 1}, {'l': 'lvl_a', 'c': 2}, {'l': 'lvl_b', 'c': 3}]
@@ -58,3 +59,10 @@ print('exam-info filter selftest OK')
 for post in ['Junior Engineer (IT)', 'Depot Materials Superintendent (DMS)', 'Chemical & Metallurgical Assistant (CMA)']:
     assert not P.is_topic(post), post
 print('post-name filter selftest OK')
+# shared topics: same topic in two levels is written once with both levels
+import shared as SH
+M = SH.merge({'govt_technical': ['Mathematics Number Systems', 'Voltage Regulation'], 'class_9_10': ['number systems mathematics', 'Motion']})
+both = [g for g in M if len(g['levels']) == 2]
+assert len(both) == 1 and sorted(both[0]['levels']) == ['class_9_10', 'govt_technical'], M
+assert len(M) == 3, M
+print('shared topics selftest OK')
