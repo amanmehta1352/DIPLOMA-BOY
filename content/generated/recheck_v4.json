@@ -1,0 +1,30 @@
+{
+ "motion": {
+  "agree": 3,
+  "total": 3,
+  "details": [
+   "mcq1: stored 0, gemini 0, agree",
+   "mcq2: stored 0, gemini 0, agree",
+   "mcq3: stored 1, gemini 1, agree"
+  ]
+ },
+ "gravitation": {
+  "agree": 1,
+  "total": 3,
+  "details": [
+   "mcq1: stored 0, gemini -1, DISAGREE",
+   "mcq2: stored 0, gemini 0, agree",
+   "mcq3: stored 1, gemini 0, DISAGREE"
+  ]
+ },
+ "work_energy": {
+  "agree": 2,
+  "total": 3,
+  "details": [
+   "mcq1: stored 0, gemini 0, agree",
+   "mcq2: stored 2, gemini 2, agree",
+   "mcq3: stored 1, gemini 2, DISAGREE"
+  ]
+ },
+ "sound": "no en.json (chapter was rejected)"
+}

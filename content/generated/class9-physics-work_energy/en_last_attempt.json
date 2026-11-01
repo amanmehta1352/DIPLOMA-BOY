@@ -2,7 +2,7 @@
  "concepts": [
   {
    "title": "Work Done by a Force",
-   "body": "Work is done when a force causes an object to move in the direction of the force. The amount of work depends on the magnitude of the force and the distance the object moves. For example, pushing a box across the floor involves work because the force applied moves the box in the same direction."
+   "body": "Work is done when a force causes an object to move in the direction of the force. The amount of work done depends on the magnitude of the force and the distance the object moves. For example, pushing a box across the floor involves work because the force applied moves the box in the same direction."
   },
   {
    "title": "Kinetic Energy and Potential Energy",
@@ -16,26 +16,26 @@
  "formulas": [
   {
    "title": "Work Done",
-   "body": "W = F x s (W in joule J, F in newton N, s in meter m). This formula calculates the work done when a force F moves an object through a displacement s in the direction of the force."
+   "body": "W = F x s (W in joule J, F in newton N, s in meter m). This formula calculates the work done when a force F moves an object through a distance s in the direction of the force."
   },
   {
    "title": "Kinetic Energy and Potential Energy",
-   "body": "Kinetic energy = (1/2) m v^2 (m in kg, v in m/s). Potential energy = m g h (m in kg, g in m/s^2, h in m). These formulas calculate the kinetic energy of a moving object and the potential energy of an object due to its height above a reference point."
+   "body": "Kinetic energy = (1/2) m v^2 (m in kg, v in m/s). Potential energy = m g h (m in kg, g in m/s^2, h in m). These formulas calculate the kinetic energy of a moving object and the potential energy of an object at a height h above the ground."
   }
  ],
  "examples": [
   {
    "title": "Everyday Example",
-   "body": "When you lift a bag of groceries from the floor to a table, you do work against gravity. The force applied overcomes the gravitational force, and the bag gains potential energy due to its increased height."
+   "body": "When you lift a bag from the floor to a table, you do work against gravity. The force you apply moves the bag upward, and the work done is equal to the force times the height the bag is lifted."
   },
   {
    "title": "Applied Example",
-   "body": "In a hydroelectric power plant, water stored at a height has potential energy. When it falls, this energy is converted into kinetic energy, which is then used to generate electricity."
+   "body": "A hydroelectric power plant converts the potential energy of water stored at a height into electrical energy. The water flows down, turning turbines, which generate electricity, demonstrating the conversion of energy."
   }
  ],
  "mcqs": [
   {
-   "question": "What is the SI unit of work?",
+   "question": "What is the unit of work?",
    "options": [
     "Joule",
     "Newton",
@@ -44,31 +44,31 @@
    ],
    "answer_index": 0,
    "difficulty": "easy",
-   "explanation": "The SI unit of work is joule (J). Newton is the unit of force, watt is the unit of power, and pascal is the unit of pressure."
+   "explanation": "The unit of work is joule (J). Newton is the unit of force, watt is the unit of power, and pascal is the unit of pressure."
   },
   {
-   "question": "A car of mass 1000 kg is moving at a speed of 10 m/s. What is its kinetic energy?",
+   "question": "A 2 kg object is moving at 3 m/s. What is its kinetic energy?",
    "options": [
-    "5000 J",
-    "10000 J",
-    "50000 J",
-    "100000 J"
+    "9 J",
+    "6 J",
+    "18 J",
+    "12 J"
    ],
-   "answer_index": 2,
+   "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Using the formula KE = (1/2) m v^2, KE = (1/2) x 1000 kg x (10 m/s)^2 = 50000 J. The other options are incorrect calculations."
+   "explanation": "Using the formula KE = (1/2) m v^2, KE = (1/2) * 2 * 3^2 = 9 J. The other options are incorrect because they do not follow the correct calculation."
   },
   {
-   "question": "A ball is dropped from a height of 20 meters. Ignoring air resistance, what is its speed just before it hits the ground? (g = 10 m/s^2)",
+   "question": "A 5 kg object is lifted to a height of 10 m. What is its potential energy? (g = 10 m/s^2)",
    "options": [
-    "10 m/s",
-    "14.14 m/s",
-    "20 m/s",
-    "28.28 m/s"
+    "500 J",
+    "50 J",
+    "100 J",
+    "250 J"
    ],
-   "answer_index": 1,
+   "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Using the law of conservation of energy, potential energy converts to kinetic energy: mgh = (1/2)mv^2. Solving for v, v = sqrt(2gh) = sqrt(2 x 10 x 20) = 14.14 m/s. The other options are incorrect calculations."
+   "explanation": "Using the formula PE = m g h, PE = 5 * 10 * 10 = 500 J. The other options are incorrect because they do not follow the correct calculation."
   }
  ]
 }
