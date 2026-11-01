@@ -1,0 +1,33 @@
+{
+ "chapter": "Gravitation",
+ "writer": "deepseek/deepseek-chat",
+ "attempts": [
+  {
+   "n": 1,
+   "problems": [],
+   "fact_check": {
+    "correct": true,
+    "reason": ""
+   },
+   "mcq_verify": {
+    "agree": 3,
+    "total": 3,
+    "details": [
+     "mcq1: stored 0, verifier 0, agree",
+     "mcq2: stored 0, verifier 0, agree",
+     "mcq3: stored 1, verifier 1, agree"
+    ]
+   }
+  }
+ ],
+ "status": "english_ok_hindi_needs_review",
+ "translator": "gemini-3.5-flash",
+ "hindi_fact_check": {
+  "correct": true,
+  "reason": ""
+ },
+ "hindi_formal_words_found": [],
+ "hindi_problems": [
+  "numbers differ from English"
+ ]
+}

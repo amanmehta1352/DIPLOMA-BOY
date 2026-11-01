@@ -1,0 +1,58 @@
+{
+ "chapter": "Sound",
+ "writer": "deepseek/deepseek-chat",
+ "attempts": [
+  {
+   "n": 1,
+   "problems": [],
+   "fact_check": {
+    "correct": true,
+    "reason": ""
+   },
+   "mcq_verify": {
+    "agree": 2,
+    "total": 3,
+    "details": [
+     "mcq1: stored 1, verifier 1, agree",
+     "mcq2: stored 0, verifier 0, agree",
+     "mcq3: stored 3, verifier 2, DISAGREE"
+    ]
+   }
+  },
+  {
+   "n": 2,
+   "problems": [],
+   "fact_check": {
+    "correct": true,
+    "reason": ""
+   },
+   "mcq_verify": {
+    "agree": 2,
+    "total": 3,
+    "details": [
+     "mcq1: stored 0, verifier 0, agree",
+     "mcq2: stored 0, verifier 0, agree",
+     "mcq3: stored 0, verifier 2, DISAGREE"
+    ]
+   }
+  },
+  {
+   "n": 3,
+   "problems": [],
+   "fact_check": {
+    "correct": true,
+    "reason": ""
+   },
+   "mcq_verify": {
+    "agree": 2,
+    "total": 3,
+    "details": [
+     "mcq1: stored 1, verifier 1, agree",
+     "mcq2: stored 0, verifier 0, agree",
+     "mcq3: stored 2, verifier 0, DISAGREE"
+    ]
+   }
+  }
+ ],
+ "status": "needs_human_review"
+}

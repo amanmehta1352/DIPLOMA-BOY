@@ -1,0 +1,74 @@
+{
+ "concepts": [
+  {
+   "title": "Universal Law of Gravitation",
+   "body": "The universal law of gravitation states that every object in the universe attracts every other object with a force directly proportional to the product of their masses and inversely proportional to the square of the distance between them. For example, the Earth pulls you towards its center, keeping you grounded."
+  },
+  {
+   "title": "Free Fall and Acceleration Due to Gravity (g)",
+   "body": "Free fall is the motion of an object under the influence of gravity alone, where air resistance is negligible. The acceleration due to gravity (g) is approximately 9.8 m/s^2 and is the same for all objects, regardless of their mass. For instance, a feather and a hammer dropped in a vacuum will hit the ground simultaneously."
+  },
+  {
+   "title": "Mass vs Weight",
+   "body": "Mass is the amount of matter in an object and remains constant everywhere, measured in kilograms. Weight is the force exerted on an object due to gravity and is calculated as mass multiplied by acceleration due to gravity (W = m x g), measured in newtons. For example, your mass is the same on Earth and the Moon, but your weight differs due to the change in gravitational force."
+  }
+ ],
+ "formulas": [
+  {
+   "title": "Universal Gravitational Force",
+   "body": "F = G x m1 x m2 / r^2 (F in newton N, m in kg, r in meters, G = 6.67 x 10^-11 N m^2/kg^2). This formula calculates the gravitational force between two objects, where F is the force, G is the gravitational constant, m1 and m2 are the masses of the objects, and r is the distance between their centers."
+  },
+  {
+   "title": "Weight Calculation",
+   "body": "W = m x g (W in newton N, m in kg, g in m/s^2). This formula calculates the weight of an object, where W is the weight, m is the mass, and g is the acceleration due to gravity."
+  }
+ ],
+ "examples": [
+  {
+   "title": "Everyday Example",
+   "body": "When you jump, you are pulled back to the ground by Earth's gravitational force. This force ensures that you return to the surface instead of floating away."
+  },
+  {
+   "title": "Applied Example",
+   "body": "Satellites orbiting Earth are kept in their paths by the gravitational force between them and Earth. Without this force, satellites would drift off into space."
+  }
+ ],
+ "mcqs": [
+  {
+   "question": "What is the value of acceleration due to gravity (g) on Earth?",
+   "options": [
+    "9.8 m/s^2",
+    "10 m/s^2",
+    "8.5 m/s^2",
+    "7.9 m/s^2"
+   ],
+   "answer_index": 0,
+   "difficulty": "easy",
+   "explanation": "The correct answer is 9.8 m/s^2, as this is the standard value of g on Earth. The other options are incorrect because they do not match the accepted value."
+  },
+  {
+   "question": "If the mass of an object is 10 kg, what is its weight on Earth? (Take g = 9.8 m/s^2)",
+   "options": [
+    "98 N",
+    "10 N",
+    "9.8 N",
+    "100 N"
+   ],
+   "answer_index": 0,
+   "difficulty": "medium",
+   "explanation": "The correct answer is 98 N, calculated using W = m x g (10 kg x 9.8 m/s^2). The other options are incorrect because they either use incorrect calculations or values."
+  },
+  {
+   "question": "Two objects have masses of 5 kg and 10 kg, respectively, and are placed 2 meters apart. What is the gravitational force between them? (G = 6.67 x 10^-11 N m^2/kg^2)",
+   "options": [
+    "8.34 x 10^-10 N",
+    "1.67 x 10^-9 N",
+    "3.34 x 10^-10 N",
+    "6.67 x 10^-11 N"
+   ],
+   "answer_index": 1,
+   "difficulty": "medium",
+   "explanation": "The correct answer is 1.67 x 10^-9 N, calculated using F = G x m1 x m2 / r^2 (6.67 x 10^-11 x 5 x 10 / 2^2). The other options are incorrect because they either use incorrect calculations or values."
+  }
+ ]
+}

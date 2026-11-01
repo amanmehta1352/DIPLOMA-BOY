@@ -1,0 +1,74 @@
+{
+ "concepts": [
+  {
+   "title": "Sound is a longitudinal wave that needs a medium",
+   "body": "Sound is a type of mechanical wave that travels through a medium by compressing and rarefying particles in the direction of propagation. It cannot travel in a vacuum because there are no particles to vibrate. For example, you cannot hear sounds from outer space because it is a vacuum."
+  },
+  {
+   "title": "Frequency, wavelength, amplitude, pitch, and loudness",
+   "body": "Frequency is the number of vibrations per second, measured in Hertz (Hz). Wavelength is the distance between two consecutive compressions or rarefactions. Amplitude is the maximum displacement of particles from their mean position. Pitch is determined by frequency, while loudness depends on amplitude. For example, a high-pitched whistle has a higher frequency than a low-pitched drum."
+  },
+  {
+   "title": "Reflection of sound and echo",
+   "body": "When sound waves hit a hard surface, they bounce back, a phenomenon known as reflection. If the reflected sound is heard after the original sound, it is called an echo. For example, shouting in a canyon produces an echo due to sound reflection."
+  }
+ ],
+ "formulas": [
+  {
+   "title": "Wave speed (v = f x lambda)",
+   "body": "Wave speed (v in m/s) equals frequency (f in Hz) multiplied by wavelength (lambda in m). This formula is used to calculate the speed of a wave when its frequency and wavelength are known."
+  },
+  {
+   "title": "Echo distance (d = v x t / 2)",
+   "body": "Echo distance (d in m) equals wave speed (v in m/s) multiplied by time (t in s) divided by 2. This formula is used to calculate the distance of a reflecting surface when the time taken for the echo to return is known."
+  }
+ ],
+ "examples": [
+  {
+   "title": "Everyday example: Hearing a friend's voice",
+   "body": "When your friend speaks, sound waves travel through the air, vibrating air particles. These vibrations reach your ear, allowing you to hear their voice. The cause is the propagation of sound waves through a medium (air)."
+  },
+  {
+   "title": "Applied example: Ultrasound imaging",
+   "body": "In medical imaging, ultrasound uses high-frequency sound waves to create images of internal body structures. The sound waves reflect off tissues and return to the device, which processes the echoes to form an image. The cause is the reflection of sound waves."
+  }
+ ],
+ "mcqs": [
+  {
+   "question": "Which of the following is required for sound to travel?",
+   "options": [
+    "Vacuum",
+    "Medium",
+    "Light",
+    "Heat"
+   ],
+   "answer_index": 1,
+   "difficulty": "easy",
+   "explanation": "Sound requires a medium (like air, water, or solids) to travel because it is a mechanical wave. A vacuum lacks particles to vibrate, so sound cannot travel through it. Light and heat are not mediums."
+  },
+  {
+   "question": "A sound wave has a frequency of 500 Hz and a wavelength of 0.68 m. What is its speed?",
+   "options": [
+    "340 m/s",
+    "500 m/s",
+    "680 m/s",
+    "1000 m/s"
+   ],
+   "answer_index": 0,
+   "difficulty": "medium",
+   "explanation": "Using the formula v = f x lambda, v = 500 Hz x 0.68 m = 340 m/s. The other options are incorrect because they do not match the calculated value."
+  },
+  {
+   "question": "A person claps and hears an echo after 3 seconds. If the speed of sound is 340 m/s, how far is the reflecting surface?",
+   "options": [
+    "510 m",
+    "340 m",
+    "170 m",
+    "1020 m"
+   ],
+   "answer_index": 2,
+   "difficulty": "medium",
+   "explanation": "Using the formula d = v x t / 2, d = 340 m/s x 3 s / 2 = 510 m / 2 = 170 m. The other options are incorrect because they do not account for dividing by 2 to calculate the one-way distance."
+  }
+ ]
+}
