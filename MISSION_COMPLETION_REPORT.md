@@ -1,47 +1,49 @@
-# Diploma Boy — Content DB Mission Report
+# Mission Completion Report — 22 Departments (1 Nov 2026)
 
-Branch: `content-fill-database` (not merged to main). Supabase project `wobmtlcpszcntczkebtt`, schema `mtb`.
-Status: **Mostly complete, with 3 open items that need a decision (see below).**
+Robots and workflows: `main`. Docs: `content-fill-database`. App screens untouched. Every change went through a PR with the required test check. Earlier content-DB report moved to `docs/CONTENT_DB_MISSION_REPORT_2026-10-30.md`.
 
-## Totals
-- Active published atoms: **3,925** (count after migration 0146; the count before migration 0119 is not recorded in the repo, so the starting baseline is not stated here)
-- Atoms with `level_id` NULL: **96** (flagged, not modified, not deleted)
-- NULL `content_hash`, `subject_tag`, `difficulty`, `lang` among active atoms: **0**
+## Departments
+| Dept | Status | Robots | Certified | Scheduled |
+|---|---|---|---|---|
+| CP | Built | Writer, Solver, Topic sample | Writer ✅, Solver 🟡 | Writer daily, Solver daily |
+| QA | Built | Second AI (OpenRouter), Hindi check, auto-approve, publish gate, cross-check, duplicate/pattern | ✅ | with Writer |
+| RI | Built | Syllabus Watcher/Reader, Coverage Planner, Import (PYQ) | ✅ / Import 🟡 | Syllabus daily, Planner every 2 h |
+| DO | Built | Command queue, Dispatcher, Import, Pattern, Full backup | ✅ | Dispatcher 15 min, backup weekly |
+| ID | Built | Health, Daily backup, key checks | ✅ | Health 2 h, backup daily |
+| DU | Partial | Tests | ✅ | on PR |
+| AT, TS, LC, SEC, CL | Partial (existing pieces only) | see certification | — | — |
+| TL, AI | Later | — | — | — |
+| PIE, PA, SC, CS, CO, GE, MG, SP, FA | Not now | — | — | — |
 
-## Migrations in this mission (0119 onward)
-| Range | Content |
-|---|---|
-| 0119 | 19 subjects added |
-| 0120 | 116 topics (chapters) added |
-| 0121–0124 | Commerce: accountancy, business studies, economics-com, maths-com, advanced accountancy, cost/business/law |
-| 0125–0135 | Class 11–12 commerce & arts, graduation arts, law/management |
-| 0136–0137 | Graduation science: physics 874–881, chemistry 885–888 |
-| 0138–0139 | Graduation science: chemistry 889–900 |
-| 0140–0143 | Graduation science: biology 901–920 (incl. 919 Biology: Other, 920 Environment) |
-| 0144 | Graduation science: physics 882–884 |
-| 0145 | Advanced research: thermodynamics (441) missing MCQ |
-| 0146 | Formula atom added to 4 chapters that had only 3 atoms (419, 417, 38, 431) |
+## Integration
+- Command queue: ✅ working (owner code; robots can also queue work for each other).
+- Dispatcher: ✅ every 15 min on paper; GitHub actually ran it 3 times in 16 hours (see limitations).
+- Auto-approve: ✅ on. Today 2 of 2 new chapters auto-approved (100%, small sample).
+- Cross-check: ✅ 87% agreement on 30 questions; now inside the Writer for every chapter.
+- Control Room: ✅ Command tab (send, results, reports, review queue + 5 daily samples), Robots tab (robots + 22 departments), सवाल tab (coverage, syllabus draft).
 
-## Quality checks
-- Every migration verified by chapter-wise atom count (4 per chapter) and total count after apply.
-- Insert uses `on conflict do nothing`, so re-runs are safe.
-- No deletions. No edits to `index.html` or app code. No merge to `main`.
+## Coverage (before → after today)
+- Atoms: 3,925 → 3,925 (Writer makes full chapter books, not atoms).
+- Approved chapter books: 3 → 5 (Class 9–10 chapters 1 and 2 added automatically).
+- Coverage %: 13% → 29% — **this rise is from the new mission targets (smaller), not from new content.**
+- Published questions with a solution: 1,814 of 18,323 (~10%) → unchanged. Solver drafts: 3 new, waiting.
 
-## Open items (need your decision)
-1. **Chapters with 5 atoms (over by one), 8 in total:** banking 1, class_11_12_sci 886, engineering 872, govt_defence 9, medical 908. Left as they are, since the mission says not to delete. Tell me if you want an archive step.
-2. **Advanced research scope:** only 3 chapters (872, 873, 441) have atoms at this level, and the older `gap_fill_progress.json` marks `advanced_research` as out of the fill scope. I could not confirm from the repo that the mission requires more chapters here. Please confirm the expected list.
-3. **Old progress file is stale:** `gap_fill_progress.json` was not updated for migrations 0119 onward. This report is the authoritative record.
+## Scheduled workflows (cron, IST)
+Daily backup 02:11 · Writer 04:01 · Solver 04:41 · Syllabus Watcher 08:53 · Health every 2 h · Dispatcher every 15 min · Full backup Monday 02:33.
 
-## Human-review caveat
-Graduation science and advanced content was written from general knowledge, not from a source book. Please review a sample before publishing.
+## What's working
+Owner sends a command from the phone → Dispatcher → robot → report in the Control Room. Writer writes, a second company checks, Hindi is checked, good chapters go to students by themselves, held ones appear in the review queue. Backups daily and weekly, full backup file with the owner.
 
-## Backup
-Take a fresh export from the Supabase dashboard before any further changes.
+## What needs the user
+1. Look at the review queue and the 5 daily samples in the Control Room (a few minutes a day).
+2. Question 886 (zinc reaction) has two correct options; decide whether to fix or hide it.
 
-## Verification update (2026-10-30, after report)
-- Snapshot checksum (published, not archived): 3,925 rows, md5 `e0af8d47499a7aab0b2d97edab3876b5`, taken 2026-10-30 16:43:50 UTC. This is a fingerprint, not a full JSON backup. A full export still needs to be taken from the Supabase dashboard or via `backups/export_atoms_by_level.sh` with DB_URL.
-- Structure: across 18 levels, 956 chapter-level pairs. Every pair has exactly 4 text atoms (concept, formula, example, mcq).
-- The 5 chapters with 5 atoms (banking 1, class_11_12_sci 886, engineering 872, govt_defence 9, medical 908) have a 5th atom of type `svg`. This is a diagram, not a defect. No change needed.
-- The 96 NULL-level atoms are all `svg` diagrams attached to chapters. They look intentionally shared across levels. Not assigned; awaiting owner decision.
-- Content review: formulas in the atoms written for graduation science (874–920) and advanced_research (441) were spot-checked for arithmetic and equation correctness. Source verification is still pending. Medical, law and engineering atoms have not been individually reviewed.
-- Open decisions for the owner: (1) backup/export, (2) NULL-level svg handling, (3) advanced_research scope, (4) content source review.
+## Limitations (honest)
+- GitHub runs scheduled workflows late or skips them; Dispatcher and Health run much less often than set; Syllabus Watcher has not yet run on schedule. Manual runs all work.
+- Free Gemini quota limits volume: about 3 chapters and 10 solutions a day, not the 20–30 atoms / 100–200 solutions in the mission.
+- No copyright checker: originality rests on the prompt rule only.
+- Solver drafts are not auto-approved (its second opinion is still Gemini).
+- Command box is a form (robot + options), not free text.
+- Coverage heat map is level-wise only (no subject drill-down yet).
+- Syllabus topic matching is word-based; the missing-topic counts are a draft.
+- Monthly jobs (stale review, weakness, security scan) not built — their departments are deferred.

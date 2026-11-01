@@ -1,14 +1,66 @@
 {
-  "mission": "22_departments_v1",
-  "started": "2026-11-01T10:07+05:30",
-  "current_phase": 1,
-  "phases_completed": [0, 1],
-  "phases_already_built_on_main": [2, 3],
-  "departments_built": ["CP", "QA", "RI", "DO", "ID"],
-  "departments_partial": ["CP", "QA", "RI", "TL", "AT"],
-  "robots_with_run_evidence": ["Writer", "Solver", "Dispatcher", "Health", "Daily backup", "Syllabus Watcher", "Coverage Planner", "Cross-check", "Full backup", "Tests"],
-  "robots_certified": [],
-  "next_phase": 4,
-  "blockers": ["Branch decision: scheduled robots run only from main; mission says do not merge to main"],
-  "notes": "Phase 2 and 3 were built on main on 31 Oct-1 Nov. This branch (content-fill-database) is 118 commits behind main."
+ "mission": "22_departments_v1",
+ "started": "2026-11-01T10:07+05:30",
+ "current_phase": 8,
+ "phases_completed": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "phases_already_built_on_main": [
+  2,
+  3
+ ],
+ "departments_built": [
+  "CP",
+  "QA",
+  "RI",
+  "DO",
+  "ID"
+ ],
+ "departments_partial": [
+  "CP",
+  "QA",
+  "RI",
+  "TL",
+  "AT"
+ ],
+ "robots_with_run_evidence": [
+  "Writer",
+  "Solver",
+  "Dispatcher",
+  "Health",
+  "Daily backup",
+  "Syllabus Watcher",
+  "Coverage Planner",
+  "Cross-check",
+  "Full backup",
+  "Tests"
+ ],
+ "robots_certified": [
+  "Writer+2nd AI+auto-approve",
+  "Cross-check",
+  "Publish gate",
+  "Dispatcher",
+  "Command queue",
+  "Health+Planner",
+  "Daily backup",
+  "Full backup",
+  "Syllabus Watcher",
+  "Tests"
+ ],
+ "next_phase": null,
+ "blockers": [],
+ "notes": "Auto-approve on (1 Nov). Writer daily 3 chapters, Solver daily 10. GitHub cron runs late/skips; quota limits volume.",
+ "robots_partial": [
+  "Solver (no auto-approve)",
+  "Import (OCR jobs)",
+  "Pattern"
+ ]
 }
