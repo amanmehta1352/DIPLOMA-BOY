@@ -20,12 +20,13 @@ try:
         status, raw = r.status, r.read()
 except urllib.error.HTTPError as e:
     status, raw = e.code, e.read()
-text = raw.decode('utf-8', 'replace')
-text = text.replace(TOKEN, '[hidden]').replace(ACCOUNT, '[hidden]')
 if status != 200:
-    print(f'FAIL: HTTP {status} {text[:300]}'); sys.exit(1)
+    print(f'FAIL: HTTP {status}'); sys.exit(1)     # status only: the body can echo the account
 try:
-    content = json.loads(raw)['choices'][0]['message']['content']
+    choice = json.loads(raw)['choices'][0]
+    content = (choice.get('message') or {}).get('content') or ''
 except Exception as e:
-    print(f'FAIL: unexpected reply {e} {text[:300]}'); sys.exit(1)
+    print(f'FAIL: unexpected reply format ({type(e).__name__})'); sys.exit(1)
+if not content.strip() or choice.get('finish_reason') == 'length':
+    print(f'FAIL: unusable completion (finish {choice.get("finish_reason")})'); sys.exit(1)
 print(f'OK: model {MODEL} answered: {str(content)[:80]!r}')
