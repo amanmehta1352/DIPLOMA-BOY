@@ -1,6 +1,6 @@
 # Depth policy (proposed)
 
-Status: **proposed.** These numbers are **design choices, not official standards.** No exam or board document gives atom counts. Approve or change before any content is written.
+Status: **approved** (CEO, 1 Nov 2026). Numbers are design choices, not official standards; no exam or board document gives atom counts.
 
 | Level | Depth | Concept | Formula | Example | MCQ |
 |---|---|---|---|---|---|

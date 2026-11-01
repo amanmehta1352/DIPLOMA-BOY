@@ -1,6 +1,6 @@
 # Atom count policy (proposed)
 
-Status: **proposed.** Design choices, not official standards. Approve before use.
+Status: **approved** (CEO, 1 Nov 2026). Design choices, not official standards.
 
 This expands the depth policy. Per level: total atoms per chapter, what each atom type contains, and difficulty split for MCQs.
 
