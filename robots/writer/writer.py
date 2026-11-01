@@ -23,9 +23,22 @@ LEVEL_ORDER = ['class_9_10', 'medical', 'govt_basic', 'upsc_civil', 'govt_techni
                'graduation_sci', 'graduation_com', 'graduation_arts', 'law_management', 'advanced_research']
 
 
+FREE_KEYS = {
+    'groq': os.environ.get('GROQ_API_KEY', '').strip(),
+    'nvidia': os.environ.get('NVIDIA_API_KEY', '').strip(),
+    'sambanova': os.environ.get('SAMBANOVA_API_KEY', '').strip(),
+}
+# Backup writers, used only when every Gemini model fails. Each is OpenAI-compatible; model names can be overridden by env.
+FREE_PROVIDERS = [
+    ('groq', 'https://api.groq.com/openai/v1/chat/completions', os.environ.get('GROQ_WRITE_MODEL', 'llama-3.3-70b-versatile')),
+    ('nvidia', 'https://integrate.api.nvidia.com/v1/chat/completions', os.environ.get('NVIDIA_WRITE_MODEL', 'nvidia/llama-3.1-nemotron-70b-instruct')),
+    ('sambanova', 'https://api.sambanova.ai/v1/chat/completions', os.environ.get('SAMBANOVA_WRITE_MODEL', 'Meta-Llama-3.3-70B-Instruct')),
+]
+
+
 def hide(s):
     s = str(s)
-    for k in (GKEY, SB_KEY):
+    for k in (GKEY, SB_KEY, *FREE_KEYS.values()):
         if k: s = s.replace(k, '[hidden]')
     return s
 
@@ -63,6 +76,37 @@ def gemini(prompt, models, json_out=True, temperature=0.4):
                 time.sleep(min(60, 8 * (attempt + 1))); continue
             break   # 400/404 etc: try the next model
     raise RuntimeError('Gemini failed: ' + last)
+
+
+def free_write(prompt):
+    """Returns (text, model) from the first backup provider that answers. Raises if none does."""
+    last = ''
+    for name, url, model in FREE_PROVIDERS:
+        key = FREE_KEYS[name]
+        if not key:
+            last = f'{name}: key missing'; continue
+        body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': prompt}],
+                           'temperature': 0.4, 'response_format': {'type': 'json_object'}}).encode()
+        s, b = http(url, {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, body, timeout=240)
+        if s == 200:
+            try:
+                d = json.loads(b)
+                return d['choices'][0]['message'].get('content') or '', f'{name}:{model}'
+            except Exception as e:
+                last = f'{name}: bad response {e}'; continue
+        last = f'{name}: HTTP {s} {hide(b[:160])}'
+    raise RuntimeError('free providers failed: ' + last)
+
+
+def write_text(prompt):
+    """Gemini first; backup free providers only if Gemini fails completely."""
+    try:
+        return gemini(prompt, WRITE_MODELS)
+    except RuntimeError as g_err:
+        try:
+            return free_write(prompt)
+        except RuntimeError as f_err:
+            raise RuntimeError(f'{g_err} | {f_err}')
 
 
 def parse_json(text):
@@ -244,7 +288,7 @@ def main():
         for attempt in range(2):
           status, checks, model, data = 'rejected', {}, None, None
           try:
-              txt, model = gemini(prompt, WRITE_MODELS)
+              txt, model = write_text(prompt)
               data = tidy_explanations(shuffle_options(parse_json(txt), want))
               prob = check_structure(data, want)
               checks['structure'] = prob
