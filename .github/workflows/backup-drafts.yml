@@ -1,0 +1,24 @@
+name: Backup draft and hidden questions
+# Read-only backup before any purge. Writes an artifact; deletes nothing.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency: backup-drafts
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Backup
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python robots/purge/backup.py --out out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: draft-hidden-backup
+          path: out/
+          retention-days: 90
