@@ -30,7 +30,19 @@ jobs:
         run: |
           case "$IN_COUNT" in ""|*[!0-9]*) echo "count must be a number"; exit 1;; esac
           case "$IN_LEVEL" in ""|*[!a-z0-9_]*) echo "bad level"; exit 1;; esac
-          pip install -q pdfplumber
+          pip install -q pdfplumber certifi
+          # ncert.nic.in sends an incomplete certificate chain. Keep TLS verification ON: fetch the missing intermediate
+          # from the address written in the server's own certificate (AIA), and add it to a private trust bundle.
+          echo | openssl s_client -connect ncert.nic.in:443 -servername ncert.nic.in 2>/dev/null | openssl x509 > /tmp/leaf.pem || true
+          AIA=$(openssl x509 -in /tmp/leaf.pem -noout -text 2>/dev/null | grep -o 'CA Issuers - URI:[^ ]*' | head -1 | sed 's/CA Issuers - URI://')
+          echo "issuer certificate: ${AIA:-none}"
+          cp "$(python -m certifi)" /tmp/bundle.pem
+          if [ -n "$AIA" ]; then
+            curl -sS -m 30 "$AIA" -o /tmp/inter.bin
+            (openssl x509 -inform DER -in /tmp/inter.bin 2>/dev/null || openssl x509 -in /tmp/inter.bin) >> /tmp/bundle.pem
+            openssl verify -CAfile /tmp/bundle.pem -untrusted /tmp/bundle.pem /tmp/leaf.pem || echo "chain still not verified"
+          fi
+          export SSL_CERT_FILE=/tmp/bundle.pem
           python robots/copyright/ngram.py --count "$IN_COUNT" --level "$IN_LEVEL" --out out
       - uses: actions/upload-artifact@v4
         if: always()
