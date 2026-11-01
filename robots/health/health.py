@@ -150,8 +150,16 @@ def build(d, prev=None, at=None):
     status = {'schema': 1, 'app': APP, 'at': iso(at), 'overall': overall, 'checks': checks, 'robots': robots,
               'numbers': {'published': tot('published'), 'draft': tot('draft'), 'hidden': tot('hidden'), 'by_exam': by, 'total': (db or {}).get('total')},
               'backup_verify': d.get('backup_verify'), 'site': {'url': SITE, **site}, 'errors': d.get('errors', {}),
-              'coverage': d.get('coverage'), 'syllabus': syllabus_summary(d.get('syllabus'))}
+              'coverage': d.get('coverage'), 'syllabus': syllabus_summary(d.get('syllabus')), 'shared': shared_summary()}
     return status
+
+def shared_summary():
+    """Shared topics (one entry per topic across levels), first 25 shown. Draft: not checked by a person."""
+    try:
+        s, b = http(f'https://raw.githubusercontent.com/{REPO}/syllabus-state/shared_topics.json?h={int(time.time())}')
+        d = json.loads(b)
+        return {'draft': True, 'topics': d.get('topics'), 'shared_by_2_or_more': d.get('shared_by_2_or_more'), 'sample': [g['topic'] for g in d.get('items', [])[:25]]}
+    except Exception: return None
 
 def syllabus_summary(r):
     """Counts and the first 25 missing topics per level, from the syllabus reader. Marked as a draft (not checked by a person)."""
