@@ -4,6 +4,15 @@ Env: GROQ_API_KEY, SAMBANOVA_API_KEY, CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_I
 """
 import json, os, sys, urllib.request, urllib.error
 
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Never follow redirects: urllib would copy the Authorization header to the new host."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+OPENER = urllib.request.build_opener(NoRedirect)
+
 PROVIDERS = [
     ('groq', 'GROQ_API_KEY', 'https://api.groq.com/openai/v1/chat/completions', 'openai/gpt-oss-120b', 'GROQ_WRITE_MODEL'),
     ('sambanova', 'SAMBANOVA_API_KEY', 'https://api.sambanova.ai/v1/chat/completions', 'Meta-Llama-3.3-70B-Instruct', 'SAMBANOVA_WRITE_MODEL'),
@@ -19,10 +28,10 @@ for name, key_env, url, default_model, model_env in PROVIDERS:
     if not key or (name == 'cloudflare' and not acc):
         print(f'{name}: FAIL key or account missing in the secrets'); failed += 1; continue
     body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': 'Reply with the single word: ok'}],
-                       'max_tokens': 20}).encode()
+                       'max_tokens': 300}).encode()
     req = urllib.request.Request(url, data=body, headers={'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'})
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
+        with OPENER.open(req, timeout=120) as r:
             status, raw = r.status, r.read()
     except urllib.error.HTTPError as e:
         status, raw = e.code, e.read()
