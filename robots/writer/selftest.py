@@ -34,3 +34,5 @@ assert not WW.hindi_ok({'notes': [{'title': 'वेग', 'points': ['वेग']
 print('hindi practice selftest ok')
 assert WW._hindi_major('वेग v = s/t, इकाई m/s, KE = (1/2) × m × v^2 और sqrt(2gh)')
 print('hindi maths selftest ok')
+assert not WW._hindi_major('यह the cat sat on the mat and the dog ran far away from it')   # ordinary English words still count
+print('hindi exemptions narrow selftest ok')

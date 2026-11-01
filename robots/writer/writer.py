@@ -163,7 +163,11 @@ LATIN = re.compile(r'[A-Za-z]')
 def _hindi_major(text):
     """Maths and units are not language: drop bracketed English terms, symbol-like tokens (v, m/s, sqrt, x^2) and short Latin words."""
     t = re.sub(r'\([^()]*\)', ' ', text)
-    t = re.sub(r'\b[A-Za-z]{1,3}\b|\b(sqrt|sin|cos|tan|log|kg|km|cm|mm)\b|[A-Za-z]+\^\d+|[A-Za-z]+/[A-Za-z]+', ' ', t)
+    units = r'(m|s|kg|g|km|cm|mm|N|J|W|V|A|K|Pa|Hz|C|mol|L|ml|h|min|rad)'
+    t = re.sub(r'\b[A-Za-z]\b'                                   # single-letter variables: v, t, m
+               r'|\b(sqrt|sin|cos|tan|log|ln|KE|PE)\b'             # functions and standard symbols
+               r'|\b' + units + r'(/' + units + r')*(\^\d+)?\b'       # units: m/s, kg, m^2
+               r'|[A-Za-z]+\^\d+|[A-Za-z]*\d+[A-Za-z]*', ' ', t)
     dv, la = len(DEVA.findall(t)), len(LATIN.findall(t))
     return dv > 0 and dv >= la
 
