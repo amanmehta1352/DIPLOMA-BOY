@@ -26,3 +26,7 @@ assert any('right option' in p for p in w.check_structure(bad, 'DB|x|1'))
 bad = copy.deepcopy(good); bad['practice'][0]['explanation'] += ' 2 * 3'
 assert any('×' in p for p in w.check_structure(bad, 'DB|x|1'))
 print('writer selftest ok')
+import writer as WW
+assert WW.hindi_ok({'notes': [{'title': 'वेग', 'points': ['वेग (velocity) एक सदिश राशि है।']}]})
+assert not WW.hindi_ok({'notes': [{'title': 'Velocity', 'points': ['Velocity is a vector quantity.']}]})
+print('hindi check selftest ok')

@@ -28,6 +28,21 @@ window.CMD = (() => {
   async function loadList() {
     try { C.list = await rpc('cmd_list', { p_code: store.get(), p_limit: 30 }); C.err = ''; }
     catch (e) { C.list = []; C.err = e.message; if (/गलत/.test(e.message)) store.set(''); }
+    try { const d = await rpc('draft_review_list', { p_code: store.get() }); C.drafts = Array.isArray(d) ? d : null; } catch (_) { C.drafts = null; }
+  }
+  function daySample(arr, n) {          // the same 5 approved chapters all day, new ones tomorrow
+    const seed = Math.floor(Date.now() / 86400000);
+    return [...arr].sort((a, b) => ((a.chapter_id * 7919 + seed) % 997) - ((b.chapter_id * 7919 + seed) % 997)).slice(0, n);
+  }
+  function reviewHtml() {
+    if (!C.drafts) return '';
+    const held = C.drafts.filter(d => d.status !== 'approved');
+    const ok = C.drafts.filter(d => d.status === 'approved');
+    const why = d => { const c = d.checks || {}; return (c.problems && c.problems.length ? c.problems.join('; ') : c.error || ''); };
+    const row = (d, tag) => `<div class="card"><div class="row"><div><b>${esc(d.level_id)} · chapter ${esc(d.chapter_id)}</b><small>${esc(d.model || '')}${why(d) ? ' · ' + esc(why(d)) : ''}</small></div><span class="cnt"><span class="pill ${tag[0]}">${esc(tag[1])}</span></span></div></div>`;
+    return `<h2>Review queue</h2><div class="card"><small>सिर्फ़ रुके हुए drafts और आज के 5 approved नमूने। approved ${ok.length} · रुके ${held.length}</small></div>
+      ${held.length ? held.map(d => row(d, d.status === 'rejected' ? ['bad', 'रुका'] : ['warn', 'जाँच'])).join('') : '<p class="empty">कोई draft नहीं रुका</p>'}
+      <h2>आज के 5 नमूने (approved)</h2>${daySample(ok, 5).map(d => row(d, ['ok', 'approved'])).join('') || '<p class="empty">अभी कोई approved नहीं</p>'}`;
   }
 
   function inputHtml(k, s) {
@@ -73,7 +88,8 @@ window.CMD = (() => {
       ${Object.entries(spec.inputs || {}).map(([k, s]) => inputHtml(k, s)).join('')}
       <label class="field"><span>नोट (अपने लिए, ज़रूरी नहीं)</span><textarea id="cNote" maxlength="500"></textarea></label>
       <div class="btns"><button class="btn" id="cSend" ${C.busy ? 'disabled' : ''}>भेजो</button><button class="btn line" id="cRefresh">⟳ ताज़ा</button><button class="btn line" id="cOut">Code हटाओ</button></div></div>
-      <h2>हाल की commands</h2>${C.err ? `<div class="msg bad">${esc(C.err)}</div>` : ''}${C.list.length ? C.list.map(cmdCard).join('') : '<p class="empty">अभी कोई command नहीं</p>'}`;
+      <h2>हाल की commands</h2>${C.err ? `<div class="msg bad">${esc(C.err)}</div>` : ''}${C.list.length ? C.list.map(cmdCard).join('') : '<p class="empty">अभी कोई command नहीं</p>'}
+      ${reviewHtml()}`;
     $('cRobot').onchange = e => { C.robot = e.target.value; C.msg = null; draw(root); };
     $('cRefresh').onclick = async () => { C.msg = null; await loadList(); draw(root); };
     $('cOut').onclick = () => { store.set(''); C.list = null; C.msg = null; draw(root); };

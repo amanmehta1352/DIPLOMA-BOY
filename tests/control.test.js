@@ -20,7 +20,7 @@ const srv = http.createServer((q, r) => { let f = path.join(root, q.url.split('?
     o.firstIsWorst = await p.$eval('#view .card .dot', e => e.textContent);
     for (const go of ['questions', 'robots', 'backup']) { await p.click(`[data-go=${go}]`); await p.waitForTimeout(50); o[go] = (await p.$eval('#view', e => e.innerText.length)) > 20; }
     await p.click('[data-go=questions]'); o.exams = await p.$$eval('#view tbody tr', e => e.length); o.spark = (await p.$$eval('svg.spark polyline', e => e.length)) === 1;
-    await p.click('[data-go=robots]'); o.robotBtns = await p.$$eval('a.btn', e => e.length);
+    await p.click('[data-go=robots]'); await p.waitForTimeout(150); o.robotBtns = await p.$$eval('a.btn', e => e.length); o.depts = (await p.innerText('#view')).includes('22 Departments');
     o.overflow = await p.evaluate(() => document.documentElement.scrollWidth > innerWidth);
     o.smallTap = await p.evaluate(() => [...document.querySelectorAll('button,a.btn,select')].filter(x => { const r = x.getBoundingClientRect(); return r.width && (r.height < 44 || r.width < 44); }).length);
     o.noHtmlInjection = !(await p.content()).includes('<img src=x');
@@ -41,6 +41,9 @@ const srv = http.createServer((q, r) => { let f = path.join(root, q.url.split('?
       if (r.request().method() === 'OPTIONS') return r.fulfill({ status: 200, headers: H, body: '' });
       if (a.p_code !== 'GOODCODE') return r.fulfill({ status: 400, contentType: 'application/json', headers: H, body: '{"message":"bad code"}' });
       if (fn === 'cmd_submit') { sent.push(a); return r.fulfill({ status: 200, contentType: 'application/json', headers: H, body: '7' }); }
+      if (fn === 'draft_review_list') return r.fulfill({ status: 200, contentType: 'application/json', headers: H, body: JSON.stringify([
+        { level_id: 'class_9_10', chapter_id: 3, status: 'rejected', model: 'gemini', checks: { problems: ['second opinion disagrees on 4 of 10 answers'] } },
+        { level_id: 'class_9_10', chapter_id: 4, status: 'approved', model: 'gemini', checks: {} }]) });
       if (fn === 'cmd_list') return r.fulfill({ status: 200, contentType: 'application/json', headers: H, body: JSON.stringify([
         { id: 7, robot: 'solver', args: { count: '5' }, status: 'queued', created_at: new Date().toISOString() },
         { id: 6, robot: 'writer', args: {}, status: 'done', created_at: new Date().toISOString(), finished_at: new Date().toISOString(), run_url: 'https://github.com/x/y/actions/runs/1', report: '<img src=x onerror=alert(1)> all checks passed' }]) });
@@ -53,11 +56,12 @@ const srv = http.createServer((q, r) => { let f = path.join(root, q.url.split('?
       cards: await q.$$eval('#view .card', e => e.length), report: await q.$$eval('details.rep', e => e.length), cancel: await q.$$eval('[data-cancel]', e => e.length),
       overflow: await q.evaluate(() => document.documentElement.scrollWidth > innerWidth),
       smallTap: await q.evaluate(() => [...document.querySelectorAll('button,a.btn,select')].filter(x => { const r = x.getBoundingClientRect(); return r.width && (r.height < 44 || r.width < 44); }).length),
-      noHtmlInjection: (await q.$$eval('#view img', e => e.length)) === 0 };
+      noHtmlInjection: (await q.$$eval('#view img', e => e.length)) === 0,
+      review: (await q.innerText('#view')).includes('Review queue') && (await q.innerText('#view')).includes('second opinion disagrees') };
     out.push({ command: o }); await q.close();
-    if (!o.wrong || !o.sentOk || o.cards !== 3 || o.report !== 1 || o.cancel !== 1 || o.overflow || o.smallTap || !o.noHtmlInjection) errs.push('command tab: ' + JSON.stringify(o)); }
+    if (!o.wrong || !o.sentOk || o.cards < 3 || !o.review || o.report !== 1 || o.cancel !== 1 || o.overflow || o.smallTap || !o.noHtmlInjection) errs.push('command tab: ' + JSON.stringify(o)); }
   await b.close(); srv.close(); console.log(JSON.stringify(out)); console.log('errors', errs);
-  const bad = errs.length || out.slice(0, 3).some(o => !o.questions || !o.robots || !o.backup || o.overflow || o.smallTap || !o.noHtmlInjection || o.exams !== 2 || !o.spark || o.robotBtns < 1) ||
+  const bad = errs.length || out.slice(0, 3).some(o => !o.questions || !o.robots || !o.backup || o.overflow || o.smallTap || !o.noHtmlInjection || o.exams !== 2 || !o.spark || o.robotBtns < 1 || !o.depts) ||
     out[0].banner !== 'warn' || out[1].banner !== 'bad' || out[2].banner !== 'ok' || out[1].firstIsWorst !== '🔴' || !out[3].missing;
   process.exit(bad ? 1 : 0);
 })();

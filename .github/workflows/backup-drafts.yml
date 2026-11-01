@@ -1,6 +1,8 @@
 name: Backup all questions
 # Read-only backup before any purge. Writes an artifact; deletes nothing.
 on:
+  schedule:
+    - cron: '3 21 * * 0'   # Monday 02:33 IST, weekly full backup (90 days)
   workflow_dispatch:
 permissions:
   contents: read

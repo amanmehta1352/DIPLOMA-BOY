@@ -2,6 +2,8 @@ name: Writer Robot
 # Writes deep chapter content with free Gemini, checks it, saves it as a DRAFT (never shown in the app until approved).
 # The report is posted as an issue. Keys are never printed.
 on:
+  schedule:
+    - cron: '31 22 * * *'   # 04:01 IST, daily
   workflow_dispatch:
     inputs:
       count:
@@ -38,8 +40,9 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          A="--count ${{ inputs.count }}"
+          A="--count ${{ inputs.count || '3' }}"
           [ -n "${{ inputs.level }}" ] && A="$A --level ${{ inputs.level }}"
           [ -n "${{ inputs.only }}" ] && A="$A --only ${{ inputs.only }}"
           [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"

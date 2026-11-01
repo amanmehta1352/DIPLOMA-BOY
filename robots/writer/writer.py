@@ -18,8 +18,8 @@ SB_KEY = os.environ.get('SUPABASE_SECRET_KEY', '').strip()
 GKEY = os.environ.get('GEMINI_API_KEY', '').strip()
 WRITE_MODELS = ['gemini-3.5-flash', 'gemini-flash-latest', 'gemini-3.8-flash']
 CHECK_MODELS = ['gemini-3.5-flash-lite', 'gemini-flash-lite-latest', 'gemini-3.5-flash']
-LEVEL_ORDER = ['govt_technical', 'class_9_10', 'class_11_12_sci', 'govt_basic', 'class_6_8', 'banking', 'govt_defence',
-               'engineering', 'medical', 'state_psc', 'upsc_civil', 'class_11_12_com', 'class_11_12_arts',
+LEVEL_ORDER = ['class_9_10', 'medical', 'govt_basic', 'upsc_civil', 'govt_technical', 'class_11_12_sci', 'class_6_8', 'banking', 'govt_defence',
+               'engineering', 'state_psc', 'class_11_12_com', 'class_11_12_arts',
                'graduation_sci', 'graduation_com', 'graduation_arts', 'law_management', 'advanced_research']
 
 
@@ -142,11 +142,39 @@ def tidy_explanations(d):
     return d
 
 
+ORKEY = os.environ.get('OPENROUTER_API_KEY', '').strip()
+OR_MODEL = os.environ.get('OPENROUTER_MODEL', 'deepseek/deepseek-chat')
+
+
+def openrouter(prompt):
+    """Second AI from a different company (OpenRouter). Reasoning off so the reply is not empty."""
+    body = json.dumps({'model': OR_MODEL, 'messages': [{'role': 'user', 'content': prompt}], 'temperature': 0,
+                       'max_tokens': 400, 'reasoning': {'effort': 'none', 'exclude': True}}).encode()
+    s, b = http('https://openrouter.ai/api/v1/chat/completions', {'Authorization': 'Bearer ' + ORKEY, 'Content-Type': 'application/json'}, body, timeout=120)
+    if s != 200: raise RuntimeError(f'openrouter HTTP {s} {hide(b[:160])}')
+    d = json.loads(b)
+    return d['choices'][0]['message'].get('content') or '', d.get('model', OR_MODEL)
+
+
+DEVA = re.compile(r'[\u0900-\u097F]')
+LATIN = re.compile(r'[A-Za-z]')
+
+
+def hindi_ok(d):
+    """Pure: the chapter is written in Hindi (Devanagari letters are the majority; English terms in brackets are allowed)."""
+    text = ' '.join(strings({k: d.get(k) for k in ('notes', 'teach', 'revision')}))
+    dv, la = len(DEVA.findall(text)), len(LATIN.findall(text))
+    return dv > 0 and dv >= la
+
+
 def second_opinion(d):
     qs = [{'n': i, 'q': x['q'], 'options': x['options']} for i, x in enumerate(d.get('practice', []))]
     prompt = ('Solve each multiple-choice question carefully. Reply only with JSON: {"answers": [index, ...]} '
               'where each index is 0, 1, 2 or 3 in the same order as the questions.\n\n' + json.dumps(qs, ensure_ascii=False))
-    txt, m = gemini(prompt, CHECK_MODELS, temperature=0)
+    if ORKEY:
+        txt, m = openrouter(prompt)          # a different company checks the answers
+    else:
+        txt, m = gemini(prompt, CHECK_MODELS, temperature=0)
     got = parse_json(txt).get('answers', [])
     diff = [i for i, x in enumerate(d['practice']) if i >= len(got) or got[i] != x['answer']]
     return diff, m
@@ -208,6 +236,7 @@ def main():
                   diff, cm = second_opinion(data)
                   checks['second_opinion'] = {'model': cm, 'disagree': diff}
                   if len(diff) > 2: prob.append(f'second opinion disagrees on {len(diff)} of 10 answers')
+                  if not hindi_ok(data): prob.append('not Hindi (Devanagari is not the majority)')
               status = 'draft' if not prob else 'rejected'
               checks['problems'] = prob
           except Exception as e:

@@ -1,0 +1,159 @@
+{
+ "schema": 1,
+ "departments": [
+  {
+   "id": "CP",
+   "name": "Content Production",
+   "state": "built",
+   "robots": "Writer (रोज़ 04:01), Solver (रोज़ 04:41), Topic sample",
+   "missing": "Translator, SVG"
+  },
+  {
+   "id": "QA",
+   "name": "Quality Assurance",
+   "state": "built",
+   "robots": "Structure checks, Hindi check, दूसरी कंपनी का AI (OpenRouter), Auto-approve, Publish gate, Duplicate/pattern",
+   "missing": "Copyright checker"
+  },
+  {
+   "id": "TL",
+   "name": "Translation",
+   "state": "later",
+   "robots": "Import में Hindi अनुवाद",
+   "missing": "Atoms का English mode"
+  },
+  {
+   "id": "DU",
+   "name": "Design & UX",
+   "state": "partial",
+   "robots": "Tests (phone/tablet, light/dark)",
+   "missing": "A11y audit"
+  },
+  {
+   "id": "PIE",
+   "name": "Product Innovation",
+   "state": "skip",
+   "robots": "",
+   "missing": "users आने पर"
+  },
+  {
+   "id": "AT",
+   "name": "Assessment & Testing",
+   "state": "partial",
+   "robots": "question_sets, books",
+   "missing": "Mock generator"
+  },
+  {
+   "id": "PA",
+   "name": "Personalization",
+   "state": "skip",
+   "robots": "",
+   "missing": "users आने पर"
+  },
+  {
+   "id": "RI",
+   "name": "Research & Intelligence",
+   "state": "built",
+   "robots": "Syllabus Watcher (रोज़), Coverage Planner, Import (PYQ)",
+   "missing": "Vacancy tracker"
+  },
+  {
+   "id": "AI",
+   "name": "Analytics",
+   "state": "later",
+   "robots": "Health counts",
+   "missing": "users आने पर"
+  },
+  {
+   "id": "TS",
+   "name": "Trust & Safety",
+   "state": "partial",
+   "robots": "Student reports + guard",
+   "missing": "Correction log"
+  },
+  {
+   "id": "LC",
+   "name": "Legal & Compliance",
+   "state": "partial",
+   "robots": "Privacy, Terms, Delete-data पेज",
+   "missing": "Attribution"
+  },
+  {
+   "id": "SEC",
+   "name": "Security & Privacy",
+   "state": "partial",
+   "robots": "RLS, hashed owner code, keys कभी print नहीं",
+   "missing": "Pentest"
+  },
+  {
+   "id": "SC",
+   "name": "Student Success",
+   "state": "skip",
+   "robots": "",
+   "missing": "users आने पर"
+  },
+  {
+   "id": "CS",
+   "name": "Customer Support",
+   "state": "skip",
+   "robots": "",
+   "missing": "users आने पर"
+  },
+  {
+   "id": "CO",
+   "name": "Community & Social",
+   "state": "skip",
+   "robots": "",
+   "missing": "users आने पर"
+  },
+  {
+   "id": "GE",
+   "name": "Gamification",
+   "state": "skip",
+   "robots": "",
+   "missing": "users आने पर"
+  },
+  {
+   "id": "CL",
+   "name": "Content Lifecycle",
+   "state": "partial",
+   "robots": "audit_log, content_hash",
+   "missing": "Stale flag, versions"
+  },
+  {
+   "id": "MG",
+   "name": "Marketing & Growth",
+   "state": "skip",
+   "robots": "",
+   "missing": "launch पर"
+  },
+  {
+   "id": "SP",
+   "name": "Sales & Partnerships",
+   "state": "skip",
+   "robots": "",
+   "missing": "launch पर"
+  },
+  {
+   "id": "ID",
+   "name": "Infrastructure & DevOps",
+   "state": "built",
+   "robots": "Health (हर 2 घंटे), Daily backup, Weekly full backup, Key checks",
+   "missing": "Quota tracker"
+  },
+  {
+   "id": "DO",
+   "name": "Data Operations",
+   "state": "built",
+   "robots": "Import, Pattern, Full backup, Migrations, Dispatcher queue",
+   "missing": ""
+  },
+  {
+   "id": "FA",
+   "name": "Finance & Accounting",
+   "state": "skip",
+   "robots": "",
+   "missing": "revenue आने पर"
+  }
+ ]
+}

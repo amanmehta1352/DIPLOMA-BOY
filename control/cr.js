@@ -14,6 +14,7 @@ function ago(iso) { const m = Math.round((Date.now() - new Date(iso)) / 60000); 
 const safeUrl = u => /^https:\/\//.test(u || '') ? esc(u) : '#';
 
 async function getJson(url) { const r = await fetch(url, { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); return r.json(); }
+async function loadDepts() { try { S.depts = (await getJson('departments.json')).departments; } catch (_) { S.depts = null; } }
 async function loadApps() {
   try { S.apps = (await getJson('apps.json')).apps; } catch (_) { S.apps = FALLBACK.apps; }
   const want = (location.hash.match(/app=([\w-]+)/) || [])[1];
@@ -72,7 +73,18 @@ function vQuestions(st) {
   <h2>Content योजना (level-wise भराव)</h2>${coverageHtml(st.coverage)}
   <h2>सिलेबस (मसौदा)</h2>${syllabusHtml(st.syllabus)}`;
 }
+const DEPT_STATE = { built: ['ok', 'बना'], partial: ['warn', 'आधा'], later: ['none', 'बाद में'], skip: ['none', 'अभी नहीं'] };
+function deptHtml() {
+  if (!S.depts) return '';
+  const n = s => S.depts.filter(d => d.state === s).length;
+  return `<h2>22 Departments</h2><div class="card"><small>बना ${n('built')} · आधा ${n('partial')} · बाद में ${n('later')} · अभी नहीं ${n('skip')}</small></div>` +
+    S.depts.map(d => { const p = DEPT_STATE[d.state] || ['none', d.state];
+      return `<div class="card"><div class="row"><div><b>${esc(d.id)} · ${esc(d.name)}</b>${d.robots ? `<small>${esc(d.robots)}</small>` : ''}${d.missing ? `<small>बाकी: ${esc(d.missing)}</small>` : ''}</div><span class="cnt"><span class="pill ${p[0]}">${esc(p[1])}</span></span></div></div>`; }).join('');
+}
 function vRobots(st) {
+  return robotsHtml(st) + deptHtml();
+}
+function robotsHtml(st) {
   const wf = S.app.workflows || {}, repo = S.app.repo;
   if (!(st.robots || []).length) return '<p class="empty">अभी किसी robot का रिकॉर्ड नहीं</p>';
   return st.robots.map(r => {
@@ -100,4 +112,4 @@ function render() {
 }
 document.getElementById('dock').addEventListener('click', e => { const b = e.target.closest('button[data-go]'); if (!b) return; S.route = b.dataset.go; render(); window.scrollTo(0, 0); });
 $('reload').addEventListener('click', load);
-loadApps().then(load);
+loadApps().then(() => { loadDepts().then(() => { if (S.route === 'robots') render(); }); return load(); });

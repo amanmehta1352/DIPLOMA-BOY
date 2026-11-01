@@ -1,6 +1,53 @@
 {
   "schema": 1,
-  "note": "How much content each chapter should have, per level. Edit numbers here (reviewed in git). A level missing from 'levels' uses 'default'. Solutions = approved step-by-step solutions (solution_items).",
-  "default": { "concept": 4, "formula": 3, "example": 3, "mcq": 10, "solution": 10 },
-  "levels": {}
+  "note": "Targets per chapter, from the 22-department mission (1 Nov 2026): Class 6-8 2/2/2, Class 9-10 3/3/3, Class 11-12 4/4/4, NEET/JEE/UPSC 5/5/5 (concepts/examples/MCQs). Other levels use the default 3/3/3. Formulas and solutions are not targeted here.",
+  "default": {
+    "concept": 3,
+    "formula": 0,
+    "example": 3,
+    "mcq": 3,
+    "solution": 0
+  },
+  "levels": {
+    "class_6_8": {
+      "concept": 2,
+      "example": 2,
+      "mcq": 2
+    },
+    "class_9_10": {
+      "concept": 3,
+      "example": 3,
+      "mcq": 3
+    },
+    "class_11_12_sci": {
+      "concept": 4,
+      "example": 4,
+      "mcq": 4
+    },
+    "class_11_12_com": {
+      "concept": 4,
+      "example": 4,
+      "mcq": 4
+    },
+    "class_11_12_arts": {
+      "concept": 4,
+      "example": 4,
+      "mcq": 4
+    },
+    "medical": {
+      "concept": 5,
+      "example": 5,
+      "mcq": 5
+    },
+    "engineering": {
+      "concept": 5,
+      "example": 5,
+      "mcq": 5
+    },
+    "upsc_civil": {
+      "concept": 5,
+      "example": 5,
+      "mcq": 5
+    }
+  }
 }

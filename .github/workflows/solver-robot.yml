@@ -2,6 +2,8 @@ name: Solver Robot
 # Writes step-by-step solved questions (owner's masterclass format) with free Gemini, checks them,
 # saves them as DRAFTS (students only see approved ones). Report posted as an issue. Keys are never printed.
 on:
+  schedule:
+    - cron: '11 23 * * *'   # 04:41 IST, daily (after the Writer)
   workflow_dispatch:
     inputs:
       count:
@@ -43,8 +45,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: |
-          A="--count ${{ inputs.count }} --chapter ${{ inputs.chapter }}"
-          [ -n "${{ inputs.level }}" ] && A="$A --level ${{ inputs.level }}"
+          A="--count ${{ inputs.count || '10' }} --chapter ${{ inputs.chapter || '0' }}"
+          A="$A --level ${{ inputs.level || 'govt_technical' }}"
           [ "${{ inputs.redo }}" = "true" ] && A="$A --redo"
           [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
           python robots/solver/solver.py $A

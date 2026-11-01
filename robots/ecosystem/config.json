@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "note": "auto_approve=false: drafts wait for a supervised check. Set true only after a checked sample of syllabus-driven drafts.",
-  "auto_approve": false,
+  "note": "auto_approve=true (1 Nov 2026, owner gave full authority): a Writer draft is published only if every structure check passes, the chapter is in Hindi, and a second AI from a different company (OpenRouter) agrees on all 10 practice answers. Any failure stays as a draft for the review queue. Set false to stop all automatic publishing.",
+  "auto_approve": true,
   "auto_approve_max_per_run": 5
 }

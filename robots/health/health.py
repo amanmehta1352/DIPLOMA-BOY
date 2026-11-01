@@ -25,6 +25,8 @@ ROBOT_WORKFLOWS = {  # workflow name -> (label_hi, what it does)
     'Solver Robot': ('🧮 Solver', 'सवालों के हल लिखना (draft)'),
     'Dispatcher': ('📨 Dispatcher', 'आपकी command से robot चलाना'),
     'Syllabus Watcher': ('📜 Syllabus', 'सरकारी syllabus पेज बदले या नहीं'),
+    'Backup all questions': ('🗄️ Full backup', 'सारे सवालों का हफ़्तेवार backup'),
+    'Cross-check (review only)': ('🔍 Cross-check', 'दूसरी कंपनी का AI जवाब मिलाता है'),
     'Health Robot': ('🩺 Health', 'यह रिपोर्ट'),
 }
 
