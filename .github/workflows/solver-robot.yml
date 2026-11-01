@@ -44,6 +44,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           IN_COUNT: ${{ inputs.count || '10' }}
           IN_CHAPTER: ${{ inputs.chapter || '0' }}
           IN_LEVEL: ${{ github.event_name == 'schedule' && 'govt_technical' || inputs.level }}

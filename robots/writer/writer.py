@@ -146,14 +146,16 @@ ORKEY = os.environ.get('OPENROUTER_API_KEY', '').strip()
 OR_MODEL = os.environ.get('OPENROUTER_MODEL', 'deepseek/deepseek-chat')
 
 
-def openrouter(prompt):
+def openrouter(prompt, model=None, provider=None):
     """Second AI from a different company (OpenRouter). Reasoning off so the reply is not empty."""
-    body = json.dumps({'model': OR_MODEL, 'messages': [{'role': 'user', 'content': prompt}], 'temperature': 0,
-                       'max_tokens': 400, 'reasoning': {'effort': 'none', 'exclude': True}}).encode()
+    req = {'model': model or OR_MODEL, 'messages': [{'role': 'user', 'content': prompt}], 'temperature': 0,
+           'max_tokens': 400, 'reasoning': {'effort': 'none', 'exclude': True}}
+    if provider: req['provider'] = provider
+    body = json.dumps(req).encode()
     s, b = http('https://openrouter.ai/api/v1/chat/completions', {'Authorization': 'Bearer ' + ORKEY, 'Content-Type': 'application/json'}, body, timeout=120)
     if s != 200: raise RuntimeError(f'openrouter HTTP {s} {hide(b[:160])}')
     d = json.loads(b)
-    return d['choices'][0]['message'].get('content') or '', d.get('model', OR_MODEL)
+    return d['choices'][0]['message'].get('content') or '', d.get('model', model or OR_MODEL)
 
 
 DEVA = re.compile(r'[\u0900-\u097F]')

@@ -76,6 +76,8 @@ def collect():
     except Exception as e: d['cl'] = None; d['errors']['count_leak'] = type(e).__name__
     try: d['attrs'] = rpc('refresh_question_attributes')
     except Exception as e: d['attrs'] = None; d['errors']['attributes'] = type(e).__name__
+    try: d['cron'] = rpc('cron_status', {'p_hours': 24})
+    except Exception as e: d['cron'] = None; d['errors']['cron'] = type(e).__name__
     try: d['qc'] = rpc('quality_counts')
     except Exception as e: d['qc'] = None; d['errors']['quality'] = type(e).__name__
     return d
@@ -140,6 +142,13 @@ def build(d, prev=None, at=None):
                           f"कुल draft {qc.get('drafts')} · chapter नहीं {qc.get('no_chapter')} · तस्वीर जाँच बाकी {qc.get('figure_wait')} · बिना Hindi {qc.get('no_hindi')} · भाषा गलत {qc.get('wrong_language')} · अंग्रेज़ी गायब {qc.get('english_missing')} · उत्तर/options गलत {qc.get('no_answer_or_options')} · duplicate {qc.get('duplicate')}"))
     elif (d.get('errors') or {}).get('quality'):
         checks.append(chk('quality', '🔍 Draft सवाल: तैयार कितने', 'warn', None, 'जाँच नहीं चली: ' + str(d['errors']['quality'])))
+    cr = d.get('cron')
+    if isinstance(cr, list):
+        sent = [x for x in cr if x.get('status') == 'sent']; ok = [x for x in sent if x.get('http') == 204]
+        notok = sum(1 for x in cr if x.get('status') == 'no_token')
+        st = 'ok' if sent and len(ok) == len(sent) and not notok else ('bad' if notok else 'warn')
+        checks.append(chk('cron', '⏰ Supabase schedule (पिछले 24 घंटे)', st, len(ok),
+                          f"GitHub ने माना {len(ok)} · भेजे {len(sent)} · token नहीं {notok}" + (' — Vault में github_actions_token डालना है' if notok else '')))
     order = {'ok': 0, 'warn': 1, 'bad': 2}; overall = max((c['state'] for c in checks), key=lambda s: order[s], default='ok')
     robots = []
     if runs:

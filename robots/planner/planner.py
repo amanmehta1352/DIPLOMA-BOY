@@ -24,7 +24,27 @@ def load_chapters():
 def load_targets():
     with open(os.path.join(HERE, 'targets.json'), encoding='utf8') as f:
         t = json.load(f)
+    if 'total' in t: return {'total': t['total']}
     return {'default': t['default'], 'levels': t.get('levels', {})}
+
+
+def coverage_total(chapters, atoms, total):
+    """Pure: owner's standard. Every atom type counts; each chapter counts only up to its target."""
+    have = {}
+    for a in atoms:
+        k = (a['level_id'], a['chapter_id']); have[k] = have.get(k, 0) + 1
+    levels = {}
+    for ch in chapters:
+        tg = int(total['levels'].get(ch['l'], total['default']))
+        lv = levels.setdefault(ch['l'], {'chapters': 0, 'chapters_full': 0, 'target': 0, 'have': 0, 'atoms': 0, 'per_chapter_target': tg})
+        h = have.get((ch['l'], ch['c']), 0)
+        lv['chapters'] += 1; lv['target'] += tg; lv['have'] += min(h, tg); lv['atoms'] += h
+        if h >= tg: lv['chapters_full'] += 1
+    for lv in levels.values(): lv['pct'] = round(100 * lv['have'] / lv['target']) if lv['target'] else 0
+    T = sum(v['target'] for v in levels.values()); H = sum(v['have'] for v in levels.values())
+    return {'levels': dict(sorted(levels.items())), 'total': {'chapters': sum(v['chapters'] for v in levels.values()),
+            'chapters_full': sum(v['chapters_full'] for v in levels.values()), 'pct': round(100 * H / T) if T else 0,
+            'atoms': sum(v['atoms'] for v in levels.values()), 'target': T}}
 
 
 def target_for(targets, level):
@@ -95,7 +115,7 @@ def drafts_by_level():
 def run(offline=False):
     chapters, targets = load_chapters(), load_targets()
     atoms, sols = ([], []) if offline else fetch()
-    cov = coverage(chapters, atoms, sols, targets)
+    cov = coverage_total(chapters, atoms, targets['total']) if 'total' in targets else coverage(chapters, atoms, sols, targets)
     if not offline:
         try:
             books = drafts_by_level()

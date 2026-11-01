@@ -30,7 +30,7 @@ assert P.coverage([], [], [], T)['total']['pct'] == 0
 # real repo files load and every level has a target
 real = P.run(offline=True)
 assert real['total']['chapters'] == 956 and len(real['levels']) == 18, (real['total'], len(real['levels']))
-assert all(v['target'] > 0 for v in real['levels'].values())
+assert all(v['target'] > 0 for v in real['levels'].values())  # works for both target styles
 print('planner selftest OK')
 # syllabus return: a unit is covered when most of its words appear in one chapter title
 U = [{'subject': 'PHYSICS', 'unit': '1', 'title': 'PHYSICS AND MEASUREMENT'}, {'subject': 'PHYSICS', 'unit': '3', 'title': 'LAWS OF MOTION'}, {'subject': 'BIOLOGY', 'unit': '9', 'title': 'BREATHING AND EXCHANGE OF GASES'}]
@@ -66,3 +66,9 @@ both = [g for g in M if len(g['levels']) == 2]
 assert len(both) == 1 and sorted(both[0]['levels']) == ['class_9_10', 'govt_technical'], M
 assert len(M) == 3, M
 print('shared topics selftest OK')
+# owner's standard: all atom types count, capped per chapter
+CT = P.coverage_total([{'l': 'class_9_10', 'c': 1}, {'l': 'class_9_10', 'c': 2}],
+                      [{'level_id': 'class_9_10', 'chapter_id': 1, 'atom_type': t} for t in ['concept'] * 12] + [{'level_id': 'class_9_10', 'chapter_id': 2, 'atom_type': 'mcq'}] * 2,
+                      {'default': 10, 'levels': {'class_9_10': 8}})
+assert CT['levels']['class_9_10']['have'] == 10 and CT['levels']['class_9_10']['target'] == 16 and CT['total']['pct'] == 62 and CT['total']['chapters_full'] == 1, CT
+print('coverage total selftest OK')

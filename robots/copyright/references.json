@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "note": "NCERT chapter PDFs used as the reference text. Hindi books matter most because our atoms are in Hindi. Codes follow ncert.nic.in/textbook/pdf/<book><chapter>.pdf.",
+  "documents": [
+    {"id": "ncert-9-vigyan-hi-1", "lang": "hi", "url": "https://ncert.nic.in/textbook/pdf/ihsc101.pdf"},
+    {"id": "ncert-9-vigyan-hi-2", "lang": "hi", "url": "https://ncert.nic.in/textbook/pdf/ihsc102.pdf"},
+    {"id": "ncert-10-vigyan-hi-1", "lang": "hi", "url": "https://ncert.nic.in/textbook/pdf/jhsc101.pdf"},
+    {"id": "ncert-10-vigyan-hi-2", "lang": "hi", "url": "https://ncert.nic.in/textbook/pdf/jhsc102.pdf"},
+    {"id": "ncert-9-science-en-1", "lang": "en", "url": "https://ncert.nic.in/textbook/pdf/iesc101.pdf"},
+    {"id": "ncert-10-science-en-1", "lang": "en", "url": "https://ncert.nic.in/textbook/pdf/jesc101.pdf"}
+  ]
+}

@@ -18,6 +18,7 @@ from checks import check_item, same
 
 UNIT_SUBJECTS = ('physics', 'chemistry', 'engineering', 'electrical', 'mechanical', 'civil', 'electronics', 'science')
 LEVEL_ORDER = W.LEVEL_ORDER
+AUTO_OK = bool(json.load(open(os.path.join(HERE, '..', 'ecosystem', 'config.json'), encoding='utf-8')).get('auto_approve'))
 
 
 def fill(tpl, **kv):
@@ -29,11 +30,19 @@ def need_units(c):
     return any(w in (c['se'] or '').lower() for w in UNIT_SUBJECTS)
 
 
+SOLVER_CHECK_MODEL = os.environ.get('SOLVER_CHECK_MODEL', 'meta-llama/llama-3.3-70b-instruct')
+SOLVER_CHECK_PROVIDER = {'order': ['Groq'], 'allow_fallbacks': True}   # Groq first (fast, Llama family); others if Groq is busy
+
+
 def second_opinion(d):
-    """A second model solves the question (English text) and returns only the final answer."""
+    """A second model from a different family (Llama via OpenRouter, Groq first) solves the question and returns only the final answer.
+    Without an OpenRouter key it falls back to Gemini, and such items are never auto-approved."""
     prompt = ('Solve this question carefully. Reply only with JSON {"value": <final answer as a plain number without unit '
               'or % sign, or a short text if not numeric>}.\n\nQuestion: ' + d['q']['en'])
-    txt, m = W.gemini(prompt, W.CHECK_MODELS, temperature=0)
+    if W.ORKEY:
+        txt, m = W.openrouter(prompt, SOLVER_CHECK_MODEL, SOLVER_CHECK_PROVIDER)
+    else:
+        txt, m = W.gemini(prompt, W.CHECK_MODELS, temperature=0)
     return W.parse_json(txt).get('value'), m
 
 
@@ -117,6 +126,9 @@ def main():
                 W.rpc('solution_save', {'p': {'level_id': c['l'], 'chapter_id': c['c'], 'slot': slot, 'topic_key': tp['key'],
                                               'type_key': t['key'], 'difficulty': int(t.get('difficulty') or 2), 'status': res,
                                               'data': d, 'checks': checks, 'model': model}})
+                if res == 'draft' and AUTO_OK and W.ORKEY:
+                    r = W.rpc('solution_auto_approve', {'p_level': c['l'], 'p_chapter': c['c'], 'p_slot': slot})
+                    lines[-1] += f' · auto: {r}'; print('    auto-approve:', r, flush=True)
             if a.dry_run and d is not None:
                 os.makedirs('solver-out', exist_ok=True)
                 json.dump(d, open(f"solver-out/{c['l']}_{c['c']}_{slot}.json", 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

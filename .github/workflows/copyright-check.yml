@@ -1,0 +1,40 @@
+name: Copyright check (review only)
+# 3-word overlap between our atoms and NCERT text. Above 20% = flagged for review. Writes an artifact; changes nothing.
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'How many atoms'
+        default: '10'
+      level:
+        description: 'Level id'
+        default: 'class_9_10'
+permissions:
+  contents: read
+concurrency: copyright-check
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Self-test
+        run: python robots/copyright/selftest.py
+      - name: Check
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          IN_COUNT: ${{ inputs.count }}
+          IN_LEVEL: ${{ inputs.level }}
+        run: |
+          case "$IN_COUNT" in ""|*[!0-9]*) echo "count must be a number"; exit 1;; esac
+          case "$IN_LEVEL" in ""|*[!a-z0-9_]*) echo "bad level"; exit 1;; esac
+          pip install -q pdfplumber
+          python robots/copyright/ngram.py --count "$IN_COUNT" --level "$IN_LEVEL" --out out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: copyright-report
+          path: out/
+          if-no-files-found: ignore
