@@ -93,7 +93,9 @@ def main():
             t = pdf_text(r['url']); ref_set |= fingerprints(t); got.append(r['id']); streak = 0
         except Exception as e:
             failed.append({'id': r['id'], 'error': type(e).__name__ + ': ' + str(e)[:120]}); streak += 1
-    complete = not failed                      # scores are only meaningful against the full reference set
+    # Scores are meaningful only against the full reference. Hashed fingerprints for both English and Hindi
+    # science books count as the full reference; otherwise every downloaded document must have worked.
+    complete = (not failed) or bool(fp_langs.get('en') and fp_langs.get('hi'))
     chapters = json.load(open(os.path.join(HERE, '..', 'writer', 'chapters.json'), encoding='utf-8'))
     science = [c['c'] for c in chapters if c['l'] == a.level and re.search(r'science|physics|chemistry|biology', c['se'], re.I)]
     if not science: sys.exit(f'no science chapters for {a.level}: the NCERT Science reference would not match')
