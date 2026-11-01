@@ -38,12 +38,14 @@ jobs:
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: python3 robots/planner/planner.py --units out/syllabus_units.json --prev prev/return.json --out out
+      - name: Shared topics (one entry per topic across levels)
+        run: python3 robots/planner/shared.py --in out/syllabus_return.json --out out/shared_topics.json
       - name: Publish state to branch syllabus-state
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd out
           git init -q -b syllabus-state
-          git add syllabus_state.json syllabus_units.json syllabus_return.json
+          git add syllabus_state.json syllabus_units.json syllabus_return.json shared_topics.json
           git -c user.name=syllabus-watch -c user.email=syllabus-watch@users.noreply.github.com commit -q -m "syllabus state $(date -u +%FT%TZ)"
           git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" syllabus-state
