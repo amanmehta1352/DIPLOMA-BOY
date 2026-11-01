@@ -64,6 +64,7 @@ def prompt(spec, feedback=''):
          'MCQS: exactly 1 easy (one-step recall) and 2 medium. A medium MCQ must need TWO real steps (for example calculate, then compare or convert units, '
          'or apply a concept to a situation and then pick the cause). Do NOT label a one-step substitution as medium. '
          'Put the label in "difficulty" ("easy" or "medium"). 4 distinct plausible options. The explanation says why the answer is right and why the others are wrong.\n'
+         'Compute every numerical MCQ carefully before writing the options and put the arithmetic in the explanation; double-check it (for example sqrt(400) = 20, and a one-way echo distance is v x t / 2 only once).\n'
          'Plain text only: no HTML, no LaTeX, write powers like m/s^2.')
     return p + (f'\n\nA previous attempt was rejected for this reason, do not repeat it: {feedback}' if feedback else '')
 
@@ -89,6 +90,34 @@ def check(text, via):
         return False, 'fact-checker error: ' + R.hide(e)
 
 
+def gemini_solve(q):
+    """Gemini solves one MCQ with written working (no JSON-only mode, so it can calculate), returns the option index or -1."""
+    opts = '\n'.join(f'{i}) {o}' for i, o in enumerate(q['options']))
+    body = json.dumps({'contents': [{'parts': [{'text': 'Solve this physics question carefully. Show the arithmetic step by step and double-check it. '
+                                                 'Then end with one final line exactly like {"answer_index": N} where N is 0, 1, 2 or 3. If no option equals your result, use {"answer_index": -1}.\n\n'
+                                                 + q['question'] + '\n' + opts}]}], 'generationConfig': {'temperature': 0}}).encode()
+    for m in R.G_MODELS:
+        st, b = R.http(f'https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent',
+                       {'x-goog-api-key': R.G_KEY, 'Content-Type': 'application/json'}, body)
+        if st == 200:
+            try:
+                txt = ''.join(x.get('text', '') for x in json.loads(b)['candidates'][0]['content']['parts'])
+                hit = re.findall(r'"answer_index"\s*:\s*(-?[0-3])', txt)
+                return int(hit[-1]) if hit else -1
+            except Exception:
+                return -1
+    return -1
+
+
+def strong_verify(d):
+    """Returns (agree, total, details): stored answer vs Gemini's worked solution."""
+    agree, det = 0, []
+    for i, q in enumerate(d['mcqs']):
+        got = gemini_solve(q); ok = got == q['answer_index']; agree += ok
+        det.append(f'mcq{i + 1}: stored {q["answer_index"]}, gemini {got}, {"agree" if ok else "DISAGREE"}')
+    return agree, len(d['mcqs']), det
+
+
 def run_one(slug, spec):
     out = os.path.join(BASE, f'class9-physics-{slug}')
     os.makedirs(out, exist_ok=True)
@@ -108,8 +137,10 @@ def run_one(slug, spec):
                     fb = why
                 else:
                     agree, total, det = R.verify_mcqs(cand); a['mcq_verify'] = {'agree': agree, 'total': total, 'details': det}
-                    if agree == total: en = cand
-                    else: fb = 'an MCQ answer was not confirmed by a second model; make the question unambiguous'
+                    sa, st, sdet = strong_verify(cand); a['strong_verify'] = {'agree': sa, 'total': st, 'details': sdet}
+                    if agree == total and sa == st: en = cand
+                    else: fb = ('an MCQ answer key was not confirmed by two other models (' + '; '.join(d for d in det + sdet if 'DISAGREE' in d)
+                                + '); recompute every numerical answer carefully and make sure the explanation arithmetic is right')
         except Exception as e:
             a['error'] = R.hide(e)
         rep['attempts'].append(a)
@@ -146,17 +177,29 @@ def selftest():
     print('selftest ok')
 
 
+def recheck():
+    """Runs the strong verifier on chapters already generated. Proves it catches the wrong keys."""
+    res = {}
+    for slug in CHAPTERS:
+        f = os.path.join(BASE, f'class9-physics-{slug}', 'en.json')
+        if not os.path.exists(f): res[slug] = 'no en.json (chapter was rejected)'; continue
+        a, t, det = strong_verify(json.load(open(f))); res[slug] = {'agree': a, 'total': t, 'details': det}
+        print(slug, a, '/', t, flush=True)
+    json.dump(res, open(os.path.join(BASE, 'recheck_v4.json'), 'w'), indent=1)
+
+
 def main(slugs):
     miss = [n for n, v in (('OPENROUTER_API_KEY', R.OR_KEY), ('CLOUDFLARE_API_TOKEN', R.CF_TOKEN), ('CLOUDFLARE_ACCOUNT_ID', R.CF_ACCOUNT), ('GEMINI_API_KEY', R.G_KEY)) if not v]
     os.makedirs(BASE, exist_ok=True)
     if miss:
         print('missing secrets: ' + ', '.join(miss)); return 1
+    if '--recheck' in sys.argv: recheck()
     summary = {}
     for s in slugs or list(CHAPTERS):
         try: summary[s] = run_one(s, CHAPTERS[s])['status']
         except Exception as e: summary[s] = 'crashed: ' + R.hide(e)
         print(s, summary[s], flush=True)
-    json.dump(summary, open(os.path.join(BASE, 'summary_v3.json'), 'w'), indent=1); return 0
+    json.dump(summary, open(os.path.join(BASE, 'summary_v4.json'), 'w'), indent=1); return 0
 
 
 if __name__ == '__main__':
