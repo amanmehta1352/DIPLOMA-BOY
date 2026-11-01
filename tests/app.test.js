@@ -144,6 +144,9 @@ const check = (name, v) => (v ? ok : bad).push(name);
   check('Class 10: ghost list does not carry SSC JE chapters', await p.evaluate(() => buildState().forgetting.length === 0));
   await p.screenshot({ path: path.join(SHOTS, 'v4-13-library-class10.png') });
   const before = reqs.length;
+  // This block tests the atoms path. Robots now publish full chapter books (e.g. Class 9-10 ch 1-2), so pretend none exist here.
+  const noBooks = r => r.fulfill({ status: 200, contentType: 'application/json', body: '[]' });
+  await p.route('**/rest/v1/rpc/get_level_book_ids*', noBooks);
   await p.click('#chapterList [data-ch] >> nth=0'); await p.waitForTimeout(4500);
   const lf = p.frame({ url: /level-book\.html/ });
   check('chapter opens in the book reader (same look as the Physics book)', !!lf);
@@ -154,6 +157,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
     check('Teach solves together on the notebook (step reveal)', (await lf.$$eval('#readerContent .nb-card .nb-next', e => e.length)) >= 1);
     check('chapter atoms requested only for class_9_10', reqs.slice(before).filter(u => /get_chapter_atoms/.test(u)).every(u => /p_level=class_9_10/.test(u)) && reqs.slice(before).some(u => /get_chapter_atoms/.test(u)));
     await p.screenshot({ path: path.join(SHOTS, 'v4-14-chapter-lecture.png') });
+    await p.unroute('**/rest/v1/rpc/get_level_book_ids*', noBooks);
     await lf.click('.lb-mcq .lb-opt >> nth=0'); await p.waitForTimeout(400);
     check('check question answered and counted in the app', await p.evaluate(() => Object.keys(DB.quiz).some(k => k.startsWith('s:class_9_10:') && DB.quiz[k].t === 1)));
     await p.click('#modeReader'); await p.waitForTimeout(1500);
@@ -220,6 +224,18 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await ps.goto(URL + 'solve.html?l=govt_technical&ch=1&cn=Percentage'); await ps.waitForTimeout(1500);
   check('Percentage: the masterclass questions stay (slider + 5 methods) and server topics are added', (await ps.$$eval('.topic-tab', e => e.map(x => x.textContent).join('|'))) === 'Income & Exp|Election|Price/Cons|चुनाव' && (await ps.$$eval('.m-tab', e => e.length)) === 5 && await ps.isVisible('#slider-box'));
   await ps.close();
+  // ---- Robot-written chapter book (auto-approved): students get the full book, not the 4 atoms ----
+  { const pb = await ctx.newPage(); const berr = []; pb.on('pageerror', e => berr.push(e.message));
+    const book = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'chapter_book.json'), 'utf8'));
+    await pb.route('**/rest/v1/rpc/get_level_book_ids*', r => r.fulfill({ json: [1] }));
+    await pb.route('**/rest/v1/rpc/get_chapter_book*', r => r.fulfill({ json: book }));
+    const firstNote = (book.data.notes[0] || {}).title || '';
+    await pb.goto(URL + 'level-book.html?l=class_9_10&s=maths&ch=1&tab=reader&ui=hi');
+    await pb.waitForFunction(t => (document.querySelector('#readerContent') || {}).innerText?.includes(t), firstNote, { timeout: 20000 }).catch(() => {});
+    const txt = await pb.innerText('#readerContent').catch(() => '');
+    check('approved robot book opens for students (notes from the book)', firstNote.length > 0 && txt.includes(firstNote));
+    check('approved robot book: no page errors', berr.length === 0);
+    await pb.close(); }
   await b.close(); srv.close();
   console.log('PASS', ok.length, ok.join(' | '));
   if (bad.length) { console.log('FAIL', bad.length, bad.join(' | ')); if (errs.length) console.log('errors:', errs); process.exit(1); }

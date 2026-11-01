@@ -1,6 +1,7 @@
 name: Writer Robot
 # Writes deep chapter content with free Gemini, checks it, saves it as a DRAFT (never shown in the app until approved).
 # The report is posted as an issue. Keys are never printed.
+run-name: Writer · ${{ inputs.source || github.event_name }}
 on:
   schedule:
     - cron: '31 22 * * *'   # 04:01 IST, daily
@@ -22,9 +23,13 @@ on:
       command_id:
         description: 'Control Room command number (filled by the Dispatcher; leave empty)'
         default: ''
+      source:
+        description: 'Who started it (pgcron = Supabase schedule; leave empty)'
+        default: ''
 permissions:
   contents: read
   issues: write
+  actions: read
 concurrency: writer-robot
 jobs:
   write:
@@ -34,9 +39,24 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
+      - name: Skip if this robot already ran in the last 6 hours (scheduled starts only)
+        id: guard
+        if: github.event_name == 'schedule' || inputs.source == 'pgcron'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # GitHub cron and the Supabase schedule both start this robot; only the first scheduled start in 6 hours works.
+          # Manual runs (owner, Dispatcher) are never counted and never skipped.
+          since=$(date -u -d '-6 hours' +%FT%TZ)
+          n=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/writer-robot.yml/runs?created=%3E%3D$since&per_page=30" \
+              --jq "[.workflow_runs[] | select(.id < $GITHUB_RUN_ID) | select(.display_title | test(\"schedule|pgcron\")) | select(.conclusion == \"success\" or .status != \"completed\")] | length")
+          echo "earlier runs in 6 h: $n"
+          if [ "$n" -gt 0 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; fi
       - name: Self-test
+        if: steps.guard.outputs.skip != 'true'
         run: python robots/writer/selftest.py
       - name: Write
+        if: steps.guard.outputs.skip != 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
@@ -55,14 +75,14 @@ jobs:
           [ "$IN_DRY" = "true" ] && A+=(--dry-run)
           python robots/writer/writer.py "${A[@]}"
       - name: Report
-        if: always()
+        if: always() && steps.guard.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           [ -f writer-report.md ] || echo "Writer robot failed before writing a report." > writer-report.md
           gh issue create -R "$GITHUB_REPOSITORY" -t "Writer robot report $(date -u +%F_%H%M)" -F writer-report.md || true
       - name: Report to Control Room
-        if: always() && inputs.command_id != ''
+        if: always() && inputs.command_id != '' && steps.guard.outputs.skip != 'true'
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
           CMD_ID: ${{ inputs.command_id }}

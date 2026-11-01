@@ -76,6 +76,8 @@ def collect():
     except Exception as e: d['cl'] = None; d['errors']['count_leak'] = type(e).__name__
     try: d['attrs'] = rpc('refresh_question_attributes')
     except Exception as e: d['attrs'] = None; d['errors']['attributes'] = type(e).__name__
+    try: d['cron'] = rpc('cron_status', {'p_hours': 24})
+    except Exception as e: d['cron'] = None; d['errors']['cron'] = type(e).__name__
     try: d['qc'] = rpc('quality_counts')
     except Exception as e: d['qc'] = None; d['errors']['quality'] = type(e).__name__
     return d
@@ -140,6 +142,21 @@ def build(d, prev=None, at=None):
                           f"कुल draft {qc.get('drafts')} · chapter नहीं {qc.get('no_chapter')} · तस्वीर जाँच बाकी {qc.get('figure_wait')} · बिना Hindi {qc.get('no_hindi')} · भाषा गलत {qc.get('wrong_language')} · अंग्रेज़ी गायब {qc.get('english_missing')} · उत्तर/options गलत {qc.get('no_answer_or_options')} · duplicate {qc.get('duplicate')}"))
     elif (d.get('errors') or {}).get('quality'):
         checks.append(chk('quality', '🔍 Draft सवाल: तैयार कितने', 'warn', None, 'जाँच नहीं चली: ' + str(d['errors']['quality'])))
+    cr = d.get('cron')
+    if isinstance(cr, list):
+        sent = [x for x in cr if x.get('status') == 'sent']; ok = [x for x in sent if x.get('http') == 204]
+        notok = sum(1 for x in cr if x.get('status') == 'no_token'); errs = sum(1 for x in cr if x.get('status') == 'error')
+        refused = sum(1 for x in sent if x.get('http') not in (None, 204))
+        st = 'bad' if (notok or errs or refused) else ('ok' if sent and len(ok) == len(sent) else 'warn')
+        if not notok:      # with a token, each daily robot must have been started in the last 24 hours
+            daily = ['writer-robot.yml', 'solver-robot.yml', 'daily-backup.yml', 'syllabus-watch.yml', 'health-robot.yml']
+            missing = [w for w in daily if not any(x.get('workflow') == w and x.get('status') == 'sent' for x in cr)]
+            if missing and st == 'ok': st = 'warn'
+        else: missing = []
+        checks.append(chk('cron', '⏰ Supabase schedule (पिछले 24 घंटे)', st, len(ok),
+                          f"GitHub ने माना {len(ok)} · भेजे {len(sent)} · मना {refused} · गलती {errs} · token नहीं {notok}" + (' — Vault में github_actions_token डालना है' if notok else '') + (' · नहीं चले: ' + ', '.join(missing) if missing else '')))
+    elif (d.get('errors') or {}).get('cron'):
+        checks.append(chk('cron', '⏰ Supabase schedule (पिछले 24 घंटे)', 'bad', None, 'जाँच नहीं चली: ' + str(d['errors']['cron'])))
     order = {'ok': 0, 'warn': 1, 'bad': 2}; overall = max((c['state'] for c in checks), key=lambda s: order[s], default='ok')
     robots = []
     if runs:
