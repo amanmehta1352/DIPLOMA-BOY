@@ -80,10 +80,30 @@ def fetch():
     return atoms, sols
 
 
+def drafts_by_level():
+    """Approved Writer chapter books per level (service role). A chapter book is a full chapter, counted separately from atoms."""
+    h = {'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Profile': 'mtb', 'Content-Type': 'application/json'}
+    req = urllib.request.Request(f'{SB}/rest/v1/rpc/draft_status', b'{}', h, method='POST')
+    with urllib.request.urlopen(req, timeout=60) as r:
+        rows = json.loads(r.read())
+    out = {}
+    for x in rows:
+        if x.get('status') == 'approved': out[x['level_id']] = out.get(x['level_id'], 0) + 1
+    return out
+
+
 def run(offline=False):
     chapters, targets = load_chapters(), load_targets()
     atoms, sols = ([], []) if offline else fetch()
-    return coverage(chapters, atoms, sols, targets)
+    cov = coverage(chapters, atoms, sols, targets)
+    if not offline:
+        try:
+            books = drafts_by_level()
+            for lv, v in cov['levels'].items(): v['chapter_books'] = books.get(lv, 0)
+            cov['total']['chapter_books'] = sum(books.values())
+        except Exception as e:
+            cov['total']['chapter_books_error'] = type(e).__name__
+    return cov
 
 
 def _toks(s):

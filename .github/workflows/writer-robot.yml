@@ -2,6 +2,8 @@ name: Writer Robot
 # Writes deep chapter content with free Gemini, checks it, saves it as a DRAFT (never shown in the app until approved).
 # The report is posted as an issue. Keys are never printed.
 on:
+  schedule:
+    - cron: '31 22 * * *'   # 04:01 IST, daily
   workflow_dispatch:
     inputs:
       count:
@@ -38,12 +40,20 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          IN_COUNT: ${{ inputs.count || '3' }}
+          IN_LEVEL: ${{ inputs.level }}
+          IN_ONLY: ${{ inputs.only }}
+          IN_DRY: ${{ inputs.dry_run }}
         run: |
-          A="--count ${{ inputs.count }}"
-          [ -n "${{ inputs.level }}" ] && A="$A --level ${{ inputs.level }}"
-          [ -n "${{ inputs.only }}" ] && A="$A --only ${{ inputs.only }}"
-          [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
-          python robots/writer/writer.py $A
+          # inputs come through env, never pasted into the script (no shell injection)
+          case "$IN_COUNT" in ""|*[!0-9]*) echo "count must be a number"; exit 1;; esac
+          case "$IN_ONLY" in *[!0-9,]*) echo "only must be ids"; exit 1;; esac
+          A=(--count "$IN_COUNT")
+          [ -n "$IN_LEVEL" ] && A+=(--level "$IN_LEVEL")
+          [ -n "$IN_ONLY" ] && A+=(--only "$IN_ONLY")
+          [ "$IN_DRY" = "true" ] && A+=(--dry-run)
+          python robots/writer/writer.py "${A[@]}"
       - name: Report
         if: always()
         env:
@@ -55,4 +65,5 @@ jobs:
         if: always() && inputs.command_id != ''
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
-        run: python robots/dispatcher/report.py --id "${{ inputs.command_id }}" --file writer-report.md
+          CMD_ID: ${{ inputs.command_id }}
+        run: python robots/dispatcher/report.py --id "$CMD_ID" --file writer-report.md

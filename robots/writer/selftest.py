@@ -26,3 +26,13 @@ assert any('right option' in p for p in w.check_structure(bad, 'DB|x|1'))
 bad = copy.deepcopy(good); bad['practice'][0]['explanation'] += ' 2 * 3'
 assert any('×' in p for p in w.check_structure(bad, 'DB|x|1'))
 print('writer selftest ok')
+import writer as WW
+assert WW.hindi_ok({'notes': [{'title': 'वेग', 'points': ['वेग (velocity) एक सदिश राशि है।']}]})
+assert not WW.hindi_ok({'notes': [{'title': 'Velocity', 'points': ['Velocity is a vector quantity.']}]})
+print('hindi check selftest ok')
+assert not WW.hindi_ok({'notes': [{'title': 'वेग', 'points': ['वेग']}], 'practice': [{'q': 'What is the speed of light in vacuum in metres per second?', 'explanation': 'The speed of light is three hundred million metres per second in vacuum.'}]})
+print('hindi practice selftest ok')
+assert WW._hindi_major('वेग v = s/t, इकाई m/s, KE = (1/2) × m × v^2 और sqrt(2gh)')
+print('hindi maths selftest ok')
+assert not WW._hindi_major('यह the cat sat on the mat and the dog ran far away from it')   # ordinary English words still count
+print('hindi exemptions narrow selftest ok')

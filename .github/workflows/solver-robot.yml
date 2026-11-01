@@ -2,6 +2,8 @@ name: Solver Robot
 # Writes step-by-step solved questions (owner's masterclass format) with free Gemini, checks them,
 # saves them as DRAFTS (students only see approved ones). Report posted as an issue. Keys are never printed.
 on:
+  schedule:
+    - cron: '11 23 * * *'   # 04:41 IST, daily (after the Writer)
   workflow_dispatch:
     inputs:
       count:
@@ -42,12 +44,20 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          IN_COUNT: ${{ inputs.count || '10' }}
+          IN_CHAPTER: ${{ inputs.chapter || '0' }}
+          IN_LEVEL: ${{ github.event_name == 'schedule' && 'govt_technical' || inputs.level }}
+          IN_REDO: ${{ inputs.redo }}
+          IN_DRY: ${{ inputs.dry_run }}
         run: |
-          A="--count ${{ inputs.count }} --chapter ${{ inputs.chapter }}"
-          [ -n "${{ inputs.level }}" ] && A="$A --level ${{ inputs.level }}"
-          [ "${{ inputs.redo }}" = "true" ] && A="$A --redo"
-          [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
-          python robots/solver/solver.py $A
+          # inputs come through env, never pasted into the script (no shell injection)
+          case "$IN_COUNT$IN_CHAPTER" in *[!0-9]*) echo "count/chapter must be numbers"; exit 1;; esac
+          case "$IN_LEVEL" in ""|[a-z0-9_]*) ;; *) echo "bad level"; exit 1;; esac
+          A=(--count "$IN_COUNT" --chapter "$IN_CHAPTER")
+          [ -n "$IN_LEVEL" ] && A+=(--level "$IN_LEVEL")
+          [ "$IN_REDO" = "true" ] && A+=(--redo)
+          [ "$IN_DRY" = "true" ] && A+=(--dry-run)
+          python robots/solver/solver.py "${A[@]}"
       - name: Report
         if: always()
         env:
@@ -59,4 +69,5 @@ jobs:
         if: always() && inputs.command_id != ''
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
-        run: python robots/dispatcher/report.py --id "${{ inputs.command_id }}" --file solver-report.md
+          CMD_ID: ${{ inputs.command_id }}
+        run: python robots/dispatcher/report.py --id "$CMD_ID" --file solver-report.md
