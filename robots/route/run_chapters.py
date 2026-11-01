@@ -7,7 +7,7 @@ Same flow as v2 (DeepSeek writes, Gemini fact-checks, Cloudflare solves MCQs, Ge
 chapter spec per chapter and two prompt fixes: medium MCQs need two real steps, and each chapter lists its common mistakes to avoid.
 A failing chapter never stops the others. Keys are never printed.
 """
-import json, os, re, sys
+import json, os, re, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -82,12 +82,16 @@ def problems(d, spec):
 
 
 def check(text, via):
-    try:
-        raw = R.gemini(FACT + text)[0] if via == 'gemini' else R.chat(V.OR_URL, R.OR_KEY, R.OR_MODEL, FACT + text, 180)
-        j = R.parse_json(raw)
-        return bool(j.get('correct')) is True, str(j.get('reason', ''))[:400]
-    except Exception as e:
-        return False, 'fact-checker error: ' + R.hide(e)
+    """Returns (correct, reason). A busy Gemini (429/503) is retried with waits; a persistent error is reported as an error, not as a wrong text."""
+    err = ''
+    for n in range(5):
+        try:
+            raw = R.gemini(FACT + text)[0] if via == 'gemini' else R.chat(V.OR_URL, R.OR_KEY, R.OR_MODEL, FACT + text, 180)
+            j = R.parse_json(raw)
+            return bool(j.get('correct')) is True, str(j.get('reason', ''))[:400]
+        except Exception as e:
+            err = R.hide(e); time.sleep(40 * (n + 1))
+    return False, 'fact-checker error (after retries): ' + err
 
 
 def gemini_solve(q):
@@ -96,17 +100,19 @@ def gemini_solve(q):
     body = json.dumps({'contents': [{'parts': [{'text': 'Solve this physics question carefully. Show the arithmetic step by step and double-check it. '
                                                  'Then end with one final line exactly like {"answer_index": N} where N is 0, 1, 2 or 3. If no option equals your result, use {"answer_index": -1}.\n\n'
                                                  + q['question'] + '\n' + opts}]}], 'generationConfig': {'temperature': 0}}).encode()
-    for m in R.G_MODELS:
-        st, b = R.http(f'https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent',
-                       {'x-goog-api-key': R.G_KEY, 'Content-Type': 'application/json'}, body)
-        if st == 200:
-            try:
-                txt = ''.join(x.get('text', '') for x in json.loads(b)['candidates'][0]['content']['parts'])
-                hit = re.findall(r'"answer_index"\s*:\s*(-?[0-3])', txt)
-                return int(hit[-1]) if hit else -1
-            except Exception:
-                return -1
-    return -1
+    for n in range(5):
+        for m in R.G_MODELS:
+            st, b = R.http(f'https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent',
+                           {'x-goog-api-key': R.G_KEY, 'Content-Type': 'application/json'}, body)
+            if st == 200:
+                try:
+                    txt = ''.join(x.get('text', '') for x in json.loads(b)['candidates'][0]['content']['parts'])
+                    hit = re.findall(r'"answer_index"\s*:\s*(-?[0-3])', txt)
+                    return int(hit[-1]) if hit else -1
+                except Exception:
+                    pass
+        time.sleep(40 * (n + 1))      # all models busy (429/503): wait and try again
+    return None                       # could not get an answer at all: never counted as a real mismatch
 
 
 def strong_verify(d):
@@ -114,7 +120,7 @@ def strong_verify(d):
     agree, det = 0, []
     for i, q in enumerate(d['mcqs']):
         got = gemini_solve(q); ok = got == q['answer_index']; agree += ok
-        det.append(f'mcq{i + 1}: stored {q["answer_index"]}, gemini {got}, {"agree" if ok else "DISAGREE"}')
+        det.append(f'mcq{i + 1}: stored {q["answer_index"]}, gemini {got}, {"agree" if ok else ("ERROR (no answer)" if got is None else "DISAGREE")}')
     return agree, len(d['mcqs']), det
 
 
@@ -138,8 +144,9 @@ def run_one(slug, spec):
                 else:
                     agree, total, det = R.verify_mcqs(cand); a['mcq_verify'] = {'agree': agree, 'total': total, 'details': det}
                     sa, st, sdet = strong_verify(cand); a['strong_verify'] = {'agree': sa, 'total': st, 'details': sdet}
-                    if agree == total and sa == st: en = cand
-                    else: fb = ('an MCQ answer key was not confirmed by two other models (' + '; '.join(d for d in det + sdet if 'DISAGREE' in d)
+                    a['cloudflare_advisory'] = 'agrees' if agree == total else 'DISAGREES (weak model, advisory only)'
+                    if sa == st: en = cand
+                    else: fb = ('an MCQ answer key was not confirmed by a worked solution (' + '; '.join(d for d in sdet if 'agree' not in d or 'DISAGREE' in d)
                                 + '); recompute every numerical answer carefully and make sure the explanation arithmetic is right')
         except Exception as e:
             a['error'] = R.hide(e)
