@@ -32,3 +32,5 @@ assert not WW.hindi_ok({'notes': [{'title': 'Velocity', 'points': ['Velocity is 
 print('hindi check selftest ok')
 assert not WW.hindi_ok({'notes': [{'title': 'वेग', 'points': ['वेग']}], 'practice': [{'q': 'What is the speed of light in vacuum in metres per second?', 'explanation': 'The speed of light is three hundred million metres per second in vacuum.'}]})
 print('hindi practice selftest ok')
+assert WW._hindi_major('वेग v = s/t, इकाई m/s, KE = (1/2) × m × v^2 और sqrt(2gh)')
+print('hindi maths selftest ok')
