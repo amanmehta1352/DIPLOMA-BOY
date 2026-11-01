@@ -1,4 +1,4 @@
-name: Backup draft and hidden questions
+name: Backup all questions
 # Read-only backup before any purge. Writes an artifact; deletes nothing.
 on:
   workflow_dispatch:
@@ -19,6 +19,6 @@ jobs:
         run: python robots/purge/backup.py --out out
       - uses: actions/upload-artifact@v4
         with:
-          name: draft-hidden-backup
+          name: all-questions-backup
           path: out/
           retention-days: 90
