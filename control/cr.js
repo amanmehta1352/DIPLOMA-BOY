@@ -60,7 +60,8 @@ function syllabusHtml(sy) {
   const ul = (arr) => (arr || []).map(t => `<small>• ${esc(t)}</small>`).join('');
   return `<div class="stale">${esc(sy.note || 'मसौदा')}</div>${med}
   <div class="card"><table><thead><tr><th>Level</th><th>topics</th><th>मिले</th><th>missing</th><th></th></tr></thead><tbody>${lv}</tbody></table></div>
-  ${Object.entries(sy.levels || {}).map(([k, v]) => `<div class="card"><b>${esc(k)} · missing (पहले 25)</b>${ul(v.missing)}</div>`).join('')}`;
+  ${Object.entries(sy.levels || {}).map(([k, v]) => `<div class="card"><b>${esc(k)} · missing (पहले 25)</b>${ul(v.missing)}</div>`).join('')}
+  ${sy.shared ? `<div class="card"><b>साझा topics (एक बार लिखे जाएँगे)</b><small>कुल ${num(sy.shared.topics)} · 2+ levels में ${num(sy.shared.shared_by_2_or_more)}</small>${ul(sy.shared.sample)}</div>` : ''}`;
 }
 function vQuestions(st) {
   const n = st.numbers || {}, by = n.by_exam || {};
