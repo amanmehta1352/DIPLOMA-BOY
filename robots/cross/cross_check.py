@@ -33,7 +33,8 @@ def question_prompt(q):
 
 
 def call_openrouter(prompt):
-    body = json.dumps({'model': MODEL, 'messages': [{'role': 'user', 'content': prompt}], 'max_tokens': 300}).encode()
+    body = json.dumps({'model': MODEL, 'messages': [{'role': 'user', 'content': prompt}], 'max_tokens': 300,
+                       'reasoning': {'effort': 'none', 'exclude': True}}).encode()   # reasoning used up the budget and left the reply empty
     req = urllib.request.Request('https://openrouter.ai/api/v1/chat/completions', body,
                                  {'Authorization': 'Bearer ' + ORKEY, 'Content-Type': 'application/json'})
     with urllib.request.urlopen(req, timeout=90) as r:
