@@ -47,6 +47,7 @@ def hide(s):
 
 
 def http(url, headers, body=None, method='POST', timeout=300):
+    headers = {**headers, 'User-Agent': 'Mozilla/5.0 (diploma-boy)'}   # Groq answers 403 to the default Python agent
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:

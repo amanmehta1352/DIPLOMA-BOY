@@ -29,7 +29,8 @@ for name, key_env, url, default_model, model_env in PROVIDERS:
         print(f'{name}: FAIL key or account missing in the secrets'); failed += 1; continue
     body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': 'Reply with the single word: ok'}],
                        'max_tokens': 300}).encode()
-    req = urllib.request.Request(url, data=body, headers={'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'})
+    req = urllib.request.Request(url, data=body, headers={'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json',
+                                                          'User-Agent': 'Mozilla/5.0 (diploma-boy-probe)'})   # Groq answers 403 to the default Python agent
     try:
         with OPENER.open(req, timeout=120) as r:
             status, raw = r.status, r.read()
