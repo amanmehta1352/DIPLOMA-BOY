@@ -40,6 +40,7 @@ def load_fingerprint_files():
     hs, langs = set(), {}
     d = os.path.join(HERE, 'fingerprints')
     for name in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if not name.endswith('.json'): continue          # skip .DS_Store and other stray files
         j = json.load(open(os.path.join(d, name), encoding='utf-8'))
         hs |= set(j['hashes']); langs[j['lang']] = langs.get(j['lang'], 0) + len(j['files'])
     return hs, langs
@@ -86,7 +87,8 @@ def main():
     fp_hashes, fp_langs = load_fingerprint_files()
     ref_set |= fp_hashes
     streak = 0
-    for r in refs:
+    covered = bool(fp_langs.get('en') and fp_langs.get('hi'))   # committed fingerprints replace the PDF downloads
+    for r in ([] if covered else refs):
         if streak >= 3:          # three in a row failed: the site is not reachable now, do not spend an hour retrying
             failed.append({'id': r['id'], 'error': 'skipped after 3 failures in a row'}); continue
         try:
@@ -94,8 +96,8 @@ def main():
         except Exception as e:
             failed.append({'id': r['id'], 'error': type(e).__name__ + ': ' + str(e)[:120]}); streak += 1
     # Scores are meaningful only against the full reference. Hashed fingerprints for both English and Hindi
-    # science books count as the full reference; otherwise every downloaded document must have worked.
-    complete = (not failed) or bool(fp_langs.get('en') and fp_langs.get('hi'))
+    # science books count as the full reference (no downloads needed); otherwise every PDF must have downloaded.
+    complete = covered or not failed
     chapters = json.load(open(os.path.join(HERE, '..', 'writer', 'chapters.json'), encoding='utf-8'))
     science = [c['c'] for c in chapters if c['l'] == a.level and re.search(r'science|physics|chemistry|biology', c['se'], re.I)]
     if not science: sys.exit(f'no science chapters for {a.level}: the NCERT Science reference would not match')
