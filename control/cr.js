@@ -111,5 +111,5 @@ function render() {
   try { root.innerHTML = stale + (VIEWS[S.route] || vOverview)(st); } catch (e) { root.innerHTML = `<div class="card"><b>यह हिस्सा नहीं खुला</b><small>${esc(e.message)}</small></div>`; }
 }
 document.getElementById('dock').addEventListener('click', e => { const b = e.target.closest('button[data-go]'); if (!b) return; S.route = b.dataset.go; render(); window.scrollTo(0, 0); });
-$('reload').addEventListener('click', load);
+$('reload').addEventListener('click', () => { if (!S.depts) loadDepts(); load(); });
 loadApps().then(() => { loadDepts().then(() => { if (S.route === 'robots') render(); }); return load(); });

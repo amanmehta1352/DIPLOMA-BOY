@@ -162,7 +162,8 @@ LATIN = re.compile(r'[A-Za-z]')
 
 def hindi_ok(d):
     """Pure: the chapter is written in Hindi (Devanagari letters are the majority; English terms in brackets are allowed)."""
-    text = ' '.join(strings({k: d.get(k) for k in ('notes', 'teach', 'revision')}))
+    text = ' '.join(strings({k: d.get(k) for k in ('notes', 'teach', 'revision', 'solved', 'mistakes')}) )
+    text += ' ' + ' '.join(str(x.get('q', '')) + ' ' + str(x.get('explanation', '')) for x in d.get('practice', []) if isinstance(x, dict))
     dv, la = len(DEVA.findall(text)), len(LATIN.findall(text))
     return dv > 0 and dv >= la
 
@@ -249,7 +250,8 @@ def main():
         if data is not None and not a.dry_run:
             rpc('draft_save', {'p': {'level_id': c['l'], 'chapter_id': c['c'], 'status': status, 'data': data,
                                      'provider': 'gemini', 'model': model, 'checks': checks}})
-            if status == 'draft' and AUTO_OK and approved_now < AUTO_MAX:
+            # Auto-approve only when the second opinion came from a different company (OpenRouter); a Gemini fallback never publishes.
+            if status == 'draft' and AUTO_OK and ORKEY and approved_now < AUTO_MAX:
                 # Automatic approval: the database re-checks the same rules (no problems, second AI agreed on all answers).
                 r = rpc('auto_approve_draft', {'p_level': c['l'], 'p_chapter': c['c']})
                 if r == 'approved': approved_now += 1

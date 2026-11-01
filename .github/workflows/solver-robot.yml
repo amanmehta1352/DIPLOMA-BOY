@@ -46,7 +46,8 @@ jobs:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: |
           A="--count ${{ inputs.count || '10' }} --chapter ${{ inputs.chapter || '0' }}"
-          A="$A --level ${{ inputs.level || 'govt_technical' }}"
+          L="${{ github.event_name == 'schedule' && 'govt_technical' || inputs.level }}"
+          [ -n "$L" ] && A="$A --level $L"
           [ "${{ inputs.redo }}" = "true" ] && A="$A --redo"
           [ "${{ inputs.dry_run }}" = "true" ] && A="$A --dry-run"
           python robots/solver/solver.py $A

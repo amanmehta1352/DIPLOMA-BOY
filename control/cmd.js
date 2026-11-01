@@ -28,14 +28,15 @@ window.CMD = (() => {
   async function loadList() {
     try { C.list = await rpc('cmd_list', { p_code: store.get(), p_limit: 30 }); C.err = ''; }
     catch (e) { C.list = []; C.err = e.message; if (/गलत/.test(e.message)) store.set(''); }
-    try { const d = await rpc('draft_review_list', { p_code: store.get() }); C.drafts = Array.isArray(d) ? d : null; } catch (_) { C.drafts = null; }
+    try { const d = await rpc('draft_review_list', { p_code: store.get() }); C.drafts = Array.isArray(d) ? d : null; C.draftErr = Array.isArray(d) ? '' : 'review list का जवाब समझ नहीं आया'; } catch (e) { C.drafts = null; C.draftErr = e.message; }
   }
   function daySample(arr, n) {          // the same 5 approved chapters all day, new ones tomorrow
     const seed = Math.floor(Date.now() / 86400000);
-    return [...arr].sort((a, b) => ((a.chapter_id * 7919 + seed) % 997) - ((b.chapter_id * 7919 + seed) % 997)).slice(0, n);
+    const h = d => (Math.imul((d.chapter_id * 31 + d.level_id.length) ^ seed, 2654435761) >>> 0);
+    return [...arr].sort((a, b) => h(a) - h(b)).slice(0, n);
   }
   function reviewHtml() {
-    if (!C.drafts) return '';
+    if (!C.drafts) return C.draftErr ? `<h2>Review queue</h2><div class="msg bad">Review list नहीं खुली: ${esc(C.draftErr)}</div>` : '';
     const held = C.drafts.filter(d => d.status !== 'approved');
     const ok = C.drafts.filter(d => d.status === 'approved');
     const why = d => { const c = d.checks || {}; return (c.problems && c.problems.length ? c.problems.join('; ') : c.error || ''); };

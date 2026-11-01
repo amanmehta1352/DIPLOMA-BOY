@@ -20,7 +20,7 @@ const srv = http.createServer((q, r) => { let f = path.join(root, q.url.split('?
     o.firstIsWorst = await p.$eval('#view .card .dot', e => e.textContent);
     for (const go of ['questions', 'robots', 'backup']) { await p.click(`[data-go=${go}]`); await p.waitForTimeout(50); o[go] = (await p.$eval('#view', e => e.innerText.length)) > 20; }
     await p.click('[data-go=questions]'); o.exams = await p.$$eval('#view tbody tr', e => e.length); o.spark = (await p.$$eval('svg.spark polyline', e => e.length)) === 1;
-    await p.click('[data-go=robots]'); await p.waitForTimeout(150); o.robotBtns = await p.$$eval('a.btn', e => e.length); o.depts = (await p.innerText('#view')).includes('22 Departments');
+    await p.click('[data-go=robots]'); await p.waitForSelector('text=22 Departments', { timeout: 5000 }).catch(() => {}); o.robotBtns = await p.$$eval('a.btn', e => e.length); o.depts = (await p.innerText('#view')).includes('22 Departments');
     o.overflow = await p.evaluate(() => document.documentElement.scrollWidth > innerWidth);
     o.smallTap = await p.evaluate(() => [...document.querySelectorAll('button,a.btn,select')].filter(x => { const r = x.getBoundingClientRect(); return r.width && (r.height < 44 || r.width < 44); }).length);
     o.noHtmlInjection = !(await p.content()).includes('<img src=x');
