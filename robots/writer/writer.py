@@ -358,7 +358,7 @@ def main():
           time.sleep(10)
         size = sum(len(s) for s in strings(data)) if data else 0
         cs_txt = 'copy n/a' if checks.get('copyright_overlap') is None else f"copy {checks['copyright_overlap']:.1%}"
-        lines.append(f"- {want} {c['h']} ({c['s']}): **{status}** · {model} · {size} chars · {cs_txt} · {'; '.join(checks.get('problems', [])) or checks.get('error', '') or 'all checks passed'}")
+        lines.append(f"- {want} {c['h']} ({c['s']}): **{status}** · {model} · {size} chars · {cs_txt} · {'; '.join(checks.get('problems', [])) or checks.get('error', '') or checks.get('held', '') or 'all checks passed'}")
         print(lines[-1], flush=True)
         if data is not None and not a.dry_run and not checks.get('error'):   # infrastructure errors never count as rejections
             rpc('draft_save', {'p': {'level_id': c['l'], 'chapter_id': c['c'], 'status': status, 'data': data,
