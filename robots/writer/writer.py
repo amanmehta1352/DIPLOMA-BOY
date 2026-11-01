@@ -23,9 +23,22 @@ LEVEL_ORDER = ['class_9_10', 'medical', 'govt_basic', 'upsc_civil', 'govt_techni
                'graduation_sci', 'graduation_com', 'graduation_arts', 'law_management', 'advanced_research']
 
 
+FREE_KEYS = {
+    'groq': os.environ.get('GROQ_API_KEY', '').strip(),
+    'nvidia': os.environ.get('NVIDIA_API_KEY', '').strip(),
+    'sambanova': os.environ.get('SAMBANOVA_API_KEY', '').strip(),
+}
+# Backup writers, used only when every Gemini model fails. Each is OpenAI-compatible; model names can be overridden by env.
+FREE_PROVIDERS = [
+    ('groq', 'https://api.groq.com/openai/v1/chat/completions', os.environ.get('GROQ_WRITE_MODEL', 'openai/gpt-oss-120b')),
+    ('nvidia', 'https://integrate.api.nvidia.com/v1/chat/completions', os.environ.get('NVIDIA_WRITE_MODEL', '')),   # no verified large model yet: set NVIDIA_WRITE_MODEL to enable
+    ('sambanova', 'https://api.sambanova.ai/v1/chat/completions', os.environ.get('SAMBANOVA_WRITE_MODEL', 'Meta-Llama-3.3-70B-Instruct')),
+]
+
+
 def hide(s):
     s = str(s)
-    for k in (GKEY, SB_KEY):
+    for k in (GKEY, SB_KEY, *FREE_KEYS.values()):
         if k: s = s.replace(k, '[hidden]')
     return s
 
@@ -42,11 +55,13 @@ def http(url, headers, body=None, method='POST', timeout=300):
 
 
 # ---------- Gemini ----------
-def gemini(prompt, models, json_out=True, temperature=0.4):
-    """Returns (text, model). Tries each model; waits and retries on 429/500/503."""
+def gemini(prompt, models, json_out=True, temperature=0.4, deadline=None):
+    """Returns (text, model). Tries each model; waits and retries on 429/500/503. Stops at the deadline (epoch seconds)."""
     last = ''
     for m in models:
         for attempt in range(4):
+            if deadline and time.time() > deadline:
+                raise RuntimeError('Gemini deadline passed: ' + last)
             cfg = {'temperature': temperature}
             if json_out: cfg['responseMimeType'] = 'application/json'
             body = json.dumps({'contents': [{'parts': [{'text': prompt}]}], 'generationConfig': cfg}).encode()
@@ -55,14 +70,56 @@ def gemini(prompt, models, json_out=True, temperature=0.4):
             if s == 200:
                 try:
                     d = json.loads(b)
-                    return ''.join(p.get('text', '') for p in d['candidates'][0]['content']['parts']), m
+                    cand = d['candidates'][0]
+                    txt = ''.join(p.get('text', '') for p in cand['content']['parts'])
                 except Exception as e:
                     last = f'{m}: bad response {e}'; break
+                if not txt.strip() or cand.get('finishReason', 'STOP') != 'STOP':   # empty or cut off: next model
+                    last = f'{m}: unusable output ({cand.get("finishReason")})'; break
+                return txt, m
             last = f'{m}: HTTP {s} {hide(b[:200])}'
             if s in (429, 500, 502, 503, 504):
                 time.sleep(min(60, 8 * (attempt + 1))); continue
             break   # 400/404 etc: try the next model
     raise RuntimeError('Gemini failed: ' + last)
+
+
+def free_write(prompt):
+    """Returns (text, model) from the first backup provider that answers. Raises if none does."""
+    last = ''
+    for name, url, model in FREE_PROVIDERS:
+        key = FREE_KEYS[name]
+        if not key or not model:
+            last = f'{name}: key or model missing'; continue
+        body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': prompt}],
+                           'temperature': 0.4, 'response_format': {'type': 'json_object'}}).encode()
+        s, b = http(url, {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, body, timeout=240)
+        if s == 200:
+            try:
+                d = json.loads(b)
+                ch = d['choices'][0]
+                txt = (ch.get('message') or {}).get('content') or ''
+            except Exception as e:
+                last = f'{name}: bad response {e}'; continue
+            if not txt.strip() or ch.get('finish_reason') == 'length':   # empty or cut off: try the next provider
+                last = f'{name}: unusable content (finish {ch.get("finish_reason")})'; continue
+            return txt, f'{name}:{model}'
+        last = f'{name}: HTTP {s} {hide(b[:160])}'
+    raise RuntimeError('free providers failed: ' + last)
+
+
+GEMINI_BUDGET = int(os.environ.get('GEMINI_BUDGET_SECONDS', '900'))   # total time for Gemini per chapter before backups start
+
+
+def write_text(prompt):
+    """Gemini first; backup free providers only if Gemini fails completely."""
+    try:
+        return gemini(prompt, WRITE_MODELS, deadline=time.time() + GEMINI_BUDGET)
+    except RuntimeError as g_err:
+        try:
+            return free_write(prompt)
+        except RuntimeError as f_err:
+            raise RuntimeError(f'{g_err} | {f_err}')
 
 
 def parse_json(text):
@@ -190,7 +247,10 @@ def second_opinion(d):
     if ORKEY:
         txt, m = openrouter(prompt)          # a different company checks the answers
     else:
-        txt, m = gemini(prompt, CHECK_MODELS, temperature=0)
+        try:
+            txt, m = gemini(prompt, CHECK_MODELS, temperature=0, deadline=time.time() + 300)
+        except RuntimeError:                 # Gemini down: a free provider still checks, so the chapter is not rejected
+            txt, m = free_write(prompt)
     got = parse_json(txt).get('answers', [])
     diff = [i for i, x in enumerate(d['practice']) if i >= len(got) or got[i] != x['answer']]
     return diff, m
@@ -244,7 +304,7 @@ def main():
         for attempt in range(2):
           status, checks, model, data = 'rejected', {}, None, None
           try:
-              txt, model = gemini(prompt, WRITE_MODELS)
+              txt, model = write_text(prompt)
               data = tidy_explanations(shuffle_options(parse_json(txt), want))
               prob = check_structure(data, want)
               checks['structure'] = prob
