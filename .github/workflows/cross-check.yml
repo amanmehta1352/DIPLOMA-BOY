@@ -1,0 +1,30 @@
+name: Cross-check (review only)
+# A different AI company solves a few sample questions without seeing the answers. Writes an artifact, nothing to the database.
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'How many questions'
+        default: '5'
+permissions:
+  contents: read
+concurrency: cross-check
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Self-test
+        run: python robots/cross/selftest.py
+      - name: Check
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python robots/cross/cross_check.py --count "${{ inputs.count }}" --out out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cross-check
+          path: out/cross_check.json
