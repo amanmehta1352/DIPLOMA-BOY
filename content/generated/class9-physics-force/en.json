@@ -1,0 +1,71 @@
+{
+ "concepts": [
+  {
+   "title": "What is Force?",
+   "body": "Force is a push or pull acting on an object that can change its state of rest or motion. It is a vector quantity, meaning it has both magnitude and direction."
+  },
+  {
+   "title": "Inertia (First Law of Motion)",
+   "body": "Inertia is the tendency of an object to resist any change in its state of rest or uniform motion. Newton's First Law states that an object remains in its state unless acted upon by an external force."
+  },
+  {
+   "title": "Action-Reaction (Third Law of Motion)",
+   "body": "Newton's Third Law states that for every action, there is an equal and opposite reaction. This means forces always occur in pairs and act on different objects."
+  }
+ ],
+ "formulas": [
+  {
+   "title": "Force and Acceleration",
+   "body": "The force acting on an object is equal to the product of its mass and acceleration, expressed as F = m x a."
+  },
+  {
+   "title": "Momentum and Force",
+   "body": "Momentum (p) is the product of mass and velocity (p = m x v). Force is also equal to the rate of change of momentum, expressed as F = change in p / change in t."
+  }
+ ],
+ "examples": [
+  {
+   "title": "Everyday Example",
+   "body": "When you push a shopping cart, the force you apply causes it to accelerate. If you stop pushing, friction eventually brings it to rest due to inertia."
+  },
+  {
+   "title": "Applied Example",
+   "body": "A rocket launches by expelling gas downward. The action of the gas pushing downward creates an equal and opposite reaction force that propels the rocket upward."
+  }
+ ],
+ "mcqs": [
+  {
+   "question": "What is the unit of force in the SI system?",
+   "options": [
+    "Newton",
+    "Joule",
+    "Pascal",
+    "Watt"
+   ],
+   "answer_index": 0,
+   "explanation": "The SI unit of force is Newton (N), named after Sir Isaac Newton."
+  },
+  {
+   "question": "A car of mass 1000 kg accelerates at 2 m/s². What is the force acting on it?",
+   "options": [
+    "500 N",
+    "1000 N",
+    "2000 N",
+    "4000 N"
+   ],
+   "answer_index": 2,
+   "explanation": "Using F = m x a, F = 1000 kg x 2 m/s² = 2000 N."
+  },
+  {
+   "question": "Which law explains why a passenger moves forward when a car suddenly stops?",
+   "options": [
+    "First Law",
+    "Second Law",
+    "Third Law",
+    "Law of Gravitation"
+   ],
+   "answer_index": 0,
+   "explanation": "The First Law (Inertia) explains that the passenger tends to remain in motion due to inertia when the car stops."
+  }
+ ]
+}

@@ -1,0 +1,24 @@
+{
+ "topic": "Class 9 Physics (CBSE): Force and Laws of Motion",
+ "policy": "class_9_10 science: en primary, hi secondary",
+ "writer": "deepseek/deepseek-chat",
+ "verifier": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+ "attempts": [
+  {
+   "n": 1,
+   "structure": [],
+   "verify": {
+    "agree": 3,
+    "total": 3,
+    "details": [
+     "mcq1: stored 0, verifier 0, agree",
+     "mcq2: stored 2, verifier 2, agree",
+     "mcq3: stored 0, verifier 0, agree"
+    ]
+   }
+  }
+ ],
+ "status": "ok",
+ "translator": "gemini-3.5-flash",
+ "hindi_problems": []
+}
