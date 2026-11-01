@@ -1,0 +1,37 @@
+name: Robot route test v2
+# v2: DeepSeek writes, Gemini fact-checks, Cloudflare checks MCQs, Gemini writes Hindi, DeepSeek fact-checks Hindi.
+# Writes FILES only (content/generated/...) and commits them back to this branch. Never touches the database. Keys are never printed.
+# Starts when robots/route/trigger_v2.txt changes on content-fill-database.
+on:
+  push:
+    branches: [content-fill-database]
+    paths: ['robots/route/trigger_v2.txt']
+permissions:
+  contents: write
+concurrency: route-test-v2
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Self-test
+        run: python robots/route/run_chapter_v2.py --selftest
+      - name: Run
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python robots/route/run_chapter_v2.py
+      - name: Commit the generated files back (no database write)
+        if: always()
+        run: |
+          git config user.name "route-test robot"
+          git config user.email "robot@users.noreply.github.com"
+          git add content/generated
+          git diff --cached --quiet || git commit -m "robot route test output (draft, not published)"
+          git pull --rebase origin content-fill-database
+          git push origin HEAD:content-fill-database
