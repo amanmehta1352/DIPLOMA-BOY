@@ -1,53 +1,53 @@
 {
  "concepts": [
   {
-   "title": "Sound is a Longitudinal Wave",
-   "body": "Sound is a type of wave that travels through a medium by compressing and rarefying particles in the same direction as the wave's motion. This makes it a longitudinal wave. For example, when you speak, your vocal cords vibrate, creating sound waves that travel through the air to reach someone's ears."
+   "title": "Sound is a longitudinal wave that needs a medium",
+   "body": "Sound is a type of mechanical wave that travels through a medium by compressing and rarefying particles. It cannot travel in a vacuum because there are no particles to vibrate. For example, you cannot hear a ringing bell in outer space because there is no air to carry the sound."
   },
   {
-   "title": "Frequency, Wavelength, Amplitude, Pitch, and Loudness",
-   "body": "Frequency is the number of vibrations per second, measured in Hertz (Hz). Wavelength is the distance between two consecutive compressions or rarefactions. Amplitude is the maximum displacement of particles from their mean position. Pitch is how high or low a sound is and depends on frequency, while loudness depends on amplitude. For instance, a high-pitched whistle has a higher frequency than a low-pitched drum."
+   "title": "Frequency, wavelength, amplitude, pitch, and loudness",
+   "body": "Frequency is the number of vibrations per second, measured in Hertz (Hz). Wavelength is the distance between two consecutive compressions or rarefactions. Amplitude is the maximum displacement of particles from their mean position. Pitch is determined by frequency, while loudness depends on amplitude. For example, a high-pitched whistle has a higher frequency than a low-pitched drum."
   },
   {
-   "title": "Reflection of Sound and Echo",
-   "body": "When sound waves hit a hard surface, they bounce back, a phenomenon called reflection. If the reflected sound is heard distinctly after the original sound, it is called an echo. For example, shouting in a large empty hall creates an echo because the sound reflects off the walls."
+   "title": "Reflection of sound and echo",
+   "body": "When sound waves hit a hard surface, they bounce back, a phenomenon called reflection. If the reflected sound is heard distinctly after the original sound, it is called an echo. For example, shouting in a large empty hall produces an echo due to sound reflection."
   }
  ],
  "formulas": [
   {
-   "title": "Wave Speed Formula",
-   "body": "v = f x lambda (v in m/s, f in Hz, lambda in m). Here, v is wave speed, f is frequency, and lambda is wavelength. This formula is used to calculate the speed of a wave in a medium."
+   "title": "Wave speed v = f x lambda",
+   "body": "Wave speed (v in m/s) equals frequency (f in Hz) multiplied by wavelength (lambda in m). This formula is used to calculate the speed of sound in a medium."
   },
   {
-   "title": "Echo Distance Formula",
-   "body": "d = v x t / 2 (d in m, v in m/s, t in s). Here, d is the distance to the reflecting surface, v is the speed of sound, and t is the time taken for the echo to return. This formula is used to calculate the distance of an object based on the echo's return time."
+   "title": "Echo distance d = v x t / 2",
+   "body": "Echo distance (d in m) equals wave speed (v in m/s) multiplied by time (t in s) divided by 2. This formula is used to calculate the distance of an object causing an echo."
   }
  ],
  "examples": [
   {
-   "title": "Everyday Example",
-   "body": "When you clap your hands, the sound travels through the air to reach your ears. The cause of this sound is the vibration of air particles caused by the clap."
+   "title": "Everyday example",
+   "body": "When you speak, your vocal cords vibrate, creating sound waves that travel through the air to reach the listener's ears. The cause is the vibration of vocal cords."
   },
   {
-   "title": "Applied Example",
-   "body": "Sonar technology uses sound waves to detect underwater objects. The sound waves reflect off the object and return to the sonar device, allowing the distance to be calculated. The cause of this detection is the reflection of sound waves."
+   "title": "Applied example",
+   "body": "Sonar technology uses sound waves to detect underwater objects. The sound waves reflect off the object and return to the sonar device, calculating the distance. The cause is the reflection of sound waves."
   }
  ],
  "mcqs": [
   {
    "question": "What type of wave is sound?",
    "options": [
-    "Transverse",
     "Longitudinal",
+    "Transverse",
     "Electromagnetic",
     "Mechanical"
    ],
-   "answer_index": 1,
+   "answer_index": 0,
    "difficulty": "easy",
-   "explanation": "Sound is a longitudinal wave because particles vibrate parallel to the direction of wave propagation. Transverse waves vibrate perpendicular to the direction, and electromagnetic waves do not require a medium."
+   "explanation": "Sound is a longitudinal wave because particles vibrate parallel to the direction of wave propagation. Transverse waves vibrate perpendicularly, electromagnetic waves do not need a medium, and mechanical waves include both longitudinal and transverse waves."
   },
   {
-   "question": "If the frequency of a sound wave is 500 Hz and its wavelength is 0.68 m, what is its speed?",
+   "question": "A sound wave has a frequency of 500 Hz and a wavelength of 0.68 m. What is its speed?",
    "options": [
     "340 m/s",
     "500 m/s",
@@ -56,10 +56,10 @@
    ],
    "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Using the formula v = f x lambda, v = 500 Hz x 0.68 m = 340 m/s. The other options are incorrect because they either use incorrect calculations or ignore the formula."
+   "explanation": "Using v = f x lambda, v = 500 Hz x 0.68 m = 340 m/s. The other options are incorrect because they do not match the calculated value."
   },
   {
-   "question": "A person hears an echo 2 seconds after shouting. If the speed of sound is 340 m/s, how far is the reflecting surface?",
+   "question": "A person hears an echo after 2 seconds. If the speed of sound is 340 m/s, what is the distance to the reflecting surface?",
    "options": [
     "170 m",
     "340 m",
@@ -68,7 +68,7 @@
    ],
    "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Using the formula d = v x t / 2, d = 340 m/s x 2 s / 2 = 340 m / 2 = 170 m. The other options are incorrect because they either ignore the division by 2 or use incorrect calculations."
+   "explanation": "Using d = v x t / 2, d = 340 m/s x 2 s / 2 = 340 m / 2 = 170 m. The other options are incorrect because they do not account for the division by 2."
   }
  ]
 }

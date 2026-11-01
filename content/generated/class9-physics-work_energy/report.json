@@ -7,7 +7,7 @@
    "problems": [],
    "fact_check": {
     "correct": false,
-    "reason": "fact-checker error: Gemini failed: gemini-3.8-flash: HTTP 429"
+    "reason": "fact-checker error (after retries): Gemini failed: gemini-3.8-flash: HTTP 429"
    }
   },
   {
@@ -15,33 +15,15 @@
    "problems": [],
    "fact_check": {
     "correct": false,
-    "reason": "fact-checker error: Gemini failed: gemini-3.8-flash: HTTP 429"
+    "reason": "fact-checker error (after retries): Gemini failed: gemini-3.8-flash: HTTP 429"
    }
   },
   {
    "n": 3,
    "problems": [],
    "fact_check": {
-    "correct": true,
-    "reason": ""
-   },
-   "mcq_verify": {
-    "agree": 2,
-    "total": 3,
-    "details": [
-     "mcq1: stored 0, verifier 0, agree",
-     "mcq2: stored 0, verifier 0, agree",
-     "mcq3: stored 0, verifier 2, DISAGREE"
-    ]
-   },
-   "strong_verify": {
-    "agree": 0,
-    "total": 3,
-    "details": [
-     "mcq1: stored 0, gemini -1, DISAGREE",
-     "mcq2: stored 0, gemini -1, DISAGREE",
-     "mcq3: stored 0, gemini -1, DISAGREE"
-    ]
+    "correct": false,
+    "reason": "fact-checker error (after retries): Gemini failed: gemini-3.8-flash: HTTP 429"
    }
   }
  ],

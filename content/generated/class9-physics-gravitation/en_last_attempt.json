@@ -2,40 +2,40 @@
  "concepts": [
   {
    "title": "Universal Law of Gravitation",
-   "body": "The universal law of gravitation states that every object in the universe attracts every other object with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between them. For example, the Earth pulls you towards its center, keeping you grounded."
+   "body": "The universal law of gravitation states that every object in the universe attracts every other object with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between them. This force acts along the line joining the centers of the two objects. For example, the Earth pulls you towards its center, keeping you grounded."
   },
   {
    "title": "Free Fall and Acceleration Due to Gravity (g)",
-   "body": "Free fall occurs when an object falls under the sole influence of gravity, experiencing an acceleration of about 9.8 m/s^2, which is the same for all masses. For instance, a feather and a hammer dropped in a vacuum will hit the ground simultaneously."
+   "body": "Free fall is the motion of an object under the influence of gravity alone, without any other forces acting on it. All objects in free fall near the Earth's surface accelerate at the same rate, approximately 9.8 m/s^2, regardless of their mass. For instance, a feather and a hammer dropped in a vacuum will hit the ground simultaneously."
   },
   {
    "title": "Mass vs Weight",
-   "body": "Mass is the amount of matter in an object and remains constant everywhere, while weight is the force exerted on an object due to gravity and varies with the value of g. For example, your mass is the same on Earth and the Moon, but your weight is less on the Moon."
+   "body": "Mass is a measure of the amount of matter in an object and remains constant regardless of location. Weight, on the other hand, is the force exerted on an object due to gravity and varies depending on the gravitational field strength. For example, your mass is the same on Earth and the Moon, but your weight is less on the Moon because of its weaker gravity."
   }
  ],
  "formulas": [
   {
    "title": "Universal Gravitational Force",
-   "body": "F = G x m1 x m2 / r^2 (F in newton N, m in kg, r in m, G = 6.67 x 10^-11 N m^2/kg^2). This formula calculates the gravitational force between two objects, where G is the gravitational constant, m1 and m2 are the masses of the objects, and r is the distance between their centers."
+   "body": "F = G x m1 x m2 / r^2 (F in newton N, m in kg, r in m). Here, F is the gravitational force, G is the gravitational constant (6.67 x 10^-11 N m^2/kg^2), m1 and m2 are the masses of the two objects, and r is the distance between their centers. This formula is used to calculate the gravitational force between two objects."
   },
   {
    "title": "Weight",
-   "body": "W = m x g (W in newton N, m in kg, g in m/s^2). This formula calculates the weight of an object, where m is its mass and g is the acceleration due to gravity."
+   "body": "W = m x g (W in newton N, m in kg, g in m/s^2). Here, W is the weight of the object, m is its mass, and g is the acceleration due to gravity. This formula is used to determine the weight of an object based on its mass and the gravitational field strength."
   }
  ],
  "examples": [
   {
    "title": "Everyday Example",
-   "body": "When you jump, you eventually come back to the ground because of Earth's gravitational pull. The cause is the gravitational force acting between you and the Earth."
+   "body": "When you jump, you are momentarily in free fall, accelerating downward at 9.8 m/s^2 due to Earth's gravity. This is why you come back down after jumping."
   },
   {
    "title": "Applied Example",
-   "body": "Satellites orbit the Earth due to the gravitational force between them and the Earth. The cause is the centripetal force provided by gravity, which keeps the satellite in its path."
+   "body": "Satellites orbiting the Earth are in a continuous state of free fall. The gravitational force between the Earth and the satellite provides the centripetal force needed to keep the satellite in orbit."
   }
  ],
  "mcqs": [
   {
-   "question": "What is the value of acceleration due to gravity (g) on Earth?",
+   "question": "What is the acceleration due to gravity near the Earth's surface?",
    "options": [
     "9.8 m/s^2",
     "6.67 m/s^2",
@@ -44,10 +44,10 @@
    ],
    "answer_index": 0,
    "difficulty": "easy",
-   "explanation": "The acceleration due to gravity on Earth is approximately 9.8 m/s^2. The other options are incorrect as they do not match the standard value."
+   "explanation": "The acceleration due to gravity near the Earth's surface is approximately 9.8 m/s^2. This is a fundamental constant in physics and is the same for all objects in free fall near the Earth's surface."
   },
   {
-   "question": "If the mass of an object is 10 kg, what is its weight on Earth?",
+   "question": "If the mass of an object is 10 kg, what is its weight on Earth? (g = 9.8 m/s^2)",
    "options": [
     "98 N",
     "10 N",
@@ -56,19 +56,19 @@
    ],
    "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Weight is calculated using W = m x g. Here, m = 10 kg and g = 9.8 m/s^2, so W = 10 x 9.8 = 98 N. The other options are incorrect because they either use the wrong value of g or m."
+   "explanation": "Weight is calculated using the formula W = m x g. For a mass of 10 kg and g = 9.8 m/s^2, the weight is 10 x 9.8 = 98 N. The other options are incorrect because they either ignore the value of g or miscalculate the product."
   },
   {
-   "question": "Two objects of masses 5 kg and 10 kg are placed 2 m apart. What is the gravitational force between them?",
+   "question": "Two objects of masses 5 kg and 10 kg are placed 2 meters apart. What is the gravitational force between them? (G = 6.67 x 10^-11 N m^2/kg^2)",
    "options": [
+    "8.34 x 10^-10 N",
     "1.67 x 10^-9 N",
-    "3.34 x 10^-9 N",
-    "6.67 x 10^-9 N",
-    "8.34 x 10^-9 N"
+    "3.34 x 10^-10 N",
+    "6.67 x 10^-11 N"
    ],
-   "answer_index": 1,
+   "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Using F = G x m1 x m2 / r^2, where G = 6.67 x 10^-11 N m^2/kg^2, m1 = 5 kg, m2 = 10 kg, and r = 2 m, F = 6.67 x 10^-11 x 5 x 10 / 4 = 3.34 x 10^-9 N. The other options are incorrect because they either use the wrong values or miscalculate the force."
+   "explanation": "The gravitational force is calculated using F = G x m1 x m2 / r^2. Substituting the given values, F = 6.67 x 10^-11 x 5 x 10 / (2)^2 = 8.34 x 10^-10 N. The other options are incorrect because they either miscalculate the product or the division by r^2."
   }
  ]
 }

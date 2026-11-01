@@ -2,11 +2,11 @@
  "concepts": [
   {
    "title": "Work Done by a Force",
-   "body": "Work is done when a force causes an object to move in the direction of the force. The amount of work done depends on the magnitude of the force and the distance the object moves. For example, pushing a box across the floor involves work because the force applied moves the box in the same direction."
+   "body": "Work is said to be done when a force acts on an object and displaces it in the direction of the force. The work done is calculated as the product of the force and the displacement in the direction of the force. For example, pushing a box across the floor involves doing work because the force applied moves the box."
   },
   {
    "title": "Kinetic Energy and Potential Energy",
-   "body": "Kinetic energy is the energy possessed by an object due to its motion, while potential energy is the energy stored in an object due to its position or state. For instance, a moving car has kinetic energy, and a book placed on a shelf has potential energy due to its height above the ground."
+   "body": "Kinetic energy is the energy possessed by an object due to its motion, while potential energy is the energy stored in an object due to its position or configuration. For instance, a moving car has kinetic energy, and a book placed on a shelf has potential energy due to its height above the ground."
   },
   {
    "title": "Law of Conservation of Energy",
@@ -16,21 +16,21 @@
  "formulas": [
   {
    "title": "Work Done",
-   "body": "W = F x s (W in joule J, F in newton N, s in meter m). This formula calculates the work done when a force F moves an object through a distance s in the direction of the force."
+   "body": "W = F x s (W in joule J, F in newton N, s in meter m). This formula calculates the work done when a force F displaces an object by a distance s in the direction of the force."
   },
   {
    "title": "Kinetic Energy and Potential Energy",
-   "body": "Kinetic energy = (1/2) m v^2 (m in kg, v in m/s). Potential energy = m g h (m in kg, g in m/s^2, h in m). These formulas calculate the kinetic energy of a moving object and the potential energy of an object at a height h above the ground."
+   "body": "Kinetic energy = (1/2) m v^2 (m in kg, v in m/s). Potential energy = m g h (m in kg, g in m/s^2, h in m). These formulas are used to calculate the kinetic energy of a moving object and the potential energy of an object at a height h above the ground."
   }
  ],
  "examples": [
   {
    "title": "Everyday Example",
-   "body": "When you lift a bag from the floor to a table, you do work against gravity. The force you apply moves the bag upward, and the work done is equal to the force times the height the bag is lifted."
+   "body": "When you lift a bucket of water from the ground to a table, you do work against gravity. The force you apply moves the bucket upward, and the work done is equal to the force multiplied by the height of the table."
   },
   {
    "title": "Applied Example",
-   "body": "A hydroelectric power plant converts the potential energy of water stored at a height into electrical energy. The water flows down, turning turbines, which generate electricity, demonstrating the conversion of energy."
+   "body": "A hydroelectric power plant converts the potential energy of water stored at a height into kinetic energy as it falls, which is then transformed into electrical energy. This process demonstrates the conversion of energy from one form to another."
   }
  ],
  "mcqs": [
@@ -47,28 +47,28 @@
    "explanation": "The unit of work is joule (J). Newton is the unit of force, watt is the unit of power, and pascal is the unit of pressure."
   },
   {
-   "question": "A 2 kg object is moving at 3 m/s. What is its kinetic energy?",
+   "question": "A car of mass 1000 kg is moving at a speed of 20 m/s. What is its kinetic energy?",
    "options": [
-    "9 J",
-    "6 J",
-    "18 J",
-    "12 J"
+    "200000 J",
+    "100000 J",
+    "400000 J",
+    "50000 J"
    ],
    "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Using the formula KE = (1/2) m v^2, KE = (1/2) * 2 * 3^2 = 9 J. The other options are incorrect because they do not follow the correct calculation."
+   "explanation": "Using the formula KE = (1/2) m v^2, KE = (1/2) x 1000 x (20)^2 = 200000 J. The other options are incorrect because they do not match the calculated value."
   },
   {
-   "question": "A 5 kg object is lifted to a height of 10 m. What is its potential energy? (g = 10 m/s^2)",
+   "question": "A ball of mass 2 kg is dropped from a height of 10 m. What is its potential energy just before it hits the ground? (g = 10 m/s^2)",
    "options": [
-    "500 J",
-    "50 J",
+    "200 J",
     "100 J",
-    "250 J"
+    "20 J",
+    "10 J"
    ],
    "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Using the formula PE = m g h, PE = 5 * 10 * 10 = 500 J. The other options are incorrect because they do not follow the correct calculation."
+   "explanation": "Using the formula PE = m g h, PE = 2 x 10 x 10 = 200 J. The other options are incorrect because they do not match the calculated value."
   }
  ]
 }
