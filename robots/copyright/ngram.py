@@ -7,7 +7,7 @@ Score = (atom trigrams found in the reference) / (atom trigrams). Above THRESHOL
 Read-only: writes out/copyright_report.json, never changes the database. Short atoms (< MIN_TRIGRAMS) are skipped, not scored.
 Env: SUPABASE_SECRET_KEY (read atoms). Universal facts and formulas (F = m × a) are short and do not drive the score.
 """
-import argparse, json, os, re, sys, tempfile, time, urllib.request
+import argparse, hashlib, json, os, re, sys, tempfile, time, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 SB = os.environ.get('SUPABASE_URL', 'https://wobmtlcpszcntczkebtt.supabase.co').rstrip('/')
 KEY = os.environ.get('SUPABASE_SECRET_KEY', '').strip()
@@ -26,9 +26,29 @@ def trigrams(text):
     return {tuple(w[i:i + 3]) for i in range(len(w) - 2)}
 
 
+def fp(t):
+    """Pure: stable 16-hex fingerprint of one trigram (the stored form; no text is kept)."""
+    return hashlib.sha256(' '.join(t).encode()).hexdigest()[:16]
+
+
+def fingerprints(text):
+    return {fp(t) for t in trigrams(text)}
+
+
+def load_fingerprint_files():
+    """Hashed reference sets committed in robots/copyright/fingerprints/*.json. Returns (hashes, lang->docs)."""
+    hs, langs = set(), {}
+    d = os.path.join(HERE, 'fingerprints')
+    for name in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if not name.endswith('.json'): continue          # skip .DS_Store and other stray files
+        j = json.load(open(os.path.join(d, name), encoding='utf-8'))
+        hs |= set(j['hashes']); langs[j['lang']] = langs.get(j['lang'], 0) + len(j['files'])
+    return hs, langs
+
+
 def score(atom_text, ref_set):
-    """Pure: (fraction of the atom's trigrams that are in the reference, number of atom trigrams)."""
-    t = trigrams(atom_text)
+    """Pure: (fraction of the atom's trigram fingerprints found in the reference, number of atom trigrams)."""
+    t = fingerprints(atom_text)
     if not t: return 0.0, 0
     return len(t & ref_set) / len(t), len(t)
 
@@ -64,15 +84,20 @@ def main():
     if a.level not in R.get('levels', []): sys.exit(f"no reference books for {a.level} (covered: {R.get('levels')})")
     refs = R['documents']
     ref_set, got, failed = set(), [], []
+    fp_hashes, fp_langs = load_fingerprint_files()
+    ref_set |= fp_hashes
     streak = 0
-    for r in refs:
+    covered = bool(fp_langs.get('en') and fp_langs.get('hi'))   # committed fingerprints replace the PDF downloads
+    for r in ([] if covered else refs):
         if streak >= 3:          # three in a row failed: the site is not reachable now, do not spend an hour retrying
             failed.append({'id': r['id'], 'error': 'skipped after 3 failures in a row'}); continue
         try:
-            t = pdf_text(r['url']); ref_set |= trigrams(t); got.append(r['id']); streak = 0
+            t = pdf_text(r['url']); ref_set |= fingerprints(t); got.append(r['id']); streak = 0
         except Exception as e:
             failed.append({'id': r['id'], 'error': type(e).__name__ + ': ' + str(e)[:120]}); streak += 1
-    complete = not failed                      # scores are only meaningful against the full reference set
+    # Scores are meaningful only against the full reference. Hashed fingerprints for both English and Hindi
+    # science books count as the full reference (no downloads needed); otherwise every PDF must have downloaded.
+    complete = covered or not failed
     chapters = json.load(open(os.path.join(HERE, '..', 'writer', 'chapters.json'), encoding='utf-8'))
     science = [c['c'] for c in chapters if c['l'] == a.level and re.search(r'science|physics|chemistry|biology', c['se'], re.I)]
     if not science: sys.exit(f'no science chapters for {a.level}: the NCERT Science reference would not match')
