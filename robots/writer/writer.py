@@ -47,7 +47,6 @@ def hide(s):
 
 
 def http(url, headers, body=None, method='POST', timeout=300):
-    headers = {**headers, 'User-Agent': 'Mozilla/5.0 (diploma-boy)'}   # Groq answers 403 to the default Python agent
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
@@ -98,7 +97,8 @@ def free_write(prompt):
             last = f'{name}: key, model or account missing'; continue
         body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': prompt}],
                            'temperature': 0.4, 'max_tokens': 8192, 'response_format': {'type': 'json_object'}}).encode()
-        s, b = http(url, {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, body, timeout=240)
+        s, b = http(url, {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json',
+                          'User-Agent': 'Mozilla/5.0 (diploma-boy)'}, body, timeout=240)   # Groq answers 403 to the default Python agent
         if s == 200:
             try:
                 d = json.loads(b)
