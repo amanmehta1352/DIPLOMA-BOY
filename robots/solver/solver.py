@@ -111,7 +111,8 @@ def main():
                         val, cm = second_opinion(d)
                         want = d['methods'][0]['answer']['value']
                         checks['second_opinion'] = {'model': cm, 'value': val, 'agree': same(val, want)}
-                        if not same(val, want): prob.append(f'second opinion got {val!r}, methods say {want!r}')
+                        if val is None or str(val).strip() == '': prob.append('second opinion gave no answer')
+                        elif not same(val, want): prob.append(f'second opinion got {val!r}, methods say {want!r}')
                     checks['problems'] = prob
                     res = 'draft' if not prob else 'rejected'
                 except Exception as e:
@@ -127,7 +128,10 @@ def main():
                                               'type_key': t['key'], 'difficulty': int(t.get('difficulty') or 2), 'status': res,
                                               'data': d, 'checks': checks, 'model': model}})
                 if res == 'draft' and AUTO_OK and W.ORKEY:
-                    r = W.rpc('solution_auto_approve', {'p_level': c['l'], 'p_chapter': c['c'], 'p_slot': slot})
+                    try:
+                        r = W.rpc('solution_auto_approve', {'p_level': c['l'], 'p_chapter': c['c'], 'p_slot': slot})
+                    except Exception as e:          # an approval error must not stop the rest of the batch
+                        r = 'error: ' + W.hide(e)[:120]
                     lines[-1] += f' · auto: {r}'; print('    auto-approve:', r, flush=True)
             if a.dry_run and d is not None:
                 os.makedirs('solver-out', exist_ok=True)

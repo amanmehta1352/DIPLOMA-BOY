@@ -67,20 +67,26 @@ def main():
             t = pdf_text(r['url']); ref_set |= trigrams(t); got.append(r['id'])
         except Exception as e:
             failed.append({'id': r['id'], 'error': type(e).__name__ + ': ' + str(e)[:120]})
+    complete = not failed                      # scores are only meaningful against the full reference set
+    chapters = json.load(open(os.path.join(HERE, '..', 'writer', 'chapters.json'), encoding='utf-8'))
+    science = [c['c'] for c in chapters if c['l'] == a.level and re.search(r'science|physics|chemistry|biology', c['se'], re.I)]
+    if not science: sys.exit(f'no science chapters for {a.level}: the NCERT Science reference would not match')
     h = {'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Accept-Profile': 'mtb'}
-    url = f"{SB}/rest/v1/atoms?select=id,chapter_id,atom_type,body&status=eq.published&archived=eq.false&level_id=eq.{a.level}&atom_type=in.(concept,example)&order=id&limit={a.count}"
+    ids = ','.join(str(i) for i in science)
+    url = f"{SB}/rest/v1/atoms?select=id,chapter_id,atom_type,body&status=eq.published&archived=eq.false&level_id=eq.{a.level}&chapter_id=in.({ids})&atom_type=in.(concept,example)&order=id&limit={a.count}"
     atoms = json.loads(urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=60).read())
     rows = []
     for x in atoms:
         s, n = score(flatten(x.get('body')), ref_set)
+        ok = complete and n >= MIN_TRIGRAMS
         rows.append({'id': x['id'], 'chapter': x['chapter_id'], 'type': x['atom_type'], 'trigrams': n,
-                     'score': round(s, 3), 'flag': (n >= MIN_TRIGRAMS and s > THRESHOLD), 'skipped': n < MIN_TRIGRAMS})
+                     'score': round(s, 3) if ok else None, 'flag': (s > THRESHOLD) if ok else None, 'skipped': not ok})
     os.makedirs(a.out, exist_ok=True)
-    rep = {'level': a.level, 'threshold': THRESHOLD, 'reference_docs': got, 'reference_failed': failed,
-           'reference_trigrams': len(ref_set), 'checked': len(rows), 'flagged': sum(r['flag'] for r in rows), 'atoms': rows}
+    rep = {'level': a.level, 'threshold': THRESHOLD, 'reference_complete': complete, 'reference_docs': got, 'reference_failed': failed,
+           'reference_trigrams': len(ref_set), 'checked': len(rows), 'scored': sum(1 for r in rows if not r['skipped']), 'flagged': sum(1 for r in rows if r['flag']), 'atoms': rows}
     json.dump(rep, open(os.path.join(a.out, 'copyright_report.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f"reference docs {len(got)} (failed {len(failed)}), trigrams {len(ref_set)}; atoms {len(rows)}, flagged {rep['flagged']}")
-    if not got: sys.exit('no reference text could be downloaded: scores would be meaningless')
+    if not complete: sys.exit(f'{len(failed)} reference documents could not be read: no scores given (see report)')
 
 
 if __name__ == '__main__':

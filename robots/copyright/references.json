@@ -1,12 +1,196 @@
 {
-  "schema": 1,
-  "note": "NCERT chapter PDFs used as the reference text. Hindi books matter most because our atoms are in Hindi. Codes follow ncert.nic.in/textbook/pdf/<book><chapter>.pdf.",
-  "documents": [
-    {"id": "ncert-9-vigyan-hi-1", "lang": "hi", "url": "https://ncert.nic.in/textbook/pdf/ihsc101.pdf"},
-    {"id": "ncert-9-vigyan-hi-2", "lang": "hi", "url": "https://ncert.nic.in/textbook/pdf/ihsc102.pdf"},
-    {"id": "ncert-10-vigyan-hi-1", "lang": "hi", "url": "https://ncert.nic.in/textbook/pdf/jhsc101.pdf"},
-    {"id": "ncert-10-vigyan-hi-2", "lang": "hi", "url": "https://ncert.nic.in/textbook/pdf/jhsc102.pdf"},
-    {"id": "ncert-9-science-en-1", "lang": "en", "url": "https://ncert.nic.in/textbook/pdf/iesc101.pdf"},
-    {"id": "ncert-10-science-en-1", "lang": "en", "url": "https://ncert.nic.in/textbook/pdf/jesc101.pdf"}
-  ]
+ "schema": 2,
+ "note": "NCERT Science (Vigyan) Class 9 and 10, all chapters, Hindi first (our atoms are Hindi), plus Class 10 English. The checker scores only Science chapters, so the reference matches what is scored.",
+ "documents": [
+  {
+   "id": "ncert-9-vigyan-hi-1",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc101.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-2",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc102.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-3",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc103.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-4",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc104.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-5",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc105.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-6",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc106.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-7",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc107.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-8",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc108.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-9",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc109.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-10",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc110.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-11",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc111.pdf"
+  },
+  {
+   "id": "ncert-9-vigyan-hi-12",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/ihsc112.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-1",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc101.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-2",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc102.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-3",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc103.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-4",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc104.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-5",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc105.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-6",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc106.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-7",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc107.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-8",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc108.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-9",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc109.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-10",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc110.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-11",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc111.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-12",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc112.pdf"
+  },
+  {
+   "id": "ncert-10-vigyan-hi-13",
+   "lang": "hi",
+   "url": "https://ncert.nic.in/textbook/pdf/jhsc113.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-1",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc101.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-2",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc102.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-3",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc103.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-4",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc104.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-5",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc105.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-6",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc106.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-7",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc107.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-8",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc108.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-9",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc109.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-10",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc110.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-11",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc111.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-12",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc112.pdf"
+  },
+  {
+   "id": "ncert-10-science-en-13",
+   "lang": "en",
+   "url": "https://ncert.nic.in/textbook/pdf/jesc113.pdf"
+  }
+ ]
 }

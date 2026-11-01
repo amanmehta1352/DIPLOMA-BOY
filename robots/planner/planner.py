@@ -114,7 +114,11 @@ def drafts_by_level():
 
 def run(offline=False):
     chapters, targets = load_chapters(), load_targets()
-    atoms, sols = ([], []) if offline else fetch()
+    if offline: atoms, sols = [], []
+    elif 'total' in targets:          # owner's standard counts atoms only; no solutions query
+        if not KEY: raise RuntimeError('SUPABASE_SECRET_KEY missing')
+        atoms, sols = _get('atoms?select=level_id,chapter_id,atom_type&status=eq.published&archived=eq.false&level_id=not.is.null'), []
+    else: atoms, sols = fetch()
     cov = coverage_total(chapters, atoms, targets['total']) if 'total' in targets else coverage(chapters, atoms, sols, targets)
     if not offline:
         try:

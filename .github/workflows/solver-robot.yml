@@ -26,9 +26,13 @@ on:
       command_id:
         description: 'Control Room command number (filled by the Dispatcher; leave empty)'
         default: ''
+      source:
+        description: 'Who started it (pgcron = Supabase schedule; leave empty)'
+        default: ''
 permissions:
   contents: read
   issues: write
+  actions: read
 concurrency: solver-robot
 jobs:
   solve:
@@ -38,9 +42,23 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
+      - name: Skip if this robot already ran in the last 6 hours (scheduled starts only)
+        id: guard
+        if: github.event_name == 'schedule' || inputs.source == 'pgcron'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # GitHub cron and the Supabase schedule both start this robot; only the first one in 6 hours works.
+          since=$(date -u -d '-6 hours' +%FT%TZ)
+          n=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/solver-robot.yml/runs?created=%3E%3D$since&per_page=30" \
+              --jq "[.workflow_runs[] | select(.id < $GITHUB_RUN_ID) | select(.conclusion == \"success\" or .status != \"completed\")] | length")
+          echo "earlier runs in 6 h: $n"
+          if [ "$n" -gt 0 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; fi
       - name: Self-test
+        if: steps.guard.outputs.skip != 'true'
         run: python robots/solver/selftest.py
       - name: Solve
+        if: steps.guard.outputs.skip != 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
@@ -60,14 +78,14 @@ jobs:
           [ "$IN_DRY" = "true" ] && A+=(--dry-run)
           python robots/solver/solver.py "${A[@]}"
       - name: Report
-        if: always()
+        if: always() && steps.guard.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           [ -f solver-report.md ] || echo "Solver robot failed before writing a report." > solver-report.md
           gh issue create -R "$GITHUB_REPOSITORY" -t "Solver robot report $(date -u +%F_%H%M)" -F solver-report.md || true
       - name: Report to Control Room
-        if: always() && inputs.command_id != ''
+        if: always() && inputs.command_id != '' && steps.guard.outputs.skip != 'true'
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
           CMD_ID: ${{ inputs.command_id }}

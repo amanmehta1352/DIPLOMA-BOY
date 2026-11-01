@@ -145,10 +145,13 @@ def build(d, prev=None, at=None):
     cr = d.get('cron')
     if isinstance(cr, list):
         sent = [x for x in cr if x.get('status') == 'sent']; ok = [x for x in sent if x.get('http') == 204]
-        notok = sum(1 for x in cr if x.get('status') == 'no_token')
-        st = 'ok' if sent and len(ok) == len(sent) and not notok else ('bad' if notok else 'warn')
+        notok = sum(1 for x in cr if x.get('status') == 'no_token'); errs = sum(1 for x in cr if x.get('status') == 'error')
+        refused = sum(1 for x in sent if x.get('http') not in (None, 204))
+        st = 'bad' if (notok or errs or refused) else ('ok' if sent and len(ok) == len(sent) else 'warn')
         checks.append(chk('cron', '⏰ Supabase schedule (पिछले 24 घंटे)', st, len(ok),
-                          f"GitHub ने माना {len(ok)} · भेजे {len(sent)} · token नहीं {notok}" + (' — Vault में github_actions_token डालना है' if notok else '')))
+                          f"GitHub ने माना {len(ok)} · भेजे {len(sent)} · मना {refused} · गलती {errs} · token नहीं {notok}" + (' — Vault में github_actions_token डालना है' if notok else '')))
+    elif (d.get('errors') or {}).get('cron'):
+        checks.append(chk('cron', '⏰ Supabase schedule (पिछले 24 घंटे)', 'bad', None, 'जाँच नहीं चली: ' + str(d['errors']['cron'])))
     order = {'ok': 0, 'warn': 1, 'bad': 2}; overall = max((c['state'] for c in checks), key=lambda s: order[s], default='ok')
     robots = []
     if runs:
