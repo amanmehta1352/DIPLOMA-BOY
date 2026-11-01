@@ -68,8 +68,9 @@ def gemini(prompt, models, json_out=True, temperature=0.4, deadline=None):
             cfg = {'temperature': temperature}
             if json_out: cfg['responseMimeType'] = 'application/json'
             body = json.dumps({'contents': [{'parts': [{'text': prompt}]}], 'generationConfig': cfg}).encode()
+            left = int(deadline - time.time()) if deadline else 300
             s, b = http(f'https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent',
-                        {'x-goog-api-key': GKEY, 'Content-Type': 'application/json'}, body)
+                        {'x-goog-api-key': GKEY, 'Content-Type': 'application/json'}, body, timeout=max(10, min(300, left)))
             if s == 200:
                 try:
                     d = json.loads(b)
@@ -95,7 +96,7 @@ def free_write(prompt):
         if not key or not model or (name == 'cloudflare' and not CF_ACCOUNT):
             last = f'{name}: key, model or account missing'; continue
         body = json.dumps({'model': model, 'messages': [{'role': 'user', 'content': prompt}],
-                           'temperature': 0.4, 'response_format': {'type': 'json_object'}}).encode()
+                           'temperature': 0.4, 'max_tokens': 8192, 'response_format': {'type': 'json_object'}}).encode()
         s, b = http(url, {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, body, timeout=240)
         if s == 200:
             try:
