@@ -70,9 +70,13 @@ def gemini(prompt, models, json_out=True, temperature=0.4, deadline=None):
             if s == 200:
                 try:
                     d = json.loads(b)
-                    return ''.join(p.get('text', '') for p in d['candidates'][0]['content']['parts']), m
+                    cand = d['candidates'][0]
+                    txt = ''.join(p.get('text', '') for p in cand['content']['parts'])
                 except Exception as e:
                     last = f'{m}: bad response {e}'; break
+                if not txt.strip() or cand.get('finishReason', 'STOP') != 'STOP':   # empty or cut off: next model
+                    last = f'{m}: unusable output ({cand.get("finishReason")})'; break
+                return txt, m
             last = f'{m}: HTTP {s} {hide(b[:200])}'
             if s in (429, 500, 502, 503, 504):
                 time.sleep(min(60, 8 * (attempt + 1))); continue
@@ -244,7 +248,7 @@ def second_opinion(d):
         txt, m = openrouter(prompt)          # a different company checks the answers
     else:
         try:
-            txt, m = gemini(prompt, CHECK_MODELS, temperature=0)
+            txt, m = gemini(prompt, CHECK_MODELS, temperature=0, deadline=time.time() + 300)
         except RuntimeError:                 # Gemini down: a free provider still checks, so the chapter is not rejected
             txt, m = free_write(prompt)
     got = parse_json(txt).get('answers', [])
