@@ -13,18 +13,18 @@
     "agree": 2,
     "total": 3,
     "details": [
-     "mcq1: stored 0, verifier 0, agree",
+     "mcq1: stored 1, verifier 1, agree",
      "mcq2: stored 0, verifier 0, agree",
-     "mcq3: stored 0, verifier 1, DISAGREE"
+     "mcq3: stored 1, verifier 0, DISAGREE"
     ]
    },
    "strong_verify": {
-    "agree": 0,
+    "agree": 1,
     "total": 3,
     "details": [
-     "mcq1: stored 0, groq (gemini busy) None, ERROR (no answer)",
+     "mcq1: stored 1, gemini 1, agree",
      "mcq2: stored 0, groq (gemini busy) None, ERROR (no answer)",
-     "mcq3: stored 0, groq (gemini busy) None, ERROR (no answer)"
+     "mcq3: stored 1, groq (gemini busy) None, ERROR (no answer)"
     ]
    },
    "cloudflare_advisory": "DISAGREES (weak model, advisory only)"
