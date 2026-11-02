@@ -41,7 +41,7 @@ CHAPTERS = {
         'title': 'Sound',
         'concepts': 'sound is a longitudinal wave that needs a medium; frequency, wavelength, amplitude, pitch and loudness; reflection of sound and echo',
         'formulas': 'wave speed v = f x lambda (write the Greek letter as the word lambda) and echo distance d = v x t / 2',
-        'avoid': 'Sound cannot travel in a vacuum; particles vibrate about their place, they do not travel with the wave; pitch depends on frequency, loudness on amplitude.',
+        'avoid': 'Sound cannot travel in a vacuum; particles vibrate about their place, they do not travel with the wave; pitch depends on frequency, loudness on amplitude. For echo problems t is the TOTAL time for the sound to go and come back, so the one-way distance is d = v x t / 2 and you halve only ONCE (example: v = 340 m/s, t = 2 s gives d = 340 x 2 / 2 = 340 m, not 170 m).',
         'must': ['medium', 'frequency', 'echo'],
         'units': [r'Hz', r'm/s', r'\bm\b']},
 }
@@ -187,8 +187,8 @@ def run_one(slug, spec):
         rep['status'] = 'needs_human_review'; save('report.json', rep); return rep
     save('en.json', en)
     try:
-        try: raw, gm = R.gemini(V.hindi_prompt(en))
-        except Exception: raw, gm = R.chat(V.OR_URL, R.OR_KEY, R.OR_MODEL, V.hindi_prompt(en), 240), 'deepseek (gemini busy)'
+        try: raw, gm = R.gemini((V.hindi_prompt(en) + ' Check spelling carefully and use the standard NCERT Hindi science terms (for example free fall = मुक्त पतन, applied example = रोज़मर्रा/व्यावहारिक उदाहरण).'))
+        except Exception: raw, gm = R.chat(V.OR_URL, R.OR_KEY, R.OR_MODEL, (V.hindi_prompt(en) + ' Check spelling carefully and use the standard NCERT Hindi science terms (for example free fall = मुक्त पतन, applied example = रोज़मर्रा/व्यावहारिक उदाहरण).'), 240), 'deepseek (gemini busy)'
         hi = R.parse_json(raw); rep['translator'] = gm
         hp = R.structure_problems(hi)
         if R.numbers(hi) != R.numbers(en): hp.append('numbers differ from English')
