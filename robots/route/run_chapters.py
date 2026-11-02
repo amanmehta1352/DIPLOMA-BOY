@@ -81,17 +81,26 @@ def problems(d, spec):
     return p
 
 
+def groq_text(prompt):
+    key = os.environ.get('GROQ_API_KEY', '').strip()
+    if not key: raise RuntimeError('no GROQ key')
+    return R.chat('https://api.groq.com/openai/v1/chat/completions', key, os.environ.get('GROQ_WRITE_MODEL', 'openai/gpt-oss-120b'), prompt, 180)
+
+
 def check(text, via):
-    """Returns (correct, reason). A busy Gemini (429/503) is retried with waits; a persistent error is reported as an error, not as a wrong text."""
+    """Returns (correct, reason). Each checker has a fallback so a busy Gemini (429) never blocks the run. A persistent failure is an error, not a wrong text."""
+    order = {'gemini': ['gemini', 'groq'], 'deepseek': ['deepseek', 'groq'], 'groq': ['groq', 'deepseek']}[via]
     err = ''
-    for n in range(5):
+    for w in order:
         try:
-            raw = R.gemini(FACT + text)[0] if via == 'gemini' else R.chat(V.OR_URL, R.OR_KEY, R.OR_MODEL, FACT + text, 180)
+            if w == 'gemini': raw = R.gemini(FACT + text)[0]
+            elif w == 'groq': raw = groq_text(FACT + text)
+            else: raw = R.chat(V.OR_URL, R.OR_KEY, R.OR_MODEL, FACT + text, 180)
             j = R.parse_json(raw)
-            return bool(j.get('correct')) is True, str(j.get('reason', ''))[:400]
+            return bool(j.get('correct')) is True, (f'[{w}] ' if w != via else '') + str(j.get('reason', ''))[:400]
         except Exception as e:
-            err = R.hide(e); time.sleep(40 * (n + 1))
-    return False, 'fact-checker error (after retries): ' + err
+            err = R.hide(e); time.sleep(20)
+    return False, 'fact-checker error (after fallbacks): ' + err
 
 
 def gemini_solve(q):
@@ -100,7 +109,7 @@ def gemini_solve(q):
     body = json.dumps({'contents': [{'parts': [{'text': 'Solve this physics question carefully. Show the arithmetic step by step and double-check it. '
                                                  'Then end with one final line exactly like {"answer_index": N} where N is 0, 1, 2 or 3. If no option equals your result, use {"answer_index": -1}.\n\n'
                                                  + q['question'] + '\n' + opts}]}], 'generationConfig': {'temperature': 0}}).encode()
-    for n in range(5):
+    for n in range(2):
         for m in R.G_MODELS:
             st, b = R.http(f'https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent',
                            {'x-goog-api-key': R.G_KEY, 'Content-Type': 'application/json'}, body)
@@ -111,7 +120,7 @@ def gemini_solve(q):
                     return int(hit[-1]) if hit else -1
                 except Exception:
                     pass
-        time.sleep(40 * (n + 1))      # all models busy (429/503): wait and try again
+        time.sleep(30)      # all models busy (429/503): wait and try again
     return None                       # could not get an answer at all: never counted as a real mismatch
 
 
@@ -178,12 +187,14 @@ def run_one(slug, spec):
         rep['status'] = 'needs_human_review'; save('report.json', rep); return rep
     save('en.json', en)
     try:
-        raw, gm = R.gemini(V.hindi_prompt(en)); hi = R.parse_json(raw); rep['translator'] = gm
+        try: raw, gm = R.gemini(V.hindi_prompt(en))
+        except Exception: raw, gm = R.chat(V.OR_URL, R.OR_KEY, R.OR_MODEL, V.hindi_prompt(en), 240), 'deepseek (gemini busy)'
+        hi = R.parse_json(raw); rep['translator'] = gm
         hp = R.structure_problems(hi)
         if R.numbers(hi) != R.numbers(en): hp.append('numbers differ from English')
         if [q['answer_index'] for q in hi['mcqs']] != [q['answer_index'] for q in en['mcqs']]: hp.append('answer_index differs')
         if [q.get('difficulty') for q in hi['mcqs']] != [q['difficulty'] for q in en['mcqs']]: hp.append('difficulty labels differ')
-        ok, why = check(V.facts_text(hi), 'deepseek'); rep['hindi_fact_check'] = {'correct': ok, 'reason': why}
+        ok, why = check(V.facts_text(hi), 'deepseek' if gm.startswith('gemini') else 'groq'); rep['hindi_fact_check'] = {'correct': ok, 'reason': why}
         if not ok: hp.append('hindi fact-check: ' + why)
         rep['hindi_formal_words_found'] = V.formal_hindi(hi); rep['hindi_problems'] = hp; save('hi.json', hi)
     except Exception as e:
