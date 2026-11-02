@@ -39,15 +39,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - name: Skip if this robot already ran in the last 6 hours (scheduled starts only)
+      - name: Skip a scheduled start only if another scheduled start began in the last 60 minutes (scheduled starts only)
         id: guard
         if: github.event_name == 'schedule' || inputs.source == 'pgcron'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # GitHub cron and the Supabase schedule both start this robot; only the first scheduled start in 6 hours works.
+          # GitHub cron and the Supabase schedule can both start this robot at the same moment; only the first one within 60 minutes works.
+          # Runs spaced hours apart (every 6 hours, nightly) must all run.
           # Manual runs (owner, Dispatcher) are never counted and never skipped.
-          since=$(date -u -d '-6 hours' +%FT%TZ)
+          since=$(date -u -d '-60 minutes' +%FT%TZ)
           n=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/writer-robot.yml/runs?created=%3E%3D$since&per_page=30" \
               --jq "[.workflow_runs[] | select(.id < $GITHUB_RUN_ID) | select(.display_title | test(\"schedule|pgcron\")) | select(.conclusion == \"success\" or .status != \"completed\")] | length")
           echo "earlier runs in 6 h: $n"
