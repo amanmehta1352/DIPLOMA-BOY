@@ -1,74 +1,74 @@
 {
  "concepts": [
   {
-   "title": "Sound is a longitudinal wave that needs a medium",
-   "body": "Sound is a type of mechanical wave that travels through a medium by compressing and rarefying particles. It cannot travel in a vacuum because there are no particles to vibrate. For example, you cannot hear a ringing bell in outer space because there is no air to carry the sound."
+   "title": "Sound as a Longitudinal Wave",
+   "body": "Sound is a type of longitudinal wave that requires a medium, such as air, water, or solids, to propagate. In longitudinal waves, particles of the medium vibrate parallel to the direction of wave propagation. For example, when you speak, your vocal cords create vibrations that travel through the air as sound waves."
   },
   {
-   "title": "Frequency, wavelength, amplitude, pitch, and loudness",
-   "body": "Frequency is the number of vibrations per second, measured in Hertz (Hz). Wavelength is the distance between two consecutive compressions or rarefactions. Amplitude is the maximum displacement of particles from their mean position. Pitch is determined by frequency, while loudness depends on amplitude. For example, a high-pitched whistle has a higher frequency than a low-pitched drum."
+   "title": "Frequency, Wavelength, Amplitude, Pitch, and Loudness",
+   "body": "Frequency is the number of vibrations per second, measured in Hertz (Hz). Wavelength is the distance between two consecutive compressions or rarefactions. Amplitude is the maximum displacement of particles from their mean position. Pitch is determined by frequency—higher frequency means higher pitch. Loudness depends on amplitude—greater amplitude means louder sound. For instance, a guitar string vibrating faster produces a higher pitch, while plucking it harder increases its loudness."
   },
   {
-   "title": "Reflection of sound and echo",
-   "body": "When sound waves hit a hard surface, they bounce back, a phenomenon called reflection. If the reflected sound is heard distinctly after the original sound, it is called an echo. For example, shouting in a large empty hall produces an echo due to sound reflection."
+   "title": "Reflection of Sound and Echo",
+   "body": "When sound waves strike a hard surface, they bounce back, a phenomenon known as reflection. Echo is the repetition of sound caused by the reflection of sound waves from a distant surface. For example, shouting in a large empty hall produces an echo as the sound reflects off the walls."
   }
  ],
  "formulas": [
   {
-   "title": "Wave speed v = f x lambda",
-   "body": "Wave speed (v in m/s) equals frequency (f in Hz) multiplied by wavelength (lambda in m). This formula is used to calculate the speed of sound in a medium."
+   "title": "Wave Speed Formula",
+   "body": "v = f x lambda (v in m/s, f in Hz, lambda in m). Here, v is wave speed, f is frequency, and lambda is wavelength. This formula is used to calculate the speed of a sound wave in a medium."
   },
   {
-   "title": "Echo distance d = v x t / 2",
-   "body": "Echo distance (d in m) equals wave speed (v in m/s) multiplied by time (t in s) divided by 2. This formula is used to calculate the distance of an object causing an echo."
+   "title": "Echo Distance Formula",
+   "body": "d = v x t / 2 (d in m, v in m/s, t in s). Here, d is the distance to the reflecting surface, v is the speed of sound, and t is the time taken for the echo to return. This formula is used to determine the distance of an object based on the time taken for an echo to return."
   }
  ],
  "examples": [
   {
-   "title": "Everyday example",
-   "body": "When you speak, your vocal cords vibrate, creating sound waves that travel through the air to reach the listener's ears. The cause is the vibration of vocal cords."
+   "title": "Everyday Example: Hearing a Doorbell",
+   "body": "When someone rings a doorbell, sound waves travel through the air and reach your ears. The cause of hearing the sound is the vibration of the doorbell creating sound waves that propagate through the air."
   },
   {
-   "title": "Applied example",
-   "body": "Sonar technology uses sound waves to detect underwater objects. The sound waves reflect off the object and return to the sonar device, calculating the distance. The cause is the reflection of sound waves."
+   "title": "Applied Example: Ultrasound Imaging",
+   "body": "In medical ultrasound imaging, high-frequency sound waves are sent into the body, and their reflections are used to create images of internal organs. The cause of the image formation is the reflection of sound waves at different tissue boundaries."
   }
  ],
  "mcqs": [
   {
    "question": "What type of wave is sound?",
    "options": [
-    "Longitudinal",
-    "Transverse",
-    "Electromagnetic",
-    "Mechanical"
+    "Transverse wave",
+    "Longitudinal wave",
+    "Electromagnetic wave",
+    "Surface wave"
    ],
-   "answer_index": 0,
+   "answer_index": 1,
    "difficulty": "easy",
-   "explanation": "Sound is a longitudinal wave because particles vibrate parallel to the direction of wave propagation. Transverse waves vibrate perpendicularly, electromagnetic waves do not need a medium, and mechanical waves include both longitudinal and transverse waves."
+   "explanation": "Sound is a longitudinal wave because particles of the medium vibrate parallel to the direction of wave propagation. Transverse waves involve perpendicular vibrations, electromagnetic waves do not require a medium, and surface waves occur at the boundary of two media."
   },
   {
-   "question": "A sound wave has a frequency of 500 Hz and a wavelength of 0.68 m. What is its speed?",
+   "question": "If the frequency of a sound wave is 500 Hz and its wavelength is 0.68 m, what is its speed?",
    "options": [
     "340 m/s",
+    "250 m/s",
     "500 m/s",
-    "680 m/s",
-    "250 m/s"
+    "680 m/s"
    ],
    "answer_index": 0,
    "difficulty": "medium",
-   "explanation": "Using v = f x lambda, v = 500 Hz x 0.68 m = 340 m/s. The other options are incorrect because they do not match the calculated value."
+   "explanation": "Using the formula v = f x lambda, v = 500 Hz x 0.68 m = 340 m/s. The correct answer is 340 m/s, as the other options do not match the calculated value."
   },
   {
-   "question": "A person hears an echo after 2 seconds. If the speed of sound is 340 m/s, what is the distance to the reflecting surface?",
+   "question": "A person claps and hears an echo after 3 seconds. If the speed of sound is 340 m/s, how far is the reflecting surface?",
    "options": [
-    "170 m",
+    "510 m",
     "340 m",
-    "680 m",
-    "85 m"
+    "170 m",
+    "1020 m"
    ],
-   "answer_index": 0,
+   "answer_index": 2,
    "difficulty": "medium",
-   "explanation": "Using d = v x t / 2, d = 340 m/s x 2 s / 2 = 340 m / 2 = 170 m. The other options are incorrect because they do not account for the division by 2."
+   "explanation": "Using the formula d = v x t / 2, d = 340 m/s x 3 s / 2 = 510 m / 2 = 170 m. The correct answer is 170 m, as the other options are incorrect calculations."
   }
  ]
 }
