@@ -1,0 +1,568 @@
+{
+ "schema": 1,
+ "app": "diploma-boy",
+ "at": "2026-11-02T03:37:22+00:00",
+ "overall": "bad",
+ "checks": [
+  {
+   "id": "site",
+   "label_hi": "🌐 ऐप खुल रहा है",
+   "state": "ok",
+   "count": null,
+   "detail": "60 ms · sw db-v18",
+   "link": "https://amanmehta1352.github.io/DIPLOMA-BOY/"
+  },
+  {
+   "id": "tests",
+   "label_hi": "✅ Tests (main)",
+   "state": "ok",
+   "count": 1,
+   "detail": "आख़िरी: success · पिछले 1 में 1 पास",
+   "link": "https://github.com/amanmehta1352/DIPLOMA-BOY/actions"
+  },
+  {
+   "id": "branches",
+   "label_hi": "🌿 पुरानी branches",
+   "state": "warn",
+   "count": 100,
+   "detail": "ज़्यादा हों तो साफ़ करें",
+   "link": null
+  },
+  {
+   "id": "lock",
+   "label_hi": "🔒 Publish ताले की शर्तें तोड़ने वाले live सवाल",
+   "state": "warn",
+   "count": 20,
+   "detail": "hindi_missing: 11 · english_missing: 9",
+   "link": null
+  },
+  {
+   "id": "figures",
+   "label_hi": "🖼️ Live picture वाले सवाल (जाँच बाकी)",
+   "state": "ok",
+   "count": 0,
+   "detail": "draft figure सवाल: 1",
+   "link": null
+  },
+  {
+   "id": "inbox",
+   "label_hi": "🏷️ बिना chapter (inbox) live सवाल",
+   "state": "ok",
+   "count": 0,
+   "detail": "chapter तय होना बाकी",
+   "link": null
+  },
+  {
+   "id": "reports",
+   "label_hi": "🚩 Students की reports (पिछले 7 दिन)",
+   "state": "ok",
+   "count": 0,
+   "detail": "कोई नहीं",
+   "link": null
+  },
+  {
+   "id": "backup",
+   "label_hi": "💾 आख़िरी backup",
+   "state": "ok",
+   "count": 6.5,
+   "detail": "6.5 घंटे पहले",
+   "link": null
+  },
+  {
+   "id": "restore",
+   "label_hi": "♻️ Backup वापस पढ़ा जा सकता है",
+   "state": "ok",
+   "count": 21197,
+   "detail": "गायब: 0 · backup के बाद बदले: 0 · जाँच 2026-11-01T21:30",
+   "link": null
+  },
+  {
+   "id": "leak",
+   "label_hi": "🚰 दूसरे exam/branch के सवाल गलत जगह (leak)",
+   "state": "ok",
+   "count": 0,
+   "detail": "branch leak: 0 · बंद exam में live: 0",
+   "link": null
+  },
+  {
+   "id": "counts",
+   "label_hi": "🔢 गिनती और सूची मेल",
+   "state": "warn",
+   "count": 973,
+   "detail": "chapter नहीं वाले live: 973 · बिना topic: 0 · pattern बँटे: 0",
+   "link": null
+  },
+  {
+   "id": "quality",
+   "label_hi": "🔍 Draft सवाल: तैयार कितने",
+   "state": "warn",
+   "count": 0,
+   "detail": "कुल draft 1 · chapter नहीं 0 · तस्वीर जाँच बाकी 1 · बिना Hindi 0 · भाषा गलत 0 · अंग्रेज़ी गायब 0 · उत्तर/options गलत 0 · duplicate 0",
+   "link": null
+  },
+  {
+   "id": "cron",
+   "label_hi": "⏰ Supabase schedule (पिछले 24 घंटे)",
+   "state": "bad",
+   "count": 90,
+   "detail": "GitHub ने माना 90 · भेजे 90 · मना 0 · गलती 0 · token नहीं 13 — Vault में github_actions_token डालना है",
+   "link": null
+  }
+ ],
+ "robots": [
+  {
+   "id": "Health Robot",
+   "label_hi": "🩺 Health",
+   "what_hi": "यह रिपोर्ट",
+   "last_run": "2026-11-02T03:36:58Z",
+   "result": "in_progress",
+   "branch": "main"
+  },
+  {
+   "id": "Tests",
+   "label_hi": "✅ Tests",
+   "what_hi": "हर बदलाव पर ऐप के सारे tests",
+   "last_run": "2026-11-02T03:34:29Z",
+   "result": "success",
+   "branch": "main"
+  },
+  {
+   "id": "Dispatcher",
+   "label_hi": "📨 Dispatcher",
+   "what_hi": "आपकी command से robot चलाना",
+   "last_run": "2026-11-02T03:30:01Z",
+   "result": "success",
+   "branch": "main"
+  },
+  {
+   "id": "Syllabus Watcher",
+   "label_hi": "📜 Syllabus",
+   "what_hi": "सरकारी syllabus पेज बदले या नहीं",
+   "last_run": "2026-11-02T03:23:01Z",
+   "result": "success",
+   "branch": "main"
+  },
+  {
+   "id": "Backup all questions",
+   "label_hi": "🗄️ Full backup",
+   "what_hi": "सारे सवालों का हफ़्तेवार backup",
+   "last_run": "2026-11-02T00:24:21Z",
+   "result": "success",
+   "branch": "main"
+  }
+ ],
+ "numbers": {
+  "published": 18322,
+  "draft": 1,
+  "hidden": 2874,
+  "by_exam": {
+   "practice": {
+    "published": 510
+   },
+   "rrb-je-cbt1": {
+    "hidden": 96,
+    "published": 1303
+   },
+   "ssc-je-paper1": {
+    "draft": 1,
+    "hidden": 350,
+    "published": 3742
+   },
+   "rrb-ntpc-ug-cbt-1": {
+    "hidden": 1062,
+    "published": 6897
+   },
+   "rrb-ntpc-ug-cbt-2": {
+    "hidden": 29,
+    "published": 197
+   },
+   "rrb-ntpc-graduate-cbt-1": {
+    "hidden": 1150,
+    "published": 5388
+   },
+   "rrb-ntpc-graduate-cbt-2": {
+    "hidden": 187,
+    "published": 285
+   }
+  },
+  "total": 21197
+ },
+ "backup_verify": {
+  "checked_at": "2026-11-01T21:30:42.532786+00:00",
+  "slot": 0,
+  "backup_rows": 21197,
+  "missing_in_live": 0,
+  "changed_since": 0
+ },
+ "site": {
+  "url": "https://amanmehta1352.github.io/DIPLOMA-BOY/",
+  "ok": true,
+  "bytes": 130281,
+  "ms": 60,
+  "sw": "db-v18"
+ },
+ "errors": {},
+ "coverage": {
+  "levels": {
+   "advanced_research": {
+    "chapters": 3,
+    "chapters_full": 0,
+    "target": 30,
+    "have": 12,
+    "atoms": 12,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "banking": {
+    "chapters": 37,
+    "chapters_full": 0,
+    "target": 370,
+    "have": 149,
+    "atoms": 149,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "class_11_12_arts": {
+    "chapters": 37,
+    "chapters_full": 0,
+    "target": 370,
+    "have": 148,
+    "atoms": 148,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "class_11_12_com": {
+    "chapters": 33,
+    "chapters_full": 0,
+    "target": 330,
+    "have": 132,
+    "atoms": 132,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "class_11_12_sci": {
+    "chapters": 64,
+    "chapters_full": 0,
+    "target": 640,
+    "have": 257,
+    "atoms": 257,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "class_6_8": {
+    "chapters": 63,
+    "chapters_full": 0,
+    "target": 378,
+    "have": 252,
+    "atoms": 252,
+    "per_chapter_target": 6,
+    "pct": 67,
+    "chapter_books": 0
+   },
+   "class_9_10": {
+    "chapters": 74,
+    "chapters_full": 0,
+    "target": 592,
+    "have": 296,
+    "atoms": 296,
+    "per_chapter_target": 8,
+    "pct": 50,
+    "chapter_books": 2
+   },
+   "engineering": {
+    "chapters": 46,
+    "chapters_full": 0,
+    "target": 460,
+    "have": 185,
+    "atoms": 185,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "govt_basic": {
+    "chapters": 95,
+    "chapters_full": 0,
+    "target": 950,
+    "have": 380,
+    "atoms": 380,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "govt_defence": {
+    "chapters": 85,
+    "chapters_full": 0,
+    "target": 850,
+    "have": 341,
+    "atoms": 341,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "govt_technical": {
+    "chapters": 113,
+    "chapters_full": 0,
+    "target": 1130,
+    "have": 452,
+    "atoms": 452,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 3
+   },
+   "graduation_arts": {
+    "chapters": 16,
+    "chapters_full": 0,
+    "target": 160,
+    "have": 64,
+    "atoms": 64,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "graduation_com": {
+    "chapters": 16,
+    "chapters_full": 0,
+    "target": 160,
+    "have": 64,
+    "atoms": 64,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "graduation_sci": {
+    "chapters": 51,
+    "chapters_full": 0,
+    "target": 510,
+    "have": 204,
+    "atoms": 204,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "law_management": {
+    "chapters": 21,
+    "chapters_full": 0,
+    "target": 210,
+    "have": 84,
+    "atoms": 84,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "medical": {
+    "chapters": 48,
+    "chapters_full": 0,
+    "target": 480,
+    "have": 193,
+    "atoms": 193,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "state_psc": {
+    "chapters": 85,
+    "chapters_full": 0,
+    "target": 850,
+    "have": 340,
+    "atoms": 340,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   },
+   "upsc_civil": {
+    "chapters": 69,
+    "chapters_full": 0,
+    "target": 690,
+    "have": 276,
+    "atoms": 276,
+    "per_chapter_target": 10,
+    "pct": 40,
+    "chapter_books": 0
+   }
+  },
+  "total": {
+   "chapters": 956,
+   "chapters_full": 0,
+   "pct": 42,
+   "atoms": 3829,
+   "target": 9160,
+   "chapter_books": 5
+  }
+ },
+ "syllabus": {
+  "draft": true,
+  "note": "मसौदा: अभी किसी ने जाँचा नहीं है। शब्द-मिलान पर आधारित।",
+  "medical": {
+   "units": 49,
+   "covered": 21,
+   "missing": [
+    "KINEMATICS",
+    "PROPERTIES OF SOLIDS AND LIQUIDS",
+    "KINETIC THEORY OF GASES",
+    "ELECTROSTATICS",
+    "ELECTROMAGNETIC INDUCTION AND ALTERNATING CURRENTS",
+    "DUAL NATURE OF MATTER AND RADIATION",
+    "ATOMS AND NUCLEI",
+    "ELECTRONIC DEVICES",
+    "EXPERIMENTAL SKILLS",
+    "SOME BASIC CONCEPTS IN CHEMISTRY",
+    "EQUILIBRIUM",
+    "REDOX REACTIONS AND ELECTROCHEMISTRY",
+    "CLASSIFICATION OF ELEMENTS AND PERIODICITY IN PROPERTIES",
+    "P- BLOCK ELEMENTS",
+    "d - and f- BLOCK ELEMENTS",
+    "PURIFICATION AND CHARACTERISATION OF ORGANIC COMPOUNDS",
+    "SOME BASIC PRINCIPLES OF ORGANIC CHEMISTRY",
+    "ORGANIC COMPOUNDS CONTAINING HALOGENS",
+    "ORGANIC COMPOUNDS CONTAINING OXYGEN",
+    "ORGANIC COMPOUNDS CONTAINING NITROGEN",
+    "BIOMOLECULES",
+    "PRINCIPLES RELATED TO PRACTICAL CHEMISTRY",
+    "Diversity in Living World",
+    "Structural Organisation in Animals and Plants",
+    "Cell Structure and Function"
+   ]
+  },
+  "levels": {
+   "upsc_civil": {
+    "topics": 192,
+    "covered": 6,
+    "missing_count": 186,
+    "missing": [
+     "IAS Prelims & Mains Syllabus - Drishti IAS",
+     "IFS",
+     "smart preparation.",
+     "* For Qualifying Paper A",
+     "Current events of national and international importance.",
+     "Indian and World Geography – Physical",
+     "Social",
+     "Economic Geography of India and the World.",
+     "Indian Polity and Governance – Constitution",
+     "Political System",
+     "Panchayati Raj",
+     "Public Policy",
+     "Rights Issues",
+     "Economic and Social Development – Sustainable Development",
+     "Poverty",
+     "Inclusion",
+     "Demographics",
+     "Social Sector Initiatives",
+     "General issues on Environmental ecology",
+     "Mode: Offline & Online (via Drishti Learning App)",
+     "Available in: Both Hindi and English",
+     "Indian Heritage and Culture",
+     "History and Geography of the World and Society",
+     "Indian Culture – Salient aspects of Art Forms",
+     "Literature and Architecture from ancient to modern times."
+    ],
+    "chapters": 69,
+    "incomplete": false
+   },
+   "govt_technical": {
+    "topics": 1068,
+    "covered": 75,
+    "missing_count": 993,
+    "missing": [
+     "Mathematics Number Systems",
+     "BODMAS",
+     "Decimals",
+     "Fractions",
+     "Percentages",
+     "Elementary Statistics",
+     "Square Root",
+     "Age Calculations",
+     "Calendar & Clock",
+     "Pipes & Cistern",
+     "Alphabetical and Number Series",
+     "Relationships",
+     "Jumbling",
+     "Conclusions and Decision Making",
+     "Similarities and Differences",
+     "Analytical Reasoning",
+     "Classification",
+     "Directions",
+     "Statement–Arguments and Assumptions",
+     "Indian Geography",
+     "Culture and History of India including Freedom Struggle",
+     "Indian Polity and Constitution",
+     "Indian Economy",
+     "Environmental Issues concerning India and the World",
+     "Sports"
+    ],
+    "chapters": 113,
+    "incomplete": false
+   },
+   "class_11_12_sci": {
+    "topics": 458,
+    "covered": 22,
+    "missing_count": 436,
+    "missing": [
+     "14 NCERT chapters",
+     "practical work",
+     "activities and an investigatory project.",
+     "Struggling with Physics numericals",
+     "Access interactive practice",
+     "live doubt-solving sessions",
+     "Physics Class 11 Syllabus has theory",
+     "Motion of System of Particles and Rigid Body",
+     "System of Particles and Rotational Motion",
+     "thermal physics",
+     "oscillations and waves.",
+     "Students should use NCERT examples",
+     "diagrams",
+     "Unit I: Physical World and Measurement",
+     "systems of units",
+     "SI units",
+     "fundamental units and derived units.",
+     "Students also study significant figures",
+     "uncertainty in results",
+     "dimensions of physical quantities",
+     "position",
+     "displacement",
+     "average speed",
+     "average velocity and instantaneous velocity.",
+     "vectors"
+    ],
+    "chapters": 64,
+    "incomplete": false
+   }
+  }
+ },
+ "shared": {
+  "draft": true,
+  "topics": 1594,
+  "shared_by_2_or_more": 21,
+  "sample": [
+   "Alternating Currents",
+   "and potential",
+   "Anomalous expansion of water",
+   "Calorimetry",
+   "Conservation of energy",
+   "Elasticity",
+   "Electromagnetic Induction",
+   "Hooke's Law",
+   "Laws of Friction",
+   "Lenz's law",
+   "Mass defect",
+   "Moment of Inertia",
+   "Ohm's Law",
+   "Pascal's Law",
+   "Photoelectric effect",
+   "potential difference",
+   "Processes",
+   "Resonance",
+   "Self and Mutual Induction",
+   "Static Friction",
+   "Strain",
+   "* For Qualifying Paper A",
+   "- Different Types of Irrigation and Irrigation Systems",
+   "14 NCERT chapters",
+   "3-Phase Induction Motors – Operation"
+  ]
+ }
+}
