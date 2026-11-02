@@ -48,10 +48,11 @@ jobs:
           # GitHub cron and the Supabase schedule can both start this robot at the same moment; only the first one within 60 minutes works.
           # Runs spaced hours apart (every 6 hours, nightly) must all run.
           # Manual runs (owner, Dispatcher) are never counted and never skipped.
-          since=$(date -u -d '-60 minutes' +%FT%TZ)
+          started=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" --jq .created_at)   # the trigger time, not the guard's start
+          since=$(date -u -d "$started -60 minutes" +%FT%TZ)
           n=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/writer-robot.yml/runs?created=%3E%3D$since&per_page=30" \
               --jq "[.workflow_runs[] | select(.id < $GITHUB_RUN_ID) | select(.display_title | test(\"schedule|pgcron\")) | select(.conclusion == \"success\" or .status != \"completed\")] | length")
-          echo "earlier runs in 6 h: $n"
+          echo "earlier scheduled runs in the 60 minutes before this run: $n"
           if [ "$n" -gt 0 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; fi
       - name: Self-test
         if: steps.guard.outputs.skip != 'true'
