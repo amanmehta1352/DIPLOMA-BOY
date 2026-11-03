@@ -1,0 +1,313 @@
+{
+ "job_id": "fb8da879a428775d",
+ "robot": "robot.v1",
+ "command": "Class 10, CBSE 2026-27, Science, Electricity",
+ "created_at": "2026-11-03T14:58:28+00:00",
+ "stages": {
+  "resolve": {
+   "status": "done",
+   "attempts": 0
+  },
+  "reference": {
+   "status": "done",
+   "attempts": 0,
+   "n_sources": 0,
+   "unavailable": true
+  },
+  "write_hi": {
+   "status": "running",
+   "attempts": 1,
+   "history": [
+    {
+     "n": 1,
+     "at": "2026-11-03T14:58:46+00:00",
+     "checks": {
+      "structure": [],
+      "hindi": true,
+      "scope": [
+       {
+        "id": "current_pd",
+        "text": "Electric current, potential difference",
+        "covered": true
+       },
+       {
+        "id": "ohm",
+        "text": "Ohm's law",
+        "covered": true
+       },
+       {
+        "id": "resistance",
+        "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+        "covered": true
+       },
+       {
+        "id": "combos",
+        "text": "Series and parallel combination of resistors and their daily-life applications",
+        "covered": true
+       },
+       {
+        "id": "heating",
+        "text": "Heating effect of electric current and its daily-life applications",
+        "covered": true
+       },
+       {
+        "id": "power",
+        "text": "Electric power, interrelation between P, V, I and R",
+        "covered": true
+       }
+      ],
+      "units_missing": [
+       "ohm|Ω",
+       "\\bW\\b|watt"
+      ],
+      "copyright": {
+       "overlap": 0.1149,
+       "threshold": 0.2,
+       "status": "pass",
+       "note": "automatic metric, not legal clearance"
+      }
+     },
+     "answers_reconciled": [
+      {
+       "practice": 3,
+       "from": 0,
+       "to": 3,
+       "value": "answer = 12 Ω"
+      },
+      {
+       "practice": 8,
+       "from": 2,
+       "to": 3,
+       "value": "answer = 1 A"
+      }
+     ],
+     "problems": [
+      "formula units missing: ohm|Ω",
+      "formula units missing: \\bW\\b|watt"
+     ],
+     "status": "rejected"
+    }
+   ],
+   "last_feedback": "formula units missing: ohm|Ω; formula units missing: \\bW\\b|watt"
+  }
+ },
+ "attribution": [
+  {
+   "stage": "write_hi",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T14:58:46+00:00"
+  }
+ ],
+ "issues": [
+  {
+   "at": "2026-11-03T14:58:28+00:00",
+   "kind": "reference_unavailable",
+   "provider": "groq",
+   "reason": "permanent",
+   "detail": "groq: permanent (research: quota,quota,quota,groq:groq/compound,groq:compound-beta,groq:groq/compound-mini,groq:compound-beta-mini)"
+  },
+  {
+   "at": "2026-11-03T15:01:09+00:00",
+   "kind": "provider_unavailable",
+   "provider": "all_free_providers",
+   "reason": "quota",
+   "detail": "all_free_providers: quota (gemini:quota,groq:quota,sambanova:quota,cloudflare:permanent)"
+  }
+ ],
+ "final_state": "blocked",
+ "runs": 1,
+ "provider_calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.19,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T14:58:28+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T14:58:28+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T14:58:28+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "groq/compound",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"The model `groq/compound` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
+   "at": "2026-11-03T14:58:28+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "compound-beta",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.08,
+   "error": "{\"error\":{\"message\":\"The model `groq/compound` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
+   "at": "2026-11-03T14:58:28+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "groq/compound-mini",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"The model `groq/compound-mini` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
+   "at": "2026-11-03T14:58:28+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "compound-beta-mini",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"The model `groq/compound-mini` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
+   "at": "2026-11-03T14:58:28+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T14:58:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 0.81,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T14:58:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T14:58:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T14:58:46+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 11.08,
+   "at": "2026-11-03T14:58:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T15:01:09+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 16.95,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T15:01:09+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T15:01:09+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T15:01:09+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 1847, Requested 6490. Please try again in 2.5275s. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T15:01:09+00:00"
+  },
+  {
+   "provider": "sambanova",
+   "model": "Meta-Llama-3.3-70B-Instruct",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.41,
+   "error": "{\"error\":{\"code\":null,\"message\":\"Meta-Llama-3.3-70B-Instruct is currently experiencing high demand. Please try again later!\",\"param\":null,\"type\":\"\"},\"request_id\":\"ac67d761-4b87-4650-871d-f31775e9772c\"}\n",
+   "at": "2026-11-03T15:01:09+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 408,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 120.29,
+   "error": "{\"errors\":[{\"message\":\"AiError: AiError: Request timeout (d138cf5d-c915-49e9-97a3-387dfdcf8ea2)\",\"code\":3046}],\"success\":false,\"result\":{},\"messages\":[]}",
+   "at": "2026-11-03T15:01:09+00:00"
+  }
+ ],
+ "finished_at": "2026-11-03T15:01:09+00:00"
+}
