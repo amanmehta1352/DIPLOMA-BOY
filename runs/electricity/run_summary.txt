@@ -1,0 +1,2 @@
+{"final_state": "failed", "job": "959a206c8abbcb0f", "dir": "out/959a206c8abbcb0f", "reused": false}
+job exited non-zero
