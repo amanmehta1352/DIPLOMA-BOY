@@ -1,0 +1,85 @@
+{
+ "notes_words": {
+  "hi": 3251,
+  "en": 2931
+ },
+ "teach_words": {
+  "hindi": 4817,
+  "english": 4161
+ },
+ "panels": 20,
+ "teach_sections": 15,
+ "diagrams": 8,
+ "scope": [
+  {
+   "id": "current_pd",
+   "covered": true
+  },
+  {
+   "id": "ohm",
+   "covered": true
+  },
+  {
+   "id": "resistance",
+   "covered": true
+  },
+  {
+   "id": "combos",
+   "covered": true
+  },
+  {
+   "id": "heating",
+   "covered": true
+  },
+  {
+   "id": "power",
+   "covered": true
+  }
+ ],
+ "copyright": {
+  "overlap": 0.1246,
+  "threshold": 0.2,
+  "note": "automatic metric, not legal clearance"
+ },
+ "numericals": [
+  {
+   "n": 1,
+   "stored": "Resistance R = 2 Ω",
+   "solver": "R = 2 Ω",
+   "agree": true
+  },
+  {
+   "n": 2,
+   "stored": "Power P = 5290 W",
+   "solver": "I = 23 A",
+   "agree": false
+  },
+  {
+   "n": 3,
+   "stored": "Energy E = 0.3 kWh",
+   "solver": "E = 300 Wh",
+   "agree": false
+  },
+  {
+   "n": 4,
+   "stored": "Parallel resistance R = 2 Ω",
+   "solver": "R_total = 2 Ω",
+   "agree": true
+  },
+  {
+   "n": 5,
+   "stored": "Potential Difference V = 0.204 V",
+   "solver": "V = 0.204 V",
+   "agree": true
+  }
+ ],
+ "fact_check": {
+  "correct": false,
+  "reason": "In the 'Heating Effect' section, the text states: 'Q = I²Rt, गर्मी का उत्पादन धारा, प्रतिरोध और समय पर निर्भर ... P = I²R, जहाँ P पावर (वॉट) है ... उच्च प्रतिरोध वाले हीटर कम धारा में अधिक गर्मी उत्पन्न करते हैं'. The claim that 'high resistance heaters produce more heat at low current' is misleading. For a fixed supply voltage (as in household heaters), heat/power P = V²/R, so lower resistance pr"
+ },
+ "problems": [
+  "numerical 2: independent solver got a different answer",
+  "numerical 3: independent solver got a different answer",
+  "fact check failed: In the 'Heating Effect' section, the text states: 'Q = I²Rt, गर्मी का उत्पादन धारा, प्रतिरोध और समय पर निर्भर ... P = I²R, जहाँ P पावर (वॉट) है ... उच्च प्रतिरोध वाले हीटर कम धारा में अधिक गर्मी उत्पन्न करते हैं'. The claim that 'high resistance heaters produce more heat at low current' is misleading. For a fixed supply voltage (as in household heaters), heat/power P = V²/R, so lower resistance pr"
+ ]
+}
