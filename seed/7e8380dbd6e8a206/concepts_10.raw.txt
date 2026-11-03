@@ -1,0 +1,220 @@
+{
+  "concepts": [
+    {
+      "key": "c10",
+      "emoji": "🛡️",
+      "title": [
+        "सुरक्षा उपकरण (Safety Devices)",
+        "Safety Devices"
+      ],
+      "paras": [
+        [
+          "विद्युत् परिपथ में **फ्यूज़** (fuse) एक पतली धातु की तार होती है जो अधिक धारा (over‑current) के कारण गर्म होकर पिघल जाती है, जिससे परिपथ खुल जाता है। यह उपकरण घर‑घर के छोटे‑मोटे उपकरणों में आम है।",
+          "A **fuse** is a thin metal wire that melts when excessive current flows, breaking the circuit. It is commonly used in household appliances."
+        ],
+        [
+          "**सर्किट ब्रेकर** (circuit breaker) एक स्विच है जो धारा की सीमा पार होने पर स्वचालित रूप से खुल जाता है और आवश्यकता पड़ने पर मैन्युअली फिर से बंद किया जा सकता है। यह बड़े घरों और औद्योगिक परिपथों में प्रयोग होता है।",
+          "A **circuit breaker** is a switch that automatically opens when the current exceeds a set limit and can be manually reset. It is used in larger homes and industrial circuits."
+        ],
+        [
+          "**थर्मल कट‑ऑफ़** (thermal cut‑off) एक ताप‑संवेदनशील उपकरण है जो किसी निश्चित तापमान पर परिपथ को तोड़ देता है, जिससे हीटर या इलेक्ट्रिक ओवन जैसी गर्मी‑उत्पादक उपकरणों में सुरक्षा मिलती है।",
+          "A **thermal cut‑off** is a temperature‑sensitive device that breaks the circuit at a preset temperature, providing safety in heaters and electric ovens."
+        ],
+        [
+          "**ओवरलोड सुरक्षा** (overload protection) अक्सर मोटर या ट्रांसफॉर्मर के साथ जुड़ी होती है; यह डिवाइस धारा की सीमा से अधिक होने पर मोटर को बंद कर देता है, जिससे मोटर को नुकसान नहीं पहुँचता।",
+          "**Overload protection** is often attached to motors or transformers; it shuts off the motor when the current exceeds a set limit, preventing damage."
+        ]
+      ],
+      "kv": [
+        [
+          ["फ्यूज़ का कार्य", "Acts as a sacrificial element that melts on over‑current"],
+          ["सर्किट ब्रेकर का कार्य", "Automatically opens circuit on excess current and can be reset"]
+        ],
+        [
+          ["थर्मल कट‑ऑफ़ का कार्य", "Breaks circuit when temperature exceeds safe limit"],
+          ["ओवरलोड सुरक्षा का कार्य", "Shuts down motor/transformer on current overload"]
+        ],
+        [
+          ["सामान्य धारा सीमा (फ़्यूज़)", "Typically 3 A – 13 A for household appliances"],
+          ["सर्किट ब्रेकर रेटिंग", "Usually 6 A – 63 A for residential panels"]
+        ],
+        [
+          ["पुनः उपयोग", "सर्किट ब्रेकर पुन: उपयोग योग्य, फ्यूज़ नहीं"],
+          ["स्थापना स्थान", "फ्यूज़ पैनल में, सर्किट ब्रेकर मुख्य स्विचबोर्ड में"]
+        ]
+      ],
+      "table": {
+        "head": [
+          ["उपकरण", "Hindi", "English"],
+          ["कार्य सिद्धांत", "Hindi", "English"],
+          ["पुन: उपयोग", "Hindi", "English"]
+        ],
+        "rows": [
+          [
+            ["फ्यूज़", "धारा‑से‑धातु पिघलना", "Single‑use"],
+            ["सर्किट ब्रेकर", "मैग्नेटिक/थर्मल ट्रिप", "Reusable"]
+          ],
+          [
+            ["थर्मल कट‑ऑफ़", "ताप‑से‑कॉन्टैक्ट खुलना", "Single‑use"],
+            ["ओवरलोड सुरक्षा", "धारा‑से‑मैग्नेटिक ट्रिप", "Reusable"]
+          ]
+        ]
+      },
+      "formula": null,
+      "tip": [
+        "⚠️ अक्सर छात्र फ्यूज़ को बदलते समय उसकी रेटिंग को कम नहीं देखते; हमेशा वही रेटिंग (या थोड़ा अधिक) वाला फ्यूज़ उपयोग करें, नहीं तो परिपथ सुरक्षित नहीं रहेगा।",
+        "⚠️ Students often forget to match the fuse rating; always use a fuse of the same or slightly higher rating, otherwise the circuit is not protected."
+      ],
+      "diagram": null
+    },
+    {
+      "key": "c11",
+      "emoji": "⚡️",
+      "title": [
+        "विद्युत शक्ति (Electric Power)",
+        "Electric Power"
+      ],
+      "paras": [
+        [
+          "**विद्युत शक्ति** (electric power) वह दर है जिस पर विद्युत ऊर्जा परिपथ में स्थानांतरित होती है। इसे आमतौर पर **वॉट** (watt, W) में मापा जाता है।",
+          "**Electric power** is the rate at which electrical energy is transferred in a circuit. It is measured in **watts** (W)."
+        ],
+        [
+          शक्ति की गणना के लिये तीन मुख्य सूत्र होते हैं: **P = V × I**, **P = I² × R**, तथा **P = V² / R**। इनमें V (वोल्ट), I (एम्पीयर) और R (ओह्म) क्रमशः विद्युत् तनाव, धारा और प्रतिरोध हैं।",
+          "Three main formulas are used: **P = V × I**, **P = I² × R**, and **P = V² / R**. Here V (volts), I (amperes) and R (ohms) are voltage, current and resistance respectively."
+        ],
+        [
+          शक्ति मापने के लिये **वॉट‑मीटर** (watt‑meter) या **पावर मीटर** (power meter) का प्रयोग किया जाता है। यह उपकरण वोल्टेज और धारा दोनों को माप कर उनका गुणन करके शक्ति दर्शाता है।",
+          "A **watt‑meter** or **power meter** is used to measure power. It measures voltage and current and displays their product."
+        ],
+        [
+          घर में उपयोग होने वाले उपकरणों की शक्ति लेबल पर लिखी होती है, जैसे 60 W बल्ब, 1500 W हीटर आदि। इन मानों को जोड़ कर कुल शक्ति का अनुमान लगाया जा सकता है।",
+          "Appliances have their power rating printed on them, e.g., a 60 W bulb, a 1500 W heater. Adding these gives an estimate of total power consumption."
+        ],
+        [
+          **शक्ति** (Power) को समझना ऊर्जा बचत और बिल की गणना दोनों के लिये आवश्यक है; अधिक शक्ति वाले उपकरण अधिक बिजली खर्च करेंगे।",
+          "Understanding **power** is essential for both energy saving and bill calculation; high‑power devices consume more electricity."
+        ]
+      ],
+      "kv": [
+        [
+          ["शक्ति की इकाई", "Watt (W)"],
+          ["वोल्टेज (V)", "Potential difference, measured in volts (V)"]
+        ],
+        [
+          ["धारा (I)", "Current, measured in amperes (A)"],
+          ["प्रतिरोध (R)", "Resistance, measured in ohms (Ω)"]
+        ],
+        [
+          ["शक्ति सूत्र 1", "P = V × I"],
+          ["शक्ति सूत्र 2", "P = I² × R"]
+        ],
+        [
+          ["शक्ति सूत्र 3", "P = V² / R"],
+          ["शक्ति माप उपकरण", "Watt‑meter or power meter"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "P = V × I",
+        "units": [
+          [
+            ["शक्ति (Power)", "Watt (W)"],
+            ["वोल्टेज (Voltage)", "Volt (V)"],
+            ["धारा (Current)", "Ampere (A)"]
+          ]
+        ]
+      },
+      "tip": [
+        "⚠️ अक्सर छात्र P = V / I लिखते हैं; सही सूत्र **P = V × I** है, क्योंकि शक्ति वोल्टेज और धारा का गुणनफल है, भाग नहीं।",
+        "⚠️ Students often write P = V / I; the correct formula is **P = V × I** because power is the product of voltage and current, not a division."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <rect x=\"20\" y=\"80\" width=\"40\" height=\"40\" fill=\"#ddd\" stroke=\"#000\"/>\n  <text x=\"25\" y=\"105\" font-size=\"12\" fill=\"#000\">V</text>\n  <!-- Resistor -->\n  <line x1=\"80\" y1=\"100\" x2=\"120\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <rect x=\"120\" y=\"85\" width=\"30\" height=\"30\" fill=\"#fff\" stroke=\"#000\"/>\n  <text x=\"125\" y=\"105\" font-size=\"12\" fill=\"#000\">R</text>\n  <line x1=\"150\" y1=\"100\" x2=\"190\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Ammeter -->\n  <circle cx=\"210\" cy=\"100\" r=\"15\" fill=\"#fff\" stroke=\"#000\"/>\n  <text x=\"202\" y=\"105\" font-size=\"12\" fill=\"#000\">A</text>\n  <line x1=\"225\" y1=\"100\" x2=\"260\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Watt‑meter -->\n  <rect x=\"260\" y=\"80\" width=\"60\" height=\"40\" fill=\"#fff\" stroke=\"#000\"/>\n  <text x=\"265\" y=\"105\" font-size=\"12\" fill=\"#000\">W</text>\n  <!-- Return line -->\n  <line x1=\"320\" y1=\"100\" x2=\"340\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"340\" y1=\"100\" x2=\"340\" y2=\"60\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"340\" y1=\"60\" x2=\"20\" y2=\"60\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"20\" y1=\"60\" x2=\"20\" y2=\"80\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Arrows -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L6,3 z\" fill=\"#000\"/>\n    </marker>\n  </defs>\n  <line x1=\"100\" y1=\"70\" x2=\"100\" y2=\"85\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"80\" y=\"65\" font-size=\"12\" fill=\"#000\">+</text>\n  <line x1=\"300\" y1=\"70\" x2=\"300\" y2=\"85\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"280\" y=\"65\" font-size=\"12\" fill=\"#000\">–</text>\n</svg>",
+        "caption": [
+          "विद्युत शक्ति मापन परिपथ (Power measurement circuit)",
+          "Power measurement circuit"
+        ]
+      }
+    },
+    {
+      "key": "c12",
+      "emoji": "💡",
+      "title": [
+        "ऊर्जा खपत (Energy Consumption)",
+        "Energy Consumption"
+      ],
+      "paras": [
+        [
+          "**ऊर्जा खपत** (energy consumption) वह कुल विद्युत् ऊर्जा है जो किसी उपकरण द्वारा निर्धारित समय में उपयोग की जाती है। इसे **जूल** (joule, J) या अधिक प्रचलित **किलोवॉट‑घंटा** (kilowatt‑hour, kWh) में व्यक्त किया जाता है।",
+          "**Energy consumption** is the total electrical energy used by an appliance over a given time. It is expressed in **joules** (J) or more commonly in **kilowatt‑hours** (kWh)."
+        ],
+        [
+          ऊर्जा की गणना का सूत्र **E = P × t** है, जहाँ **E** ऊर्जा (J या kWh), **P** शक्ति (W) और **t** समय (seconds या hours) है। शक्ति को kW में बदल कर और समय को घंटे में लेकर सीधे kWh प्राप्त किया जा सकता है।",
+          "The calculation uses **E = P × t**, where **E** is energy (J or kWh), **P** is power (W) and **t** is time (seconds or hours). Converting power to kW and time to hours gives kWh directly."
+        ],
+        [
+          घर के बिजली बिल में आमतौर पर **किलोवॉट‑घंटा** (kWh) के आधार पर चार्ज किया जाता है। उदाहरण के लिये यदि 100 W का बल्ब 10 घंटे चलाया जाए तो ऊर्जा = 0.1 kW × 10 h = 1 kWh होगी।",
+          "Electricity bills are usually based on **kWh**. For example, a 100 W bulb running for 10 hours consumes 0.1 kW × 10 h = 1 kWh."
+        ],
+        [
+          ऊर्जा बचत के लिये **ऊर्जा‑कुशल उपकरण** (energy‑efficient appliances) चुनें, अनावश्यक उपकरणों को **ऑफ़** रखें, और **टाइमर** या **स्मार्ट प्लग** का उपयोग करके उपयोग समय घटाएँ।",
+          "To save energy, choose **energy‑efficient appliances**, switch off unnecessary devices, and use **timers** or **smart plugs** to reduce usage time."
+        ],
+        [
+          बिल की सही गणना के लिये प्रत्येक उपकरण की शक्ति (W) को उसके उपयोग समय (h) से गुणा कर सभी परिणामों को जोड़ें; फिर कुल को 1000 से भाग देकर kWh प्राप्त करें।",
+          "For accurate billing, multiply each appliance’s power (W) by its usage time (h), sum the results, and divide by 1000 to obtain kWh."
+        ]
+      ],
+      "kv": [
+        [
+          ["ऊर्जा की इकाई", "Joule (J) या kilowatt‑hour (kWh)"],
+          ["शक्ति की इकाई", "Watt (W)"]
+        ],
+        [
+          ["समय की इकाई", "सेकंड (s) या घंटे (h)"],
+          ["ऊर्जा सूत्र", "E = P × t"]
+        ],
+        [
+          ["1 kWh = 3.6 × 10⁶ J", "Conversion factor"],
+          ["बिल दर", "किलोवॉट‑घंटा पर निर्धारित (₹/kWh)"]
+        ],
+        [
+          ["ऊर्जा‑कुशल बल्ब", "LED, 10‑15 W for same illumination as 60 W incandescent"],
+          ["स्टैंड‑बाय पावर", "उपकरण बंद न होने पर भी खपत (वॉट)"]
+        ]
+      ],
+      "table": {
+        "head": [
+          ["उपकरण", "शक्ति (W)", "दैनिक उपयोग (h)", "दैनिक ऊर्जा (Wh)"],
+          ["Device", "Power (W)", "Daily use (h)", "Daily Energy (Wh)"]
+        ],
+        "rows": [
+          [
+            ["LED बल्ब", "12", "5", "60"],
+            ["फ्रिज", "150", "24", "3600"]
+          ],
+          [
+            ["टेलीविजन", "80", "4", "320"],
+            ["इलेक्ट्रिक हीटर", "1500", "2", "3000"]
+          ]
+        ]
+      },
+      "formula": {
+        "expr": "E = P × t",
+        "units": [
+          [
+            ["ऊर्जा (Energy)", "kilowatt‑hour (kWh)"],
+            ["शक्ति (Power)", "kilowatt (kW)"],
+            ["समय (Time)", "hour (h)"]
+          ]
+        ]
+      },
+      "tip": [
+        "⚠️ अक्सर छात्र समय को **सेकंड** में लेकर kW के साथ गुणा कर देते हैं, जिससे परिणाम **जूल** में आता है; बिल के लिये kWh चाहिए, इसलिए समय को **घंटे** में बदलें।",
+        "⚠️ Students often multiply seconds with kW, giving joules; for billing you need kWh, so convert time to **hours**."
+      ],
+      "diagram": null
+    }
+  ]
+}

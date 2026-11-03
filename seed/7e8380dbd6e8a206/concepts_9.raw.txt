@@ -1,0 +1,178 @@
+{
+  "concepts": [
+    {
+      "key": "c7",
+      "emoji": "⚙️",
+      "title": [
+        "समांतर संयोजन (Parallel Combination)",
+        "Parallel Combination"
+      ],
+      "paras": [
+        [
+          "समांतर संयोजन में सभी घटकों के सिरों को दो समान बिंदुओं से जोड़ा जाता है, जिससे प्रत्येक घटक पर **समान वोल्टेज (same voltage)** रहता है।",
+          "In a parallel combination, the terminals of all components are connected to the same two points, so each component experiences the same voltage."
+        ],
+        [
+          "वोल्टेज समान होने के कारण धारा **विभाजन (current division)** के सिद्धान्त के अनुसार विभिन्न शाखाओं में विभाजित हो जाती है; छोटी प्रतिरोध वाली शाखा में अधिक धारा बहती है।",
+          "Because the voltage is the same, the current splits according to the current‑division rule; the branch with lower resistance carries more current."
+        ],
+        [
+          "समांतर में कुल प्रतिरोध (**समतुल्य प्रतिरोध**) की गणना का सूत्र है 1/R_eq = 1/R1 + 1/R2 + …, जिससे कुल प्रतिरोध हमेशा व्यक्तिगत प्रतिरोधों से कम रहता है।",
+          "The equivalent resistance of a parallel network is given by 1/R_eq = 1/R1 + 1/R2 + …, so the total resistance is always less than any individual resistance."
+        ],
+        [
+          "घर की सॉकेट वायरिंग, इलेक्ट्रॉनिक उपकरणों के पावर सप्लाई और सर्किट बोर्ड पर कई घटकों को समान वोल्टेज पर चलाने के लिये समांतर संयोजन का प्रयोग किया जाता है।",
+          "Parallel connections are used in home socket wiring, power supplies of electronic devices, and circuit boards to supply the same voltage to many components."
+        ]
+      ],
+      "kv": [
+        [
+          ["समान वोल्टेज (same voltage)", "वोल्टेज सभी शाखाओं में समान रहता है"],
+          ["धारा विभाजन (current division)", "धारा प्रतिरोध के अनुपात में विभाजित होती है"]
+        ],
+        [
+          ["समतुल्य प्रतिरोध (equivalent resistance)", "कुल प्रतिरोध = 1 / (1/R1 + 1/R2 + …)"],
+          ["सुरक्षा (safety)", "समांतर में ओवरलोड से बचने के लिये फ्यूज़ या सर्किट ब्रेकर लगाया जाता है"]
+        ],
+        [
+          ["ऊर्जा बचत (energy saving)", "कम प्रतिरोध के कारण कम पावर ड्रॉप होता है"],
+          ["वायरिंग लचीलापन (wiring flexibility)", "एक ही सॉकेट से कई उपकरण जुड़े रह सकते हैं"]
+        ]
+      ],
+      "table": {
+        "head": [
+          ["विशेषता", "Series संयोजन", "Parallel संयोजन"]
+        ],
+        "rows": [
+          [
+            ["वोल्टेज", "वोल्टेज का योग", "समान वोल्टेज"],
+            ["धारा", "समान धारा", "धारा का योग"]
+          ],
+          [
+            ["समतुल्य प्रतिरोध", "R_eq = R1 + R2 + …", "1/R_eq = 1/R1 + 1/R2 + …"],
+            ["उपकरणों की सुरक्षा", "कम सुरक्षा, ओवरलोड पर फ्यूज़ जलता है", "फ्यूज़/ब्रेकर्स द्वारा बेहतर सुरक्षा"]
+          ]
+        ]
+      },
+      "formula": {
+        "expr": "1/R_eq = 1/R1 + 1/R2 + …",
+        "units": [
+          ["R_eq", "Ω (Ohm)"],
+          ["R1, R2", "Ω (Ohm)"]
+        ]
+      },
+      "tip": [
+        "⚠️ अक्सर छात्र प्रतिरोधों को जोड़ते समय **समान वोल्टेज** को भूल जाते हैं; याद रखें कि समांतर में वोल्टेज हमेशा समान रहता है, केवल धारा बदलती है।"
+      ],
+      "diagram": {
+        "svg": "<svg viewBox='0 0 340 200' xmlns='http://www.w3.org/2000/svg'>\n  <!-- Bus wires -->\n  <line x1='30' y1='30' x2='310' y2='30' stroke='black' stroke-width='2'/>\n  <line x1='30' y1='150' x2='310' y2='150' stroke='black' stroke-width='2'/>\n  <!-- Resistors -->\n  <rect x='80' y='70' width='40' height='20' fill='none' stroke='black' stroke-width='2'/>\n  <text x='100' y='85' font-size='12' text-anchor='middle'>R1</text>\n  <rect x='150' y='70' width='40' height='20' fill='none' stroke='black' stroke-width='2'/>\n  <text x='170' y='85' font-size='12' text-anchor='middle'>R2</text>\n  <rect x='220' y='70' width='40' height='20' fill='none' stroke='black' stroke-width='2'/>\n  <text x='240' y='85' font-size='12' text-anchor='middle'>R3</text>\n  <!-- Connections -->\n  <line x1='30' y1='30' x2='30' y2='150' stroke='black' stroke-width='2'/>\n  <line x1='310' y1='30' x2='310' y2='150' stroke='black' stroke-width='2'/>\n  <!-- Current arrows -->\n  <defs>\n    <marker id='arrow' markerWidth='6' markerHeight='6' refX='5' refY='3' orient='auto'>\n      <path d='M0,0 L0,6 L9,3 z' fill='red'/>\n    </marker>\n  </defs>\n  <line x1='30' y1='30' x2='80' y2='80' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='30' y1='30' x2='150' y2='80' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='30' y1='30' x2='220' y2='80' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='80' y1='90' x2='310' y2='30' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='150' y1='90' x2='310' y2='30' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='220' y1='90' x2='310' y2='30' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <!-- Labels -->\n  <text x='20' y='20' font-size='12'>V</text>\n  <text x='320' y='20' font-size='12'>V</text>\n</svg>",
+        "caption": [
+          "समांतर संयोजन में समान वोल्टेज और धारा विभाजन",
+          "Parallel combination showing equal voltage and current division"
+        ]
+      }
+    },
+    {
+      "key": "c8",
+      "emoji": "🏠",
+      "title": [
+        "व्यावहारिक अनुप्रयोग (Practical Applications)",
+        "Practical Applications"
+      ],
+      "paras": [
+        [
+          "घर की वायरिंग में **समांतर संयोजन** का प्रयोग किया जाता है ताकि प्रत्येक सॉकेट को समान वोल्टेज मिल सके और किसी एक सॉकेट में खराबी से बाकी सॉकेट प्रभावित न हों।",
+          "In home wiring, parallel connections ensure each socket receives the same voltage and a fault in one socket does not affect the others."
+        ],
+        [
+          "सर्किट ब्रेकर और फ्यूज़ दोनों ही **ओवरकरंट सुरक्षा (over‑current protection)** के उपकरण हैं; ब्रेकर को मैन्युअली रीसेट किया जा सकता है जबकि फ्यूज़ जलकर बदलना पड़ता है।",
+          "Circuit breakers and fuses provide over‑current protection; breakers can be reset manually while fuses need replacement after blowing."
+        ],
+        [
+          "लाइटिंग, पावर सॉकेट और एसी मोटर की व्यवस्था में समांतर कनेक्शन से **ऊर्जा वितरण (power distribution)** समान रूप से किया जाता है, जिससे लोड संतुलन बना रहता है।",
+          "Lighting, power sockets, and AC motor installations use parallel connections for uniform power distribution, maintaining load balance."
+        ]
+      ],
+      "kv": [
+        [
+          ["घर की वायरिंग (home wiring)", "सभी आउटलेट समान वोल्टेज पर जुड़े होते हैं"],
+          ["सर्किट ब्रेकर (circuit breaker)", "ओवरलोड पर स्वचालित रूप से सर्किट खुल जाता है"]
+        ],
+        [
+          ["फ्यूज़ (fuse)", "धारा अधिक होने पर पिघल कर सर्किट तोड़ता है"],
+          ["पावर सॉकेट (power socket)", "उपकरणों को सुरक्षित रूप से ऊर्जा प्रदान करता है"]
+        ],
+        [
+          ["लाइटिंग (lighting)", "समांतर में कई लाइट्स समान वोल्टेज पर चलती हैं"],
+          ["लोड संतुलन (load balancing)", "समांतर में प्रत्येक शाखा का लोड स्वतंत्र रूप से नियंत्रित होता है"]
+        ]
+      ],
+      "table": null,
+      "formula": null,
+      "tip": [
+        "⚠️ कई बार घर की वायरिंग में **सिरों को उल्टा** जोड़ दिया जाता है, जिससे सॉकेट में उल्टा ध्रुवीयता (reverse polarity) हो सकता है; हमेशा लाल (लाइफ़) को लाइन और नीला (न्यूट्रल) को न्यूट्रल से जोड़ें।"
+      ],
+      "diagram": null
+    },
+    {
+      "key": "c9",
+      "emoji": "🔥",
+      "title": [
+        "हीटिंग प्रभाव (Heating Effect)",
+        "Heating Effect"
+      ],
+      "paras": [
+        [
+          "**जूल का नियम (Joule's law)** बताता है कि जब धारा किसी प्रतिरोधक से गुजरती है तो उत्पन्न गर्मी Q = I²Rt (जूल) के बराबर होती है, जहाँ I धारा, R प्रतिरोध और t समय है।",
+          "Joule's law states that the heat produced when current passes through a resistor is Q = I²Rt (joules), where I is current, R resistance and t time."
+        ],
+        [
+          "समय t जितना अधिक होगा, उतनी ही अधिक गर्मी उत्पन्न होगी; इसलिए हीटर, टॉस्टर और इलेक्ट्रिक कुकर जैसे उपकरणों में प्रतिरोध को बड़े मान पर चुना जाता है।",
+          "The longer the time, the more heat is generated; therefore devices like heaters, toasters and electric cookers use high‑value resistors."
+        ],
+        [
+          "फ्यूज़ का कार्य सिद्धांत भी हीटिंग प्रभाव पर आधारित है: अधिक धारा से फ्यूज़ जल्दी गर्म होकर पिघल जाता है और सर्किट को तोड़ देता है।",
+          "The principle of a fuse also relies on heating: excess current heats the fuse element until it melts, breaking the circuit."
+        ],
+        [
+          "वास्तविक जीवन में हीटिंग प्रभाव को नियंत्रित करने के लिये **वोल्टेज नियमन (voltage regulation)** और **थर्मल फ्यूज़** का प्रयोग किया जाता है, जिससे उपकरण सुरक्षित रहते हैं।",
+          "In practice, heating is controlled by voltage regulation and thermal fuses to keep appliances safe."
+        ]
+      ],
+      "kv": [
+        [
+          ["जूल का नियम (Joule's law)", "Q = I²Rt, गर्मी का उत्पादन धारा, प्रतिरोध और समय पर निर्भर"],
+          ["हीट उत्पन्न करने की दर (rate of heat generation)", "P = I²R, जहाँ P पावर (वॉट) है"]
+        ],
+        [
+          ["समय का प्रभाव (effect of time)", "समय बढ़ने से कुल गर्मी Q बढ़ती है"],
+          ["उपकरणों में उपयोग (applications)", "हीटर, टॉस्टर, इलेक्ट्रिक कुकर, फ्यूज़"]
+        ],
+        [
+          ["सुरक्षा (safety)", "अधिक गर्मी से बचने के लिये थर्मल फ्यूज़ और सर्किट ब्रेकर"],
+          ["ऊर्जा दक्षता (energy efficiency)", "उच्च प्रतिरोध वाले हीटर कम धारा में अधिक गर्मी उत्पन्न करते हैं"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "Q = I² × R × t",
+        "units": [
+          ["Q", "Joule (J)"],
+          ["I", "Ampere (A)"],
+          ["R", "Ohm (Ω)"],
+          ["t", "Second (s)"]
+        ]
+      },
+      "tip": [
+        "⚠️ अक्सर छात्र Q = I × V × t लिख देते हैं, जबकि सही सूत्र **Q = I²Rt** है; याद रखें कि गर्मी प्रतिरोध पर निर्भर करती है, वोल्टेज पर नहीं।"
+      ],
+      "diagram": {
+        "svg": "<svg viewBox='0 0 340 200' xmlns='http://www.w3.org/2000/svg'>\n  <!-- Battery -->\n  <rect x='30' y='80' width='30' height='40' fill='none' stroke='black' stroke-width='2'/>\n  <text x='45' y='105' font-size='12' text-anchor='middle'>V</text>\n  <!-- Resistor (heater) -->\n  <rect x='150' y='80' width='40' height='40' fill='none' stroke='black' stroke-width='2'/>\n  <text x='170' y='105' font-size='12' text-anchor='middle'>R</text>\n  <!-- Wires -->\n  <line x1='60' y1='100' x2='150' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='30' y1='120' x2='30' y2='180' stroke='black' stroke-width='2'/>\n  <line x1='190' y1='120' x2='190' y2='180' stroke='black' stroke-width='2'/>\n  <line x1='30' y1='180' x2='190' y2='180' stroke='black' stroke-width='2'/>\n  <!-- Current arrow -->\n  <defs>\n    <marker id='arrow' markerWidth='6' markerHeight='6' refX='5' refY='3' orient='auto'>\n      <path d='M0,0 L0,6 L9,3 z' fill='red'/>\n    </marker>\n  </defs>\n  <line x1='60' y1='100' x2='150' y2='100' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <text x='105' y='90' font-size='12' fill='red'>I</text>\n  <text x='100' y='130' font-size='12'>t (s)</text>\n  <text x='20' y='190' font-size='12'>Ground</text>\n</svg>",
+        "caption": [
+          "जूल के नियम को दर्शाने वाला सरल सर्किट: बैटरी, प्रतिरोध (हीटर) और धारा I",
+          "Simple circuit illustrating Joule's law: battery, resistor (heater) and current I"
+        ]
+      }
+    }
+  ]
+}

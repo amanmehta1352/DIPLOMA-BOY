@@ -1,0 +1,354 @@
+[
+ {
+  "emoji": "🔌",
+  "heading": [
+   "🔌 विद्युत की यात्रा (Journey of Electricity)",
+   "🔌 Journey of Electricity"
+  ],
+  "paras": [
+   [
+    "विद्युत की **यात्रा** शुरू होती है जब कोयला, जल, या पवन जैसी ऊर्जा स्रोतों को **उत्पादक (generator)** में बदल दिया जाता है। कोयले की जलती हुई धातु से उत्पन्न गर्मी पानी को भाप में बदल देती है, और वह भाप टरबाइन को घुमाती है। टरबाइन की घूर्णन गति को इलेक्ट्रॉनिक रूप में **विद्युत धारा (electric current)** में परिवर्तित किया जाता है। यह धारा फिर **उच्च वोल्टेज (high voltage)** के साथ ट्रांसफ़ॉर्मर द्वारा बढ़ा दी जाती है, ताकि लंबी दूरी पर कम ऊर्जा हानि के साथ पहुँच सके। इस प्रक्रिया में **ट्रांसमिशन लाइन्स** का उपयोग किया जाता है, जो 400 kV या 220 kV जैसी बड़ी वोल्टेज पर चलती हैं।",
+    "The **journey** of electricity begins when energy sources like coal, water, or wind are converted in a **generator**. The heat from burning coal turns water into steam, and that steam spins a turbine. The turbine’s rotation is changed into **electric current**. This current is then **stepped up** to **high voltage** using a transformer so that it can travel long distances with minimal loss. The **transmission lines** carry this current at voltages such as 400 kV or 220 kV."
+   ],
+   [
+    "जब विद्युत उच्च वोल्टेज पर पहुँचती है, तो इसे **स्थानीय ट्रांसफ़ॉर्मर** में फिर से **निम्न वोल्टेज (low voltage)** में घटाया जाता है, जिससे घर‑घर तक सुरक्षित रूप से पहुँच सके। इस घटाव के बाद विद्युत **डिस्ट्रिब्यूशन नेटवर्क** के माध्यम से प्रत्येक मोहल्ले, स्कूल, अस्पताल आदि को सप्लाई की जाती है। हमारे घर में जो सॉकेट होते हैं, वे आमतौर पर 230 V (भारत) या 120 V (अमेरिका) पर काम करते हैं, जिससे छोटे‑छोटे इलेक्ट्रॉनिक उपकरण आसानी से चल सकें। इस चरण में **सर्किट ब्रेकर** और **फ्यूज़** जैसे सुरक्षा उपकरण भी जुड़े होते हैं, जो ओवर‑लोड या शॉर्ट‑सर्किट होने पर करंट को तुरंत काट देते हैं।",
+    "When electricity arrives at high voltage, it is **stepped down** in a **local transformer** to **low voltage** so that it can be safely delivered to homes. After this reduction, the electricity travels through a **distribution network** to each neighborhood, school, hospital, etc. The sockets in our houses typically operate at 230 V (India) or 120 V (USA), allowing small appliances to run easily. At this stage, safety devices like **circuit breakers** and **fuses** are also installed, which instantly cut off the current in case of overload or short‑circuit."
+   ],
+   [
+    "हर दिन हम विद्युत की इस यात्रा को अनदेखा कर लेते हैं, परन्तु यह हमारे जीवन को सहज बनाती है। उदाहरण के लिये, जब आप सुबह के नाश्ते में टोस्टर चलाते हैं, तो बिजली पहले पावर प्लांट से निकल कर ट्रांसमिशन टावरों, फिर ट्रांसफ़ॉर्मर, और अंत में आपके किचन के सॉकेट तक पहुँचती है। इसी क्रम में **सुरक्षा** का ध्यान रखना बहुत ज़रूरी है; इसलिए सॉकेट के पास पानी न रखें और किसी भी क्षतिग्रस्त तार को तुरंत बदलवाएँ। याद रखें, विद्युत की यात्रा जितनी लंबी है, उतनी ही सावधानी की जरूरत है।",
+    "Every day we overlook this journey of electricity, yet it makes our lives comfortable. For example, when you use a toaster for breakfast, electricity first leaves the power plant, travels through transmission towers, then a transformer, and finally reaches the kitchen socket. Throughout this process, **safety** is crucial; therefore keep water away from sockets and replace any damaged wires immediately. **Remember**, the longer the journey of electricity, the more careful we must be."
+   ]
+  ],
+  "formula": null,
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "विद्युत को एक नदी की तरह सोचें – पानी (इलेक्ट्रॉनों) को ऊपर से नीचे बहाने के लिये बाँध (ट्रांसफ़ॉर्मर) और नहरें (केबल) की जरूरत होती है।",
+    "Think of electricity as a river – the water (electrons) needs dams (transformers) and channels (cables) to flow from high to low levels."
+   ]
+  }
+ },
+ {
+  "emoji": "⚡",
+  "heading": [
+   "धारा और वोल्टेज की मूल बातें (Basics of Current & Potential Difference)",
+   "Basics of Current & Potential Difference"
+  ],
+  "paras": [
+   [
+    "**धारा (Current)** वह दर है जिस पर इलेक्ट्रॉन एक बिंदु से दूसरे बिंदु तक प्रवाहित होते हैं। इसे **एम्पीयर (ampere, A)** में मापा जाता है, जहाँ 1 A का अर्थ है 1 कूलॉम्ब (C) चार्ज एक सेकंड में गुजरना। कल्पना कीजिए कि एक पानी की नली में पानी का प्रवाह 2 लीटर/सेकंड है; वही तरह धारा इलेक्ट्रॉनों के प्रवाह को दर्शाती है। धारा की दिशा को अक्सर **परम्परागत प्रवाह (conventional current)** के अनुसार सकारात्मक टर्मिनल से नकारात्मक टर्मिनल की ओर माना जाता है, भले ही वास्तविक इलेक्ट्रॉन नकारात्मक से सकारात्मक की ओर चलते हों।",
+    "**Current** is the rate at which electrons move from one point to another. It is measured in **ampere (A)**, where 1 A means 1 coulomb (C) of charge passes per second. Imagine water flowing through a pipe at 2 liters/second; similarly, current represents the flow of electrons. The direction of current is usually taken as **conventional current**, from the positive terminal to the negative terminal, even though actual electrons move from negative to positive."
+   ],
+   [
+    "**वोल्टेज (Potential Difference)** दो बिंदुओं के बीच ऊर्जा का अंतर है, जिसे **वोल्ट (volt, V)** में मापा जाता है। इसे एक पानी के टैंक की ऊँचाई से तुलना किया जा सकता है – जितनी ऊँची टैंक, उतना अधिक पानी नीचे गिरते समय गति प्राप्त करता है। इसी प्रकार, उच्च वोल्टेज वाले बिंदु से कम वोल्टेज वाले बिंदु तक इलेक्ट्रॉन तेज़ी से चलते हैं। वोल्टेज का स्रोत बैटरी, जेनरेटर या सॉकेट हो सकता है, और यह **विद्युत शक्ति (electric power)** को चलाने के लिये आवश्यक “धक्का” देता है।",
+    "**Potential Difference** is the energy difference between two points, measured in **volts (V)**. It can be compared to the height of a water tank – the higher the tank, the more speed water gains as it falls. Similarly, electrons move faster from a point of higher voltage to lower voltage. The source of voltage can be a battery, generator, or socket, and it provides the “push” needed to drive **electric power**."
+   ],
+   [
+    "धारा और वोल्टेज के बीच संबंध को समझना आसान है जब हम इसे **पानी के पाइप** से जोड़ते हैं। यदि पाइप का व्यास छोटा हो तो पानी का प्रवाह कम होगा, चाहे टैंक की ऊँचाई (वोल्टेज) समान रहे। इसी तरह, यदि सर्किट में प्रतिरोध (Resistance) अधिक हो तो धारा घटेगी। इस बुनियादी समझ से हम आगे के नियम, जैसे ओम का नियम, को आसानी से लागू कर सकते हैं।",
+    "Understanding the relationship between current and voltage becomes simple when we liken it to a **water pipe**. If the pipe’s diameter is small, water flow reduces even if the tank’s height (voltage) stays the same. Likewise, if a circuit has high **resistance**, the current will drop. This basic insight helps us apply later rules such as Ohm’s Law with ease."
+   ]
+  ],
+  "formula": "I = Q / t   (Current = Charge / Time)",
+  "example": {
+   "label": [
+    "याद रखो",
+    "Remember"
+   ],
+   "text": [
+    "1 A का मतलब है 1 कूलॉम्ब चार्ज हर सेकंड में बह रहा है – जैसे 1 लीटर पानी हर सेकंड नली से निकल रहा हो।",
+    "1 A means 1 coulomb of charge flows every second – like 1 liter of water passing through a pipe each second."
+   ]
+  }
+ },
+ {
+  "emoji": "📈",
+  "heading": [
+   "ओम का नियम (Ohm’s Law)",
+   "Ohm’s Law"
+  ],
+  "paras": [
+   [
+    "**ओम का नियम** बताता है कि किसी भी **स्थिर (steady)** सर्किट में धारा (I), वोल्टेज (V) और प्रतिरोध (R) के बीच सीधा अनुपात होता है। सूत्र है **V = I × R**। इसका अर्थ है कि यदि हम प्रतिरोध को स्थिर रखें, तो वोल्टेज बढ़ाने से धारा भी समान अनुपात में बढ़ेगी, और वोल्टेज घटाने से धारा घटेगी। यह नियम सभी धातु के तारों और कई इलेक्ट्रॉनिक घटकों पर लागू होता है, जब तक कि तापमान बहुत अधिक न हो।",
+    "**Ohm’s Law** states that in any **steady** circuit, current (I), voltage (V) and resistance (R) are directly proportional. The formula is **V = I × R**. This means that if resistance is kept constant, increasing the voltage will increase the current in the same ratio, and decreasing the voltage will reduce the current. This law applies to metallic wires and many electronic components, provided the temperature does not become excessively high."
+   ],
+   [
+    "ओम के नियम को समझने के लिये हम **पानी की नली** की तुलना कर सकते हैं। नली का व्यास प्रतिरोध के बराबर है, और नली के दो सिरों के बीच की ऊँचाई वोल्टेज है। यदि आप नली के दोनों सिरों पर अधिक ऊँचाई (अधिक वोल्टेज) लगाते हैं, तो पानी (धारा) तेज़ी से बहेगा। लेकिन यदि नली बहुत पतली (उच्च प्रतिरोध) हो, तो भले ही ऊँचाई अधिक हो, पानी की गति सीमित रहेगी।",
+    "To understand Ohm’s Law, we can compare it to a **water pipe**. The pipe’s diameter corresponds to resistance, and the height difference between the two ends corresponds to voltage. If you raise the height (increase voltage) at both ends, water (current) flows faster. However, if the pipe is very narrow (high resistance), even a large height difference will limit the water’s speed."
+   ],
+   [
+    "परीक्षा में अक्सर **V‑I ग्राफ** दिया जाता है, जहाँ सीधी रेखा का ढलान **R** को दर्शाता है। यदि ग्राफ का ढलान बड़ा है, तो प्रतिरोध अधिक है; यदि ढलान छोटा है, तो प्रतिरोध कम है। इस प्रकार, ओम का नियम न केवल गणितीय रूप से बल्कि ग्राफ़िकल रूप से भी समझा जा सकता है, जिससे प्रयोगात्मक डेटा का विश्लेषण आसान हो जाता है।",
+    "In exams, a **V‑I graph** is often provided, where the slope of the straight line represents **R**. A steep slope indicates high resistance, while a gentle slope indicates low resistance. Thus, Ohm’s Law can be understood not only mathematically but also graphically, making the analysis of experimental data straightforward."
+   ]
+  ],
+  "formula": "V = I × R",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "यदि 2 Ω प्रतिरोध वाले बल्ब में 6 V लगाते हैं, तो धारा I = 6 V / 2 Ω = 3 A होगी।",
+    "If a bulb of 2 Ω resistance is connected to 6 V, the current I = 6 V / 2 Ω = 3 A."
+   ]
+  }
+ },
+ {
+  "emoji": "🧮",
+  "heading": [
+   "प्रतिरोध और प्रतिरोधता (Resistance & Resistivity)",
+   "Resistance & Resistivity"
+  ],
+  "paras": [
+   [
+    "**प्रतिरोध (Resistance)** वह बाधा है जो किसी चालक (conductor) में धारा के प्रवाह को रोकती है। इसे **ओह्म (ohm, Ω)** में मापा जाता है। प्रतिरोध कई कारकों पर निर्भर करता है – **लंबाई (L)**, **क्षेत्रफल (A)**, **सामग्री की प्रतिरोधता (ρ)**, और **तापमान**। लंबी तार में अधिक प्रतिरोध होता है, जबकि मोटी तार में कम प्रतिरोध। यही कारण है कि घर में बड़े‑बड़े पावर केबल मोटी होती हैं, ताकि कम प्रतिरोध के साथ बड़ी धारा आसानी से बह सके।",
+    "**Resistance** is the opposition that a **conductor** offers to the flow of current. It is measured in **ohms (Ω)**. Resistance depends on several factors – **length (L)**, **cross‑sectional area (A)**, **material’s resistivity (ρ)**, and **temperature**. A longer wire has higher resistance, while a thicker wire has lower resistance. This is why household power cables are thick, allowing large currents to pass with minimal resistance."
+   ],
+   [
+    "**प्रतिरोधता (Resistivity)** एक मूलभूत गुण है जो पदार्थ की प्रकृति को दर्शाता है। इसे **ρ** (rho) से दर्शाते हैं और इकाई **Ω·m** में होती है। सूत्र है **ρ = R × A / L**। यदि दो समान आकार के तार हों, पर एक तांबा (copper) का और दूसरा नायलॉन (nylon) का हो, तो नायलॉन की प्रतिरोधता बहुत अधिक होगी, इसलिए वही लंबाई और व्यास होने पर उसका प्रतिरोध बहुत अधिक होगा। प्रतिरोधता का मान तापमान के साथ बदलता है; अधिकांश धातुओं में तापमान बढ़ने पर ρ बढ़ता है।",
+    "**Resistivity** is an intrinsic property that characterizes a material. It is denoted by **ρ** (rho) and has units **Ω·m**. The formula is **ρ = R × A / L**. If two wires have the same dimensions, one made of copper and the other of nylon, nylon’s resistivity is much higher, so its resistance will be far greater. Resistivity changes with temperature; for most metals, ρ increases as temperature rises."
+   ],
+   [
+    "प्रयोगशाला में हम अक्सर **वायर रेसिस्टेंस** को मापने के लिये **वोल्ट‑मीटर** और **ऐम्पीयर‑मीटर** का उपयोग करते हैं, फिर **R = V / I** से प्रतिरोध निकालते हैं और ऊपर दिया गया सूत्र प्रयोग करके ρ की गणना करते हैं। यह प्रक्रिया न केवल सिद्धांत को समझाती है, बल्कि वास्तविक सामग्री के चयन में भी मदद करती है – जैसे इलेक्ट्रिक मोटर में तांबे की कॉइल और हीटर में निकेल‑क्रोमिक वायर का उपयोग।",
+    "In the lab, we often use a **voltmeter** and an **ammeter** to measure the **wire resistance**, then calculate R = V / I and use the earlier formula to find ρ. This procedure not only reinforces the theory but also aids in material selection – for example, copper coils in electric motors and nichrome wires in heaters."
+   ]
+  ],
+  "formula": "ρ = R × A / L",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "यदि 0.5 m लंबी तांबे की तार का व्यास 1 mm है और उसका प्रतिरोध 0.02 Ω है, तो ρ = 0.02 Ω × (π×0.001² m²) / 0.5 m ≈ 1.26 × 10⁻⁸ Ω·m।",
+    "If a copper wire 0.5 m long has a diameter of 1 mm and resistance 0.02 Ω, then ρ = 0.02 Ω × (π×0.001² m²) / 0.5 m ≈ 1.26 × 10⁻⁸ Ω·m."
+   ]
+  }
+ },
+ {
+  "emoji": "🔗",
+  "heading": [
+   "श्रृंखला संयोजन (Series Combination)",
+   "Series Combination"
+  ],
+  "paras": [
+   [
+    "आज हम **श्रृंखला संयोजन** (Series Combination) के बारे में बात करेंगे। जब दो या दो से अधिक प्रतिरोध (resistance) एक ही तार में क्रमशः जुड़े होते हैं, तो वह एक श्रृंखला बनाता है। इस प्रकार के सर्किट में धारा (current) सभी घटकों से समान होकर गुजरती है, क्योंकि कोई शाखा नहीं होती। लेकिन प्रत्येक प्रतिरोध पर वोल्टेज (voltage) का भाग अलग‑अलग गिरता है, और कुल वोल्टेज स्रोत की emf के बराबर होता है। एक साधारण उदाहरण है पुरानी क्रिसमस लाइट्स की स्ट्रिंग, जहाँ कई छोटे‑छोटे बल्ब एक‑के‑बाद‑एक जुड़े होते हैं। यदि एक बल्ब जले, तो पूरी स्ट्रिंग बंद हो जाती है क्योंकि धारा का मार्ग टूट जाता है। इस प्रकार की विशेषता हमें समझाती है कि श्रृंखला में एक घटक का फेल होना पूरे सर्किट को प्रभावित करता है। सर्किट में कुल प्रतिरोध R_total = R1 + R2 + … + Rn होता है, जिससे कुल धारा I = V_source / R_total निर्धारित होती है। इस सिद्धान्त का उपयोग वोल्टेज डिवाइडर बनाने में किया जाता है, जहाँ दो या अधिक प्रतिरोधों को श्रृंखला में रख कर वोल्टेज को इच्छित अनुपात में विभाजित किया जाता है।",
+    "Today we will discuss **Series Combination**. When two or more resistors are connected one after another in a single wire, they form a series circuit. In such a circuit the **current** (I) is the same through every component because there is no branching path. However the **voltage** (V) across each resistor is different, and the sum of these voltages equals the emf of the source. A common everyday example is an old Christmas‑light string where many tiny bulbs are connected one‑after‑another. If one bulb burns out, the whole string goes dark because the current path is broken. This shows that a failure in any part of a series circuit stops the entire circuit. The total resistance is given by R_total = R1 + R2 + … + Rn, so the total current is I = V_source / R_total. This principle is used to make voltage dividers, where two or more resistors in series split the source voltage into desired proportions."
+   ],
+   [
+    "**कुल प्रतिरोध** की गणना बहुत सरल है; बस सभी व्यक्तिगत प्रतिरोधों को जोड़ दें। उदाहरण के लिये, यदि तीन बल्ब क्रमशः 2 Ω, 3 Ω और 5 Ω के हैं, तो कुल प्रतिरोध R_total = 2 Ω + 3 Ω + 5 Ω = 10 Ω होगा। यदि बैटरी की emf 12 V है, तो धारा I = 12 V / 10 Ω = 1.2 A होगी, और प्रत्येक बल्ब पर वोल्टेज क्रमशः V1 = I·R1 = 2.4 V, V2 = 3.6 V, V3 = 6 V होगा। यह दिखाता है कि बड़े प्रतिरोध वाले बल्ब पर अधिक वोल्टेज गिरता है। इस प्रकार हम विभिन्न उपकरणों को सुरक्षित रूप से चलाने के लिये आवश्यक वोल्टेज को नियंत्रित कर सकते हैं। प्रयोगशाला में ओहम मीटर (ohmmeter) से कुल प्रतिरोध माप कर हम सिद्धान्त की पुष्टि कर सकते हैं।",
+    "The **total resistance** is easy to calculate – just add all individual resistances. For example, if three bulbs in series have resistances 2 Ω, 3 Ω and 5 Ω, then R_total = 2 Ω + 3 Ω + 5 Ω = 10 Ω. With a 12 V battery the current is I = 12 V / 10 Ω = 1.2 A, and the voltage across each bulb becomes V1 = I·R1 = 2.4 V, V2 = 3.6 V, V3 = 6 V. This shows that a larger resistance gets a larger share of the voltage. By arranging resistances we can control the voltage supplied to different devices safely. In the lab, measuring the total resistance with an **ohmmeter** confirms the theory."
+   ],
+   [
+    "एक बोर्ड‑प्रश्न की तरह सोचिए: दो समान प्रतिरोध 4 Ω के क्रमशः जुड़े हैं और 9 V की बैटरी से जुड़े हैं। कुल प्रतिरोध 8 Ω होगा, इसलिए धारा I = 9 V / 8 Ω = 1.125 A होगी। प्रत्येक प्रतिरोध पर वोल्टेज V = I·R = 1.125 A × 4 Ω = 4.5 V होगा। यदि इन दो प्रतिरोधों में से एक को हटाया जाये, तो धारा पूरी तरह से बंद हो जाएगी, क्योंकि कोई वैकल्पिक मार्ग नहीं रहेगा। यह समझना महत्वपूर्ण है कि श्रृंखला में एक घटक का हटना या फेल होना पूरे सर्किट को रोक देता है, जबकि समांतर में ऐसा नहीं होता।",
+    "Think of a board‑type question: two equal resistors of 4 Ω each are connected in series across a 9 V battery. The total resistance is 8 Ω, so the current I = 9 V / 8 Ω = 1.125 A. The voltage across each resistor is V = I·R = 1.125 A × 4 Ω = 4.5 V. If one of these resistors is removed, the current stops completely because there is no alternative path. It is crucial to realize that in a series circuit the failure or removal of any component stops the whole circuit, unlike a parallel arrangement."
+   ]
+  ],
+  "formula": "R_total = R1 + R2 + ... + Rn",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "एक स्ट्रिंग में पाँच छोटे बल्ब हैं, प्रत्येक का प्रतिरोध 2 Ω है। कुल प्रतिरोध 10 Ω, 5 V की बैटरी से धारा 0.5 A होगी, और प्रत्येक बल्ब पर 1 V गिरेगा। यदि मध्य का बल्ब फेल हो जाये, तो पूरी स्ट्रिंग बुझ जाएगी।",
+    "A string has five small bulbs, each with resistance 2 Ω. Total resistance = 10 Ω, so with a 5 V battery the current is 0.5 A and each bulb drops 1 V. If the middle bulb fails, the whole string goes out."
+   ]
+  }
+ },
+ {
+  "emoji": "⚙️",
+  "heading": [
+   "समांतर संयोजन (Parallel Combination)",
+   "Parallel Combination"
+  ],
+  "paras": [
+   [
+    "अब हम **समांतर संयोजन** (Parallel Combination) को समझेंगे। जब दो या दो से अधिक प्रतिरोध एक ही बिंदु पर जुड़े होते हैं और फिर दूसरे बिंदु पर फिर से मिलते हैं, तो वह समांतर बनता है। इस प्रकार के सर्किट में वोल्टेज सभी शाखाओं में समान रहता है, जबकि धारा प्रत्येक शाखा में अलग‑अलग बहती है और कुल धारा सभी शाखाओं की धारा का योग होती है। उदाहरण के लिये घर की विद्युत आपूर्ति में कई उपकरण एक‑साथ जुड़े होते हैं; सभी को बैटरी के समान वोल्टेज (जैसे 230 V) मिलता है, पर प्रत्येक उपकरण की धारा अलग होती है। यदि एक उपकरण बंद हो जाये, तो बाकी उपकरण काम करते रहते हैं, क्योंकि प्रत्येक की अपनी स्वतंत्र मार्ग होती है। यह विशेषता समांतर सर्किट को विश्वसनीय बनाती है।",
+    "Now we will understand **Parallel Combination**. When two or more resistors are connected at the same two points, they form a parallel circuit. In this type of circuit the **voltage** across each branch is the same, while the **current** divides among the branches, and the total current is the sum of the branch currents. A common example is the household electrical supply where many appliances are connected in parallel; each receives the same source voltage (e.g., 230 V) but draws its own current. If one appliance fails, the others continue to operate because each has its own independent path. This property makes parallel circuits reliable."
+   ],
+   [
+    "समांतर में कुल प्रतिरोध की गणना उल्टे रूप में की जाती है: 1/R_total = 1/R1 + 1/R2 + … + 1/Rn। यदि दो प्रतिरोध 6 Ω और 3 Ω समानांतर में हैं, तो 1/R_total = 1/6 + 1/3 = 0.1667 + 0.3333 = 0.5, इसलिए R_total = 2 Ω होगा। यदि स्रोत emf 12 V है, तो कुल धारा I = 12 V / 2 Ω = 6 A होगी। प्रत्येक शाखा में धारा I1 = V / R1 = 12 V / 6 Ω = 2 A और I2 = 12 V / 3 Ω = 4 A होगी, जो कुल 6 A के बराबर है। इस प्रकार हम विभिन्न उपकरणों को समान वोल्टेज पर अलग‑अलग धारा प्रदान कर सकते हैं।",
+    "In a parallel circuit the total resistance is found using the reciprocal formula: 1/R_total = 1/R1 + 1/R2 + … + 1/Rn. If two resistors of 6 Ω and 3 Ω are in parallel, then 1/R_total = 1/6 + 1/3 = 0.1667 + 0.3333 = 0.5, so R_total = 2 Ω. With a source emf of 12 V the total current is I = 12 V / 2 Ω = 6 A. The branch currents are I1 = V / R1 = 12 V / 6 Ω = 2 A and I2 = 12 V / 3 Ω = 4 A, which add up to the total 6 A. This shows how we can supply the same voltage to different devices while allowing each to draw its own current."
+   ],
+   [
+    "एक बोर्ड‑प्रश्न के रूप में देखें: तीन समान प्रतिरोध 5 Ω के समानांतर जुड़े हैं और 15 V की बैटरी से जुड़े हैं। 1/R_total = 3 × (1/5) = 0.6, इसलिए R_total = 1.67 Ω (लगभग)। कुल धारा I = 15 V / 1.67 Ω ≈ 9 A होगी। प्रत्येक शाखा में धारा 15 V / 5 Ω = 3 A होगी, और तीनों का योग 9 A बनता है। यह दर्शाता है कि समान प्रतिरोधों को समानांतर में जोड़ने से कुल प्रतिरोध घट जाता है और कुल धारा बढ़ती है, जबकि प्रत्येक शाखा पर वोल्टेज समान रहता है।",
+    "Consider a board‑type question: three equal resistors of 5 Ω each are connected in parallel across a 15 V battery. 1/R_total = 3 × (1/5) = 0.6, so R_total ≈ 1.67 Ω. The total current I = 15 V / 1.67 Ω ≈ 9 A. Each branch carries I_branch = 15 V / 5 Ω = 3 A, and the sum of the three branches is 9 A. This demonstrates that adding equal resistances in parallel reduces the total resistance and increases the total current, while the voltage across each branch remains the same."
+   ]
+  ],
+  "formula": "1/R_total = 1/R1 + 1/R2 + ... + 1/Rn",
+  "example": {
+   "label": [
+    "याद रखो",
+    "Remember"
+   ],
+   "text": [
+    "घर की सॉकेट में कई उपकरण एक‑साथ जुड़े होते हैं; यदि एक पंखा बंद हो जाये, तो लाइट और टीवी अभी भी चलते हैं क्योंकि वे अलग‑अलग शाखाओं में हैं।",
+    "In a home socket many appliances are connected together; if a fan is switched off, the light and TV still work because they are on separate branches."
+   ]
+  }
+ },
+ {
+  "emoji": "🏠",
+  "heading": [
+   "व्यावहारिक अनुप्रयोग (Practical Applications)",
+   "Practical Applications"
+  ],
+  "paras": [
+   [
+    "विद्युत के सिद्धान्त हमारे रोज़मर्रा के जीवन में कई **व्यावहारिक अनुप्रयोग** (Practical Applications) रखते हैं। सबसे सामान्य उदाहरण घर की विद्युत आपूर्ति है, जहाँ **समांतर संयोजन** का उपयोग करके कई उपकरण एक ही वोल्टेज (230 V) पर चलते हैं। इसी तरह, **श्रृंखला संयोजन** का प्रयोग टॉर्च की बैटरी पैक में किया जाता है; दो या अधिक बैटरियों को क्रमशः जोड़ कर वोल्टेज बढ़ाया जाता है। स्कूल‑लैब में हम **वोल्टेज डिवाइडर** बनाते हैं, जहाँ दो या अधिक प्रतिरोध श्रृंखला में रख कर वोल्टेज को इच्छित मान पर घटाया जाता है, जैसे 12 V को 5 V और 7 V में विभाजित करना। इन सभी प्रयोगों में इकाइयों का सही प्रयोग (वोल्ट, ओह्म, एम्पीयर) आवश्यक है।",
+    "Electrical principles have many **Practical Applications** in our daily life. The most common example is household power supply, where **parallel combination** is used so that many appliances operate at the same voltage (230 V). Similarly, **series combination** is used in a torch’s battery pack; two or more batteries are connected in series to increase the voltage. In school labs we build **voltage dividers**, placing two or more resistors in series to reduce a source voltage to a desired value, such as dividing 12 V into 5 V and 7 V. Correct use of units (volts, ohms, amperes) is essential in all these applications."
+   ],
+   [
+    "एक और महत्वपूर्ण अनुप्रयोग है **सुरक्षा फ्यूज** (safety fuse)। फ्यूज को एक बहुत छोटा प्रतिरोध के रूप में समझा जा सकता है जो बहुत अधिक धारा (जैसे 10 A से अधिक) पर जल्दी गर्म होकर पिघल जाता है, जिससे सर्किट खुल जाता है और उपकरण सुरक्षित रहते हैं। फ्यूज को अक्सर श्रृंखला में रखा जाता है, क्योंकि धारा सभी घटकों से समान होकर गुजरती है, इसलिए फ्यूज पर भी वही धारा आती है। यदि धारा सीमा से अधिक हो जाये, तो फ्यूज का प्रतिरोध अचानक बहुत बड़ा हो जाता है, जिससे कुल प्रतिरोध बढ़ जाता है और धारा शून्य के निकट पहुँच जाती है।",
+    "Another important application is the **safety fuse**. A fuse can be thought of as a very small resistor that melts quickly when the current exceeds a certain limit (e.g., >10 A), opening the circuit and protecting the devices. The fuse is placed in series because the current passes through every component, including the fuse. If the current exceeds the limit, the fuse’s resistance suddenly becomes very large, causing the total resistance to rise sharply and the current to drop to near zero."
+   ],
+   [
+    "**इलेक्ट्रिक हीटर** (electric heater) का काम भी प्रतिरोध के हीटिंग प्रभाव पर आधारित है। हीटर में एक बड़ा प्रतिरोध (जैसे 20 Ω) को 220 V की सप्लाई से जोड़ा जाता है। शक्ति P = V² / R के अनुसार, P = (220)² / 20 = 2420 W होगी, जिससे बहुत गर्मी उत्पन्न होती है। इस प्रकार हम प्रतिरोध को नियंत्रित करके विभिन्न उपकरणों (जैसे टोस्टर, इरन) में आवश्यक गर्मी प्राप्त कर सकते हैं। इन सभी अनुप्रयोगों में **धारा**, **वोल्टेज**, और **प्रतिरोध** के संतुलन को समझना आवश्यक है, ताकि सुरक्षित और प्रभावी उपयोग सुनिश्चित हो सके।",
+    "The operation of an **electric heater** also relies on the heating effect of resistance. A heater contains a large resistor (e.g., 20 Ω) connected to a 220 V supply. Using the power formula P = V² / R, we get P = (220)² / 20 = 2420 W, producing a lot of heat. By selecting appropriate resistance values we can obtain the required heat for devices such as toasters and irons. Understanding the balance of **current**, **voltage**, and **resistance** in all these applications is essential for safe and efficient use."
+   ]
+  ],
+  "formula": null,
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "एक टॉर्च में दो 1.5 V की बैटरियों को श्रृंखला में जोड़ते हैं, जिससे कुल वोल्टेज 3 V बनता है और बल्ब को पर्याप्त धारा मिलती है।",
+    "In a torch, two 1.5 V batteries are connected in series, giving a total voltage of 3 V, which provides enough current to light the bulb."
+   ]
+  }
+ },
+ {
+  "emoji": "🔥",
+  "heading": [
+   "हीटिंग प्रभाव (Heating Effect)",
+   "Heating Effect"
+  ],
+  "paras": [
+   [
+    "जब धारा किसी प्रतिरोध (resistance) से गुजरती है, तो वह **हीटिंग प्रभाव** (Heating Effect) उत्पन्न करती है। इस प्रभाव को समझने के लिये हम शक्ति (power) का सूत्र प्रयोग करते हैं: **P = I² × R** जहाँ P वाट (W) में मापी जाती है, I एम्पीयर (A) में और R ओह्म (Ω) में। यह बताता है कि धारा जितनी अधिक होगी, उतनी ही अधिक गर्मी उत्पन्न होगी, विशेषकर जब प्रतिरोध बड़ा हो। उदाहरण के लिये, एक इलेक्ट्रिक किचन टोस्टर में लगभग 10 Ω का प्रतिरोध होता है और 230 V की सप्लाई से जुड़ा होता है। यहाँ धारा I = V / R = 230 V / 10 Ω = 23 A होगी, और शक्ति P = I² × R = (23)² × 10 ≈ 5290 W, जिससे बहुत तेज़ी से गर्मी बनती है। यही कारण है कि छोटे‑छोटे प्रतिरोध वाले हीटर बहुत गर्मी उत्पन्न कर सकते हैं।",
+    "When current passes through a **resistor**, it produces a **Heating Effect**. To understand this we use the power formula **P = I² × R**, where P is measured in watts (W), I in amperes (A) and R in ohms (Ω). This shows that the greater the current, the more heat is generated, especially when the resistance is large. For example, an electric kitchen toaster has about a 10 Ω resistor connected to a 230 V supply. The current is I = V / R = 230 V / 10 Ω = 23 A, and the power is P = I² × R = (23)² × 10 ≈ 5290 W, producing a lot of heat quickly. This is why small‑resistance heating elements can become very hot."
+   ],
+   [
+    "हीटिंग प्रभाव को मापने के लिये हम **जूल‑थॉर्मल इक्वेशन** का प्रयोग भी कर सकते हैं: Q = I² × R × t, जहाँ Q जूल (J) में ऊर्जा, t सेकंड (s) में समय है। यदि 5 A की धारा 2 Ω के प्रतिरोध से 10 s तक बहती है, तो उत्पन्न गर्मी Q = (5)² × 2 × 10 = 500 J होगी। यह ऊर्जा पानी को गर्म करने, धातु को पिघलाने या इलेक्ट्रॉनिक उपकरणों को काम करने में उपयोगी होती है। ध्यान रखें कि अधिक गर्मी से उपकरणों का **ओवरहीटिंग** (overheating) हो सकता है, इसलिए फैन या हीट‑सिंक (heat‑sink) का प्रयोग किया जाता है।",
+    "To quantify the heating effect we can also use the **Joule‑thermal equation**: Q = I² × R × t, where Q is energy in joules (J) and t is time in seconds (s). If a current of 5 A flows through a 2 Ω resistor for 10 s, the generated heat is Q = (5)² × 2 × 10 = 500 J. This energy can be used to heat water, melt metal, or power electronic devices. Note that excessive heat can cause **overheating** of equipment, so fans or heat‑sinks are employed to dissipate the heat."
+   ],
+   [
+    "एक बोर्ड‑प्रश्न के रूप में: एक इलेक्ट्रिक किटली में 15 Ω का हीटर 240 V पर जुड़ा है। धारा I = 240 V / 15 Ω = 16 A होगी, और शक्ति P = I² × R = (16)² × 15 = 3840 W होगी। यदि यह हीटर 5 min (300 s) चलाया जाये, तो उत्पन्न ऊर्जा Q = P × t = 3840 W × 300 s = 1.152 × 10⁶ J होगी, जो लगभग 0.32 kWh के बराबर है। यह दिखाता है कि हीटर की शक्ति और चलने का समय सीधे ऊर्जा उत्पादन को निर्धारित करता है, और हमें ऊर्जा बचत के लिये समय को नियंत्रित करना चाहिए।",
+    "Consider a board‑type question: an electric kettle has a 15 Ω heating element connected to 240 V. The current is I = 240 V / 15 Ω = 16 A, and the power is P = I² × R = (16)² × 15 = 3840 W. If the heater runs for 5 min (300 s), the energy produced is Q = P × t = 3840 W × 300 s = 1.152 × 10⁶ J, which is about 0.32 kWh. This shows that the heater’s power and operating time directly determine the energy consumption, and we should control the time to save energy."
+   ]
+  ],
+  "formula": "P = I² × R",
+  "example": {
+   "label": [
+    "याद रखो",
+    "Remember"
+   ],
+   "text": [
+    "एक इलेक्ट्रिक राइस कुकर में 12 Ω का हीटर 230 V पर जुड़ा है; धारा 19.2 A, शक्ति 4.5 kW, जिससे चावल जल्दी पकते हैं।",
+    "In an electric rice cooker a 12 Ω heater is connected to 230 V; current = 19.2 A, power = 4.5 kW, which cooks rice quickly."
+   ]
+  }
+ },
+ {
+  "emoji": "🛡️",
+  "heading": [
+   "सुरक्षा उपकरण (Safety Devices)",
+   "Safety Devices"
+  ],
+  "paras": [
+   [
+    "बच्चों, जब हम घर या स्कूल में विद्युत् (electricity) के उपकरणों का उपयोग करते हैं, तो **सुरक्षा उपकरण** हमारे जीवन को बचाने में बहुत महत्वपूर्ण भूमिका निभाते हैं। इन उपकरणों में मुख्य रूप से फ्यूज़ (fuse), सर्किट ब्रेकर (circuit breaker), अर्थिंग (earthing) और रेजिडुअल करंट डिवाइस (RCD) शामिल हैं। फ्यूज़ एक पतली धातु की तार होती है जो बहुत अधिक धारा (current) बहने पर पिघल कर सर्किट को तोड़ देती है, जिससे आग या शॉक का खतरा कम हो जाता है। सर्किट ब्रेकर एक स्विच की तरह काम करता है; जब धारा की मात्रा निर्धारित सीमा से अधिक हो जाती है, तो यह स्वतः खुल जाता है और सर्किट को बंद कर देता है। अर्थिंग का काम है किसी भी लीक हुई धारा को सीधे जमीन में भेजना, जिससे शरीर के माध्यम से धारा नहीं गुजरती। RCD विशेष रूप से घर में जलते हुए पानी के निकट उपयोग होने वाले उपकरणों के लिए आवश्यक है; यह छोटे-छोटे लीकेज को भी पहचान कर तुरंत सर्किट को काट देता है। इन सभी उपकरणों को सही जगह पर लगाना और समय‑समय पर जांचना हमारे दैनिक जीवन को सुरक्षित बनाता है।",
+    "Children, whenever we use electrical appliances at home or school, **safety devices** play a crucial role in protecting our lives. The main devices include fuse, circuit breaker, earthing and residual current device (RCD). A fuse is a thin metal wire that melts when excessive current flows, thereby breaking the circuit and reducing the risk of fire or shock. A circuit breaker works like a switch; when the current exceeds a set limit, it automatically opens and disconnects the circuit. Earthing directs any stray current straight to the ground, preventing it from passing through the body. An RCD is especially important for appliances used near water; it detects even tiny leakages and instantly cuts off the circuit. Installing these devices at the right places and checking them periodically keeps our daily life safe."
+   ],
+   [
+    "अब हम इन उपकरणों के काम करने के तरीके को सरल शब्दों में समझते हैं। **फ्यूज़** में एक पतली धातु की पट्टी होती है जो निर्धारित धारा (जैसे 5 A) से अधिक हो जाने पर गर्म होकर पिघल जाती है। इस पिघलने की प्रक्रिया में सर्किट खुल जाता है, इसलिए कोई भी उपकरण जल नहीं सकता। **सर्किट ब्रेकर** में दो मुख्य भाग होते हैं – मैग्नेटिक ट्रिप और थर्मल ट्रिप। मैग्नेटिक ट्रिप अचानक बढ़ती धारा (short‑circuit) को पहचानता है, जबकि थर्मल ट्रिप धीरे‑धीरे बढ़ती धारा (over‑load) को महसूस करता है और बायोमैकेनिकल बेंडिंग के कारण स्विच को खोल देता है। **अर्थिंग** के लिए एक धातु की छड़ (ground rod) जमीन में गहरी खोदी जाती है और सभी धातु के हिस्सों को इस छड़ से जोड़ा जाता है। यदि कोई लीकेज होता है, तो धारा सीधे जमीन में बह जाती है, जिससे शरीर में धारा नहीं प्रवेश करती। **RCD** में एक कोरिलेटर (core) होता है जो दो तारों (live और neutral) के बीच छोटे अंतर को भी महसूस कर लेता है और तुरंत सर्किट को बंद कर देता है। इन सभी प्रक्रियाओं में समय बहुत कम होता है, इसलिए हम अक्सर इनको ‘instant protection’ कहते हैं।",
+    "Now let’s understand how these devices work in simple terms. A **fuse** contains a thin metal strip that melts when the current exceeds a set value (for example, 5 A). This melting opens the circuit, preventing any appliance from catching fire. A **circuit breaker** has two main parts – magnetic trip and thermal trip. The magnetic trip detects sudden high current (short‑circuit), while the thermal trip senses a gradual increase (over‑load) and opens the switch by bending a bimetallic strip. For **earthing**, a metal rod is driven deep into the ground and all metal parts of the installation are connected to this rod. If a leakage occurs, the current flows directly to the earth, so it does not pass through the body. An **RCD** contains a core that senses even tiny differences between the live and neutral wires and instantly disconnects the circuit. All these actions happen in a fraction of a second, which is why we call them ‘instant protection’."
+   ],
+   [
+    "इन सुरक्षा उपकरणों की **देख‑रेख** भी उतनी ही महत्वपूर्ण है जितनी उनका प्रयोग। फ्यूज़ को कभी‑कभी बदलना पड़ता है, विशेषकर जब वह बार‑बार पिघल जाता है; यह संकेत देता है कि सर्किट में लगातार अधिक धारा बह रही है और हमें लोड को कम करना चाहिए। सर्किट ब्रेकर को हर छह महीने में एक बार ‘टेस्ट बटन’ दबाकर जांचना चाहिए; यदि वह सही से ट्रिप नहीं करता, तो उसे बदलना आवश्यक है। अर्थिंग की जाँच के लिए मल्टीमीटर से जमीन प्रतिरोध (ground resistance) को 10 Ω से कम होना चाहिए; यदि अधिक हो तो ग्राउंड रॉड को गहरा या नया करना पड़ेगा। RCD को साल में एक बार ‘टेस्ट बटन’ से परीक्षण करना चाहिए; यदि बटन दबाने पर सर्किट नहीं बंद होता, तो वह ख़राब हो चुका है। इन छोटे‑छोटे रख‑रखाव कार्यों से हम बड़े‑बड़े दुर्घटनाओं से बच सकते हैं और अपने घर को सुरक्षित बना सकते हैं।",
+    "Maintenance of these safety devices is as important as using them. A fuse may need replacement if it melts repeatedly; this indicates that the circuit is constantly drawing excess current and the load should be reduced. A circuit breaker should be tested every six months by pressing its ‘test button’; if it does not trip, it must be replaced. For earthing, a multimeter should show a ground resistance of less than 10 Ω; if it is higher, the ground rod needs to be driven deeper or replaced. An RCD should be tested once a year using its ‘test button’; if the circuit does not open, the device is faulty. These simple maintenance tasks prevent major accidents and keep our homes safe."
+   ]
+  ],
+  "formula": null,
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "यदि आपके घर में एक पंखा 0.5 A की धारा लेता है और अचानक कोई बड़ी लोड (जैसे एसी) जोड़ दी जाती है जिससे धारा 12 A हो जाती है, तो फ्यूज़ पिघल जाएगा और सर्किट ब्रेकर ट्रिप कर देगा, जिससे पंखा और एसी दोनों सुरक्षित रहेंगे।",
+    "If a fan in your house draws 0.5 A and suddenly a heavy load like an air‑conditioner is added, raising the current to 12 A, the fuse will melt and the circuit breaker will trip, keeping both the fan and the AC safe."
+   ]
+  }
+ },
+ {
+  "emoji": "⚡️",
+  "heading": [
+   "विद्युत शक्ति (Electric Power)",
+   "Electric Power"
+  ],
+  "paras": [
+   [
+    "विद्युत शक्ति वह दर है जिस पर विद्युत ऊर्जा (electric energy) का उपयोग या उत्पादन होता है। इसे हम **शक्ति** (power) कहते हैं और इसका इकाई वाट (W) है। शक्ति की गणना करने का सबसे सरल सूत्र है **P = V × I**, जहाँ P शक्ति (Watt), V वोल्टेज (Volt) और I धारा (Ampere) है। उदाहरण के लिये, यदि एक बल्ब 230 V की सप्लाई पर 0.5 A की धारा लेता है, तो उसकी शक्ति P = 230 × 0.5 = 115 W होगी। यह वही शक्ति है जो बल्ब को प्रकाश उत्पन्न करने के लिये चाहिए। शक्ति का प्रयोग करके हम विभिन्न उपकरणों की ऊर्जा खपत को आसानी से तुलना कर सकते हैं, जैसे कि 60 W का बल्ब 100 W के बल्ब से कम बिजली खर्च करता है। इस प्रकार शक्ति हमें यह समझने में मदद करती है कि कौन‑सा उपकरण अधिक ऊर्जा ले रहा है और हमें किसे बदलना चाहिए।",
+    "Electric power is the rate at which electrical energy is used or produced. We call it **power** and its unit is the watt (W). The simplest formula to calculate power is **P = V × I**, where P is power (W), V is voltage (V) and I is current (A). For example, if a bulb is connected to a 230 V supply and draws 0.5 A, its power is P = 230 × 0.5 = 115 W. This is the power needed by the bulb to emit light. By using power, we can easily compare the energy consumption of different appliances, such as a 60 W bulb consuming less electricity than a 100 W bulb. Thus power helps us understand which device uses more energy and which one we should replace."
+   ],
+   [
+    "शक्ति की समझ हमें **ऊर्जा (energy)** की गणना करने में भी मदद करती है। ऊर्जा का इकाई किलowatt‑घंटा (kWh) है, जो शक्ति (kW) को समय (hour) से गुणा करके प्राप्त होता है, अर्थात् **E = P × t**। यदि एक 1 kW का हीटर दो घंटे चलाया जाता है, तो उसकी ऊर्जा खपत E = 1 × 2 = 2 kWh होगी। यह वही मात्रा है जो बिजली बिल में दिखती है। घर में कई उपकरण एक साथ चलते हैं, इसलिए कुल शक्ति का योग निकाल कर और उसे उपयोग के समय से गुणा कर हम कुल ऊर्जा का अनुमान लगा सकते हैं। उदाहरण के लिये, यदि एक रसोई में 2 kW का गैस स्टोव, 0.8 kW का माइक्रोवेव और 0.1 kW का टॉस्टर एक साथ चल रहे हैं, तो कुल शक्ति 2 + 0.8 + 0.1 = 2.9 kW होगी। यदि यह संयोजन एक घंटे तक चलता है, तो ऊर्जा खपत 2.9 kWh होगी, जो बिल में दिखेगा।",
+    "Understanding power also helps us calculate **energy**. The unit of energy is kilowatt‑hour (kWh), obtained by multiplying power (kW) by time (hour), i.e., **E = P × t**. If a 1 kW heater runs for two hours, its energy consumption is E = 1 × 2 = 2 kWh. This is the amount shown on the electricity bill. In a home, many appliances run together, so by adding their powers and multiplying by the usage time, we can estimate total energy consumption. For example, if a kitchen has a 2 kW gas stove, a 0.8 kW microwave and a 0.1 kW toaster running simultaneously, the total power is 2 + 0.8 + 0.1 = 2.9 kW. If this combination runs for one hour, the energy used is 2.9 kWh, which will appear on the bill."
+   ],
+   [
+    "विद्युत शक्ति का सही उपयोग करने के लिये हमें **शक्ति रेटिंग (power rating)** को देखना चाहिए। प्रत्येक उपकरण पर उसकी अधिकतम शक्ति लिखी होती है, जैसे कि एक इलेक्ट्रिक केतली पर 1500 W लिखा हो सकता है। इसका मतलब है कि केतली को अधिकतम 1500 W शक्ति की आवश्यकता होगी, और इसे उसी से अधिक शक्ति वाले सॉकेट में नहीं लगाना चाहिए, नहीं तो सॉकेट गर्म हो कर जल सकता है। साथ ही, जब हम कई उपकरण एक ही सॉकेट में लगाते हैं, तो कुल शक्ति को नहीं भूलना चाहिए; यदि कुल शक्ति सॉकेट की क्षमता से अधिक हो जाती है, तो सर्किट ब्रेकर ट्रिप कर देगा। इसलिए, शक्ति को समझना न केवल बिल बचाने में मदद करता है, बल्कि विद्युत दुर्घटनाओं से बचाव में भी महत्वपूर्ण है।",
+    "To use electric power correctly, we must check the **power rating** of each appliance. Every device has its maximum power printed, for example, a kettle may show 1500 W. This means the kettle requires up to 1500 W and should not be plugged into a socket rated for lower power, otherwise the socket may overheat and catch fire. Also, when we connect multiple appliances to the same socket, we must not exceed the socket’s capacity; if the total power exceeds it, the circuit breaker will trip. Hence, understanding power not only helps save on bills but also plays a vital role in preventing electrical accidents."
+   ]
+  ],
+  "formula": "P = V × I (W)",
+  "example": {
+   "label": [
+    "याद रखो",
+    "Remember"
+   ],
+   "text": [
+    "एक 60 W का बल्ब 5 घंटे चलाने पर ऊर्जा खपत = 60 W × 5 h = 300 Wh = 0.3 kWh होगी। यह वही मात्रा है जो आपके बिजली बिल में दिखेगी।",
+    "A 60 W bulb running for 5 hours consumes energy = 60 W × 5 h = 300 Wh = 0.3 kWh. This is the amount that will appear on your electricity bill."
+   ]
+  }
+ },
+ {
+  "emoji": "💡",
+  "heading": [
+   "ऊर्जा खपत और बचत (Energy Consumption & Saving)",
+   "Energy Consumption & Saving"
+  ],
+  "paras": [
+   [
+    "ऊर्जा खपत वह मात्रा है जितनी विद्युत् ऊर्जा (electric energy) हम किसी उपकरण को उपयोग करते समय लेते हैं। इसे हम **ऊर्जा (energy)** कहते हैं और इसका मान किलowatt‑घंटा (kWh) में मापा जाता है। ऊर्जा की गणना का मूल सूत्र है **E = P × t**, जहाँ E ऊर्जा (kWh), P शक्ति (kW) और t समय (hour) है। उदाहरण के लिये, यदि एक 100 W का पंखा एक घंटे चलाया जाता है, तो उसकी ऊर्जा खपत E = 0.1 kW × 1 h = 0.1 kWh होगी। यदि वही पंखा दिन में 8 घंटे चलता है, तो कुल ऊर्जा 0.1 × 8 = 0.8 kWh होगी। इस तरह हम प्रत्येक उपकरण की दैनिक, मासिक या वार्षिक ऊर्जा खपत निकाल सकते हैं और बिल में दिखने वाले कुल kWh से तुलना कर सकते हैं। यह समझ हमें यह पहचानने में मदद करती है कि कौन‑से उपकरण अधिक ऊर्जा ले रहे हैं और कहाँ बचत की जा सकती है।",
+    "Energy consumption is the amount of electrical energy we use while operating a device. We call it **energy** and measure it in kilowatt‑hours (kWh). The basic formula for calculating energy is **E = P × t**, where E is energy (kWh), P is power (kW) and t is time (hour). For example, if a 100 W fan runs for one hour, its energy consumption is E = 0.1 kW × 1 h = 0.1 kWh. If the same fan runs for 8 hours a day, the total energy becomes 0.1 × 8 = 0.8 kWh. This way we can compute daily, monthly or yearly consumption for each appliance and compare it with the total kWh shown on the bill. Understanding this helps us identify which devices consume more energy and where savings are possible."
+   ],
+   [
+    "ऊर्जा बचत के लिये हमें **शक्ति दक्षता (power efficiency)** को बढ़ाना चाहिए। एक ही प्रकाश मात्रा के लिये, **LED बल्ब** (≈ 10 W) इंकैंडेसेंट बल्ब (≈ 60 W) से सात गुना कम शक्ति लेता है। यदि एक घर में 10 वॉट का LED बल्ब और 60 वॉट का इंकैंडेसेंट बल्ब दोनों एक घंटे चलाए जाएँ, तो LED की ऊर्जा खपत 0.01 kWh होगी जबकि इंकैंडेसेंट की 0.06 kWh। साल भर में यह अंतर 0.05 kWh × 365 ≈ 18 kWh बन जाता है, जो लगभग 1500 ₹ की बचत हो सकती है। इसी तरह, **प्लग‑इन सॉकेट** में स्टैंड‑बाय मोड में रहने वाले चार्जर को अनप्लग कर देना, एसी को **इन्वर्टर** के बजाय **डायरेक्ट‑ड्राइव** (direct‑drive) मोटर वाले एसी से बदलना, और **ऊर्जा‑सहेजने वाले मोड** वाले उपकरणों का उपयोग करना ऊर्जा बचत के प्रभावी उपाय हैं। छोटे‑छोटे बदलावों से कुल ऊर्जा खपत में काफी कमी लाई जा सकती है।",
+    "To save energy we should improve **power efficiency**. For the same amount of light, an **LED bulb** (≈ 10 W) uses seven times less power than an incandescent bulb (≈ 60 W). If a 10 W LED and a 60 W incandescent are each run for one hour, the LED consumes 0.01 kWh while the incandescent uses 0.06 kWh. Over a year this difference becomes 0.05 kWh × 365 ≈ 18 kWh, which can translate to roughly ₹1500 savings. Similarly, unplugging chargers that stay in **stand‑by mode**, replacing an AC with an **inverter‑type** (direct‑drive) AC instead of a conventional one, and using devices with **energy‑saving modes** are effective ways to cut consumption. Small changes can lead to a significant reduction in total energy use."
+   ],
+   [
+    "ऊर्जा बचत के लिये **समय‑सारिणी (time‑of‑use)** का भी ध्यान रखना चाहिए। कई विद्युत कंपनियां पीक (peak) और ऑफ‑पीक (off‑peak) समय के अनुसार अलग‑अलग दरें लगाती हैं। पीक समय में (जैसे शाम 5 से 9 वेज) बिजली की दर अधिक होती है, इसलिए इस दौरान बड़े‑बड़े उपकरण जैसे एसी, वॉशिंग मशीन या हीटर चलाने से बिल बढ़ जाता है। यदि संभव हो तो इन उपकरणों को ऑफ‑पीक समय (रात 10 वेज से सुबह 6 वेज) में चलाएँ। इस तरह आप समान ऊर्जा उपयोग के लिये कम दर पर भुगतान करेंगे। साथ ही, **स्मार्ट मीटर** या **ऊर्जा मॉनिटर** का उपयोग करके आप वास्तविक उपयोग को रीयल‑टाइम में देख सकते हैं और अनावश्यक उपयोग को तुरंत बंद कर सकते हैं। इस प्रकार की जागरूकता और योजना से ऊर्जा बचत और आर्थिक लाभ दोनों मिलते हैं।",
+    "To save energy, we should also consider **time‑of‑use** rates. Many electricity providers charge different tariffs for peak and off‑peak periods. During peak hours (e.g., 5 pm to 9 pm) the rate is higher, so running large appliances like ACs, washing machines or heaters then raises the bill. If possible, operate these appliances during off‑peak hours (10 pm to 6 am). This way you pay a lower rate for the same amount of energy. Additionally, using a **smart meter** or **energy monitor** lets you see real‑time consumption and instantly switch off unnecessary loads. Such awareness and planning provide both energy savings and financial benefits."
+   ]
+  ],
+  "formula": "E = P × t (kWh)",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "यदि एक घर में 5 kW की कुल शक्ति वाले उपकरण 3 घंटे चलते हैं, तो ऊर्जा खपत = 5 kW × 3 h = 15 kWh होगी। इसे अगर ऑफ‑पीक दर पर चलाया जाए तो बिल कम आएगा।",
+    "If a house runs appliances with a total power of 5 kW for 3 hours, the energy consumption = 5 kW × 3 h = 15 kWh. Running them during off‑peak rates will lower the bill."
+   ]
+  }
+ }
+]
