@@ -1,0 +1,314 @@
+{
+ "titles": [
+  "11. विद्युत (Electricity)",
+  "11. Electricity"
+ ],
+ "short": [
+  "छोटा परिचय: विद्युत के मूल सिद्धांत और उनके दैनिक उपयोग",
+  "Short overview: basic principles of electricity and their everyday applications"
+ ],
+ "intro": {
+  "paras": [
+   [
+    "विद्युत हमारे रोज़मर्रा के जीवन का अनिवार्य हिस्सा है। यह ऊर्जा के रूप में विभिन्न उपकरणों को चलाने में मदद करती है।",
+    "Electricity is an essential part of our daily life. It helps power various devices by providing energy."
+   ],
+   [
+    "इस अध्याय में हम विद्युत धारा, प्रतिरोध, ओम का नियम, संयोजन, हीटिंग प्रभाव और शक्ति के बारे में सीखेंगे, जिससे हम घर में सुरक्षित और प्रभावी उपयोग कर सकेंगे।",
+    "In this chapter we will learn about electric current, resistance, Ohm’s law, combinations, heating effect and power, enabling safe and efficient use at home."
+   ]
+  ],
+  "kv": [
+   [
+    [
+     "धारा (Current)",
+     "Current (धारा)"
+    ],
+    [
+     "परिणाम (Potential difference)",
+     "Potential difference (परिणाम)"
+    ]
+   ],
+   [
+    [
+     "ओम का नियम (Ohm’s law)",
+     "Ohm’s law (ओम का नियम)"
+    ],
+    [
+     "शक्ति (Power)",
+     "Power (शक्ति)"
+    ]
+   ]
+  ]
+ },
+ "concepts": [
+  {
+   "key": "c1",
+   "emoji": "⚡",
+   "title": [
+    "धारा (Current)",
+    "Current"
+   ],
+   "scope_ids": [
+    "current_pd"
+   ],
+   "diagram": true,
+   "points": "परिभाषा, इकाई (ऐम्पीयर), धारा की दिशा (परमाणु के प्रवाह), सरल सर्किट में धारा मापना"
+  },
+  {
+   "key": "c2",
+   "emoji": "🔋",
+   "title": [
+    "वोल्टेज (Potential Difference)",
+    "Potential Difference"
+   ],
+   "scope_ids": [
+    "current_pd"
+   ],
+   "diagram": true,
+   "points": "परिभाषा, इकाई (वोल्ट), वोल्टेज मापने के लिये वोल्टमीटर का प्रयोग, EMF की अवधारणा"
+  },
+  {
+   "key": "c3",
+   "emoji": "📈",
+   "title": [
+    "ओम का नियम (Ohm’s Law)",
+    "Ohm’s Law"
+   ],
+   "scope_ids": [
+    "ohm"
+   ],
+   "diagram": true,
+   "points": "V = I × R, रैखिक V‑I ग्राफ, स्थिर प्रतिरोध की शर्त, प्रयोगात्मक सत्यापन"
+  },
+  {
+   "key": "c4",
+   "emoji": "🧮",
+   "title": [
+    "प्रतिरोध (Resistance)",
+    "Resistance"
+   ],
+   "scope_ids": [
+    "resistance"
+   ],
+   "diagram": false,
+   "points": "परिभाषा, इकाई (ओह्म), R = V/I, प्रतिरोध का मापन, ओम मीटर का उपयोग"
+  },
+  {
+   "key": "c5",
+   "emoji": "📐",
+   "title": [
+    "प्रतिरोधता और कारक (Resistivity & Factors)",
+    "Resistivity & Factors"
+   ],
+   "scope_ids": [
+    "resistance"
+   ],
+   "diagram": true,
+   "points": "R = ρL/A, सामग्री की प्रतिरोधता (ρ), लंबाई, क्रॉस‑सेक्शनल एरिया, तापमान प्रभाव"
+  },
+  {
+   "key": "c6",
+   "emoji": "🔗",
+   "title": [
+    "श्रृंखला संयोजन (Series Combination)",
+    "Series Combination"
+   ],
+   "scope_ids": [
+    "combos"
+   ],
+   "diagram": true,
+   "points": "R_eq = R1 + R2 + …, समान धारा, वोल्टेज विभाजन, घरेलू लाइटिंग में उपयोग"
+  },
+  {
+   "key": "c7",
+   "emoji": "⚙️",
+   "title": [
+    "समांतर संयोजन (Parallel Combination)",
+    "Parallel Combination"
+   ],
+   "scope_ids": [
+    "combos"
+   ],
+   "diagram": true,
+   "points": "1/R_eq = 1/R1 + 1/R2 + …, समान वोल्टेज, धारा विभाजन, सॉकेट वायरिंग"
+  },
+  {
+   "key": "c8",
+   "emoji": "🏠",
+   "title": [
+    "व्यावहारिक अनुप्रयोग (Practical Applications)",
+    "Practical Applications"
+   ],
+   "scope_ids": [
+    "combos"
+   ],
+   "diagram": false,
+   "points": "घर की वायरिंग, सर्किट ब्रेकर, फ्यूज़, लाइटिंग और पावर सॉकेट की व्यवस्था"
+  },
+  {
+   "key": "c9",
+   "emoji": "🔥",
+   "title": [
+    "हीटिंग प्रभाव (Heating Effect)",
+    "Heating Effect"
+   ],
+   "scope_ids": [
+    "heating"
+   ],
+   "diagram": true,
+   "points": "जूल का नियम Q = I²Rt, समय का प्रभाव, हीटर, टॉस्टर, फ्यूज़ का कार्य सिद्धांत"
+  },
+  {
+   "key": "c10",
+   "emoji": "🛡️",
+   "title": [
+    "सुरक्षा उपकरण (Safety Devices)",
+    "Safety Devices"
+   ],
+   "scope_ids": [
+    "heating"
+   ],
+   "diagram": false,
+   "points": "फ्यूज़, सर्किट ब्रेकर, थर्मल कट‑ऑफ़, ओवरलोड सुरक्षा"
+  },
+  {
+   "key": "c11",
+   "emoji": "⚡️",
+   "title": [
+    "विद्युत शक्ति (Electric Power)",
+    "Electric Power"
+   ],
+   "scope_ids": [
+    "power"
+   ],
+   "diagram": true,
+   "points": "परिभाषा, इकाई (वॉट), P = VI, P = I²R, P = V²/R, शक्ति मापन"
+  },
+  {
+   "key": "c12",
+   "emoji": "💡",
+   "title": [
+    "ऊर्जा खपत (Energy Consumption)",
+    "Energy Consumption"
+   ],
+   "scope_ids": [
+    "power"
+   ],
+   "diagram": false,
+   "points": "E = P × t, इकाई (kWh), बिल की गणना, ऊर्जा बचत के उपाय"
+  }
+ ],
+ "teach": [
+  {
+   "heading": [
+    "🔌 विद्युत की यात्रा (Journey of Electricity)",
+    "🔌 Journey of Electricity"
+   ],
+   "emoji": "🔌",
+   "concept_keys": []
+  },
+  {
+   "heading": [
+    "धारा और वोल्टेज की मूल बातें (Basics of Current & Potential Difference)",
+    "Basics of Current & Potential Difference"
+   ],
+   "emoji": "⚡",
+   "concept_keys": [
+    "c1",
+    "c2"
+   ]
+  },
+  {
+   "heading": [
+    "ओम का नियम (Ohm’s Law)",
+    "Ohm’s Law"
+   ],
+   "emoji": "📈",
+   "concept_keys": [
+    "c3"
+   ]
+  },
+  {
+   "heading": [
+    "प्रतिरोध और प्रतिरोधता (Resistance & Resistivity)",
+    "Resistance & Resistivity"
+   ],
+   "emoji": "🧮",
+   "concept_keys": [
+    "c4",
+    "c5"
+   ]
+  },
+  {
+   "heading": [
+    "श्रृंखला संयोजन (Series Combination)",
+    "Series Combination"
+   ],
+   "emoji": "🔗",
+   "concept_keys": [
+    "c6"
+   ]
+  },
+  {
+   "heading": [
+    "समांतर संयोजन (Parallel Combination)",
+    "Parallel Combination"
+   ],
+   "emoji": "⚙️",
+   "concept_keys": [
+    "c7"
+   ]
+  },
+  {
+   "heading": [
+    "व्यावहारिक अनुप्रयोग (Practical Applications)",
+    "Practical Applications"
+   ],
+   "emoji": "🏠",
+   "concept_keys": [
+    "c8"
+   ]
+  },
+  {
+   "heading": [
+    "हीटिंग प्रभाव (Heating Effect)",
+    "Heating Effect"
+   ],
+   "emoji": "🔥",
+   "concept_keys": [
+    "c9"
+   ]
+  },
+  {
+   "heading": [
+    "सुरक्षा उपकरण (Safety Devices)",
+    "Safety Devices"
+   ],
+   "emoji": "🛡️",
+   "concept_keys": [
+    "c10"
+   ]
+  },
+  {
+   "heading": [
+    "विद्युत शक्ति (Electric Power)",
+    "Electric Power"
+   ],
+   "emoji": "⚡️",
+   "concept_keys": [
+    "c11"
+   ]
+  },
+  {
+   "heading": [
+    "ऊर्जा खपत और बचत (Energy Consumption & Saving)",
+    "Energy Consumption & Saving"
+   ],
+   "emoji": "💡",
+   "concept_keys": [
+    "c12"
+   ]
+  }
+ ]
+}
