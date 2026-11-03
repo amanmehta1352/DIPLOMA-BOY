@@ -1,0 +1,71 @@
+{
+ "job_id": "40017df815d1bc23",
+ "robot": "robot.v1",
+ "command": "Class 10, CBSE 2026-27, Science, Electricity",
+ "created_at": "2026-11-03T14:49:17+00:00",
+ "stages": {
+  "resolve": {
+   "status": "done",
+   "attempts": 0
+  },
+  "reference": {
+   "status": "running",
+   "attempts": 0
+  }
+ },
+ "attribution": [],
+ "issues": [
+  {
+   "at": "2026-11-03T14:49:18+00:00",
+   "kind": "provider_unavailable",
+   "provider": "groq",
+   "reason": "permanent",
+   "detail": "groq: permanent (groq/compound HTTP 403)"
+  }
+ ],
+ "final_state": "blocked",
+ "runs": 1,
+ "provider_calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.17,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T14:49:18+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T14:49:18+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T14:49:18+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "groq/compound",
+   "http": 403,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.02,
+   "error": "error code: 1010\n",
+   "at": "2026-11-03T14:49:18+00:00"
+  }
+ ],
+ "finished_at": "2026-11-03T14:49:18+00:00"
+}

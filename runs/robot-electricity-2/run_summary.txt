@@ -1,0 +1,2 @@
+{"final_state": "blocked", "job": "40017df815d1bc23", "dir": "out/40017df815d1bc23", "reused": false}
+job exited non-zero
