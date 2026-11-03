@@ -1,0 +1,80 @@
+# One-time, bounded real run of the chapter job for Class 10 Science ch 11 Electricity.
+# Writes nothing to main, DB, Supabase or Pages. Results land only under runs/electricity-3/ on this branch.
+name: chapter-job-electricity-run-3 (one time, Gemini writer, new job)
+
+on:
+  push:
+    branches: [chapter-job-electricity-run-3]
+
+permissions: {}            # nothing by default; each job asks for the minimum
+
+concurrency:
+  group: chapter-job-electricity-run-3
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    # Guard 1: only the push that CREATES the branch. Guard 2: that commit carries the run token.
+    if: github.event.created == true && contains(github.event.head_commit.message, '[electricity-real-run-3-once]')
+    runs-on: ubuntu-latest          # standard runner (larger runners are billed even on public repos)
+    timeout-minutes: 40
+    permissions:
+      contents: read                # this job holds the AI keys and cannot write to the repo
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - name: Guard 3 - stop if a result already exists
+        run: |
+          if [ -e runs/electricity-3 ]; then echo "result already present; refusing a second AI run"; exit 1; fi
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Run Electricity (max 3 write attempts, no --retry)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_MODEL: nvidia/nemotron-3-ultra-550b-a55b:free
+          FREE_TIER_CONFIRMED: gemini     # owner confirmed Gemini free plan; Groq NOT confirmed -> disabled
+          ROUTE_DIR: robots/route
+          COPYRIGHT_FINGERPRINTS: robots/copyright/fingerprints
+          CHAPTER_JOBS_DIR: out
+          PROVIDER_TIME_BUDGET_S: '1200'
+          PROVIDER_MAX_CALLS: '40'
+          WRITER_PROVIDER: gemini
+          GEMINI_WRITER_MODEL: gemini-3.5-flash
+          JOB_CYCLE: run3-gemini-writer
+        run: |
+          mkdir -p out
+          python3 chapter_job/job.py "Class 10, CBSE 2026-27, Science, Electricity" > out/run_summary.txt 2>&1 || echo "job exited non-zero" >> out/run_summary.txt
+      - name: Refuse to publish if any secret value is in the output
+        env:
+          S1: ${{ secrets.OPENROUTER_API_KEY }}
+          S2: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, sys
+          vals = [os.environ[k] for k in ('S1', 'S2') if len(os.environ.get(k, '')) >= 8]
+          bad = [str(p) for p in pathlib.Path('out').rglob('*') if p.is_file() and any(v in p.read_text(errors='ignore') for v in vals)]
+          if bad: print('secret found in', len(bad), 'file(s); not publishing'); sys.exit(1)
+          print('no secret values in output')
+          PY
+      - uses: actions/upload-artifact@v4
+        with: { name: electricity-result, path: out/, retention-days: 1 }
+
+  publish:
+    needs: generate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write               # repo-wide token; the destination is limited by the script below, not by the token
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: chapter-job-electricity-run-3 }
+      - uses: actions/download-artifact@v4
+        with: { name: electricity-result, path: runs/electricity-3 }
+      - name: Commit result to this branch only, under runs/electricity-3/
+        run: |
+          git add runs/electricity-3
+          if git diff --cached --name-only | grep -v '^runs/electricity-3/'; then echo "unexpected path; abort"; exit 1; fi
+          git config user.name "chapter-job-run"; git config user.email "chapter-job-run@users.noreply.github.com"
+          git commit -m "Electricity real-run 3 result [skip ci]"
+          git push origin HEAD:refs/heads/chapter-job-electricity-run-3    # explicit ref, no force
