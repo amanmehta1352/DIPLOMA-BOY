@@ -1,0 +1,735 @@
+{
+ "p": {
+  "level_id": "class_9_10",
+  "chapter_id": 880,
+  "status": "draft",
+  "data": {
+   "id": "DB|class_9_10|880",
+   "notes": [
+    {
+     "title": "Electric current (धारा)",
+     "points": [
+      "धारा वह प्रवाह है जो चार्ज (charge) को इकाई समय में एक बिंदु से दूसरे बिंदु तक ले जाता है।",
+      "परम्परागत दिशा में धारा सकारात्मक (+) से नकारात्मक (‑) की ओर मान ली जाती है।",
+      "धारा की इकाई एम्पीयर (A) है; 1 A = 1 C/s (कूलॉम्ब प्रति सेकंड)।"
+     ]
+    },
+    {
+     "title": "Potential difference (वोल्टेज)",
+     "points": [
+      "वोल्टेज दो बिंदुओं के बीच वह कार्य है जो एक इकाई चार्ज को एक बिंदु से दूसरे बिंदु तक ले जाने में किया जाता है।",
+      "इसे वोल्ट (V) में मापा जाता है; 1 V = 1 J/C (जूल प्रति कूलॉम्ब)।",
+      "वोल्टेज स्रोत (जैसे बैटरी) धारा को प्रवाहित करने के लिये प्रेरित करता है।"
+     ]
+    },
+    {
+     "title": "Ohm's law (ओम का नियम)",
+     "points": [
+      "स्थिर तापमान पर धारा (I), वोल्टेज (V) और प्रतिरोध (R) के बीच सीधा अनुपात होता है: V = I × R।",
+      "यदि R स्थिर रहे तो I और V के ग्राफ़ एक सीधी रेखा होते हैं।",
+      "ओम का नियम केवल उन पदार्थों पर लागू होता है जिनका प्रतिरोध तापमान के साथ नहीं बदलता (ओमिक पदार्थ)।"
+     ]
+    },
+    {
+     "title": "Resistance and resistivity (प्रतिरोध और प्रतिरोधकता)",
+     "points": [
+      "प्रतिरोध (R) वह माप है कि कोई पदार्थ धारा के प्रवाह को कितना रोकता है; इकाई ओह्म (Ω)।",
+      "प्रतिरोधकता (ρ) पदार्थ की अंतर्निहित गुणधर्म है; इकाई Ω·m।",
+      "R = ρ × L / A, जहाँ L = लंबाई (m), A = क्रॉस‑सेक्शनल एरिया (m²)।"
+     ]
+    },
+    {
+     "title": "Factors affecting resistance (प्रतिरोध को प्रभावित करने वाले कारक)",
+     "points": [
+      "सामग्री: अलग‑अलग पदार्थों की ρ अलग‑अलग होती है (जैसे तांबा < लोहा)।",
+      "लंबाई (L): प्रतिरोध लंबाई के सीधे अनुपात में बढ़ता है।",
+      "क्षेत्रफल (A): प्रतिरोध क्षेत्रफल के व्युत्क्रमानुपाती घटता है।",
+      "तापमान (T): अधिकांश धातुओं में तापमान बढ़ने पर ρ बढ़ता है, इसलिए R भी बढ़ता है।"
+     ]
+    },
+    {
+     "title": "Series combination of resistors (श्रृंखला संयोजन)",
+     "points": [
+      "श्रृंखला में सभी प्रतिरोध एक‑दूसरे के साथ सिरों से जुड़े होते हैं।",
+      "समान धारा सभी प्रतिरोधों में बहती है: I_series = I_total।",
+      "वोल्टेज प्रत्येक प्रतिरोध पर V = I × R के अनुसार विभाजित होता है।",
+      "समकक्ष प्रतिरोध: R_eq = Σ R_i."
+     ]
+    },
+    {
+     "title": "Parallel combination of resistors (समांतर संयोजन)",
+     "points": [
+      "समांतर में सभी प्रतिरोधों के दोनों सिरों को समान बिंदुओं से जोड़ा जाता है।",
+      "वोल्टेज सभी प्रतिरोधों पर समान रहता है: V_parallel = V_total।",
+      "धारा प्रत्येक शाखा में विभाजित होती है; कुल धारा Σ I_i होती है।",
+      "समकक्ष प्रतिरोध: 1/R_eq = Σ (1/R_i)."
+     ]
+    },
+    {
+     "title": "Heating effect of current (धारा का ऊष्मा प्रभाव) और Electric power (विद्युत शक्ति)",
+     "points": [
+      "धारा के प्रवाह से उत्पन्न ऊष्मा को जूल‑हीट (Joule heating) कहा जाता है; मात्रा P = I² × R (वाट)।",
+      "दैनिक जीवन में इलेक्ट्रिक हीटर, टॉस्टर, बल्ब, इलेक्ट्रीक केतली आदि इस सिद्धांत पर कार्य करते हैं।",
+      "विद्युत शक्ति P = V × I, तथा P = I²R या P = V²/R के रूप में भी लिखी जा सकती है।",
+      "ऊर्जा की इकाई जूल (J) है; विद्युत ऊर्जा की व्यावहारिक इकाई किलowatt‑घंटा (kWh) है, जहाँ 1 kWh = 3.6 × 10⁶ J।"
+     ]
+    }
+   ],
+   "teach": [
+    {
+     "heading": "धारा और वोल्टेज की मूलभूत समझ",
+     "explain": "धारा वह प्रवाह है जो चार्ज को ले जाता है, जबकि वोल्टेज वह प्रेरक शक्ति है जो धारा को चलाता है। दोनों को अलग‑अलग मापते हैं: धारा एम्पीयर में, वोल्टेज वोल्ट में।",
+     "example": "समझो ऐसे: एक 12 V बैटरी को 2 Ω प्रतिरोध से जोड़ो, तो धारा I = V/R = 12/2 = 6 A होगी।"
+    },
+    {
+     "heading": "ओम का नियम और उसका प्रयोग",
+     "explain": "स्थिर तापमान पर V, I और R के बीच सीधा अनुपात होता है। इस नियम को प्रयोगशाला में सरल सर्किट बनाकर सत्यापित किया जा सकता है।",
+     "example": "समझो ऐसे: यदि 9 V बैटरी पर 3 Ω प्रतिरोध लगा है, तो धारा I = 9/3 = 3 A होगी, और वोल्टेज V = I × R = 3 × 3 = 9 V, जो मूल वोल्टेज से मेल खाता है।"
+    },
+    {
+     "heading": "प्रतिरोध के कारण और गणना",
+     "explain": "प्रतिरोध को सामग्री, लंबाई, क्षेत्रफल और तापमान से निर्धारित किया जाता है। सूत्र R = ρL/A का प्रयोग करके किसी भी समानाकार तार का प्रतिरोध निकाल सकते हैं।",
+     "example": "समझो ऐसे: तांबे के 1 m लम्बे तार की क्रॉस‑सेक्शन 1 mm² है, ρ = 1.68×10⁻⁸ Ω·m, तो R = (1.68×10⁻⁸ × 1) / (1×10⁻⁶) = 0.0168 Ω।"
+    },
+    {
+     "heading": "श्रृंखला व समांतर संयोजन के नियम",
+     "explain": "श्रृंखला में धारा समान रहती है, वोल्टेज विभाजित होता है; समांतर में वोल्टेज समान रहता है, धारा विभाजित होती है। इन नियमों से जटिल सर्किट को सरल बनाया जा सकता है।",
+     "example": "समझो ऐसे: 2 Ω और 6 Ω को श्रृंखला में जोड़ो, फिर इस श्रृंखला को 3 Ω के साथ समांतर में जोड़ो। पहले श्रृंखला का R = 8 Ω, फिर समांतर में 1/R_eq = 1/8 + 1/3 ⇒ R_eq ≈ 2.18 Ω।"
+    },
+    {
+     "heading": "ऊष्मा प्रभाव और विद्युत शक्ति",
+     "explain": "धारा के प्रवाह से उत्पन्न ऊष्मा P = I²R से गणना की जाती है। शक्ति P = V×I के रूप में भी व्यक्त की जा सकती है। यह सिद्धांत हीटिंग उपकरणों में उपयोग होता है।",
+     "example": "समझो ऐसे: 1500 W का हीटर 230 V पर चलता है। I = P/V = 1500/230 ≈ 6.52 A, और R = V/I ≈ 35.3 Ω।"
+    }
+   ],
+   "formulas": [
+    {
+     "title": "Ohm's law",
+     "formula": "V = I × R",
+     "units": "V (volt), I (ampere), R (ohm)",
+     "note": "स्थिर तापमान पर लागू"
+    },
+    {
+     "title": "Current from voltage and resistance",
+     "formula": "I = V / R",
+     "units": "I (ampere), V (volt), R (ohm)",
+     "note": ""
+    },
+    {
+     "title": "Resistance of a uniform conductor",
+     "formula": "R = ρ × L / A",
+     "units": "R (ohm), ρ (ohm·meter), L (meter), A (meter²)",
+     "note": "ρ = प्रतिरोधकता"
+    },
+    {
+     "title": "Power in terms of V and I",
+     "formula": "P = V × I",
+     "units": "P (watt), V (volt), I (ampere)",
+     "note": ""
+    },
+    {
+     "title": "Power in terms of I and R",
+     "formula": "P = I² × R",
+     "units": "P (watt), I (ampere), R (ohm)",
+     "note": ""
+    },
+    {
+     "title": "Power in terms of V and R",
+     "formula": "P = V² / R",
+     "units": "P (watt), V (volt), R (ohm)",
+     "note": ""
+    },
+    {
+     "title": "Series equivalent resistance",
+     "formula": "R_eq = Σ R_i",
+     "units": "R_eq (ohm)",
+     "note": "सभी प्रतिरोधों को जोड़ें"
+    },
+    {
+     "title": "Parallel equivalent resistance",
+     "formula": "1 / R_eq = Σ (1 / R_i)",
+     "units": "R_eq (ohm)",
+     "note": "समकक्ष प्रतिरोध सबसे छोटे प्रतिरोध से कम होता है"
+    }
+   ],
+   "solved": [
+    {
+     "question": "12 V बैटरी को 4 Ω प्रतिरोध से जोड़ते हैं। धारा निकालें।",
+     "steps": [
+      "I = V / R",
+      "I = 12 V / 4 Ω",
+      "I = 3 A"
+     ],
+     "answer": "3 A"
+    },
+    {
+     "question": "2 Ω और 6 Ω को श्रृंखला में जोड़ें, फिर इस श्रृंखला को 3 Ω के साथ समांतर में जोड़ें। समकक्ष प्रतिरोध निकालें।",
+     "steps": [
+      "श्रृंखला में R_series = 2 Ω + 6 Ω = 8 Ω",
+      "समांतर में 1/R_eq = 1/8 + 1/3",
+      "1/R_eq = (3 + 8) / 24 = 11/24",
+      "R_eq = 24/11 Ω",
+      "R_eq ≈ 2.18 Ω"
+     ],
+     "answer": "2.18 Ω"
+    },
+    {
+     "question": "1500 W का हीटर 230 V पर चलता है। (a) धारा (b) प्रतिरोध निकालें।",
+     "steps": [
+      "I = P / V",
+      "I = 1500 W / 230 V",
+      "I ≈ 6.52 A",
+      "R = V / I",
+      "R = 230 V / 6.52 A",
+      "R ≈ 35.3 Ω"
+     ],
+     "answer": "I = 6.52 A, R = 35.3 Ω"
+    },
+    {
+     "question": "तांबे के तार की लंबाई 2 m, क्रॉस‑सेक्शन 0.5 mm² है। ρ = 1.68×10⁻⁸ Ω·m है। प्रतिरोध निकालें।",
+     "steps": [
+      "क्षेत्रफल A = 0.5 mm² = 0.5 × 10⁻⁶ m² = 5×10⁻⁷ m²",
+      "R = ρ × L / A",
+      "R = (1.68×10⁻⁸ Ω·m × 2 m) / (5×10⁻⁷ m²)",
+      "R = 3.36×10⁻⁸ / 5×10⁻⁷",
+      "R = 0.0672 Ω"
+     ],
+     "answer": "0.0672 Ω"
+    }
+   ],
+   "practice": [
+    {
+     "q": "यदि 3 A धारा 10 Ω प्रतिरोध से होकर बहती है, तो वोल्टेज कितना होगा?",
+     "options": [
+      "33 V",
+      "13 V",
+      "30 V",
+      "0.3 V"
+     ],
+     "answer": 2,
+     "explanation": "V = I × R\nV = 3 A × 10 Ω\nV = 30 V"
+    },
+    {
+     "q": "4 Ω और 6 Ω प्रतिरोध श्रृंखला में जुड़े हैं। समकक्ष प्रतिरोध क्या है?",
+     "options": [
+      "2 Ω",
+      "24 Ω",
+      "10 Ω",
+      "1.5 Ω"
+     ],
+     "answer": 2,
+     "explanation": "R_eq = 4 Ω + 6 Ω\nR_eq = 10 Ω"
+    },
+    {
+     "q": "उपर्युक्त दो प्रतिरोध समांतर में जुड़े हों तो समकक्ष प्रतिरोध क्या होगा?",
+     "options": [
+      "2.4 Ω",
+      "1.5 Ω",
+      "24 Ω",
+      "10 Ω"
+     ],
+     "answer": 0,
+     "explanation": "1/R_eq = 1/4 + 1/6\n1/R_eq = (3+2)/12 = 5/12\nR_eq = 12/5 = 2.4 Ω"
+    },
+    {
+     "q": "ρ = 5×10⁻⁸ Ω·m, L = 1 m, A = 2 mm² है। प्रतिरोध निकालें।",
+     "options": [
+      "0.0025 Ω",
+      "0.025 Ω",
+      "0.05 Ω",
+      "0.5 Ω"
+     ],
+     "answer": 1,
+     "explanation": "A = 2 mm² = 2×10⁻⁶ m²\nR = ρL/A = (5×10⁻⁸ × 1) / (2×10⁻⁶)\nR = 5×10⁻⁸ / 2×10⁻⁶ = 0.025 Ω"
+    },
+    {
+     "q": "60 W बल्ब 120 V पर जुड़ा है। इसका धारा कितना होगा?",
+     "options": [
+      "0.5 A",
+      "0.2 A",
+      "2 A",
+      "1 A"
+     ],
+     "answer": 0,
+     "explanation": "I = P / V\nI = 60 W / 120 V\nI = 0.5 A"
+    },
+    {
+     "q": "एक श्रृंखला सर्किट में कुल धारा 2 A है और कुल प्रतिरोध 15 Ω है। कुल वोल्टेज क्या होगा?",
+     "options": [
+      "30 V",
+      "45 V",
+      "7.5 V",
+      "20 V"
+     ],
+     "answer": 0,
+     "explanation": "V = I × R\nV = 2 A × 15 Ω\nV = 30 V"
+    },
+    {
+     "q": "समांतर संयोजन के बारे में कौन सा कथन सही है?",
+     "options": [
+      "वोल्टेज प्रत्येक प्रतिरोध में अलग‑अलग होता है",
+      "समकक्ष प्रतिरोध प्रत्येक प्रतिरोध से बड़ा होता है",
+      "धारा प्रत्येक प्रतिरोध में समान रहती है",
+      "समकक्ष प्रतिरोध सबसे छोटे प्रतिरोध से कम होता है"
+     ],
+     "answer": 3,
+     "explanation": "समांतर में 1/R_eq = Σ(1/R_i), इसलिए R_eq हमेशा सबसे छोटे R_i से कम रहता है।"
+    },
+    {
+     "q": "2 kW का हीटर 220 V पर चलता है। इसका प्रतिरोध निकालें।",
+     "options": [
+      "24.2 Ω",
+      "96.8 Ω",
+      "12.1 Ω",
+      "48.4 Ω"
+     ],
+     "answer": 0,
+     "explanation": "I = P / V = 2000 W / 220 V = 9.0909 A\nR = V / I = 220 V / 9.0909 A ≈ 24.2 Ω"
+    },
+    {
+     "q": "100 W का बल्ब 5 घंटे चलने पर ऊर्जा कितनी खपत करेगा?",
+     "options": [
+      "0.5 kWh",
+      "0.2 kWh",
+      "5 kWh",
+      "0.05 kWh"
+     ],
+     "answer": 0,
+     "explanation": "Energy = P × t = 100 W × 5 h = 500 Wh = 0.5 kWh"
+    },
+    {
+     "q": "तापमान बढ़ने पर धातु के तार का प्रतिरोध आमतौर पर क्या होता है?",
+     "options": [
+      "बढ़ता है",
+      "स्थिर रहता है",
+      "शून्य हो जाता है",
+      "घटता है"
+     ],
+     "answer": 0,
+     "explanation": "धातु के ρ का तापमान के साथ बढ़ना सामान्य है, इसलिए R भी बढ़ता है।"
+    }
+   ],
+   "mistakes": [
+    "धारा श्रृंखला सर्किट में 'खत्म' नहीं होती; वह पूरे सर्किट में समान रहती है।",
+    "प्रतिरोध केवल धारा पर निर्भर नहीं करता; यह लंबाई, क्षेत्रफल, सामग्री और तापमान पर निर्भर करता है।",
+    "समांतर में समकक्ष प्रतिरोध सबसे छोटे प्रतिरोध से कम होता है, बड़ा नहीं।",
+    "1 kWh = 3.6 × 10⁶ जूल, न कि 3.6 × 10⁵ जूल।"
+   ],
+   "revision": [
+    "धारा (I) = चार्ज (Q) / समय (t), इकाई A.",
+    "वोल्टेज (V) = कार्य (W) / चार्ज (Q), इकाई V.",
+    "ओम का नियम: V = I × R, केवल स्थिर तापमान पर।",
+    "R = ρL/A; ρ सामग्री की अंतर्निहित गुणधर्म है।",
+    "श्रृंखला में R_eq = ΣR, धारा समान, वोल्टेज विभाजित।",
+    "समांतर में 1/R_eq = Σ(1/R), वोल्टेज समान, धारा विभाजित।",
+    "ऊष्मा प्रभाव: P = I²R, दैनिक जीवन में हीटर, बल्ब आदि।",
+    "विद्युत शक्ति: P = V I = I²R = V²/R, इकाई W.",
+    "ऊर्जा खपत: E (kWh) = P (kW) × समय (h).",
+    "तापमान बढ़ने पर धातु का प्रतिरोध बढ़ता है; इंसुलेटर में घट सकता है।"
+   ],
+   "en": {
+    "id": "DB|class_9_10|880",
+    "notes": [
+     {
+      "title": "Electric Current",
+      "points": [
+       "Electric current is the flow of charge from one point to another in a given time.",
+       "Conventionally, the direction of current is taken from positive to negative.",
+       "The unit of current is ampere (A); 1 A = 1 C/s (coulomb per second)."
+      ]
+     },
+     {
+      "title": "Potential Difference (Voltage)",
+      "points": [
+       "Voltage is the work done in moving a unit charge from one point to another.",
+       "It is measured in volts (V); 1 V = 1 J/C (joule per coulomb).",
+       "The voltage source (such as a battery) drives the current."
+      ]
+     },
+     {
+      "title": "Ohm's Law",
+      "points": [
+       "At constant temperature, there is a direct proportionality between current (I), voltage (V), and resistance (R): V = I × R.",
+       "If R remains constant, the graph of I vs V is a straight line.",
+       "Ohm's law applies only to materials whose resistance does not change with temperature (ohmic materials)."
+      ]
+     },
+     {
+      "title": "Resistance and Resistivity",
+      "points": [
+       "Resistance (R) is a measure of how much a material resists the flow of current; unit is ohm (Ω).",
+       "Resistivity (ρ) is an intrinsic property of the material; unit is Ω·m.",
+       "R = ρ × L / A, where L = length (m), A = cross-sectional area (m²)."
+      ]
+     },
+     {
+      "title": "Factors Affecting Resistance",
+      "points": [
+       "Material: different materials have different ρ (e.g., copper < iron).",
+       "Length (L): resistance increases directly with length.",
+       "Area (A): resistance decreases inversely with area.",
+       "Temperature (T): for most metals, ρ increases with temperature, so R also increases."
+      ]
+     },
+     {
+      "title": "Series Combination of Resistors",
+      "points": [
+       "In series, all resistors are connected end-to-end.",
+       "The same current flows through all resistors: I_series = I_total.",
+       "Voltage is divided across each resistor according to V = I × R.",
+       "Equivalent resistance: R_eq = Σ R_i."
+      ]
+     },
+     {
+      "title": "Parallel Combination of Resistors",
+      "points": [
+       "In parallel, all resistors are connected between the same two points.",
+       "Voltage remains the same across all resistors: V_parallel = V_total.",
+       "Current is divided among the branches; total current is Σ I_i.",
+       "Equivalent resistance: 1/R_eq = Σ (1/R_i)."
+      ]
+     },
+     {
+      "title": "Heating Effect of Current and Electric Power",
+      "points": [
+       "The heat produced by the flow of current is called Joule heating; amount is P = I² × R (watt).",
+       "Examples in daily life include electric heaters, toasters, bulbs, electric kettles, etc.",
+       "Electric power P = V × I, also expressed as P = I²R or P = V²/R.",
+       "Unit of energy is joule (J); practical unit of electric energy is kilowatt-hour (kWh), where 1 kWh = 3.6 × 10⁶ J."
+      ]
+     }
+    ],
+    "teach": [
+     {
+      "heading": "Understanding Current and Voltage",
+      "explain": "Current is the flow of charge, while voltage is the driving force behind it. Both are measured differently: current in amperes, voltage in volts.",
+      "example": "Consider a 12 V battery connected to a 2 Ω resistor. The current I = V/R = 12/2 = 6 A."
+     },
+     {
+      "heading": "Ohm's Law and Its Application",
+      "explain": "At constant temperature, V, I, and R are directly proportional. This law can be verified in a lab by creating a simple circuit.",
+      "example": "Consider a 9 V battery connected to a 3 Ω resistor. The current I = 9/3 = 3 A, and voltage V = I × R = 3 × 3 = 9 V, which matches the original voltage."
+     },
+     {
+      "heading": "Causes and Calculation of Resistance",
+      "explain": "Resistance is determined by material, length, area, and temperature. The formula R = ρL/A can be used to find the resistance of any uniform conductor.",
+      "example": "For a copper wire of length 1 m and cross-section 1 mm², with ρ = 1.68×10⁻⁸ Ω·m, the resistance R = (1.68×10⁻⁸ × 1) / (1×10⁻⁶) = 0.0168 Ω."
+     },
+     {
+      "heading": "Series and Parallel Combinations",
+      "explain": "In series, current remains the same, voltage is divided; in parallel, voltage remains the same, current is divided. These rules can simplify complex circuits.",
+      "example": "Consider 2 Ω and 6 Ω resistors in series, then this series in parallel with a 3 Ω resistor. First, the series resistance R = 2 Ω + 6 Ω = 8 Ω, then in parallel 1/R_eq = 1/8 + 1/3 ⇒ R_eq ≈ 2.18 Ω."
+     },
+     {
+      "heading": "Heating Effect and Electric Power",
+      "explain": "The heat produced by current flow is given by P = I²R. Power can also be expressed as P = V×I. This principle is used in heating devices.",
+      "example": "A 1500 W heater operates at 230 V. I = P/V = 1500/230 ≈ 6.52 A, and R = V/I ≈ 35.3 Ω."
+     }
+    ],
+    "formulas": [
+     {
+      "title": "Ohm's Law",
+      "formula": "V = I × R",
+      "units": "V (volt), I (ampere), R (ohm)",
+      "note": "Applies at constant temperature"
+     },
+     {
+      "title": "Current from Voltage and Resistance",
+      "formula": "I = V / R",
+      "units": "I (ampere), V (volt), R (ohm)",
+      "note": ""
+     },
+     {
+      "title": "Resistance of a Uniform Conductor",
+      "formula": "R = ρ × L / A",
+      "units": "R (ohm), ρ (ohm·meter), L (meter), A (meter²)",
+      "note": "ρ = resistivity"
+     },
+     {
+      "title": "Power in Terms of V and I",
+      "formula": "P = V × I",
+      "units": "P (watt), V (volt), I (ampere)",
+      "note": ""
+     },
+     {
+      "title": "Power in Terms of I and R",
+      "formula": "P = I² × R",
+      "units": "P (watt), I (ampere), R (ohm)",
+      "note": ""
+     },
+     {
+      "title": "Power in Terms of V and R",
+      "formula": "P = V² / R",
+      "units": "P (watt), V (volt), R (ohm)",
+      "note": ""
+     },
+     {
+      "title": "Series Equivalent Resistance",
+      "formula": "R_eq = Σ R_i",
+      "units": "R_eq (ohm)",
+      "note": "Sum all resistances"
+     },
+     {
+      "title": "Parallel Equivalent Resistance",
+      "formula": "1 / R_eq = Σ (1 / R_i)",
+      "units": "R_eq (ohm)",
+      "note": "Equivalent resistance is less than the smallest R_i"
+     }
+    ],
+    "solved": [
+     {
+      "question": "A 12 V battery is connected to a 4 Ω resistor. Find the current.",
+      "steps": [
+       "I = V / R",
+       "I = 12 V / 4 Ω",
+       "I = 3 A"
+      ],
+      "answer": "3 A"
+     },
+     {
+      "question": "2 Ω and 6 Ω resistors are connected in series, then this series is connected in parallel with a 3 Ω resistor. Find the equivalent resistance.",
+      "steps": [
+       "Series resistance R_series = 2 Ω + 6 Ω = 8 Ω",
+       "In parallel 1/R_eq = 1/8 + 1/3",
+       "1/R_eq = (3 + 8) / 24 = 11/24",
+       "R_eq = 24/11 Ω",
+       "R_eq ≈ 2.18 Ω"
+      ],
+      "answer": "2.18 Ω"
+     },
+     {
+      "question": "A 1500 W heater operates at 230 V. (a) Find the current (b) Find the resistance.",
+      "steps": [
+       "I = P / V",
+       "I = 1500 W / 230 V",
+       "I ≈ 6.52 A",
+       "R = V / I",
+       "R = 230 V / 6.52 A",
+       "R ≈ 35.3 Ω"
+      ],
+      "answer": "I = 6.52 A, R = 35.3 Ω"
+     },
+     {
+      "question": "A copper wire has a length of 2 m and a cross-section of 0.5 mm². ρ = 1.68×10⁻⁸ Ω·m. Find the resistance.",
+      "steps": [
+       "Area A = 0.5 mm² = 0.5 × 10⁻⁶ m² = 5×10⁻⁷ m²",
+       "R = ρ × L / A",
+       "R = (1.68×10⁻⁸ Ω·m × 2 m) / (5×10⁻⁷ m²)",
+       "R = 3.36×10⁻⁸ / 5×10⁻⁷",
+       "R = 0.0672 Ω"
+      ],
+      "answer": "0.0672 Ω"
+     }
+    ],
+    "practice": [
+     {
+      "q": "If 3 A current flows through a 10 Ω resistor, what is the voltage?",
+      "options": [
+       "33 V",
+       "13 V",
+       "30 V",
+       "0.3 V"
+      ],
+      "answer": 2,
+      "explanation": "V = I × R\nV = 3 A × 10 Ω\nV = 30 V"
+     },
+     {
+      "q": "4 Ω and 6 Ω resistors are connected in series. What is the equivalent resistance?",
+      "options": [
+       "2 Ω",
+       "24 Ω",
+       "10 Ω",
+       "1.5 Ω"
+      ],
+      "answer": 2,
+      "explanation": "R_eq = 4 Ω + 6 Ω\nR_eq = 10 Ω"
+     },
+     {
+      "q": "The two resistors are connected in parallel. What is the equivalent resistance?",
+      "options": [
+       "2.4 Ω",
+       "1.5 Ω",
+       "24 Ω",
+       "10 Ω"
+      ],
+      "answer": 0,
+      "explanation": "1/R_eq = 1/4 + 1/6\n1/R_eq = (3+2)/12 = 5/12\nR_eq = 12/5 = 2.4 Ω"
+     },
+     {
+      "q": "ρ = 5×10⁻⁸ Ω·m, L = 1 m, A = 2 mm². Find the resistance.",
+      "options": [
+       "0.0025 Ω",
+       "0.025 Ω",
+       "0.05 Ω",
+       "0.5 Ω"
+      ],
+      "answer": 1,
+      "explanation": "A = 2 mm² = 2×10⁻⁶ m²\nR = ρL/A = (5×10⁻⁸ × 1) / (2×10⁻⁶)\nR = 5×10⁻⁸ / 2×10⁻⁶ = 0.025 Ω"
+     },
+     {
+      "q": "A 60 W bulb operates at 120 V. What is the current?",
+      "options": [
+       "0.5 A",
+       "0.2 A",
+       "2 A",
+       "1 A"
+      ],
+      "answer": 0,
+      "explanation": "I = P / V\nI = 60 W / 120 V\nI = 0.5 A"
+     },
+     {
+      "q": "In a series circuit, the total current is 2 A and the total resistance is 15 Ω. What is the total voltage?",
+      "options": [
+       "30 V",
+       "45 V",
+       "7.5 V",
+       "20 V"
+      ],
+      "answer": 0,
+      "explanation": "V = I × R\nV = 2 A × 15 Ω\nV = 30 V"
+     },
+     {
+      "q": "Which statement about parallel combination is correct?",
+      "options": [
+       "Voltage is different across each resistor",
+       "Equivalent resistance is greater than each resistor",
+       "Current is the same in each resistor",
+       "Equivalent resistance is less than the smallest resistor"
+      ],
+      "answer": 3,
+      "explanation": "In parallel, 1/R_eq = Σ(1/R), so R_eq is always less than the smallest R_i."
+     },
+     {
+      "q": "A 2 kW heater operates at 220 V. What is its resistance?",
+      "options": [
+       "24.2 Ω",
+       "96.8 Ω",
+       "12.1 Ω",
+       "48.4 Ω"
+      ],
+      "answer": 0,
+      "explanation": "I = P / V = 2000 W / 220 V = 9.0909 A\nR = V / I = 220 V / 9.0909 A ≈ 24.2 Ω"
+     },
+     {
+      "q": "A 100 W bulb operates for 5 hours. How much energy does it consume?",
+      "options": [
+       "0.5 kWh",
+       "0.2 kWh",
+       "5 kWh",
+       "0.05 kWh"
+      ],
+      "answer": 0,
+      "explanation": "Energy = P × t = 100 W × 5 h = 500 Wh = 0.5 kWh"
+     },
+     {
+      "q": "What happens to the resistance of a metal wire when the temperature increases?",
+      "options": [
+       "Increases",
+       "Remains constant",
+       "Becomes zero",
+       "Decreases"
+      ],
+      "answer": 0,
+      "explanation": "The resistance of a metal wire typically increases with temperature."
+     }
+    ],
+    "mistakes": [
+     "Current does not 'end' in a series circuit; it remains the same throughout.",
+     "Resistance does not depend solely on current; it also depends on length, area, material, and temperature.",
+     "In parallel, the equivalent resistance is less than the smallest resistance, not greater.",
+     "1 kWh = 3.6 × 10⁶ joules, not 3.6 × 10⁵ joules."
+    ],
+    "revision": [
+     "Current (I) = charge (Q) / time (t), unit A.",
+     "Voltage (V) = work (W) / charge (Q), unit V.",
+     "Ohm's Law: V = I × R, applies at constant temperature.",
+     "R = ρL/A; ρ is an intrinsic property of the material.",
+     "In series, R_eq = ΣR, current is the same, voltage is divided.",
+     "In parallel, 1/R_eq = Σ(1/R), voltage is the same, current is divided.",
+     "Heating effect: P = I²R, used in heaters, bulbs, etc.",
+     "Electric power: P = V I = I²R = V²/R, unit W.",
+     "Energy consumption: E (kWh) = P (kW) × time (h).",
+     "Resistance of a metal increases with temperature; may decrease in insulators."
+    ]
+   },
+   "book_ref": {
+    "ncert_sections": [],
+    "sources": [],
+    "note": "NCERT section order is the Book-tab order reference only; no NCERT text is copied"
+   },
+   "source": {
+    "robot": "robot.v1",
+    "job_id": "f1c3a545c6f0687b",
+    "syllabus": "CBSE 2026-27 Science (Class 10) ch 11 Electricity"
+   }
+  },
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "checks": {
+   "problems": [],
+   "robot": "robot.v1",
+   "job_id": "f1c3a545c6f0687b",
+   "final_state": "needs_review",
+   "checks": {
+    "structure": [],
+    "hindi": true,
+    "scope": [
+     {
+      "id": "current_pd",
+      "text": "Electric current, potential difference",
+      "covered": true
+     },
+     {
+      "id": "ohm",
+      "text": "Ohm's law",
+      "covered": true
+     },
+     {
+      "id": "resistance",
+      "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+      "covered": true
+     },
+     {
+      "id": "combos",
+      "text": "Series and parallel combination of resistors and their daily-life applications",
+      "covered": true
+     },
+     {
+      "id": "heating",
+      "text": "Heating effect of electric current and its daily-life applications",
+      "covered": true
+     },
+     {
+      "id": "power",
+      "text": "Electric power, interrelation between P, V, I and R",
+      "covered": true
+     }
+    ],
+    "units_missing": [],
+    "copyright": {
+     "overlap": 0.1182,
+     "threshold": 0.2,
+     "status": "pass",
+     "note": "automatic metric, not legal clearance"
+    },
+    "fact_check": {
+     "correct": true,
+     "reason": "",
+     "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+    },
+    "second_opinion": {
+     "disagree": [],
+     "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+    }
+   },
+   "english": {
+    "structure": [],
+    "numbers_match": false,
+    "answers_match": true,
+    "counts_match": true
+   },
+   "hindi_title_status": "third_party",
+   "human_review": null
+  }
+ }
+}
