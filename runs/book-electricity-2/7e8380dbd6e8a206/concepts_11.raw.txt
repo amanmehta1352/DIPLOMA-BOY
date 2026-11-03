@@ -1,0 +1,206 @@
+{
+  "concepts": [
+    {
+      "key": "c10",
+      "emoji": "🛡️",
+      "title": [
+        "सुरक्षा उपकरण (Safety Devices)",
+        "Safety Devices"
+      ],
+      "paras": [
+        [
+          "विद्युत् सर्किट में अत्यधिक धारा या तापमान से बचाव के लिये विभिन्न सुरक्षा उपकरण लगाए जाते हैं। ये उपकरण सर्किट को नुकसान से बचाते हैं और आग या शॉक के जोखिम को घटाते हैं।",
+          "Various safety devices are installed in electrical circuits to protect against excess current or temperature. These devices safeguard the circuit and reduce the risk of fire or electric shock."
+        ],
+        [
+          "फ्यूज़ (Fuse) एक पतली धातु की पट्टी होती है जो अधिक धारा प्रवाहित होने पर पिघल कर सर्किट को तोड़ देती है। यह सबसे सरल ओवर‑करंट सुरक्षा है।",
+          "A fuse is a thin metal strip that melts when excessive current flows, thereby breaking the circuit. It is the simplest over‑current protection."
+        ],
+        [
+          "सर्किट ब्रेकर (Circuit breaker) मैकेनिकल या इलेक्ट्रॉनिक उपकरण है जो निर्धारित धारा से अधिक होने पर स्वचालित रूप से स्विच को खोल देता है। इसे मैन्युअली रीसेट भी किया जा सकता है।",
+          "A circuit breaker is a mechanical or electronic device that automatically opens the switch when current exceeds a set limit. It can be manually reset."
+        ],
+        [
+          "थर्मल कट‑ऑफ़ (Thermal cut‑off) तापमान बढ़ने पर एक बायोमैकेनिकल लिंक को मुक्त कर सर्किट को खोल देता है। यह विशेष रूप से मोटर या हीटर में उपयोगी है।",
+          "A thermal cut‑off releases a bi‑mechanical link to open the circuit when temperature rises. It is especially useful in motors or heaters."
+        ],
+        [
+          "ओवरलोड सुरक्षा (Overload protection) अक्सर बकल या थर्मिस्टर्स के रूप में लागू होती है, जो धारा की निरंतर अधिकता पर सर्किट को डिस्कनेक्ट कर देती है।",
+          "Overload protection is often implemented as a bimetallic strip or thermostat that disconnects the circuit upon sustained excess current."
+        ]
+      ],
+      "kv": [
+        [
+          ["फ्यूज़ (Fuse)", "Fuse"],
+          ["धारा सीमा से अधिक होने पर पिघल कर सर्किट तोड़ता है", "Melts and breaks circuit when current exceeds limit"]
+        ],
+        [
+          ["सर्किट ब्रेकर (Circuit breaker)", "Circuit breaker"],
+          ["धारा सीमा से अधिक होने पर स्विच खोलता है, रीसेट योग्य", "Opens switch on over‑current, resettable"]
+        ],
+        [
+          ["थर्मल कट‑ऑफ़ (Thermal cut‑off)", "Thermal cut‑off"],
+          ["तापमान बढ़ने पर बायोमैकेनिकल लिंक मुक्त कर सर्किट बंद करता है", "Opens circuit by releasing a link when temperature rises"]
+        ],
+        [
+          ["ओवरलोड सुरक्षा (Overload protection)", "Overload protection"],
+          ["धारा की निरंतर अधिकता पर बकल या थर्मिस्टर द्वारा सर्किट डिस्कनेक्ट करता है", "Disconnects circuit via bimetal or thermostat on sustained over‑current"]
+        ]
+      ],
+      "table": null,
+      "formula": null,
+      "tip": [
+        "फ़्यूज़ को कभी भी उच्च रेटिंग वाले फ़्यूज़ से नहीं बदलें; इससे सर्किट का सुरक्षा स्तर घट जाता है।",
+        "Never replace a fuse with a higher‑rated one; it reduces the circuit’s safety margin."
+      ],
+      "diagram": null
+    },
+    {
+      "key": "c11",
+      "emoji": "⚡️",
+      "title": [
+        "विद्युत शक्ति (Electric Power)",
+        "Electric Power"
+      ],
+      "paras": [
+        [
+          "विद्युत शक्ति वह दर है जिस पर विद्युत ऊर्जा सर्किट में परिवर्तित या उपयोग की जाती है। इसे आमतौर पर वॉट (W) में मापा जाता है।",
+          "Electric power is the rate at which electrical energy is converted or used in a circuit. It is commonly measured in watts (W)."
+        ],
+        [
+          "शक्ति की मूल परिभाषा P = V × I है, जहाँ V वोल्टेज (वोल्ट) और I धारा (एम्पीयर) है। यह सूत्र सभी प्रकार के लोड पर लागू होता है।",
+          "The basic definition of power is P = V × I, where V is voltage (volts) and I is current (amperes). This formula applies to all types of loads."
+        ],
+        [
+          "यदि केवल प्रतिरोध (R) ज्ञात हो तो दो अतिरिक्त रूप उपयोगी होते हैं: P = I² × R और P = V² / R। ये रूप विशेष रूप से ओह्मीय (रिजिस्टिव) लोड के लिये प्रयोग होते हैं।",
+          "If only the resistance (R) is known, two additional forms are useful: P = I² × R and P = V² / R. These are especially used for ohmic (resistive) loads."
+        ],
+        [
+          "शक्ति मापन के लिये वाट‑मीटर (Watt‑meter) या मल्टीमीटर के शक्ति‑माप मोड का प्रयोग किया जाता है। यह उपकरण वोल्टेज और धारा दोनों को एक साथ माप कर शक्ति प्रदर्शित करता है।",
+          "Power measurement is done using a watt‑meter or the power‑measurement mode of a multimeter. The instrument measures voltage and current simultaneously and displays power."
+        ]
+      ],
+      "kv": [
+        [
+          ["परिभाषा (Definition)", "Definition"],
+          ["शक्ति वह दर है जिससे विद्युत ऊर्जा उपयोग या परिवर्तित होती है", "Power is the rate at which electrical energy is used or converted"]
+        ],
+        [
+          ["इकाई (Unit)", "Unit"],
+          ["वॉट (W)", "Watt (W)"]
+        ],
+        [
+          ["मुख्य सूत्र (Primary formula)", "Primary formula"],
+          ["P = V × I", "P = V × I"]
+        ],
+        [
+          ["ओह्मीय लोड के लिये अतिरिक्त सूत्र (Additional formulas for resistive load)", "Additional formulas for resistive load"],
+          ["P = I²R, P = V²/R", "P = I²R, P = V²/R"]
+        ],
+        [
+          ["शक्ति मापन (Power measurement)", "Power measurement"],
+          ["वाट‑मीटर या मल्टीमीटर के शक्ति‑मोड से", "Using a watt‑meter or multimeter’s power mode"]
+        ]
+      ],
+      "table": {
+        "head": [
+          ["सूत्र (Formula)", "जब ज्ञात हो (When known)"],
+          ["Formula", "When known"]
+        ],
+        "rows": [
+          [
+            ["P = V × I", "V और I"],
+            ["P = V × I", "V and I"]
+          ],
+          [
+            ["P = I²R", "I और R"],
+            ["P = I²R", "I and R"]
+          ],
+          [
+            ["P = V² / R", "V और R"],
+            ["P = V² / R", "V and R"]
+          ]
+        ]
+      },
+      "formula": {
+        "expr": "P = V × I",
+        "units": [
+          [
+            ["शक्ति (Power)", "Power"],
+            ["वॉट (W)", "W"]
+          ]
+        ]
+      },
+      "tip": [
+        "सूत्र चुनते समय यह सुनिश्चित करें कि आप वही चर (V, I, या R) उपयोग कर रहे हैं जो समस्या में दिया गया है; अन्यथा परिणाम गलत आएगा।",
+        "When selecting a formula, ensure you use the variables (V, I, or R) actually given in the problem; otherwise the result will be incorrect."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <rect x=\"20\" y=\"80\" width=\"30\" height=\"40\" fill=\"#ddd\" stroke=\"#000\"/>\n  <line x1=\"35\" y1=\"80\" x2=\"35\" y2=\"70\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"35\" y1=\"120\" x2=\"35\" y2=\"130\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Wires -->\n  <line x1=\"50\" y1=\"100\" x2=\"120\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Resistor -->\n  <polyline points=\"120,100 130,90 140,110 150,90 160,110 170,90 180,110 190,100\" fill=\"none\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"190\" y1=\"100\" x2=\"260\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Arrow for current -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"#000\"/>\n    </marker>\n  </defs>\n  <line x1=\"260\" y1=\"100\" x2=\"300\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <!-- Labels -->\n  <text x=\"30\" y=\"150\" font-size=\"14\" fill=\"#000\">Battery (V)</text>\n  <text x=\"140\" y=\"140\" font-size=\"14\" fill=\"#000\">Resistor (R)</text>\n  <text x=\"285\" y=\"120\" font-size=\"14\" fill=\"#000\">I (Current)</text>\n</svg>",
+        "caption": [
+          "विद्युत शक्ति मापन के लिये साधारण सर्किट (Simple circuit for power measurement)",
+          "Simple circuit used for power measurement"
+        ]
+      }
+    },
+    {
+      "key": "c12",
+      "emoji": "💡",
+      "title": [
+        "ऊर्जा खपत (Energy Consumption)",
+        "Energy Consumption"
+      ],
+      "paras": [
+        [
+          "ऊर्जा खपत वह कुल विद्युत ऊर्जा है जो किसी उपकरण द्वारा निर्धारित समय में उपयोग की जाती है। इसे आमतौर पर किलowatt‑घंटा (kWh) में मापा जाता है।",
+          "Energy consumption is the total electrical energy used by a device over a specified period. It is commonly measured in kilowatt‑hours (kWh)."
+        ],
+        [
+          "ऊर्जा की गणना का मूल सूत्र E = P × t है, जहाँ P शक्ति (वॉट) और t समय (सेकंड) है। व्यावहारिक बिलिंग के लिये वॉट को किलोवॉट (kW) और समय को घंटे (h) में बदलना आवश्यक है।",
+          "The basic formula for energy is E = P × t, where P is power (watts) and t is time (seconds). For billing, convert watts to kilowatts (kW) and time to hours (h)."
+        ],
+        [
+          "बिजली बिल में प्रयुक्त इकाई kWh है; यदि आपका उपकरण 100 W का है और आप इसे 5 घंटे चलाते हैं, तो ऊर्जा = 0.1 kW × 5 h = 0.5 kWh होगी।",
+          "The unit used in electricity bills is kWh; if your appliance is 100 W and runs for 5 hours, energy = 0.1 kW × 5 h = 0.5 kWh."
+        ],
+        [
+          "ऊर्जा बचत के उपायों में उपकरणों को अनावश्यक समय तक चलाने से बचना, ऊर्जा‑सक्षम LED लाइट्स का प्रयोग, और स्टैंड‑बाय पावर को कम करना शामिल है।",
+          "Energy‑saving measures include avoiding unnecessary operation of devices, using energy‑efficient LED lights, and reducing standby power."
+        ]
+      ],
+      "kv": [
+        [
+          ["सूत्र (Formula)", "Formula"],
+          ["E = P × t", "E = P × t"]
+        ],
+        [
+          ["ऊर्जा की इकाई (Unit of energy)", "Unit of energy"],
+          ["किलowatt‑घंटा (kWh)", "kilowatt‑hour (kWh)"]
+        ],
+        [
+          ["बिल की गणना (Bill calculation)", "Bill calculation"],
+          ["ऊर्जा (kWh) × प्रति‑kWh दर", "Energy (kWh) × rate per kWh"]
+        ],
+        [
+          ["बचत उपाय (Saving measures)", "Saving measures"],
+          ["उपकरण बंद रखें, LED, स्टैंड‑बाय घटाएँ", "Turn off devices, LED, reduce standby"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "E = P × t",
+        "units": [
+          [
+            ["ऊर्जा (Energy)", "Energy"],
+            ["जूल (J) या किलowatt‑घंटा (kWh)", "Joule (J) or kilowatt‑hour (kWh)"]
+          ]
+        ]
+      },
+      "tip": [
+        "समय को घंटे में बदलना न भूलें; यदि समय मिनट में दिया हो तो उसे 60 से भाग दें।",
+        "Do not forget to convert time to hours; if time is given in minutes, divide by 60."
+      ],
+      "diagram": null
+    }
+  ]
+}

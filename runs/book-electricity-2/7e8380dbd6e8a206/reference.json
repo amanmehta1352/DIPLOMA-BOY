@@ -1,0 +1,144 @@
+{
+ "outline": {
+  "subtopics": [
+   {
+    "scope_item": "Electric current, potential difference",
+    "points": [
+     "definition of current",
+     "unit ampere",
+     "direction of flow",
+     "definition of potential difference",
+     "unit volt",
+     "measuring devices"
+    ]
+   },
+   {
+    "scope_item": "Ohm's law",
+    "points": [
+     "statement of law",
+     "linear V‑I graph",
+     "constant resistance condition",
+     "applications"
+    ]
+   },
+   {
+    "scope_item": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+    "points": [
+     "definition of resistance",
+     "unit ohm",
+     "temperature effect",
+     "length and area dependence",
+     "material resistivity",
+     "formula R = ρL/A"
+    ]
+   },
+   {
+    "scope_item": "Series and parallel combination of resistors and their daily‑life applications",
+    "points": [
+     "series rule",
+     "parallel rule",
+     "equivalent resistance",
+     "current division",
+     "voltage division",
+     "household wiring examples"
+    ]
+   },
+   {
+    "scope_item": "Heating effect of electric current and its daily‑life applications",
+    "points": [
+     "Joule heating formula",
+     "dependence on I²R",
+     "time factor",
+     "electric heater",
+     "fuse operation",
+     "safety devices"
+    ]
+   },
+   {
+    "scope_item": "Electric power, interrelation between P, V, I and R",
+    "points": [
+     "definition of electric power",
+     "unit watt",
+     "P = VI",
+     "P = I²R",
+     "P = V²/R",
+     "energy consumption (kWh)"
+    ]
+   }
+  ],
+  "formulas": [
+   "V = I × R",
+   "I = V / R",
+   "R = ρ × L / A",
+   "P = V × I",
+   "P = I² × R",
+   "P = V² / R",
+   "E = P × t"
+  ],
+  "example_types": [
+   "direct application of Ohm’s law",
+   "series‑parallel resistor calculation",
+   "resistivity determination problem",
+   "power consumption of household appliances",
+   "heating effect (Joule heating) calculation",
+   "conceptual MCQ on current direction"
+  ],
+  "misconceptions": [
+   "current flows from low to high potential",
+   "voltmeter is connected in series",
+   "ammeter is connected in parallel",
+   "resistance does not change with temperature",
+   "power equals V + I",
+   "all resistors in series have the same voltage across them"
+  ],
+  "question_types": [
+   "short answer (definition)",
+   "numerical value (calculate I, V, R, P)",
+   "multiple choice",
+   "fill in the blanks",
+   "match the columns (devices vs. connection)",
+   "diagram based (identify series/parallel)",
+   "practical based (explain experiment)"
+  ],
+  "activities": [
+   "construction of a simple circuit with a bulb and a cell",
+   "measuring resistance using a metre‑bridge",
+   "investigating heating effect with a coil and ammeter",
+   "determining resistivity of a wire by varying length and area",
+   "series‑parallel resistor arrangement activity",
+   "fuse demonstration with a low‑voltage circuit"
+  ],
+  "ncert_sections": [
+   "12.1 Electric current and circuit",
+   "12.2 Potential difference and EMF",
+   "12.3 Ohm’s law",
+   "12.4 Resistance, resistivity and factors affecting resistance",
+   "12.5 Series and parallel combination of resistors",
+   "12.6 Heating effect of electric current",
+   "12.7 Electric power and energy"
+  ]
+ },
+ "sources": [
+  {
+   "title": "NCERT Solutions for Class 10 Science Electricity - CBSE Free PDF Download",
+   "uri": "https://byjus.com/ncert-solutions-class-10-science-chapter-12-electricity/"
+  },
+  {
+   "title": "Electricity Class 10 - Solutions, Notes, Numericals, Formulas, MCQ",
+   "uri": "https://www.teachoo.com/subjects/science/class-10/chapter-12/"
+  },
+  {
+   "title": "Electricity Class 10 Notes Science Chapter 12 - Learn CBSE",
+   "uri": "https://www.learncbse.in/electricity-class-10-notes/"
+  },
+  {
+   "title": "Class 10 Science Notes for Electricity (PDF) - Study Material",
+   "uri": "https://schools.aglasem.com/class-10-science-notes-electricity/"
+  },
+  {
+   "title": "CBSE Class 10 Science Notes Electricity",
+   "uri": "https://noteswave.in/class-10-science-notes-electricity/"
+  }
+ ],
+ "note": "outline only; used as a topic guide, never as text"
+}

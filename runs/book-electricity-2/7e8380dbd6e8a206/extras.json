@@ -1,0 +1,576 @@
+{
+ "numericals": [
+  {
+   "title": [
+    "प्रतिरोध (Resistance) निकालना",
+    "Finding Resistance"
+   ],
+   "given": [
+    "वोल्टेज V = 12 V, धारा I = 6 A",
+    "Given V = 12 V, I = 6 A"
+   ],
+   "steps": [
+    [
+     "ओह्म के नियम के अनुसार, **प्रतिरोध** (Resistance) R = V / I",
+     "According to Ohm’s law, **Resistance** R = V / I"
+    ],
+    [
+     "R = 12 V / 6 A = 2 Ω",
+     "R = 12 V / 6 A = 2 Ω"
+    ]
+   ],
+   "answer": [
+    "प्रतिरोध R = 2 Ω",
+    "Resistance R = 2 Ω"
+   ]
+  },
+  {
+   "title": [
+    "हीटर की शक्ति (Power) निकालना",
+    "Finding Power of a Heater"
+   ],
+   "given": [
+    "वोल्टेज V = 230 V, प्रतिरोध R = 10 Ω",
+    "Given V = 230 V, R = 10 Ω"
+   ],
+   "steps": [
+    [
+     "शक्ति के सूत्र **P = V² / R** का प्रयोग करें",
+     "Use the power formula **P = V² / R**"
+    ],
+    [
+     "P = (230)² / 10 = 52900 / 10 = 5290 W",
+     "P = (230)² / 10 = 52900 / 10 = 5290 W"
+    ]
+   ],
+   "answer": [
+    "शक्ति P = 5290 W",
+    "Power P = 5290 W"
+   ]
+  },
+  {
+   "title": [
+    "बत्ती की ऊर्जा (Energy) की खपत",
+    "Energy Consumption of a Bulb"
+   ],
+   "given": [
+    "शक्ति P = 60 W, समय t = 5 h",
+    "Given P = 60 W, t = 5 h"
+   ],
+   "steps": [
+    [
+     "ऊर्जा के सूत्र **E = P × t** का उपयोग करें",
+     "Use the energy formula **E = P × t**"
+    ],
+    [
+     "E = 60 W × 5 h = 300 Wh = 0.3 kWh",
+     "E = 60 W × 5 h = 300 Wh = 0.3 kWh"
+    ]
+   ],
+   "answer": [
+    "ऊर्जा E = 0.3 kWh",
+    "Energy E = 0.3 kWh"
+   ]
+  },
+  {
+   "title": [
+    "समांतर प्रतिरोध (Parallel Resistance) निकालना",
+    "Finding Parallel Resistance"
+   ],
+   "given": [
+    "R₁ = 4 Ω, R₂ = 6 Ω, R₃ = 12 Ω",
+    "R₁ = 4 Ω, R₂ = 6 Ω, R₃ = 12 Ω"
+   ],
+   "steps": [
+    [
+     "समांतर में **1/R = 1/R₁ + 1/R₂ + 1/R₃**",
+     "In parallel, **1/R = 1/R₁ + 1/R₂ + 1/R₃**"
+    ],
+    [
+     "1/R = 1/4 + 1/6 + 1/12 = (3+2+1)/12 = 6/12 = 1/2",
+     "1/R = 1/4 + 1/6 + 1/12 = (3+2+1)/12 = 6/12 = 1/2"
+    ],
+    [
+     "R = 2 Ω",
+     "R = 2 Ω"
+    ]
+   ],
+   "answer": [
+    "समांतर प्रतिरोध R = 2 Ω",
+    "Parallel resistance R = 2 Ω"
+   ]
+  },
+  {
+   "title": [
+    "तार में संभावित अंतर (Potential Difference) निकालना",
+    "Finding Potential Difference across a Wire"
+   ],
+   "given": [
+    "लंबाई l = 2 m, क्रॉस‑सेक्शन A = 0.5 mm², धारा I = 3 A, तांबे का प्रतिरोध ρ = 1.7×10⁻⁸ Ω·m",
+    "Given l = 2 m, A = 0.5 mm², I = 3 A, copper resistivity ρ = 1.7×10⁻⁸ Ω·m"
+   ],
+   "steps": [
+    [
+     "**प्रतिरोध** (Resistance) R = ρ l / A",
+     "**Resistance** R = ρ l / A"
+    ],
+    [
+     "A को m² में बदलें: 0.5 mm² = 0.5×10⁻⁶ m²",
+     "Convert A to m²: 0.5 mm² = 0.5×10⁻⁶ m²"
+    ],
+    [
+     "R = (1.7×10⁻⁸ × 2) / (0.5×10⁻⁶) = 3.4×10⁻⁸ / 5×10⁻⁷ = 0.068 Ω",
+     "R = (1.7×10⁻⁸ × 2) / (0.5×10⁻⁶) = 3.4×10⁻⁸ / 5×10⁻⁷ = 0.068 Ω"
+    ],
+    [
+     "**वोल्टेज** (Potential Difference) V = I × R = 3 A × 0.068 Ω = 0.204 V",
+     "**Potential Difference** V = I × R = 3 A × 0.068 Ω = 0.204 V"
+    ]
+   ],
+   "answer": [
+    "संभावित अंतर V = 0.204 V",
+    "Potential Difference V = 0.204 V"
+   ]
+  }
+ ],
+ "revision": [
+  [
+   [
+    "धारा (Current)",
+    "Current"
+   ],
+   [
+    "इलेक्ट्रॉनों का प्रवाह, इकाई: एम्पीयर (A)",
+    "Flow of electrons, unit: Ampere (A)"
+   ]
+  ],
+  [
+   [
+    "वोल्टेज (Potential Difference)",
+    "Potential Difference"
+   ],
+   [
+    "विद्युत कार्य प्रति इकाई आवेश, इकाई: वोल्ट (V)",
+    "Work per unit charge, unit: Volt (V)"
+   ]
+  ],
+  [
+   [
+    "ओह्म का नियम (Ohm’s Law)",
+    "Ohm’s Law"
+   ],
+   [
+    "V = I R, प्रतिरोध स्थिर होने पर लागू",
+    "V = I R, applicable when resistance is constant"
+   ]
+  ],
+  [
+   [
+    "प्रतिरोध (Resistance)",
+    "Resistance"
+   ],
+   [
+    "वोल्टेज को धारा से विभाजित, इकाई: ओह्म (Ω)",
+    "Voltage divided by current, unit: Ohm (Ω)"
+   ]
+  ],
+  [
+   [
+    "प्रतिरोधकता (Resistivity)",
+    "Resistivity"
+   ],
+   [
+    "सामग्री की अंतर्निहित प्रतिरोध, इकाई: Ω·m",
+    "Intrinsic resistance of material, unit: Ω·m"
+   ]
+  ],
+  [
+   [
+    "श्रृंखला संयोजन (Series Combination)",
+    "Series Combination"
+   ],
+   [
+    "कुल प्रतिरोध = ΣR, धारा समान",
+    "Total resistance = ΣR, current same"
+   ]
+  ],
+  [
+   [
+    "समांतर संयोजन (Parallel Combination)",
+    "Parallel Combination"
+   ],
+   [
+    "1/Rₚ = Σ(1/R), वोल्टेज समान",
+    "1/Rₚ = Σ(1/R), voltage same"
+   ]
+  ],
+  [
+   [
+    "शक्ति (Power)",
+    "Power"
+   ],
+   [
+    "P = V I, इकाई: वाट (W)",
+    "P = V I, unit: Watt (W)"
+   ]
+  ],
+  [
+   [
+    "ऊर्जा (Energy)",
+    "Energy"
+   ],
+   [
+    "E = P t, इकाई: जूल (J) या किलावॉट‑घंटा (kWh)",
+    "E = P t, unit: Joule (J) or kilowatt‑hour (kWh)"
+   ]
+  ],
+  [
+   [
+    "सुरक्षा उपकरण (Safety Device)",
+    "Safety Device"
+   ],
+   [
+    "सर्किट ब्रेकर, फ्यूज़, ग्राउंडिंग",
+    "Circuit breaker, fuse, grounding"
+   ]
+  ]
+ ],
+ "practice": [
+  {
+   "q": [
+    "यदि 2 A धारा 5 s में प्रवाहित होती है तो आवेश कितना होगा?",
+    "If a current of 2 A flows for 5 s, how much charge passes?"
+   ],
+   "a": [
+    "Q = I t = 2 × 5 = 10 C",
+    "Q = I t = 2 × 5 = 10 C"
+   ]
+  },
+  {
+   "q": [
+    "10 Ω प्रतिरोध पर 20 V लागू करने पर धारा क्या होगी?",
+    "What is the current through a 10 Ω resistor when 20 V is applied?"
+   ],
+   "a": [
+    "I = V / R = 20 / 10 = 2 A",
+    "I = V / R = 20 / 10 = 2 A"
+   ]
+  },
+  {
+   "q": [
+    "एक लाइट बल्ब 40 W की शक्ति लेता है। 3 घंटे चलाने पर ऊर्जा कितनी होगी?",
+    "A lamp consumes 40 W. How much energy is used in 3 hours?"
+   ],
+   "a": [
+    "E = P t = 40 × 3 = 120 Wh = 0.12 kWh",
+    "E = P t = 40 × 3 = 120 Wh = 0.12 kWh"
+   ]
+  },
+  {
+   "q": [
+    "दो प्रतिरोध 5 Ω और 15 Ω को श्रृंखला में जोड़ें। कुल प्रतिरोध क्या होगा?",
+    "Two resistors 5 Ω and 15 Ω are connected in series. What is the total resistance?"
+   ],
+   "a": [
+    "Rₛ = 5 + 15 = 20 Ω",
+    "Rₛ = 5 + 15 = 20 Ω"
+   ]
+  },
+  {
+   "q": [
+    "तीन समान प्रतिरोध प्रत्येक 6 Ω को समांतर में जोड़ें। समांतर प्रतिरोध निकालें।",
+    "Three equal resistors of 6 Ω each are connected in parallel. Find the equivalent resistance."
+   ],
+   "a": [
+    "1/Rₚ = 3/6 = 0.5 → Rₚ = 2 Ω",
+    "1/Rₚ = 3/6 = 0.5 → Rₚ = 2 Ω"
+   ]
+  },
+  {
+   "q": [
+    "एक मोटर 1500 W की शक्ति लेती है और 230 V पर चलती है। धारा निकालें।",
+    "A motor consumes 1500 W and operates at 230 V. Find the current."
+   ],
+   "a": [
+    "I = P / V = 1500 / 230 ≈ 6.52 A",
+    "I = P / V = 1500 / 230 ≈ 6.52 A"
+   ]
+  },
+  {
+   "q": [
+    "0.02 Ω·m प्रतिरोधकता वाले पदार्थ का 0.5 m लंबा और 1 mm² क्षेत्रफल वाला टुकड़ा कितना प्रतिरोध देगा?",
+    "A material with resistivity 0.02 Ω·m, length 0.5 m and cross‑section 1 mm², what is its resistance?"
+   ],
+   "a": [
+    "R = ρ l / A = 0.02 × 0.5 / (1×10⁻⁶) = 0.01 / 1×10⁻⁶ = 10⁴ Ω",
+    "R = ρ l / A = 0.02 × 0.5 / (1×10⁻⁶) = 0.01 / 1×10⁻⁶ = 10⁴ Ω"
+   ]
+  },
+  {
+   "q": [
+    "एक सर्किट में फ्यूज़ 5 A पर पिघलता है। यदि धारा 7 A हो जाए तो क्या होगा?",
+    "A fuse blows at 5 A. What happens if current becomes 7 A?"
+   ],
+   "a": [
+    "फ्यूज़ पिघलेगा और सर्किट खुल जाएगा",
+    "The fuse will melt and the circuit will open"
+   ]
+  },
+  {
+   "q": [
+    "एक विद्युत हीटर 2 kW की शक्ति लेता है। इसे 4 घंटे चलाने पर लागत ₹ 120 है। प्रति kWh दर क्या है?",
+    "An electric heater consumes 2 kW. Running it for 4 h costs ₹120. What is the rate per kWh?"
+   ],
+   "a": [
+    "ऊर्जा = 2 × 4 = 8 kWh; दर = 120 / 8 = ₹15 per kWh",
+    "Energy = 2 × 4 = 8 kWh; Rate = 120 / 8 = ₹15 per kWh"
+   ]
+  },
+  {
+   "q": [
+    "यदि दो समान प्रतिरोध 10 Ω को श्रृंखला में और फिर समांतर में जोड़ें तो कुल प्रतिरोध क्या होगा?",
+    "If two equal 10 Ω resistors are first in series and then the combination is placed in parallel with another 10 Ω resistor, find total resistance."
+   ],
+   "a": [
+    "पहले श्रृंखला: 10+10=20 Ω; फिर समांतर: 1/R = 1/20 + 1/10 = 0.05+0.1=0.15 → R≈6.67 Ω",
+    "Series: 10+10=20 Ω; Parallel with 10 Ω: 1/R = 1/20 + 1/10 = 0.05+0.1=0.15 → R≈6.67 Ω"
+   ]
+  }
+ ],
+ "formulas": [
+  {
+   "f": "I = Q / t",
+   "t": [
+    "धारा (Current)",
+    "Current"
+   ],
+   "s": [
+    "आवेश को समय से विभाजित",
+    "Charge per unit time"
+   ],
+   "u": [
+    "एम्पीयर (A)",
+    "Ampere (A)"
+   ],
+   "group": "current"
+  },
+  {
+   "f": "V = W / Q",
+   "t": [
+    "वोल्टेज (Potential Difference)",
+    "Potential Difference"
+   ],
+   "s": [
+    "कार्य को आवेश से विभाजित",
+    "Work per unit charge"
+   ],
+   "u": [
+    "वोल्ट (V)",
+    "Volt (V)"
+   ],
+   "group": "potential"
+  },
+  {
+   "f": "V = I × R",
+   "t": [
+    "ओह्म का नियम (Ohm’s Law)",
+    "Ohm’s Law"
+   ],
+   "s": [
+    "वोल्टेज = धारा × प्रतिरोध",
+    "Voltage = Current × Resistance"
+   ],
+   "u": [
+    "वोल्ट (V)",
+    "Volt (V)"
+   ],
+   "group": "resistance"
+  },
+  {
+   "f": "R = ρ l / A",
+   "t": [
+    "प्रतिरोध (Resistance)",
+    "Resistance"
+   ],
+   "s": [
+    "प्रतिरोधकता × लंबाई / क्षेत्रफल",
+    "Resistivity × Length / Area"
+   ],
+   "u": [
+    "ओह्म (Ω)",
+    "Ohm (Ω)"
+   ],
+   "group": "resistivity"
+  },
+  {
+   "f": "ρ = R A / l",
+   "t": [
+    "प्रतिरोधकता (Resistivity)",
+    "Resistivity"
+   ],
+   "s": [
+    "प्रतिरोध को क्षेत्रफल से गुणा, लंबाई से विभाजित",
+    "Resistance times Area divided by Length"
+   ],
+   "u": [
+    "ओह्म·मीटर (Ω·m)",
+    "Ohm·meter (Ω·m)"
+   ],
+   "group": "resistivity"
+  },
+  {
+   "f": "Rₛ = R₁ + R₂ + …",
+   "t": [
+    "श्रृंखला प्रतिरोध (Series Resistance)",
+    "Series Resistance"
+   ],
+   "s": [
+    "सभी प्रतिरोधों का योग",
+    "Sum of all resistances"
+   ],
+   "u": [
+    "ओह्म (Ω)",
+    "Ohm (Ω)"
+   ],
+   "group": "series"
+  },
+  {
+   "f": "1 / Rₚ = 1 / R₁ + 1 / R₂ + …",
+   "t": [
+    "समांतर प्रतिरोध (Parallel Resistance)",
+    "Parallel Resistance"
+   ],
+   "s": [
+    "व्युत्क्रम प्रतिरोधों का योग",
+    "Sum of reciprocals of resistances"
+   ],
+   "u": [
+    "ओह्म (Ω)",
+    "Ohm (Ω)"
+   ],
+   "group": "parallel"
+  },
+  {
+   "f": "P = V × I",
+   "t": [
+    "शक्ति (Power)",
+    "Power"
+   ],
+   "s": [
+    "वोल्टेज × धारा",
+    "Voltage × Current"
+   ],
+   "u": [
+    "वाट (W)",
+    "Watt (W)"
+   ],
+   "group": "power"
+  },
+  {
+   "f": "P = I² × R",
+   "t": [
+    "शक्ति (Power)",
+    "Power"
+   ],
+   "s": [
+    "धारा का वर्ग × प्रतिरोध",
+    "Current squared times Resistance"
+   ],
+   "u": [
+    "वाट (W)",
+    "Watt (W)"
+   ],
+   "group": "power"
+  },
+  {
+   "f": "P = V² / R",
+   "t": [
+    "शक्ति (Power)",
+    "Power"
+   ],
+   "s": [
+    "वोल्टेज का वर्ग / प्रतिरोध",
+    "Voltage squared divided by Resistance"
+   ],
+   "u": [
+    "वाट (W)",
+    "Watt (W)"
+   ],
+   "group": "power"
+  },
+  {
+   "f": "E = P × t",
+   "t": [
+    "ऊर्जा (Energy)",
+    "Energy"
+   ],
+   "s": [
+    "शक्ति को समय से गुणा",
+    "Power multiplied by time"
+   ],
+   "u": [
+    "जूल (J) या किलावॉट‑घंटा (kWh)",
+    "Joule (J) or kilowatt‑hour (kWh)"
+   ],
+   "group": "energy"
+  },
+  {
+   "f": "Cost = Energy (kWh) × Rate",
+   "t": [
+    "ऊर्जा लागत (Energy Cost)",
+    "Energy Cost"
+   ],
+   "s": [
+    "उपभोगित ऊर्जा × प्रति इकाई दर",
+    "Consumed energy × rate per unit"
+   ],
+   "u": [
+    "रुपये (₹)",
+    "Rupees (₹)"
+   ],
+   "group": "energy"
+  }
+ ],
+ "formula_groups": [
+  [
+   "current",
+   "धारा",
+   "Current"
+  ],
+  [
+   "potential",
+   "वोल्टेज",
+   "Potential Difference"
+  ],
+  [
+   "resistance",
+   "प्रतिरोध",
+   "Resistance"
+  ],
+  [
+   "resistivity",
+   "प्रतिरोधकता",
+   "Resistivity"
+  ],
+  [
+   "series",
+   "श्रृंखला संयोजन",
+   "Series Combination"
+  ],
+  [
+   "parallel",
+   "समांतर संयोजन",
+   "Parallel Combination"
+  ],
+  [
+   "power",
+   "शक्ति",
+   "Power"
+  ],
+  [
+   "energy",
+   "ऊर्जा",
+   "Energy"
+  ]
+ ]
+}
