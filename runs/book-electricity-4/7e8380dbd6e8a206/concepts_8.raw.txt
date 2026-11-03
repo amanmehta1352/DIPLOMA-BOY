@@ -1,0 +1,194 @@
+{
+  "concepts": [
+    {
+      "key": "c7",
+      "emoji": "⚙️",
+      "title": [
+        "समांतर संयोजन (Parallel Combination)",
+        "Parallel Combination"
+      ],
+      "paras": [
+        [
+          "समांतर संयोजन में दो या दो से अधिक प्रतिरोध (resistors) को इस प्रकार जोड़ा जाता है कि उनके दोनों सिरों को समान बिंदुओं से जोड़ा जाए। इस प्रकार प्रत्येक प्रतिरोध के दोनों टर्मिनलों पर समान वोल्टेज (voltage) रहता है।",
+          "In a parallel combination two or more resistors are connected such that their two terminals are joined to the same two points. Hence each resistor experiences the same voltage across it."
+        ],
+        [
+          "समांतर संयोजन का मुख्य सिद्धान्त है धारा विभाजन (current division)। कुल धारा (I) स्रोत से आती है और वह प्रत्येक शाखा में प्रतिरोध के अनुपात में विभाजित हो जाती है; छोटा प्रतिरोध अधिक धारा लेता है।",
+          "The key principle of a parallel circuit is current division. The total current (I) supplied by the source splits among the branches in proportion to the resistances; a smaller resistance carries a larger current."
+        ],
+        [
+          "समतुल्य प्रतिरोध (equivalent resistance) निकालने का सूत्र है 1/R_eq = 1/R1 + 1/R2 + …। इस कारण समांतर में कुल प्रतिरोध हमेशा व्यक्तिगत प्रतिरोधों से कम रहता है।",
+          "The equivalent resistance is found using 1/R_eq = 1/R1 + 1/R2 + … . Hence the total resistance of a parallel network is always less than any individual resistance."
+        ],
+        [
+          "घर की सॉकेट वायरिंग, लाइटिंग और पावर सॉकेट की व्यवस्था में समांतर संयोजन का प्रयोग किया जाता है ताकि सभी उपकरण समान वोल्टेज पर कार्य कर सकें और किसी एक उपकरण के खराब होने पर बाकी उपकरण चलते रहें।",
+          "House wiring, lighting and power socket arrangements use parallel combination so that all appliances receive the same voltage and the failure of one appliance does not affect the others."
+        ],
+        [
+          "ध्यान दें कि समांतर में कुल धारा स्रोत से अधिक हो सकती है, इसलिए सर्किट ब्रेकर और फ्यूज़ को सही मान (rating) के साथ चुनना आवश्यक है।",
+          "Note that the total current in a parallel circuit can exceed the source current, so circuit breakers and fuses must be selected with appropriate ratings."
+        ]
+      ],
+      "kv": [
+        [
+          ["समांतर संयोजन (Parallel Combination)", "A connection where all components share the same two nodes"],
+          ["समान वोल्टेज (Same Voltage)", "Each branch experiences the source voltage"],
+          ["धारा विभाजन (Current Division)", "Current splits among branches inversely proportional to resistance"],
+          ["समतुल्य प्रतिरोध (Equivalent Resistance)", "Combined resistance of all parallel branches"]
+        ]
+      ],
+      "table": {
+        "head": [
+          ["विशेषता (Feature)", "Feature"],
+          ["श्रृंखला (Series)", "Series"],
+          ["समांतर (Parallel)", "Parallel"]
+        ],
+        "rows": [
+          [
+            ["वोल्टेज (Voltage)", "Voltage"],
+            ["वोल्टेज का योग (Sum of voltages)", "Sum of voltages"],
+            ["समान वोल्टेज (Same voltage across each component)", "Same voltage across each component"]
+          ],
+          [
+            ["धारा (Current)", "Current"],
+            ["समान धारा (Same current through each component)", "Same current through each component"],
+            ["धारा का योग (Sum of currents)", "Sum of currents"]
+          ],
+          [
+            ["समतुल्य प्रतिरोध (Equivalent Resistance)", "Equivalent Resistance"],
+            ["R_eq = R1 + R2 + …", "R_eq = R1 + R2 + …"],
+            ["1/R_eq = 1/R1 + 1/R2 + …", "1/R_eq = 1/R1 + 1/R2 + …"]
+          ],
+          [
+            ["उपकरणों का कार्य (Operation of appliances)", "Operation of appliances"],
+            ["एक उपकरण का फेल होना सभी को बंद कर देता है", "Failure of one device turns off all"],
+            ["एक उपकरण का फेल होना बाकी को प्रभावित नहीं करता", "Failure of one device does not affect others"]
+          ]
+        ]
+      },
+      "formula": {
+        "expr": "1/R_eq = 1/R1 + 1/R2 + …",
+        "units": [
+          [
+            ["R_eq", "ओह्म (ohm)"],
+            ["R1, R2", "ओह्म (ohm)"]
+          ]
+        ]
+      },
+      "tip": [
+        "समांतर में सभी शाखाओं पर समान धारा नहीं बहती; यह सामान्य गलती है।",
+        "A common mistake is to assume the same current flows through each branch in a parallel circuit."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"5\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"black\" />\n    </marker>\n  </defs>\n  <line x1=\"40\" y1=\"100\" x2=\"100\" y2=\"100\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\" />\n  <text x=\"20\" y=\"105\" font-size=\"12\">+V</text>\n  <line x1=\"240\" y1=\"100\" x2=\"300\" y2=\"100\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\" />\n  <text x=\"310\" y=\"105\" font-size=\"12\">-V</text>\n  <rect x=\"120\" y=\"70\" width=\"40\" height=\"60\" fill=\"none\" stroke=\"black\" stroke-width=\"2\" />\n  <text x=\"130\" y=\"105\" font-size=\"12\">R1</text>\n  <rect x=\"180\" y=\"70\" width=\"40\" height=\"60\" fill=\"none\" stroke=\"black\" stroke-width=\"2\" />\n  <text x=\"190\" y=\"105\" font-size=\"12\">R2</text>\n  <line x1=\"100\" y1=\"100\" x2=\"120\" y2=\"100\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"220\" y1=\"100\" x2=\"240\" y2=\"100\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\" />\n  <text x=\"165\" y=\"165\" font-size=\"12\">I</text>\n</svg>",
+        "caption": [
+          "समांतर प्रतिरोधों का सर्किट आरेख",
+          "Circuit diagram of parallel resistors"
+        ]
+      }
+    },
+    {
+      "key": "c8",
+      "emoji": "🏠",
+      "title": [
+        "व्यावहारिक अनुप्रयोग (Practical Applications)",
+        "Practical Applications"
+      ],
+      "paras": [
+        [
+          "घर की वायरिंग में सभी विद्युत उपकरण समान वोल्टेज (230 V) पर काम करने के लिये समांतर संयोजन का प्रयोग किया जाता है। इस प्रकार प्रत्येक सॉकेट को स्वतंत्र रूप से उपयोग किया जा सकता है।",
+          "In house wiring, all electrical appliances operate at the same voltage (230 V) by using parallel connections, allowing each socket to be used independently."
+        ],
+        [
+          "सर्किट ब्रेकर (circuit breaker) और फ्यूज़ (fuse) सुरक्षा उपकरण हैं जो अधिक धारा (over‑current) होने पर सर्किट को खोल देते हैं। ब्रेकर को चुने जाने वाले रेटिंग (rating) को घर की कुल लोड (total load) के अनुसार निर्धारित किया जाता है।",
+          "Circuit breakers and fuses are safety devices that open the circuit when excessive current flows. Their rating is chosen based on the total load of the house."
+        ],
+        [
+          "लाइटिंग व्यवस्था में कई लाइट्स को समान स्विच से नियंत्रित करने के लिये समांतर में जोड़ते हैं, जिससे किसी एक लाइट के फेल होने पर बाकी लाइटें जलती रहती हैं।",
+          "In lighting circuits, several lamps are connected in parallel to a single switch so that if one lamp fails, the others continue to operate."
+        ],
+        [
+          "पावर सॉकेट की व्यवस्था में प्रत्येक सॉकेट को दो तार (phase और neutral) से जोड़ा जाता है, जबकि ग्राउंड (earth) को सभी सॉकेट के साथ समान रूप से जोड़ा जाता है। यह सुरक्षा के लिये आवश्यक है।",
+          "Power sockets are wired with two conductors (phase and neutral) and a common earth connection for safety."
+        ],
+        [
+          "ध्यान रखें कि सभी उपकरणों को समान वोल्टेज पर चलाने के लिये तारों का उचित गेज (gauge) और इन्सुलेशन होना चाहिए, नहीं तो गर्मी उत्पन्न हो कर आग का खतरा बन सकता है।",
+          "Ensure that wiring uses appropriate gauge and insulation; otherwise excessive heating may cause fire hazards."
+        ]
+      ],
+      "kv": [
+        [
+          ["सॉकेट वायरिंग (Socket Wiring)", "Connecting power outlets in parallel"],
+          ["सर्किट ब्रेकर (Circuit Breaker)", "Device that trips on over‑current"],
+          ["फ्यूज़ (Fuse)", "Melts to break circuit when current exceeds rating"],
+          ["ग्राउंड (Earth)", "Safety connection to prevent electric shock"]
+        ]
+      ],
+      "table": null,
+      "formula": null,
+      "tip": [
+        "सॉकेट में दो तारों (phase‑neutral) को उल्टा न जोड़ें; यह शॉर्ट‑सर्किट का कारण बन सकता है।",
+        "Do not reverse the phase and neutral wires in a socket; it can cause a short circuit."
+      ],
+      "diagram": null
+    },
+    {
+      "key": "c9",
+      "emoji": "🔥",
+      "title": [
+        "हीटिंग प्रभाव (Heating Effect)",
+        "Heating Effect"
+      ],
+      "paras": [
+        [
+          "जब धारा (current) किसी चालक (conductor) में बहती है तो वह जूल का नियम (Joule's law) के अनुसार गर्मी उत्पन्न करती है। नियम का सूत्र है Q = I² R t, जहाँ Q जूल (joule) में ऊर्जा, I एम्पीयर (ampere) में धारा, R ओह्म (ohm) में प्रतिरोध और t सेकंड (second) में समय है।",
+          "When current flows through a conductor, heat is generated according to Joule's law: Q = I² R t, where Q is energy in joules, I is current in amperes, R is resistance in ohms, and t is time in seconds."
+        ],
+        [
+          "हीटर (heater) और टॉस्टर (toaster) में उच्च प्रतिरोध वाले तत्व (high‑resistance element) को बड़ी धारा के साथ जोड़कर तेज़ गर्मी प्राप्त की जाती है। समय (t) जितना अधिक, उतनी ही अधिक ऊर्जा (Q) उत्पन्न होती है।",
+          "Heaters and toasters use high‑resistance elements with a large current to produce rapid heating. The longer the time (t), the greater the energy (Q) produced."
+        ],
+        [
+          "फ्यूज़ (fuse) का कार्य सिद्धांत भी हीटिंग प्रभाव पर आधारित है। जब धारा नियत मान (rated current) से अधिक हो जाती है, तो I²R t के कारण फ्यूज़ का धातु तंतु (metal strip) जल्दी गरम होकर पिघल जाता है और सर्किट को तोड़ देता है।",
+          "The operation of a fuse also relies on heating effect. When current exceeds the rated value, the I²R t heating melts the metal strip, opening the circuit."
+        ],
+        [
+          "ध्यान दें कि हीटिंग प्रभाव केवल धारा के वर्ग (I²) पर निर्भर करता है, इसलिए छोटी वृद्धि भी बहुत अधिक गर्मी पैदा कर सकती है। यह कारण है कि उच्च‑वोल्टेज उपकरणों में सुरक्षा उपाय आवश्यक होते हैं।",
+          "Note that heating depends on the square of the current (I²); even a small increase can produce a large amount of heat, which is why safety measures are essential for high‑current devices."
+        ]
+      ],
+      "kv": [
+        [
+          ["जूल का नियम (Joule's Law)", "Q = I² R t"],
+          ["ऊर्जा (Energy)", "Measured in joules (J)"],
+          ["धारा (Current)", "Measured in amperes (A)"],
+          ["प्रतिरोध (Resistance)", "Measured in ohms (Ω)"],
+          ["समय (Time)", "Measured in seconds (s)"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "Q = I^2 × R × t",
+        "units": [
+          [
+            ["Q", "जूल (J)"],
+            ["I", "एम्पीयर (A)"],
+            ["R", "ओह्म (Ω)"],
+            ["t", "सेकंड (s)"]
+          ]
+        ]
+      },
+      "tip": [
+        "धारा को वर्ग (square) करना न भूलें; Q = I × R × t लिखना आम गलती है।",
+        "Do not forget to square the current; writing Q = I R t is a common mistake."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"5\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"black\" />\n    </marker>\n  </defs>\n  <line x1=\"40\" y1=\"100\" x2=\"100\" y2=\"100\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\" />\n  <text x=\"20\" y=\"105\" font-size=\"12\">+V</text>\n  <line x1=\"240\" y1=\"100\" x2=\"300\" y2=\"100\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\" />\n  <text x=\"310\" y=\"105\" font-size=\"12\">-V</text>\n  <rect x=\"130\" y=\"70\" width=\"80\" height=\"60\" fill=\"none\" stroke=\"red\" stroke-width=\"2\" />\n  <text x=\"150\" y=\"105\" font-size=\"12\" fill=\"red\">R (Heater)</text>\n  <line x1=\"100\" y1=\"100\" x2=\"130\" y2=\"100\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"210\" y1=\"100\" x2=\"240\" y2=\"100\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"170\" y1=\"130\" x2=\"170\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\" />\n  <text x=\"175\" y=\"165\" font-size=\"12\">I</text>\n</svg>",
+        "caption": [
+          "हीटर में धारा के कारण उत्पन्न गर्मी का सर्किट",
+          "Circuit showing heating of a resistor (heater) due to current"
+        ]
+      }
+    }
+  ]
+}

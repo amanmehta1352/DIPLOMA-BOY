@@ -1,0 +1,1499 @@
+{
+ "job_id": "7e8380dbd6e8a206",
+ "robot": "book.v1",
+ "command": "Class 10, CBSE 2026-27, Science, Electricity",
+ "created_at": "2026-11-03T16:00:28+00:00",
+ "stages": {
+  "resolve": {
+   "status": "done",
+   "attempts": 0
+  },
+  "reference": {
+   "status": "done",
+   "attempts": 0,
+   "n_sources": 5
+  },
+  "plan": {
+   "status": "done",
+   "attempts": 1,
+   "calls": 1
+  },
+  "concepts": {
+   "status": "done",
+   "attempts": 0,
+   "calls": 11,
+   "budget_start": 0
+  },
+  "extras": {
+   "status": "done",
+   "attempts": 1,
+   "calls": 1
+  },
+  "teach": {
+   "status": "done",
+   "attempts": 0,
+   "calls": 3
+  },
+  "hinglish": {
+   "status": "done",
+   "attempts": 0,
+   "calls": 3
+  },
+  "demo": {
+   "status": "done",
+   "attempts": 1,
+   "calls": 1
+  },
+  "correction": {
+   "status": "pending",
+   "attempts": 0,
+   "calls": 1
+  }
+ },
+ "attribution": [
+  {
+   "stage": "reference",
+   "role": "researcher",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:00:45+00:00"
+  },
+  {
+   "stage": "plan",
+   "role": "planner",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:00:55+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:01:23+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:03:00+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:03:12+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:27:58+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:28:23+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:29:22+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:29:32+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:30:21+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:31:09+00:00"
+  },
+  {
+   "stage": "concepts",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:31:44+00:00"
+  },
+  {
+   "stage": "extras",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:32:15+00:00"
+  },
+  {
+   "stage": "teach",
+   "role": "teacher",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:33:01+00:00"
+  },
+  {
+   "stage": "teach",
+   "role": "teacher",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:33:41+00:00"
+  },
+  {
+   "stage": "teach",
+   "role": "teacher",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:34:27+00:00"
+  },
+  {
+   "stage": "hinglish",
+   "role": "transliterator",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-03T16:36:12+00:00"
+  },
+  {
+   "stage": "hinglish",
+   "role": "transliterator",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:36:25+00:00"
+  },
+  {
+   "stage": "hinglish",
+   "role": "transliterator",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:37:17+00:00"
+  },
+  {
+   "stage": "demo",
+   "role": "demo_writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:37:46+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T16:47:43+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T16:47:51+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T16:50:33+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T16:50:35+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-03T16:51:14+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T16:51:16+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T16:51:19+00:00"
+  }
+ ],
+ "issues": [
+  {
+   "at": "2026-11-03T16:03:12+00:00",
+   "kind": "checks_failed",
+   "detail": "concepts: c1: needs 3+ key-value items; c2: needs 3+ key-value items; c3: needs 3+ key-value items; c1: diagram missing or unsafe SVG; c2: diagram missing or unsafe SVG"
+  },
+  {
+   "at": "2026-11-03T16:37:46+00:00",
+   "kind": "crash",
+   "error": "ValueError",
+   "detail": "too many values to unpack (expected 2) Traceback (most recent call last):\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/book_robot.py\", line 141, in run\n    state = st_checks(job, r, P, refset)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/book_robot.py\", line 302, in st_checks\n    ch = assemble(job); row = R.chapter_row(ch, os.environ.get('BOOK_SLUG', 'class10-science'), r['chapter_no'], r['app']['chapter_id'])\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/book_render.py\", line 182, in chapter_row\n    'notes_hi': notes_html(ch, 'hi'), 'notes_en': notes_html(ch, 'en')"
+  },
+  {
+   "at": "2026-11-03T16:47:51+00:00",
+   "kind": "checks_failed",
+   "detail": "book checks: numerical 2: independent solver got a different answer; numerical 3: independent solver got a different answer; fact check failed: In the 'Heating Effect' section, the text states: 'Q = I²Rt, गर्मी का उत्पादन धारा, प्रतिरोध और समय पर निर्भर ... P = I²R, जहाँ P पावर (वॉट) है ... उच्च प्रतिरोध वाले हीटर कम धारा में अधिक गर्मी उत्पन्न करते हैं'. The claim that 'high resistance heaters produce more heat at low current' is misleading. For a fixed supply voltage (as in household heaters), heat/power P = V²/R, so lower resistance pr"
+  },
+  {
+   "at": "2026-11-03T16:51:19+00:00",
+   "kind": "checks_failed",
+   "detail": "book checks: fact check failed: In the 'Potential Difference' section, the definition 'Voltage is the ability to push electrons from one point to another' is misleading. Voltage (potential difference) is defined as the work done per unit charge (W/Q) to move a charge between two points, not a 'force' or 'ability to push'. The phrase 'ability to push electrons' describes electromotive force (EMF) or electric field conceptually, b"
+  }
+ ],
+ "final_state": "needs_review",
+ "runs": 4,
+ "provider_calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T16:00:45+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T16:00:45+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \",\n    \"stat",
+   "at": "2026-11-03T16:00:45+00:00"
+  },
+  {
+   "provider": "web",
+   "model": "search",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 0,
+   "pages": 5,
+   "error": "[[\"duckduckgo\", 202, 0], [\"duckduckgo-lite\", 200, 6], [\"duckduckgo\", 202, 0], [\"duckduckgo-lite\", 200, 6], [\"duckduckgo\", 202, 0], [\"duckduckgo-lite\", 202, 0], [\"mojeek\", 0, 0], [\"bing\", 200, 6]]",
+   "at": "2026-11-03T16:00:45+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 6.71,
+   "at": "2026-11-03T16:00:45+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.2,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:00:55+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.21,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:00:55+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.22,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:00:55+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 9.29,
+   "at": "2026-11-03T16:00:55+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 2.57,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:01:23+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:01:23+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:01:23+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:01:23+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.08,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 4929, Requested 3380. Please try again in 2.3175s. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:01:23+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 2,
+   "secs": 16.65,
+   "at": "2026-11-03T16:01:23+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.22,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:03:00+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 79.43,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:03:00+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.2,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:03:00+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:03:00+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 12.15,
+   "at": "2026-11-03T16:03:00+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.21,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:03:12+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.12,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:03:12+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:03:12+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 11.06,
+   "at": "2026-11-03T16:03:12+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 19.67,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 503,
+   "kind": "transient",
+   "try": 2,
+   "secs": 23.01,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 3,
+   "secs": 0.23,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 1.38,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 2,
+   "secs": 1.36,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 3,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 11.07,
+   "at": "2026-11-03T16:27:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:27:58+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:27:58+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.17,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:27:58+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 11.42,
+   "at": "2026-11-03T16:27:58+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:28:23+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:28:23+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:28:23+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7929, Requested 1039. Please try again in 7.26s. Need more tokens? Upgrade to Dev Tier today at https://conso",
+   "at": "2026-11-03T16:28:23+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 2,
+   "secs": 16.71,
+   "at": "2026-11-03T16:28:23+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.29,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:29:22+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 0.52,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:29:22+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.18,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:29:22+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.18,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:29:22+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7170, Requested 1091. Please try again in 1.9575s. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:29:22+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6768, Requested 6484. Please try again in 39.39s. Need more tokens? Upgrade to Dev Tier today at https://cons",
+   "at": "2026-11-03T16:29:22+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 3,
+   "secs": 9.5,
+   "at": "2026-11-03T16:29:22+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:29:32+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:29:32+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:29:32+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 9.25,
+   "at": "2026-11-03T16:29:32+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:30:21+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:30:21+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:30:21+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7935, Requested 4800. Please try again in 35.5125s. Need more tokens? Upgrade to Dev Tier today at https://co",
+   "at": "2026-11-03T16:30:21+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 3057, Requested 5054. Please try again in 832.5ms. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:30:21+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 3,
+   "secs": 9.91,
+   "at": "2026-11-03T16:30:21+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.37,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:31:09+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.42,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:31:09+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.18,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:31:09+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6695, Requested 6024. Please try again in 35.3925s. Need more tokens? Upgrade to Dev Tier today at https://co",
+   "at": "2026-11-03T16:31:09+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 2,
+   "secs": 10.66,
+   "at": "2026-11-03T16:31:09+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:31:44+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.18,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:31:44+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:31:44+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 4927, Requested 5811. Please try again in 20.535s. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:31:44+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 2047, Requested 6454. Please try again in 3.7575s. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:31:44+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 3,
+   "secs": 8.32,
+   "at": "2026-11-03T16:31:44+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.35,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:32:15+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:32:15+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:32:15+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 4765, Requested 5549. Please try again in 17.355s. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:32:15+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 2,
+   "secs": 11.86,
+   "at": "2026-11-03T16:32:15+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.19,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:33:01+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:33:01+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:33:01+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6627, Requested 5823. Please try again in 33.375s. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:33:01+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 2034, Requested 5999. Please try again in 247.5ms. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:33:01+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 3,
+   "secs": 9.14,
+   "at": "2026-11-03T16:33:01+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.35,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:33:41+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.34,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:33:41+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.19,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:33:41+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 5256, Requested 4600. Please try again in 13.92s. Need more tokens? Upgrade to Dev Tier today at https://cons",
+   "at": "2026-11-03T16:33:41+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 3259, Requested 6195. Please try again in 10.905s. Need more tokens? Upgrade to Dev Tier today at https://con",
+   "at": "2026-11-03T16:33:41+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 3,
+   "secs": 13.01,
+   "at": "2026-11-03T16:33:41+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.27,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:34:27+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:34:27+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.18,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:34:27+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6396, Requested 5939. Please try again in 32.5125s. Need more tokens? Upgrade to Dev Tier today at https://co",
+   "at": "2026-11-03T16:34:27+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 2,
+   "secs": 11.7,
+   "at": "2026-11-03T16:34:27+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.42,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:36:12+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.19,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:36:12+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.2,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:36:12+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 413,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Request too large for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 8439, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https",
+   "at": "2026-11-03T16:36:12+00:00"
+  },
+  {
+   "provider": "sambanova",
+   "model": "Meta-Llama-3.3-70B-Instruct",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.11,
+   "error": "{\"error\":{\"code\":null,\"message\":\"Meta-Llama-3.3-70B-Instruct is currently experiencing high demand. Please try again later!\",\"param\":null,\"type\":\"\"},\"request_id\":\"4909bbed-a8ff-4ba6-aaeb-26501d56a701\"}\n",
+   "at": "2026-11-03T16:36:12+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 103.5,
+   "at": "2026-11-03T16:36:12+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.24,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:36:25+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.21,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:36:25+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.21,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:36:25+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 12.08,
+   "at": "2026-11-03T16:36:25+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.17,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:37:17+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.18,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:37:17+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:37:17+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7932, Requested 6031. Please try again in 44.7225s. Need more tokens? Upgrade to Dev Tier today at https://co",
+   "at": "2026-11-03T16:37:17+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 2,
+   "secs": 6.28,
+   "at": "2026-11-03T16:37:17+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:37:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:37:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.17,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:37:46+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 4705, Requested 5871. Please try again in 19.32s. Need more tokens? Upgrade to Dev Tier today at https://cons",
+   "at": "2026-11-03T16:37:46+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.07,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 1987, Requested 6451. Please try again in 3.285s. Need more tokens? Upgrade to Dev Tier today at https://cons",
+   "at": "2026-11-03T16:37:46+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 3,
+   "secs": 3.25,
+   "at": "2026-11-03T16:37:46+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 1.85,
+   "at": "2026-11-03T16:47:43+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 7.42,
+   "at": "2026-11-03T16:47:51+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 1.38,
+   "at": "2026-11-03T16:50:33+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 2.3,
+   "at": "2026-11-03T16:50:35+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 10.87,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:51:14+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.11,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:51:14+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 11.32,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-03T16:51:14+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.1,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:51:14+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.09,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-03T16:51:14+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 6.82,
+   "at": "2026-11-03T16:51:14+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 1.77,
+   "at": "2026-11-03T16:51:16+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 2.39,
+   "at": "2026-11-03T16:51:19+00:00"
+  }
+ ],
+ "finished_at": "2026-11-03T16:51:19+00:00",
+ "corrected": {
+  "concepts": [
+   "c2"
+  ],
+  "numericals": [],
+  "at": "2026-11-03T16:50:35+00:00"
+ }
+}

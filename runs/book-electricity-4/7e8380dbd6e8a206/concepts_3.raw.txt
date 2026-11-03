@@ -1,0 +1,180 @@
+{
+  "concepts": [
+    {
+      "key": "c1",
+      "emoji": "⚡",
+      "title": ["धारा (Current)", "Current"],
+      "paras": [
+        [
+          "धारा वह प्रवाह है जिसमें आवेशित कण (इलेक्ट्रॉन) एक नियत दिशा में चलते हैं। (Current is the flow of charged particles, usually electrons, in a definite direction.)",
+          "Current is the flow of charged particles (usually electrons) in a definite direction."
+        ],
+        [
+          "धारा की इकाई ऐम्पीयर (A) है, जिसे 1 कूलॉम्ब चार्ज को 1 सेकंड में पार करने वाली धारा के रूप में परिभाषित किया जाता है। (The unit of current is ampere (A), defined as the flow of 1 coulomb of charge per second.)",
+          "The unit of current is ampere (A), defined as the flow of 1 coulomb of charge per second."
+        ],
+        [
+          "परमाणु के प्रवाह की दिशा को धारा की दिशा माना जाता है, अर्थात् धनात्मक (पॉज़िटिव) टर्मिनल से ऋणात्मक (नेगेटिव) टर्मिनल की ओर। (The direction of conventional current is taken from the positive terminal to the negative terminal.)",
+          "The direction of conventional current is taken from the positive terminal to the negative terminal."
+        ],
+        [
+          "सरल सर्किट में धारा मापने के लिये एम्मीटर को सर्किट के किसी भाग में श्रृंखला (series) में जोड़ते हैं; एम्मीटर का रीडिंग सीधे धारा की मात्रा दर्शाता है। (In a simple circuit, an ammeter is connected in series to measure the current; its reading gives the magnitude of the current directly.)",
+          "In a simple circuit, an ammeter is connected in series to measure the current; its reading gives the magnitude of the current directly."
+        ]
+      ],
+      "kv": [
+        [
+          ["परिभाषा (Definition)", "धारा वह प्रवाह है जिसमें आवेशित कण नियत दिशा में चलते हैं।"],
+          ["इकाई (Unit)", "ऐम्पीयर (A)"],
+          ["सूत्र (Formula)", "I = Q / t"],
+          ["परिमाण (Quantity)", "धारा (Current)"],
+          ["दिशा (Direction)", "धनात्मक टर्मिनल से ऋणात्मक टर्मिनल की ओर"],
+          ["मापन उपकरण (Measuring instrument)", "एम्मीटर (Ammeter)"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "I = Q / t",
+        "units": [
+          [
+            ["धारा (Current)", "I"],
+            ["ऐम्पीयर (A)"]
+          ],
+          [
+            ["आवेश (Charge)", "Q"],
+            ["कूलॉम्ब (C)"]
+          ],
+          [
+            ["समय (Time)", "t"],
+            ["सेकंड (s)"]
+          ]
+        ]
+      },
+      "tip": [
+        "⚠ धारा मापते समय एम्मीटर को हमेशा श्रृंखला (series) में जोड़ें, नहीं तो पढ़ा गया मान गलत होगा।",
+        "⚠ Connect the ammeter in series while measuring current; otherwise the reading will be incorrect."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox='0 0 340 200' xmlns='http://www.w3.org/2000/svg'>\n  <!-- Battery -->\n  <line x1='40' y1='100' x2='60' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='60' y1='90' x2='60' y2='110' stroke='black' stroke-width='4'/>\n  <line x1='80' y1='95' x2='80' y2='105' stroke='black' stroke-width='2'/>\n  <line x1='80' y1='100' x2='100' y2='100' stroke='black' stroke-width='2'/>\n  <!-- Ammeter (circle with A) -->\n  <circle cx='150' cy='100' r='20' stroke='black' fill='none' stroke-width='2'/>\n  <text x='143' y='105' font-size='12' font-family='Arial'>A</text>\n  <!-- Resistor -->\n  <polyline points='180,100 190,90 200,110 210,90 220,110 230,90 240,110 250,100' fill='none' stroke='black' stroke-width='2'/>\n  <!-- Wires -->\n  <line x1='100' y1='100' x2='140' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='170' y1='100' x2='180' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='250' y1='100' x2='300' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='300' y1='100' x2='300' y2='150' stroke='black' stroke-width='2'/>\n  <line x1='300' y1='150' x2='40' y2='150' stroke='black' stroke-width='2'/>\n  <line x1='40' y1='150' x2='40' y2='100' stroke='black' stroke-width='2'/>\n  <!-- Arrow indicating direction of conventional current -->\n  <defs>\n    <marker id='arrow' markerWidth='10' markerHeight='10' refX='0' refY='3' orient='auto'>\n      <path d='M0,0 L0,6 L9,3 z' fill='red' />\n    </marker>\n  </defs>\n  <line x1='120' y1='80' x2='220' y2='80' stroke='red' stroke-width='2' marker-end='url(#arrow)' />\n  <text x='160' y='70' font-size='12' fill='red' font-family='Arial'>Conventional Current</text>\n</svg>",
+        "caption": ["धारा (Current) का सर्किट चित्र", "Circuit diagram showing current flow"]
+      }
+    },
+    {
+      "key": "c2",
+      "emoji": "🔋",
+      "title": ["वोल्टेज (Potential Difference)", "Potential Difference"],
+      "paras": [
+        [
+          "वोल्टेज दो बिंदुओं के बीच ऊर्जा अंतर को दर्शाता है, जिसे इलेक्ट्रॉनों को एक बिंदु से दूसरे बिंदु तक ले जाने के लिये आवश्यक कार्य के रूप में परिभाषित किया जाता है। (Potential difference is the energy difference between two points, defined as the work needed to move a unit charge from one point to the other.)",
+          "Potential difference is the energy difference between two points, defined as the work needed to move a unit charge from one point to the other."
+        ],
+        [
+          "वोल्टेज की इकाई वोल्ट (V) है; 1 वोल्ट वह कार्य है जो 1 जूल ऊर्जा को 1 कूलॉम्ब चार्ज पर किया जाता है। (The unit of voltage is volt (V); 1 volt is the work of 1 joule done on 1 coulomb of charge.)",
+          "The unit of voltage is volt (V); 1 volt is the work of 1 joule done on 1 coulomb of charge."
+        ],
+        [
+          "वोल्टमीटर को सर्किट के दो बिंदुओं के बीच समानांतर (parallel) में जोड़ा जाता है; यह केवल वोल्टेज को पढ़ता है और सर्किट में कोई परिवर्तन नहीं करता। (A voltmeter is connected in parallel across two points; it measures only the potential difference and does not alter the circuit.)",
+          "A voltmeter is connected in parallel across two points; it measures only the potential difference and does not alter the circuit."
+        ],
+        [
+          "इलेक्ट्रोमैग्नेटिक फोर्स (EMF) वह अधिकतम संभावित अंतर है जो एक स्रोत (जैसे बैटरी) बिना किसी बाहरी लोड के उत्पन्न करता है। (EMF is the maximum potential difference a source like a battery can produce when no external load is connected.)",
+          "EMF is the maximum potential difference a source like a battery can produce when no external load is connected."
+        ]
+      ],
+      "kv": [
+        [
+          ["परिभाषा (Definition)", "दो बिंदुओं के बीच ऊर्जा अंतर जो इलेक्ट्रॉनों को ले जाने के लिये आवश्यक कार्य है।"],
+          ["इकाई (Unit)", "वोल्ट (V)"],
+          ["सूत्र (Formula)", "V = W / Q"],
+          ["मापन उपकरण (Measuring instrument)", "वोल्टमीटर (Voltmeter)"],
+          ["संयोजन (Connection)", "समानांतर (Parallel)"],
+          ["EMF की अवधारणा (Concept of EMF)", "बिना लोड के अधिकतम संभावित अंतर"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "V = W / Q",
+        "units": [
+          [
+            ["वोल्टेज (Potential Difference)", "V"],
+            ["वोल्ट (V)"]
+          ],
+          [
+            ["कार्य (Work)", "W"],
+            ["जूल (J)"]
+          ],
+          [
+            ["आवेश (Charge)", "Q"],
+            ["कूलॉम्ब (C)"]
+          ]
+        ]
+      },
+      "tip": [
+        "⚠ वोल्टमीटर को हमेशा सर्किट के दो बिंदुओं के बीच समानांतर में जोड़ें, श्रृंखला में नहीं, नहीं तो सर्किट की कुल प्रतिरोध बढ़ जाएगी।",
+        "⚠ Connect the voltmeter always in parallel across the two points; never in series, otherwise the total resistance of the circuit will increase."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox='0 0 340 200' xmlns='http://www.w3.org/2000/svg'>\n  <!-- Battery -->\n  <line x1='40' y1='100' x2='60' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='60' y1='90' x2='60' y2='110' stroke='black' stroke-width='4'/>\n  <line x1='80' y1='95' x2='80' y2='105' stroke='black' stroke-width='2'/>\n  <line x1='80' y1='100' x2='100' y2='100' stroke='black' stroke-width='2'/>\n  <!-- Load resistor -->\n  <polyline points='180,100 190,90 200,110 210,90 220,110 230,90 240,110 250,100' fill='none' stroke='black' stroke-width='2'/>\n  <!-- Voltmeter (two parallel lines with V) -->\n  <line x1='130' y1='70' x2='130' y2='130' stroke='black' stroke-width='2'/>\n  <line x1='150' y1='70' x2='150' y2='130' stroke='black' stroke-width='2'/>\n  <text x='135' y='115' font-size='12' font-family='Arial'>V</text>\n  <!-- Wires -->\n  <line x1='100' y1='100' x2='130' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='150' y1='100' x2='180' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='250' y1='100' x2='300' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='300' y1='100' x2='300' y2='150' stroke='black' stroke-width='2'/>\n  <line x1='300' y1='150' x2='40' y2='150' stroke='black' stroke-width='2'/>\n  <line x1='40' y1='150' x2='40' y2='100' stroke='black' stroke-width='2'/>\n  <!-- Arrow indicating potential difference direction -->\n  <defs>\n    <marker id='arrow2' markerWidth='10' markerHeight='10' refX='0' refY='3' orient='auto'>\n      <path d='M0,0 L0,6 L9,3 z' fill='green' />\n    </marker>\n  </defs>\n  <line x1='120' y1='80' x2='220' y2='80' stroke='green' stroke-width='2' marker-end='url(#arrow2)' />\n  <text x='160' y='70' font-size='12' fill='green' font-family='Arial'>Potential Difference (V)</text>\n</svg>",
+        "caption": ["वोल्टेज (Potential Difference) का सर्किट चित्र", "Circuit diagram showing potential difference measurement"]
+      }
+    },
+    {
+      "key": "c3",
+      "emoji": "📈",
+      "title": ["ओम का नियम (Ohm’s Law)", "Ohm’s Law"],
+      "paras": [
+        [
+          "ओम का नियम कहता है कि किसी प्रतिरोधक (R) में धारा (I) और उसके पार वोल्टेज (V) के बीच सीधा अनुपात होता है, अर्थात् V = I × R। (Ohm’s law states that the voltage across a resistor is directly proportional to the current flowing through it, i.e., V = I × R.)",
+          "Ohm’s law states that the voltage across a resistor is directly proportional to the current flowing through it, i.e., V = I × R."
+        ],
+        [
+          "यदि प्रतिरोध स्थिर रहता है, तो V‑I ग्राफ एक सीधी रेखा होगी जिसकी ढाल R (प्रतिरोध) के बराबर होती है। (For a constant resistance, the V‑I graph is a straight line whose slope equals the resistance R.)",
+          "For a constant resistance, the V‑I graph is a straight line whose slope equals the resistance R."
+        ],
+        [
+          "स्थिर प्रतिरोध की शर्त यह है कि तापमान में परिवर्तन न हो और सामग्री का स्वरूप (जैसे धातु) रैखिक हो। (The condition for constant resistance is that temperature remains unchanged and the material behaves linearly, e.g., a metal.)",
+          "The condition for constant resistance is that temperature remains unchanged and the material behaves linearly, e.g., a metal."
+        ],
+        [
+          "प्रयोगात्मक सत्यापन में एक सर्किट में विभिन्न वोल्टेज लागू करके धारा मापी जाती है; यदि V‑I रेखा सीधी आती है तो ओम का नियम सत्यापित होता है। (In experimental verification, different voltages are applied to a circuit and the current is measured; a straight V‑I line confirms Ohm’s law.)",
+          "In experimental verification, different voltages are applied to a circuit and the current is measured; a straight V‑I line confirms Ohm’s law."
+        ]
+      ],
+      "kv": [
+        [
+          ["परिभाषा (Definition)", "V = I × R"],
+          ["इकाई (Units)", "V – वोल्ट (V), I – ऐम्पीयर (A), R – ओह्म (Ω)"],
+          ["स्थिर प्रतिरोध की शर्त", "तापमान स्थिर, रैखिक सामग्री"],
+          ["ग्राफिकल प्रतिनिधित्व", "V‑I ग्राफ में सीधी रेखा, ढाल = R"],
+          ["प्रयोगात्मक विधि", "वोल्टेज बदलें, धारा मापें, ग्राफ बनाएं"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "V = I × R",
+        "units": [
+          [
+            ["वोल्टेज (Voltage)", "V"],
+            ["वोल्ट (V)"]
+          ],
+          [
+            ["धारा (Current)", "I"],
+            ["ऐम्पीयर (A)"]
+          ],
+          [
+            ["प्रतिरोध (Resistance)", "R"],
+            ["ओह्म (Ω)"]
+          ]
+        ]
+      },
+      "tip": [
+        "⚠ प्रतिरोध को मापते समय तापमान को स्थिर रखें; तापमान बढ़ने से प्रतिरोध बढ़ जाता है और ग्राफ में वक्रता आ सकती है।",
+        "⚠ Keep temperature constant while measuring resistance; temperature rise increases resistance and may cause curvature in the V‑I graph."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox='0 0 340 200' xmlns='http://www.w3.org/2000/svg'>\n  <!-- Battery -->\n  <line x1='40' y1='100' x2='60' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='60' y1='90' x2='60' y2='110' stroke='black' stroke-width='4'/>\n  <line x1='80' y1='95' x2='80' y2='105' stroke='black' stroke-width='2'/>\n  <line x1='80' y1='100' x2='100' y2='100' stroke='black' stroke-width='2'/>\n  <!-- Variable resistor (adjustable) -->\n  <rect x='150' y='80' width='40' height='40' fill='none' stroke='black' stroke-width='2'/>\n  <line x1='150' y1='100' x2='140' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='190' y1='100' x2='200' y2='100' stroke='black' stroke-width='2'/>\n  <!-- Ammeter -->\n  <circle cx='260' cy='100' r='20' stroke='black' fill='none' stroke-width='2'/>\n  <text x='253' y='105' font-size='12' font-family='Arial'>A</text>\n  <!-- Wires -->\n  <line x1='100' y1='100' x2='140' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='200' y1='100' x2='240' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='280' y1='100' x2='300' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='300' y1='100' x2='300' y2='150' stroke='black' stroke-width='2'/>\n  <line x1='300' y1='150' x2='40' y2='150' stroke='black' stroke-width='2'/>\n  <line x1='40' y1='150' x2='40' y2='100' stroke='black' stroke-width='2'/>\n  <!-- V‑I graph (schematic) -->\n  <rect x='20' y='20' width='100' height='80' fill='none' stroke='gray' stroke-dasharray='4 2'/>\n  <line x1='20' y1='100' x2='120' y2='100' stroke='gray' stroke-width='1'/>\n  <line x1='20' y1='20' x2='20' y2='100' stroke='gray' stroke-width='1'/>\n  <text x='60' y='115' font-size='10' font-family='Arial'>I (A)</text>\n  <text x='5' y='60' font-size='10' font-family='Arial' transform='rotate(-90 5,60)'>V (V)</text>\n  <polyline points='30,90 50,70 70,50 90,30' fill='none' stroke='red' stroke-width='2'/>\n  <text x='130' y='80' font-size='12' font-family='Arial'>V‑I ग्राफ</text>\n</svg>",
+        "caption": ["ओम का नियम (Ohm’s Law) का सर्किट एवं V‑I ग्राफ", "Circuit and V‑I graph illustrating Ohm’s law"]
+      }
+    }
+  ]
+}

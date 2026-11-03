@@ -1,0 +1,132 @@
+{
+  "teach": [
+    {
+      "emoji": "🔌",
+      "heading": [
+        "🔌 विद्युत की यात्रा (Journey of Electricity)",
+        "🔌 Journey of Electricity"
+      ],
+      "paras": [
+        [
+          "विद्युत की **यात्रा** शुरू होती है जब कोयला, जल, या पवन जैसी ऊर्जा स्रोतों को **उत्पादक (generator)** में बदल दिया जाता है। कोयले की जलती हुई धातु से उत्पन्न गर्मी पानी को भाप में बदल देती है, और वह भाप टरबाइन को घुमाती है। टरबाइन की घूर्णन गति को इलेक्ट्रॉनिक रूप में **विद्युत धारा (electric current)** में परिवर्तित किया जाता है। यह धारा फिर **उच्च वोल्टेज (high voltage)** के साथ ट्रांसफ़ॉर्मर द्वारा बढ़ा दी जाती है, ताकि लंबी दूरी पर कम ऊर्जा हानि के साथ पहुँच सके। इस प्रक्रिया में **ट्रांसमिशन लाइन्स** का उपयोग किया जाता है, जो 400 kV या 220 kV जैसी बड़ी वोल्टेज पर चलती हैं।",
+          "The **journey** of electricity begins when energy sources like coal, water, or wind are converted in a **generator**. The heat from burning coal turns water into steam, and that steam spins a turbine. The turbine’s rotation is changed into **electric current**. This current is then **stepped up** to **high voltage** using a transformer so that it can travel long distances with minimal loss. The **transmission lines** carry this current at voltages such as 400 kV or 220 kV."
+        ],
+        [
+          "जब विद्युत उच्च वोल्टेज पर पहुँचती है, तो इसे **स्थानीय ट्रांसफ़ॉर्मर** में फिर से **निम्न वोल्टेज (low voltage)** में घटाया जाता है, जिससे घर‑घर तक सुरक्षित रूप से पहुँच सके। इस घटाव के बाद विद्युत **डिस्ट्रिब्यूशन नेटवर्क** के माध्यम से प्रत्येक मोहल्ले, स्कूल, अस्पताल आदि को सप्लाई की जाती है। हमारे घर में जो सॉकेट होते हैं, वे आमतौर पर 230 V (भारत) या 120 V (अमेरिका) पर काम करते हैं, जिससे छोटे‑छोटे इलेक्ट्रॉनिक उपकरण आसानी से चल सकें। इस चरण में **सर्किट ब्रेकर** और **फ्यूज़** जैसे सुरक्षा उपकरण भी जुड़े होते हैं, जो ओवर‑लोड या शॉर्ट‑सर्किट होने पर करंट को तुरंत काट देते हैं।",
+          "When electricity arrives at high voltage, it is **stepped down** in a **local transformer** to **low voltage** so that it can be safely delivered to homes. After this reduction, the electricity travels through a **distribution network** to each neighborhood, school, hospital, etc. The sockets in our houses typically operate at 230 V (India) or 120 V (USA), allowing small appliances to run easily. At this stage, safety devices like **circuit breakers** and **fuses** are also installed, which instantly cut off the current in case of overload or short‑circuit."
+        ],
+        [
+          "हर दिन हम विद्युत की इस यात्रा को अनदेखा कर लेते हैं, परन्तु यह हमारे जीवन को सहज बनाती है। उदाहरण के लिये, जब आप सुबह के नाश्ते में टोस्टर चलाते हैं, तो बिजली पहले पावर प्लांट से निकल कर ट्रांसमिशन टावरों, फिर ट्रांसफ़ॉर्मर, और अंत में आपके किचन के सॉकेट तक पहुँचती है। इसी क्रम में **सुरक्षा** का ध्यान रखना बहुत ज़रूरी है; इसलिए सॉकेट के पास पानी न रखें और किसी भी क्षतिग्रस्त तार को तुरंत बदलवाएँ। याद रखें, विद्युत की यात्रा जितनी लंबी है, उतनी ही सावधानी की जरूरत है।",
+          "Every day we overlook this journey of electricity, yet it makes our lives comfortable. For example, when you use a toaster for breakfast, electricity first leaves the power plant, travels through transmission towers, then a transformer, and finally reaches the kitchen socket. Throughout this process, **safety** is crucial; therefore keep water away from sockets and replace any damaged wires immediately. **Remember**, the longer the journey of electricity, the more careful we must be."
+        ]
+      ],
+      "formula": null,
+      "example": {
+        "label": [
+          "समझो ऐसे",
+          "Think of it like this"
+        ],
+        "text": [
+          "विद्युत को एक नदी की तरह सोचें – पानी (इलेक्ट्रॉनों) को ऊपर से नीचे बहाने के लिये बाँध (ट्रांसफ़ॉर्मर) और नहरें (केबल) की जरूरत होती है।",
+          "Think of electricity as a river – the water (electrons) needs dams (transformers) and channels (cables) to flow from high to low levels."
+        ]
+      }
+    },
+    {
+      "emoji": "⚡",
+      "heading": [
+        "धारा और वोल्टेज की मूल बातें (Basics of Current & Potential Difference)",
+        "Basics of Current & Potential Difference"
+      ],
+      "paras": [
+        [
+          "**धारा (Current)** वह दर है जिस पर इलेक्ट्रॉन एक बिंदु से दूसरे बिंदु तक प्रवाहित होते हैं। इसे **एम्पीयर (ampere, A)** में मापा जाता है, जहाँ 1 A का अर्थ है 1 कूलॉम्ब (C) चार्ज एक सेकंड में गुजरना। कल्पना कीजिए कि एक पानी की नली में पानी का प्रवाह 2 लीटर/सेकंड है; वही तरह धारा इलेक्ट्रॉनों के प्रवाह को दर्शाती है। धारा की दिशा को अक्सर **परम्परागत प्रवाह (conventional current)** के अनुसार सकारात्मक टर्मिनल से नकारात्मक टर्मिनल की ओर माना जाता है, भले ही वास्तविक इलेक्ट्रॉन नकारात्मक से सकारात्मक की ओर चलते हों।",
+          "**Current** is the rate at which electrons move from one point to another. It is measured in **ampere (A)**, where 1 A means 1 coulomb (C) of charge passes per second. Imagine water flowing through a pipe at 2 liters/second; similarly, current represents the flow of electrons. The direction of current is usually taken as **conventional current**, from the positive terminal to the negative terminal, even though actual electrons move from negative to positive."
+        ],
+        [
+          "**वोल्टेज (Potential Difference)** दो बिंदुओं के बीच ऊर्जा का अंतर है, जिसे **वोल्ट (volt, V)** में मापा जाता है। इसे एक पानी के टैंक की ऊँचाई से तुलना किया जा सकता है – जितनी ऊँची टैंक, उतना अधिक पानी नीचे गिरते समय गति प्राप्त करता है। इसी प्रकार, उच्च वोल्टेज वाले बिंदु से कम वोल्टेज वाले बिंदु तक इलेक्ट्रॉन तेज़ी से चलते हैं। वोल्टेज का स्रोत बैटरी, जेनरेटर या सॉकेट हो सकता है, और यह **विद्युत शक्ति (electric power)** को चलाने के लिये आवश्यक “धक्का” देता है।",
+          "**Potential Difference** is the energy difference between two points, measured in **volts (V)**. It can be compared to the height of a water tank – the higher the tank, the more speed water gains as it falls. Similarly, electrons move faster from a point of higher voltage to lower voltage. The source of voltage can be a battery, generator, or socket, and it provides the “push” needed to drive **electric power**."
+        ],
+        [
+          "धारा और वोल्टेज के बीच संबंध को समझना आसान है जब हम इसे **पानी के पाइप** से जोड़ते हैं। यदि पाइप का व्यास छोटा हो तो पानी का प्रवाह कम होगा, चाहे टैंक की ऊँचाई (वोल्टेज) समान रहे। इसी तरह, यदि सर्किट में प्रतिरोध (Resistance) अधिक हो तो धारा घटेगी। इस बुनियादी समझ से हम आगे के नियम, जैसे ओम का नियम, को आसानी से लागू कर सकते हैं।",
+          "Understanding the relationship between current and voltage becomes simple when we liken it to a **water pipe**. If the pipe’s diameter is small, water flow reduces even if the tank’s height (voltage) stays the same. Likewise, if a circuit has high **resistance**, the current will drop. This basic insight helps us apply later rules such as Ohm’s Law with ease."
+        ]
+      ],
+      "formula": "I = Q / t   (Current = Charge / Time)",
+      "example": {
+        "label": [
+          "याद रखो",
+          "Remember"
+        ],
+        "text": [
+          "1 A का मतलब है 1 कूलॉम्ब चार्ज हर सेकंड में बह रहा है – जैसे 1 लीटर पानी हर सेकंड नली से निकल रहा हो।",
+          "1 A means 1 coulomb of charge flows every second – like 1 liter of water passing through a pipe each second."
+        ]
+      }
+    },
+    {
+      "emoji": "📈",
+      "heading": [
+        "ओम का नियम (Ohm’s Law)",
+        "Ohm’s Law"
+      ],
+      "paras": [
+        [
+          "**ओम का नियम** बताता है कि किसी भी **स्थिर (steady)** सर्किट में धारा (I), वोल्टेज (V) और प्रतिरोध (R) के बीच सीधा अनुपात होता है। सूत्र है **V = I × R**। इसका अर्थ है कि यदि हम प्रतिरोध को स्थिर रखें, तो वोल्टेज बढ़ाने से धारा भी समान अनुपात में बढ़ेगी, और वोल्टेज घटाने से धारा घटेगी। यह नियम सभी धातु के तारों और कई इलेक्ट्रॉनिक घटकों पर लागू होता है, जब तक कि तापमान बहुत अधिक न हो।",
+          "**Ohm’s Law** states that in any **steady** circuit, current (I), voltage (V) and resistance (R) are directly proportional. The formula is **V = I × R**. This means that if resistance is kept constant, increasing the voltage will increase the current in the same ratio, and decreasing the voltage will reduce the current. This law applies to metallic wires and many electronic components, provided the temperature does not become excessively high."
+        ],
+        [
+          "ओम के नियम को समझने के लिये हम **पानी की नली** की तुलना कर सकते हैं। नली का व्यास प्रतिरोध के बराबर है, और नली के दो सिरों के बीच की ऊँचाई वोल्टेज है। यदि आप नली के दोनों सिरों पर अधिक ऊँचाई (अधिक वोल्टेज) लगाते हैं, तो पानी (धारा) तेज़ी से बहेगा। लेकिन यदि नली बहुत पतली (उच्च प्रतिरोध) हो, तो भले ही ऊँचाई अधिक हो, पानी की गति सीमित रहेगी।",
+          "To understand Ohm’s Law, we can compare it to a **water pipe**. The pipe’s diameter corresponds to resistance, and the height difference between the two ends corresponds to voltage. If you raise the height (increase voltage) at both ends, water (current) flows faster. However, if the pipe is very narrow (high resistance), even a large height difference will limit the water’s speed."
+        ],
+        [
+          "परीक्षा में अक्सर **V‑I ग्राफ** दिया जाता है, जहाँ सीधी रेखा का ढलान **R** को दर्शाता है। यदि ग्राफ का ढलान बड़ा है, तो प्रतिरोध अधिक है; यदि ढलान छोटा है, तो प्रतिरोध कम है। इस प्रकार, ओम का नियम न केवल गणितीय रूप से बल्कि ग्राफ़िकल रूप से भी समझा जा सकता है, जिससे प्रयोगात्मक डेटा का विश्लेषण आसान हो जाता है।",
+          "In exams, a **V‑I graph** is often provided, where the slope of the straight line represents **R**. A steep slope indicates high resistance, while a gentle slope indicates low resistance. Thus, Ohm’s Law can be understood not only mathematically but also graphically, making the analysis of experimental data straightforward."
+        ]
+      ],
+      "formula": "V = I × R",
+      "example": {
+        "label": [
+          "समझो ऐसे",
+          "Think of it like this"
+        ],
+        "text": [
+          "यदि 2 Ω प्रतिरोध वाले बल्ब में 6 V लगाते हैं, तो धारा I = 6 V / 2 Ω = 3 A होगी।",
+          "If a bulb of 2 Ω resistance is connected to 6 V, the current I = 6 V / 2 Ω = 3 A."
+        ]
+      }
+    },
+    {
+      "emoji": "🧮",
+      "heading": [
+        "प्रतिरोध और प्रतिरोधता (Resistance & Resistivity)",
+        "Resistance & Resistivity"
+      ],
+      "paras": [
+        [
+          "**प्रतिरोध (Resistance)** वह बाधा है जो किसी चालक (conductor) में धारा के प्रवाह को रोकती है। इसे **ओह्म (ohm, Ω)** में मापा जाता है। प्रतिरोध कई कारकों पर निर्भर करता है – **लंबाई (L)**, **क्षेत्रफल (A)**, **सामग्री की प्रतिरोधता (ρ)**, और **तापमान**। लंबी तार में अधिक प्रतिरोध होता है, जबकि मोटी तार में कम प्रतिरोध। यही कारण है कि घर में बड़े‑बड़े पावर केबल मोटी होती हैं, ताकि कम प्रतिरोध के साथ बड़ी धारा आसानी से बह सके।",
+          "**Resistance** is the opposition that a **conductor** offers to the flow of current. It is measured in **ohms (Ω)**. Resistance depends on several factors – **length (L)**, **cross‑sectional area (A)**, **material’s resistivity (ρ)**, and **temperature**. A longer wire has higher resistance, while a thicker wire has lower resistance. This is why household power cables are thick, allowing large currents to pass with minimal resistance."
+        ],
+        [
+          "**प्रतिरोधता (Resistivity)** एक मूलभूत गुण है जो पदार्थ की प्रकृति को दर्शाता है। इसे **ρ** (rho) से दर्शाते हैं और इकाई **Ω·m** में होती है। सूत्र है **ρ = R × A / L**। यदि दो समान आकार के तार हों, पर एक तांबा (copper) का और दूसरा नायलॉन (nylon) का हो, तो नायलॉन की प्रतिरोधता बहुत अधिक होगी, इसलिए वही लंबाई और व्यास होने पर उसका प्रतिरोध बहुत अधिक होगा। प्रतिरोधता का मान तापमान के साथ बदलता है; अधिकांश धातुओं में तापमान बढ़ने पर ρ बढ़ता है।",
+          "**Resistivity** is an intrinsic property that characterizes a material. It is denoted by **ρ** (rho) and has units **Ω·m**. The formula is **ρ = R × A / L**. If two wires have the same dimensions, one made of copper and the other of nylon, nylon’s resistivity is much higher, so its resistance will be far greater. Resistivity changes with temperature; for most metals, ρ increases as temperature rises."
+        ],
+        [
+          "प्रयोगशाला में हम अक्सर **वायर रेसिस्टेंस** को मापने के लिये **वोल्ट‑मीटर** और **ऐम्पीयर‑मीटर** का उपयोग करते हैं, फिर **R = V / I** से प्रतिरोध निकालते हैं और ऊपर दिया गया सूत्र प्रयोग करके ρ की गणना करते हैं। यह प्रक्रिया न केवल सिद्धांत को समझाती है, बल्कि वास्तविक सामग्री के चयन में भी मदद करती है – जैसे इलेक्ट्रिक मोटर में तांबे की कॉइल और हीटर में निकेल‑क्रोमिक वायर का उपयोग।",
+          "In the lab, we often use a **voltmeter** and an **ammeter** to measure the **wire resistance**, then calculate R = V / I and use the earlier formula to find ρ. This procedure not only reinforces the theory but also aids in material selection – for example, copper coils in electric motors and nichrome wires in heaters."
+        ]
+      ],
+      "formula": "ρ = R × A / L",
+      "example": {
+        "label": [
+          "समझो ऐसे",
+          "Think of it like this"
+        ],
+        "text": [
+          "यदि 0.5 m लंबी तांबे की तार का व्यास 1 mm है और उसका प्रतिरोध 0.02 Ω है, तो ρ = 0.02 Ω × (π×0.001² m²) / 0.5 m ≈ 1.26 × 10⁻⁸ Ω·m।",
+          "If a copper wire 0.5 m long has a diameter of 1 mm and resistance 0.02 Ω, then ρ = 0.02 Ω × (π×0.001² m²) / 0.5 m ≈ 1.26 × 10⁻⁸ Ω·m."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+ "title": [
+  "ओह्म का नियम (Ohm's Law)",
+  "Ohm's Law"
+ ],
+ "hint": [
+  "वोल्टेज बदलें और करंट देखें",
+  "Change the voltage to see the current"
+ ],
+ "slider": [
+  "वोल्टेज (V)",
+  "Voltage (V)"
+ ],
+ "min": 0,
+ "max": 12,
+ "step": 1,
+ "val": 6,
+ "script": "function update(v){\n  const R = 4;               // ओह्म (Ω)\n  const I = v / R;           // करंट (A)\n\n  // बैटरी\n  const bat = new THREE.Mesh(new THREE.BoxGeometry(2,1,1), mat(0x555555));\n  bat.position.set(-5,0,0);\n  add(bat);\n\n  // रेजिस्टर\n  const res = new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,2,16), mat(0x884422));\n  res.rotation.z = Math.PI/2;\n  res.position.set(0,0,0);\n  add(res);\n\n  // बल्ब\n  const bright = Math.min(0xff, Math.round(0x80 + I*0x30));\n  const bulbCol = (bright<<16) | (bright<<8) | 0; // लाल‑हरा मिश्रण, नीला 0\n  const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.8,16,16), mat(bulbCol));\n  bulb.position.set(5,0,0);\n  add(bulb);\n\n  // वायर (लाइन)\n  line(new THREE.Vector3(-4,0,0), new THREE.Vector3(-1,0,0), 0xaaaaaa);\n  line(new THREE.Vector3(1,0,0), new THREE.Vector3(4,0,0), 0xaaaaaa);\n\n  // करंट एरो (तीर) – लंबाई I के अनुपात में\n  const arrowLen = I * 2; // स्केलिंग फैक्टर\n  const from = new THREE.Vector3(-1,0,0);\n  const to   = new THREE.Vector3(-1 + arrowLen,0,0);\n  arrow(from, to, 0x00ff00);\n\n  // जानकारी दिखाएँ\n  info.textContent = T(\"धारा I = \" + I.toFixed(2) + \" A\", \"Current I = \" + I.toFixed(2) + \" A\");\n}"
+}

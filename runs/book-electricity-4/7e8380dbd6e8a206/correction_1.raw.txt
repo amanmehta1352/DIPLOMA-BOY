@@ -1,0 +1,96 @@
+{
+  "concepts": [
+    {
+      "key": "c2",
+      "emoji": "🔋",
+      "title": [
+        "वोल्टेज (Potential Difference)",
+        "Potential Difference"
+      ],
+      "paras": [
+        [
+          "वोल्टेज (Potential Difference) वह कार्य है जो इकाई आवेश (कुल चार्ज) पर किया जाता है, अर्थात् V = W / Q. यह दो बिंदुओं के बीच विद्युत ऊर्जा में अंतर को दर्शाता है।",
+          "Potential difference (voltage) is the work done per unit charge, i.e., V = W / Q. It represents the difference in electric energy between two points."
+        ],
+        [
+          "वोल्टेज की इकाई वोल्ट (V) है, जहाँ 1 वोल्ट = 1 जूल/कूलॉम्ब. इसे विद्युत धारा (I) और प्रतिरोध (R) के माध्यम से भी V = I × R से निकाला जा सकता है, परन्तु यह ओह्म के नियम का प्रयोग है, न कि मूल परिभाषा.",
+          "The unit of voltage is the volt (V), where 1 V = 1 joule per coulomb. It can also be expressed as V = I × R using current and resistance, which is Ohm’s law, not the fundamental definition."
+        ],
+        [
+          "वोल्टेज मापने के लिये वोल्टमीटर का प्रयोग किया जाता है. वोल्टमीटर को सर्किट के दो बिंदुओं के बीच समानांतर (parallel) जोड़ा जाता है, जिससे वह केवल उस अंतर को दिखाता है, बिना धारा को बदलें.",
+          "A voltmeter is used to measure voltage. It is connected in parallel across the two points of interest, so it reads only the potential difference without altering the circuit current."
+        ],
+        [
+          "इलेक्ट्रोमोटिव फोर्स (EMF) को अक्सर वोल्टेज के साथ भ्रमित किया जाता है. EMF वह अधिकतम कार्य है जो स्रोत (जैसे बैटरी) एक इकाई आवेश पर कर सकता है, जबकि वोल्टेज वास्तविक सर्किट में दो बिंदुओं के बीच कार्य है.",
+          "Electromotive force (EMF) is often confused with voltage. EMF is the maximum work a source (like a battery) can do per unit charge, whereas voltage is the work between two points in an actual circuit."
+        ]
+      ],
+      "kv": [
+        [
+          ["परिभाषा (Definition)", "Definition"],
+          ["कार्य प्रति इकाई आवेश (Work done per unit charge)"]
+        ],
+        [
+          ["चिह्न (Symbol)", "Symbol"],
+          ["V"]
+        ],
+        [
+          ["इकाई (Unit)", "Unit"],
+          ["वोल्ट (volt, V)"]
+        ],
+        [
+          ["मापन यंत्र (Measuring instrument)", "Measuring instrument"],
+          ["वोल्टमीटर (voltmeter)"]
+        ],
+        [
+          ["EMF की अवधारणा (Concept of EMF)", "Concept of EMF"],
+          ["स्रोत द्वारा अधिकतम कार्य प्रति इकाई आवेश (Maximum work per unit charge supplied by a source)"]
+        ]
+      ],
+      "table": {
+        "head": [
+          ["Aspect", "Aspect"],
+          ["Potential Difference", "Potential Difference"],
+          ["EMF", "EMF"]
+        ],
+        "rows": [
+          [
+            ["Definition", "Definition"],
+            ["कार्य प्रति इकाई आवेश (Work done per unit charge)", "Work done per unit charge"],
+            ["स्रोत द्वारा अधिकतम कार्य प्रति इकाई आवेश (Maximum work per unit charge by source)", "Maximum work per unit charge by source"]
+          ],
+          [
+            ["Direction of measurement", "Direction of measurement"],
+            ["सर्किट के दो बिंदुओं के बीच (Between two points in a circuit)", "Between two points in a circuit"],
+            ["स्रोत के टर्मिनलों के बीच (Between the terminals of the source)", "Between the terminals of the source"]
+          ],
+          [
+            ["Typical value in a battery", "Typical value in a battery"],
+            ["बाहरी सर्किट में घट सकता है (May drop in external circuit)", "May drop in external circuit"],
+            ["बैटरी के अंदर का नियत मान (Fixed value inside the battery)", "Fixed value inside the battery"]
+          ]
+        ]
+      },
+      "formula": {
+        "expr": "V = W / Q",
+        "units": [
+          [
+            ["V", "volt (V)"],
+            ["W", "joule (J)"],
+            ["Q", "coulomb (C)"]
+          ]
+        ]
+      },
+      "tip": [
+        ["Common mistake", "Common mistake"],
+        ["वोल्टेज को \"इलेक्ट्रॉनों को धकेलने की शक्ति\" समझना गलत है; इसे कार्य प्रति इकाई आवेश के रूप में परिभाषित करें.", "Thinking of voltage as a \"force that pushes electrons\" is wrong; define it as work done per unit charge."]
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <rect x=\"50\" y=\"70\" width=\"40\" height=\"60\" fill=\"#f0f0f0\" stroke=\"#000\"/>\n  <line x1=\"70\" y1=\"70\" x2=\"70\" y2=\"50\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"70\" y1=\"130\" x2=\"70\" y2=\"150\" stroke=\"#000\" stroke-width=\"2\"/>\n  <text x=\"55\" y=\"45\" font-size=\"12\" fill=\"#000\">+</text>\n  <text x=\"55\" y=\"165\" font-size=\"12\" fill=\"#000\">-</text>\n  \n  <!-- Wires -->\n  <line x1=\"90\" y1=\"100\" x2=\"150\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"150\" y1=\"100\" x2=\"150\" y2=\"40\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"150\" y1=\"40\" x2=\"250\" y2=\"40\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"40\" x2=\"250\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"100\" x2=\"310\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"310\" y1=\"100\" x2=\"310\" y2=\"70\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"310\" y1=\"70\" x2=\"340\" y2=\"70\" stroke=\"#000\" stroke-width=\"2\"/>\n  \n  <!-- Voltmeter (parallel) -->\n  <rect x=\"150\" y=\"20\" width=\"100\" height=\"30\" fill=\"#e0e0ff\" stroke=\"#000\"/>\n  <text x=\"155\" y=\"38\" font-size=\"12\" fill=\"#000\">Voltmeter</text>\n  \n  <!-- Arrow markers -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L6,3 z\" fill=\"#000\" />\n    </marker>\n  </defs>\n  <line x1=\"70\" y1=\"100\" x2=\"70\" y2=\"80\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <line x1=\"70\" y1=\"120\" x2=\"70\" y2=\"140\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  \n  <!-- Labels -->\n  <text x=\"30\" y=\"100\" font-size=\"12\" fill=\"#000\">A</text>\n  <text x=\"320\" y=\"100\" font-size=\"12\" fill=\"#000\">B</text>\n</svg>",
+        "caption": [
+          ["वोल्टेज (Potential Difference) मापने के लिये वोल्टमीटर का सर्किट", "Circuit showing a voltmeter measuring potential difference"]
+        ]
+      }
+    }
+  ]
+}

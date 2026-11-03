@@ -1,0 +1,82 @@
+{
+  "teach": [
+    {
+      "emoji": "🛡️",
+      "heading": ["सुरक्षा उपकरण (Safety Devices)", "Safety Devices"],
+      "paras": [
+        [
+          "बच्चों, जब हम घर या स्कूल में विद्युत् (electricity) के उपकरणों का उपयोग करते हैं, तो **सुरक्षा उपकरण** हमारे जीवन को बचाने में बहुत महत्वपूर्ण भूमिका निभाते हैं। इन उपकरणों में मुख्य रूप से फ्यूज़ (fuse), सर्किट ब्रेकर (circuit breaker), अर्थिंग (earthing) और रेजिडुअल करंट डिवाइस (RCD) शामिल हैं। फ्यूज़ एक पतली धातु की तार होती है जो बहुत अधिक धारा (current) बहने पर पिघल कर सर्किट को तोड़ देती है, जिससे आग या शॉक का खतरा कम हो जाता है। सर्किट ब्रेकर एक स्विच की तरह काम करता है; जब धारा की मात्रा निर्धारित सीमा से अधिक हो जाती है, तो यह स्वतः खुल जाता है और सर्किट को बंद कर देता है। अर्थिंग का काम है किसी भी लीक हुई धारा को सीधे जमीन में भेजना, जिससे शरीर के माध्यम से धारा नहीं गुजरती। RCD विशेष रूप से घर में जलते हुए पानी के निकट उपयोग होने वाले उपकरणों के लिए आवश्यक है; यह छोटे-छोटे लीकेज को भी पहचान कर तुरंत सर्किट को काट देता है। इन सभी उपकरणों को सही जगह पर लगाना और समय‑समय पर जांचना हमारे दैनिक जीवन को सुरक्षित बनाता है।",
+          "Children, whenever we use electrical appliances at home or school, **safety devices** play a crucial role in protecting our lives. The main devices include fuse, circuit breaker, earthing and residual current device (RCD). A fuse is a thin metal wire that melts when excessive current flows, thereby breaking the circuit and reducing the risk of fire or shock. A circuit breaker works like a switch; when the current exceeds a set limit, it automatically opens and disconnects the circuit. Earthing directs any stray current straight to the ground, preventing it from passing through the body. An RCD is especially important for appliances used near water; it detects even tiny leakages and instantly cuts off the circuit. Installing these devices at the right places and checking them periodically keeps our daily life safe."
+        ],
+        [
+          "अब हम इन उपकरणों के काम करने के तरीके को सरल शब्दों में समझते हैं। **फ्यूज़** में एक पतली धातु की पट्टी होती है जो निर्धारित धारा (जैसे 5 A) से अधिक हो जाने पर गर्म होकर पिघल जाती है। इस पिघलने की प्रक्रिया में सर्किट खुल जाता है, इसलिए कोई भी उपकरण जल नहीं सकता। **सर्किट ब्रेकर** में दो मुख्य भाग होते हैं – मैग्नेटिक ट्रिप और थर्मल ट्रिप। मैग्नेटिक ट्रिप अचानक बढ़ती धारा (short‑circuit) को पहचानता है, जबकि थर्मल ट्रिप धीरे‑धीरे बढ़ती धारा (over‑load) को महसूस करता है और बायोमैकेनिकल बेंडिंग के कारण स्विच को खोल देता है। **अर्थिंग** के लिए एक धातु की छड़ (ground rod) जमीन में गहरी खोदी जाती है और सभी धातु के हिस्सों को इस छड़ से जोड़ा जाता है। यदि कोई लीकेज होता है, तो धारा सीधे जमीन में बह जाती है, जिससे शरीर में धारा नहीं प्रवेश करती। **RCD** में एक कोरिलेटर (core) होता है जो दो तारों (live और neutral) के बीच छोटे अंतर को भी महसूस कर लेता है और तुरंत सर्किट को बंद कर देता है। इन सभी प्रक्रियाओं में समय बहुत कम होता है, इसलिए हम अक्सर इनको ‘instant protection’ कहते हैं।",
+          "Now let’s understand how these devices work in simple terms. A **fuse** contains a thin metal strip that melts when the current exceeds a set value (for example, 5 A). This melting opens the circuit, preventing any appliance from catching fire. A **circuit breaker** has two main parts – magnetic trip and thermal trip. The magnetic trip detects sudden high current (short‑circuit), while the thermal trip senses a gradual increase (over‑load) and opens the switch by bending a bimetallic strip. For **earthing**, a metal rod is driven deep into the ground and all metal parts of the installation are connected to this rod. If a leakage occurs, the current flows directly to the earth, so it does not pass through the body. An **RCD** contains a core that senses even tiny differences between the live and neutral wires and instantly disconnects the circuit. All these actions happen in a fraction of a second, which is why we call them ‘instant protection’."
+        ],
+        [
+          "इन सुरक्षा उपकरणों की **देख‑रेख** भी उतनी ही महत्वपूर्ण है जितनी उनका प्रयोग। फ्यूज़ को कभी‑कभी बदलना पड़ता है, विशेषकर जब वह बार‑बार पिघल जाता है; यह संकेत देता है कि सर्किट में लगातार अधिक धारा बह रही है और हमें लोड को कम करना चाहिए। सर्किट ब्रेकर को हर छह महीने में एक बार ‘टेस्ट बटन’ दबाकर जांचना चाहिए; यदि वह सही से ट्रिप नहीं करता, तो उसे बदलना आवश्यक है। अर्थिंग की जाँच के लिए मल्टीमीटर से जमीन प्रतिरोध (ground resistance) को 10 Ω से कम होना चाहिए; यदि अधिक हो तो ग्राउंड रॉड को गहरा या नया करना पड़ेगा। RCD को साल में एक बार ‘टेस्ट बटन’ से परीक्षण करना चाहिए; यदि बटन दबाने पर सर्किट नहीं बंद होता, तो वह ख़राब हो चुका है। इन छोटे‑छोटे रख‑रखाव कार्यों से हम बड़े‑बड़े दुर्घटनाओं से बच सकते हैं और अपने घर को सुरक्षित बना सकते हैं।",
+          "Maintenance of these safety devices is as important as using them. A fuse may need replacement if it melts repeatedly; this indicates that the circuit is constantly drawing excess current and the load should be reduced. A circuit breaker should be tested every six months by pressing its ‘test button’; if it does not trip, it must be replaced. For earthing, a multimeter should show a ground resistance of less than 10 Ω; if it is higher, the ground rod needs to be driven deeper or replaced. An RCD should be tested once a year using its ‘test button’; if the circuit does not open, the device is faulty. These simple maintenance tasks prevent major accidents and keep our homes safe."
+        ]
+      ],
+      "formula": null,
+      "example": {
+        "label": ["समझो ऐसे", "Think of it like this"],
+        "text": [
+          "यदि आपके घर में एक पंखा 0.5 A की धारा लेता है और अचानक कोई बड़ी लोड (जैसे एसी) जोड़ दी जाती है जिससे धारा 12 A हो जाती है, तो फ्यूज़ पिघल जाएगा और सर्किट ब्रेकर ट्रिप कर देगा, जिससे पंखा और एसी दोनों सुरक्षित रहेंगे।",
+          "If a fan in your house draws 0.5 A and suddenly a heavy load like an air‑conditioner is added, raising the current to 12 A, the fuse will melt and the circuit breaker will trip, keeping both the fan and the AC safe."
+        ]
+      }
+    },
+    {
+      "emoji": "⚡️",
+      "heading": ["विद्युत शक्ति (Electric Power)", "Electric Power"],
+      "paras": [
+        [
+          "विद्युत शक्ति वह दर है जिस पर विद्युत ऊर्जा (electric energy) का उपयोग या उत्पादन होता है। इसे हम **शक्ति** (power) कहते हैं और इसका इकाई वाट (W) है। शक्ति की गणना करने का सबसे सरल सूत्र है **P = V × I**, जहाँ P शक्ति (Watt), V वोल्टेज (Volt) और I धारा (Ampere) है। उदाहरण के लिये, यदि एक बल्ब 230 V की सप्लाई पर 0.5 A की धारा लेता है, तो उसकी शक्ति P = 230 × 0.5 = 115 W होगी। यह वही शक्ति है जो बल्ब को प्रकाश उत्पन्न करने के लिये चाहिए। शक्ति का प्रयोग करके हम विभिन्न उपकरणों की ऊर्जा खपत को आसानी से तुलना कर सकते हैं, जैसे कि 60 W का बल्ब 100 W के बल्ब से कम बिजली खर्च करता है। इस प्रकार शक्ति हमें यह समझने में मदद करती है कि कौन‑सा उपकरण अधिक ऊर्जा ले रहा है और हमें किसे बदलना चाहिए।",
+          "Electric power is the rate at which electrical energy is used or produced. We call it **power** and its unit is the watt (W). The simplest formula to calculate power is **P = V × I**, where P is power (W), V is voltage (V) and I is current (A). For example, if a bulb is connected to a 230 V supply and draws 0.5 A, its power is P = 230 × 0.5 = 115 W. This is the power needed by the bulb to emit light. By using power, we can easily compare the energy consumption of different appliances, such as a 60 W bulb consuming less electricity than a 100 W bulb. Thus power helps us understand which device uses more energy and which one we should replace."
+        ],
+        [
+          "शक्ति की समझ हमें **ऊर्जा (energy)** की गणना करने में भी मदद करती है। ऊर्जा का इकाई किलowatt‑घंटा (kWh) है, जो शक्ति (kW) को समय (hour) से गुणा करके प्राप्त होता है, अर्थात् **E = P × t**। यदि एक 1 kW का हीटर दो घंटे चलाया जाता है, तो उसकी ऊर्जा खपत E = 1 × 2 = 2 kWh होगी। यह वही मात्रा है जो बिजली बिल में दिखती है। घर में कई उपकरण एक साथ चलते हैं, इसलिए कुल शक्ति का योग निकाल कर और उसे उपयोग के समय से गुणा कर हम कुल ऊर्जा का अनुमान लगा सकते हैं। उदाहरण के लिये, यदि एक रसोई में 2 kW का गैस स्टोव, 0.8 kW का माइक्रोवेव और 0.1 kW का टॉस्टर एक साथ चल रहे हैं, तो कुल शक्ति 2 + 0.8 + 0.1 = 2.9 kW होगी। यदि यह संयोजन एक घंटे तक चलता है, तो ऊर्जा खपत 2.9 kWh होगी, जो बिल में दिखेगा।",
+          "Understanding power also helps us calculate **energy**. The unit of energy is kilowatt‑hour (kWh), obtained by multiplying power (kW) by time (hour), i.e., **E = P × t**. If a 1 kW heater runs for two hours, its energy consumption is E = 1 × 2 = 2 kWh. This is the amount shown on the electricity bill. In a home, many appliances run together, so by adding their powers and multiplying by the usage time, we can estimate total energy consumption. For example, if a kitchen has a 2 kW gas stove, a 0.8 kW microwave and a 0.1 kW toaster running simultaneously, the total power is 2 + 0.8 + 0.1 = 2.9 kW. If this combination runs for one hour, the energy used is 2.9 kWh, which will appear on the bill."
+        ],
+        [
+          "विद्युत शक्ति का सही उपयोग करने के लिये हमें **शक्ति रेटिंग (power rating)** को देखना चाहिए। प्रत्येक उपकरण पर उसकी अधिकतम शक्ति लिखी होती है, जैसे कि एक इलेक्ट्रिक केतली पर 1500 W लिखा हो सकता है। इसका मतलब है कि केतली को अधिकतम 1500 W शक्ति की आवश्यकता होगी, और इसे उसी से अधिक शक्ति वाले सॉकेट में नहीं लगाना चाहिए, नहीं तो सॉकेट गर्म हो कर जल सकता है। साथ ही, जब हम कई उपकरण एक ही सॉकेट में लगाते हैं, तो कुल शक्ति को नहीं भूलना चाहिए; यदि कुल शक्ति सॉकेट की क्षमता से अधिक हो जाती है, तो सर्किट ब्रेकर ट्रिप कर देगा। इसलिए, शक्ति को समझना न केवल बिल बचाने में मदद करता है, बल्कि विद्युत दुर्घटनाओं से बचाव में भी महत्वपूर्ण है।",
+          "To use electric power correctly, we must check the **power rating** of each appliance. Every device has its maximum power printed, for example, a kettle may show 1500 W. This means the kettle requires up to 1500 W and should not be plugged into a socket rated for lower power, otherwise the socket may overheat and catch fire. Also, when we connect multiple appliances to the same socket, we must not exceed the socket’s capacity; if the total power exceeds it, the circuit breaker will trip. Hence, understanding power not only helps save on bills but also plays a vital role in preventing electrical accidents."
+        ]
+      ],
+      "formula": "P = V × I (W)",
+      "example": {
+        "label": ["याद रखो", "Remember"],
+        "text": [
+          "एक 60 W का बल्ब 5 घंटे चलाने पर ऊर्जा खपत = 60 W × 5 h = 300 Wh = 0.3 kWh होगी। यह वही मात्रा है जो आपके बिजली बिल में दिखेगी।",
+          "A 60 W bulb running for 5 hours consumes energy = 60 W × 5 h = 300 Wh = 0.3 kWh. This is the amount that will appear on your electricity bill."
+        ]
+      }
+    },
+    {
+      "emoji": "💡",
+      "heading": ["ऊर्जा खपत और बचत (Energy Consumption & Saving)", "Energy Consumption & Saving"],
+      "paras": [
+        [
+          "ऊर्जा खपत वह मात्रा है जितनी विद्युत् ऊर्जा (electric energy) हम किसी उपकरण को उपयोग करते समय लेते हैं। इसे हम **ऊर्जा (energy)** कहते हैं और इसका मान किलowatt‑घंटा (kWh) में मापा जाता है। ऊर्जा की गणना का मूल सूत्र है **E = P × t**, जहाँ E ऊर्जा (kWh), P शक्ति (kW) और t समय (hour) है। उदाहरण के लिये, यदि एक 100 W का पंखा एक घंटे चलाया जाता है, तो उसकी ऊर्जा खपत E = 0.1 kW × 1 h = 0.1 kWh होगी। यदि वही पंखा दिन में 8 घंटे चलता है, तो कुल ऊर्जा 0.1 × 8 = 0.8 kWh होगी। इस तरह हम प्रत्येक उपकरण की दैनिक, मासिक या वार्षिक ऊर्जा खपत निकाल सकते हैं और बिल में दिखने वाले कुल kWh से तुलना कर सकते हैं। यह समझ हमें यह पहचानने में मदद करती है कि कौन‑से उपकरण अधिक ऊर्जा ले रहे हैं और कहाँ बचत की जा सकती है।",
+          "Energy consumption is the amount of electrical energy we use while operating a device. We call it **energy** and measure it in kilowatt‑hours (kWh). The basic formula for calculating energy is **E = P × t**, where E is energy (kWh), P is power (kW) and t is time (hour). For example, if a 100 W fan runs for one hour, its energy consumption is E = 0.1 kW × 1 h = 0.1 kWh. If the same fan runs for 8 hours a day, the total energy becomes 0.1 × 8 = 0.8 kWh. This way we can compute daily, monthly or yearly consumption for each appliance and compare it with the total kWh shown on the bill. Understanding this helps us identify which devices consume more energy and where savings are possible."
+        ],
+        [
+          "ऊर्जा बचत के लिये हमें **शक्ति दक्षता (power efficiency)** को बढ़ाना चाहिए। एक ही प्रकाश मात्रा के लिये, **LED बल्ब** (≈ 10 W) इंकैंडेसेंट बल्ब (≈ 60 W) से सात गुना कम शक्ति लेता है। यदि एक घर में 10 वॉट का LED बल्ब और 60 वॉट का इंकैंडेसेंट बल्ब दोनों एक घंटे चलाए जाएँ, तो LED की ऊर्जा खपत 0.01 kWh होगी जबकि इंकैंडेसेंट की 0.06 kWh। साल भर में यह अंतर 0.05 kWh × 365 ≈ 18 kWh बन जाता है, जो लगभग 1500 ₹ की बचत हो सकती है। इसी तरह, **प्लग‑इन सॉकेट** में स्टैंड‑बाय मोड में रहने वाले चार्जर को अनप्लग कर देना, एसी को **इन्वर्टर** के बजाय **डायरेक्ट‑ड्राइव** (direct‑drive) मोटर वाले एसी से बदलना, और **ऊर्जा‑सहेजने वाले मोड** वाले उपकरणों का उपयोग करना ऊर्जा बचत के प्रभावी उपाय हैं। छोटे‑छोटे बदलावों से कुल ऊर्जा खपत में काफी कमी लाई जा सकती है।",
+          "To save energy we should improve **power efficiency**. For the same amount of light, an **LED bulb** (≈ 10 W) uses seven times less power than an incandescent bulb (≈ 60 W). If a 10 W LED and a 60 W incandescent are each run for one hour, the LED consumes 0.01 kWh while the incandescent uses 0.06 kWh. Over a year this difference becomes 0.05 kWh × 365 ≈ 18 kWh, which can translate to roughly ₹1500 savings. Similarly, unplugging chargers that stay in **stand‑by mode**, replacing an AC with an **inverter‑type** (direct‑drive) AC instead of a conventional one, and using devices with **energy‑saving modes** are effective ways to cut consumption. Small changes can lead to a significant reduction in total energy use."
+        ],
+        [
+          "ऊर्जा बचत के लिये **समय‑सारिणी (time‑of‑use)** का भी ध्यान रखना चाहिए। कई विद्युत कंपनियां पीक (peak) और ऑफ‑पीक (off‑peak) समय के अनुसार अलग‑अलग दरें लगाती हैं। पीक समय में (जैसे शाम 5 से 9 वेज) बिजली की दर अधिक होती है, इसलिए इस दौरान बड़े‑बड़े उपकरण जैसे एसी, वॉशिंग मशीन या हीटर चलाने से बिल बढ़ जाता है। यदि संभव हो तो इन उपकरणों को ऑफ‑पीक समय (रात 10 वेज से सुबह 6 वेज) में चलाएँ। इस तरह आप समान ऊर्जा उपयोग के लिये कम दर पर भुगतान करेंगे। साथ ही, **स्मार्ट मीटर** या **ऊर्जा मॉनिटर** का उपयोग करके आप वास्तविक उपयोग को रीयल‑टाइम में देख सकते हैं और अनावश्यक उपयोग को तुरंत बंद कर सकते हैं। इस प्रकार की जागरूकता और योजना से ऊर्जा बचत और आर्थिक लाभ दोनों मिलते हैं।",
+          "To save energy, we should also consider **time‑of‑use** rates. Many electricity providers charge different tariffs for peak and off‑peak periods. During peak hours (e.g., 5 pm to 9 pm) the rate is higher, so running large appliances like ACs, washing machines or heaters then raises the bill. If possible, operate these appliances during off‑peak hours (10 pm to 6 am). This way you pay a lower rate for the same amount of energy. Additionally, using a **smart meter** or **energy monitor** lets you see real‑time consumption and instantly switch off unnecessary loads. Such awareness and planning provide both energy savings and financial benefits."
+        ]
+      ],
+      "formula": "E = P × t (kWh)",
+      "example": {
+        "label": ["समझो ऐसे", "Think of it like this"],
+        "text": [
+          "यदि एक घर में 5 kW की कुल शक्ति वाले उपकरण 3 घंटे चलते हैं, तो ऊर्जा खपत = 5 kW × 3 h = 15 kWh होगी। इसे अगर ऑफ‑पीक दर पर चलाया जाए तो बिल कम आएगा।",
+          "If a house runs appliances with a total power of 5 kW for 3 hours, the energy consumption = 5 kW × 3 h = 15 kWh. Running them during off‑peak rates will lower the bill."
+        ]
+      }
+    }
+  ]
+}

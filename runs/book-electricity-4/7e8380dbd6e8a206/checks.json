@@ -1,0 +1,83 @@
+{
+ "notes_words": {
+  "hi": 3251,
+  "en": 2931
+ },
+ "teach_words": {
+  "hindi": 4817,
+  "english": 4161
+ },
+ "panels": 20,
+ "teach_sections": 15,
+ "diagrams": 8,
+ "scope": [
+  {
+   "id": "current_pd",
+   "covered": true
+  },
+  {
+   "id": "ohm",
+   "covered": true
+  },
+  {
+   "id": "resistance",
+   "covered": true
+  },
+  {
+   "id": "combos",
+   "covered": true
+  },
+  {
+   "id": "heating",
+   "covered": true
+  },
+  {
+   "id": "power",
+   "covered": true
+  }
+ ],
+ "copyright": {
+  "overlap": 0.1246,
+  "threshold": 0.2,
+  "note": "automatic metric, not legal clearance"
+ },
+ "numericals": [
+  {
+   "n": 1,
+   "stored": "Resistance R = 2 Ω",
+   "solver": "2 Ω",
+   "agree": true
+  },
+  {
+   "n": 2,
+   "stored": "Power P = 5290 W",
+   "solver": "5290 W",
+   "agree": true
+  },
+  {
+   "n": 3,
+   "stored": "Energy E = 0.3 kWh",
+   "solver": "0.3 kWh",
+   "agree": true
+  },
+  {
+   "n": 4,
+   "stored": "Parallel resistance R = 2 Ω",
+   "solver": "2 Ω",
+   "agree": true
+  },
+  {
+   "n": 5,
+   "stored": "Potential Difference V = 0.204 V",
+   "solver": "0.204 V",
+   "agree": true
+  }
+ ],
+ "fact_check": {
+  "correct": false,
+  "reason": "In the 'Potential Difference' section, the definition 'Voltage is the ability to push electrons from one point to another' is misleading. Voltage (potential difference) is defined as the work done per unit charge (W/Q) to move a charge between two points, not a 'force' or 'ability to push'. The phrase 'ability to push electrons' describes electromotive force (EMF) or electric field conceptually, b"
+ },
+ "problems": [
+  "fact check failed: In the 'Potential Difference' section, the definition 'Voltage is the ability to push electrons from one point to another' is misleading. Voltage (potential difference) is defined as the work done per unit charge (W/Q) to move a charge between two points, not a 'force' or 'ability to push'. The phrase 'ability to push electrons' describes electromotive force (EMF) or electric field conceptually, b"
+ ]
+}
