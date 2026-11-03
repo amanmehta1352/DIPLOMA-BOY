@@ -1,0 +1,68 @@
+{
+ "job_id": "959a206c8abbcb0f",
+ "request": {
+  "class": 10,
+  "board": "CBSE",
+  "session": "2026-27",
+  "subject": "Science",
+  "chapter": "Electricity",
+  "text": "Class 10, CBSE 2026-27, Science, Electricity"
+ },
+ "created_at": "2026-11-03T05:22:56+00:00",
+ "stages": {
+  "resolve": {
+   "status": "done",
+   "attempts": 0,
+   "at": "2026-11-03T05:22:56+00:00"
+  },
+  "blueprint": {
+   "status": "done",
+   "attempts": 0,
+   "at": "2026-11-03T05:22:56+00:00"
+  },
+  "write_en": {
+   "status": "running",
+   "attempts": 1
+  }
+ },
+ "attribution": [
+  {
+   "stage": "write_en",
+   "role": "writer",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T05:23:28+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "fact_checker_en",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T05:23:33+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "solver_mcq1",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T05:23:36+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "solver_mcq2",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T05:23:42+00:00"
+  }
+ ],
+ "issues": [
+  {
+   "at": "2026-11-03T05:27:52+00:00",
+   "kind": "crash",
+   "detail": "groq: key missing or free tier not confirmed by owner Traceback (most recent call last):\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/providers.py\", line 95, in solve\n    txt, prov, model = self._gemini(p, json_mode=False)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/providers.py\", line 79, in _gemini\n    raise ProviderUnavailable('gemini: ' + last)\njob.ProviderUnavailable: gemini: gemini-3.8-flash: HTTP 503\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call "
+  }
+ ],
+ "final_state": "failed",
+ "runs": 1,
+ "finished_at": "2026-11-03T05:27:52+00:00"
+}
