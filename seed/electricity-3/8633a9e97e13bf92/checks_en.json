@@ -1,0 +1,65 @@
+{
+ "structure": [],
+ "scope": [
+  {
+   "id": "current_pd",
+   "text": "Electric current, potential difference",
+   "covered": true
+  },
+  {
+   "id": "ohm",
+   "text": "Ohm's law",
+   "covered": true
+  },
+  {
+   "id": "resistance",
+   "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+   "covered": true
+  },
+  {
+   "id": "combos",
+   "text": "Series and parallel combination of resistors and their daily-life applications",
+   "covered": true
+  },
+  {
+   "id": "heating",
+   "text": "Heating effect of electric current and its daily-life applications",
+   "covered": true
+  },
+  {
+   "id": "power",
+   "text": "Electric power, interrelation between P, V, I and R",
+   "covered": true
+  }
+ ],
+ "units_missing": [],
+ "copyright": {
+  "overlap": 0.1922,
+  "threshold": 0.2,
+  "status": "pass"
+ },
+ "fact_check": {
+  "correct": true,
+  "reason": ""
+ },
+ "mcq_solved": [
+  {
+   "mcq": 1,
+   "stored": 2,
+   "solved": 2,
+   "agree": true
+  },
+  {
+   "mcq": 2,
+   "stored": 1,
+   "solved": 1,
+   "agree": true
+  },
+  {
+   "mcq": 3,
+   "stored": 1,
+   "solved": 1,
+   "agree": true
+  }
+ ]
+}
