@@ -1,0 +1,14 @@
+{
+ "result": "APPROVED",
+ "row": [
+  {
+   "level_id": "class_9_10",
+   "chapter_id": 880,
+   "status": "approved",
+   "attempts": 2
+  }
+ ],
+ "other_rows_unchanged": true,
+ "get_chapter_book_status": "approved",
+ "live_data_equals_reviewed_payload": true
+}
