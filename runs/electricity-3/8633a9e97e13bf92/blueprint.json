@@ -1,0 +1,23 @@
+{
+ "version": "class_9_10.v1",
+ "level": "class_9_10",
+ "source": "docs/policies/depth-policy.md + atom-count.md (approved 1 Nov 2026)",
+ "counts": {
+  "concepts": 3,
+  "formulas": 2,
+  "examples": 2,
+  "mcqs": 3
+ },
+ "mcq_difficulty": [
+  "easy",
+  "medium",
+  "medium"
+ ],
+ "language": {
+  "primary": "en",
+  "secondary": "hi",
+  "source": "docs/policies/bilingual-scope.md (FINAL 1 Nov 2026)"
+ },
+ "max_write_attempts": 3,
+ "copyright_threshold": 0.2
+}
