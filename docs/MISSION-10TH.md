@@ -39,6 +39,28 @@ Student को अपने level का, भरोसेमंद, छपी �
 - [ ] पुराने General Science topics delete नहीं होंगे। वो competitive exams के लिए रहेंगे, 10th वाली list अलग बनेगी
 - [ ] हर chapter का atom target तय करना
 
+### Phase 2 progress: Science (subject code 086), 3 Nov 2026
+Source: CBSE 2026-27 course structure, दो third-party copies (extramarks, schoolsuniverse) से मिलाया। ये repo के NCERT fingerprint की 13 files (jesc101-113) से भी मेल खाती है। Chapter 8 का नाम अब सिर्फ "Heredity" है।
+(एक source में Periodic Classification, Sources of Energy और Sustainable Management भी थे। वो पुराना syllabus है और 13-file NCERT किताब में नहीं हैं, इसलिए नहीं लिए गए।)
+
+| # | NCERT chapter (unit, marks) | DB में अभी का topic | हालत |
+|---|---|---|---|
+| 1 | Chemical Reactions and Equations (U1, 25) | 889 Chemical Reactions & Equations | मिलता है |
+| 2 | Acids, Bases and Salts | 891 | मिलता है |
+| 3 | Metals and Non-metals | 892 | मिलता है |
+| 4 | Carbon and its Compounds | 893 | मिलता है |
+| 5 | Life Processes (U2, 25) | Nutrition / Respiration / Circulatory में बिखरा है | नया topic चाहिए |
+| 6 | Control and Coordination | Nervous System + Hormones में बिखरा है | नया topic चाहिए |
+| 7 | How do Organisms Reproduce? | 915 Reproduction | मिलता है |
+| 8 | Heredity | 917 Heredity & Evolution | मिलता है (Evolution वाला हिस्सा 10th में नहीं) |
+| 9 | Light – Reflection and Refraction (U3, 12) | 879 Light & Optics | आंशिक |
+| 10 | The Human Eye and the Colourful World | 879 में मिला हुआ | नया topic चाहिए |
+| 11 | Electricity (U4, 13) | 880 | मिलता है |
+| 12 | Magnetic Effects of Electric Current | 881 | मिलता है |
+| 13 | Our Environment (U5, 5) | 920 Environment & Ecology | आंशिक |
+
+अगला: Maths, फिर Social Science, English, Hindi की list। उसके बाद एक additive migration से "class 10 NCERT" list बनेगी (पुराने topics को छुए बिना)।
+
 ## Phase 3: Quality gates पक्के करना
 - [ ] Copyright Check workflow ठीक करना
 - [ ] Copyright check हर Writer draft पर अपने आप चले
@@ -66,3 +88,4 @@ Student को अपने level का, भरोसेमंद, छपी �
 
 ## Progress log
 - 2026-11-02: Mission file बनी। Phase 1 audit पूरा। अगला काम: Phase 2, CBSE Class 10 syllabus।
+- 2026-11-03: Science की 13 chapters वाली list बनी और DB से मिलाई गई (8 मिलते, 2 आंशिक, 3 नए topics चाहिए)। अगला काम: Maths की list।
