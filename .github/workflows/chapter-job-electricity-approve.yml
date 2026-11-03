@@ -1,0 +1,41 @@
+# One-time: approve row 43 (class_9_10 / 880 Electricity). Owner approval 2026-11-03 19:40 IST.
+name: chapter-job-electricity-approve (one time)
+on:
+  push:
+    branches: [chapter-job-electricity-approve]
+permissions: {}
+concurrency: { group: chapter-job-electricity-approve, cancel-in-progress: false }
+jobs:
+  approve:
+    if: github.event.created == true && contains(github.event.head_commit.message, '[electricity-approve-once]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: { contents: read }
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - run: if [ -e runs/electricity-approve ]; then echo "already done"; exit 1; fi
+      - name: Approve row 43 (guarded)
+        env: { SUPABASE_SECRET_KEY: '${{ secrets.SUPABASE_SECRET_KEY }}' }
+        run: python3 tools/approve_row43.py || true
+      - name: Refuse to publish if the secret is in the output
+        env: { S1: '${{ secrets.SUPABASE_SECRET_KEY }}' }
+        run: python3 -c "import os,sys;v=os.environ['S1'];sys.exit(1 if len(v)>=8 and v in open('out/result.json').read() else 0)"
+      - uses: actions/upload-artifact@v4
+        with: { name: approve-result, path: out/, retention-days: 1 }
+  publish:
+    needs: approve
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: chapter-job-electricity-approve }
+      - uses: actions/download-artifact@v4
+        with: { name: approve-result, path: runs/electricity-approve }
+      - run: |
+          git add runs/electricity-approve
+          if git diff --cached --name-only | grep -v '^runs/electricity-approve/'; then exit 1; fi
+          git config user.name chapter-job-run; git config user.email chapter-job-run@users.noreply.github.com
+          git commit -m "Electricity approve result [skip ci]"
+          git push origin HEAD:refs/heads/chapter-job-electricity-approve
