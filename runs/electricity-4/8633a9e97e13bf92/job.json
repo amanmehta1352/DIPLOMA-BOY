@@ -1,0 +1,454 @@
+{
+ "job_id": "8633a9e97e13bf92",
+ "request": {
+  "class": 10,
+  "board": "CBSE",
+  "session": "2026-27",
+  "subject": "Science",
+  "chapter": "Electricity",
+  "text": "Class 10, CBSE 2026-27, Science, Electricity"
+ },
+ "created_at": "2026-11-03T08:40:15+00:00",
+ "stages": {
+  "resolve": {
+   "status": "done",
+   "attempts": 0,
+   "at": "2026-11-03T12:02:58+00:00"
+  },
+  "blueprint": {
+   "status": "done",
+   "attempts": 0,
+   "at": "2026-11-03T12:02:58+00:00"
+  },
+  "write_en": {
+   "status": "done",
+   "attempts": 2,
+   "history": [
+    {
+     "n": 1,
+     "at": "2026-11-03T08:40:47+00:00",
+     "status": "rejected",
+     "content_hash": "ab8ee505dcc19ba3",
+     "checks": {
+      "structure": {
+       "status": "done",
+       "content_hash": "ab8ee505dcc19ba3",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:40:47+00:00",
+       "result": []
+      },
+      "scope": {
+       "status": "done",
+       "content_hash": "ab8ee505dcc19ba3",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:40:47+00:00",
+       "result": [
+        {
+         "id": "current_pd",
+         "text": "Electric current, potential difference",
+         "covered": true
+        },
+        {
+         "id": "ohm",
+         "text": "Ohm's law",
+         "covered": true
+        },
+        {
+         "id": "resistance",
+         "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+         "covered": true
+        },
+        {
+         "id": "combos",
+         "text": "Series and parallel combination of resistors and their daily-life applications",
+         "covered": true
+        },
+        {
+         "id": "heating",
+         "text": "Heating effect of electric current and its daily-life applications",
+         "covered": true
+        },
+        {
+         "id": "power",
+         "text": "Electric power, interrelation between P, V, I and R",
+         "covered": true
+        }
+       ]
+      },
+      "units": {
+       "status": "done",
+       "content_hash": "ab8ee505dcc19ba3",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:40:47+00:00",
+       "result": []
+      },
+      "copyright": {
+       "status": "done",
+       "content_hash": "ab8ee505dcc19ba3",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:40:47+00:00",
+       "result": {
+        "overlap": 0.2323,
+        "threshold": 0.2,
+        "status": "fail"
+       }
+      },
+      "fact_check_en": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq1": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq2": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq3": {
+       "status": "skipped: local gate failed"
+      }
+     },
+     "problems": [
+      "copyright overlap 23% above the limit; explain each idea afresh in your own teaching words and structure (own examples, own sentence order), keep standard terms, laws and formulas exact, and do not just swap words; accuracy comes first"
+     ]
+    },
+    {
+     "n": 2,
+     "at": "2026-11-03T08:41:27+00:00",
+     "status": "accepted",
+     "content_hash": "f966c8c07df5e817",
+     "checks": {
+      "structure": {
+       "status": "done",
+       "content_hash": "f966c8c07df5e817",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:41:27+00:00",
+       "result": []
+      },
+      "scope": {
+       "status": "done",
+       "content_hash": "f966c8c07df5e817",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:41:27+00:00",
+       "result": [
+        {
+         "id": "current_pd",
+         "text": "Electric current, potential difference",
+         "covered": true
+        },
+        {
+         "id": "ohm",
+         "text": "Ohm's law",
+         "covered": true
+        },
+        {
+         "id": "resistance",
+         "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+         "covered": true
+        },
+        {
+         "id": "combos",
+         "text": "Series and parallel combination of resistors and their daily-life applications",
+         "covered": true
+        },
+        {
+         "id": "heating",
+         "text": "Heating effect of electric current and its daily-life applications",
+         "covered": true
+        },
+        {
+         "id": "power",
+         "text": "Electric power, interrelation between P, V, I and R",
+         "covered": true
+        }
+       ]
+      },
+      "units": {
+       "status": "done",
+       "content_hash": "f966c8c07df5e817",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:41:27+00:00",
+       "result": []
+      },
+      "copyright": {
+       "status": "done",
+       "content_hash": "f966c8c07df5e817",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:41:27+00:00",
+       "result": {
+        "overlap": 0.1922,
+        "threshold": 0.2,
+        "status": "pass"
+       }
+      },
+      "fact_check_en": {
+       "status": "done",
+       "content_hash": "f966c8c07df5e817",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:41:53+00:00",
+       "result": {
+        "correct": true,
+        "reason": ""
+       },
+       "provider": "openrouter",
+       "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+      },
+      "solve_mcq1": {
+       "status": "done",
+       "content_hash": "f966c8c07df5e817",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:42:04+00:00",
+       "result": {
+        "mcq": 1,
+        "stored": 2,
+        "solved": 2,
+        "agree": true
+       },
+       "provider": "openrouter",
+       "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+      },
+      "solve_mcq2": {
+       "status": "done",
+       "content_hash": "f966c8c07df5e817",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:42:10+00:00",
+       "result": {
+        "mcq": 2,
+        "stored": 1,
+        "solved": 1,
+        "agree": true
+       },
+       "provider": "openrouter",
+       "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+      },
+      "solve_mcq3": {
+       "status": "done",
+       "content_hash": "f966c8c07df5e817",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:42:14+00:00",
+       "result": {
+        "mcq": 3,
+        "stored": 1,
+        "solved": 1,
+        "agree": true
+       },
+       "provider": "openrouter",
+       "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+      }
+     },
+     "problems": []
+    }
+   ],
+   "last_feedback": "copyright overlap 23% above the limit; explain each idea afresh in your own teaching words and structure (own examples, own sentence order), keep standard terms, laws and formulas exact, and do not just swap words; accuracy comes first",
+   "accepted_attempt": 2,
+   "en_hash": "f966c8c07df5e817"
+  },
+  "translate_hi": {
+   "status": "done",
+   "attempts": 1,
+   "checks": {
+    "local_hi": {
+     "status": "done",
+     "content_hash": "7f70e3da2e9e4024",
+     "version": "fd4baeaa978a125f",
+     "at": "2026-11-03T08:42:40+00:00",
+     "result": {
+      "structure": [],
+      "hindi_share": 0.917,
+      "numbers_match": true,
+      "answers_match": true,
+      "difficulty_match": true
+     }
+    },
+    "fact_check_hi": {
+     "status": "done",
+     "content_hash": "7f70e3da2e9e4024",
+     "version": "fd4baeaa978a125f",
+     "at": "2026-11-03T12:03:57+00:00",
+     "result": {
+      "correct": true,
+      "reason": ""
+     },
+     "provider": "openrouter",
+     "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+    }
+   },
+   "en_hash": "f966c8c07df5e817",
+   "hi_hash": "7f70e3da2e9e4024",
+   "budget_start": 1
+  },
+  "package": {
+   "status": "done",
+   "attempts": 0,
+   "at": "2026-11-03T12:03:57+00:00"
+  }
+ },
+ "attribution": [
+  {
+   "stage": "write_en",
+   "role": "writer",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T08:40:47+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "writer",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T08:41:27+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "fact_checker_en",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T08:41:53+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "solver_mcq1",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T08:42:04+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "solver_mcq2",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T08:42:10+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "solver_mcq3",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T08:42:14+00:00"
+  },
+  {
+   "stage": "translate_hi",
+   "role": "translator",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T08:42:40+00:00"
+  },
+  {
+   "stage": "translate_hi",
+   "role": "fact_checker_hi",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T12:03:57+00:00"
+  }
+ ],
+ "issues": [
+  {
+   "at": "2026-11-03T08:43:18+00:00",
+   "kind": "crash",
+   "error": "ValueError",
+   "detail": "no JSON object in the reply Traceback (most recent call last):\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/job.py\", line 295, in run\n    state = stage_translate(job, providers, ver)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/job.py\", line 476, in stage_translate\n    f = checkpoint(job, box, 'fact_check_hi', hh, ver, fc)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: no JSON object in the reply\n"
+  }
+ ],
+ "final_state": "review_ready",
+ "runs": 2,
+ "provider_calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 3.1,
+   "at": "2026-11-03T08:40:47+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 200,
+   "kind": "ok",
+   "try": 2,
+   "secs": 23.59,
+   "at": "2026-11-03T08:40:47+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 4.83,
+   "at": "2026-11-03T08:41:27+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 200,
+   "kind": "ok",
+   "try": 2,
+   "secs": 30.57,
+   "at": "2026-11-03T08:41:27+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 25.36,
+   "at": "2026-11-03T08:41:53+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 11.44,
+   "at": "2026-11-03T08:42:04+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 6.14,
+   "at": "2026-11-03T08:42:10+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 4.15,
+   "at": "2026-11-03T08:42:14+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 25.16,
+   "at": "2026-11-03T08:42:40+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 38.45,
+   "at": "2026-11-03T08:43:18+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 58.81,
+   "at": "2026-11-03T12:03:57+00:00"
+  }
+ ],
+ "finished_at": "2026-11-03T12:03:57+00:00"
+}

@@ -1,0 +1,11 @@
+{
+ "structure": [],
+ "hindi_share": 0.917,
+ "numbers_match": true,
+ "answers_match": true,
+ "difficulty_match": true,
+ "fact_check": {
+  "correct": true,
+  "reason": ""
+ }
+}
