@@ -1,0 +1,926 @@
+{
+ "schema": 1,
+ "board": "CBSE",
+ "class": 10,
+ "session": "2026-27",
+ "read_on": "2026-11-03",
+ "primary_source": "Directorate of Education, GNCT of Delhi (edustud.nic.in), Annual Syllabus 2026-27, Class X; follows CBSE curriculum 2026-27. Read 3 Nov 2026.",
+ "cbse_pdf_note": "CBSE official PDF exists (cbseacademic.nic.in/web_material/CurriculumMain27/SecPart1/...) but its site blocks automated reading (robots); not read by us.",
+ "hindi_title_source": "https://school.careers360.com/ncert/ncert-syllabus-for-class-10",
+ "hindi_title_note": "Hindi chapter titles come from third-party sites only and two sites disagree on 3 Science titles; check against NCERT Hindi-medium books before release.",
+ "subjects": [
+  {
+   "slug": "cbse10-science",
+   "name_en": "Science (Class 10)",
+   "name_hi": "विज्ञान (कक्षा 10)",
+   "code": "086",
+   "source": "https://edustud.nic.in/edu/Syllabus_2026_27/10/10_Science_SYLLABUS_2026_27_EM.pdf",
+   "ready_for_db": true,
+   "chapters": [
+    {
+     "no": 1,
+     "name_en": "Chemical Reactions and Equations",
+     "name_hi": "रासायनिक अभिक्रियाएँ एवं समीकरण",
+     "unit_en": "Unit I: Chemical Substances - Nature and Behaviour",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 2,
+     "name_en": "Acids, Bases and Salts",
+     "name_hi": "अम्ल, क्षारक एवं लवण",
+     "unit_en": "Unit I: Chemical Substances - Nature and Behaviour",
+     "name_hi_status": "third_party_conflict",
+     "exam_scope": "board",
+     "note": "another site prints 'अम्ल, क्षार एवं लवण'",
+     "scope_verified": false
+    },
+    {
+     "no": 3,
+     "name_en": "Metals and Non-Metals",
+     "name_hi": "धातु एवं अधातु",
+     "unit_en": "Unit I: Chemical Substances - Nature and Behaviour",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 4,
+     "name_en": "Carbon and its Compounds",
+     "name_hi": "कार्बन एवं उसके यौगिक",
+     "unit_en": "Unit I: Chemical Substances - Nature and Behaviour",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 5,
+     "name_en": "Life Processes",
+     "name_hi": "जैव प्रक्रम",
+     "unit_en": "Unit II: World of Living",
+     "name_hi_status": "third_party_conflict",
+     "exam_scope": "board",
+     "note": "another site prints 'जीव प्रक्रियाएँ'",
+     "scope_verified": false
+    },
+    {
+     "no": 6,
+     "name_en": "Control and Co-ordination in Animals and Plants",
+     "name_hi": "नियंत्रण एवं समन्वय",
+     "unit_en": "Unit II: World of Living",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": "NCERT book title: Control and Coordination",
+     "scope_verified": false
+    },
+    {
+     "no": 7,
+     "name_en": "Reproduction",
+     "name_hi": "जीव जनन कैसे करते हैं",
+     "unit_en": "Unit II: World of Living",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": "NCERT book title: How do Organisms Reproduce?",
+     "scope_verified": false
+    },
+    {
+     "no": 8,
+     "name_en": "Heredity",
+     "name_hi": "आनुवंशिकता",
+     "unit_en": "Unit II: World of Living",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": "Evolution part: formative assessment only",
+     "scope_verified": false
+    },
+    {
+     "no": 9,
+     "name_en": "Light - Reflection and Refraction",
+     "name_hi": "प्रकाश - परावर्तन तथा अपवर्तन",
+     "unit_en": "Unit III: Natural Phenomena",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 10,
+     "name_en": "The Human Eye and the Colourful World",
+     "name_hi": "मानव नेत्र तथा रंग-बिरंगा संसार",
+     "unit_en": "Unit III: Natural Phenomena",
+     "name_hi_status": "third_party_conflict",
+     "exam_scope": "board",
+     "note": "another site prints 'मानव नेत्र तथा रंगीन संसार'",
+     "scope_verified": false
+    },
+    {
+     "no": 11,
+     "name_en": "Electricity",
+     "name_hi": "विद्युत",
+     "unit_en": "Unit IV: Effects of Current",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_source": "https://edustud.nic.in/edu/Syllabus_2026_27/10/10_Science_SYLLABUS_2026_27_EM.pdf",
+     "scope_read_on": "2026-11-03",
+     "scope_verified": true,
+     "scope_items": [
+      {
+       "id": "current_pd",
+       "text": "Electric current, potential difference",
+       "need_any": [
+        [
+         "electric current"
+        ],
+        [
+         "potential difference"
+        ]
+       ]
+      },
+      {
+       "id": "ohm",
+       "text": "Ohm's law",
+       "need_any": [
+        [
+         "ohm's law",
+         "ohm’s law",
+         "ohms law"
+        ]
+       ]
+      },
+      {
+       "id": "resistance",
+       "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+       "need_any": [
+        [
+         "resistance"
+        ],
+        [
+         "resistivity"
+        ],
+        [
+         "length",
+         "area",
+         "material",
+         "temperature"
+        ]
+       ]
+      },
+      {
+       "id": "combos",
+       "text": "Series and parallel combination of resistors and their daily-life applications",
+       "need_any": [
+        [
+         "series"
+        ],
+        [
+         "parallel"
+        ]
+       ]
+      },
+      {
+       "id": "heating",
+       "text": "Heating effect of electric current and its daily-life applications",
+       "need_any": [
+        [
+         "heating effect",
+         "joule's law",
+         "joule’s law",
+         "h = i^2",
+         "i^2 r t",
+         "i2rt"
+        ]
+       ]
+      },
+      {
+       "id": "power",
+       "text": "Electric power, interrelation between P, V, I and R",
+       "need_any": [
+        [
+         "power"
+        ],
+        [
+         "p = v",
+         "p = i",
+         "p=vi",
+         "p = vi",
+         "p = v x i",
+         "p = i^2"
+        ]
+       ]
+      }
+     ],
+     "practicals": [
+      "V-I graph for a resistor (Ohm's law)",
+      "Equivalent resistance of two resistors in series and in parallel"
+     ],
+     "units": [
+      "\\bA\\b|ampere",
+      "\\bV\\b|volt",
+      "ohm|Ω",
+      "\\bW\\b|watt"
+     ],
+     "avoid": "Current is not 'used up' in a series circuit; resistance of a wire depends on length, area, material and temperature, not on the current; in parallel the equivalent resistance is LESS than the smallest resistance; 1 kWh = 3.6 x 10^6 J.",
+     "outcomes_note": "Chapter-level outcomes are not printed in the source; the competency split for the paper is Knowledge/Understanding 50%, Application 30%, Analyse/Evaluate/Create 20%."
+    },
+    {
+     "no": 12,
+     "name_en": "Magnetic Effects of Electric Current",
+     "name_hi": "विद्युत धारा के चुंबकीय प्रभाव",
+     "unit_en": "Unit IV: Effects of Current",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": "Motor, electromagnetic induction, generator: formative only",
+     "scope_verified": false
+    },
+    {
+     "no": 13,
+     "name_en": "Our Environment",
+     "name_hi": "हमारा पर्यावरण",
+     "unit_en": "Unit V: Natural Resources",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    }
+   ]
+  },
+  {
+   "slug": "cbse10-maths",
+   "name_en": "Mathematics (Class 10)",
+   "name_hi": "गणित (कक्षा 10)",
+   "code": "041/241",
+   "source": "https://edustud.nic.in/edu/Syllabus_2026_27/10/10_math_SYLLABUS_2026_27_EM.pdf",
+   "ready_for_db": true,
+   "chapters": [
+    {
+     "no": 1,
+     "name_en": "Real Numbers",
+     "name_hi": "वास्तविक संख्याएँ",
+     "unit_en": "Unit I: Number Systems",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 2,
+     "name_en": "Polynomials",
+     "name_hi": "बहुपद",
+     "unit_en": "Unit II: Algebra",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 3,
+     "name_en": "Pair of Linear Equations in Two Variables",
+     "name_hi": "रैखिक समीकरणों का युग्म",
+     "unit_en": "Unit II: Algebra",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 4,
+     "name_en": "Quadratic Equations",
+     "name_hi": "द्विघात समीकरण",
+     "unit_en": "Unit II: Algebra",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 5,
+     "name_en": "Arithmetic Progressions",
+     "name_hi": "अंकगणितीय प्रगति",
+     "unit_en": "Unit II: Algebra",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 6,
+     "name_en": "Triangles",
+     "name_hi": "त्रिभुज",
+     "unit_en": "Unit IV: Geometry",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 7,
+     "name_en": "Coordinate Geometry",
+     "name_hi": "निर्देशांक ज्यामिति",
+     "unit_en": "Unit III: Coordinate Geometry",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 8,
+     "name_en": "Introduction to Trigonometry",
+     "name_hi": "त्रिकोणमिति का परिचय",
+     "unit_en": "Unit V: Trigonometry",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 9,
+     "name_en": "Heights and Distances",
+     "name_hi": "त्रिकोणमिति के अनुप्रयोग",
+     "unit_en": "Unit V: Trigonometry",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": "NCERT book title: Some Applications of Trigonometry; Hindi title is the book's",
+     "scope_verified": false
+    },
+    {
+     "no": 10,
+     "name_en": "Circles",
+     "name_hi": "वृत्त",
+     "unit_en": "Unit IV: Geometry",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 11,
+     "name_en": "Areas Related to Circles",
+     "name_hi": "वृत्तों से संबंधित क्षेत्रफल",
+     "unit_en": "Unit VI: Mensuration",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 12,
+     "name_en": "Surface Areas and Volumes",
+     "name_hi": "पृष्ठीय क्षेत्रफल और आयतन",
+     "unit_en": "Unit VI: Mensuration",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 13,
+     "name_en": "Statistics",
+     "name_hi": "सांख्यिकी",
+     "unit_en": "Unit VII: Statistics and Probability",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 14,
+     "name_en": "Probability",
+     "name_hi": "संभाव्यता",
+     "unit_en": "Unit VII: Statistics and Probability",
+     "name_hi_status": "third_party",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    }
+   ],
+   "note": "Standard and Basic share one chapter list; they differ only in question typology."
+  },
+  {
+   "slug": "cbse10-english",
+   "name_en": "English Language and Literature (Class 10)",
+   "name_hi": "अंग्रेज़ी भाषा एवं साहित्य (कक्षा 10)",
+   "code": "184",
+   "source": "https://edustud.nic.in/edu/Syllabus_2026_27/10/10_ENGLISH_SYLLABUS_2026_27_EM.pdf",
+   "ready_for_db": true,
+   "chapters": [
+    {
+     "no": 1,
+     "name_en": "A Letter to God",
+     "name_hi": "A Letter to God",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 2,
+     "name_en": "Nelson Mandela: Long Walk to Freedom",
+     "name_hi": "Nelson Mandela: Long Walk to Freedom",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 3,
+     "name_en": "Two Stories about Flying",
+     "name_hi": "Two Stories about Flying",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 4,
+     "name_en": "From the Diary of Anne Frank",
+     "name_hi": "From the Diary of Anne Frank",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 5,
+     "name_en": "Glimpses of India",
+     "name_hi": "Glimpses of India",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 6,
+     "name_en": "Mijbil the Otter",
+     "name_hi": "Mijbil the Otter",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 7,
+     "name_en": "Madam Rides the Bus",
+     "name_hi": "Madam Rides the Bus",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 8,
+     "name_en": "The Sermon at Benares",
+     "name_hi": "The Sermon at Benares",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 9,
+     "name_en": "The Proposal",
+     "name_hi": "The Proposal",
+     "unit_en": "First Flight (Prose)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 10,
+     "name_en": "Dust of Snow",
+     "name_hi": "Dust of Snow",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 11,
+     "name_en": "Fire and Ice",
+     "name_hi": "Fire and Ice",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 12,
+     "name_en": "A Tiger in the Zoo",
+     "name_hi": "A Tiger in the Zoo",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 13,
+     "name_en": "How to Tell Wild Animals",
+     "name_hi": "How to Tell Wild Animals",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 14,
+     "name_en": "The Ball Poem",
+     "name_hi": "The Ball Poem",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 15,
+     "name_en": "Amanda!",
+     "name_hi": "Amanda!",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 16,
+     "name_en": "The Trees",
+     "name_hi": "The Trees",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 17,
+     "name_en": "Fog",
+     "name_hi": "Fog",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 18,
+     "name_en": "The Tale of Custard the Dragon",
+     "name_hi": "The Tale of Custard the Dragon",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 19,
+     "name_en": "For Anne Gregory",
+     "name_hi": "For Anne Gregory",
+     "unit_en": "First Flight (Poems)",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 20,
+     "name_en": "A Triumph of Surgery",
+     "name_hi": "A Triumph of Surgery",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 21,
+     "name_en": "The Thief's Story",
+     "name_hi": "The Thief's Story",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 22,
+     "name_en": "The Midnight Visitor",
+     "name_hi": "The Midnight Visitor",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 23,
+     "name_en": "A Question of Trust",
+     "name_hi": "A Question of Trust",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 24,
+     "name_en": "Footprints Without Feet",
+     "name_hi": "Footprints Without Feet",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 25,
+     "name_en": "The Making of a Scientist",
+     "name_hi": "The Making of a Scientist",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 26,
+     "name_en": "The Necklace",
+     "name_hi": "The Necklace",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 27,
+     "name_en": "Bholi",
+     "name_hi": "Bholi",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    },
+    {
+     "no": 28,
+     "name_en": "The Book that Saved the Earth",
+     "name_hi": "The Book that Saved the Earth",
+     "unit_en": "Footprints Without Feet",
+     "name_hi_status": "same_as_english_by_design",
+     "exam_scope": "board",
+     "note": "English literature title; no Hindi title exists",
+     "scope_verified": false
+    }
+   ],
+   "note": "Literature only. Grammar, reading and writing skills are not yet modelled as chapters (decision pending)."
+  },
+  {
+   "slug": "cbse10-social-science",
+   "name_en": "Social Science (Class 10)",
+   "name_hi": "सामाजिक विज्ञान (कक्षा 10)",
+   "code": "087",
+   "source": "https://edustud.nic.in/edu/Syllabus_2026_27/10/10_SocialScience_SYLLABUS_2026_27_EM.pdf",
+   "ready_for_db": false,
+   "chapters": [
+    {
+     "no": 1,
+     "name_en": "The Rise of Nationalism in Europe",
+     "name_hi": null,
+     "unit_en": "History: India and the Contemporary World - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 2,
+     "name_en": "Nationalism in India",
+     "name_hi": null,
+     "unit_en": "History: India and the Contemporary World - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 3,
+     "name_en": "The Making of a Global World",
+     "name_hi": null,
+     "unit_en": "History: India and the Contemporary World - II",
+     "name_hi_status": "missing",
+     "exam_scope": "partial",
+     "note": "Subtopics 1-1.3 board; 2-4.4 interdisciplinary project",
+     "scope_verified": false
+    },
+    {
+     "no": 4,
+     "name_en": "The Age of Industrialisation",
+     "name_hi": null,
+     "unit_en": "History: India and the Contemporary World - II",
+     "name_hi_status": "missing",
+     "exam_scope": "internal",
+     "note": "Periodic/Mid-term assessment only",
+     "scope_verified": false
+    },
+    {
+     "no": 5,
+     "name_en": "Print Culture and the Modern World",
+     "name_hi": null,
+     "unit_en": "History: India and the Contemporary World - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 6,
+     "name_en": "Resources and Development",
+     "name_hi": null,
+     "unit_en": "Geography: Contemporary India - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 7,
+     "name_en": "Forest and Wildlife Resources",
+     "name_hi": null,
+     "unit_en": "Geography: Contemporary India - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 8,
+     "name_en": "Water Resources",
+     "name_hi": null,
+     "unit_en": "Geography: Contemporary India - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 9,
+     "name_en": "Agriculture",
+     "name_hi": null,
+     "unit_en": "Geography: Contemporary India - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 10,
+     "name_en": "Minerals and Energy Resources",
+     "name_hi": null,
+     "unit_en": "Geography: Contemporary India - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 11,
+     "name_en": "Manufacturing Industries",
+     "name_hi": null,
+     "unit_en": "Geography: Contemporary India - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 12,
+     "name_en": "Lifelines of National Economy",
+     "name_hi": null,
+     "unit_en": "Geography: Contemporary India - II",
+     "name_hi_status": "missing",
+     "exam_scope": "partial",
+     "note": "Board: map work only",
+     "scope_verified": false
+    },
+    {
+     "no": 13,
+     "name_en": "Power-sharing",
+     "name_hi": null,
+     "unit_en": "Political Science: Democratic Politics - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 14,
+     "name_en": "Federalism",
+     "name_hi": null,
+     "unit_en": "Political Science: Democratic Politics - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 15,
+     "name_en": "Gender, Religion and Caste",
+     "name_hi": null,
+     "unit_en": "Political Science: Democratic Politics - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 16,
+     "name_en": "Political Parties",
+     "name_hi": null,
+     "unit_en": "Political Science: Democratic Politics - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 17,
+     "name_en": "Outcomes of Democracy",
+     "name_hi": null,
+     "unit_en": "Political Science: Democratic Politics - II",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 18,
+     "name_en": "Development",
+     "name_hi": null,
+     "unit_en": "Economics: Understanding Economic Development",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 19,
+     "name_en": "Sectors of the Indian Economy",
+     "name_hi": null,
+     "unit_en": "Economics: Understanding Economic Development",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 20,
+     "name_en": "Money and Credit",
+     "name_hi": null,
+     "unit_en": "Economics: Understanding Economic Development",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": null,
+     "scope_verified": false
+    },
+    {
+     "no": 21,
+     "name_en": "Globalisation and the Indian Economy",
+     "name_hi": null,
+     "unit_en": "Economics: Understanding Economic Development",
+     "name_hi_status": "missing",
+     "exam_scope": "board",
+     "note": "Part of interdisciplinary project",
+     "scope_verified": false
+    }
+   ],
+   "blocker": "No source found for Hindi chapter titles (topics.name_hi is NOT NULL). Not put in the migration."
+  },
+  {
+   "slug": "cbse10-hindi",
+   "name_en": "Hindi (Class 10)",
+   "name_hi": "हिंदी (कक्षा 10)",
+   "code": "002/085",
+   "source": null,
+   "ready_for_db": false,
+   "chapters": [],
+   "blocker": "No government source read for 2026-27 Hindi A/B chapter lists; third-party lists disagree on deleted lessons. Not put in the migration."
+  }
+ ]
+}
