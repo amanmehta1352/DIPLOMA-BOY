@@ -1,0 +1,185 @@
+[
+ {
+  "emoji": "🔌",
+  "heading": "🔌 Vidhyut ki yatra (Journey of Electricity)",
+  "paras": [
+   "Vidhyut ki yatra shuru hoti hai jab koyle, jal, ya pavan jaise urja sroton ko utpadak (generator) mein badal diya jata hai. Koyle ki jalti hui dhatu se utpann garmi paani ko bhap mein badal deti hai, aur vah bhap turbine ko ghumaati hai. Turbine ki ghurnan gati ko electronic roop mein vidhyut dhara (electric current) mein parivartit kiya jata hai. Yeh dhara fir uchch voltage (high voltage) ke saath transformer dvara badha di jati hai, taki lambi doori par kam urja haani ke saath pahunch sake. Is prakriya mein transmission lines ka upyog kiya jata hai, jo 400 kV ya 220 kV jaise badi voltage par chalti hain.",
+   "Jab vidhyut uchch voltage par pahunchti hai, to ise sthaniya transformer mein fir se nimn voltage (low voltage) mein ghataaya jata hai, jisse ghar-ghar tak surakshit roop se pahunch sake. Is ghataav ke baad vidhyut distribution network ke maadhyam se pratyek mohalle, school, hospital aadi ko supply ki jati hai. Hamare ghar mein jo socket hote hain, ve aamtaur par 230 V (Bharat) ya 120 V (America) par kaam karte hain, jisse chhote-chhote electronic upkaran aasani se chal saken. Is charan mein circuit breaker aur fuse jaise suraksha upkaran bhi jude hote hain, jo over-load ya short-circuit hone par karrent ko turant kaat dete hain.",
+   "Har din hum vidhyut ki is yatra ko andekha kar lete hain, parantu yeh hamare jivan ko sahaj banati hai. Udaharan ke liye, jab aap subah ke nashte mein toaster chalate hain, to bijli pehle power plant se nikal kar transmission toweron, fir transformer, aur ant mein aapke kitchen ke socket tak pahunchti hai. Isi kram mein suraksha ka dhyan rakhna bahut zaruri hai; isliye socket ke paas paani na rakhen aur kisi bhi kshatigrasht taar ko turant badalwaayen. Yaad rakhen, vidhyut ki yatra jitni lambi hai, utni hi savdhani ki jarurat hai."
+  ],
+  "formula": null,
+  "example": "Vidhyut ko ek nadi ki tarah sochen – paani (electrons) ko oopar se neeche bahane ke liye baandh (transformer) aur nahrein (cable) ki jarurat hoti hai."
+ },
+ {
+  "emoji": "⚡",
+  "heading": "Dhara aur voltage ki mul baaten (Basics of Current & Potential Difference)",
+  "paras": [
+   "Dhara (Current) vah dar hai jis par electrons ek bindu se doosre bindu tak pravahit hote hain. Ise ampere (A) mein mapa jata hai, jahaan 1 A ka arth hai 1 coulomb (C) charge ek second mein guzar raha hai. Kalpana kijiye ki ek paani ki nali mein paani ka pravah 2 litre/second hai; vahi tarah dhara electrons ke pravah ko darshati hai. Dhara ki disha ko aksar paramparagat pravah (conventional current) ke anusaar sakaratmak terminal se nakaratmak terminal ki or mana jata hai, bhale hi vastavik electrons nakaratmak se sakaratmak ki or chalte hon.",
+   "Voltage (Potential Difference) do binduon ke beech urja ka antar hai, jise volt (V) mein mapa jata hai. Ise ek paani ke tank ki oonchai se tulna ki ja sakti hai – jitni oonchi tank, utna adhik paani neeche girte samay gati prapt karta hai. Isi prakaar, uchch voltage wale bindu se kam voltage wale bindu tak electrons tezi se chalte hain. Voltage ka srot battery, generator ya socket ho sakta hai, aur yeh electric power ko chalane ke liye avashyak \"dhakka\" deta hai.",
+   "Dhara aur voltage ke beech sambandh ko samajhna aasan hai jab hum ise paani ke pipe se jodte hain. Yadi pipe ka vyas chhota ho to paani ka pravah kam hoga, chahe tank ki oonchai (voltage) saman rahe. Isi tarah, yadi circuit mein pratirodh (Resistance) adhik ho to dhara ghategi. Is buniyadi samajh se hum aage ke niyam, jaise Ohm ka niyam, ko aasani se lagu kar sakte hain."
+  ],
+  "formula": "I = Q / t (Current = Charge / Time)",
+  "example": "1 A ka matlab hai 1 coulomb charge har second mein bah raha hai – jaise 1 litre paani har second nali se nikal raha hai."
+ },
+ {
+  "emoji": "📈",
+  "heading": "Ohm ka niyam (Ohm's Law)",
+  "paras": [
+   "Ohm ka niyam batata hai ki kisi bhi sthir (steady) circuit mein dhara (I), voltage (V) aur pratirodh (R) ke beech seedha anupat hota hai. Sutra hai V = I × R. Iska arth hai ki yadi hum pratirodh ko sthir rakhen, to voltage badhane se dhara bhi saman anupat mein badhegi, aur voltage ghatane se dhara ghat jayegi. Yeh niyam sabhi dhatu ke taaron aur kai electronic ghatakon par lagu hota hai, jab tak ki taapmaan bahut adhik na ho.",
+   "Ohm ke niyam ko samajhne ke liye hum paani ki nali ki tulna kar sakte hain. Nali ka vyas pratirodh ke barabar hai, aur nali ke do siron ke beech ki oonchai voltage hai. Yadi aap nali ke dono siron par adhik oonchai (adhik voltage) lagate hain, to paani (dhara) tezi se beheta hai. Lekin yadi nali bahut patli (uchch pratirodh) ho, to bhale hi oonchai adhik ho, paani ki gati seemit rahegi.",
+   "Pariksha mein aksar V-I graph diya jata hai, jahaan sidhi rekha ka dhalan R ko darshata hai. Yadi graph ka dhalan bada hai, to pratirodh adhik hai; yadi dhalan chhota hai, to pratirodh kam hai. Is prakaar, Ohm ka niyam na keval ganitiya roop se balki graphikal roop se bhi samajha ja sakta hai, jisse prayogatmak data ka vishleshan aasan ho jata hai."
+  ],
+  "formula": "V = I × R",
+  "example": "Yadi 2 Ω pratirodh wale bulb mein 6 V lagate hain, to dhara I = 6 V / 2 Ω = 3 A hogi."
+ },
+ {
+  "emoji": "🧮",
+  "heading": "Pratirodh aur pratirodhta (Resistance & Resistivity)",
+  "paras": [
+   "Pratirodh (Resistance) vah badha hai jo kisi chalak (conductor) mein dhara ke pravah ko rokta hai. Ise ohm (Ω) mein mapa jata hai. Pratirodh kai karakon par nirbhar karta hai – lambai (L), kshetraphal (A), samagri ki pratirodhta (ρ), aur taapmaan. Lambi taar mein adhik pratirodh hota hai, jabki moti taar mein kam pratirodh. Yehi karan hai ki ghar mein bade-bade power cable moti hote hain, taki kam pratirodh ke saath badi dhara aasani se beh sake.",
+   "Pratirodhta (Resistivity) ek mulbhut gun hai jo padarth ki prakriti ko darshata hai. Ise ρ (rho) se darshate hain aur ikai Ω·m mein hoti hai. Sutra hai ρ = R × A / L. Yadi do saman aakar ke taar hon, par ek taamba (copper) ka aur doosra nylon ka ho, to nylon ki pratirodhta bahut adhik hogi, isliye vahi lambai aur vyas hone par uska pratirodh bahut adhik hoga. Pratirodhta ka maan taapmaan ke saath badalta hai; adhikansh dhatuon mein taapmaan badhne par ρ badhta hai.",
+   "Prayogshala mein hum aksar wire resistance ko mapne ke liye voltmeter aur ammeter ka upyog karte hain, fir R = V / I se pratirodh nikalte hain aur upar diya gaya sutra prayog karke ρ ki ganana karte hain. Yeh prakriya na keval siddhant ko samajhati hai, balki vastavik samagri ke chayan mein bhi madad karti hai – jaise electric motor mein taamba ki coil aur heater mein nickel-kromik wire ka upyog."
+  ],
+  "formula": "ρ = R × A / L",
+  "example": "Yadi 0.5 m lambi taamba ki taar ka vyas 1 mm hai aur uska pratirodh 0.02 Ω hai, to ρ = 0.02 Ω × (π×0.001² m²) / 0.5 m ≈ 1.26 × 10⁻⁸ Ω·m."
+ },
+ {
+  "emoji": "🔗",
+  "heading": "Shrinkhala sanyojan (Series Combination)",
+  "paras": [
+   "Aaj hum shrinkhala sanyojan (Series Combination) ke bare mein baat karenge. Jab do ya do se adhik pratirodh ek hi taar mein kramashah jude hote hain, to vah ek shrinkhala banata hai. Is prakaar ke circuit mein dhara (current) sabhi ghatakon se saman hokar guzarti hai, kyunki koi shakha nahin hoti. Lekin pratirodh par voltage (voltage) ka bhag alag-alag girta hai, aur kul voltage srot ki emf ke barabar hota hai. Ek sadharan udaharan hai purani Christmas lights ki string, jahaan kai chhote-chhote bulb ek-ke-bad-ek jude hote hain. Yadi ek bulb jal jaye, to puri string band ho jati hai kyunki dhara ka marg toot jata hai. Is prakaar ki visheshata humein samajhati hai ki shrinkhala mein ek ghatak ka fail hona ya hatna pure circuit ko prabhavit karta hai.",
+   "Shrinkhala mein kul pratirodh ki ganana bahut saral hai; bas sabhi vyaktigat pratirodhon ko jod do. Udaharan ke liye, yadi teen bulb kramashah 2 Ω, 3 Ω aur 5 Ω ke hain, to kul pratirodh R_total = 2 Ω + 3 Ω + 5 Ω = 10 Ω hoga. Yadi battery ki emf 12 V hai, to dhara I = 12 V / 10 Ω = 1.2 A hogi, aur pratirodh par voltage kramashah V1 = I·R1 = 2.4 V, V2 = 3.6 V, V3 = 6 V hoga. Yeh dikhata hai ki bade pratirodh wale bulb par adhik voltage girta hai. Is prakaar hum vibhinn upkaranon ko surakshit roop se chalane ke liye avashyak voltage ko niyantrit kar sakte hain. Prayogshala mein ohmmeter se kul pratirodh map kar hum siddhant ki pushti kar sakte hain.",
+   "Ek board-prashn ki tarah sochiye: do saman pratirodh 4 Ω ke kramashah jude hain aur 9 V ki battery se jude hain. Kul pratirodh 8 Ω hoga, isliye dhara I = 9 V / 8 Ω = 1.125 A hogi. Pratirodh par voltage V = I·R = 1.125 A × 4 Ω = 4.5 V hoga. Yadi in do pratirodhon mein se ek ko hataya jaye, to dhara poori tarah se band ho jayegi, kyunki koi vikalpik marg nahin rahega. Yeh samajhna mahatvapoorn hai ki shrinkhala mein ek ghatak ka hatna ya fail hona pure circuit ko rok deta hai, jabki samantar mein aisa nahin hota."
+  ],
+  "formula": "R_total = R1 + R2 + ... + Rn",
+  "example": "Ek string mein paanch chhote bulb hain, pratirodh 2 Ω ka hai. Kul pratirodh 10 Ω, 5 V ki battery se dhara 0.5 A hogi, aur pratirodh par 1 V girega. Yadi madhy ka bulb fail ho jaye, to puri string bujh jayegi."
+ },
+ {
+  "emoji": "⚙️",
+  "heading": "Samantar sanyojan (Parallel Combination)",
+  "paras": [
+   "Ab hum samantar sanyojan (Parallel Combination) ko samajhenge. Jab do ya do se adhik pratirodh ek hi bindu par jude hote hain aur fir doosre bindu par fir se milte hain, to vah samantar banata hai. Is prakaar ke circuit mein voltage sabhi shakhaon mein saman rehta hai, jabki dhara pratirodh par alag-alag behati hai aur kul dhara sabhi shakhaon ki dhara ka yog hota hai. Udaharan ke liye ghar ki vidyut aapurti mein kai upkaran ek-sath jude hote hain; sabhi ko battery ki saman voltage (jaise 230 V) milta hai, par pratirodh ki dhara alag hoti hai. Yadi ek upkaran band ho jaye, to baki upkaran kaam karte rehte hain, kyunki pratyek ki apni svatantra marg hoti hai. Yeh visheshata samantar circuit ko vishvasniya banati hai.",
+   "Samantar mein kul pratirodh ki ganana ulte roop mein ki jati hai: 1/R_total = 1/R1 + 1/R2 + ... + 1/Rn. Yadi do pratirodh 6 Ω aur 3 Ω samantar mein hain, to 1/R_total = 1/6 + 1/3 = 0.1667 + 0.3333 = 0.5, isliye R_total = 2 Ω hoga. Yadi srot emf 12 V hai, to kul dhara I = 12 V / 2 Ω = 6 A hogi. Pratirodh par dhara I1 = V / R1 = 12 V / 6 Ω = 2 A aur I2 = 12 V / 3 Ω = 4 A hogi, jo kul 6 A ke barabar hogi. Is prakaar hum vibhinn upkaranon ko saman voltage par alag-alag dhara pradan kar sakte hain.",
+   "Ek board-prashn ke roop mein dekhen: teen saman pratirodh 5 Ω ke samantar jude hain aur 15 V ki battery se jude hain. 1/R_total = 3 × (1/5) = 0.6, isliye R_total = 1.67 Ω (lagbhag). Kul dhara I = 15 V / 1.67 Ω ≈ 9 A hogi. Pratirodh par dhara 15 V / 5 Ω = 3 A hogi, aur teenon ka yog 9 A banega. Yeh dikhata hai ki saman pratirodhon ko samantar mein jodne se kul pratirodh ghat jata hai aur kul dhara badhti hai, jabki pratirodh par voltage saman rehta hai."
+  ],
+  "formula": "1/R_total = 1/R1 + 1/R2 + ... + 1/Rn",
+  "example": "Ghar ki socket mein kai upkaran ek-sath jude hote hain; yadi ek pankha band ho jaye, to light aur TV abhi bhi chalte hain kyunki ve alag-alag shakhaon mein hain."
+ },
+ {
+  "emoji": "🏠",
+  "heading": "vyavahaarik anuprayog (Practical Applications)",
+  "paras": [
+   "vidyut ke siddhant hamare rozmarra ke jeevan mein kai **vyavahaarik anuprayog** (Practical Applications) rakhte hain. sabse saamanya udaharan ghar ki vidyut aapurti hai, jahan **samantar sanyojan** ka upyog karke kai upkaran ek hi voltage (230 V) par chalte hain. isi tarah, **shreni sanyojan** ka prayog torch ki battery pack mein kiya jata hai; do ya adhik batteries ko kramsh: jod kar voltage badhaya jata hai. school‑lab mein hum **voltage divider** banate hain, jahan do ya adhik **pratirodh** shreni mein rakh kar voltage ko ichhit maan par ghataaya jata hai, jaise 12 V ko 5 V aur 7 V mein vibhajit karna. in sabhi prayogon mein ikaiyon ka sahi prayog (volt, ohm, ampere) avashyak hai.",
+   "ek aur mahatvapurn anuprayog hai **suraksha fuse** (safety fuse). fuse ko ek bahut chhota pratirodh ke roop mein samjha ja sakta hai jo bahut adhik dhara (jaise 10 A se adhik) par jaldi garm hokar pighal jata hai, jisse circuit khul jata hai aur upkaran surakshit rehte hain. fuse ko aksar shreni mein rakha jata hai, kyunki dhara sabhi ghatakon se saman hokar guzarti hai, isliye fuse par bhi wahi dhara aati hai. yadi dhara seema se adhik ho jaye, to fuse ka pratirodh achanak bahut bada ho jata hai, jisse kul pratirodh badh jata hai aur dhara shoonya ke nikat pahunch jati hai.",
+   "**electric heater** (electric heater) ka kaam bhi pratirodh ke heating effect par aadharit hai. heater mein ek bada pratirodh (jaise 20 Ω) ko 220 V ki supply se joda jata hai. shakti P = V² / R ke anusar, P = (220)² / 20 = 2420 W hogi, jisse bahut garmi utpann hoti hai. is prakar hum pratirodh ko niyantrit karke vibhinn upkaran (jaise toaster, iron) mein avashyak garmi prapt kar sakte hain. in sabhi anuprayogon mein **dhara**, **voltage**, aur **pratirodh** ke santulan ko samajhna avashyak hai, taaki surakshit aur prabhavi upyog sunischit ho sake."
+  ],
+  "formula": null,
+  "example": "ek torch mein do 1.5 V ki batteries ko shreni mein jodte hain, jisse kul voltage 3 V banta hai aur bulb ko paryapt dhara milti hai."
+ },
+ {
+  "emoji": "🔥",
+  "heading": "heating prabhav (Heating Effect)",
+  "paras": [
+   "jab dhara kisi pratirodh (resistance) se guzarti hai, to vah **heating effect** (Heating Effect) utpann karti hai. is prabhav ko samajhne ke liye hum shakti (power) ka sutra prayog karte hain: **P = I² × R** jahan P watt (W) mein maapi jati hai, I ampere (A) mein aur R ohm (Ω) mein. yeh batata hai ki dhara jitni adhik hogi, utni hi adhik garmi utpann hogi, visheshkar jab pratirodh bada ho. udaharan ke liye, ek electric kitchen toaster mein lagbhag 10 Ω ka pratirodh hota hai aur 230 V ki supply se juda hota hai. yahan dhara I = V / R = 230 V / 10 Ω = 23 A hogi, aur shakti P = I² × R = (23)² × 10 ≈ 5290 W, jisse bahut tezi se garmi banti hai. yahi karan hai ki chhote‑chhote pratirodh wale heater bahut garmi utpann kar sakte hain.",
+   "heating prabhav ko maapne ke liye hum **joule‑thermal equation** ka prayog bhi kar sakte hain: Q = I² × R × t, jahan Q joule (J) mein urja, t second (s) mein samay hai. yadi 5 A ki dhara 2 Ω ke pratirodh se 10 s tak bahti hai, to utpann garmi Q = (5)² × 2 × 10 = 500 J hogi. yeh urja paani ko garam karne, dhatu ko pighlane ya electronic upkaran ko kaam karne mein upyogi hoti hai. dhyan rakhen ki adhik garmi se upkaran ka **overheating** (overheating) ho sakta hai, isliye fan ya heat‑sink (heat‑sink) ka prayog kiya jata hai.",
+   "ek board‑prashn ke roop mein: ek electric kettle mein 15 Ω ka heater 240 V par juda hai. dhara I = 240 V / 15 Ω = 16 A hogi, aur shakti P = I² × R = (16)² × 15 = 3840 W hogi. yadi yeh heater 5 min (300 s) chalaya jaye, to utpann urja Q = P × t = 3840 W × 300 s = 1.152 × 10⁶ J hogi, jo lagbhag 0.32 kWh ke barabar hai. yeh dikhata hai ki heater ki shakti aur chalne ka samay seedhe urja utpadan ko nirdharit karta hai, aur humein urja bachav ke liye samay ko niyantrit karna chahiye."
+  ],
+  "formula": "P = I² × R",
+  "example": "ek electric rice cooker mein 12 Ω ka heater 230 V par juda hai; dhara 19.2 A, shakti 4.5 kW, jisse chawal jaldi pakte hain."
+ },
+ {
+  "emoji": "🛡️",
+  "heading": "suraksha upkaran (Safety Devices)",
+  "paras": [
+   "bachchon, jab hum ghar ya school mein vidyut (electricity) ke upkaran ka upyog karte hain, to **suraksha upkaran** hamare jeevan ko bachane mein bahut mahatvapurn bhumika nibhate hain. in upkaranon mein mukhya roop se fuse (fuse), circuit breaker (circuit breaker), earthing (earthing) aur residual current device (RCD) shamil hain. fuse ek patli dhatu ki taar hoti hai jo bahut adhik dhara (current) behne par pighal kar circuit ko tod deti hai, jisse aag ya shock ka khatra kam ho jata hai. circuit breaker ek switch ki tarah kaam karta hai; jab dhara ki matra nirdharit seema se adhik ho jati hai, to yeh svatah khul jata hai aur circuit ko band kar deta hai. earthing ka kaam hai kisi bhi leak hui dhara ko seedhe zameen mein bhejna, jisse shareer ke madhyam se dhara nahi guzarti. RCD vishesh roop se ghar mein jalte hue paani ke nikat upyog hone wale upkaran ke liye avashyak hai; yeh chhote‑chhote leakage ko bhi pehchan kar turant circuit ko kaat deta hai. in sabhi upkaranon ko sahi jagah par lagana aur samay‑samay par jaanchna hamare dainik jeevan ko surakshit banata hai.",
+   "ab hum in upkaranon ke kaam karne ke tareeke ko saral shabdon mein samajhte hain. **fuse** mein ek patli dhatu ki patti hoti hai jo nirdharit dhara (jaise 5 A) se adhik ho jane par garm hokar pighal jati hai. is pighalne ki prakriya mein circuit khul jata hai, isliye koi bhi upkaran jal nahi sakta. **circuit breaker** mein do mukhya bhag hote hain – magnetic trip aur thermal trip. magnetic trip achanak badhti dhara (short‑circuit) ko pehchanta hai, jabki thermal trip dheere‑dheere badhti dhara (over‑load) ko mehsoos karta hai aur biomechanical bending ke karan switch ko khol deta hai. **earthing** ke liye ek dhatu ki chad (ground rod) zameen mein gahri khodi jati hai aur sabhi dhatu ke hisson ko is chad se joda jata hai. yadi koi leakage hota hai, to dhara seedhe zameen mein beh jati hai, jisse shareer mein dhara nahi pravesh karti. **RCD** mein ek correlator (core) hota hai jo do taaron (live aur neutral) ke beech chhote antar ko bhi mehsoos kar leta hai aur turant circuit ko band kar deta hai. in sabhi prakriyaon mein samay bahut kam hota hai, isliye hum aksar inko ‘instant protection’ kehte hain.",
+   "in suraksha upkaranon ki **dekh‑rekh** bhi utni hi mahatvapurn hai jitni unka prayog. fuse ko kabhi‑kabhi badalna padta hai, visheshkar jab vah baar‑baar pighal jata hai; yeh sanket deta hai ki circuit mein lagatar adhik dhara beh rahi hai aur humein load ko kam karna chahiye. circuit breaker ko har chhah mahine mein ek baar ‘test button’ dabakar jaanchna chahiye; yadi vah sahi se trip nahi karta, to use badalna avashyak hai. earthing ki jaanch ke liye multimeter se ground resistance ko 10 Ω se kam hona chahiye; yadi adhik ho to ground rod ko gahra ya naya karna padega. RCD ko saal mein ek baar ‘test button’ se parikshan karna chahiye; yadi button dabane par circuit band nahi hota, to vah kharab ho chuka hai. in chhote‑chhote rakh‑rakhav karyon se hum bade‑bade durghatnaon se bach sakte hain aur apne ghar ko surakshit bana sakte hain."
+  ],
+  "formula": null,
+  "example": "yadi aapke ghar mein ek pankha 0.5 A ki dhara leta hai aur achanak koi badi load (jaise AC) jod di jati hai jisse dhara 12 A ho jati hai, to fuse pighal jayega aur circuit breaker trip kar dega, jisse pankha aur AC dono surakshit rahenge."
+ },
+ {
+  "emoji": "⚡️",
+  "heading": "vidyut shakti (Electric Power)",
+  "paras": [
+   "vidyut shakti vah dar hai jise par vidyut urja (electric energy) ka upyog ya utpadan hota hai. ise hum **shakti** (power) kehte hain aur iska unit watt (W) hai. shakti ki ganana karne ka sabse saral sutra hai **P = V × I**, jahan P shakti (Watt), V voltage (Volt) aur I dhara (Ampere) hai. udaharan ke liye, yadi ek bulb 230 V ki supply par 0.5 A ki dhara leta hai, to uski shakti P = 230 × 0.5 = 115 W hogi. yeh wahi shakti hai jo bulb ko prakash utpann karne ke liye chahiye. shakti ka prayog karke hum vibhinn upkaran ki urja khapat ko aasan se tulna kar sakte hain, jaise ki 60 W ka bulb 100 W ke bulb se kam bijli kharch karta hai. is prakar shakti humein yeh samajhne mein madad karti hai ki kaun‑sa upkaran adhik urja le raha hai aur humein kisse badalna chahiye.",
+   "shakti ki samajh humein **urja (energy)** ki ganana karne mein bhi madad karti hai. urja ka unit kilowatt‑hour (kWh) hai, jo shakti (kW) ko samay (hour) se guna karke prapt hota hai, arthaat **E = P × t**. yadi ek 1 kW ka heater do ghante chalaya jata hai, to uski urja khapat E = 1 × 2 = 2 kWh hogi. yeh wahi maatra hai jo bijli bill mein dikhati hai. ghar mein kai upkaran ek saath chalte hain, isliye kul shakti ka yog nikal kar aur use upyog ke samay se guna kar ham kul urja ka anuman laga sakte hain. udaharan ke liye, yadi ek rasoi mein 2 kW ka gas stove, 0.8 kW ka microwave aur 0.1 kW ka toaster ek saath chal rahe hain, to kul shakti 2 + 0.8 + 0.1 = 2.9 kW hogi. yadi yeh sanyojan ek ghante tak chalti hai, to urja khapat 2.9 kWh hogi, jo bill mein dikhayegi.",
+   "vidyut shakti ka sahi upyog karne ke liye humein **shakti rating (power rating)** ko dekhna chahiye. pratyek upkaran par uski adhiktam shakti likhi hoti hai, jaise ki ek electric kettle par 1500 W likha ho sakta hai. iska matlab hai ki kettle ko adhiktam 1500 W shakti ki avashyakta hogi, aur ise usse adhik shakti wale socket mein nahi lagana chahiye, nahi to socket garam ho kar jal sakta hai. saath hi, jab hum kai upkaran ek hi socket mein lagate hain, to kul shakti ko nahi bhoolna chahiye; yadi kul shakti socket ki kshamata se adhik ho jati hai, to circuit breaker trip kar dega. isliye, shakti ko samajhna na keval bill bachane mein madad karta hai, balki vidyut durghatnaon se bachav mein bhi mahatvapurn hai."
+  ],
+  "formula": "P = V × I (W)",
+  "example": "ek 60 W ka bulb 5 ghante chalane par urja khapat = 60 W × 5 h = 300 Wh = 0.3 kWh hogi. yeh wahi maatra hai jo aapke bijli bill mein dikhayegi."
+ },
+ {
+  "emoji": "💡",
+  "heading": "urja khapat aur bachat (Energy Consumption & Saving)",
+  "paras": [
+   "urja khapat vah maatra hai jitni vidyut urja (electric energy) hum kisi upkaran ko upyog karte samay lete hain. ise hum **urja (energy)** kehte hain aur iska maan kilowatt‑hour (kWh) mein maapa jata hai. urja ki ganana ka mool sutra hai **E = P × t**, jahan E urja (kWh), P shakti (kW) aur t samay (hour) hai. udaharan ke liye, yadi ek 100 W ka pankha ek ghanta chalaya jata hai, to uski urja khapat E = 0.1 kW × 1 h = 0.1 kWh hogi. yadi wahi pankha din mein 8 ghante chalta hai, to kul urja 0.1 × 8 = 0.8 kWh hogi. is tarah hum pratyek upkaran ki dainik, maasik ya varshik urja khapat nikal sakte hain aur bill mein dikhne wale kul kWh se tulna kar sakte hain. yeh samajh humein yeh pehchanne mein madad karti hai ki kaun‑se upkaran adhik urja le rahe hain aur kahaan bachat ki ja sakti hai.",
+   "urja bachat ke liye humein **shakti dakshata (power efficiency)** ko badhana chahiye. ek hi prakash matra ke liye, **LED bulb** (≈ 10 W) incandescent bulb (≈ 60 W) se saat guna kam shakti leta hai. yadi ek ghar mein 10 W ka LED bulb aur 60 W ka incandescent bulb dono ek ghanta chalaye jayein, to LED ki urja khapat 0.01 kWh hogi jabki incandescent ki 0.06 kWh hogi. saal bhar mein yeh antar 0.05 kWh × 365 ≈ 18 kWh ban jata hai, jo lagbhag 1500 ₹ ki bachat ho sakti hai. isi tarah, **plug‑in socket** mein standby mode mein rehne wale charger ko unplug kar dena, AC ko **inverter** ke bajaye **direct‑drive** motor wale AC se badalna, aur **urja‑sanjane wale mode** wale upkaran ka upyog karna urja bachat ke prabhavi upaay hain. chhote‑chhote badlavon se kul urja khapat mein kaafi kami lai ja sakti hai.",
+   "urja bachat ke liye **time‑of‑use** ka bhi dhyan rakhna chahiye. kai vidyut companies peak aur off‑peak samay ke anusar alag‑alag daren lagati hain. peak samay mein (jaise shaam 5 se 9 vej) bijli ki dar adhik hoti hai, isliye is dauran bade‑bade upkaran jaise AC, washing machine ya heater chalane se bill badh jata hai. yadi sambhav ho to in upkaranon ko off‑peak samay (raat 10 vej se subah 6 vej) mein chalayein. is tarah aap saman urja upyog ke liye kam dar par bhugtan karenge. saath hi, **smart meter** ya **urja monitor** ka upyog karke aap vastavik upyog ko real‑time mein dekh sakte hain aur anavashyak upyog ko turant band kar sakte hain. is prakar ki jagrukta aur yojana se urja bachat aur aarthik labh dono milte hain."
+  ],
+  "formula": "E = P × t (kWh)",
+  "example": "yadi ek ghar mein 5 kW ki kul shakti wale upkaran 3 ghante chalte hain, to urja khapat = 5 kW × 3 h = 15 kWh hogi. ise agar off‑peak dar par chalaya jaye to bill kam aayega."
+ },
+ {
+  "emoji": "✅",
+  "heading": "hal kiye gaye udaharan",
+  "paras": [
+   "**pratirodh (Resistance) nikalna:** voltage V = 12 V, dhara I = 6 A → pratirodh R = 2 Ω",
+   "**heater ki shakti (Power) nikalna:** voltage V = 230 V, pratirodh R = 10 Ω → shakti P = 5290 W",
+   "**batti ki urja (Energy) ki khapat:** shakti P = 60 W, samay t = 5 h → urja E = 0.3 kWh"
+  ],
+  "formula": null,
+  "example": null
+ },
+ {
+  "emoji": "🧠",
+  "heading": "saransh (Quick Revision)",
+  "paras": [
+   "**dhara (Current):** electrons ka pravah, ikai: ampere (A)",
+   "**voltage (Potential Difference):** vidyut karya prati ikai aavesh, ikai: volt (V)",
+   "**ohm ka niyam (Ohm’s Law):** V = I R, pratirodh sthir hone par lagu",
+   "**pratirodh (Resistance):** voltage ko dhara se vibhajit, ikai: ohm (Ω)",
+   "**pratirodhkata (Resistivity):** samagri ki antarnihit pratirodh, ikai: Ω·m",
+   "**shrankhla sanyojan (Series Combination):** kul pratirodh = ΣR, dhara saman",
+   "**samantar sanyojan (Parallel Combination):** 1/Rₚ = Σ(1/R), voltage saman",
+   "**shakti (Power):** P = V I, ikai: watt (W)",
+   "**urja (Energy):** E = P t, ikai: joule (J) ya kilowatt‑ghanta (kWh)",
+   "**suraksha upkaran (Safety Device):** circuit breaker, fuse, grounding"
+  ],
+  "formula": null,
+  "example": null
+ },
+ {
+  "emoji": "🎓",
+  "heading": "tvarit janch (Quick Check)",
+  "paras": [
+   "**yadi 2 A dhara 5 s mein pravahit hoti hai to aavesh kitna hoga?** — Q = I t = 2 × 5 = 10 C",
+   "**10 Ω pratirodh par 20 V lagu karne par dhara kya hogi?** — I = V / R = 20 / 10 = 2 A",
+   "**ek light bulb 40 W ki shakti leta hai. 3 ghante chalane par urja kitni hogi?** — E = P t = 40 × 3 = 120 Wh = 0.12 kWh",
+   "**do pratirodh 5 Ω aur 15 Ω ko shrankhla mein joden. kul pratirodh kya hoga?** — Rₛ = 5 + 15 = 20 Ω",
+   "**teen saman pratirodh pratyek 6 Ω ko samantar mein joden. samantar pratirodh nikaalen.** — 1/Rₚ = 3/6 = 0.5 → Rₚ = 2 Ω"
+  ],
+  "formula": null,
+  "example": null
+ },
+ {
+  "emoji": "📐",
+  "heading": "sabhi sutra (Formula Sheet)",
+  "paras": [
+   "dhara (Current): I = Q / t",
+   "voltage (Potential Difference): V = W / Q",
+   "ohm ka niyam (Ohm’s Law): V = I × R",
+   "pratirodh (Resistance): R = ρ l / A",
+   "pratirodhkata (Resistivity): ρ = R A / l",
+   "shrankhla pratirodh (Series Resistance): Rₛ = R₁ + R₂ + …",
+   "samantar pratirodh (Parallel Resistance): 1 / Rₚ = 1 / R₁ + 1 / R₂ + …",
+   "shakti (Power): P = V × I",
+   "shakti (Power): P = I² × R",
+   "shakti (Power): P = V² / R",
+   "urja (Energy): E = P × t",
+   "urja lagat (Energy Cost): Cost = Energy (kWh) × Rate"
+  ],
+  "formula": null,
+  "example": null
+ }
+]

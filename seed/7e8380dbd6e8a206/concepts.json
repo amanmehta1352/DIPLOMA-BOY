@@ -1,0 +1,1071 @@
+[
+ {
+  "key": "c1",
+  "emoji": "⚡",
+  "title": [
+   "धारा (Current)",
+   "Current"
+  ],
+  "paras": [
+   [
+    "धारा वह प्रवाह है जिसमें आवेशित कण (जैसे इलेक्ट्रॉन) एक नियत दिशा में चलते हैं। यह प्रवाह एक बंद सर्किट में निरन्तर रहता है।",
+    "Current is the flow of charged particles (such as electrons) moving in a definite direction. This flow remains continuous in a closed circuit."
+   ],
+   [
+    "धारा की इकाई ऐम्पीयर (A) है, जिसे एक कूलॉम्ब प्रति सेकंड के रूप में परिभाषित किया गया है।",
+    "The unit of current is the ampere (A), defined as one coulomb per second."
+   ],
+   [
+    "धारा की दिशा को धनात्मक चार्ज के प्रवाह की दिशा माना जाता है, अर्थात् पॉज़िटिव टर्मिनल से नेगेटिव टर्मिनल की ओर। वास्तविक इलेक्ट्रॉन विपरीत दिशा में चलते हैं। सरल सर्किट में धारा को एमीटर (ammeter) से मापा जाता है, जिसे सर्किट में श्रृंखला में जोड़ा जाता है।",
+    "The direction of current is taken as the direction of positive charge flow, i.e., from the positive terminal to the negative terminal. Electrons actually move opposite to this direction. In a simple circuit, current is measured with an ammeter, which is connected in series."
+   ]
+  ],
+  "kv": [
+   [
+    "परिभाषा (Definition)",
+    "धारा वह आवेशित कणों का प्रवाह है"
+   ],
+   [
+    "इकाई (Unit)",
+    "ऐम्पीयर (A)"
+   ],
+   [
+    "प्रतीक (Symbol)",
+    "I"
+   ],
+   [
+    "धारा की दिशा (Direction)",
+    "धनात्मक चार्ज के प्रवाह की दिशा"
+   ],
+   [
+    "मापन यंत्र (Measuring instrument)",
+    "एमीटर (Ammeter)"
+   ]
+  ],
+  "table": null,
+  "formula": null,
+  "tip": [
+   "ध्यान रखें: धारा की दिशा को धनात्मक चार्ज की दिशा माना जाता है, जबकि इलेक्ट्रॉन विपरीत दिशा में चलते हैं; परीक्षा में दोनों को मिलाकर उत्तर न दें।",
+   "Remember: Current direction is taken as the direction of positive charge flow, while electrons move opposite; do not confuse the two in answers."
+  ],
+  "diagram": {
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <line x1=\"50\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"70\" y1=\"90\" x2=\"70\" y2=\"110\" stroke=\"black\" stroke-width=\"4\"/>\n  <line x1=\"80\" y1=\"95\" x2=\"80\" y2=\"105\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Resistor -->\n  <rect x=\"150\" y=\"85\" width=\"40\" height=\"30\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Ammeter (circle) -->\n  <circle cx=\"120\" cy=\"100\" r=\"15\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"115\" y=\"105\" font-size=\"10\" fill=\"black\">A</text>\n  <!-- Wires -->\n  <line x1=\"70\" y1=\"100\" x2=\"105\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"135\" y1=\"100\" x2=\"150\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"190\" y1=\"100\" x2=\"250\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"100\" x2=\"250\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"150\" x2=\"50\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"50\" y1=\"150\" x2=\"50\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Arrow showing current direction -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"6\" markerHeight=\"6\" refX=\"0\" refY=\"3\" orient=\"auto\">\n      <path d=\"M0,0 L0,6 L6,3 Z\" fill=\"red\" />\n    </marker>\n  </defs>\n  <line x1=\"200\" y1=\"80\" x2=\"200\" y2=\"120\" stroke=\"red\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"210\" y=\"100\" font-size=\"12\" fill=\"red\">I</text>\n</svg>",
+   "caption": [
+    "सरल सर्किट में धारा (I) का प्रवाह और एमीटर का स्थान",
+    "Current (I) flow in a simple circuit and position of the ammeter"
+   ]
+  },
+  "scope_ids": [
+   "current_pd"
+  ]
+ },
+ {
+  "key": "c2",
+  "emoji": "🔋",
+  "title": [
+   "वोल्टेज (Potential Difference)",
+   "Potential Difference"
+  ],
+  "paras": [
+   [
+    "वोल्टेज दो बिंदुओं के बीच इलेक्ट्रॉनों को एक बिंदु से दूसरे बिंदु तक धकेलने की शक्ति है, जिसे विद्युत् संभावित अंतर (potential difference) कहा जाता है।",
+    "Voltage is the ability to push electrons from one point to another, called electric potential difference."
+   ],
+   [
+    "वोल्टेज की इकाई वोल्ट (V) है, जहाँ 1 वोल्ट वह ऊर्जा है जो 1 जूल कार्य को 1 कूलॉम्ब चार्ज पर करती है।",
+    "The unit of voltage is the volt (V), where 1 volt is the energy that does 1 joule of work on 1 coulomb of charge."
+   ],
+   [
+    "वोल्टेज मापने के लिये वोल्टमीटर (voltmeter) को दो बिंदुओं के बीच समानांतर (parallel) जोड़ा जाता है। यह केवल संभावित अंतर को पढ़ता है, न कि धारा को।",
+    "To measure voltage, a voltmeter is connected in parallel across the two points. It reads only the potential difference, not the current."
+   ],
+   [
+    "इलेक्ट्रोमैग्नेटिक फोर्स (EMF) वह अधिकतम संभावित अंतर है जो एक स्रोत (जैसे बैटरी) बिना किसी आंतरिक प्रतिरोध के उत्पन्न कर सकता है। वास्तविक बैटरी में आंतरिक प्रतिरोध के कारण टर्मिनल वोल्टेज कम हो जाता है।",
+    "Electromotive force (EMF) is the maximum potential difference a source (like a battery) can produce without any internal resistance. In real batteries, internal resistance reduces the terminal voltage."
+   ]
+  ],
+  "kv": [
+   [
+    "परिभाषा (Definition)",
+    "दो बिंदुओं के बीच इलेक्ट्रॉनों को धकेलने की शक्ति"
+   ],
+   [
+    "इकाई (Unit)",
+    "वोल्ट (V)"
+   ],
+   [
+    "प्रतीक (Symbol)",
+    "V"
+   ],
+   [
+    "मापन यंत्र (Measuring instrument)",
+    "वोल्टमीटर (Voltmeter)"
+   ],
+   [
+    "EMF की अवधारणा (Concept of EMF)",
+    "आंतरिक प्रतिरोध के बिना अधिकतम संभावित अंतर"
+   ]
+  ],
+  "table": null,
+  "formula": null,
+  "tip": [
+   "सामान्य गलती: वोल्टमीटर को श्रृंखला (series) में नहीं, बल्कि समानांतर (parallel) में जोड़ना चाहिए; अन्यथा वह धारा को बदल कर गलत पढ़ाई देता है।",
+   "Common mistake: Connect the voltmeter in parallel, not in series; otherwise it alters the current and gives wrong readings."
+  ],
+  "diagram": {
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <line x1=\"50\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"70\" y1=\"90\" x2=\"70\" y2=\"110\" stroke=\"black\" stroke-width=\"4\"/>\n  <line x1=\"80\" y1=\"95\" x2=\"80\" y2=\"105\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Resistor -->\n  <rect x=\"150\" y=\"85\" width=\"40\" height=\"30\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Voltmeter (circle) -->\n  <circle cx=\"120\" cy=\"100\" r=\"15\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"115\" y=\"105\" font-size=\"10\" fill=\"black\">V</text>\n  <!-- Wires -->\n  <line x1=\"70\" y1=\"100\" x2=\"105\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"135\" y1=\"100\" x2=\"150\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"190\" y1=\"100\" x2=\"250\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"100\" x2=\"250\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"150\" x2=\"50\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"50\" y1=\"150\" x2=\"50\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Parallel connection for voltmeter -->\n  <line x1=\"115\" y1=\"85\" x2=\"115\" y2=\"70\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"115\" y1=\"70\" x2=\"200\" y2=\"70\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"200\" y1=\"70\" x2=\"200\" y2=\"85\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"115\" y1=\"115\" x2=\"115\" y2=\"130\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"115\" y1=\"130\" x2=\"200\" y2=\"130\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"115\" stroke=\"black\" stroke-width=\"2\"/>\n</svg>",
+   "caption": [
+    "वोल्टमीटर को दो बिंदुओं के बीच समानांतर में जोड़ना",
+    "Connecting a voltmeter in parallel across two points"
+   ]
+  },
+  "scope_ids": [
+   "current_pd"
+  ]
+ },
+ {
+  "key": "c3",
+  "emoji": "📈",
+  "title": [
+   "ओम का नियम (Ohm’s Law)",
+   "Ohm’s Law"
+  ],
+  "paras": [
+   [
+    "ओम का नियम कहता है कि यदि किसी चालक में प्रतिरोध (R) स्थिर रहे तो धारा (I) वोल्टेज (V) के समानुपाती होती है, अर्थात् V = I × R।",
+    "Ohm’s law states that if the resistance (R) of a conductor remains constant, the current (I) is directly proportional to the voltage (V), i.e., V = I × R."
+   ],
+   [
+    "स्थिर प्रतिरोध की शर्त तभी पूरी होती है जब तापमान, सामग्री और आकार अपरिवर्तित रहें। इस स्थिति में V‑I ग्राफ एक सीधी रेखा (linear) होती है, जिसकी ढाल R के बराबर होती है।",
+    "The condition of constant resistance is met only when temperature, material and dimensions stay unchanged. In this case the V‑I graph is a straight line, whose slope equals R."
+   ],
+   [
+    "प्रयोगात्मक सत्यापन के लिये एक सरल सर्किट में वोल्टेज को बदलते हुए धारा को एमीटर से मापा जाता है। विभिन्न V के लिये I के मान को ग्राफ पर अंकित करने पर सीधी रेखा प्राप्त होती है, जिससे नियम की पुष्टि होती है।",
+    "For experimental verification, a simple circuit is used where voltage is varied and current is measured with an ammeter. Plotting I against V for different voltages yields a straight line, confirming the law."
+   ]
+  ],
+  "kv": [
+   [
+    "परिभाषा (Definition)",
+    "V = I × R"
+   ],
+   [
+    "प्रतीक (Symbols)",
+    "V – वोल्टेज, I – धारा, R – प्रतिरोध"
+   ],
+   [
+    "एकक (Units)",
+    "V – वोल्ट, I – ऐम्पीयर, R – ओह्म"
+   ],
+   [
+    "रैखिक ग्राफ (Linear graph)",
+    "सीधी रेखा, ढाल = R"
+   ],
+   [
+    "स्थिर प्रतिरोध की शर्त (Constant R condition)",
+    "तापमान, सामग्री, आकार अपरिवर्तित"
+   ],
+   [
+    "प्रयोग (Experiment)",
+    "वोल्टेज बदलें, धारा मापें, V‑I ग्राफ बनायें"
+   ]
+  ],
+  "table": {
+   "head": [
+    [
+     "वोल्टेज (V)",
+     "Voltage (V)"
+    ],
+    [
+     "धारा (I)",
+     "Current (I)"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "रैखिक (Linear)",
+      "Linear"
+     ],
+     [
+      "समानुपाती (Proportional)",
+      "Proportional"
+     ]
+    ],
+    [
+     [
+      "अरेखीय (Non‑linear)",
+      "Non‑linear"
+     ],
+     [
+      "असमानुपाती (Non‑proportional)",
+      "Non‑proportional"
+     ]
+    ]
+   ]
+  },
+  "formula": {
+   "expr": "V = I × R",
+   "units": [
+    [
+     "वोल्टेज (V)",
+     "volt"
+    ],
+    [
+     "धारा (I)",
+     "ampere"
+    ],
+    [
+     "प्रतिरोध (R)",
+     "ohm"
+    ]
+   ]
+  },
+  "tip": [
+   "सामान्य त्रुटि: प्रयोग में वोल्टेज को बदलते समय प्रतिरोध को स्थिर रखने के लिये तापमान को नियंत्रित न करना, जिससे ग्राफ में वक्रता आ जाती है।",
+   "Common error: Not keeping temperature constant while varying voltage, causing resistance to change and the V‑I graph to become curved."
+  ],
+  "diagram": {
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <line x1=\"30\" y1=\"100\" x2=\"50\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"50\" y1=\"90\" x2=\"50\" y2=\"110\" stroke=\"black\" stroke-width=\"4\"/>\n  <line x1=\"60\" y1=\"95\" x2=\"60\" y2=\"105\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Variable resistor -->\n  <rect x=\"150\" y=\"85\" width=\"40\" height=\"30\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"155\" y=\"105\" font-size=\"10\" fill=\"black\">R</text>\n  <!-- Ammeter -->\n  <circle cx=\"110\" cy=\"100\" r=\"12\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"105\" y=\"105\" font-size=\"9\" fill=\"black\">A</text>\n  <!-- Voltmeter -->\n  <circle cx=\"200\" cy=\"60\" r=\"12\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"195\" y=\"65\" font-size=\"9\" fill=\"black\">V</text>\n  <!-- Wires -->\n  <line x1=\"50\" y1=\"100\" x2=\"98\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"122\" y1=\"100\" x2=\"150\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"190\" y1=\"100\" x2=\"250\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"100\" x2=\"250\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"150\" x2=\"30\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"150\" x2=\"30\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Connections for voltmeter (parallel across resistor) -->\n  <line x1=\"160\" y1=\"85\" x2=\"160\" y2=\"70\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"160\" y1=\"70\" x2=\"200\" y2=\"70\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"200\" y1=\"70\" x2=\"200\" y2=\"85\" stroke=\"black\" stroke-width=\"2\"/>\n</svg>",
+   "caption": [
+    "ओम के नियम के प्रयोग में वोल्टेज, धारा और प्रतिरोध को मापने के लिये एमीटर और वोल्टमीटर का प्रयोग",
+    "Using ammeter and voltmeter to measure voltage, current and resistance in Ohm’s law experiment"
+   ]
+  },
+  "scope_ids": [
+   "ohm"
+  ]
+ },
+ {
+  "key": "c4",
+  "emoji": "🧮",
+  "title": [
+   "प्रतिरोध (Resistance)",
+   "Resistance"
+  ],
+  "paras": [
+   [
+    "प्रतिरोध वह गुण है जो किसी चालक में विद्युत धारा के प्रवाह को रोकता है। यह धारा (I) और वोल्टेज (V) के बीच संबंध को निर्धारित करता है।",
+    "Resistance is the property of a conductor that opposes the flow of electric current. It relates the current (I) and the voltage (V)."
+   ],
+   [
+    "प्रतिरोध की इकाई **ओह्म (ohm)** है, जिसका प्रतीक Ω है। ओह्म का नियम कहता है **R = V / I**। यहाँ V वोल्ट (V) में और I एम्पीयर (A) में मापा जाता है।",
+    "The unit of resistance is the **ohm (Ω)**. Ohm’s law states **R = V / I**, where V is measured in volts (V) and I in amperes (A)."
+   ],
+   [
+    "प्रतिरोध को मापने के लिये **ओम मीटर (ohmmeter)** या मल्टीमीटर का उपयोग किया जाता है। दो टर्मिनल के बीच संपर्क बनाकर वोल्टेज लागू किया जाता है और धारा मापी जाती है, जिससे R का मान प्राप्त होता है।",
+    "Resistance is measured using an **ohmmeter** or a multimeter. By applying a voltage across two terminals and measuring the resulting current, the value of R is obtained."
+   ]
+  ],
+  "kv": [
+   [
+    "परिभाषा (Definition)",
+    "विधि जिससे धारा का प्रवाह बाधित होता है"
+   ],
+   [
+    "इकाई (Unit)",
+    "ओह्म (Ω)"
+   ],
+   [
+    "सूत्र (Formula)",
+    "R = V / I"
+   ],
+   [
+    "मापन उपकरण (Measuring instrument)",
+    "ओम मीटर / मल्टीमीटर"
+   ],
+   [
+    "सामान्य मान (Typical values)",
+    "तांबे का प्रतिरोध लगभग 1.7×10⁻⁸ Ω·m"
+   ]
+  ],
+  "table": null,
+  "formula": {
+   "expr": "R = V / I",
+   "units": [
+    [
+     [
+      "R",
+      "ohm (Ω)"
+     ],
+     [
+      "V",
+      "volt (V)"
+     ],
+     [
+      "I",
+      "ampere (A)"
+     ]
+    ]
+   ]
+  },
+  "tip": [
+   "⚠ प्रतिरोध को मापते समय सर्किट को खुला रखें; बंद सर्किट में ओम मीटर का उपयोग शॉर्ट सर्किट का कारण बन सकता है।",
+   "⚠ When measuring resistance, keep the circuit open; using an ohmmeter on a closed circuit can cause a short circuit."
+  ],
+  "diagram": null,
+  "scope_ids": [
+   "resistance"
+  ]
+ },
+ {
+  "key": "c5",
+  "emoji": "📐",
+  "title": [
+   "प्रतिरोधता और कारक (Resistivity & Factors)",
+   "Resistivity & Factors"
+  ],
+  "paras": [
+   [
+    "प्रतिरोधता (**ρ**) किसी सामग्री की मूलभूत विशेषता है जो बताती है कि वह कितनी आसानी से धारा को रोकती है। यह केवल सामग्री पर निर्भर करती है, आकार पर नहीं।",
+    "Resistivity (**ρ**) is an intrinsic property of a material that indicates how strongly it opposes electric current. It depends only on the material, not on its shape."
+   ],
+   [
+    "एक समान आकार के चालक में प्रतिरोध (**R**) का संबंध प्रतिरोधता से **R = ρ L / A** द्वारा दिया जाता है, जहाँ **L** लंबाई (meter) और **A** क्रॉस‑सेक्शनल एरिया (meter²) है। लंबी और पतली तार का प्रतिरोध अधिक होता है।",
+    "For a uniform conductor, resistance (**R**) is related to resistivity by **R = ρ L / A**, where **L** is the length (m) and **A** the cross‑sectional area (m²). A longer and thinner wire has higher resistance."
+   ],
+   [
+    "तापमान के साथ प्रतिरोधता बदलती है। अधिकांश धातुओं में **ρ** तापमान बढ़ने पर बढ़ती है, जबकि कुछ अर्धचालकों में घटती है। यह परिवर्तन **ρ = ρ₀[1 + α(T‑T₀)]** से व्यक्त किया जाता है, जहाँ **α** तापीय गुणांक है।",
+    "Resistivity varies with temperature. For most metals, **ρ** increases with temperature, while for some semiconductors it decreases. This change is expressed as **ρ = ρ₀[1 + α(T‑T₀)]**, where **α** is the temperature coefficient."
+   ]
+  ],
+  "kv": [
+   [
+    "प्रतिरोधता (Resistivity)",
+    "ρ (ohm·meter)"
+   ],
+   [
+    "इकाई (Unit)",
+    "ओह्म·मीटर (Ω·m)"
+   ],
+   [
+    "सूत्र (Formula)",
+    "R = ρ L / A"
+   ],
+   [
+    "लंबाई प्रभाव (Length effect)",
+    "R ∝ L"
+   ],
+   [
+    "क्षेत्रफल प्रभाव (Area effect)",
+    "R ∝ 1/A"
+   ],
+   [
+    "तापमान गुणांक (Temperature coefficient)",
+    "α (per °C)"
+   ]
+  ],
+  "table": null,
+  "formula": {
+   "expr": "R = ρ L / A",
+   "units": [
+    [
+     [
+      "R",
+      "ohm (Ω)"
+     ],
+     [
+      "ρ",
+      "ohm·meter (Ω·m)"
+     ],
+     [
+      "L",
+      "meter (m)"
+     ],
+     [
+      "A",
+      "meter² (m²)"
+     ]
+    ]
+   ]
+  },
+  "tip": [
+   "⚠ प्रतिरोधता को मापते समय तापमान को स्थिर रखें; तापमान परिवर्तन से प्राप्त मान में बड़ी त्रुटि आ सकती है।",
+   "⚠ Keep temperature constant while measuring resistivity; temperature variations can cause large errors."
+  ],
+  "diagram": {
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Rectangle representing the material -->\n  <rect x=\"80\" y=\"60\" width=\"180\" height=\"80\" fill=\"#e0f7fa\" stroke=\"#006064\" stroke-width=\"2\"/>\n  <!-- Length arrow -->\n  <line x1=\"80\" y1=\"150\" x2=\"260\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"170\" y=\"170\" font-size=\"14\" text-anchor=\"middle\">L</text>\n  <!-- Area arrow -->\n  <line x1=\"260\" y1=\"60\" x2=\"260\" y2=\"140\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"275\" y=\"100\" font-size=\"14\" text-anchor=\"start\" transform=\"rotate(90 275,100)\">A</text>\n  <!-- Resistivity label -->\n  <text x=\"170\" y=\"110\" font-size=\"16\" text-anchor=\"middle\" fill=\"#006064\">ρ</text>\n  <!-- Arrow marker definition -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"black\" />\n    </marker>\n  </defs>\n</svg>",
+   "caption": [
+    "प्रतिरोधता का सूत्र और आयाम (Resistivity formula with dimensions)",
+    "Resistivity formula and dimensions"
+   ]
+  },
+  "scope_ids": [
+   "resistance"
+  ]
+ },
+ {
+  "key": "c6",
+  "emoji": "🔗",
+  "title": [
+   "श्रृंखला संयोजन (Series Combination)",
+   "Series Combination"
+  ],
+  "paras": [
+   [
+    "श्रृंखला संयोजन में दो या दो से अधिक प्रतिरोधक (R₁, R₂, …) को एक ही धारा मार्ग में जोड़ते हैं। सभी प्रतिरोधकों पर समान धारा (I) प्रवाहित होती है।",
+    "In a series combination, two or more resistors (R₁, R₂, …) are connected end‑to‑end in a single path. The same current (I) flows through each resistor."
+   ],
+   [
+    "समग्र प्रतिरोध (**R_eq**) का मान सभी व्यक्तिगत प्रतिरोधों का योग होता है: **R_eq = R₁ + R₂ + …**। यह कुल प्रतिरोध बढ़ाता है, जिससे सर्किट में कुल धारा घटती है।",
+    "The equivalent resistance (**R_eq**) equals the sum of all individual resistances: **R_eq = R₁ + R₂ + …**. This increases the total resistance, reducing the overall current in the circuit."
+   ],
+   [
+    "वोल्टेज विभाजन के नियम के अनुसार, स्रोत वोल्टेज का भाग‑भाग प्रत्येक प्रतिरोधक पर उनके मान के अनुपात में विभाजित होता है। घरेलू लाइटिंग में कई बल्ब श्रृंखला में नहीं, बल्कि समानांतर में लगाते हैं, परन्तु श्रृंखला सिद्धान्त समझना आवश्यक है।",
+    "According to the voltage‑division rule, the source voltage is shared among the resistors in proportion to their resistances. In household lighting, bulbs are usually connected in parallel, but understanding series principles is essential."
+   ]
+  ],
+  "kv": [
+   [
+    "समग्र प्रतिरोध (Equivalent resistance)",
+    "R_eq = ΣR"
+   ],
+   [
+    "समान धारा (Same current)",
+    "I समान रहता है"
+   ],
+   [
+    "वोल्टेज विभाजन (Voltage division)",
+    "V_k = I × R_k"
+   ],
+   [
+    "उपयोग (Application)",
+    "सुरक्षा फ्यूज, बत्तियों की श्रृंखला"
+   ]
+  ],
+  "table": null,
+  "formula": {
+   "expr": "R_eq = R1 + R2 + …",
+   "units": [
+    [
+     [
+      "R_eq",
+      "ohm (Ω)"
+     ],
+     [
+      "R1",
+      "ohm (Ω)"
+     ],
+     [
+      "R2",
+      "ohm (Ω)"
+     ]
+    ]
+   ]
+  },
+  "tip": [
+   "⚠ श्रृंखला में किसी एक प्रतिरोधक का खुला होना (open circuit) पूरी सर्किट को बंद कर देता है; इसलिए फ्यूज को श्रृंखला में रखकर सुरक्षा सुनिश्चित की जाती है।",
+   "⚠ If any resistor in a series opens, the entire circuit stops conducting; this is why fuses are placed in series for protection."
+  ],
+  "diagram": {
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <line x1=\"30\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"black\" stroke-width=\"4\"/>\n  <line x1=\"70\" y1=\"90\" x2=\"70\" y2=\"110\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"50\" y=\"80\" font-size=\"14\" text-anchor=\"middle\">V</text>\n  <!-- Resistor 1 -->\n  <rect x=\"90\" y=\"80\" width=\"40\" height=\"40\" fill=\"#fff3e0\" stroke=\"#bf360c\" stroke-width=\"2\"/>\n  <text x=\"110\" y=\"105\" font-size=\"12\" text-anchor=\"middle\">R1</text>\n  <!-- Resistor 2 -->\n  <rect x=\"150\" y=\"80\" width=\"40\" height=\"40\" fill=\"#fff3e0\" stroke=\"#bf360c\" stroke-width=\"2\"/>\n  <text x=\"170\" y=\"105\" font-size=\"12\" text-anchor=\"middle\">R2</text>\n  <!-- Resistor 3 -->\n  <rect x=\"210\" y=\"80\" width=\"40\" height=\"40\" fill=\"#fff3e0\" stroke=\"#bf360c\" stroke-width=\"2\"/>\n  <text x=\"230\" y=\"105\" font-size=\"12\" text-anchor=\"middle\">R3</text>\n  <!-- Connecting wires -->\n  <line x1=\"70\" y1=\"100\" x2=\"90\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"130\" y1=\"100\" x2=\"150\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"190\" y1=\"100\" x2=\"210\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"100\" x2=\"290\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Return line -->\n  <line x1=\"290\" y1=\"100\" x2=\"290\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"150\" x2=\"290\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"150\" x2=\"30\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Current arrow -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"black\" />\n    </marker>\n  </defs>\n  <line x1=\"100\" y1=\"70\" x2=\"100\" y2=\"60\" stroke=\"red\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"100\" y=\"55\" font-size=\"12\" fill=\"red\" text-anchor=\"middle\">I</text>\n</svg>",
+   "caption": [
+    "श्रृंखला में प्रतिरोधकों का संयोजन (Series connection of resistors)",
+    "Series connection of resistors"
+   ]
+  },
+  "scope_ids": [
+   "combos"
+  ]
+ },
+ {
+  "key": "c7",
+  "emoji": "⚙️",
+  "title": [
+   "समांतर संयोजन (Parallel Combination)",
+   "Parallel Combination"
+  ],
+  "paras": [
+   [
+    "समांतर संयोजन में सभी घटकों के सिरों को दो समान बिंदुओं से जोड़ा जाता है, जिससे प्रत्येक घटक पर **समान वोल्टेज (same voltage)** रहता है।",
+    "In a parallel combination, the terminals of all components are connected to the same two points, so each component experiences the same voltage."
+   ],
+   [
+    "वोल्टेज समान होने के कारण धारा **विभाजन (current division)** के सिद्धान्त के अनुसार विभिन्न शाखाओं में विभाजित हो जाती है; छोटी प्रतिरोध वाली शाखा में अधिक धारा बहती है।",
+    "Because the voltage is the same, the current splits according to the current‑division rule; the branch with lower resistance carries more current."
+   ],
+   [
+    "समांतर में कुल प्रतिरोध (**समतुल्य प्रतिरोध**) की गणना का सूत्र है 1/R_eq = 1/R1 + 1/R2 + …, जिससे कुल प्रतिरोध हमेशा व्यक्तिगत प्रतिरोधों से कम रहता है।",
+    "The equivalent resistance of a parallel network is given by 1/R_eq = 1/R1 + 1/R2 + …, so the total resistance is always less than any individual resistance."
+   ],
+   [
+    "घर की सॉकेट वायरिंग, इलेक्ट्रॉनिक उपकरणों के पावर सप्लाई और सर्किट बोर्ड पर कई घटकों को समान वोल्टेज पर चलाने के लिये समांतर संयोजन का प्रयोग किया जाता है।",
+    "Parallel connections are used in home socket wiring, power supplies of electronic devices, and circuit boards to supply the same voltage to many components."
+   ]
+  ],
+  "kv": [
+   [
+    [
+     "समान वोल्टेज (same voltage)",
+     "वोल्टेज सभी शाखाओं में समान रहता है"
+    ],
+    [
+     "धारा विभाजन (current division)",
+     "धारा प्रतिरोध के अनुपात में विभाजित होती है"
+    ]
+   ],
+   [
+    [
+     "समतुल्य प्रतिरोध (equivalent resistance)",
+     "कुल प्रतिरोध = 1 / (1/R1 + 1/R2 + …)"
+    ],
+    [
+     "सुरक्षा (safety)",
+     "समांतर में ओवरलोड से बचने के लिये फ्यूज़ या सर्किट ब्रेकर लगाया जाता है"
+    ]
+   ],
+   [
+    [
+     "ऊर्जा बचत (energy saving)",
+     "कम प्रतिरोध के कारण कम पावर ड्रॉप होता है"
+    ],
+    [
+     "वायरिंग लचीलापन (wiring flexibility)",
+     "एक ही सॉकेट से कई उपकरण जुड़े रह सकते हैं"
+    ]
+   ]
+  ],
+  "table": {
+   "head": [
+    [
+     "विशेषता",
+     "Series संयोजन",
+     "Parallel संयोजन"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "वोल्टेज",
+      "वोल्टेज का योग",
+      "समान वोल्टेज"
+     ],
+     [
+      "धारा",
+      "समान धारा",
+      "धारा का योग"
+     ]
+    ],
+    [
+     [
+      "समतुल्य प्रतिरोध",
+      "R_eq = R1 + R2 + …",
+      "1/R_eq = 1/R1 + 1/R2 + …"
+     ],
+     [
+      "उपकरणों की सुरक्षा",
+      "कम सुरक्षा, ओवरलोड पर फ्यूज़ जलता है",
+      "फ्यूज़/ब्रेकर्स द्वारा बेहतर सुरक्षा"
+     ]
+    ]
+   ]
+  },
+  "formula": {
+   "expr": "1/R_eq = 1/R1 + 1/R2 + …",
+   "units": [
+    [
+     "R_eq",
+     "Ω (Ohm)"
+    ],
+    [
+     "R1, R2",
+     "Ω (Ohm)"
+    ]
+   ]
+  },
+  "tip": [
+   "⚠️ अक्सर छात्र प्रतिरोधों को जोड़ते समय **समान वोल्टेज** को भूल जाते हैं; याद रखें कि समांतर में वोल्टेज हमेशा समान रहता है, केवल धारा बदलती है।"
+  ],
+  "diagram": {
+   "svg": "<svg viewBox='0 0 340 200' xmlns='http://www.w3.org/2000/svg'>\n  <!-- Bus wires -->\n  <line x1='30' y1='30' x2='310' y2='30' stroke='black' stroke-width='2'/>\n  <line x1='30' y1='150' x2='310' y2='150' stroke='black' stroke-width='2'/>\n  <!-- Resistors -->\n  <rect x='80' y='70' width='40' height='20' fill='none' stroke='black' stroke-width='2'/>\n  <text x='100' y='85' font-size='12' text-anchor='middle'>R1</text>\n  <rect x='150' y='70' width='40' height='20' fill='none' stroke='black' stroke-width='2'/>\n  <text x='170' y='85' font-size='12' text-anchor='middle'>R2</text>\n  <rect x='220' y='70' width='40' height='20' fill='none' stroke='black' stroke-width='2'/>\n  <text x='240' y='85' font-size='12' text-anchor='middle'>R3</text>\n  <!-- Connections -->\n  <line x1='30' y1='30' x2='30' y2='150' stroke='black' stroke-width='2'/>\n  <line x1='310' y1='30' x2='310' y2='150' stroke='black' stroke-width='2'/>\n  <!-- Current arrows -->\n  <defs>\n    <marker id='arrow' markerWidth='6' markerHeight='6' refX='5' refY='3' orient='auto'>\n      <path d='M0,0 L0,6 L9,3 z' fill='red'/>\n    </marker>\n  </defs>\n  <line x1='30' y1='30' x2='80' y2='80' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='30' y1='30' x2='150' y2='80' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='30' y1='30' x2='220' y2='80' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='80' y1='90' x2='310' y2='30' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='150' y1='90' x2='310' y2='30' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <line x1='220' y1='90' x2='310' y2='30' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <!-- Labels -->\n  <text x='20' y='20' font-size='12'>V</text>\n  <text x='320' y='20' font-size='12'>V</text>\n</svg>",
+   "caption": [
+    "समांतर संयोजन में समान वोल्टेज और धारा विभाजन",
+    "Parallel combination showing equal voltage and current division"
+   ]
+  },
+  "scope_ids": [
+   "combos"
+  ]
+ },
+ {
+  "key": "c8",
+  "emoji": "🏠",
+  "title": [
+   "व्यावहारिक अनुप्रयोग (Practical Applications)",
+   "Practical Applications"
+  ],
+  "paras": [
+   [
+    "घर की वायरिंग में **समांतर संयोजन** का प्रयोग किया जाता है ताकि प्रत्येक सॉकेट को समान वोल्टेज मिल सके और किसी एक सॉकेट में खराबी से बाकी सॉकेट प्रभावित न हों।",
+    "In home wiring, parallel connections ensure each socket receives the same voltage and a fault in one socket does not affect the others."
+   ],
+   [
+    "सर्किट ब्रेकर और फ्यूज़ दोनों ही **ओवरकरंट सुरक्षा (over‑current protection)** के उपकरण हैं; ब्रेकर को मैन्युअली रीसेट किया जा सकता है जबकि फ्यूज़ जलकर बदलना पड़ता है।",
+    "Circuit breakers and fuses provide over‑current protection; breakers can be reset manually while fuses need replacement after blowing."
+   ],
+   [
+    "लाइटिंग, पावर सॉकेट और एसी मोटर की व्यवस्था में समांतर कनेक्शन से **ऊर्जा वितरण (power distribution)** समान रूप से किया जाता है, जिससे लोड संतुलन बना रहता है।",
+    "Lighting, power sockets, and AC motor installations use parallel connections for uniform power distribution, maintaining load balance."
+   ]
+  ],
+  "kv": [
+   [
+    [
+     "घर की वायरिंग (home wiring)",
+     "सभी आउटलेट समान वोल्टेज पर जुड़े होते हैं"
+    ],
+    [
+     "सर्किट ब्रेकर (circuit breaker)",
+     "ओवरलोड पर स्वचालित रूप से सर्किट खुल जाता है"
+    ]
+   ],
+   [
+    [
+     "फ्यूज़ (fuse)",
+     "धारा अधिक होने पर पिघल कर सर्किट तोड़ता है"
+    ],
+    [
+     "पावर सॉकेट (power socket)",
+     "उपकरणों को सुरक्षित रूप से ऊर्जा प्रदान करता है"
+    ]
+   ],
+   [
+    [
+     "लाइटिंग (lighting)",
+     "समांतर में कई लाइट्स समान वोल्टेज पर चलती हैं"
+    ],
+    [
+     "लोड संतुलन (load balancing)",
+     "समांतर में प्रत्येक शाखा का लोड स्वतंत्र रूप से नियंत्रित होता है"
+    ]
+   ]
+  ],
+  "table": null,
+  "formula": null,
+  "tip": [
+   "⚠️ कई बार घर की वायरिंग में **सिरों को उल्टा** जोड़ दिया जाता है, जिससे सॉकेट में उल्टा ध्रुवीयता (reverse polarity) हो सकता है; हमेशा लाल (लाइफ़) को लाइन और नीला (न्यूट्रल) को न्यूट्रल से जोड़ें।"
+  ],
+  "diagram": null,
+  "scope_ids": [
+   "combos"
+  ]
+ },
+ {
+  "key": "c9",
+  "emoji": "🔥",
+  "title": [
+   "हीटिंग प्रभाव (Heating Effect)",
+   "Heating Effect"
+  ],
+  "paras": [
+   [
+    "**जूल का नियम (Joule's law)** बताता है कि जब धारा किसी प्रतिरोधक से गुजरती है तो उत्पन्न गर्मी Q = I²Rt (जूल) के बराबर होती है, जहाँ I धारा, R प्रतिरोध और t समय है।",
+    "Joule's law states that the heat produced when current passes through a resistor is Q = I²Rt (joules), where I is current, R resistance and t time."
+   ],
+   [
+    "समय t जितना अधिक होगा, उतनी ही अधिक गर्मी उत्पन्न होगी; इसलिए हीटर, टॉस्टर और इलेक्ट्रिक कुकर जैसे उपकरणों में प्रतिरोध को बड़े मान पर चुना जाता है।",
+    "The longer the time, the more heat is generated; therefore devices like heaters, toasters and electric cookers use high‑value resistors."
+   ],
+   [
+    "फ्यूज़ का कार्य सिद्धांत भी हीटिंग प्रभाव पर आधारित है: अधिक धारा से फ्यूज़ जल्दी गर्म होकर पिघल जाता है और सर्किट को तोड़ देता है।",
+    "The principle of a fuse also relies on heating: excess current heats the fuse element until it melts, breaking the circuit."
+   ],
+   [
+    "वास्तविक जीवन में हीटिंग प्रभाव को नियंत्रित करने के लिये **वोल्टेज नियमन (voltage regulation)** और **थर्मल फ्यूज़** का प्रयोग किया जाता है, जिससे उपकरण सुरक्षित रहते हैं।",
+    "In practice, heating is controlled by voltage regulation and thermal fuses to keep appliances safe."
+   ]
+  ],
+  "kv": [
+   [
+    [
+     "जूल का नियम (Joule's law)",
+     "Q = I²Rt, गर्मी का उत्पादन धारा, प्रतिरोध और समय पर निर्भर"
+    ],
+    [
+     "हीट उत्पन्न करने की दर (rate of heat generation)",
+     "P = I²R, जहाँ P पावर (वॉट) है"
+    ]
+   ],
+   [
+    [
+     "समय का प्रभाव (effect of time)",
+     "समय बढ़ने से कुल गर्मी Q बढ़ती है"
+    ],
+    [
+     "उपकरणों में उपयोग (applications)",
+     "हीटर, टॉस्टर, इलेक्ट्रिक कुकर, फ्यूज़"
+    ]
+   ],
+   [
+    [
+     "सुरक्षा (safety)",
+     "अधिक गर्मी से बचने के लिये थर्मल फ्यूज़ और सर्किट ब्रेकर"
+    ],
+    [
+     "ऊर्जा दक्षता (energy efficiency)",
+     "उच्च प्रतिरोध वाले हीटर कम धारा में अधिक गर्मी उत्पन्न करते हैं"
+    ]
+   ]
+  ],
+  "table": null,
+  "formula": {
+   "expr": "Q = I² × R × t",
+   "units": [
+    [
+     "Q",
+     "Joule (J)"
+    ],
+    [
+     "I",
+     "Ampere (A)"
+    ],
+    [
+     "R",
+     "Ohm (Ω)"
+    ],
+    [
+     "t",
+     "Second (s)"
+    ]
+   ]
+  },
+  "tip": [
+   "⚠️ अक्सर छात्र Q = I × V × t लिख देते हैं, जबकि सही सूत्र **Q = I²Rt** है; याद रखें कि गर्मी प्रतिरोध पर निर्भर करती है, वोल्टेज पर नहीं।"
+  ],
+  "diagram": {
+   "svg": "<svg viewBox='0 0 340 200' xmlns='http://www.w3.org/2000/svg'>\n  <!-- Battery -->\n  <rect x='30' y='80' width='30' height='40' fill='none' stroke='black' stroke-width='2'/>\n  <text x='45' y='105' font-size='12' text-anchor='middle'>V</text>\n  <!-- Resistor (heater) -->\n  <rect x='150' y='80' width='40' height='40' fill='none' stroke='black' stroke-width='2'/>\n  <text x='170' y='105' font-size='12' text-anchor='middle'>R</text>\n  <!-- Wires -->\n  <line x1='60' y1='100' x2='150' y2='100' stroke='black' stroke-width='2'/>\n  <line x1='30' y1='120' x2='30' y2='180' stroke='black' stroke-width='2'/>\n  <line x1='190' y1='120' x2='190' y2='180' stroke='black' stroke-width='2'/>\n  <line x1='30' y1='180' x2='190' y2='180' stroke='black' stroke-width='2'/>\n  <!-- Current arrow -->\n  <defs>\n    <marker id='arrow' markerWidth='6' markerHeight='6' refX='5' refY='3' orient='auto'>\n      <path d='M0,0 L0,6 L9,3 z' fill='red'/>\n    </marker>\n  </defs>\n  <line x1='60' y1='100' x2='150' y2='100' stroke='red' stroke-width='2' marker-end='url(#arrow)'/>\n  <text x='105' y='90' font-size='12' fill='red'>I</text>\n  <text x='100' y='130' font-size='12'>t (s)</text>\n  <text x='20' y='190' font-size='12'>Ground</text>\n</svg>",
+   "caption": [
+    "जूल के नियम को दर्शाने वाला सरल सर्किट: बैटरी, प्रतिरोध (हीटर) और धारा I",
+    "Simple circuit illustrating Joule's law: battery, resistor (heater) and current I"
+   ]
+  },
+  "scope_ids": [
+   "heating"
+  ]
+ },
+ {
+  "key": "c10",
+  "emoji": "🛡️",
+  "title": [
+   "सुरक्षा उपकरण (Safety Devices)",
+   "Safety Devices"
+  ],
+  "paras": [
+   [
+    "विद्युत् सर्किट में अत्यधिक धारा या तापमान से बचाव के लिये विभिन्न सुरक्षा उपकरण लगाए जाते हैं। ये उपकरण सर्किट को नुकसान से बचाते हैं और आग या शॉक के जोखिम को घटाते हैं।",
+    "Various safety devices are installed in electrical circuits to protect against excess current or temperature. These devices safeguard the circuit and reduce the risk of fire or electric shock."
+   ],
+   [
+    "फ्यूज़ (Fuse) एक पतली धातु की पट्टी होती है जो अधिक धारा प्रवाहित होने पर पिघल कर सर्किट को तोड़ देती है। यह सबसे सरल ओवर‑करंट सुरक्षा है।",
+    "A fuse is a thin metal strip that melts when excessive current flows, thereby breaking the circuit. It is the simplest over‑current protection."
+   ],
+   [
+    "सर्किट ब्रेकर (Circuit breaker) मैकेनिकल या इलेक्ट्रॉनिक उपकरण है जो निर्धारित धारा से अधिक होने पर स्वचालित रूप से स्विच को खोल देता है। इसे मैन्युअली रीसेट भी किया जा सकता है।",
+    "A circuit breaker is a mechanical or electronic device that automatically opens the switch when current exceeds a set limit. It can be manually reset."
+   ],
+   [
+    "थर्मल कट‑ऑफ़ (Thermal cut‑off) तापमान बढ़ने पर एक बायोमैकेनिकल लिंक को मुक्त कर सर्किट को खोल देता है। यह विशेष रूप से मोटर या हीटर में उपयोगी है।",
+    "A thermal cut‑off releases a bi‑mechanical link to open the circuit when temperature rises. It is especially useful in motors or heaters."
+   ],
+   [
+    "ओवरलोड सुरक्षा (Overload protection) अक्सर बकल या थर्मिस्टर्स के रूप में लागू होती है, जो धारा की निरंतर अधिकता पर सर्किट को डिस्कनेक्ट कर देती है।",
+    "Overload protection is often implemented as a bimetallic strip or thermostat that disconnects the circuit upon sustained excess current."
+   ]
+  ],
+  "kv": [
+   [
+    [
+     "फ्यूज़ (Fuse)",
+     "Fuse"
+    ],
+    [
+     "धारा सीमा से अधिक होने पर पिघल कर सर्किट तोड़ता है",
+     "Melts and breaks circuit when current exceeds limit"
+    ]
+   ],
+   [
+    [
+     "सर्किट ब्रेकर (Circuit breaker)",
+     "Circuit breaker"
+    ],
+    [
+     "धारा सीमा से अधिक होने पर स्विच खोलता है, रीसेट योग्य",
+     "Opens switch on over‑current, resettable"
+    ]
+   ],
+   [
+    [
+     "थर्मल कट‑ऑफ़ (Thermal cut‑off)",
+     "Thermal cut‑off"
+    ],
+    [
+     "तापमान बढ़ने पर बायोमैकेनिकल लिंक मुक्त कर सर्किट बंद करता है",
+     "Opens circuit by releasing a link when temperature rises"
+    ]
+   ],
+   [
+    [
+     "ओवरलोड सुरक्षा (Overload protection)",
+     "Overload protection"
+    ],
+    [
+     "धारा की निरंतर अधिकता पर बकल या थर्मिस्टर द्वारा सर्किट डिस्कनेक्ट करता है",
+     "Disconnects circuit via bimetal or thermostat on sustained over‑current"
+    ]
+   ]
+  ],
+  "table": null,
+  "formula": null,
+  "tip": [
+   "फ़्यूज़ को कभी भी उच्च रेटिंग वाले फ़्यूज़ से नहीं बदलें; इससे सर्किट का सुरक्षा स्तर घट जाता है।",
+   "Never replace a fuse with a higher‑rated one; it reduces the circuit’s safety margin."
+  ],
+  "diagram": null,
+  "scope_ids": [
+   "heating"
+  ]
+ },
+ {
+  "key": "c11",
+  "emoji": "⚡️",
+  "title": [
+   "विद्युत शक्ति (Electric Power)",
+   "Electric Power"
+  ],
+  "paras": [
+   [
+    "विद्युत शक्ति वह दर है जिस पर विद्युत ऊर्जा सर्किट में परिवर्तित या उपयोग की जाती है। इसे आमतौर पर वॉट (W) में मापा जाता है।",
+    "Electric power is the rate at which electrical energy is converted or used in a circuit. It is commonly measured in watts (W)."
+   ],
+   [
+    "शक्ति की मूल परिभाषा P = V × I है, जहाँ V वोल्टेज (वोल्ट) और I धारा (एम्पीयर) है। यह सूत्र सभी प्रकार के लोड पर लागू होता है।",
+    "The basic definition of power is P = V × I, where V is voltage (volts) and I is current (amperes). This formula applies to all types of loads."
+   ],
+   [
+    "यदि केवल प्रतिरोध (R) ज्ञात हो तो दो अतिरिक्त रूप उपयोगी होते हैं: P = I² × R और P = V² / R। ये रूप विशेष रूप से ओह्मीय (रिजिस्टिव) लोड के लिये प्रयोग होते हैं।",
+    "If only the resistance (R) is known, two additional forms are useful: P = I² × R and P = V² / R. These are especially used for ohmic (resistive) loads."
+   ],
+   [
+    "शक्ति मापन के लिये वाट‑मीटर (Watt‑meter) या मल्टीमीटर के शक्ति‑माप मोड का प्रयोग किया जाता है। यह उपकरण वोल्टेज और धारा दोनों को एक साथ माप कर शक्ति प्रदर्शित करता है।",
+    "Power measurement is done using a watt‑meter or the power‑measurement mode of a multimeter. The instrument measures voltage and current simultaneously and displays power."
+   ]
+  ],
+  "kv": [
+   [
+    [
+     "परिभाषा (Definition)",
+     "Definition"
+    ],
+    [
+     "शक्ति वह दर है जिससे विद्युत ऊर्जा उपयोग या परिवर्तित होती है",
+     "Power is the rate at which electrical energy is used or converted"
+    ]
+   ],
+   [
+    [
+     "इकाई (Unit)",
+     "Unit"
+    ],
+    [
+     "वॉट (W)",
+     "Watt (W)"
+    ]
+   ],
+   [
+    [
+     "मुख्य सूत्र (Primary formula)",
+     "Primary formula"
+    ],
+    [
+     "P = V × I",
+     "P = V × I"
+    ]
+   ],
+   [
+    [
+     "ओह्मीय लोड के लिये अतिरिक्त सूत्र (Additional formulas for resistive load)",
+     "Additional formulas for resistive load"
+    ],
+    [
+     "P = I²R, P = V²/R",
+     "P = I²R, P = V²/R"
+    ]
+   ],
+   [
+    [
+     "शक्ति मापन (Power measurement)",
+     "Power measurement"
+    ],
+    [
+     "वाट‑मीटर या मल्टीमीटर के शक्ति‑मोड से",
+     "Using a watt‑meter or multimeter’s power mode"
+    ]
+   ]
+  ],
+  "table": {
+   "head": [
+    [
+     "सूत्र (Formula)",
+     "जब ज्ञात हो (When known)"
+    ],
+    [
+     "Formula",
+     "When known"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "P = V × I",
+      "V और I"
+     ],
+     [
+      "P = V × I",
+      "V and I"
+     ]
+    ],
+    [
+     [
+      "P = I²R",
+      "I और R"
+     ],
+     [
+      "P = I²R",
+      "I and R"
+     ]
+    ],
+    [
+     [
+      "P = V² / R",
+      "V और R"
+     ],
+     [
+      "P = V² / R",
+      "V and R"
+     ]
+    ]
+   ]
+  },
+  "formula": {
+   "expr": "P = V × I",
+   "units": [
+    [
+     [
+      "शक्ति (Power)",
+      "Power"
+     ],
+     [
+      "वॉट (W)",
+      "W"
+     ]
+    ]
+   ]
+  },
+  "tip": [
+   "सूत्र चुनते समय यह सुनिश्चित करें कि आप वही चर (V, I, या R) उपयोग कर रहे हैं जो समस्या में दिया गया है; अन्यथा परिणाम गलत आएगा।",
+   "When selecting a formula, ensure you use the variables (V, I, or R) actually given in the problem; otherwise the result will be incorrect."
+  ],
+  "diagram": {
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <rect x=\"20\" y=\"80\" width=\"30\" height=\"40\" fill=\"#ddd\" stroke=\"#000\"/>\n  <line x1=\"35\" y1=\"80\" x2=\"35\" y2=\"70\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"35\" y1=\"120\" x2=\"35\" y2=\"130\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Wires -->\n  <line x1=\"50\" y1=\"100\" x2=\"120\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Resistor -->\n  <polyline points=\"120,100 130,90 140,110 150,90 160,110 170,90 180,110 190,100\" fill=\"none\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"190\" y1=\"100\" x2=\"260\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Arrow for current -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"#000\"/>\n    </marker>\n  </defs>\n  <line x1=\"260\" y1=\"100\" x2=\"300\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <!-- Labels -->\n  <text x=\"30\" y=\"150\" font-size=\"14\" fill=\"#000\">Battery (V)</text>\n  <text x=\"140\" y=\"140\" font-size=\"14\" fill=\"#000\">Resistor (R)</text>\n  <text x=\"285\" y=\"120\" font-size=\"14\" fill=\"#000\">I (Current)</text>\n</svg>",
+   "caption": [
+    "विद्युत शक्ति मापन के लिये साधारण सर्किट (Simple circuit for power measurement)",
+    "Simple circuit used for power measurement"
+   ]
+  },
+  "scope_ids": [
+   "power"
+  ]
+ },
+ {
+  "key": "c12",
+  "emoji": "💡",
+  "title": [
+   "ऊर्जा खपत (Energy Consumption)",
+   "Energy Consumption"
+  ],
+  "paras": [
+   [
+    "ऊर्जा खपत वह कुल विद्युत ऊर्जा है जो किसी उपकरण द्वारा निर्धारित समय में उपयोग की जाती है। इसे आमतौर पर किलowatt‑घंटा (kWh) में मापा जाता है।",
+    "Energy consumption is the total electrical energy used by a device over a specified period. It is commonly measured in kilowatt‑hours (kWh)."
+   ],
+   [
+    "ऊर्जा की गणना का मूल सूत्र E = P × t है, जहाँ P शक्ति (वॉट) और t समय (सेकंड) है। व्यावहारिक बिलिंग के लिये वॉट को किलोवॉट (kW) और समय को घंटे (h) में बदलना आवश्यक है।",
+    "The basic formula for energy is E = P × t, where P is power (watts) and t is time (seconds). For billing, convert watts to kilowatts (kW) and time to hours (h)."
+   ],
+   [
+    "बिजली बिल में प्रयुक्त इकाई kWh है; यदि आपका उपकरण 100 W का है और आप इसे 5 घंटे चलाते हैं, तो ऊर्जा = 0.1 kW × 5 h = 0.5 kWh होगी।",
+    "The unit used in electricity bills is kWh; if your appliance is 100 W and runs for 5 hours, energy = 0.1 kW × 5 h = 0.5 kWh."
+   ],
+   [
+    "ऊर्जा बचत के उपायों में उपकरणों को अनावश्यक समय तक चलाने से बचना, ऊर्जा‑सक्षम LED लाइट्स का प्रयोग, और स्टैंड‑बाय पावर को कम करना शामिल है।",
+    "Energy‑saving measures include avoiding unnecessary operation of devices, using energy‑efficient LED lights, and reducing standby power."
+   ]
+  ],
+  "kv": [
+   [
+    [
+     "सूत्र (Formula)",
+     "Formula"
+    ],
+    [
+     "E = P × t",
+     "E = P × t"
+    ]
+   ],
+   [
+    [
+     "ऊर्जा की इकाई (Unit of energy)",
+     "Unit of energy"
+    ],
+    [
+     "किलowatt‑घंटा (kWh)",
+     "kilowatt‑hour (kWh)"
+    ]
+   ],
+   [
+    [
+     "बिल की गणना (Bill calculation)",
+     "Bill calculation"
+    ],
+    [
+     "ऊर्जा (kWh) × प्रति‑kWh दर",
+     "Energy (kWh) × rate per kWh"
+    ]
+   ],
+   [
+    [
+     "बचत उपाय (Saving measures)",
+     "Saving measures"
+    ],
+    [
+     "उपकरण बंद रखें, LED, स्टैंड‑बाय घटाएँ",
+     "Turn off devices, LED, reduce standby"
+    ]
+   ]
+  ],
+  "table": null,
+  "formula": {
+   "expr": "E = P × t",
+   "units": [
+    [
+     [
+      "ऊर्जा (Energy)",
+      "Energy"
+     ],
+     [
+      "जूल (J) या किलowatt‑घंटा (kWh)",
+      "Joule (J) or kilowatt‑hour (kWh)"
+     ]
+    ]
+   ]
+  },
+  "tip": [
+   "समय को घंटे में बदलना न भूलें; यदि समय मिनट में दिया हो तो उसे 60 से भाग दें।",
+   "Do not forget to convert time to hours; if time is given in minutes, divide by 60."
+  ],
+  "diagram": null,
+  "scope_ids": [
+   "power"
+  ]
+ }
+]

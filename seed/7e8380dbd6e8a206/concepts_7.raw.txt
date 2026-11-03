@@ -1,0 +1,137 @@
+{
+  "concepts": [
+    {
+      "key": "c4",
+      "emoji": "🧮",
+      "title": ["प्रतिरोध (Resistance)", "Resistance"],
+      "paras": [
+        [
+          "प्रतिरोध वह गुण है जो किसी चालक में विद्युत धारा के प्रवाह को रोकता है। यह धारा (I) और वोल्टेज (V) के बीच संबंध को निर्धारित करता है।",
+          "Resistance is the property of a conductor that opposes the flow of electric current. It relates the current (I) and the voltage (V)."
+        ],
+        [
+          "प्रतिरोध की इकाई **ओह्म (ohm)** है, जिसका प्रतीक Ω है। ओह्म का नियम कहता है **R = V / I**। यहाँ V वोल्ट (V) में और I एम्पीयर (A) में मापा जाता है।",
+          "The unit of resistance is the **ohm (Ω)**. Ohm’s law states **R = V / I**, where V is measured in volts (V) and I in amperes (A)."
+        ],
+        [
+          "प्रतिरोध को मापने के लिये **ओम मीटर (ohmmeter)** या मल्टीमीटर का उपयोग किया जाता है। दो टर्मिनल के बीच संपर्क बनाकर वोल्टेज लागू किया जाता है और धारा मापी जाती है, जिससे R का मान प्राप्त होता है।",
+          "Resistance is measured using an **ohmmeter** or a multimeter. By applying a voltage across two terminals and measuring the resulting current, the value of R is obtained."
+        ]
+      ],
+      "kv": [
+        ["परिभाषा (Definition)", "विधि जिससे धारा का प्रवाह बाधित होता है"],
+        ["इकाई (Unit)", "ओह्म (Ω)"],
+        ["सूत्र (Formula)", "R = V / I"],
+        ["मापन उपकरण (Measuring instrument)", "ओम मीटर / मल्टीमीटर"],
+        ["सामान्य मान (Typical values)", "तांबे का प्रतिरोध लगभग 1.7×10⁻⁸ Ω·m"]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "R = V / I",
+        "units": [
+          [
+            ["R", "ohm (Ω)"],
+            ["V", "volt (V)"],
+            ["I", "ampere (A)"]
+          ]
+        ]
+      },
+      "tip": [
+        "⚠ प्रतिरोध को मापते समय सर्किट को खुला रखें; बंद सर्किट में ओम मीटर का उपयोग शॉर्ट सर्किट का कारण बन सकता है।",
+        "⚠ When measuring resistance, keep the circuit open; using an ohmmeter on a closed circuit can cause a short circuit."
+      ],
+      "diagram": null
+    },
+    {
+      "key": "c5",
+      "emoji": "📐",
+      "title": ["प्रतिरोधता और कारक (Resistivity & Factors)", "Resistivity & Factors"],
+      "paras": [
+        [
+          "प्रतिरोधता (**ρ**) किसी सामग्री की मूलभूत विशेषता है जो बताती है कि वह कितनी आसानी से धारा को रोकती है। यह केवल सामग्री पर निर्भर करती है, आकार पर नहीं।",
+          "Resistivity (**ρ**) is an intrinsic property of a material that indicates how strongly it opposes electric current. It depends only on the material, not on its shape."
+        ],
+        [
+          "एक समान आकार के चालक में प्रतिरोध (**R**) का संबंध प्रतिरोधता से **R = ρ L / A** द्वारा दिया जाता है, जहाँ **L** लंबाई (meter) और **A** क्रॉस‑सेक्शनल एरिया (meter²) है। लंबी और पतली तार का प्रतिरोध अधिक होता है।",
+          "For a uniform conductor, resistance (**R**) is related to resistivity by **R = ρ L / A**, where **L** is the length (m) and **A** the cross‑sectional area (m²). A longer and thinner wire has higher resistance."
+        ],
+        [
+          "तापमान के साथ प्रतिरोधता बदलती है। अधिकांश धातुओं में **ρ** तापमान बढ़ने पर बढ़ती है, जबकि कुछ अर्धचालकों में घटती है। यह परिवर्तन **ρ = ρ₀[1 + α(T‑T₀)]** से व्यक्त किया जाता है, जहाँ **α** तापीय गुणांक है।",
+          "Resistivity varies with temperature. For most metals, **ρ** increases with temperature, while for some semiconductors it decreases. This change is expressed as **ρ = ρ₀[1 + α(T‑T₀)]**, where **α** is the temperature coefficient."
+        ]
+      ],
+      "kv": [
+        ["प्रतिरोधता (Resistivity)", "ρ (ohm·meter)"],
+        ["इकाई (Unit)", "ओह्म·मीटर (Ω·m)"],
+        ["सूत्र (Formula)", "R = ρ L / A"],
+        ["लंबाई प्रभाव (Length effect)", "R ∝ L"],
+        ["क्षेत्रफल प्रभाव (Area effect)", "R ∝ 1/A"],
+        ["तापमान गुणांक (Temperature coefficient)", "α (per °C)"]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "R = ρ L / A",
+        "units": [
+          [
+            ["R", "ohm (Ω)"],
+            ["ρ", "ohm·meter (Ω·m)"],
+            ["L", "meter (m)"],
+            ["A", "meter² (m²)"]
+          ]
+        ]
+      },
+      "tip": [
+        "⚠ प्रतिरोधता को मापते समय तापमान को स्थिर रखें; तापमान परिवर्तन से प्राप्त मान में बड़ी त्रुटि आ सकती है।",
+        "⚠ Keep temperature constant while measuring resistivity; temperature variations can cause large errors."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Rectangle representing the material -->\n  <rect x=\"80\" y=\"60\" width=\"180\" height=\"80\" fill=\"#e0f7fa\" stroke=\"#006064\" stroke-width=\"2\"/>\n  <!-- Length arrow -->\n  <line x1=\"80\" y1=\"150\" x2=\"260\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"170\" y=\"170\" font-size=\"14\" text-anchor=\"middle\">L</text>\n  <!-- Area arrow -->\n  <line x1=\"260\" y1=\"60\" x2=\"260\" y2=\"140\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"275\" y=\"100\" font-size=\"14\" text-anchor=\"start\" transform=\"rotate(90 275,100)\">A</text>\n  <!-- Resistivity label -->\n  <text x=\"170\" y=\"110\" font-size=\"16\" text-anchor=\"middle\" fill=\"#006064\">ρ</text>\n  <!-- Arrow marker definition -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"black\" />\n    </marker>\n  </defs>\n</svg>",
+        "caption": ["प्रतिरोधता का सूत्र और आयाम (Resistivity formula with dimensions)", "Resistivity formula and dimensions"]
+      }
+    },
+    {
+      "key": "c6",
+      "emoji": "🔗",
+      "title": ["श्रृंखला संयोजन (Series Combination)", "Series Combination"],
+      "paras": [
+        [
+          "श्रृंखला संयोजन में दो या दो से अधिक प्रतिरोधक (R₁, R₂, …) को एक ही धारा मार्ग में जोड़ते हैं। सभी प्रतिरोधकों पर समान धारा (I) प्रवाहित होती है।",
+          "In a series combination, two or more resistors (R₁, R₂, …) are connected end‑to‑end in a single path. The same current (I) flows through each resistor."
+        ],
+        [
+          "समग्र प्रतिरोध (**R_eq**) का मान सभी व्यक्तिगत प्रतिरोधों का योग होता है: **R_eq = R₁ + R₂ + …**। यह कुल प्रतिरोध बढ़ाता है, जिससे सर्किट में कुल धारा घटती है।",
+          "The equivalent resistance (**R_eq**) equals the sum of all individual resistances: **R_eq = R₁ + R₂ + …**. This increases the total resistance, reducing the overall current in the circuit."
+        ],
+        [
+          "वोल्टेज विभाजन के नियम के अनुसार, स्रोत वोल्टेज का भाग‑भाग प्रत्येक प्रतिरोधक पर उनके मान के अनुपात में विभाजित होता है। घरेलू लाइटिंग में कई बल्ब श्रृंखला में नहीं, बल्कि समानांतर में लगाते हैं, परन्तु श्रृंखला सिद्धान्त समझना आवश्यक है।",
+          "According to the voltage‑division rule, the source voltage is shared among the resistors in proportion to their resistances. In household lighting, bulbs are usually connected in parallel, but understanding series principles is essential."
+        ]
+      ],
+      "kv": [
+        ["समग्र प्रतिरोध (Equivalent resistance)", "R_eq = ΣR"],
+        ["समान धारा (Same current)", "I समान रहता है"],
+        ["वोल्टेज विभाजन (Voltage division)", "V_k = I × R_k"],
+        ["उपयोग (Application)", "सुरक्षा फ्यूज, बत्तियों की श्रृंखला"]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "R_eq = R1 + R2 + …",
+        "units": [
+          [
+            ["R_eq", "ohm (Ω)"],
+            ["R1", "ohm (Ω)"],
+            ["R2", "ohm (Ω)"]
+          ]
+        ]
+      },
+      "tip": [
+        "⚠ श्रृंखला में किसी एक प्रतिरोधक का खुला होना (open circuit) पूरी सर्किट को बंद कर देता है; इसलिए फ्यूज को श्रृंखला में रखकर सुरक्षा सुनिश्चित की जाती है।",
+        "⚠ If any resistor in a series opens, the entire circuit stops conducting; this is why fuses are placed in series for protection."
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <line x1=\"30\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"black\" stroke-width=\"4\"/>\n  <line x1=\"70\" y1=\"90\" x2=\"70\" y2=\"110\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"50\" y=\"80\" font-size=\"14\" text-anchor=\"middle\">V</text>\n  <!-- Resistor 1 -->\n  <rect x=\"90\" y=\"80\" width=\"40\" height=\"40\" fill=\"#fff3e0\" stroke=\"#bf360c\" stroke-width=\"2\"/>\n  <text x=\"110\" y=\"105\" font-size=\"12\" text-anchor=\"middle\">R1</text>\n  <!-- Resistor 2 -->\n  <rect x=\"150\" y=\"80\" width=\"40\" height=\"40\" fill=\"#fff3e0\" stroke=\"#bf360c\" stroke-width=\"2\"/>\n  <text x=\"170\" y=\"105\" font-size=\"12\" text-anchor=\"middle\">R2</text>\n  <!-- Resistor 3 -->\n  <rect x=\"210\" y=\"80\" width=\"40\" height=\"40\" fill=\"#fff3e0\" stroke=\"#bf360c\" stroke-width=\"2\"/>\n  <text x=\"230\" y=\"105\" font-size=\"12\" text-anchor=\"middle\">R3</text>\n  <!-- Connecting wires -->\n  <line x1=\"70\" y1=\"100\" x2=\"90\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"130\" y1=\"100\" x2=\"150\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"190\" y1=\"100\" x2=\"210\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"100\" x2=\"290\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Return line -->\n  <line x1=\"290\" y1=\"100\" x2=\"290\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"150\" x2=\"290\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"150\" x2=\"30\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Current arrow -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"black\" />\n    </marker>\n  </defs>\n  <line x1=\"100\" y1=\"70\" x2=\"100\" y2=\"60\" stroke=\"red\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"100\" y=\"55\" font-size=\"12\" fill=\"red\" text-anchor=\"middle\">I</text>\n</svg>",
+        "caption": ["श्रृंखला में प्रतिरोधकों का संयोजन (Series connection of resistors)", "Series connection of resistors"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "hinglish": [
+    {
+      "emoji": "🧠",
+      "heading": "saransh (Quick Revision)",
+      "paras": [
+        "**dhara (Current):** electrons ka pravah, ikai: ampere (A)",
+        "**voltage (Potential Difference):** vidyut karya prati ikai aavesh, ikai: volt (V)",
+        "**ohm ka niyam (Ohm’s Law):** V = I R, pratirodh sthir hone par lagu",
+        "**pratirodh (Resistance):** voltage ko dhara se vibhajit, ikai: ohm (Ω)",
+        "**pratirodhkata (Resistivity):** samagri ki antarnihit pratirodh, ikai: Ω·m",
+        "**shrankhla sanyojan (Series Combination):** kul pratirodh = ΣR, dhara saman",
+        "**samantar sanyojan (Parallel Combination):** 1/Rₚ = Σ(1/R), voltage saman",
+        "**shakti (Power):** P = V I, ikai: watt (W)",
+        "**urja (Energy):** E = P t, ikai: joule (J) ya kilowatt‑ghanta (kWh)",
+        "**suraksha upkaran (Safety Device):** circuit breaker, fuse, grounding"
+      ],
+      "formula": null,
+      "example": null
+    },
+    {
+      "emoji": "🎓",
+      "heading": "tvarit janch (Quick Check)",
+      "paras": [
+        "**yadi 2 A dhara 5 s mein pravahit hoti hai to aavesh kitna hoga?** — Q = I t = 2 × 5 = 10 C",
+        "**10 Ω pratirodh par 20 V lagu karne par dhara kya hogi?** — I = V / R = 20 / 10 = 2 A",
+        "**ek light bulb 40 W ki shakti leta hai. 3 ghante chalane par urja kitni hogi?** — E = P t = 40 × 3 = 120 Wh = 0.12 kWh",
+        "**do pratirodh 5 Ω aur 15 Ω ko shrankhla mein joden. kul pratirodh kya hoga?** — Rₛ = 5 + 15 = 20 Ω",
+        "**teen saman pratirodh pratyek 6 Ω ko samantar mein joden. samantar pratirodh nikaalen.** — 1/Rₚ = 3/6 = 0.5 → Rₚ = 2 Ω"
+      ],
+      "formula": null,
+      "example": null
+    },
+    {
+      "emoji": "📐",
+      "heading": "sabhi sutra (Formula Sheet)",
+      "paras": [
+        "dhara (Current): I = Q / t",
+        "voltage (Potential Difference): V = W / Q",
+        "ohm ka niyam (Ohm’s Law): V = I × R",
+        "pratirodh (Resistance): R = ρ l / A",
+        "pratirodhkata (Resistivity): ρ = R A / l",
+        "shrankhla pratirodh (Series Resistance): Rₛ = R₁ + R₂ + …",
+        "samantar pratirodh (Parallel Resistance): 1 / Rₚ = 1 / R₁ + 1 / R₂ + …",
+        "shakti (Power): P = V × I",
+        "shakti (Power): P = I² × R",
+        "shakti (Power): P = V² / R",
+        "urja (Energy): E = P × t",
+        "urja lagat (Energy Cost): Cost = Energy (kWh) × Rate"
+      ],
+      "formula": null,
+      "example": null
+    }
+  ]
+}

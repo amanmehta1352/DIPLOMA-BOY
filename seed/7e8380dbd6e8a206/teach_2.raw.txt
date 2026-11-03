@@ -1,0 +1,108 @@
+{
+  "teach": [
+    {
+      "emoji": "🔗",
+      "heading": ["श्रृंखला संयोजन (Series Combination)", "Series Combination"],
+      "paras": [
+        [
+          "आज हम **श्रृंखला संयोजन** (Series Combination) के बारे में बात करेंगे। जब दो या दो से अधिक प्रतिरोध (resistance) एक ही तार में क्रमशः जुड़े होते हैं, तो वह एक श्रृंखला बनाता है। इस प्रकार के सर्किट में धारा (current) सभी घटकों से समान होकर गुजरती है, क्योंकि कोई शाखा नहीं होती। लेकिन प्रत्येक प्रतिरोध पर वोल्टेज (voltage) का भाग अलग‑अलग गिरता है, और कुल वोल्टेज स्रोत की emf के बराबर होता है। एक साधारण उदाहरण है पुरानी क्रिसमस लाइट्स की स्ट्रिंग, जहाँ कई छोटे‑छोटे बल्ब एक‑के‑बाद‑एक जुड़े होते हैं। यदि एक बल्ब जले, तो पूरी स्ट्रिंग बंद हो जाती है क्योंकि धारा का मार्ग टूट जाता है। इस प्रकार की विशेषता हमें समझाती है कि श्रृंखला में एक घटक का फेल होना पूरे सर्किट को प्रभावित करता है। सर्किट में कुल प्रतिरोध R_total = R1 + R2 + … + Rn होता है, जिससे कुल धारा I = V_source / R_total निर्धारित होती है। इस सिद्धान्त का उपयोग वोल्टेज डिवाइडर बनाने में किया जाता है, जहाँ दो या अधिक प्रतिरोधों को श्रृंखला में रख कर वोल्टेज को इच्छित अनुपात में विभाजित किया जाता है।",
+          "Today we will discuss **Series Combination**. When two or more resistors are connected one after another in a single wire, they form a series circuit. In such a circuit the **current** (I) is the same through every component because there is no branching path. However the **voltage** (V) across each resistor is different, and the sum of these voltages equals the emf of the source. A common everyday example is an old Christmas‑light string where many tiny bulbs are connected one‑after‑another. If one bulb burns out, the whole string goes dark because the current path is broken. This shows that a failure in any part of a series circuit stops the entire circuit. The total resistance is given by R_total = R1 + R2 + … + Rn, so the total current is I = V_source / R_total. This principle is used to make voltage dividers, where two or more resistors in series split the source voltage into desired proportions."
+        ],
+        [
+          "**कुल प्रतिरोध** की गणना बहुत सरल है; बस सभी व्यक्तिगत प्रतिरोधों को जोड़ दें। उदाहरण के लिये, यदि तीन बल्ब क्रमशः 2 Ω, 3 Ω और 5 Ω के हैं, तो कुल प्रतिरोध R_total = 2 Ω + 3 Ω + 5 Ω = 10 Ω होगा। यदि बैटरी की emf 12 V है, तो धारा I = 12 V / 10 Ω = 1.2 A होगी, और प्रत्येक बल्ब पर वोल्टेज क्रमशः V1 = I·R1 = 2.4 V, V2 = 3.6 V, V3 = 6 V होगा। यह दिखाता है कि बड़े प्रतिरोध वाले बल्ब पर अधिक वोल्टेज गिरता है। इस प्रकार हम विभिन्न उपकरणों को सुरक्षित रूप से चलाने के लिये आवश्यक वोल्टेज को नियंत्रित कर सकते हैं। प्रयोगशाला में ओहम मीटर (ohmmeter) से कुल प्रतिरोध माप कर हम सिद्धान्त की पुष्टि कर सकते हैं।",
+          "The **total resistance** is easy to calculate – just add all individual resistances. For example, if three bulbs in series have resistances 2 Ω, 3 Ω and 5 Ω, then R_total = 2 Ω + 3 Ω + 5 Ω = 10 Ω. With a 12 V battery the current is I = 12 V / 10 Ω = 1.2 A, and the voltage across each bulb becomes V1 = I·R1 = 2.4 V, V2 = 3.6 V, V3 = 6 V. This shows that a larger resistance gets a larger share of the voltage. By arranging resistances we can control the voltage supplied to different devices safely. In the lab, measuring the total resistance with an **ohmmeter** confirms the theory."
+        ],
+        [
+          "एक बोर्ड‑प्रश्न की तरह सोचिए: दो समान प्रतिरोध 4 Ω के क्रमशः जुड़े हैं और 9 V की बैटरी से जुड़े हैं। कुल प्रतिरोध 8 Ω होगा, इसलिए धारा I = 9 V / 8 Ω = 1.125 A होगी। प्रत्येक प्रतिरोध पर वोल्टेज V = I·R = 1.125 A × 4 Ω = 4.5 V होगा। यदि इन दो प्रतिरोधों में से एक को हटाया जाये, तो धारा पूरी तरह से बंद हो जाएगी, क्योंकि कोई वैकल्पिक मार्ग नहीं रहेगा। यह समझना महत्वपूर्ण है कि श्रृंखला में एक घटक का हटना या फेल होना पूरे सर्किट को रोक देता है, जबकि समांतर में ऐसा नहीं होता।",
+          "Think of a board‑type question: two equal resistors of 4 Ω each are connected in series across a 9 V battery. The total resistance is 8 Ω, so the current I = 9 V / 8 Ω = 1.125 A. The voltage across each resistor is V = I·R = 1.125 A × 4 Ω = 4.5 V. If one of these resistors is removed, the current stops completely because there is no alternative path. It is crucial to realize that in a series circuit the failure or removal of any component stops the whole circuit, unlike a parallel arrangement."
+        ]
+      ],
+      "formula": "R_total = R1 + R2 + ... + Rn",
+      "example": {
+        "label": ["समझो ऐसे", "Think of it like this"],
+        "text": [
+          "एक स्ट्रिंग में पाँच छोटे बल्ब हैं, प्रत्येक का प्रतिरोध 2 Ω है। कुल प्रतिरोध 10 Ω, 5 V की बैटरी से धारा 0.5 A होगी, और प्रत्येक बल्ब पर 1 V गिरेगा। यदि मध्य का बल्ब फेल हो जाये, तो पूरी स्ट्रिंग बुझ जाएगी।",
+          "A string has five small bulbs, each with resistance 2 Ω. Total resistance = 10 Ω, so with a 5 V battery the current is 0.5 A and each bulb drops 1 V. If the middle bulb fails, the whole string goes out."
+        ]
+      }
+    },
+    {
+      "emoji": "⚙️",
+      "heading": ["समांतर संयोजन (Parallel Combination)", "Parallel Combination"],
+      "paras": [
+        [
+          "अब हम **समांतर संयोजन** (Parallel Combination) को समझेंगे। जब दो या दो से अधिक प्रतिरोध एक ही बिंदु पर जुड़े होते हैं और फिर दूसरे बिंदु पर फिर से मिलते हैं, तो वह समांतर बनता है। इस प्रकार के सर्किट में वोल्टेज सभी शाखाओं में समान रहता है, जबकि धारा प्रत्येक शाखा में अलग‑अलग बहती है और कुल धारा सभी शाखाओं की धारा का योग होती है। उदाहरण के लिये घर की विद्युत आपूर्ति में कई उपकरण एक‑साथ जुड़े होते हैं; सभी को बैटरी के समान वोल्टेज (जैसे 230 V) मिलता है, पर प्रत्येक उपकरण की धारा अलग होती है। यदि एक उपकरण बंद हो जाये, तो बाकी उपकरण काम करते रहते हैं, क्योंकि प्रत्येक की अपनी स्वतंत्र मार्ग होती है। यह विशेषता समांतर सर्किट को विश्वसनीय बनाती है।",
+          "Now we will understand **Parallel Combination**. When two or more resistors are connected at the same two points, they form a parallel circuit. In this type of circuit the **voltage** across each branch is the same, while the **current** divides among the branches, and the total current is the sum of the branch currents. A common example is the household electrical supply where many appliances are connected in parallel; each receives the same source voltage (e.g., 230 V) but draws its own current. If one appliance fails, the others continue to operate because each has its own independent path. This property makes parallel circuits reliable."
+        ],
+        [
+          "समांतर में कुल प्रतिरोध की गणना उल्टे रूप में की जाती है: 1/R_total = 1/R1 + 1/R2 + … + 1/Rn। यदि दो प्रतिरोध 6 Ω और 3 Ω समानांतर में हैं, तो 1/R_total = 1/6 + 1/3 = 0.1667 + 0.3333 = 0.5, इसलिए R_total = 2 Ω होगा। यदि स्रोत emf 12 V है, तो कुल धारा I = 12 V / 2 Ω = 6 A होगी। प्रत्येक शाखा में धारा I1 = V / R1 = 12 V / 6 Ω = 2 A और I2 = 12 V / 3 Ω = 4 A होगी, जो कुल 6 A के बराबर है। इस प्रकार हम विभिन्न उपकरणों को समान वोल्टेज पर अलग‑अलग धारा प्रदान कर सकते हैं।",
+          "In a parallel circuit the total resistance is found using the reciprocal formula: 1/R_total = 1/R1 + 1/R2 + … + 1/Rn. If two resistors of 6 Ω and 3 Ω are in parallel, then 1/R_total = 1/6 + 1/3 = 0.1667 + 0.3333 = 0.5, so R_total = 2 Ω. With a source emf of 12 V the total current is I = 12 V / 2 Ω = 6 A. The branch currents are I1 = V / R1 = 12 V / 6 Ω = 2 A and I2 = 12 V / 3 Ω = 4 A, which add up to the total 6 A. This shows how we can supply the same voltage to different devices while allowing each to draw its own current."
+        ],
+        [
+          "एक बोर्ड‑प्रश्न के रूप में देखें: तीन समान प्रतिरोध 5 Ω के समानांतर जुड़े हैं और 15 V की बैटरी से जुड़े हैं। 1/R_total = 3 × (1/5) = 0.6, इसलिए R_total = 1.67 Ω (लगभग)। कुल धारा I = 15 V / 1.67 Ω ≈ 9 A होगी। प्रत्येक शाखा में धारा 15 V / 5 Ω = 3 A होगी, और तीनों का योग 9 A बनता है। यह दर्शाता है कि समान प्रतिरोधों को समानांतर में जोड़ने से कुल प्रतिरोध घट जाता है और कुल धारा बढ़ती है, जबकि प्रत्येक शाखा पर वोल्टेज समान रहता है।",
+          "Consider a board‑type question: three equal resistors of 5 Ω each are connected in parallel across a 15 V battery. 1/R_total = 3 × (1/5) = 0.6, so R_total ≈ 1.67 Ω. The total current I = 15 V / 1.67 Ω ≈ 9 A. Each branch carries I_branch = 15 V / 5 Ω = 3 A, and the sum of the three branches is 9 A. This demonstrates that adding equal resistances in parallel reduces the total resistance and increases the total current, while the voltage across each branch remains the same."
+        ]
+      ],
+      "formula": "1/R_total = 1/R1 + 1/R2 + ... + 1/Rn",
+      "example": {
+        "label": ["याद रखो", "Remember"],
+        "text": [
+          "घर की सॉकेट में कई उपकरण एक‑साथ जुड़े होते हैं; यदि एक पंखा बंद हो जाये, तो लाइट और टीवी अभी भी चलते हैं क्योंकि वे अलग‑अलग शाखाओं में हैं।",
+          "In a home socket many appliances are connected together; if a fan is switched off, the light and TV still work because they are on separate branches."
+        ]
+      }
+    },
+    {
+      "emoji": "🏠",
+      "heading": ["व्यावहारिक अनुप्रयोग (Practical Applications)", "Practical Applications"],
+      "paras": [
+        [
+          "विद्युत के सिद्धान्त हमारे रोज़मर्रा के जीवन में कई **व्यावहारिक अनुप्रयोग** (Practical Applications) रखते हैं। सबसे सामान्य उदाहरण घर की विद्युत आपूर्ति है, जहाँ **समांतर संयोजन** का उपयोग करके कई उपकरण एक ही वोल्टेज (230 V) पर चलते हैं। इसी तरह, **श्रृंखला संयोजन** का प्रयोग टॉर्च की बैटरी पैक में किया जाता है; दो या अधिक बैटरियों को क्रमशः जोड़ कर वोल्टेज बढ़ाया जाता है। स्कूल‑लैब में हम **वोल्टेज डिवाइडर** बनाते हैं, जहाँ दो या अधिक प्रतिरोध श्रृंखला में रख कर वोल्टेज को इच्छित मान पर घटाया जाता है, जैसे 12 V को 5 V और 7 V में विभाजित करना। इन सभी प्रयोगों में इकाइयों का सही प्रयोग (वोल्ट, ओह्म, एम्पीयर) आवश्यक है।",
+          "Electrical principles have many **Practical Applications** in our daily life. The most common example is household power supply, where **parallel combination** is used so that many appliances operate at the same voltage (230 V). Similarly, **series combination** is used in a torch’s battery pack; two or more batteries are connected in series to increase the voltage. In school labs we build **voltage dividers**, placing two or more resistors in series to reduce a source voltage to a desired value, such as dividing 12 V into 5 V and 7 V. Correct use of units (volts, ohms, amperes) is essential in all these applications."
+        ],
+        [
+          "एक और महत्वपूर्ण अनुप्रयोग है **सुरक्षा फ्यूज** (safety fuse)। फ्यूज को एक बहुत छोटा प्रतिरोध के रूप में समझा जा सकता है जो बहुत अधिक धारा (जैसे 10 A से अधिक) पर जल्दी गर्म होकर पिघल जाता है, जिससे सर्किट खुल जाता है और उपकरण सुरक्षित रहते हैं। फ्यूज को अक्सर श्रृंखला में रखा जाता है, क्योंकि धारा सभी घटकों से समान होकर गुजरती है, इसलिए फ्यूज पर भी वही धारा आती है। यदि धारा सीमा से अधिक हो जाये, तो फ्यूज का प्रतिरोध अचानक बहुत बड़ा हो जाता है, जिससे कुल प्रतिरोध बढ़ जाता है और धारा शून्य के निकट पहुँच जाती है।",
+          "Another important application is the **safety fuse**. A fuse can be thought of as a very small resistor that melts quickly when the current exceeds a certain limit (e.g., >10 A), opening the circuit and protecting the devices. The fuse is placed in series because the current passes through every component, including the fuse. If the current exceeds the limit, the fuse’s resistance suddenly becomes very large, causing the total resistance to rise sharply and the current to drop to near zero."
+        ],
+        [
+          "**इलेक्ट्रिक हीटर** (electric heater) का काम भी प्रतिरोध के हीटिंग प्रभाव पर आधारित है। हीटर में एक बड़ा प्रतिरोध (जैसे 20 Ω) को 220 V की सप्लाई से जोड़ा जाता है। शक्ति P = V² / R के अनुसार, P = (220)² / 20 = 2420 W होगी, जिससे बहुत गर्मी उत्पन्न होती है। इस प्रकार हम प्रतिरोध को नियंत्रित करके विभिन्न उपकरणों (जैसे टोस्टर, इरन) में आवश्यक गर्मी प्राप्त कर सकते हैं। इन सभी अनुप्रयोगों में **धारा**, **वोल्टेज**, और **प्रतिरोध** के संतुलन को समझना आवश्यक है, ताकि सुरक्षित और प्रभावी उपयोग सुनिश्चित हो सके।",
+          "The operation of an **electric heater** also relies on the heating effect of resistance. A heater contains a large resistor (e.g., 20 Ω) connected to a 220 V supply. Using the power formula P = V² / R, we get P = (220)² / 20 = 2420 W, producing a lot of heat. By selecting appropriate resistance values we can obtain the required heat for devices such as toasters and irons. Understanding the balance of **current**, **voltage**, and **resistance** in all these applications is essential for safe and efficient use."
+        ]
+      ],
+      "formula": null,
+      "example": {
+        "label": ["समझो ऐसे", "Think of it like this"],
+        "text": [
+          "एक टॉर्च में दो 1.5 V की बैटरियों को श्रृंखला में जोड़ते हैं, जिससे कुल वोल्टेज 3 V बनता है और बल्ब को पर्याप्त धारा मिलती है।",
+          "In a torch, two 1.5 V batteries are connected in series, giving a total voltage of 3 V, which provides enough current to light the bulb."
+        ]
+      }
+    },
+    {
+      "emoji": "🔥",
+      "heading": ["हीटिंग प्रभाव (Heating Effect)", "Heating Effect"],
+      "paras": [
+        [
+          "जब धारा किसी प्रतिरोध (resistance) से गुजरती है, तो वह **हीटिंग प्रभाव** (Heating Effect) उत्पन्न करती है। इस प्रभाव को समझने के लिये हम शक्ति (power) का सूत्र प्रयोग करते हैं: **P = I² × R** जहाँ P वाट (W) में मापी जाती है, I एम्पीयर (A) में और R ओह्म (Ω) में। यह बताता है कि धारा जितनी अधिक होगी, उतनी ही अधिक गर्मी उत्पन्न होगी, विशेषकर जब प्रतिरोध बड़ा हो। उदाहरण के लिये, एक इलेक्ट्रिक किचन टोस्टर में लगभग 10 Ω का प्रतिरोध होता है और 230 V की सप्लाई से जुड़ा होता है। यहाँ धारा I = V / R = 230 V / 10 Ω = 23 A होगी, और शक्ति P = I² × R = (23)² × 10 ≈ 5290 W, जिससे बहुत तेज़ी से गर्मी बनती है। यही कारण है कि छोटे‑छोटे प्रतिरोध वाले हीटर बहुत गर्मी उत्पन्न कर सकते हैं।",
+          "When current passes through a **resistor**, it produces a **Heating Effect**. To understand this we use the power formula **P = I² × R**, where P is measured in watts (W), I in amperes (A) and R in ohms (Ω). This shows that the greater the current, the more heat is generated, especially when the resistance is large. For example, an electric kitchen toaster has about a 10 Ω resistor connected to a 230 V supply. The current is I = V / R = 230 V / 10 Ω = 23 A, and the power is P = I² × R = (23)² × 10 ≈ 5290 W, producing a lot of heat quickly. This is why small‑resistance heating elements can become very hot."
+        ],
+        [
+          "हीटिंग प्रभाव को मापने के लिये हम **जूल‑थॉर्मल इक्वेशन** का प्रयोग भी कर सकते हैं: Q = I² × R × t, जहाँ Q जूल (J) में ऊर्जा, t सेकंड (s) में समय है। यदि 5 A की धारा 2 Ω के प्रतिरोध से 10 s तक बहती है, तो उत्पन्न गर्मी Q = (5)² × 2 × 10 = 500 J होगी। यह ऊर्जा पानी को गर्म करने, धातु को पिघलाने या इलेक्ट्रॉनिक उपकरणों को काम करने में उपयोगी होती है। ध्यान रखें कि अधिक गर्मी से उपकरणों का **ओवरहीटिंग** (overheating) हो सकता है, इसलिए फैन या हीट‑सिंक (heat‑sink) का प्रयोग किया जाता है।",
+          "To quantify the heating effect we can also use the **Joule‑thermal equation**: Q = I² × R × t, where Q is energy in joules (J) and t is time in seconds (s). If a current of 5 A flows through a 2 Ω resistor for 10 s, the generated heat is Q = (5)² × 2 × 10 = 500 J. This energy can be used to heat water, melt metal, or power electronic devices. Note that excessive heat can cause **overheating** of equipment, so fans or heat‑sinks are employed to dissipate the heat."
+        ],
+        [
+          "एक बोर्ड‑प्रश्न के रूप में: एक इलेक्ट्रिक किटली में 15 Ω का हीटर 240 V पर जुड़ा है। धारा I = 240 V / 15 Ω = 16 A होगी, और शक्ति P = I² × R = (16)² × 15 = 3840 W होगी। यदि यह हीटर 5 min (300 s) चलाया जाये, तो उत्पन्न ऊर्जा Q = P × t = 3840 W × 300 s = 1.152 × 10⁶ J होगी, जो लगभग 0.32 kWh के बराबर है। यह दिखाता है कि हीटर की शक्ति और चलने का समय सीधे ऊर्जा उत्पादन को निर्धारित करता है, और हमें ऊर्जा बचत के लिये समय को नियंत्रित करना चाहिए।",
+          "Consider a board‑type question: an electric kettle has a 15 Ω heating element connected to 240 V. The current is I = 240 V / 15 Ω = 16 A, and the power is P = I² × R = (16)² × 15 = 3840 W. If the heater runs for 5 min (300 s), the energy produced is Q = P × t = 3840 W × 300 s = 1.152 × 10⁶ J, which is about 0.32 kWh. This shows that the heater’s power and operating time directly determine the energy consumption, and we should control the time to save energy."
+        ]
+      ],
+      "formula": "P = I² × R",
+      "example": {
+        "label": ["याद रखो", "Remember"],
+        "text": [
+          "एक इलेक्ट्रिक राइस कुकर में 12 Ω का हीटर 230 V पर जुड़ा है; धारा 19.2 A, शक्ति 4.5 kW, जिससे चावल जल्दी पकते हैं।",
+          "In an electric rice cooker a 12 Ω heater is connected to 230 V; current = 19.2 A, power = 4.5 kW, which cooks rice quickly."
+        ]
+      }
+    }
+  ]
+}
