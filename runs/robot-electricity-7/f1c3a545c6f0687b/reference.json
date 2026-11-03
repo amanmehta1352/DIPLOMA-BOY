@@ -1,0 +1,135 @@
+{
+ "outline": {
+  "subtopics": [
+   {
+    "scope_item": "Electric current, potential difference",
+    "points": [
+     "Current",
+     "Potential difference",
+     "Ammeter",
+     "Voltmeter",
+     "Cell"
+    ]
+   },
+   {
+    "scope_item": "Ohm's law",
+    "points": [
+     "V–I relationship",
+     "Linear circuit",
+     "Graphical method"
+    ]
+   },
+   {
+    "scope_item": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+    "points": [
+     "Resistance",
+     "Resistivity",
+     "Length",
+     "Area",
+     "Temperature",
+     "Material"
+    ]
+   },
+   {
+    "scope_item": "Series and parallel combination of resistors and their daily-life applications",
+    "points": [
+     "Series circuit",
+     "Parallel circuit",
+     "Equivalent resistance",
+     "House wiring",
+     "Lighting circuits"
+    ]
+   },
+   {
+    "scope_item": "Heating effect of electric current and its daily-life applications",
+    "points": [
+     "Joule heating",
+     "Heat formula",
+     "Electric fuse",
+     "Electric kettle",
+     "Incandescent bulb"
+    ]
+   },
+   {
+    "scope_item": "Electric power, interrelation between P, V, I and R",
+    "points": [
+     "Power formula",
+     "Energy consumption",
+     "Power rating",
+     "Cost calculation"
+    ]
+   }
+  ],
+  "formulas": [
+   "V = I × R",
+   "R = ρ × l / A",
+   "P = V × I",
+   "P = I² × R",
+   "P = V² / R",
+   "H = I² × R × t",
+   "E = V × Q"
+  ],
+  "example_types": [
+   "Resistance calculation from dimensions",
+   "Power and energy problem for appliances",
+   "Series‑parallel circuit analysis",
+   "Joule heating calculation",
+   "Finding emf of a cell using potentiometer",
+   "Application‑based word problem (e.g., lighting a house)"
+  ],
+  "misconceptions": [
+   "Current always flows from positive to negative only",
+   "Resistance does not change with temperature",
+   "Power is equal to voltage alone",
+   "All resistors in a series circuit have the same voltage across them",
+   "All branches in a parallel circuit carry the same current"
+  ],
+  "question_types": [
+   "Multiple choice (MCQ)",
+   "Short answer (numerical or conceptual)",
+   "Long answer (explanatory)",
+   "Integer type (single digit answer)",
+   "Assertion‑Reason",
+   "Diagram‑based (label circuit, draw circuit)",
+   "Practical/experiment based question"
+  ],
+  "activities": [
+   "Construct a simple series circuit with a bulb and cell",
+   "Measure resistance of a wire using a metre bridge",
+   "Investigate heating effect of current with a coil and ammeter",
+   "Determine emf of a cell using a potentiometer",
+   "Calculate power consumption of a household appliance using a watt‑meter"
+  ],
+  "ncert_sections": [
+   "12.1 Electric current and its effects",
+   "12.2 Ohm’s law",
+   "12.3 Resistance and resistivity",
+   "12.4 Series and parallel combination of resistors",
+   "12.5 Heating effect of electric current",
+   "12.6 Electric power and energy"
+  ]
+ },
+ "sources": [
+  {
+   "title": "Electricity Class 10 - Solutions, Notes, Numericals, Formulas, MCQ",
+   "uri": "https://www.teachoo.com/subjects/science/class-10/chapter-12/"
+  },
+  {
+   "title": "NCERT Solutions for Class 10 Science Electricity - CBSE Free PDF Download",
+   "uri": "https://byjus.com/ncert-solutions-class-10-science-chapter-12-electricity/"
+  },
+  {
+   "title": "CBSE Class 10 Science Notes Electricity",
+   "uri": "https://noteswave.in/class-10-science-notes-electricity/"
+  },
+  {
+   "title": "Class 10 Science Notes for Electricity (PDF) - Study Material",
+   "uri": "https://schools.aglasem.com/class-10-science-notes-electricity/"
+  },
+  {
+   "title": "Electricity Class 10 Notes Science Chapter 12 - Learn CBSE",
+   "uri": "https://www.learncbse.in/electricity-class-10-notes/"
+  }
+ ],
+ "note": "outline only; used as a topic guide, never as text"
+}

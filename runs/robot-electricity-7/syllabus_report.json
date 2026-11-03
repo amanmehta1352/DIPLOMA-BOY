@@ -1,0 +1,160 @@
+{
+ "subject": "cbse10-science",
+ "source": "https://edustud.nic.in/edu/Syllabus_2026_27/10/10_Science_SYLLABUS_2026_27_EM.pdf",
+ "pdf_chars": 0,
+ "chapters": [
+  {
+   "no": 1,
+   "name": "Chemical Reactions and Equations",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 2,
+   "name": "Acids, Bases and Salts",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 3,
+   "name": "Metals and Non-Metals",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 4,
+   "name": "Carbon and its Compounds",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 5,
+   "name": "Life Processes",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 6,
+   "name": "Control and Co-ordination in Animals and Plants",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 7,
+   "name": "Reproduction",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 8,
+   "name": "Heredity",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 9,
+   "name": "Light - Reflection and Refraction",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 10,
+   "name": "The Human Eye and the Colourful World",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 12,
+   "name": "Magnetic Effects of Electric Current",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  },
+  {
+   "no": 13,
+   "name": "Our Environment",
+   "items": 0,
+   "dropped": [],
+   "verified": false
+  }
+ ],
+ "extractor": "gemini gemini-3.6-flash",
+ "mapped": [
+  [
+   1,
+   "Chemical Reactions and Equations",
+   889
+  ],
+  [
+   2,
+   "Acids, Bases and Salts",
+   891
+  ],
+  [
+   3,
+   "Metals and Non-Metals",
+   892
+  ],
+  [
+   4,
+   "Carbon and its Compounds",
+   893
+  ],
+  [
+   5,
+   "Life Processes",
+   null
+  ],
+  [
+   6,
+   "Control and Co-ordination in Animals and Plants",
+   910
+  ],
+  [
+   7,
+   "Reproduction",
+   915
+  ],
+  [
+   8,
+   "Heredity",
+   917
+  ],
+  [
+   9,
+   "Light - Reflection and Refraction",
+   879
+  ],
+  [
+   10,
+   "The Human Eye and the Colourful World",
+   null
+  ],
+  [
+   11,
+   "Electricity",
+   880
+  ],
+  [
+   12,
+   "Magnetic Effects of Electric Current",
+   881
+  ],
+  [
+   13,
+   "Our Environment",
+   920
+  ]
+ ],
+ "state": "done"
+}
