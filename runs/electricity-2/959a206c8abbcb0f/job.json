@@ -1,0 +1,295 @@
+{
+ "job_id": "959a206c8abbcb0f",
+ "request": {
+  "class": 10,
+  "board": "CBSE",
+  "session": "2026-27",
+  "subject": "Science",
+  "chapter": "Electricity",
+  "text": "Class 10, CBSE 2026-27, Science, Electricity"
+ },
+ "created_at": "2026-11-03T05:22:56+00:00",
+ "stages": {
+  "resolve": {
+   "status": "done",
+   "attempts": 0,
+   "at": "2026-11-03T08:28:39+00:00"
+  },
+  "blueprint": {
+   "status": "done",
+   "attempts": 0,
+   "at": "2026-11-03T08:28:39+00:00"
+  },
+  "write_en": {
+   "status": "needs_review",
+   "attempts": 3,
+   "history": [
+    {
+     "n": 1,
+     "status": "rejected",
+     "content_hash": "3175205b2babaea3",
+     "checks": {
+      "structure": {
+       "status": "done",
+       "content_hash": "3175205b2babaea3",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:28:39+00:00",
+       "result": []
+      },
+      "scope": {
+       "status": "done",
+       "content_hash": "3175205b2babaea3",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:28:39+00:00",
+       "result": [
+        {
+         "id": "current_pd",
+         "text": "Electric current, potential difference",
+         "covered": true
+        },
+        {
+         "id": "ohm",
+         "text": "Ohm's law",
+         "covered": true
+        },
+        {
+         "id": "resistance",
+         "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+         "covered": true
+        },
+        {
+         "id": "combos",
+         "text": "Series and parallel combination of resistors and their daily-life applications",
+         "covered": true
+        },
+        {
+         "id": "heating",
+         "text": "Heating effect of electric current and its daily-life applications",
+         "covered": true
+        },
+        {
+         "id": "power",
+         "text": "Electric power, interrelation between P, V, I and R",
+         "covered": true
+        }
+       ]
+      },
+      "units": {
+       "status": "done",
+       "content_hash": "3175205b2babaea3",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:28:39+00:00",
+       "result": []
+      },
+      "copyright": {
+       "status": "done",
+       "content_hash": "3175205b2babaea3",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:28:39+00:00",
+       "result": {
+        "overlap": 0.2387,
+        "threshold": 0.2,
+        "status": "fail"
+       }
+      },
+      "fact_check_en": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq1": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq2": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq3": {
+       "status": "skipped: local gate failed"
+      }
+     },
+     "note": "recovered: the earlier run stopped inside this attempt before its checks were saved",
+     "problems": [
+      "copyright overlap 24% above the limit; explain each idea afresh in your own teaching words and structure (own examples, own sentence order), keep standard terms, laws and formulas exact, and do not just swap words; accuracy comes first"
+     ]
+    },
+    {
+     "n": 2,
+     "at": "2026-11-03T08:29:13+00:00",
+     "status": "rejected",
+     "content_hash": "56f19c5f0cf6d40a",
+     "checks": {
+      "structure": {
+       "status": "done",
+       "content_hash": "56f19c5f0cf6d40a",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:29:13+00:00",
+       "result": []
+      },
+      "scope": {
+       "status": "done",
+       "content_hash": "56f19c5f0cf6d40a",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:29:13+00:00",
+       "result": [
+        {
+         "id": "current_pd",
+         "text": "Electric current, potential difference",
+         "covered": true
+        },
+        {
+         "id": "ohm",
+         "text": "Ohm's law",
+         "covered": true
+        },
+        {
+         "id": "resistance",
+         "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+         "covered": true
+        },
+        {
+         "id": "combos",
+         "text": "Series and parallel combination of resistors and their daily-life applications",
+         "covered": true
+        },
+        {
+         "id": "heating",
+         "text": "Heating effect of electric current and its daily-life applications",
+         "covered": true
+        },
+        {
+         "id": "power",
+         "text": "Electric power, interrelation between P, V, I and R",
+         "covered": true
+        }
+       ]
+      },
+      "units": {
+       "status": "done",
+       "content_hash": "56f19c5f0cf6d40a",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:29:13+00:00",
+       "result": []
+      },
+      "copyright": {
+       "status": "done",
+       "content_hash": "56f19c5f0cf6d40a",
+       "version": "fd4baeaa978a125f",
+       "at": "2026-11-03T08:29:13+00:00",
+       "result": {
+        "overlap": 0.2628,
+        "threshold": 0.2,
+        "status": "fail"
+       }
+      },
+      "fact_check_en": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq1": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq2": {
+       "status": "skipped: local gate failed"
+      },
+      "solve_mcq3": {
+       "status": "skipped: local gate failed"
+      }
+     },
+     "problems": [
+      "copyright overlap 26% above the limit; explain each idea afresh in your own teaching words and structure (own examples, own sentence order), keep standard terms, laws and formulas exact, and do not just swap words; accuracy comes first"
+     ]
+    },
+    {
+     "n": 3,
+     "at": "2026-11-03T08:30:28+00:00",
+     "status": "rejected",
+     "problems": [
+      "reply is not valid JSON: Invalid control character at: line 56 column 1118 (char 5170)"
+     ]
+    }
+   ],
+   "last_feedback": "reply is not valid JSON: Invalid control character at: line 56 column 1118 (char 5170)"
+  }
+ },
+ "attribution": [
+  {
+   "stage": "write_en",
+   "role": "writer",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T05:23:28+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "fact_checker_en",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T05:23:33+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "solver_mcq1",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T05:23:36+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "solver_mcq2",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-03T05:23:42+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "writer",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T08:29:13+00:00"
+  },
+  {
+   "stage": "write_en",
+   "role": "writer",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-03T08:30:28+00:00"
+  }
+ ],
+ "issues": [
+  {
+   "at": "2026-11-03T05:27:52+00:00",
+   "kind": "crash",
+   "detail": "groq: key missing or free tier not confirmed by owner Traceback (most recent call last):\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/providers.py\", line 95, in solve\n    txt, prov, model = self._gemini(p, json_mode=False)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/providers.py\", line 79, in _gemini\n    raise ProviderUnavailable('gemini: ' + last)\njob.ProviderUnavailable: gemini: gemini-3.8-flash: HTTP 503\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call "
+  },
+  {
+   "at": "2026-11-03T08:28:38+00:00",
+   "kind": "reclassified",
+   "detail": "earlier final state \"failed\" was a provider outage misrecorded as a crash (fixed bug); now blocked"
+  },
+  {
+   "at": "2026-11-03T08:30:28+00:00",
+   "kind": "checks_failed",
+   "detail": "English failed after 3 attempts: reply is not valid JSON: Invalid control character at: line 56 column 1118 (char 5170)"
+  }
+ ],
+ "final_state": "needs_review",
+ "runs": 2,
+ "finished_at": "2026-11-03T08:30:28+00:00",
+ "provider_calls": [
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 33.92,
+   "at": "2026-11-03T08:29:13+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 75.66,
+   "at": "2026-11-03T08:30:28+00:00"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "concepts": [
+  {
+   "title": "Electric Current, Potential Difference and Ohm's Law",
+   "body": "Electric current is the rate of flow of electric charge through a conductor, measured in amperes. One ampere equals one coulomb of charge passing per second. Potential difference between two points is the work done to move a unit charge from one point to the other, measured in volts. Ohm's law states that at constant temperature the current through a conductor is directly proportional to the potential difference across its ends. The constant of proportionality is the resistance R, so V = I R. A graph of V versus I for an ohmic conductor is a straight line through the origin."
+  },
+  {
+   "title": "Resistance, Resistivity and Combination of Resistors",
+   "body": "Resistance of a conductor depends on its length L, cross-sectional area A, material nature and temperature. Resistivity ρ is the resistance of a unit cube of the material; R = ρ L / A. Resistivity changes with temperature but not with dimensions. In series combination the same current flows through all resistors and the equivalent resistance is the sum R_eq = R1 + R2 + ... . In parallel combination the potential difference across each resistor is the same and the reciprocal of equivalent resistance equals the sum of reciprocals 1/R_eq = 1/R1 + 1/R2 + ... ; the equivalent resistance is always smaller than the smallest individual resistance. Series circuits are used where the same current is needed through all devices; parallel circuits are used in household wiring so each appliance receives the full supply voltage and operates independently."
+  },
+  {
+   "title": "Heating Effect of Current and Electric Power",
+   "body": "When current passes through a resistor, electrical energy is converted into heat. The heat produced in time t is H = I² R t (Joule's law of heating). This effect is utilized in devices like electric heaters, toasters, incandescent bulbs and fuses. Electric power is the rate of energy consumption P = V I = I² R = V² / R. The commercial unit of electrical energy is kilowatt hour; 1 kWh = 3.6 × 10⁶ joules. In a series circuit the current is not used up; it remains the same through all components. The resistance of a wire does not depend on the current flowing through it."
+  }
+ ],
+ "formulas": [
+  {
+   "title": "Ohm's Law and Resistance Formula",
+   "body": "V = I R [V = volt, I = ampere, R = ohm]; R = ρ L / A [ρ = ohm metre, L = metre, A = square metre]. V is potential difference across the conductor, I is current through it, R is its resistance, ρ is resistivity of the material, L is length of the conductor, A is its cross-sectional area."
+  },
+  {
+   "title": "Power and Energy Relations",
+   "body": "P = V I = I² R = V² / R [P = watt, V = volt, I = ampere, R = ohm]; E = P t [E = joule, P = watt, t = second]; 1 kWh = 3.6 × 10⁶ J. P is electric power, V is potential difference, I is current, R is resistance, E is energy consumed, t is time."
+  }
+ ],
+ "examples": [
+  {
+   "title": "Equivalent Resistance of Mixed Combination",
+   "body": "Three resistors of 2 Ω, 3 Ω and 6 Ω are connected such that 3 Ω and 6 Ω are in parallel and this combination is in series with 2 Ω. Parallel part: 1/R_p = 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2, so R_p = 2 Ω. Total R_eq = 2 Ω + 2 Ω = 4 Ω. If a 12 V battery is connected, total current I = V/R_eq = 12/4 = 3 A. Voltage across parallel part = I × R_p = 3 × 2 = 6 V. Current through 3 Ω = 6/3 = 2 A, through 6 Ω = 6/6 = 1 A."
+  },
+  {
+   "title": "Power and Energy Consumption of an Electric Heater",
+   "body": "An electric heater rated 1500 W, 220 V operates for 2 hours daily. Current drawn I = P/V = 1500/220 = 6.818 A. Resistance R = V²/P = 220²/1500 = 48400/1500 = 32.27 Ω. Energy consumed per day = 1.5 kW × 2 h = 3 kWh = 3 × 3.6 × 10⁶ = 1.08 × 10⁷ J. Monthly energy (30 days) = 90 kWh. Cost at ₹6 per kWh = 90 × 6 = ₹540."
+  }
+ ],
+ "mcqs": [
+  {
+   "question": "What is the SI unit of resistivity?",
+   "options": [
+    "ohm",
+    "ohm metre",
+    "ohm per metre",
+    "siemens"
+   ],
+   "answer_index": 1,
+   "difficulty": "easy",
+   "explanation": "Resistivity ρ = R A / L. Unit of R is ohm, A is m², L is m. So unit = ohm × m² / m = ohm metre."
+  },
+  {
+   "question": "A 100 W, 200 V bulb is connected to a 160 V supply. What is the power consumed? (Assume resistance constant.)",
+   "options": [
+    "64 W",
+    "80 W",
+    "100 W",
+    "125 W"
+   ],
+   "answer_index": 0,
+   "difficulty": "medium",
+   "explanation": "First find resistance at rated values: R = V²/P = 200²/100 = 40000/100 = 400 Ω. Then power at 160 V: P = V²/R = 160²/400 = 25600/400 = 64 W."
+  },
+  {
+   "question": "Two resistors of 4 Ω and 12 Ω are connected in parallel across a 6 V battery. What is the total current drawn from the battery?",
+   "options": [
+    "0.5 A",
+    "1.0 A",
+    "1.5 A",
+    "2.0 A"
+   ],
+   "answer_index": 3,
+   "difficulty": "medium",
+   "explanation": "Equivalent resistance: 1/R_eq = 1/4 + 1/12 = 3/12 + 1/12 = 4/12 = 1/3, so R_eq = 3 Ω. Total current I = V/R_eq = 6/3 = 2 A."
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "subject_slug": "cbse10-science",
+ "subject": "Science (Class 10)",
+ "source": "https://edustud.nic.in/edu/Syllabus_2026_27/10/10_Science_SYLLABUS_2026_27_EM.pdf",
+ "syllabus_session": "2026-27",
+ "chapter_no": 11,
+ "chapter": "Electricity",
+ "chapter_hi": "विद्युत",
+ "name_hi_status": "third_party",
+ "unit": "Unit IV: Effects of Current",
+ "exam_scope": "board",
+ "note": null,
+ "scope_items": [
+  {
+   "id": "current_pd",
+   "text": "Electric current, potential difference",
+   "need_any": [
+    [
+     "electric current"
+    ],
+    [
+     "potential difference"
+    ]
+   ]
+  },
+  {
+   "id": "ohm",
+   "text": "Ohm's law",
+   "need_any": [
+    [
+     "ohm's law",
+     "ohm’s law",
+     "ohms law"
+    ]
+   ]
+  },
+  {
+   "id": "resistance",
+   "text": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+   "need_any": [
+    [
+     "resistance"
+    ],
+    [
+     "resistivity"
+    ],
+    [
+     "length",
+     "area",
+     "material",
+     "temperature"
+    ]
+   ]
+  },
+  {
+   "id": "combos",
+   "text": "Series and parallel combination of resistors and their daily-life applications",
+   "need_any": [
+    [
+     "series"
+    ],
+    [
+     "parallel"
+    ]
+   ]
+  },
+  {
+   "id": "heating",
+   "text": "Heating effect of electric current and its daily-life applications",
+   "need_any": [
+    [
+     "heating effect",
+     "joule's law",
+     "joule’s law",
+     "h = i^2",
+     "i^2 r t",
+     "i2rt"
+    ]
+   ]
+  },
+  {
+   "id": "power",
+   "text": "Electric power, interrelation between P, V, I and R",
+   "need_any": [
+    [
+     "power"
+    ],
+    [
+     "p = v",
+     "p = i",
+     "p=vi",
+     "p = vi",
+     "p = v x i",
+     "p = i^2"
+    ]
+   ]
+  }
+ ],
+ "units": [
+  "\\bA\\b|ampere",
+  "\\bV\\b|volt",
+  "ohm|Ω",
+  "\\bW\\b|watt"
+ ],
+ "avoid": "Current is not 'used up' in a series circuit; resistance of a wire depends on length, area, material and temperature, not on the current; in parallel the equivalent resistance is LESS than the smallest resistance; 1 kWh = 3.6 x 10^6 J.",
+ "practicals": [
+  "V-I graph for a resistor (Ohm's law)",
+  "Equivalent resistance of two resistors in series and in parallel"
+ ],
+ "outcomes_note": "Chapter-level outcomes are not printed in the source; the competency split for the paper is Knowledge/Understanding 50%, Application 30%, Analyse/Evaluate/Create 20%."
+}
