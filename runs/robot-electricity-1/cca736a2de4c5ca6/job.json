@@ -1,0 +1,58 @@
+{
+ "job_id": "cca736a2de4c5ca6",
+ "robot": "robot.v1",
+ "command": "Class 10, CBSE 2026-27, Science, Electricity",
+ "created_at": "2026-11-03T14:32:16+00:00",
+ "stages": {
+  "resolve": {
+   "status": "done",
+   "attempts": 0
+  },
+  "reference": {
+   "status": "running",
+   "attempts": 0
+  }
+ },
+ "attribution": [],
+ "issues": [
+  {
+   "at": "2026-11-03T14:32:16+00:00",
+   "kind": "provider_unavailable",
+   "provider": "gemini",
+   "reason": "quota",
+   "detail": "gemini: quota (research: quota,quota,quota)"
+  }
+ ],
+ "final_state": "blocked",
+ "runs": 1,
+ "provider_calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "at": "2026-11-03T14:32:16+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "at": "2026-11-03T14:32:16+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.11,
+   "at": "2026-11-03T14:32:16+00:00"
+  }
+ ],
+ "finished_at": "2026-11-03T14:32:16+00:00"
+}
