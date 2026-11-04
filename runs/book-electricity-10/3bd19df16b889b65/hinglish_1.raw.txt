@@ -1,0 +1,76 @@
+```json
+{
+  "hinglish": [
+    {
+      "emoji": "🚀",
+      "heading": "Prastavna: Vidhyut Urja ka Jivan mein Mahatv",
+      "paras": [
+        "Vidhyut urja humare jivan mein bahut mahatvapoorn bhoomika nibhati hai. Yeh humare gharon mein prakash vyavastha ke liye bulb jalati hai, humare fridge ko chalati rehti hai, aur humare mobile phone ko charge karti hai.",
+        "Vidhyut urja ke bina humara jivan bahut mushkil ho jayega. Humein vidhyut urja ke mahatv ko samajhna chahiye aur iska sahi tarike se upyog karna chahiye.",
+        "Vidhyut urja ke bare mein janane ke liye humein vidhyut dhar aur vidhyut avesh ke bare mein janana hoga. Vidhyut dhar electron ki gati hai, aur vidhyut avesh electron ki matra hai."
+      ],
+      "formula": null,
+      "example": "Vidhyut urja ko samajhne ke liye ek udaharan leta hai. Jab aap apne mobile phone ko charge karte hain, to vidhyut urja aapke phone mein jati hai aur isey chalane ke liye upyog ki jati hai."
+    },
+    {
+      "emoji": "⚡",
+      "heading": "Path 1: Vidhyut Avesh aur Vidhyut Dhar",
+      "paras": [
+        "Vidhyut avesh electron ki matra hai. Yeh do prakar ka hota hai - dhanatmak aur rnatmak. Jab do vastuein ek dusre ke sampark mein aati hain, to ve electron ko ek dusre mein sthanantarit kar sakti hain.",
+        "Vidhyut dhar electron ki gati hai. Yeh ek conductor se hokar guzarti hai. Vidhyut dhar ko mapne ke liye hum ammeter ka upyog karte hain.",
+        "Vidhyut dhar ki ikai ampere hai. Vidhyut dhar ko Q/t se vyakt kiya ja sakta hai, jahaan Q avesh hai aur t samay hai."
+      ],
+      "formula": "I = Q/t",
+      "example": "Ek udaharan leta hai. Jab aap ek bulb ko jalate hain, to vidhyut dhar bulb se hokar guzarti hai aur isey jalane ke liye upyog ki jati hai."
+    },
+    {
+      "emoji": "🔋",
+      "heading": "Path 2: Vidhyut Vibhav aur Vibhavantar",
+      "paras": [
+        "Vidhyut vibhav ek bindu par vidhyut kshetra ki tivrat ko mapta hai. Yeh ek voltmeter se mapa ja sakta hai.",
+        "Vibhavantar do binduon ke beech vidhyut vibhav ka antar hai. Yeh vidhyut dhar ke pravah ke liye jimmedar hai.",
+        "Vibhavantar ki ikai volt hai. Vibhavantar ko V = W/q se vyakt kiya ja sakta hai, jahaan V vibhavantar hai, W kaarya hai, aur q avesh hai."
+      ],
+      "formula": "V = W/q",
+      "example": "Ek udaharan leta hai. Jab aap ek battery se ek bulb ko jalate hain, to vibhavantar battery aur bulb ke beech hota hai aur vidhyut dhar ko pravahit karne ke liye jimmedar hai."
+    },
+    {
+      "emoji": "🔌",
+      "heading": "Path 3: Paripath Pratik, Ammeter aur Voltmeter",
+      "paras": [
+        "Paripath pratik vidhyut paripath ko darshane ke liye upyog kiye jate hain. Ve vidhyut dhar ke pravah ko samajhne mein madad karte hain.",
+        "Ammeter vidhyut dhar ko mapne ke liye upyog kiya jata hai. Yeh paripath mein shrnikram mein joda jata hai.",
+        "Voltmeter vibhavantar ko mapne ke liye upyog kiya jata hai. Yeh paripath mein parshvkram mein joda jata hai."
+      ],
+      "formula": null,
+      "example": "Ek udaharan leta hai. Jab aap ek paripath mein ammeter aur voltmeter ka upyog karte hain, to aap vidhyut dhar aur vibhavantar ko map sakte hain aur vidhyut paripath ko samajh sakte hain."
+    },
+    {
+      "emoji": "📐",
+      "heading": "Path 4: Ohm ka Niyam aur V-I Rekha Chitra Vishleshan",
+      "paras": [
+        "Ohm ka niyam ek moolbhoot siddhant hai jo kisi conductor mein vidhyut dhar aur vibhavantar ke beech sambandh ko darshata hai.",
+        "Is niyam ke anusaar, yadi kisi conductor ka pratirodh niyat rahta hai, to vidhyut dhar vibhavantar ke seedhe anupat mein hoti hai.",
+        "Ohm ka niyam ek voltmeter aur ammeter ka upyog karke prayogshala mein satyapit kiya ja sakta hai.",
+        "V-I rekha chitra vishleshan se humein kisi conductor ke pratirodh ke man ki ganana karne mein madad milti hai.",
+        "Is prakaar, Ohm ka niyam aur V-I rekha chitra vishleshan humein vidhyut dhar aur vibhavantar ke beech sambandh ko samajhne mein madad karte hain."
+      ],
+      "formula": "V = I × R",
+      "example": "Ek udaharan ke roop mein, yadi aap ek vidhyut bulb ko 5 volt ke vibhavantar par 2 ampere ka vidhyut dhar pravahit karte hain, to bulb ka pratirodh 2.5 ohm hoga."
+    },
+    {
+      "emoji": "🧱",
+      "heading": "Path 5: Conductor ka Pratirodh aur uske Prabhavit Karne Wale Kak",
+      "paras": [
+        "Kisi conductor ka pratirodh uski lambai, anuprasth kaat, aur taap par nirbhar karta hai.",
+        "Ek conductor ki lambai badhane se uska pratirodh badh jata hai, jabki anuprasth kaat badhane se pratirodh kam ho jata hai.",
+        "Taap mein parivartan se bhi conductor ka pratirodh prabhavit hota hai. Adhikansh conductor ka pratirodh taap badhne par badh jata hai.",
+        "In kakon ko samajhne se humein vibhinn vidhyut paripath mein pratirodh ki ganana karne mein madad milti hai.",
+        "Is prakaar, conductor ka pratirodh aur uske prabhavit karne wale kakon ka gyan humein vidhyut pranali ko design aur vishleshan karne mein madad karta hai."
+      ],
+      "formula": null,
+      "example": "Ek udaharan ke roop mein, yadi aap ek taar ko garm karte hain, to uska pratirodh badh jayega aur vidhyut dhar kam ho jayegi."
+    }
+  ]
+}
+```

@@ -1,0 +1,482 @@
+[
+ {
+  "emoji": "🚀",
+  "heading": [
+   "प्रस्तावना: विद्युत ऊर्जा का जीवन में महत्त्व",
+   "Introduction: Importance of Electrical Energy"
+  ],
+  "paras": [
+   [
+    "विद्युत ऊर्जा हमारे जीवन में बहुत महत्त्वपूर्ण भूमिका निभाती है। यह हमारे घरों में प्रकाश व्यवस्था के लिए बल्ब जलाती है, हमारे फ्रिज को चलती रखती है, और हमारे मोबाइल फोन को चार्ज करती है।",
+    "Electrical energy plays a vital role in our lives. It powers the lights in our homes, keeps our refrigerators running, and charges our mobile phones."
+   ],
+   [
+    "विद्युत ऊर्जा के बिना हमारा जीवन बहुत मुश्किल हो जाएगा। हमें विद्युत ऊर्जा के महत्त्व को समझना चाहिए और इसका सही तरीके से उपयोग करना चाहिए।",
+    "Life without electrical energy would be very difficult. We need to understand the importance of electrical energy and use it in the right way."
+   ],
+   [
+    "विद्युत ऊर्जा के बारे में जानने के लिए हमें विद्युत धारा और विद्युत आवेश के बारे में जानना होगा। विद्युत धारा इलेक्ट्रॉनों की गति है, और विद्युत आवेश इलेक्ट्रॉनों की मात्रा है।",
+    "To learn about electrical energy, we need to know about electric current and electric charge. Electric current is the flow of electrons, and electric charge is the amount of electrons."
+   ]
+  ],
+  "formula": null,
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "विद्युत ऊर्जा को समझने के लिए एक उदाहरण लेते हैं। जब आप अपने मोबाइल फोन को चार्ज करते हैं, तो विद्युत ऊर्जा आपके फोन में जाती है और इसे चलाने के लिए उपयोग की जाती है।",
+    "Let's take an example to understand electrical energy. When you charge your mobile phone, electrical energy flows into your phone and is used to power it."
+   ]
+  }
+ },
+ {
+  "emoji": "⚡",
+  "heading": [
+   "पाठ 1: विद्युत आवेश और विद्युत धारा",
+   "Lesson 1: Electric Charge and Electric Current"
+  ],
+  "paras": [
+   [
+    "विद्युत आवेश इलेक्ट्रॉनों की मात्रा है। यह दो प्रकार का होता है - धनात्मक और ऋणात्मक। जब दो वस्तुएं एक दूसरे के संपर्क में आती हैं, तो वे इलेक्ट्रॉनों को एक दूसरे में स्थानांतरित कर सकती हैं।",
+    "Electric charge is the amount of electrons. It can be positive or negative. When two objects come into contact with each other, they can transfer electrons from one to the other."
+   ],
+   [
+    "विद्युत धारा इलेक्ट्रॉनों की गति है। यह एक **चालक** से होकर गुजरती है। विद्युत धारा को मापने के लिए हम **एमीटर** का उपयोग करते हैं।",
+    "Electric current is the flow of electrons. It flows through a **conductor**. We use an **ammeter** to measure electric current."
+   ],
+   [
+    "विद्युत धारा की इकाई एम्पियर है। विद्युत धारा को Q/t से व्यक्त किया जा सकता है, जहां Q आवेश है और t समय है।",
+    "The unit of electric current is ampere. Electric current can be expressed as Q/t, where Q is the charge and t is the time."
+   ]
+  ],
+  "formula": "I = Q/t",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "एक उदाहरण लेते हैं। जब आप एक बल्ब को जलाते हैं, तो विद्युत धारा बल्ब से होकर गुजरती है और इसे जलाने के लिए उपयोग की जाती है।",
+    "Let's take an example. When you turn on a light bulb, electric current flows through the bulb and is used to light it up."
+   ]
+  }
+ },
+ {
+  "emoji": "🔋",
+  "heading": [
+   "पाठ 2: विद्युत विभव और विभवांतर",
+   "Lesson 2: Electric Potential and Potential Difference"
+  ],
+  "paras": [
+   [
+    "विद्युत विभव एक बिंदु पर विद्युत क्षेत्र की तीव्रता को मापता है। यह एक **वोल्टमीटर** से मापा जा सकता है।",
+    "Electric potential measures the strength of the electric field at a point. It can be measured using a **voltmeter**."
+   ],
+   [
+    "विभवांतर दो बिंदुओं के बीच विद्युत विभव का अंतर है। यह विद्युत धारा के प्रवाह के लिए जिम्मेदार है।",
+    "Potential difference is the difference in electric potential between two points. It is responsible for the flow of electric current."
+   ],
+   [
+    "विभवांतर की इकाई वोल्ट है। विभवांतर को V = W/q से व्यक्त किया जा सकता है, जहां V विभवांतर है, W कार्य है, और q आवेश है।",
+    "The unit of potential difference is volt. Potential difference can be expressed as V = W/q, where V is the potential difference, W is the work, and q is the charge."
+   ]
+  ],
+  "formula": "V = W/q",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "एक उदाहरण लेते हैं। जब आप एक बैटरी से एक बल्ब को जलाते हैं, तो विभवांतर बैटरी और बल्ब के बीच होता है और विद्युत धारा को प्रवाहित करने के लिए जिम्मेदार है।",
+    "Let's take an example. When you connect a battery to a light bulb, the potential difference is between the battery and the bulb and is responsible for the flow of electric current."
+   ]
+  }
+ },
+ {
+  "emoji": "🔌",
+  "heading": [
+   "पाठ 3: परिपथ प्रतीक, एमीटर और वोल्टमीटर",
+   "Lesson 3: Circuit Symbols, Ammeter, and Voltmeter"
+  ],
+  "paras": [
+   [
+    "परिपथ प्रतीक विद्युत परिपथ को दर्शाने के लिए उपयोग किए जाते हैं। वे विद्युत धारा के प्रवाह को समझने में मदद करते हैं।",
+    "Circuit symbols are used to represent an electric circuit. They help us understand the flow of electric current."
+   ],
+   [
+    "एमीटर विद्युत धारा को मापने के लिए उपयोग किया जाता है। यह परिपथ में श्रेणीक्रम में जोड़ा जाता है।",
+    "An ammeter is used to measure electric current. It is connected in series in the circuit."
+   ],
+   [
+    "वोल्टमीटर विभवांतर को मापने के लिए उपयोग किया जाता है। यह परिपथ में पार्श्वक्रम में जोड़ा जाता है।",
+    "A voltmeter is used to measure potential difference. It is connected in parallel in the circuit."
+   ]
+  ],
+  "formula": null,
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "एक उदाहरण लेते हैं। जब आप एक परिपथ में एमीटर और वोल्टमीटर का उपयोग करते हैं, तो आप विद्युत धारा और विभवांतर को माप सकते हैं और विद्युत परिपथ को समझ सकते हैं।",
+    "Let's take an example. When you use an ammeter and a voltmeter in a circuit, you can measure electric current and potential difference and understand the electric circuit."
+   ]
+  }
+ },
+ {
+  "emoji": "📐",
+  "heading": [
+   "पाठ 4: ओम का नियम और V-I रेखाचित्र विश्लेषण",
+   "Lesson 4: Ohm's Law and V-I Graph Analysis"
+  ],
+  "paras": [
+   [
+    "ओम का नियम [Ohm's law] एक मूलभूत सिद्धांत है जो किसी **चालक** [conductor] में **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] के बीच संबंध को दर्शाता है।",
+    "Ohm's law is a fundamental principle that describes the relationship between **electric current** and **potential difference** in a **conductor**."
+   ],
+   [
+    "इस नियम के अनुसार, यदि किसी **चालक** [conductor] का **प्रतिरोध** [resistance] नियत रहता है, तो **विद्युत धारा** [electric current] **विभवांतर** [potential difference] के सीधे अनुपात में होती है।",
+    "According to this law, if the **resistance** of a **conductor** remains constant, then the **electric current** is directly proportional to the **potential difference**."
+   ],
+   [
+    "ओम का नियम एक **वोल्टमीटर** [voltmeter] और **एमीटर** [ammeter] का उपयोग करके प्रयोगशाला में सत्यापित किया जा सकता है।",
+    "Ohm's law can be verified in a laboratory using a **voltmeter** and an **ammeter**."
+   ],
+   [
+    "V-I रेखाचित्र विश्लेषण [V-I graph analysis] से हमें किसी **चालक** [conductor] के **प्रतिरोध** [resistance] के मान की गणना करने में मदद मिलती है।",
+    "V-I graph analysis helps us to calculate the value of **resistance** of a **conductor**."
+   ],
+   [
+    "इस प्रकार, ओम का नियम और V-I रेखाचित्र विश्लेषण हमें **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] के बीच संबंध को समझने में मदद करते हैं।",
+    "Ohm's law and V-I graph analysis help us to understand the relationship between **electric current** and **potential difference**."
+   ]
+  ],
+  "formula": "V = I × R",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "एक उदाहरण के रूप में, यदि आप एक **विद्युत बल्ब** [electric bulb] को 5 वोल्ट के **विभवांतर** [potential difference] पर 2 एम्पियर का **विद्युत धारा** [electric current] प्रवाहित करते हैं, तो बल्ब का **प्रतिरोध** [resistance] 2.5 ओम होगा।",
+    "For example, if you pass 2 amperes of **electric current** through an **electric bulb** at a **potential difference** of 5 volts, the **resistance** of the bulb will be 2.5 ohms."
+   ]
+  }
+ },
+ {
+  "emoji": "🧱",
+  "heading": [
+   "पाठ 5: चालक का प्रतिरोध और उसके प्रभावित करने वाले कारक",
+   "Lesson 5: Conductor Resistance and Factors Affecting It"
+  ],
+  "paras": [
+   [
+    "किसी **चालक** [conductor] का **प्रतिरोध** [resistance] उसकी **लंबाई** [length], **अनुप्रस्थ काट** [cross-sectional area], और **ताप** [temperature] पर निर्भर करता है।",
+    "The **resistance** of a **conductor** depends on its **length**, **cross-sectional area**, and **temperature**."
+   ],
+   [
+    "एक **चालक** [conductor] की **लंबाई** [length] बढ़ाने से उसका **प्रतिरोध** [resistance] बढ़ जाता है, जबकि **अनुप्रस्थ काट** [cross-sectional area] बढ़ाने से **प्रतिरोध** [resistance] कम हो जाता है।",
+    "Increasing the **length** of a **conductor** increases its **resistance**, while increasing the **cross-sectional area** decreases the **resistance**."
+   ],
+   [
+    "ताप [temperature] में परिवर्तन से भी **चालक** [conductor] का **प्रतिरोध** [resistance] प्रभावित होता है। अधिकांश **चालक** [conductor] का **प्रतिरोध** [resistance] ताप बढ़ने पर बढ़ जाता है।",
+    "A change in **temperature** also affects the **resistance** of a **conductor**. The **resistance** of most **conductors** increases with an increase in **temperature**."
+   ],
+   [
+    "इन कारकों को समझने से हमें विभिन्न **विद्युत परिपथ** [electric circuit] में **प्रतिरोध** [resistance] की गणना करने में मदद मिलती है।",
+    "Understanding these factors helps us to calculate **resistance** in various **electric circuits**."
+   ],
+   [
+    "इस प्रकार, **चालक** [conductor] का **प्रतिरोध** [resistance] और उसके प्रभावित करने वाले कारकों का ज्ञान हमें **विद्युत प्रणाली** [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।",
+    "Thus, knowledge of **conductor resistance** and the factors affecting it helps us to design and analyze **electric systems**."
+   ]
+  ],
+  "formula": null,
+  "example": {
+   "label": [
+    "याद रखो",
+    "Remember"
+   ],
+   "text": [
+    "एक उदाहरण के रूप में, यदि आप एक **तार** [wire] को गर्म करते हैं, तो उसका **प्रतिरोध** [resistance] बढ़ जाएगा और **विद्युत धारा** [electric current] कम हो जाएगी।",
+    "For example, if you heat a **wire**, its **resistance** will increase and the **electric current** will decrease."
+   ]
+  }
+ },
+ {
+  "emoji": "🧪",
+  "heading": [
+   "पाठ 6: पदार्थों की प्रतिरोधकता (चालक, मिश्रधातु और विद्युतरोधी)",
+   "Lesson 6: Resistivity of Materials (Conductors, Alloys, and Insulators)"
+  ],
+  "paras": [
+   [
+    "प्रत्येक **पदार्थ** [material] की एक विशिष्ट **प्रतिरोधकता** [resistivity] होती है, जो उसके **प्रतिरोध** [resistance] को निर्धारित करती है।",
+    "Each **material** has a specific **resistivity** that determines its **resistance**."
+   ],
+   [
+    "**चालक** [conductor] जैसे तांबा और चाँदी की **प्रतिरोधकता** [resistivity] कम होती है, जबकि **विद्युतरोधी** [insulator] जैसे प्लास्टिक और लकड़ी की **प्रतिरोधकता** [resistivity] उच्च होती है।",
+    "**Conductors** like copper and silver have low **resistivity**, while **insulators** like plastic and wood have high **resistivity**."
+   ],
+   [
+    "**मिश्रधातु** [alloy] जैसे पीतल और लोहा की **प्रतिरोधकता** [resistivity] उनके घटक **पदार्थ** [material] पर निर्भर करती है।",
+    "The **resistivity** of **alloys** like brass and iron depends on their constituent **materials**."
+   ],
+   [
+    "इन **पदार्थ** [material] की **प्रतिरोधकता** [resistivity] को समझने से हमें विभिन्न **विद्युत परिपथ** [electric circuit] में **प्रतिरोध** [resistance] की गणना करने में मदद मिलती है।",
+    "Understanding the **resistivity** of these **materials** helps us to calculate **resistance** in various **electric circuits**."
+   ],
+   [
+    "इस प्रकार, **पदार्थ** [material] की **प्रतिरोधकता** [resistivity] का ज्ञान हमें **विद्युत प्रणाली** [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।",
+    "Thus, knowledge of **material resistivity** helps us to design and analyze **electric systems**."
+   ]
+  ],
+  "formula": "ρ = R × A / L",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "एक उदाहरण के रूप में, यदि आप एक **तार** [wire] को बनाने के लिए तांबा का उपयोग करते हैं, तो उसकी **प्रतिरोधकता** [resistivity] कम होगी और **विद्युत धारा** [electric current] अधिक होगी।",
+    "For example, if you use copper to make a **wire**, its **resistivity** will be low and the **electric current** will be high."
+   ]
+  }
+ },
+ {
+  "emoji": "🔗",
+  "heading": [
+   "पाठ 7: प्रतिरोधकों का श्रेणीक्रम संयोजन",
+   "Lesson 7: Series Combination of Resistors"
+  ],
+  "paras": [
+   [
+    "जब दो या दो से अधिक **प्रतिरोधक** [resistor] श्रेणीक्रम में जुड़े होते हैं, तो उनका कुल **प्रतिरोध** [resistance] अलग-अलग **प्रतिरोधक** [resistor] के **प्रतिरोध** [resistance] के योग के बराबर होता है।",
+    "When two or more **resistors** are connected in series, their total **resistance** is equal to the sum of the individual **resistor** resistances."
+   ],
+   [
+    "श्रेणीक्रम संयोजन में, **विद्युत धारा** [electric current] सभी **प्रतिरोधक** [resistor] में समान होती है, लेकिन **विभवांतर** [potential difference] अलग-अलग **प्रतिरोधक** [resistor] में विभिन्न हो सकता है।",
+    "In a series combination, the **electric current** is the same in all **resistors**, but the **potential difference** can be different across different **resistors**."
+   ],
+   [
+    "श्रेणीक्रम संयोजन का उपयोग **विद्युत परिपथ** [electric circuit] में **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] को नियंत्रित करने के लिए किया जा सकता है।",
+    "Series combination is used in **electric circuits** to control **electric current** and **potential difference**."
+   ],
+   [
+    "इस प्रकार, **प्रतिरोधक** [resistor] का श्रेणीक्रम संयोजन हमें **विद्युत प्रणाली** [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।",
+    "Thus, series combination of **resistors** helps us to design and analyze **electric systems**."
+   ],
+   [
+    "श्रेणीक्रम संयोजन के गुणों को समझने से हमें **विद्युत परिपथ** [electric circuit] में **प्रतिरोध** [resistance] और **विद्युत धारा** [electric current] की गणना करने में मदद मिलती है।",
+    "Understanding the properties of series combination helps us to calculate **resistance** and **electric current** in **electric circuits**."
+   ]
+  ],
+  "formula": "R_total = R1 + R2 + ... + Rn",
+  "example": {
+   "label": [
+    "याद रखो",
+    "Remember"
+   ],
+   "text": [
+    "एक उदाहरण के रूप में, यदि आप दो **प्रतिरोधक** [resistor] 2 ओम और 3 ओम को श्रेणीक्रम में जोड़ते हैं, तो उनका कुल **प्रतिरोध** [resistance] 5 ओम होगा।",
+    "For example, if you connect two **resistors** of 2 ohms and 3 ohms in series, their total **resistance** will be 5 ohms."
+   ]
+  }
+ },
+ {
+  "emoji": "🔀",
+  "heading": [
+   "पाठ 8: प्रतिरोधकों का पार्श्वक्रम संयोजन",
+   "Lesson 8: Parallel Combination of Resistors"
+  ],
+  "paras": [
+   [
+    "प्रतिरोधकों का पार्श्वक्रम संयोजन एक ऐसी व्यवस्था है जिसमें दो या दो से अधिक प्रतिरोधक एक साथ जुड़े होते हैं, लेकिन उनके अनुप्रस्थ काट एक दूसरे के समानांतर होते हैं।",
+    "The parallel combination of resistors is an arrangement in which two or more resistors are connected together, but their cross-sectional areas are parallel to each other."
+   ],
+   [
+    "इस संयोजन में, यदि एक प्रतिरोधक में विद्युत धारा का प्रवाह होता है, तो यह अन्य प्रतिरोधकों पर कोई प्रभाव नहीं डालता है।",
+    "In this combination, if electric current flows through one resistor, it does not affect the other resistors."
+   ],
+   [
+    "प्रतिरोधकों के पार्श्वक्रम संयोजन का उपयोग विद्युत परिपथों में किया जाता है जहां विभिन्न उपकरणों को अलग-अलग विभवांतर पर चलाने की आवश्यकता होती है।",
+    "The parallel combination of resistors is used in electric circuits where different devices need to be operated at different potential differences."
+   ],
+   [
+    "उदाहरण के लिए, एक घरेलू विद्युत परिपथ में प्रतिरोधकों का पार्श्वक्रम संयोजन उपयोग किया जा सकता है ताकि प्रत्येक उपकरण को उसके अनुसार विभवांतर मिल सके।",
+    "For example, in a domestic electric circuit, the parallel combination of resistors can be used so that each device gets its required potential difference."
+   ],
+   [
+    "इस प्रकार, प्रतिरोधकों का पार्श्वक्रम संयोजन विद्युत परिपथों में बहुत उपयोगी होता है।",
+    "Thus, the parallel combination of resistors is very useful in electric circuits."
+   ]
+  ],
+  "formula": "1/R = 1/R1 + 1/R2 + ...",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "मान लीजिए कि आपके पास दो प्रतिरोधक हैं - एक 2 ओम और दूसरा 3 ओम। यदि आप इन्हें पार्श्वक्रम में जोड़ते हैं, तो परिपथ का कुल प्रतिरोध क्या होगा?",
+    "Suppose you have two resistors - one 2 ohm and the other 3 ohm. If you connect them in parallel, what will be the total resistance of the circuit?"
+   ]
+  }
+ },
+ {
+  "emoji": "🏠",
+  "heading": [
+   "पाठ 9: घरेलू विद्युत परिपथ: श्रेणीक्रम बनाम पार्श्वक्रम",
+   "Lesson 9: Domestic Electric Circuits: Series vs Parallel"
+  ],
+  "paras": [
+   [
+    "घरेलू विद्युत परिपथ में विद्युत उपकरणों को जोड़ने के लिए दो प्रकार के संयोजनों का उपयोग किया जा सकता है - श्रेणीक्रम और पार्श्वक्रम।",
+    "In domestic electric circuits, two types of combinations can be used to connect electric devices - series and parallel."
+   ],
+   [
+    "श्रेणीक्रम संयोजन में, सभी उपकरण एक के बाद एक जुड़े होते हैं और विद्युत धारा एक ही मार्ग से गुजरती है।",
+    "In series combination, all devices are connected one after the other and electric current flows through the same path."
+   ],
+   [
+    "पार्श्वक्रम संयोजन में, उपकरण समानांतर में जुड़े होते हैं और विद्युत धारा अलग-अलग मार्गों से गुजरती है।",
+    "In parallel combination, devices are connected in parallel and electric current flows through different paths."
+   ],
+   [
+    "श्रेणीक्रम संयोजन का उपयोग तब किया जाता है जब सभी उपकरणों को एक ही विभवांतर पर चलाने की आवश्यकता होती है।",
+    "Series combination is used when all devices need to be operated at the same potential difference."
+   ],
+   [
+    "पार्श्वक्रम संयोजन का उपयोग तब किया जाता है जब विभिन्न उपकरणों को अलग-अलग विभवांतर पर चलाने की आवश्यकता होती है।",
+    "Parallel combination is used when different devices need to be operated at different potential differences."
+   ]
+  ],
+  "formula": null,
+  "example": {
+   "label": [
+    "याद रखो",
+    "Remember"
+   ],
+   "text": [
+    "घरेलू विद्युत परिपथ में श्रेणीक्रम और पार्श्वक्रम संयोजनों का उपयोग उपकरणों की आवश्यकताओं के अनुसार किया जाता है।",
+    "In domestic electric circuits, series and parallel combinations are used according to the requirements of the devices."
+   ]
+  }
+ },
+ {
+  "emoji": "🔥",
+  "heading": [
+   "पाठ 10: विद्युत धारा का तापीय प्रभाव और जूल का नियम",
+   "Lesson 10: Heating Effect of Current and Joule's Law"
+  ],
+  "paras": [
+   [
+    "विद्युत धारा का तापीय प्रभाव यह है कि जब विद्युत धारा किसी चालक में प्रवाहित होती है, तो वह चालक गर्म हो जाता है।",
+    "The heating effect of electric current is that when electric current flows through a conductor, it gets heated."
+   ],
+   [
+    "यह तापीय प्रभाव विद्युत ऊर्जा के रूपांतरण के कारण होता है, जिसमें विद्युत ऊर्जा ताप ऊर्जा में परिवर्तित हो जाती है।",
+    "This heating effect occurs due to the conversion of electric energy into heat energy."
+   ],
+   [
+    "जूल का नियम यह कहता है कि किसी चालक में विद्युत धारा के प्रवाह के कारण उत्पन्न होने वाली ताप ऊर्जा विद्युत धारा के वर्ग और चालक के प्रतिरोध के गुणनफल के समानुपाती होती है।",
+    "Joule's law states that the heat energy produced in a conductor due to the flow of electric current is proportional to the square of the electric current and the resistance of the conductor."
+   ],
+   [
+    "जूल का नियम इस प्रकार व्यक्त किया जा सकता है: Q = I^2Rt, जहां Q ताप ऊर्जा है, I विद्युत धारा है, R प्रतिरोध है, और t समय है।",
+    "Joule's law can be expressed as: Q = I^2Rt, where Q is the heat energy, I is the electric current, R is the resistance, and t is the time."
+   ],
+   [
+    "विद्युत धारा का तापीय प्रभाव और जूल का नियम विद्युत परिपथों के डिजाइन और संचालन में बहुत महत्वपूर्ण हैं।",
+    "The heating effect of electric current and Joule's law are very important in the design and operation of electric circuits."
+   ]
+  ],
+  "formula": "Q = I^2Rt",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "मान लीजिए कि आप एक विद्युत हीटर का उपयोग कर रहे हैं जिसमें 5 ए की विद्युत धारा प्रवाहित हो रही है और इसका प्रतिरोध 20 ओम है। यदि आप इसे 10 मिनट तक चलाते हैं, तो यह कितनी ताप ऊर्जा उत्पन्न करेगा?",
+    "Suppose you are using an electric heater with a current of 5 A and a resistance of 20 ohm. If you run it for 10 minutes, how much heat energy will it produce?"
+   ]
+  }
+ },
+ {
+  "emoji": "💡",
+  "heading": [
+   "पाठ 11: विद्युत तंतु बल्ब और फ्यूज़ का कार्य-सिद्धान्त",
+   "Lesson 11: Working Principles of Filament Bulb and Fuse"
+  ],
+  "paras": [
+   [
+    "विद्युत तंतु बल्ब में एक पतला तंतु होता है जो विद्युत धारा के प्रवाह से गर्म हो जाता है और प्रकाश उत्पन्न करता है।",
+    "The filament bulb has a thin filament that gets heated by the flow of electric current and produces light."
+   ],
+   [
+    "फ्यूज़ एक ऐसा उपकरण है जो विद्युत परिपथ में अधिक विद्युत धारा के प्रवाह को रोकता है और परिपथ की सुरक्षा करता है।",
+    "The fuse is a device that prevents excessive electric current from flowing through the circuit and protects the circuit."
+   ],
+   [
+    "विद्युत तंतु बल्ब और फ्यूज़ दोनों विद्युत धारा के तापीय प्रभाव पर काम करते हैं।",
+    "Both the filament bulb and the fuse work on the heating effect of electric current."
+   ],
+   [
+    "विद्युत तंतु बल्ब में तंतु का प्रतिरोध इतना अधिक होता है कि जब विद्युत धारा प्रवाहित होती है, तो वह तंतु गर्म हो जाता है और प्रकाश उत्पन्न करता है।",
+    "In the filament bulb, the filament has a high resistance, so when electric current flows, it gets heated and produces light."
+   ],
+   [
+    "फ्यूज़ में एक पतला तार होता है जो अधिक विद्युत धारा के प्रवाह से गर्म हो जाता है और पिघल जाता है, जिससे परिपथ टूट जाता है।",
+    "In the fuse, there is a thin wire that gets heated by excessive electric current and melts, breaking the circuit."
+   ]
+  ],
+  "formula": null,
+  "example": {
+   "label": [
+    "याद रखो",
+    "Remember"
+   ],
+   "text": [
+    "विद्युत तंतु बल्ब और फ्यूज़ दोनों विद्युत धारा के तापीय प्रभाव पर काम करते हैं और विद्युत परिपथों में बहुत महत्वपूर्ण हैं।",
+    "The filament bulb and the fuse both work on the heating effect of electric current and are very important in electric circuits."
+   ]
+  }
+ },
+ {
+  "emoji": "📊",
+  "heading": [
+   "पाठ 12: विद्युत शक्ति तथा व्यावसायिक ऊर्जा की गणना",
+   "Lesson 12: Electric Power and Commercial Energy Calculation"
+  ],
+  "paras": [
+   [
+    "विद्युत शक्ति [electric power] का अर्थ है विद्युत ऊर्जा [energy] की दर से खपत। यह विद्युत धारा [electric current] और विभवांतर [potential difference] पर निर्भर करती है।",
+    "Electric power refers to the rate of consumption of electric energy. It depends on the electric current and potential difference."
+   ],
+   [
+    "विद्युत शक्ति की गणना करने के लिए, हम विद्युत धारा और विभवांतर को गुणा करते हैं। यह एक महत्वपूर्ण सूत्र है जो हमें विद्युत शक्ति की गणना करने में मदद करता है।",
+    "To calculate electric power, we multiply the electric current and potential difference. This is an important formula that helps us calculate electric power."
+   ],
+   [
+    "व्यावसायिक ऊर्जा की गणना करने के लिए, हम विद्युत शक्ति और समय को गुणा करते हैं। यह हमें विद्युत ऊर्जा की खपत की जानकारी देता है।",
+    "To calculate commercial energy, we multiply the electric power and time. This gives us the information about the consumption of electric energy."
+   ]
+  ],
+  "formula": "विद्युत शक्ति [electric power] = विद्युत धारा [electric current] × विभवांतर [potential difference]",
+  "example": {
+   "label": [
+    "समझो ऐसे",
+    "Think of it like this"
+   ],
+   "text": [
+    "एक घर में 100 वाट का बल्ब 10 घंटे तक जलता है। तो इसकी विद्युत ऊर्जा की खपत कितनी होगी?",
+    "A 100 watt bulb is lit for 10 hours in a house. What will be its electric energy consumption?"
+   ]
+  }
+ }
+]

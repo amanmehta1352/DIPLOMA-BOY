@@ -1,0 +1,239 @@
+{
+  "questions": [
+    {
+      "type": "case_based",
+      "outcome": "o6",
+      "bloom": "apply",
+      "case": [
+        "एक घर में तीन लाइट बल्ब क्रमशः 60 Ω, 40 Ω और 30 Ω प्रतिरोधक हैं। पहले दो बल्ब श्रेणीक्रम (series) में जुड़े हैं और उनका कुल प्रतिरोध R1 = 60 Ω + 40 Ω = 100 Ω है। यह संयोजन पार्श्वक्रम (parallel) में तीसरे बल्ब (30 Ω) के साथ जुड़ा है। यदि कुल विद्युत धारा (विद्युत धारा) स्रोत से 5 A है, तो प्रत्येक शाखा में धारा और कुल प्रतिरोध निकालें।",
+        "In a house three light bulbs have resistances 60 Ω, 40 Ω and 30 Ω. The first two are connected in series giving R1 = 60 Ω + 40 Ω = 100 Ω. This combination is in parallel with the third bulb (30 Ω). If the total current supplied by the source is 5 A, find the total resistance and the current in each branch."
+      ],
+      "q": [
+        "कुल प्रतिरोध (R_total) और प्रत्येक शाखा की धारा (I1, I2) क्या है?",
+        "What is the total resistance (R_total) and the current in each branch (I1, I2)?"
+      ],
+      "answer": [
+        "R_total ≈ 23.08 Ω, I1 ≈ 1.15 A (through 100 Ω), I2 ≈ 3.85 A (through 30 Ω)",
+        "R_total ≈ 23.08 Ω, I1 ≈ 1.15 A (through 100 Ω), I2 ≈ 3.85 A (through 30 Ω)"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 115.4, "unit": "V" },
+          { "symbol": "R1", "value": 100, "unit": "Ω" },
+          { "symbol": "R2", "value": 30, "unit": "Ω" }
+        ],
+        "formulas": ["parallel2", { "id": "ohm", "map": { "R": "R_total", "I": "I_total", "V": "V" } }],
+        "unknown": "I1",
+        "answer": { "value": 1.15, "unit": "A" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o8",
+      "bloom": "apply",
+      "case": [
+        "एक इलेक्ट्रिक हीटर का तंतु (फिलामेंट) प्रतिरोध 20 Ω है और इसे 230 V पर 10 min तक चलाया जाता है। हीटर के साथ 5 A की धारा सीमा वाला फ्यूज़ (फ्यूज़) जुड़ा है। (i) हीटर द्वारा उत्पन्न तापीय प्रभाव (H) की गणना करें, (ii) क्या फ्यूज़ उड़ेगा?",
+        "An electric heater has a filament resistance of 20 Ω and is operated at 230 V for 10 min. A fuse rated at 5 A is connected in series. (i) Calculate the heat produced (H) by the heater, (ii) state whether the fuse will blow."
+      ],
+      "q": [
+        "हीटर द्वारा उत्पन्न तापीय प्रभाव (H) कितना है और फ्यूज़ उड़ेगा या नहीं?",
+        "How much heat (H) is produced by the heater and will the fuse blow?"
+      ],
+      "answer": [
+        "I = 11.5 A, H = 1.59 × 10⁶ J, फ्यूज़ उड़ेगा क्योंकि I > 5 A",
+        "I = 11.5 A, H = 1.59 × 10⁶ J, the fuse will blow because I > 5 A"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 230, "unit": "V" },
+          { "symbol": "R", "value": 20, "unit": "Ω" },
+          { "symbol": "t", "value": 600, "unit": "s" }
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": { "value": 1.59e6, "unit": "J" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "case": [
+        "एक धातु की तार का V‑I ग्राफ नीचे दिया गया है। दो बिंदु (2 V, 0.5 A) और (8 V, 2 A) को मिलाकर ग्राफ की ढाल निकालें और प्रतिरोध निर्धारित करें।",
+        "The V‑I graph of a metal wire is shown. Using the two points (2 V, 0.5 A) and (8 V, 2 A), find the slope of the graph and determine the resistance."
+      ],
+      "q": [
+        "वोल्टेज‑धारा ग्राफ की ढाल क्या है और प्रतिरोध (R) कितना है?",
+        "What is the slope of the V‑I graph and the resistance (R)?"
+      ],
+      "answer": [
+        "ढाल = 4 V/A, इसलिए प्रतिरोध R = 4 Ω",
+        "Slope = 4 V/A, therefore resistance R = 4 Ω"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V1", "value": 2, "unit": "V" },
+          { "symbol": "I1", "value": 0.5, "unit": "A" },
+          { "symbol": "V2", "value": 8, "unit": "V" },
+          { "symbol": "I2", "value": 2, "unit": "A" }
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": { "value": 4, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": [
+        "एक तांबे की तार की लंबाई 2 m और अनुप्रस्थ काट 0.5 mm² है। इसका प्रतिरोध 0.034 Ω मापा गया है। प्रतिरोधकता (ρ) की गणना करें।",
+        "A copper wire has length 2 m and cross‑sectional area 0.5 mm². Its measured resistance is 0.034 Ω. Calculate the resistivity (ρ)."
+      ],
+      "q": [
+        "तांबे की प्रतिरोधकता (ρ) का मान क्या है?",
+        "What is the resistivity (ρ) of copper?"
+      ],
+      "answer": [
+        "ρ = 8.5 × 10⁻⁹ Ω·m",
+        "ρ = 8.5 × 10⁻⁹ Ω·m"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "R", "value": 0.034, "unit": "Ω" },
+          { "symbol": "L", "value": 2, "unit": "m" },
+          { "symbol": "A", "value": 5e-7, "unit": "m²" }
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "rho",
+        "answer": { "value": 8.5e-9, "unit": "Ω·m" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o9",
+      "bloom": "apply",
+      "case": [
+        "एक रेफ्रिजरेटर की शक्ति 150 W है और यह प्रतिदिन 8 घंटे चलाया जाता है। एक महीने (30 दिन) में इसका ऊर्जा उपभोग (kWh) और यदि प्रति kWh लागत ₹6 है तो कुल खर्च निकालें।",
+        "A refrigerator has a power rating of 150 W and runs 8 hours daily. Find its energy consumption in kWh for a 30‑day month and the total cost if electricity costs ₹6 per kWh."
+      ],
+      "q": [
+        "मासिक ऊर्जा उपभोग (kWh) और कुल खर्च (₹) क्या है?",
+        "What are the monthly energy consumption (kWh) and total cost (₹)?"
+      ],
+      "answer": [
+        "ऊर्जा = 36 kWh, लागत = ₹216",
+        "Energy = 36 kWh, Cost = ₹216"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "P", "value": 150, "unit": "W" },
+          { "symbol": "h_daily", "value": 8, "unit": "h" },
+          { "symbol": "days", "value": 30, "unit": "" },
+          { "symbol": "cost_per_kWh", "value": 6, "unit": "₹" }
+        ],
+        "formulas": ["energy_pt"],
+        "unknown": "E_month",
+        "answer": { "value": 36, "unit": "kWh" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "remember",
+      "q": [
+        "विद्युत धारा (electric current) की परिभाषा क्या है?",
+        "What is the definition of electric current?"
+      ],
+      "options": [
+        "विद्युत धारा वह प्रवाह है जिसमें आवेश (charge) प्रति इकाई समय में चालक (conductor) के माध्यम से गुजरता है।",
+        "विद्युत धारा वह शक्ति है जो विद्युत विभव (electric potential) में परिवर्तन लाती है।",
+        "विद्युत धारा वह ऊर्जा है जो तंतु (filament) को गर्म करती है।",
+        "विद्युत धारा वह प्रतिरोध (resistance) का माप है।"
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एमीटर (ammeter) का कार्य और परिपथ में सही जुड़ाव क्या है?",
+        "What is the function of an ammeter and how is it correctly connected in a circuit?"
+      ],
+      "options": [
+        "एमीटर धारा मापता है और इसे परिपथ में श्रेणीक्रम (series) में जोड़ा जाता है।",
+        "एमीटर वोल्टेज मापता है और इसे वोल्टमीटर की तरह समानांतर (parallel) में जोड़ा जाता है।",
+        "एमीटर प्रतिरोध मापता है और इसे शॉर्ट सर्किट में जोड़ा जाता है।",
+        "एमीटर ऊर्जा मापता है और इसे बैटरी के साथ सीधा जोड़ा जाता है।"
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        "निम्नलिखित में से कौन-सा कारक प्रतिरोध (resistance) को प्रभावित नहीं करता?",
+        "Which of the following does NOT affect resistance?"
+      ],
+      "options": [
+        "लंबाई (length)",
+        "अनुप्रस्थ काट (cross-sectional area)",
+        "तापमान (temperature)",
+        "रंग (color)"
+      ],
+      "answer_index": 3
+    },
+    {
+      "type": "mcq",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        "घरेलू परिपथ में श्रेणीक्रम (series) की तुलना में पार्श्वक्रम (parallel) के मुख्य लाभ क्या हैं?",
+        "What are the main advantages of parallel connections over series in domestic circuits?"
+      ],
+      "options": [
+        "यदि एक बल्ब जलता है तो सभी बल्ब बंद हो जाते हैं।",
+        "वोल्टेज सभी उपकरणों पर समान रहता है और प्रत्येक उपकरण स्वतंत्र रूप से काम कर सकता है।",
+        "कुल प्रतिरोध बढ़ता है जिससे कम धारा आती है।",
+        "केबल की लंबाई कम होती है।"
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "assertion": "ओम का नियम कहता है कि धारा (current) प्रतिरोध (resistance) के समानुपाती है।",
+      "reason": "यदि प्रतिरोध बढ़े तो धारा घटेगी, बशर्ते विभवांतर (potential difference) स्थिर रहे।",
+      "answer_index": 0
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "यदि 6 C आवेश 2 s में प्रवाहित होता है, तो विद्युत धारा (I) कितनी होगी?",
+        "If a charge of 6 C flows in 2 s, what is the electric current (I)?"
+      ],
+      "answer": [
+        "I = 3 A",
+        "I = 3 A"
+      ]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "230 V और 2 A की धारा के साथ कार्य किया गया विद्युत शक्ति (P) क्या है?",
+        "What is the electric power (P) when the voltage is 230 V and the current is 2 A?"
+      ],
+      "answer": [
+        "P = 460 W",
+        "P = 460 W"
+      ]
+    }
+  ]
+}

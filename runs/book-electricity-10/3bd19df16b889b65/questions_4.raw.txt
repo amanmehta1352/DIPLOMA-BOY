@@ -1,0 +1,324 @@
+{
+  "questions": [
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "विद्युत धारा (current) की गणना करने के लिये सूत्र I = Q/t है। यदि आवेश Q = 12 C और समय t = 4 s हो, तो धारा I की मात्रा क्या होगी?",
+        "To calculate electric current using I = Q/t, if charge Q = 12 C and time t = 4 s, what is the current I?"
+      ],
+      "options": [
+        ["3 ampere (A)", "3 ampere (A)"],
+        ["4 ampere (A)", "4 ampere (A)"],
+        ["2 ampere (A)", "2 ampere (A)"],
+        ["6 ampere (A)", "6 ampere (A)"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "Q", "value": 12, "unit": "C" },
+          { "symbol": "t", "value": 4, "unit": "s" }
+        ],
+        "formulas": ["charge"],
+        "unknown": "I",
+        "answer": { "value": 3, "unit": "A" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "remember",
+      "q": [
+        "विद्युत धारा (electric current) को परिभाषित करने वाला सही कथन कौन सा है?",
+        "Which statement correctly defines electric current?"
+      ],
+      "options": [
+        ["विद्युत धारा वह प्रवाह है जिसमें इलेक्ट्रॉन (electron) का गति प्रति सेकंड एक कूलॉम्ब (coulomb) आवेश ले जाता है।", "Electric current is the flow in which electrons move one coulomb of charge per second."],
+        ["विद्युत धारा वह शक्ति है जो बल्ब को रोशन करती है।", "Electric current is the power that lights a bulb."],
+        ["विद्युत धारा वह ऊर्जा है जो परिपथ में संग्रहीत होती है।", "Electric current is the energy stored in a circuit."],
+        ["विद्युत धारा वह विभवांतर है जो दो बिंदुओं के बीच मौजूद है।", "Electric current is the potential difference between two points."]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एमीटर (ammeter) को परिपथ (circuit) में किस प्रकार जोड़ना चाहिए?",
+        "How should an ammeter be connected in a circuit?"
+      ],
+      "options": [
+        ["धारा के प्रवाह के साथ श्रृंखला (series) में।", "In series with the flow of current."],
+        ["धारा के प्रवाह के साथ समानांतर (parallel) में।", "In parallel with the flow of current."],
+        ["वोल्टेज के साथ समानांतर में।", "In parallel with voltage."],
+        ["वोल्टेज के साथ श्रृंखला में।", "In series with voltage."]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "वोल्टमीटर (voltmeter) को परिपथ में किस प्रकार जोड़ना चाहिए?",
+        "How should a voltmeter be connected in a circuit?"
+      ],
+      "options": [
+        ["धारा के साथ समानांतर (parallel) में।", "In parallel with the current."],
+        ["धारा के साथ श्रृंखला (series) में।", "In series with the current."],
+        ["वोल्टेज के साथ समानांतर में।", "In parallel with voltage."],
+        ["वोल्टेज के साथ श्रृंखला में।", "In series with voltage."]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": [
+        "यदि V‑I ग्राफ की ढाल 5 Ω है, तो उस चालक का प्रतिरोध (resistance) क्या होगा?",
+        "If the slope of a V‑I graph is 5 Ω, what is the resistance of that conductor?"
+      ],
+      "options": [
+        ["5 Ω", "5 Ω"],
+        ["10 Ω", "10 Ω"],
+        ["0.2 Ω", "0.2 Ω"],
+        ["1 Ω", "1 Ω"]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o3",
+      "bloom": "apply",
+      "q": [
+        "वोल्टेज V = 24 V और धारा I = 3 A होने पर प्रतिरोध R की मान क्या होगी?",
+        "If voltage V = 24 V and current I = 3 A, what is the resistance R?"
+      ],
+      "options": [
+        ["8 Ω", "8 Ω"],
+        ["6 Ω", "6 Ω"],
+        ["12 Ω", "12 Ω"],
+        ["4 Ω", "4 Ω"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 24, "unit": "V" },
+          { "symbol": "I", "value": 3, "unit": "A" }
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": { "value": 8, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o4",
+      "bloom": "remember",
+      "q": [
+        "निम्नलिखित में से कौन-सा कारक प्रतिरोध (resistance) को प्रभावित नहीं करता?",
+        "Which of the following factors does NOT affect resistance?"
+      ],
+      "options": [
+        ["लंबाई (length)", "Length"],
+        ["अनुप्रस्थ काट (cross‑sectional area)", "Cross‑sectional area"],
+        ["ताप (temperature)", "Temperature"],
+        ["रंग (color)", "Color"]
+      ],
+      "answer_index": 3
+    },
+    {
+      "type": "mcq",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": [
+        "यदि प्रतिरोधकता (resistivity) ρ = 1.68×10⁻⁸ Ω·m, लंबाई L = 2 m और अनुप्रस्थ काट A = 1×10⁻⁶ m² हो, तो प्रतिरोध R की गणना करें।",
+        "Given resistivity ρ = 1.68×10⁻⁸ Ω·m, length L = 2 m and cross‑sectional area A = 1×10⁻⁶ m², calculate resistance R."
+      ],
+      "options": [
+        ["0.00336 Ω", "0.00336 Ω"],
+        ["0.0336 Ω", "0.0336 Ω"],
+        ["0.336 Ω", "0.336 Ω"],
+        ["3.36 Ω", "3.36 Ω"]
+      ],
+      "answer_index": 1,
+      "check": {
+        "givens": [
+          { "symbol": "rho", "value": 1.68e-8, "unit": "Ω·m" },
+          { "symbol": "L", "value": 2, "unit": "m" },
+          { "symbol": "A", "value": 1e-6, "unit": "m²" }
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": { "value": 0.0336, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "दो प्रतिरोधक 2 Ω और 3 Ω को श्रृंखला (series) में जोड़ते हैं। कुल प्रतिरोध Rs क्या होगा?",
+        "Two resistors 2 Ω and 3 Ω are connected in series. What is the total resistance Rs?"
+      ],
+      "options": [
+        ["5 Ω", "5 Ω"],
+        ["6 Ω", "6 Ω"],
+        ["1 Ω", "1 Ω"],
+        ["10 Ω", "10 Ω"]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "4 Ω और 12 Ω के दो प्रतिरोधकों को समानांतर (parallel) में जोड़ते हैं। कुल प्रतिरोध Rp क्या होगा?",
+        "Two resistors 4 Ω and 12 Ω are connected in parallel. What is the total resistance Rp?"
+      ],
+      "options": [
+        ["3 Ω", "3 Ω"],
+        ["6 Ω", "6 Ω"],
+        ["8 Ω", "8 Ω"],
+        ["12 Ω", "12 Ω"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "R1", "value": 4, "unit": "Ω" },
+          { "symbol": "R2", "value": 12, "unit": "Ω" }
+        ],
+        "formulas": ["parallel2"],
+        "unknown": "Rp",
+        "answer": { "value": 3, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        "घरेलू परिपथ में समानांतर (parallel) संयोजन का मुख्य लाभ क्या है?",
+        "What is the main advantage of parallel combination in domestic circuits?"
+      ],
+      "options": [
+        ["सभी उपकरणों पर समान विभवांतर (potential difference) मिलता है।", "All appliances receive the same potential difference."],
+        ["कुल प्रतिरोध बढ़ जाता है।", "Total resistance increases."],
+        ["धारा प्रत्येक उपकरण में समान रहती है।", "Current remains same in each appliance."],
+        ["सर्किट को बंद करना आसान होता है।", "It is easier to close the circuit."]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": [
+        "यदि धारा I = 2 A, प्रतिरोध R = 5 Ω और समय t = 10 s हो, तो उत्पन्न तापीय प्रभाव H की मात्रा क्या होगी?",
+        "If current I = 2 A, resistance R = 5 Ω and time t = 10 s, what is the heat H produced?"
+      ],
+      "options": [
+        ["200 J", "200 J"],
+        ["100 J", "100 J"],
+        ["50 J", "50 J"],
+        ["250 J", "250 J"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "I", "value": 2, "unit": "A" },
+          { "symbol": "R", "value": 5, "unit": "Ω" },
+          { "symbol": "t", "value": 10, "unit": "s" }
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": { "value": 200, "unit": "J" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o8",
+      "bloom": "understand",
+      "q": [
+        "फ़्यूज़ (fuse) का कार्य सिद्धांत क्या है?",
+        "What is the operating principle of a fuse?"
+      ],
+      "options": [
+        ["जब धारा बहुत अधिक हो तो तंतु (filament) गर्म होकर पिघल जाता है, जिससे परिपथ खुल जाता है।", "When current is excessive, the filament melts, opening the circuit."],
+        ["यह वोल्टेज को घटाता है।", "It reduces voltage."],
+        ["यह प्रतिरोध को बढ़ाता है।", "It increases resistance."],
+        ["यह धारा को बढ़ाता है।", "It increases current."]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "एक 60 W बल्ब 5 घंटे चलाया जाता है। इसका ऊर्जा उपभोग (kWh) कितना होगा?",
+        "A 60 W bulb runs for 5 hours. What is its energy consumption in kWh?"
+      ],
+      "options": [
+        ["0.3 kWh", "0.3 kWh"],
+        ["0.5 kWh", "0.5 kWh"],
+        ["1.0 kWh", "1.0 kWh"],
+        ["3.0 kWh", "3.0 kWh"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "P", "value": 60, "unit": "W" },
+          { "symbol": "t", "value": 5, "unit": "h" }
+        ],
+        "formulas": ["energy_pt"],
+        "unknown": "E",
+        "answer": { "value": 0.3, "unit": "kWh" }
+      }
+    },
+    {
+      "type": "true_false",
+      "outcome": "o3",
+      "bloom": "understand",
+      "q": [
+        "ओम का नियम सभी चालक (conductors) पर किसी भी तापमान में लागू होता है।",
+        "Ohm's law is valid for all conductors at any temperature."
+      ],
+      "answer": ["गलत (False)", "False"]
+    },
+    {
+      "type": "true_false",
+      "outcome": "o7",
+      "bloom": "understand",
+      "q": [
+        "समानांतर (parallel) परिपथ में कुल प्रतिरोध हमेशा सबसे बड़े व्यक्तिगत प्रतिरोध से अधिक होता है।",
+        "In a parallel circuit, the total resistance is always greater than the largest individual resistance."
+      ],
+      "answer": ["गलत (False)", "False"]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o4",
+      "bloom": "remember",
+      "q": [
+        "प्रतिरोध (resistance) लंबाई (लंबाई) के समानुपाती और अनुप्रस्थ काट (अनुप्रस्थ काट) के _______ (inversely proportional) है।",
+        "Resistance is directly proportional to length and inversely proportional to cross‑sectional area."
+      ],
+      "answer": ["लंबाई, अनुप्रस्थ काट", "length, cross‑sectional area"]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o9",
+      "bloom": "remember",
+      "q": [
+        "विद्युत शक्ति (electric power) का सूत्र है _______।",
+        "The formula for electric power is _______."
+      ],
+      "answer": ["P = V × I", "P = V × I"]
+    }
+  ]
+}

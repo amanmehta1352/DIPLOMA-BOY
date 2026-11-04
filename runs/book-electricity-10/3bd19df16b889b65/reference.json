@@ -1,0 +1,139 @@
+{
+ "outline": {
+  "subtopics": [
+   {
+    "scope_item": "Electric current, potential difference",
+    "points": [
+     "definition",
+     "unit",
+     "measurement devices",
+     "direction of flow",
+     "potential difference concept"
+    ]
+   },
+   {
+    "scope_item": "Ohm's law",
+    "points": [
+     "statement",
+     "mathematical form",
+     "graphical representation",
+     "validity limits"
+    ]
+   },
+   {
+    "scope_item": "Resistance, Resistivity, factors on which the resistance of a conductor depends",
+    "points": [
+     "definition of resistance",
+     "unit",
+     "definition of resistivity",
+     "temperature effect",
+     "length & area dependence",
+     "material dependence"
+    ]
+   },
+   {
+    "scope_item": "Series and parallel combination of resistors and their daily-life applications",
+    "points": [
+     "series rule",
+     "parallel rule",
+     "effective resistance formulas",
+     "current division",
+     "voltage division",
+     "real‑world examples"
+    ]
+   },
+   {
+    "scope_item": "Heating effect of electric current and its daily-life applications",
+    "points": [
+     "Joule’s law",
+     "heat produced expression",
+     "applications (iron, heater, fuse, bulb)",
+     "safety aspects"
+    ]
+   },
+   {
+    "scope_item": "Electric power, interrelation between P, V, I and R",
+    "points": [
+     "power definition",
+     "P = VI",
+     "P = I²R",
+     "P = V²/R",
+     "energy consumption (kWh)"
+    ]
+   }
+  ],
+  "formulas": [
+   "V = I × R",
+   "R = ρ × L / A",
+   "I = V / R",
+   "P = V × I",
+   "P = I² × R",
+   "P = V² / R",
+   "E = P × t"
+  ],
+  "example_types": [
+   "direct numerical problem",
+   "conceptual explanation",
+   "circuit diagram analysis",
+   "application‑based calculation",
+   "multiple‑choice question",
+   "fill‑in‑the‑blank"
+  ],
+  "misconceptions": [
+   "Current flows from low to high potential",
+   "Resistance is independent of temperature",
+   "Voltage is same across each resistor in series",
+   "Current is same through each branch in parallel",
+   "Power equals voltage plus current"
+  ],
+  "question_types": [
+   "short answer",
+   "long answer",
+   "numerical problem",
+   "multiple choice",
+   "match the column",
+   "label the circuit diagram",
+   "practical based"
+  ],
+  "activities": [
+   "Construct a simple series circuit with a bulb and battery",
+   "Measure resistance using a metre‑bridge (Wheatstone bridge)",
+   "Investigate heating effect with a coil and ammeter",
+   "Build series‑parallel resistor network and verify effective resistance",
+   "Demonstrate fuse operation by heating a thin wire",
+   "Calculate power consumption of an electric kettle"
+  ],
+  "ncert_sections": [
+   "12.1 Electric current and potential difference",
+   "12.2 Ohm’s law",
+   "12.3 Resistance, resistivity and factors affecting resistance",
+   "12.4 Series and parallel combination of resistors",
+   "12.5 Heating effect of electric current",
+   "12.6 Electric power",
+   "12.7 Summary"
+  ]
+ },
+ "sources": [
+  {
+   "title": "Class 10 Science Notes for Electricity (PDF) - Study Material",
+   "uri": "https://schools.aglasem.com/class-10-science-notes-electricity/"
+  },
+  {
+   "title": "Electricity Class 10th Notes - Free NCERT Class 10 Science Chapter 12 ...",
+   "uri": "https://school.careers360.com/ncert/ncert-class-10th-science-chapter-12-electricity-notes"
+  },
+  {
+   "title": "Electricity Class 10 - Solutions, Notes, Numericals, Formulas, MCQ",
+   "uri": "https://www.teachoo.com/subjects/science/class-10/chapter-12/"
+  },
+  {
+   "title": "NCERT Solutions for Class 10 Science Electricity - CBSE Free PDF Download",
+   "uri": "https://byjus.com/ncert-solutions-class-10-science-chapter-12-electricity/"
+  },
+  {
+   "title": "CBSE Class 10 Science Notes Electricity",
+   "uri": "https://noteswave.in/class-10-science-notes-electricity/"
+  }
+ ],
+ "note": "outline only; used as a topic guide, never as text"
+}

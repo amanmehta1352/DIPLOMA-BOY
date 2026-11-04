@@ -1,0 +1,143 @@
+{
+  "questions": [
+    {
+      "type": "case_based",
+      "outcome": "o1,o2",
+      "bloom": "apply",
+      "case": [
+        "एक घर में 240 V की सप्लाई से एक बल्ब जुड़ा है जिसकी प्रतिरोध (resistance) 20 Ω है। बल्ब पर 4800 J कार्य (work) किया गया जब 20 C आवेश (charge) प्रवाहित हुआ। यह पता करें कि बल्ब में प्रवाहित धारा (current) कितनी थी और इस कार्य के लिये विभवांतर (potential difference) कितना था।",
+        "In a house a bulb is connected to a 240 V supply and has a resistance of 20 Ω. The bulb does 4800 J of work while 20 C of charge passes through it. Find the current flowing through the bulb and the potential difference required for this work."
+      ],
+      "q": [
+        "विद्युत धारा (current) I = Q/t और विभवांतर (potential difference) V = W/Q के सूत्रों का प्रयोग करके धारा और विभवांतर निकालें।",
+        "Using I = Q/t and V = W/Q, calculate the current and the potential difference."
+      ],
+      "answer": [
+        "धारा I = 2 A और विभवांतर V = 240 V।",
+        "Current I = 2 A and potential difference V = 240 V."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "Q", "value": 20, "unit": "C" },
+          { "symbol": "t", "value": 10, "unit": "s" },
+          { "symbol": "W", "value": 4800, "unit": "J" }
+        ],
+        "formulas": ["charge", "pd_work"],
+        "unknown": "I",
+        "answer": { "value": 2, "unit": "A" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o3,o4",
+      "bloom": "analyze",
+      "case": [
+        "एक प्रयोगशाला में धातु के तंतु (conductor) पर विभिन्न धारा (current) के साथ विभवांतर (potential difference) मापा गया। प्राप्त डेटा इस प्रकार है: (V=2 V, I=0.5 A), (V=4 V, I=1 A), (V=6 V, I=1.5 A)। साथ ही तंतु की लंबाई (length) 1.2 m, अनुप्रस्थ काट (cross‑sectional area) 0.5 mm² और ताप (temperature) 25°C है।",
+        "In a laboratory, the voltage across a metal conductor was measured for different currents. The data obtained are: (V=2 V, I=0.5 A), (V=4 V, I=1 A), (V=6 V, I=1.5 A). The conductor has a length of 1.2 m, cross‑sectional area 0.5 mm² and temperature 25°C."
+      ],
+      "q": [
+        "V‑I ग्राफ का ढाल (slope) निकालें और प्रतिरोध (resistance) निर्धारित करें। फिर बताएं कि लंबाई, अनुप्रस्थ काट और ताप कैसे प्रतिरोध को प्रभावित करते हैं।",
+        "Find the slope of the V‑I graph and determine the resistance. Then explain how length, cross‑sectional area and temperature affect resistance."
+      ],
+      "answer": [
+        "ढाल = 4 Ω, इसलिए प्रतिरोध 4 Ω है। लंबाई बढ़ने से प्रतिरोध बढ़ता है, अनुप्रस्थ काट बढ़ने से प्रतिरोध घटता है, और ताप बढ़ने से सामान्यतः प्रतिरोध बढ़ता है।",
+        "Slope = 4 Ω, therefore resistance = 4 Ω. Increasing length increases resistance, increasing cross‑sectional area decreases resistance, and raising temperature generally increases resistance."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V1", "value": 2, "unit": "V" },
+          { "symbol": "I1", "value": 0.5, "unit": "A" },
+          { "symbol": "V2", "value": 4, "unit": "V" },
+          { "symbol": "I2", "value": 1, "unit": "A" }
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": { "value": 4, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5,o6",
+      "bloom": "apply",
+      "case": [
+        "एक तांबे (copper) का तंतु 2 m लंबा है और उसका अनुप्रस्थ काट 1 mm² (1×10⁻⁶ m²) है। तांबे की प्रतिरोधकता (resistivity) 1.68×10⁻⁸ Ω·m है। इस तंतु का प्रतिरोध (resistance) निकालें और फिर इसे 5 Ω के एक अन्य प्रतिरोधक (resistor) के साथ श्रेणीक्रम (series) में जोड़ें। कुल प्रतिरोध ज्ञात करें।",
+        "A copper wire is 2 m long with a cross‑sectional area of 1 mm² (1×10⁻⁶ m²). The resistivity of copper is 1.68×10⁻⁸ Ω·m. Find the resistance of this wire and then connect it in series with another resistor of 5 Ω. Determine the total resistance."
+      ],
+      "q": [
+        "R = ρ L/A का प्रयोग करके तंतु का प्रतिरोध निकालें और फिर श्रेणीक्रम में कुल प्रतिरोध ज्ञात करें।",
+        "Use R = ρ L/A to find the wire resistance and then calculate the total series resistance."
+      ],
+      "answer": [
+        "तंतु का प्रतिरोध ≈ 0.0336 Ω, कुल प्रतिरोध ≈ 5.0336 Ω।",
+        "Wire resistance ≈ 0.0336 Ω, total series resistance ≈ 5.0336 Ω."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "rho", "value": 1.68e-8, "unit": "Ω·m" },
+          { "symbol": "L", "value": 2, "unit": "m" },
+          { "symbol": "A", "value": 1e-6, "unit": "m²" },
+          { "symbol": "R2", "value": 5, "unit": "Ω" }
+        ],
+        "formulas": ["resistivity", "series2"],
+        "unknown": "Rs",
+        "answer": { "value": 5.0336, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o7,o8",
+      "bloom": "evaluate",
+      "case": [
+        "एक घर में 230 V की सप्लाई पर 1500 W का हीटर चलाया जाता है। हीटर का तंतु (filament) प्रतिरोध 30 Ω है और फ्यूज़ (fuse) 5 A पर कट जाता है। यदि हीटर 10 मिनट तक चलाया जाता है, तो तंतु में उत्पन्न तापीय प्रभाव (heat) की मात्रा (जूल में) निकालें और बताएं कि फ्यूज़ क्यों कटेगा।",
+        "In a house a 1500 W heater is operated on a 230 V supply. The heater filament has a resistance of 30 Ω and the fuse blows at 5 A. If the heater runs for 10 minutes, calculate the heat produced in the filament (in joules) and explain why the fuse will blow."
+      ],
+      "q": [
+        "जूल के नियम H = I² R t का प्रयोग करके उत्पन्न तापीय प्रभाव निकालें और फ्यूज़ के कटने का कारण बताएं।",
+        "Use H = I² R t to calculate the heat produced and explain why the fuse blows."
+      ],
+      "answer": [
+        "धारा I = 230/30 ≈ 7.67 A, H = (7.67)² × 30 × 600 ≈ 1.06×10⁶ J। फ्यूज़ 5 A पर कटता है, इसलिए वास्तविक धारा इससे अधिक होने पर फ्यूज़ तुरंत कट जाएगा।",
+        "Current I ≈ 7.67 A, H ≈ 1.06×10⁶ J. The fuse is rated at 5 A, so the actual current exceeds this value and the fuse will blow instantly."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 230, "unit": "V" },
+          { "symbol": "R", "value": 30, "unit": "Ω" },
+          { "symbol": "t", "value": 600, "unit": "s" }
+        ],
+        "formulas": ["ohm", "joule_heat"],
+        "unknown": "H",
+        "answer": { "value": 1.06e6, "unit": "J" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o9",
+      "bloom": "apply",
+      "case": [
+        "एक रेफ्रिजरेटर 150 W की शक्ति (power) पर 230 V की सप्लाई से 24 घंटे प्रतिदिन चलता है। बिजली की दर 6 रुपये/kWh है। महीने (30 दिन) में इस रेफ्रिजरेटर द्वारा खपत की गई ऊर्जा (energy) और उसका खर्च (cost) निकालें। साथ ही, P = V I का प्रयोग करके रेफ्रिजरेटर की धारा (current) भी ज्ञात करें।",
+        "A refrigerator operates at 150 W on a 230 V supply for 24 hours each day. The electricity rate is 6 Rs/kWh. Calculate the energy consumed by the refrigerator in a month (30 days) and its cost. Also determine the current using P = V I."
+      ],
+      "q": [
+        "ऊर्जा E = P t (जूल) निकालें, फिर kWh में बदलें और लागत निकालें। साथ ही I = P/V से धारा ज्ञात करें।",
+        "Find energy E = P t (in joules), convert to kWh and compute cost. Also find current using I = P/V."
+      ],
+      "answer": [
+        "दैनिक ऊर्जा = 150 W × 86400 s = 1.296×10⁷ J = 3.6 kWh। मासिक ऊर्जा = 3.6 kWh × 30 = 108 kWh। लागत = 108 kWh × 6 Rs/kWh = 648 Rs। धारा I = 150 W / 230 V ≈ 0.65 A।",
+        "Daily energy = 150 W × 86400 s = 1.296×10⁷ J = 3.6 kWh. Monthly energy = 3.6 kWh × 30 = 108 kWh. Cost = 108 kWh × 6 Rs/kWh = 648 Rs. Current I ≈ 0.65 A."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "P", "value": 150, "unit": "W" },
+          { "symbol": "V", "value": 230, "unit": "V" },
+          { "symbol": "t_day", "value": 86400, "unit": "s" },
+          { "symbol": "days", "value": 30, "unit": "" },
+          { "symbol": "rate", "value": 6, "unit": "Rs/kWh" }
+        ],
+        "formulas": ["energy_pt", "power_vi"],
+        "unknown": "cost",
+        "answer": { "value": 648, "unit": "Rs" }
+      }
+    }
+  ]
+}
