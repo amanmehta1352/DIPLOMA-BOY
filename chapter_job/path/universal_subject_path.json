@@ -1,0 +1,193 @@
+{
+ "name": "Universal Subject Path",
+ "version": "path.v2",
+ "chain": [
+  "Subject",
+  "Unit",
+  "Chapter",
+  "Learning Outcome",
+  "Section",
+  "Content Block",
+  "Formula",
+  "Question",
+  "Assessment"
+ ],
+ "master_formula": "Syllabus -> Outcome -> Assessment -> Content -> Presentation -> Practice -> Revision -> Final",
+ "presentation_formula": "Hook -> Outcome -> Concept -> Visual -> Formula/Rule -> Example -> Practice -> Assessment -> Revision",
+ "steps": [
+  {
+   "n": 1,
+   "name": "Syllabus Analysis",
+   "stage": "resolve"
+  },
+  {
+   "n": 2,
+   "name": "Class/Level Fix",
+   "stage": "resolve"
+  },
+  {
+   "n": 3,
+   "name": "Learning Outcomes",
+   "stage": "outcomes"
+  },
+  {
+   "n": 4,
+   "name": "Assessment Planning",
+   "stage": "blueprint"
+  },
+  {
+   "n": 5,
+   "name": "Topic Sequence",
+   "stage": "plan"
+  },
+  {
+   "n": 6,
+   "name": "Reference Research",
+   "stage": "reference"
+  },
+  {
+   "n": 7,
+   "name": "Concept Writing",
+   "stage": "concepts"
+  },
+  {
+   "n": 8,
+   "name": "Presentation Design",
+   "stage": "teach,hinglish,demo"
+  },
+  {
+   "n": 9,
+   "name": "Practice Questions (basic to HOTS)",
+   "stage": "extras,questions"
+  },
+  {
+   "n": 10,
+   "name": "Revision Material",
+   "stage": "extras"
+  },
+  {
+   "n": 11,
+   "name": "Review/Proof",
+   "stage": "checks"
+  },
+  {
+   "n": 12,
+   "name": "Final Chapter",
+   "stage": "package"
+  }
+ ],
+ "bloom": [
+  "remember",
+  "understand",
+  "apply",
+  "analyze",
+  "evaluate",
+  "create"
+ ],
+ "question_types": [
+  "mcq",
+  "true_false",
+  "fill_blank",
+  "vsa",
+  "sa",
+  "la",
+  "numerical",
+  "assertion_reason",
+  "case_based",
+  "hots"
+ ],
+ "question_groups": [
+  [
+   "mcq",
+   "true_false",
+   "fill_blank"
+  ],
+  [
+   "assertion_reason",
+   "case_based",
+   "hots"
+  ],
+  [
+   "numerical",
+   "vsa"
+  ],
+  [
+   "sa",
+   "la"
+  ]
+ ],
+ "blueprint": {
+  "default": {
+   "mcq": 12,
+   "true_false": 4,
+   "fill_blank": 4,
+   "vsa": 4,
+   "sa": 4,
+   "la": 2,
+   "numerical": 6,
+   "assertion_reason": 4,
+   "case_based": 2,
+   "hots": 4
+  },
+  "min_bloom_levels": 4,
+  "class_9_10": {
+   "mcq": 14,
+   "assertion_reason": 4,
+   "fill_blank": 2,
+   "true_false": 2,
+   "vsa": 7,
+   "sa": 10,
+   "case_based": 5,
+   "la": 4,
+   "numerical": 6,
+   "hots": 4
+  },
+  "source": "class_9_10: CBSE Class 10 Science question paper design 2026-27 (no change from 2025-26; 20x1 incl. A-R, 6x2, 7x3, 3x4 case-based, 3x5) scaled to a chapter bank"
+ },
+ "bloom_bands": {
+  "groups": {
+   "knowledge_understanding": [
+    "remember",
+    "understand"
+   ],
+   "application": [
+    "apply"
+   ],
+   "higher_order": [
+    "analyze",
+    "evaluate",
+    "create"
+   ]
+  },
+  "target": {
+   "knowledge_understanding": 0.5,
+   "application": 0.3,
+   "higher_order": 0.2
+  },
+  "min": {
+   "knowledge_understanding": 0.4,
+   "application": 0.2,
+   "higher_order": 0.15
+  },
+  "source": "CBSE 2026-27 Science design: 50% knowledge/understanding, 30% application, 20% analyse/evaluate/create"
+ },
+ "competency": {
+  "types": [
+   "case_based",
+   "assertion_reason",
+   "hots",
+   "numerical"
+  ],
+  "bloom": [
+   "apply",
+   "analyze",
+   "evaluate",
+   "create"
+  ],
+  "min": 0.5
+ },
+ "copyright": {
+  "max_run_words": 8,
+  "overlap_max": 0.2
+ }
+}
