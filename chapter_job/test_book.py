@@ -24,7 +24,7 @@ class Smart(Mock):
         super().__init__(**k); self.bad = bad or {}; self.n = {}
     def write(self, prompt, avoid=()):
         self.calls.append('write'); self.last_prompt = prompt
-        stage = ('pairs' if 'Fix each [Hindi, English] text pair' in prompt else 'qfix' if 'Rewrite these Class 10' in prompt else 'outcomes' if 'Write learning outcomes' in prompt else 'questions' if 'Write the question bank' in prompt else 'plan' if 'Plan one chapter' in prompt else 'concepts' if 'note panels' in prompt else 'extras' if '5 solved numericals' in prompt
+        stage = ('tfix' if 'has a wrong JSON shape' in prompt else 'pairs' if 'Fix each [Hindi, English] text pair' in prompt else 'qfix' if 'Rewrite these Class 10' in prompt else 'outcomes' if 'Write learning outcomes' in prompt else 'questions' if 'Write the question bank' in prompt else 'plan' if 'Plan one chapter' in prompt else 'concepts' if 'note panels' in prompt else 'extras' if '5 solved numericals' in prompt
                  else 'teach' if 'friendly teacher' in prompt else 'hinglish' if 'Hinglish' in prompt else 'demo')
         self.n[stage] = self.n.get(stage, 0) + 1
         if stage in self.bad and self.n[stage] <= self.bad[stage][0]:
@@ -83,6 +83,9 @@ class Smart(Mock):
             hi = re.sub(r'\d+(?:\.\d+)?', '', hi) + ' ' + ' '.join(sorted(set(re.findall(r'\d+(?:\.\d+)?', en))))
             out.append([hi.strip(), en])
         return {'pairs': out}
+    def a_tfix(self, p):
+        return {'table': {'head': [['पदार्थ', 'Material'], ['प्रतिरोधकता (Ω m)', 'Resistivity (Ω m)']],
+                          'rows': [[['चालक', 'Conductor'], ['1.68 × 10^-8', '1.68 × 10^-8']], [['विद्युतरोधी', 'Insulator'], ['10^10', '10^10']]]}}
     def a_qfix(self, p):
         qs = [json.loads(m) for m in re.findall(r'^Question \d+: (\{.*\})$', p, re.M)]; whys = re.findall(r'^Why: (.*)$', p, re.M)
         for q, w in zip(qs, whys):
@@ -637,6 +640,124 @@ def _(d):
             o = super().a_pairs(p); o['pairs'] = [[h, e.replace(src2, 'zephyr quokka lantern cobalt')] for h, e in o['pairs']]; return o
     P = Two(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=fp); j = jd(out)
     assert out['final_state'] == 'review_ready' and len(j['correction_rounds']) == 1 and j['pairs_rewritten'] >= 2, (out, j.get('correction_rounds'), j['issues'][-1:])
+
+
+@case('B49 run-12 gap: a question rewrite that brings in a copied 14-word textbook sentence is REJECTED by code (question stays, issue logged)')
+def _(d):
+    w = COPY_SRC.split(); hs = [J.hashlib.sha256(' '.join(w[i:i + 3]).encode()).hexdigest()[:16] for i in range(len(w) - 2)]
+    fp = os.path.join(d, 'fp'); os.makedirs(fp)
+    for lang in ('en', 'hi'): json.dump({'hashes': hs, 'lang': lang, 'files': ['x']}, open(os.path.join(fp, lang + '.json'), 'w'))
+    def blind(items): return [x['answer'] if i else (x['answer'] + 1) % 4 for i, x in enumerate(items)]
+    class CopyFix(Smart):
+        def a_qfix(self, p):
+            o = super().a_qfix(p); o['questions'][0]['q'] = ['सुधरा प्रश्न', 'FIXED ' + COPY_SRC]; return o
+    P = CopyFix(); P.solve_num_fn = solver; P.solve_all_fn = blind; out = B.run(CMD, P, reference_dir=fp); j = jd(out)
+    bank = json.load(open(os.path.join(out['dir'], 'questions.json')))
+    assert COPY_SRC not in json.dumps(bank) and any(i['kind'] == 'correction_rejected' for i in j['issues']) and out['final_state'] == 'needs_review', (out, j['issues'][-2:])
+
+
+@case('B50 run-12 gap: calculated mcq (options are numbers) with no check -> problem + rewrite; a rewrite whose key the code rejects (0.0168 for 0.00168) is not accepted')
+def _(d):
+    calc = {'type': 'mcq', 'outcome': 'o1', 'bloom': 'apply', 'q': ['ρ = 1.68 × 10^-8 Ω·m, L = 10 m, A = 1 × 10^-4 m², R?', 'rho = 1.68 × 10^-8 Ω·m, L = 10 m, A = 1 × 10^-4 m². Find R.'],
+            'options': [['0.0168 Ω', '0.0168 Ω'], ['1.68 Ω', '1.68 Ω'], ['16.8 Ω', '16.8 Ω'], ['168 Ω', '168 Ω']], 'answer_index': 0}
+    assert B.calc_mcq(calc) and not B.calc_mcq({**calc, 'options': [['क', 'a'], ['ख', 'b'], ['ग', 'c'], ['घ', 'd']]})
+    wrong = {**calc, 'check': {'givens': [{'symbol': 'rho', 'value': 1.68e-8, 'unit': 'ohm m'}, {'symbol': 'L', 'value': 10, 'unit': 'm'}, {'symbol': 'A', 'value': 1e-4, 'unit': 'm^2'}],
+                               'formulas': ['resistivity'], 'unknown': 'R', 'answer': {'value': 0.0168, 'unit': 'Ω'}}}
+    assert not B.question_ok_after(wrong, None)
+    right = {**wrong, 'options': [['0.00168 Ω', '0.00168 Ω'], ['0.0168 Ω', '0.0168 Ω'], ['1.68 Ω', '1.68 Ω'], ['16.8 Ω', '16.8 Ω']]}
+    assert B.question_ok_after(right, None)
+    class Calc(Smart):
+        def a_questions(self, p):
+            o = super().a_questions(p)
+            if 'mcq' in p.split('per type: ')[1][:80]:
+                i = next(k for k, q in enumerate(o['questions']) if q['type'] == 'mcq'); o['questions'][i] = {**calc, 'outcome': o['questions'][i]['outcome']}
+            return o
+        def a_qfix(self, p): return {'questions': [right]}
+    P = Calc(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); j = jd(out)
+    assert any('calculated options but no code check' in x for x in j['correction_rounds'][0]['problems']), j['correction_rounds'][0]['problems']
+    assert out['final_state'] == 'review_ready', (out, j['issues'][-2:])
+
+
+@case('B51 run-12 gap: Hindi teaching text changed but the Hinglish refresh crashes -> sections marked stale -> needs_review (never silently old Hinglish)')
+def _(d):
+    class Mis(Smart):
+        def a_teach(self, p):
+            o = super().a_teach(p)
+            if 'Start' in p.split('Lessons: ')[1][:300]: o['teach'][0]['paras'][0] = [W + ' 5 ओम', E + ' 7 ohm']
+            return o
+        def a_hinglish(self, p):
+            self.hn = getattr(self, 'hn', 0) + 1
+            if self.hn > 3: raise ValueError('broken reply')          # the first 3 normal batches are fine; every refresh reply is broken
+            return super().a_hinglish(p)
+    P = Mis(); P.solve_num_fn = solver
+    out = B.run(CMD, P, reference_dir=FP); j = jd(out); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
+    assert out['final_state'] == 'needs_review' and j.get('hinglish_stale') and any('hinglish not refreshed' in x for x in chk['problems']), (out, j.get('hinglish_stale'), chk['problems'])
+
+
+BAD_TABLE = {'head': [['सामग्री का प्रकार', 'प्रतिरोधकता का मान (Ω m)']], 'rows': [[['चालक (conductor)', '1.68 × 10^-8'], ['विद्युतरोधी (insulator)', '10^10']]]}
+
+
+@case('B52 run-12 table shapes (Hindi-only head, [label, number] cells, 4-string cells) are detected; a good rewrite keeping every value is accepted, one losing a value is not')
+def _(d):
+    assert B.table_problems([{'key': 'c6', 'table': BAD_TABLE}, {'key': 'c3', 'table': {'head': [['उपकरण (Instrument)', 'परिपथ', 'प्रतिरोध', 'इकाई']], 'rows': [[['एमीटर', 'श्रृंखला', 'कम', 'A']]]}},
+                             {'key': 'ok', 'table': {'head': [['पदार्थ', 'Material'], ['मान', 'Value']], 'rows': [[['चालक', 'Conductor'], ['1.68', '1.68']]]}}]) == ['c6', 'c3']
+    good = Smart().a_tfix('')['table']
+    assert B.table_ok_after(BAD_TABLE, good)
+    lost = json.loads(json.dumps(good)); lost['rows'] = lost['rows'][1:]
+    assert not B.table_ok_after(BAD_TABLE, lost)
+
+
+def finished_job(d, bad_table=False, bad_q=None):
+    class S(Smart):
+        def a_concepts(self, p):
+            o = super().a_concepts(p)
+            if bad_table: o['concepts'][0]['table'] = BAD_TABLE
+            return o
+    P = S(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); return out, P
+
+
+@case('B53 repair run: finished job + scope {questions, tables} + stale Hinglish -> no stage regenerated; only the table, the listed question and the stale sections change -> review_ready')
+def _(d):
+    out, _ = finished_job(d)
+    dirp = out['dir']; cs = json.load(open(os.path.join(dirp, 'concepts.json'))); cs[0]['table'] = BAD_TABLE      # state like run 12: broken table saved
+    json.dump(cs, open(os.path.join(dirp, 'concepts.json'), 'w'), ensure_ascii=False)
+    before = {f: open(os.path.join(dirp, f), encoding='utf-8').read() for f in ('plan.json', 'extras.json', 'teach.json', 'outcomes.json', 'demo.json')}
+    jj = json.load(open(os.path.join(dirp, 'job.json'))); jj['hinglish_stale'] = [0, 3]; json.dump(jj, open(os.path.join(dirp, 'job.json'), 'w'))
+    hg0 = json.load(open(os.path.join(dirp, 'hinglish.json'))); bank0 = json.load(open(os.path.join(dirp, 'questions.json')))
+    def blind(items): return [x['answer'] if (i or 'FIXED' in x['q']) else (x['answer'] + 1) % 4 for i, x in enumerate(items)]
+    P = Smart(); P.solve_num_fn = solver; P.solve_all_fn = blind
+    out2 = B.run(CMD, P, retry=True, reference_dir=FP, repair={'questions': [1], 'tables': ['c0']}); j = jd(out2)
+    assert out2['final_state'] == 'review_ready', (out2, j['issues'][-2:])
+    for f, s in before.items(): assert open(os.path.join(dirp, f), encoding='utf-8').read() == s, f + ' changed'
+    for st in ('outcomes', 'plan', 'concepts', 'extras', 'questions', 'teach', 'demo'): assert P.n.get(st, 0) == 0, (st, P.n)
+    assert P.n.get('hinglish') == 1 and P.n.get('tfix') == 1 and P.n.get('qfix') == 1, P.n
+    hg = json.load(open(os.path.join(dirp, 'hinglish.json'))); bank = json.load(open(os.path.join(dirp, 'questions.json')))
+    assert [i for i, (a, b) in enumerate(zip(hg0, hg)) if a != b] in ([], [0, 3]) and not j.get('hinglish_stale'), j.get('hinglish_stale')
+    assert [i for i, (a, b) in enumerate(zip(bank0, bank)) if a != b] == [0] and bank[0]['bloom'] == bank0[0]['bloom'], [i for i, (a, b) in enumerate(zip(bank0, bank)) if a != b]
+    assert j['correction_rounds_before_repair'] is not None and j['repair_scope'] == {'questions': [1], 'tables': ['c0']}, j.get('correction_rounds_before_repair')
+
+
+@case('B54 repair run: a question outside the scope that fails the blind solver is NOT rewritten -> needs_review naming it; job with an unfinished stage -> blocked, nothing written')
+def _(d):
+    out, _ = finished_job(d)
+    def blind(items): return [x['answer'] if i != 2 else (x['answer'] + 1) % 4 for i, x in enumerate(items)]
+    P = Smart(); P.solve_num_fn = solver; P.solve_all_fn = blind
+    out2 = B.run(CMD, P, retry=True, reference_dir=FP, repair={'questions': [1]}); j = jd(out2)
+    assert out2['final_state'] == 'needs_review' and P.n.get('qfix', 0) == 0 and 'answer-blind' in j['issues'][-1]['detail'], (out2, P.n)
+    jj = json.load(open(os.path.join(out['dir'], 'job.json'))); jj['stages']['teach']['status'] = 'failed'; jj['final_state'] = 'failed'
+    json.dump(jj, open(os.path.join(out['dir'], 'job.json'), 'w'))
+    P2 = Smart(); out3 = B.run(CMD, P2, retry=True, reference_dir=FP, repair={'questions': [1]})
+    assert out3['final_state'] == 'blocked' and 'teach' in out3['reason'] and not P2.calls, (out3, P2.calls)
+
+
+@case('B55 broken table and a fixer that keeps it broken -> needs_review naming the table (never shipped silently)')
+def _(d):
+    class Keep(Smart):
+        def a_concepts(self, p):
+            o = super().a_concepts(p); o['concepts'][0]['table'] = BAD_TABLE; return o
+        def a_tfix(self, p): return {'table': BAD_TABLE}
+    P = Keep(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
+    assert out['final_state'] == 'needs_review' and any('concept c0: table has a wrong shape' in x for x in chk['problems']), chk['problems']
 
 
 @case('B27 end to end: first question batch has repeated MCQ options -> that batch is rewritten with the lint reasons')

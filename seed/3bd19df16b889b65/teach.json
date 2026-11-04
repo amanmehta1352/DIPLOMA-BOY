@@ -7,7 +7,7 @@
   ],
   "paras": [
    [
-    "विद्युत ऊर्जा हमारे जीवन में बहुत महत्त्वपूर्ण भूमिका निभाती है। यह हमारे घरों में प्रकाश व्यवस्था के लिए बल्ब जलाती है, हमारे फ्रिज को चलती रखती है, और हमारे मोबाइल फोन को चार्ज करती है।",
+    "विद्युत ऊर्जा हमारे जीवन में बहुत महत्त्वपूर्ण भूमिका निभाती है। यह हमारे घरों में प्रकाश व्यवस्था के लिए बल्ब जलाती है, हमारे फ्रिज को चलती रखती है, और हमारे मोबाइल फोन को आवेश देती है।",
     "Electrical energy plays a vital role in our lives. It powers the lights in our homes, keeps our refrigerators running, and charges our mobile phones."
    ],
    [
@@ -26,7 +26,7 @@
     "Think of it like this"
    ],
    "text": [
-    "विद्युत ऊर्जा को समझने के लिए एक उदाहरण लेते हैं। जब आप अपने मोबाइल फोन को चार्ज करते हैं, तो विद्युत ऊर्जा आपके फोन में जाती है और इसे चलाने के लिए उपयोग की जाती है।",
+    "विद्युत ऊर्जा को समझने के लिए एक उदाहरण लेते हैं। जब आप अपने मोबाइल फोन को आवेशित करते हैं, तो विद्युत ऊर्जा आपके फोन में जाती है और इसे चलाने के लिए उपयोग की जाती है।",
     "Let's take an example to understand electrical energy. When you charge your mobile phone, electrical energy flows into your phone and is used to power it."
    ]
   }
@@ -43,8 +43,8 @@
     "Electric charge is the amount of electrons. It can be positive or negative. When two objects come into contact with each other, they can transfer electrons from one to the other."
    ],
    [
-    "विद्युत धारा इलेक्ट्रॉनों की गति है। यह एक **चालक** से होकर गुजरती है। विद्युत धारा को मापने के लिए हम **एमीटर** का उपयोग करते हैं।",
-    "Electric current is the flow of electrons. It flows through a **conductor**. We use an **ammeter** to measure electric current."
+    "विद्युत धारा इलेक्ट्रॉनों की गति है, जो एक **चालक** से होकर गुजरती है। हम इसकी माप के लिए **एमीटर** का उपयोग करते हैं।",
+    "Electric current is the flow of electrons, which flows through a **conductor**. We use an **ammeter** to measure it."
    ],
    [
     "विद्युत धारा की इकाई एम्पियर है। विद्युत धारा को Q/t से व्यक्त किया जा सकता है, जहां Q आवेश है और t समय है।",
@@ -75,8 +75,8 @@
     "Electric potential measures the strength of the electric field at a point. It can be measured using a **voltmeter**."
    ],
    [
-    "विभवांतर दो बिंदुओं के बीच विद्युत विभव का अंतर है। यह विद्युत धारा के प्रवाह के लिए जिम्मेदार है।",
-    "Potential difference is the difference in electric potential between two points. It is responsible for the flow of electric current."
+    "विभवांतर दो बिंदुओं के बीच विद्युत विभव का अंतर है, जो विद्युत धारा के प्रवाह को नियंत्रित करता है।",
+    "Potential difference is the difference in electric potential between two points, which controls the flow of electric current."
    ],
    [
     "विभवांतर की इकाई वोल्ट है। विभवांतर को V = W/q से व्यक्त किया जा सकता है, जहां V विभवांतर है, W कार्य है, और q आवेश है।",
@@ -90,8 +90,8 @@
     "Think of it like this"
    ],
    "text": [
-    "एक उदाहरण लेते हैं। जब आप एक बैटरी से एक बल्ब को जलाते हैं, तो विभवांतर बैटरी और बल्ब के बीच होता है और विद्युत धारा को प्रवाहित करने के लिए जिम्मेदार है।",
-    "Let's take an example. When you connect a battery to a light bulb, the potential difference is between the battery and the bulb and is responsible for the flow of electric current."
+    "एक उदाहरण के रूप में, जब आप एक बैटरी से एक बल्ब को जलाते हैं, तो बैटरी और बल्ब के बीच विभवांतर विद्युत धारा के प्रवाह को संभव बनाता है।",
+    "For instance, when you connect a battery to a light bulb, the potential difference between the battery and the bulb enables the flow of electric current."
    ]
   }
  },
@@ -255,8 +255,8 @@
   ],
   "paras": [
    [
-    "जब दो या दो से अधिक **प्रतिरोधक** [resistor] श्रेणीक्रम में जुड़े होते हैं, तो उनका कुल **प्रतिरोध** [resistance] अलग-अलग **प्रतिरोधक** [resistor] के **प्रतिरोध** [resistance] के योग के बराबर होता है।",
-    "When two or more **resistors** are connected in series, their total **resistance** is equal to the sum of the individual **resistor** resistances."
+    "दो या दो से अधिक **प्रतिरोधक** [resistor] जब श्रेणीक्रम में जुड़े होते हैं, तो उनका कुल **प्रतिरोध** [resistance] व्यक्तिगत **प्रतिरोधक** [resistor] के **प्रतिरोध** [resistance] के योग के बराबर होता है।",
+    "When two or more **resistors** are connected in series, their total **resistance** equals the sum of the individual **resistor** resistances."
    ],
    [
     "श्रेणीक्रम संयोजन में, **विद्युत धारा** [electric current] सभी **प्रतिरोधक** [resistor] में समान होती है, लेकिन **विभवांतर** [potential difference] अलग-अलग **प्रतिरोधक** [resistor] में विभिन्न हो सकता है।",
@@ -307,8 +307,8 @@
     "The parallel combination of resistors is used in electric circuits where different devices need to be operated at different potential differences."
    ],
    [
-    "उदाहरण के लिए, एक घरेलू विद्युत परिपथ में प्रतिरोधकों का पार्श्वक्रम संयोजन उपयोग किया जा सकता है ताकि प्रत्येक उपकरण को उसके अनुसार विभवांतर मिल सके।",
-    "For example, in a domestic electric circuit, the parallel combination of resistors can be used so that each device gets its required potential difference."
+    "एक घरेलू विद्युत परिपथ में, प्रतिरोधकों का पार्श्वक्रम संयोजन इस तरह से किया जा सकता है कि प्रत्येक उपकरण को उसके अनुसार विभवांतर प्राप्त हो।",
+    "In a domestic electric circuit, resistors can be combined in parallel so that each device receives its required potential difference."
    ],
    [
     "इस प्रकार, प्रतिरोधकों का पार्श्वक्रम संयोजन विद्युत परिपथों में बहुत उपयोगी होता है।",
@@ -323,7 +323,7 @@
    ],
    "text": [
     "मान लीजिए कि आपके पास दो प्रतिरोधक हैं - एक 2 ओम और दूसरा 3 ओम। यदि आप इन्हें पार्श्वक्रम में जोड़ते हैं, तो परिपथ का कुल प्रतिरोध क्या होगा?",
-    "Suppose you have two resistors - one 2 ohm and the other 3 ohm. If you connect them in parallel, what will be the total resistance of the circuit?"
+    "Suppose you have two resistors - one 2 ohm and the other 3 ohm. If you connect them in parallel, what is the total circuit resistance?"
    ]
   }
  },
@@ -375,19 +375,19 @@
   ],
   "paras": [
    [
-    "विद्युत धारा का तापीय प्रभाव यह है कि जब विद्युत धारा किसी चालक में प्रवाहित होती है, तो वह चालक गर्म हो जाता है।",
-    "The heating effect of electric current is that when electric current flows through a conductor, it gets heated."
+    "विद्युत धारा का तापीय प्रभाव यह है कि जब यह किसी चालक में प्रवाहित होती है, तो चालक का तापमान बढ़ जाता है।",
+    "The heating effect of electric current is that it increases the temperature of the conductor it flows through."
    ],
    [
     "यह तापीय प्रभाव विद्युत ऊर्जा के रूपांतरण के कारण होता है, जिसमें विद्युत ऊर्जा ताप ऊर्जा में परिवर्तित हो जाती है।",
     "This heating effect occurs due to the conversion of electric energy into heat energy."
    ],
    [
-    "जूल का नियम यह कहता है कि किसी चालक में विद्युत धारा के प्रवाह के कारण उत्पन्न होने वाली ताप ऊर्जा विद्युत धारा के वर्ग और चालक के प्रतिरोध के गुणनफल के समानुपाती होती है।",
-    "Joule's law states that the heat energy produced in a conductor due to the flow of electric current is proportional to the square of the electric current and the resistance of the conductor."
+    "जूल का नियम कहता है कि किसी चालक में उत्पन्न होने वाली ताप ऊर्जा विद्युत धारा के वर्ग और चालक के प्रतिरोध के गुणनफल के समानुपाती होती है।",
+    "Joule's law states that the heat energy generated in a conductor is proportional to the product of the square of the electric current and the conductor's resistance."
    ],
    [
-    "जूल का नियम इस प्रकार व्यक्त किया जा सकता है: Q = I^2Rt, जहां Q ताप ऊर्जा है, I विद्युत धारा है, R प्रतिरोध है, और t समय है।",
+    "जूल का नियम को इस तरह समझाया जा सकता है: ताप ऊर्जा की मात्रा विद्युत धारा के वर्ग और प्रतिरोध serta समय के गुणनफल के बराबर होती है, जैसा कि Q = I^2Rt सूत्र में दिखाया गया है।",
     "Joule's law can be expressed as: Q = I^2Rt, where Q is the heat energy, I is the electric current, R is the resistance, and t is the time."
    ],
    [
@@ -402,7 +402,7 @@
     "Think of it like this"
    ],
    "text": [
-    "मान लीजिए कि आप एक विद्युत हीटर का उपयोग कर रहे हैं जिसमें 5 ए की विद्युत धारा प्रवाहित हो रही है और इसका प्रतिरोध 20 ओम है। यदि आप इसे 10 मिनट तक चलाते हैं, तो यह कितनी ताप ऊर्जा उत्पन्न करेगा?",
+    "एक विद्युत हीटर के मामले में, यदि यह 5 ए की विद्युत धारा को 20 ओम के प्रतिरोध के साथ 10 मिनट तक चलाया जाता है, तो यह कितनी ताप ऊर्जा पैदा करेगा?",
     "Suppose you are using an electric heater with a current of 5 A and a resistance of 20 ohm. If you run it for 10 minutes, how much heat energy will it produce?"
    ]
   }
@@ -423,7 +423,7 @@
     "The fuse is a device that prevents excessive electric current from flowing through the circuit and protects the circuit."
    ],
    [
-    "विद्युत तंतु बल्ब और फ्यूज़ दोनों विद्युत धारा के तापीय प्रभाव पर काम करते हैं।",
+    "विद्युत तंतु बल्ब और फ्यूज़ दोनों विद्युत धारा के तापीय प्रभाव पर कार्य करते हैं।",
     "Both the filament bulb and the fuse work on the heating effect of electric current."
    ],
    [
@@ -442,7 +442,7 @@
     "Remember"
    ],
    "text": [
-    "विद्युत तंतु बल्ब और फ्यूज़ दोनों विद्युत धारा के तापीय प्रभाव पर काम करते हैं और विद्युत परिपथों में बहुत महत्वपूर्ण हैं।",
+    "विद्युत तंतु बल्ब और फ्यूज़ दोनों विद्युत धारा के तापीय प्रभाव पर कार्य करते हैं और विद्युत परिपथों में बहुत महत्वपूर्ण हैं।",
     "The filament bulb and the fuse both work on the heating effect of electric current and are very important in electric circuits."
    ]
   }

@@ -1,0 +1,142 @@
+{
+  "questions": [
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "विद्युत परिपथ (electric circuit) में **वोल्टमीटर (voltmeter)** को किस प्रकार जोड़ा जाना चाहिए?",
+        "How should a **voltmeter** be connected in an electric circuit?"
+      ],
+      "options": [
+        [
+          "उस घटक के **श्रेणीक्रम (series)** में जिसके सिरों का विभवांतर मापना हो।",
+          "In **series** with the component across which potential difference is to be measured."
+        ],
+        [
+          "उस घटक के **पार्श्वक्रम (parallel)** में जिसके सिरों का **विभवांतर (potential difference)** मापना हो।",
+          "In **parallel** with the component across which **potential difference** is to be measured."
+        ],
+        [
+          "परिपथ में बिना किसी संयोजन नियम के केवल स्रोत के **श्रेणीक्रम (series)** में।",
+          "Only in **series** with the power source without any connection rules."
+        ],
+        [
+          "हमेशा **एमीटर (ammeter)** के साथ **श्रेणीक्रम (series)** में।",
+          "Always in **series** with the **ammeter**."
+        ]
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": [
+        "अभिकथन (A): नियत ताप पर चालक के सिरों पर **विभवांतर (potential difference)** उसमें प्रवाहित **विद्युत धारा (electric current)** के समानुपाती होता है।\nकारण (R): **ओम का नियम (Ohm's law)** यह स्थापित करता है कि नियत ताप पर V / I का अनुपात एक नियतांक अर्थात **प्रतिरोध (resistance)** होता है।",
+        "Assertion (A): At constant temperature, the **potential difference** across a conductor is directly proportional to the **electric current** flowing through it.\nReason (R): **Ohm's law** establishes that at constant temperature, the ratio V / I is a constant, which is the **resistance**."
+      ],
+      "assertion": [
+        "नियत ताप पर चालक के सिरों पर **विभवांतर (potential difference)** उसमें प्रवाहित **विद्युत धारा (electric current)** के समानुपाती होता है।",
+        "At constant temperature, the **potential difference** across a conductor is directly proportional to the **electric current** flowing through it."
+      ],
+      "reason": [
+        "**ओम का नियम (Ohm's law)** यह स्थापित करता है कि नियत ताप पर V / I का अनुपात एक नियतांक अर्थात **प्रतिरोध (resistance)** होता है।",
+        "**Ohm's law** establishes that at constant temperature, the ratio V / I is a constant, which is the **resistance**."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": [
+        "यदि **प्रतिरोधकता (resistivity)** ρ = 1.68 × 10^-8 Ω·m, **लंबाई (length)** L = 2 m और **अनुप्रस्थ काट (cross-sectional area)** A = 1 × 10^-6 m² हो, तो **प्रतिरोध (resistance)** R की गणना करें।",
+        "Given **resistivity** ρ = 1.68 × 10^-8 Ω·m, **length** L = 2 m and **cross-sectional area** A = 1 × 10^-6 m², calculate the **resistance** R."
+      ],
+      "options": [
+        [
+          "0.0336 Ω",
+          "0.0336 Ω"
+        ],
+        [
+          "0.336 Ω",
+          "0.336 Ω"
+        ],
+        [
+          "3.36 Ω",
+          "3.36 Ω"
+        ],
+        [
+          "0.00336 Ω",
+          "0.00336 Ω"
+        ]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "understand",
+      "q": [
+        "प्रतिरोधकों के **श्रेणीक्रम (series)** संयोजन के संबंध में कौन-सा कथन सत्य है?",
+        "Which statement is true regarding the **series** combination of resistors?"
+      ],
+      "options": [
+        [
+          "परिपथ का कुल **प्रतिरोध (resistance)** सभी प्रतिरोधकों के योग के बराबर होता है।",
+          "The total **resistance** of the circuit is equal to the sum of all individual resistors."
+        ],
+        [
+          "प्रत्येक प्रतिरोधक के सिरों का **विभवांतर (potential difference)** हमेशा समान रहता है।",
+          "The **potential difference** across each resistor is always the same."
+        ],
+        [
+          "कुल **प्रतिरोध (resistance)** सबसे छोटे प्रतिरोधक के मान से भी कम होता है।",
+          "The total **resistance** is smaller than the value of the smallest resistor."
+        ],
+        [
+          "परिपथ में प्रवाहित **विद्युत धारा (electric current)** शून्य हो जाती है।",
+          "The **electric current** flowing in the circuit becomes zero."
+        ]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o6",
+      "bloom": "understand",
+      "q": [
+        "अभिकथन (A): **श्रेणीक्रम (series)** परिपथ में प्रत्येक **प्रतिरोधक (resistor)** में समान **विद्युत धारा (electric current)** प्रवाहित होती है।\nकारण (R): **श्रेणीक्रम (series)** परिपथ में **आवेश (charge)** के प्रवाह के लिए केवल एक ही मार्ग उपलब्ध होता है।",
+        "Assertion (A): In a **series** circuit, the same **electric current** flows through each **resistor**.\nReason (R): In a **series** circuit, there is only a single path available for the flow of **charge**."
+      ],
+      "assertion": [
+        "**श्रेणीक्रम (series)** परिपथ में प्रत्येक **प्रतिरोधक (resistor)** में समान **विद्युत धारा (electric current)** प्रवाहित होती है।",
+        "In a **series** circuit, the same **electric current** flows through each **resistor**."
+      ],
+      "reason": [
+        "**श्रेणीक्रम (series)** परिपथ में **आवेश (charge)** के प्रवाह के लिए केवल एक ही मार्ग उपलब्ध होता है।",
+        "In a **series** circuit, there is only a single path available for the flow of **charge**."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o9",
+      "bloom": "understand",
+      "q": [
+        "अभिकथन (A): जब किसी **चालक (conductor)** से **विद्युत धारा (electric current)** प्रवाहित होती है, तो उसमें **तापीय प्रभाव (heating effect)** उत्पन्न होता है।\nकारण (R): **इलेक्ट्रॉन (electron)** चालक के परमाणुओं से टकराते समय अपनी **ऊर्जा (energy)** का कुछ भाग ऊष्मा के रूप में स्थानांतरित कर देते हैं।",
+        "Assertion (A): When an **electric current** flows through a **conductor**, a **heating effect** is produced in it.\nReason (R): **Electrons** transfer a portion of their **energy** as heat when colliding with the atoms of the conductor."
+      ],
+      "assertion": [
+        "जब किसी **चालक (conductor)** से **विद्युत धारा (electric current)** प्रवाहित होती है, तो उसमें **तापीय प्रभाव (heating effect)** उत्पन्न होता है।",
+        "When an **electric current** flows through a **conductor**, a **heating effect** is produced in it."
+      ],
+      "reason": [
+        "**इलेक्ट्रॉन (electron)** चालक के परमाणुओं से टकराते समय अपनी **ऊर्जा (energy)** का कुछ भाग ऊष्मा के रूप में स्थानांतरित कर देते हैं।",
+        "**Electrons** transfer a portion of their **energy** as heat when colliding with the atoms of the conductor."
+      ],
+      "answer_index": 0
+    }
+  ]
+}

@@ -47,7 +47,7 @@
   "hinglish": {
    "status": "done",
    "attempts": 0,
-   "calls": 3
+   "calls": 4
   },
   "demo": {
    "status": "done",
@@ -59,7 +59,7 @@
   "correction": {
    "status": "pending",
    "attempts": 0,
-   "calls": 2
+   "calls": 13
   }
  },
  "attribution": [
@@ -412,6 +412,174 @@
    "provider": "openrouter",
    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
    "at": "2026-11-04T17:07:38+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:10:22+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:10:34+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:10:38+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:10:42+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-04T18:11:05+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "at": "2026-11-04T18:11:23+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-04T18:11:33+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-04T18:13:18+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-04T18:13:41+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-04T18:13:56+00:00"
+  },
+  {
+   "stage": "hinglish",
+   "role": "transliterator",
+   "provider": "gemini",
+   "model": "gemini-3.6-flash",
+   "at": "2026-11-04T18:14:10+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:14:13+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:14:15+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:14:17+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:14:25+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-04T18:14:52+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-04T18:14:57+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-04T18:15:32+00:00"
+  },
+  {
+   "stage": "correction",
+   "role": "writer",
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "at": "2026-11-04T18:15:46+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:15:48+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:16:10+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:16:12+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:16:13+00:00"
   }
  ],
  "issues": [
@@ -460,10 +628,20 @@
    "at": "2026-11-04T17:07:38+00:00",
    "kind": "checks_failed",
    "detail": "book checks: numerical 7: not code-verified (not verifiable: given symbol 'V1' not in registry); numerical 4: independent solver got a different answer; numerical 10: independent solver got a different answer; knowledge_understanding questions 38% (min 40%); copyright: 12 words in a row match a reference book: 'एकांक आवेश को एक बिंदु से दूसरे बिंदु तक ले जाने में'; question 4: answer-blind solver did not reach the key; question 19: answer-blind solver did not reach the key; question 24: answer-blind solver did not reach the key; Hindi term not the standard one for: resistor (2), charge (5), temperature (1), potential difference (2), filament (1), circuit (5), work (2), series (13), fuse (1), conductor (4"
+  },
+  {
+   "at": "2026-11-04T18:14:10+00:00",
+   "kind": "correction_failed",
+   "detail": "pairs: JSONDecodeError: Extra data: line 11 column 4 (char 965)"
+  },
+  {
+   "at": "2026-11-04T18:16:13+00:00",
+   "kind": "checks_failed",
+   "detail": "book checks: copyright: 16 words in a row match a reference book: 'the potential difference across a conductor is directly proportional to the elec'; question 2: answer-blind solver did not reach the key; question 8: answer-blind solver did not reach the key; Hindi term not the standard one for: potential difference (1), circuit (1), series (1), conductor (1); 1 Hindi/English pairs carry different numbers"
   }
  ],
  "final_state": "needs_review",
- "runs": 6,
+ "runs": 7,
  "provider_calls": [
   {
    "provider": "gemini",
@@ -2795,9 +2973,705 @@
    "try": 1,
    "secs": 2.08,
    "at": "2026-11-04T17:07:38+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 2.13,
+   "at": "2026-11-04T18:10:22+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 11.56,
+   "at": "2026-11-04T18:10:34+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 3.86,
+   "at": "2026-11-04T18:10:38+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 3.43,
+   "at": "2026-11-04T18:10:42+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 23.57,
+   "at": "2026-11-04T18:11:05+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:11:22+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 3.17,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-04T18:11:22+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:11:22+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.18,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:11:22+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 8.59,
+   "at": "2026-11-04T18:11:22+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 10.61,
+   "at": "2026-11-04T18:11:33+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 1.67,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 5.34,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 503,
+   "kind": "transient",
+   "try": 2,
+   "secs": 10.47,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 3,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199876, Requested 6344. Please try again in 44m47.04s. Need more tokens? Upgrade to Dev Tier today at https://",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "nvidia",
+   "model": "mistralai/mistral-large-2-instruct",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for account '9BLqsF6UctZN7cygKchVWUXXdgLUDox-01h3TWaFxrI'\"}",
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 34.85,
+   "at": "2026-11-04T18:12:51+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:18+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:18+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:18+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199794, Requested 6176. Please try again in 42m59.04s. Need more tokens? Upgrade to Dev Tier today at https://",
+   "at": "2026-11-04T18:13:18+00:00"
+  },
+  {
+   "provider": "nvidia",
+   "model": "mistralai/mistral-large-2-instruct",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.12,
+   "error": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for account '9BLqsF6UctZN7cygKchVWUXXdgLUDox-01h3TWaFxrI'\"}",
+   "at": "2026-11-04T18:13:18+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 26.71,
+   "at": "2026-11-04T18:13:18+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.16,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:41+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:41+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 503,
+   "kind": "transient",
+   "try": 1,
+   "secs": 0.4,
+   "error": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+   "at": "2026-11-04T18:13:41+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 2,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:41+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199718, Requested 5660. Please try again in 38m43.296s. Need more tokens? Upgrade to Dev Tier today at https:/",
+   "at": "2026-11-04T18:13:41+00:00"
+  },
+  {
+   "provider": "nvidia",
+   "model": "mistralai/mistral-large-2-instruct",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.12,
+   "error": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for account '9BLqsF6UctZN7cygKchVWUXXdgLUDox-01h3TWaFxrI'\"}",
+   "at": "2026-11-04T18:13:41+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 16.77,
+   "at": "2026-11-04T18:13:41+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:56+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.12,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:56+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:13:56+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.12,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199678, Requested 1501. Please try again in 8m29.328s. Need more tokens? Upgrade to Dev Tier today at https://",
+   "at": "2026-11-04T18:13:56+00:00"
+  },
+  {
+   "provider": "nvidia",
+   "model": "mistralai/mistral-large-2-instruct",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for account '9BLqsF6UctZN7cygKchVWUXXdgLUDox-01h3TWaFxrI'\"}",
+   "at": "2026-11-04T18:13:56+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 13.91,
+   "at": "2026-11-04T18:13:56+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 14.76,
+   "at": "2026-11-04T18:14:10+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 2.75,
+   "at": "2026-11-04T18:14:13+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 1.29,
+   "at": "2026-11-04T18:14:15+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 2.03,
+   "at": "2026-11-04T18:14:17+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 8.0,
+   "at": "2026-11-04T18:14:25+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:14:52+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:14:52+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:14:52+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199577, Requested 1249. Please try again in 5m56.832s. Need more tokens? Upgrade to Dev Tier today at https://",
+   "at": "2026-11-04T18:14:52+00:00"
+  },
+  {
+   "provider": "nvidia",
+   "model": "mistralai/mistral-large-2-instruct",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.1,
+   "error": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for account '9BLqsF6UctZN7cygKchVWUXXdgLUDox-01h3TWaFxrI'\"}",
+   "at": "2026-11-04T18:14:52+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 26.62,
+   "at": "2026-11-04T18:14:52+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:14:57+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:14:57+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.15,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:14:57+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199514, Requested 4772. Please try again in 30m51.552s. Need more tokens? Upgrade to Dev Tier today at https:/",
+   "at": "2026-11-04T18:14:57+00:00"
+  },
+  {
+   "provider": "nvidia",
+   "model": "mistralai/mistral-large-2-instruct",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.12,
+   "error": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for account '9BLqsF6UctZN7cygKchVWUXXdgLUDox-01h3TWaFxrI'\"}",
+   "at": "2026-11-04T18:14:57+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 4.3,
+   "at": "2026-11-04T18:14:57+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:15:32+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:15:32+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.12,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:15:32+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.06,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199503, Requested 7610. Please try again in 51m12.816s. Need more tokens? Upgrade to Dev Tier today at https:/",
+   "at": "2026-11-04T18:15:32+00:00"
+  },
+  {
+   "provider": "nvidia",
+   "model": "mistralai/mistral-large-2-instruct",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for account '9BLqsF6UctZN7cygKchVWUXXdgLUDox-01h3TWaFxrI'\"}",
+   "at": "2026-11-04T18:15:32+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 34.69,
+   "at": "2026-11-04T18:15:32+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.5-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.14,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:15:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-latest",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.24,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:15:46+00:00"
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-3.8-flash",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.13,
+   "error": "{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+   "at": "2026-11-04T18:15:46+00:00"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "http": 429,
+   "kind": "quota",
+   "try": 1,
+   "secs": 0.05,
+   "error": "{\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m6b5szyqe7bvv441z9ae4050` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199421, Requested 1545. Please try again in 6m57.312s. Need more tokens? Upgrade to Dev Tier today at https://",
+   "at": "2026-11-04T18:15:46+00:00"
+  },
+  {
+   "provider": "nvidia",
+   "model": "mistralai/mistral-large-2-instruct",
+   "http": 404,
+   "kind": "permanent",
+   "try": 1,
+   "secs": 0.11,
+   "error": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '7fadd4de-e22a-48e4-90e9-f02ef14a74b9': Not found for account '9BLqsF6UctZN7cygKchVWUXXdgLUDox-01h3TWaFxrI'\"}",
+   "at": "2026-11-04T18:15:46+00:00"
+  },
+  {
+   "provider": "cloudflare",
+   "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 12.83,
+   "at": "2026-11-04T18:15:46+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 2.24,
+   "at": "2026-11-04T18:15:48+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 21.83,
+   "at": "2026-11-04T18:16:10+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 1.91,
+   "at": "2026-11-04T18:16:12+00:00"
+  },
+  {
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "http": 200,
+   "kind": "ok",
+   "try": 1,
+   "secs": 1.23,
+   "at": "2026-11-04T18:16:13+00:00"
   }
  ],
- "finished_at": "2026-11-04T17:07:38+00:00",
+ "finished_at": "2026-11-04T18:16:13+00:00",
  "partial_stage": "questions",
  "corrected": {
   "concepts": [
@@ -2810,5 +3684,83 @@
    4
   ],
   "at": "2026-11-04T17:05:29+00:00"
- }
+ },
+ "correction_rounds": [
+  {
+   "at": "2026-11-04T18:10:42+00:00",
+   "problems": [
+    "knowledge_understanding questions 38% (min 40%)",
+    "copyright: 12 words in a row match a reference book: 'एकांक आवेश को एक बिंदु से दूसरे बिंदु तक ले जाने में'",
+    "question 4: answer-blind solver did not reach the key",
+    "question 8: answer-blind solver did not reach the key",
+    "question 19: answer-blind solver did not reach the key",
+    "Hindi term not the standard one for: resistor (2), charge (5), temperature (1), potential difference (2), filament (1), circuit (5), work (2), series (13), fuse (1), conductor (4), parallel (1), current (1)",
+    "non-standard Hindi form used: चार्ज, विभांतर",
+    "4 Hindi/English pairs carry different numbers"
+   ],
+   "concepts": [],
+   "numericals": [],
+   "questions": [
+    [
+     4,
+     "an independent solver who did not see the key chose 'In parallel with "
+    ],
+    [
+     19,
+     "an independent solver who did not see the key chose 'Both A and R are "
+    ],
+    [
+     8,
+     "an independent solver who did not see the key chose '0.00336 Ω' but th"
+    ],
+    [
+     9,
+     "rewrite it as a knowledge/understanding question (bloom 'understand'):"
+    ],
+    [
+     23,
+     "rewrite it as a knowledge/understanding question (bloom 'understand'):"
+    ],
+    [
+     24,
+     "rewrite it as a knowledge/understanding question (bloom 'understand'):"
+    ]
+   ],
+   "pairs": 68
+  },
+  {
+   "at": "2026-11-04T18:14:25+00:00",
+   "problems": [
+    "copyright: 16 words in a row match a reference book: 'the potential difference across a conductor is directly proportional to the elec'",
+    "question 8: answer-blind solver did not reach the key",
+    "Hindi term not the standard one for: potential difference (1), circuit (1), series (1), conductor (1)",
+    "1 Hindi/English pairs carry different numbers",
+    "fact check failed: In the 'Resistivity and Types of Materials' section, the resistivity range for alloys is incorrectly stated as '10 -6 Ω m (उच्च / Higher)'. The correct typical resistivity range for alloys (e.g., Nichrome, Constantan) is 10^-6 to 10^-5 Ω m (or ~10^-8 to 10^-6 Ω m depending on classification), not 10^6 Ω m. The notation '10 -6' missing the exponent superscript and the value 10^6 Ω m is characterist"
+   ],
+   "concepts": [
+    "c6"
+   ],
+   "numericals": [],
+   "questions": [
+    [
+     8,
+     "an independent solver who did not see the key chose '0.336 Ω' but the "
+    ]
+   ],
+   "pairs": 20
+  }
+ ],
+ "pairs_rewritten": 53,
+ "hinglish_stale": [
+  0,
+  1,
+  2,
+  7,
+  8,
+  10,
+  11,
+  13,
+  14,
+  15
+ ]
 }

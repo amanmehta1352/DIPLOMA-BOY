@@ -98,7 +98,7 @@
     "Calculation of Equivalent Resistance in Parallel Combination"
    ],
    "given": [
-    "प्रतिरोध (resistor) R1 = 6 ohm, प्रतिरोध R2 = 3 ohm",
+    "प्रतिरोधक (resistor) R1 = 6 ohm, प्रतिरोधक R2 = 3 ohm",
     "Resistor R1 = 6 ohm, Resistor R2 = 3 ohm"
    ],
    "steps": [
@@ -170,8 +170,8 @@
     ]
    ],
    "answer": [
-    "400",
-    "J"
+    "400 J",
+    "400 J"
    ],
    "check": {
     "givens": [
@@ -255,8 +255,8 @@
     "Electric Current"
    ],
    [
-    "प्रति इकाई समय में प्रवाहित विद्युत आवेश (charge) की मात्रा को विद्युत धारा (electric current) कहते हैं। इसका SI मात्रक एम्पीयर (A) है।",
-    "Electric current is the rate of flow of electric charge per unit time. Its SI unit is ampere (A)."
+    "विद्युत धारा की परिभाषा समय के साथ प्रवाहित आवेश की दर से जुड़ी होती है। इसकी माप की एक मानक इकाई है।",
+    "Electric current is related to the rate at which charge flows over time. There is a standard unit for its measurement."
    ]
   ],
   [
@@ -285,8 +285,8 @@
     "Resistivity"
    ],
    [
-    "किसी पदार्थ का वह गुणधर्म जो धारा के प्रवाह का विरोध करता है। इसका SI मात्रक ohm × m है। यह पदार्थ की प्रकृति और ताप पर निर्भर करता है।",
-    "A characteristic property of a material that opposes flow of current. Its SI unit is ohm × m. It depends on material and temperature."
+    "प्रतिरोधकता एक ऐसा गुण है जो बताता है कि कोई पदार्थ विद्युत धारा का प्रवाह कितना प्रतिरोध करता है। इसकी एक मानक इकाई होती है।",
+    "Resistivity is a property that indicates how much a material resists the flow of electric current. It has a standard unit."
    ]
   ],
   [
@@ -325,8 +325,8 @@
     "Fuse"
    ],
    [
-    "सुरक्षा युक्ति जो परिपथ (circuit) को अतिभारण और लघुपथन से बचाती है। इसका गलनांक कम होता है और इसे श्रेणीक्रम में जोड़ा जाता है।",
-    "A safety device that protects circuits from overloading and short-circuiting. It has a low melting point and is connected in series."
+    "एक फ्यूज़ एक सुरक्षा उपकरण है जो परिपथ को नुकसान से बचाता है। यह एक निश्चित तापमान पर पिघल जाता है और परिपथ को तोड़ देता है।",
+    "A fuse is a safety device that protects circuits from damage. It melts at a certain temperature and breaks the circuit."
    ]
   ],
   [
@@ -363,8 +363,8 @@
   },
   {
    "q": [
-    "चालक (conductor) का प्रतिरोध किन-किन कारकों पर निर्भर करता है?",
-    "On what factors does the resistance of a conductor depend?"
+    "चालक (conductor) का प्रतिरोध किन कारकों से प्रभावित होता है?",
+    "What factors affect the resistance of a conductor?"
    ],
    "a": [
     "प्रतिरोध चालक की **लंबाई** (length) L के समानुपाती, **अनुप्रस्थ काट** (cross-sectional area) A के व्युत्क्रमानुपाती तथा **ताप** और पदार्थ की प्रकृति पर निर्भर करता है।",
@@ -423,8 +423,8 @@
   },
   {
    "q": [
-    "यदि किसी तार की लंबाई दोगुनी कर दी जाए, तो उसके प्रतिरोध पर क्या प्रभाव पड़ेगा?",
-    "If the length of a wire is doubled, how will its resistance change?"
+    "किसी तार की लंबाई को दोगुना करने पर उसके प्रतिरोध में क्या बदलाव आता है?",
+    "How does doubling the length of a wire affect its resistance?"
    ],
    "a": [
     "चूंकि R, लंबाई L के समानुपाती होता है, इसलिए नया **प्रतिरोध** (resistance) दोगुना (2R) हो जाएगा।",

@@ -124,7 +124,7 @@
     "Potential difference between two points is the energy difference and is defined as V = W ÷ Q, where W is work (J) and Q is charge (C)."
    ],
    [
-    "सेल (cell) या बैटरी (battery) दो टर्मिनल के बीच विभवांतर बनाती है, जिससे चार्ज प्रवाहित हो पाता है।",
+    "सेल (cell) या बैटरी (battery) दो टर्मिनल के बीच विभवांतर बनाती है, जिससे आवेश प्रवाहित हो पाता है।",
     "A cell or battery creates a potential difference between its terminals, allowing charge to flow."
    ],
    [
@@ -317,7 +317,7 @@
   ],
   "kv": [
    [
-    "ओम का नियम (Ohm's Law)",
+    "ओम का नियम (Ohm's Law) – स्थिर ताप पर",
     "V = I × R, valid at constant temperature"
    ],
    [
@@ -379,12 +379,12 @@
   ],
   "paras": [
    [
-    "प्रतिरोध वह माप है जो किसी चालक में धारा (I) के प्रवाह को रोकता है। इसे प्रतिरोध (R) = विभवांतर (V) / धारा (I) के रूप में परिभाषित किया जाता है और इसकी इकाई ओम (Ω) है।",
-    "Resistance quantifies how much a conductor opposes the flow of current (I). It is defined as R = V / I and its unit is the ohm (Ω)."
+    "प्रतिरोध एक माप है जो बताता है कि कोई चालक धारा के प्रवाह को कितना रोकता है। इसका मान विभवांतर और धारा के अनुपात से निर्धारित होता है और इसकी इकाई ओम है।",
+    "Resistance quantifies how much a conductor opposes the flow of current. It is defined as the ratio of potential difference to current, and its unit is the ohm."
    ],
    [
-    "एक समान चालक में प्रतिरोध लंबाई (l) के साथ सीधे अनुपात में और अनुप्रस्थ काट (A) के साथ व्युत्क्रमानुपाती होता है। यह संबंध R = ρ × l / A द्वारा दर्शाया जाता है, जहाँ ρ प्रतिरोधकता (resistivity) है।",
-    "For a uniform conductor, resistance is directly proportional to its length (l) and inversely proportional to its cross‑sectional area (A). This relationship is expressed as R = ρ × l / A, where ρ is the resistivity."
+    "किसी एक समान चालक में, प्रतिरोध उसकी लंबाई के बढ़ने पर बढ़ता है और अनुप्रस्थ काट के बढ़ने पर घटता है। यह संबंध एक सरल सूत्र द्वारा दिया जा सकता है, जो प्रतिरोधकता को भी शामिल करता है।",
+    "For a uniform conductor, resistance increases with length and decreases with cross-sectional area. This relationship can be expressed by a simple formula that also involves resistivity."
    ],
    [
     "तापमान में परिवर्तन भी प्रतिरोध को बदलता है। अधिकांश धातु चालक में प्रतिरोध तापमान के साथ बढ़ता है और इसे R = R₀[1 + α(T – T₀)] से व्यक्त किया जाता है, जहाँ α तापांक गुणांक (temperature coefficient) है।",
@@ -409,11 +409,11 @@
     "R ∝ l"
    ],
    [
-    "अनुप्रस्थ काट (Cross‑sectional Area) के साथ व्युत्क्रमानुपाती",
+    "अनुप्रस्थ काट (Cross‑sectional Area) के साथ व्युत्क्रमानुपाती `R ∝ 1/A`",
     "R ∝ 1/A"
    ],
    [
-    "तापमान (Temperature) प्रभाव",
+    "तापमान (Temperature) प्रभाव `R = R₀[1 + α(T – T₀)]`",
     "R = R₀[1 + α(T – T₀)]"
    ]
   ],
@@ -506,140 +506,118 @@
   ],
   "paras": [
    [
-    "**प्रतिरोधकता (resistivity)** `ρ` (रो) किसी पदार्थ का एक मूलभूत गुण है, जो यह दर्शाता है कि वह पदार्थ **विद्युत धारा (electric current)** के प्रवाह का कितना तीव्र विरोध करता है। यह तार के आकार या लंबाई पर निर्भर नहीं करती, बल्कि केवल पदार्थ की प्रकृति और **ताप (temperature)** पर निर्भर करती है।",
-    "Resistivity `ρ` is a fundamental property of a material that measures how strongly it opposes electric current. It does not depend on shape or length, but only on the nature of material and temperature."
+    "प्रतिरोधकता (resistivity) किसी सामग्री के प्रतिरोध (resistance) की एक माप है जो उसके आकार और आयतन पर निर्भर नहीं करती है।",
+    "Resistivity is a measure of a material's resistance that does not depend on its shape or volume."
    ],
    [
-    "प्रतिरोध के सूत्रों को मिलाकर, `R = ρ × l / A` प्राप्त होता है, जिससे `ρ = R × A / l` बनता है। इसका SI मात्रक ओम-मीटर (Ω m) है। 1 मीटर लंबाई और 1 मीटर^2 अनुप्रस्थ काट वाले चालक के प्रतिरोध को ही उसकी प्रतिरोधकता कहते हैं।",
-    "Combining resistance relations gives `R = ρ × l / A`, so `ρ = R × A / l`. Its SI unit is Ohm-metre (Ω m). Resistivity is defined as the resistance of a conductor of unit length and unit cross-sectional area."
+    "प्रतिरोधकता को rho (ρ) से दर्शाया जाता है और इसकी SI इकाई ओम-मीटर (Ω m) है।",
+    "Resistivity is denoted by rho (ρ) and its SI unit is ohm-meter (Ω m)."
    ],
    [
-    "धातुक **चालक (conductor)** की प्रतिरोधकता बहुत कम (`10^-8 Ω m` से `10^-6 Ω m`) होती है, जिससे इनसे धारा आसानी से बहती है। तांबा और एल्युमिनियम का उपयोग विद्युत संचरण तारों में होता है।",
-    "Metallic conductors have very low resistivity (`10^-8 Ω m` to `10^-6 Ω m`), allowing current to flow easily. Copper and aluminium are used for electrical transmission lines."
+    "विभिन्न सामग्रियों की प्रतिरोधकता के मान उनके प्रतिरोधक (resistor) गुणों को दर्शाते हैं।",
+    "The resistivity values of different materials indicate their resistive properties."
    ],
    [
-    "मिश्रधातुओं की प्रतिरोधकता चालकों से अधिक होती है और ये उच्च ताप पर आसानी से उपचयित (जल्दी जलती) नहीं होतीं। इसी कारण नाइक्रोम जैसी मिश्रधातु का उपयोग **तापीय प्रभाव (heating effect)** वाले उपकरणों (जैसे हीटर, टोस्टर) के **तंतु (filament)** या हीटिंग एलिमेंट बनाने में किया जाता है। **विद्युतरोधी (insulator)** की प्रतिरोधकता अत्यधिक उच्च (`10^12 Ω m` से `10^17 Ω m`) होती है।",
-    "Alloys have higher resistivity than conductors and do not oxidize easily at high temperatures. Hence, alloys like Nichrome are used as heating elements. Insulators have extremely high resistivity (`10^12 Ω m` to `10^17 Ω m`)."
+    "चालकों (conductors) की प्रतिरोधकता कम होती है, जैसे कि तांबा (copper) की प्रतिरोधकता लगभग 1.68 × 10^-8 Ω m है।",
+    "Conductors have low resistivity, such as copper, which has a resistivity of about 1.68 × 10^-8 Ω m."
+   ],
+   [
+    "मिश्र धातुओं (alloys) की प्रतिरोधकता अधिक होती है, जैसे कि नाइक्रोम (nichrome) की प्रतिरोधकता लगभग 10^-6 से 10^-5 Ω m है।",
+    "Alloys have higher resistivity, such as nichrome, which has a resistivity of about 10^-6 to 10^-5 Ω m."
+   ],
+   [
+    "विद्युतरोधी (insulators) की प्रतिरोधकता बहुत अधिक होती है, जैसे कि ग्लास (glass) की प्रतिरोधकता लगभग 10^10 से 10^14 Ω m है।",
+    "Insulators have very high resistivity, such as glass, which has a resistivity of about 10^10 to 10^14 Ω m."
+   ],
+   [
+    "प्रतिरोधकता का मान सामग्री के तापमान (temperature) पर भी निर्भर करता है।",
+    "The resistivity value also depends on the temperature of the material."
+   ],
+   [
+    "सामग्री के प्रतिरोधकता के मान को जानने से हमें उनके विद्युत गुणों के बारे में जानकारी मिलती है।",
+    "Knowing the resistivity value of a material gives us information about its electrical properties."
    ]
   ],
   "kv": [
    [
     [
-     "प्रतिरोधकता का प्रतीक (Symbol)",
-     "ρ (रो / rho)"
+     "प्रतिरोधकता (resistivity)",
+     "ओम-मीटर (Ω m)"
+    ],
+    [
+     "चालकों की प्रतिरोधकता",
+     "कम (low)"
+    ],
+    [
+     "मिश्र धातुओं की प्रतिरोधकता",
+     "10^-6 से 10^-5 Ω m"
+    ],
+    [
+     "विद्युतरोधी की प्रतिरोधकता",
+     "बहुत अधिक (very high)"
     ]
    ],
    [
     [
-     "प्रतिरोधकता का SI मात्रक (SI unit)",
-     "ओम-मीटर (Ohm-metre, Ω m)"
-    ]
-   ],
-   [
+     "सामग्री के प्रतिरोधकता के मान",
+     "सामग्री के विद्युत गुणों के बारे में जानकारी देता है"
+    ],
     [
-     "प्रतिरोधकता सूत्र (Formula)",
-     "ρ = R × A / l"
-    ]
-   ],
-   [
-    [
-     "चालकों की प्रतिरोधकता (Conductor resistivity)",
-     "10^-8 Ω m से 10^-6 Ω m"
-    ]
-   ],
-   [
-    [
-     "विद्युतरोधी की प्रतिरोधकता (Insulator resistivity)",
-     "10^12 Ω m से 10^17 Ω m"
-    ]
-   ],
-   [
-    [
-     "निर्भरता (Dependence)",
-     "केवल पदार्थ की प्रकृति और ताप पर (Only nature of material and temperature)"
+     "प्रतिरोधकता का मान",
+     "सामग्री के तापमान पर निर्भर करता है"
     ]
    ]
   ],
   "table": {
    "head": [
     [
-     "सामग्री का प्रकार (Material Type)",
-     "प्रतिरोधकता परास (Resistivity Range)",
-     "उपयोग / विशेषता (Use / Feature)"
+     "सामग्री का प्रकार",
+     "प्रतिरोधकता का मान (Ω m)"
     ]
    ],
    "rows": [
     [
      [
-      "चालक (Conductor)",
-      "10^-8 Ω m - 10^-6 Ω m",
-      "विद्युत संचरण तार (Electrical wiring)"
-     ]
-    ],
-    [
+      "चालक (conductor)",
+      "1.68 × 10^-8"
+     ],
      [
-      "मिश्रधातु (Alloy)",
-      "10^-6 Ω m (उच्च / Higher)",
-      "हीटर, प्रेस के हीटिंग एलिमेंट (Heating elements)"
-     ]
-    ],
-    [
+      "मिश्र धातु (alloy)",
+      "10^-6 से 10^-5"
+     ],
      [
-      "विद्युतरोधी (Insulator)",
-      "10^12 Ω m - 10^17 Ω m",
-      "सुरक्षा आवरण, स्विच बोर्ड (Insulation & safety)"
+      "विद्युतरोधी (insulator)",
+      "10^10 से 10^14"
      ]
     ]
    ]
   },
   "formula": {
-   "expr": "ρ = R × A / l",
+   "expr": "R = rho × l / A",
    "units": [
     [
      [
-      "ρ",
-      "प्रतिरोधकता (Resistivity)"
-     ],
-     [
-      "ओम-मीटर (Ohm-meter, Ω m)",
-      "Ohm-meter (Ω m)"
-     ]
-    ],
-    [
-     [
       "R",
-      "प्रतिरोध (Resistance)"
+      "ओम (Ω)"
      ],
      [
-      "ओम (Ohm, Ω)",
-      "Ohm (Ω)"
-     ]
-    ],
-    [
-     [
-      "A",
-      "अनुप्रस्थ काट (Area)"
+      "rho",
+      "ओम-मीटर (Ω m)"
      ],
-     [
-      "मीटर^2 (m^2)",
-      "m^2"
-     ]
-    ],
-    [
      [
       "l",
-      "लंबाई (Length)"
+      "मीटर (m)"
      ],
      [
-      "मीटर (m)",
-      "m"
+      "A",
+      "मीटर^2 (m^2)"
      ]
     ]
    ]
   },
   "tip": [
-   "तार की लंबाई या मोटाई बदलने पर प्रतिरोध (R) बदल जाता है, लेकिन प्रतिरोधकता (ρ) स्थिर रहती है।",
-   "Changing the length or thickness of a wire changes its resistance (R), but its resistivity (ρ) remains constant."
+   "प्रतिरोधकता के मान को हमेशा ओम-मीटर (Ω m) में व्यक्त करें।",
+   "Always express resistivity values in ohm-meter (Ω m)."
   ],
   "diagram": null,
   "scope_ids": [
@@ -777,8 +755,8 @@
   ],
   "paras": [
    [
-    "जब दो या दो से अधिक **प्रतिरोधक (resistor)** दो सामान्य बिंदुओं के बीच एक साथ समानांतर शाखाओं में जोड़े जाते हैं, तो इस संयोजन को **पार्श्वक्रम (parallel)** संयोजन कहते हैं। पार्श्वक्रम में जुड़े प्रत्येक प्रतिरोधक के सिरों पर **विभवांतर (potential difference)** समान रहता है।",
-    "When two or more **resistors** are connected simultaneously between two common points in parallel branches, the arrangement is called a **parallel** combination. In a parallel combination, the **potential difference** across each individual resistor remains exactly the same."
+    "जब दो या अधिक प्रतिरोधक एक साथ पार्श्वक्रम में जुड़े होते हैं, तो प्रत्येक प्रतिरोधक के सिरों पर लगने वाला विभवांतर समान होता है।",
+    "When two or more resistors are connected in parallel, the potential difference across each resistor is the same."
    ],
    [
     "पार्श्वक्रम परिपथ में मुख्य परिपथ की कुल **विद्युत धारा (electric current)** I विभिन्न शाखाओं में विभाजित हो जाती है। यदि तीन प्रतिरोधक R1, R2 और R3 पार्श्वक्रम में जुड़े हों, तो कुल धारा **I = I1 + I2 + I3** होती है।",
@@ -903,11 +881,11 @@
     "The method of connecting electrical components plays a vital role when designing domestic **circuits**. In household electrical wiring, appliances are always connected in **parallel** rather than in **series**."
    ],
    [
-    "घरेलू वायरिंग में श्रेणीक्रम संयोजन की कई प्रमुख हानियाँ हैं। श्रेणीक्रम में यदि एक उपकरण (जैसे बल्ब) ख़राब हो जाता है या उसका **तंतु (filament)** टूट जाता है, तो परिपथ टूट जाता है और अन्य सभी उपकरण भी काम करना बंद कर देते हैं। इसके अलावा, श्रेणीक्रम में सभी उपकरणों में समान **विद्युत धारा (electric current)** प्रवाहित होती है, जबकि बल्ब, हीटर और टीवी जैसे विभिन्न उपकरणों को सुचारू संचालन के लिए भिन्न धारा की आवश्यकता होती है।",
-    "Series combination has major disadvantages for domestic wiring. In series, if one device fails or its **filament** breaks, the circuit breaks and all other appliances stop working immediately. Furthermore, series circuits feed the exact same **electric current** through all appliances, even though devices like bulbs, heaters, and TVs require vastly different current levels."
+    "श्रेणीक्रम संयोजन में एक उपकरण के खराब होने से पूरा परिपथ बाधित हो जाता है और अन्य उपकरण भी काम करना बंद कर देते हैं। इसके अलावा, सभी उपकरणों में एक ही धारा प्रवाहित होती है, जो अक्सर विभिन्न उपकरणों की जरूरतों के अनुसार नहीं होती।",
+    "In a series combination, if one device fails, the entire circuit is disrupted and all other devices stop working. Additionally, the same current flows through all devices, which often does not meet the different requirements of various devices."
    ],
    [
-    "पार्श्वक्रम संयोजन के अनेक व्यावहारिक लाभ हैं। पार्श्वक्रम में प्रत्येक उपकरण के सिरों पर समान **विभांतर (potential difference)** (जैसे भारत में 220 V) उपलब्ध रहता है और प्रत्येक उपकरण को स्वतंत्र स्विच द्वारा चालू या बंद किया जा सकता है। साथ ही, पार्श्वक्रम में जोड़ने से परिपथ का कुल **प्रतिरोध (resistance)** कम हो जाता है, जिससे स्रोत से पर्याप्त धारा प्राप्त होती है।",
+    "पार्श्वक्रम संयोजन के अनेक व्यावहारिक लाभ हैं। पार्श्वक्रम में प्रत्येक उपकरण के सिरों पर समान **विभवांतर (potential difference)** (जैसे भारत में 220 V) उपलब्ध रहता है और प्रत्येक उपकरण को स्वतंत्र स्विच द्वारा चालू या बंद किया जा सकता है। साथ ही, पार्श्वक्रम में जोड़ने से परिपथ का कुल **प्रतिरोध (resistance)** कम हो जाता है, जिससे स्रोत से पर्याप्त धारा प्राप्त होती है।",
     "Parallel combination provides several practical advantages. In parallel, every appliance gets the exact same **potential difference** (such as 220 V in India) across its terminals, and each device can be independently operated with its own switch. Additionally, parallel connection reduces total **resistance**, enabling the power source to deliver adequate current."
    ],
    [
@@ -1004,7 +982,7 @@
      ],
      [
       "अवयवों पर विभाजित (V1+V2+...)",
-      "Divided across components"
+      "Divided across components `V1+V2+...`"
      ],
      [
       "प्रत्येक अवयव पर समान (V)",
@@ -1178,7 +1156,7 @@
     "Tungsten, high melting point"
    ],
    [
-    "इनर्ट गैस (Inert Gas) का कार्य",
+    "इनर्ट गैस (Inert Gas) का कार्य तंतु का ऑक्सीकरण रोकना है।",
     "Prevents oxidation of filament"
    ],
    [
@@ -1186,7 +1164,7 @@
     "Maximum safe current (A)"
    ],
    [
-    "फ्यूज़ का कार्य",
+    "फ्यूज़ का कार्य अधिक‑धारा पर परिपथ को बाधित करना है।",
     "Interrupts circuit on over‑current"
    ],
    [

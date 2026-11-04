@@ -9,20 +9,20 @@ review_ready = all automatic checks passed; NOT published; owner review needed.
 - extras: done (attempts 1, calls 1)
 - questions: done (attempts 0, calls 20)
 - teach: done (attempts 0, calls 4)
-- hinglish: done (attempts 0, calls 3)
+- hinglish: done (attempts 0, calls 4)
 - demo: done (attempts 4, calls 4)
-- correction: pending (attempts 0, calls 2)
+- correction: pending (attempts 0, calls 13)
 
 ## Checks
 ```
 {
  "notes_words": {
-  "hi": 4397,
-  "en": 3837
+  "hi": 4263,
+  "en": 3751
  },
  "teach_words": {
-  "hindi": 2542,
-  "english": 2161
+  "hindi": 2524,
+  "english": 2134
  },
  "panels": 20,
  "teach_sections": 17,
@@ -121,51 +121,71 @@ review_ready = all automatic checks passed; NOT published; owner review needed.
    "hots": 4
   },
   "bands": {
-   "knowledge_understanding": 0.379,
-   "application": 0.431,
+   "knowledge_understanding": 0.431,
+   "application": 0.379,
    "higher_order": 0.19,
-   "competency": 0.672
+   "competency": 0.655
   }
  },
  "copyright": {
-  "overlap": 0.1878,
+  "overlap": 0.1847,
   "threshold": 0.2,
-  "longest_copied_run_words": 12,
-  "run_text": "एकांक आवेश को एक बिंदु से दूसरे बिंदु तक ले जाने में",
+  "longest_copied_run_words": 16,
+  "run_text": "the potential difference across a conductor is directly proportional to the electric current flowing through it",
   "max_run_words": 8,
   "note": "automatic metric, not legal clearance"
  },
  "terms": {
-  "pairs": 643,
+  "pairs": 647,
   "missing_hindi_term": {
-   "resistor": 2,
-   "charge": 5,
-   "temperature": 1,
-   "potential difference": 2,
-   "filament": 1,
-   "circuit": 5,
-   "work": 2,
-   "series": 13,
-   "fuse": 1,
-   "conductor": 4,
-   "parallel": 1,
-   "current": 1
+   "potential difference": 1,
+   "circuit": 1,
+   "series": 1,
+   "conductor": 1
   },
-  "banned_form": {
-   "चार्ज": 6,
-   "विभांतर": 1
-  },
-  "number_mismatch_pairs": 10,
-  "glossary_verified": false
+  "banned_form": {},
+  "number_mismatch_pairs": 1,
+  "glossary_verified": false,
+  "bad_pairs": [
+   {
+    "pair": [
+     "चालक (conductor)",
+     "1.68 × 10^-8"
+    ],
+    "why": [
+     "Hindi and English must carry the same numbers and formulas (Hindi has [], English has ['1.68', '10', '8'])"
+    ]
+   },
+   {
+    "pair": [
+     "ग्राफ का ढाल ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, इसलिए प्रतिरोध R = 6 Ω। अनुप्रस्थ काट A = 0.5 mm² = 0.5×10⁻⁶ m²। ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m। एमीटर को धारा के प्रवाह के क्रम में (सिर्‍स में) जोड़ा जाता है, जबकि वोल्टमीटर को मापे जाने वाले घटक के दोनों सिरों पर समानांतर (पार्श्वक्रम) में जोड़ा जाता है।",
+     "Slope = ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, so R = 6 Ω. Area A = 0.5 mm² = 0.5×10⁻⁶ m². ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m. The ammeter is placed in series with the circuit so that the same current passes through it, whereas the voltmeter is connected across the component (parallel) to measure the potential difference."
+    ],
+    "why": [
+     "'potential difference' must be 'विभवांतर' in Hindi",
+     "'circuit' must be 'परिपथ' in Hindi",
+     "'series' must be 'श्रेणीक्रम' in Hindi"
+    ]
+   },
+   {
+    "pair": [
+     "ओम का नियम कहता है कि धारा (I) और विभवांतर (V) के बीच प्रतिरोध (R) का अनुपात स्थिर रहता है: V = I × R।",
+     "Ohm's law states that the ratio between voltage and current is constant for a conductor: V = I × R."
+    ],
+    "why": [
+     "'conductor' must be 'चालक' in Hindi"
+    ]
+   }
+  ]
  },
  "key_balance": {
   "positions": [
-   4,
-   4,
+   5,
+   5,
    3,
-   3
+   1
   ],
-  "max_share": 0.286
+  "max_share": 0.357
  },
  "blind": {
   "n": 18,
@@ -183,91 +203,16 @@ review_ready = all automatic checks passed; NOT published; owner review needed.
   ],
   "disagree": [
    {
-    "q": 4,
+    "q": 2,
     "pass": 1,
-    "key": 3,
-    "solver": 2
-   },
-   {
-    "q": 19,
-    "pass": 1,
-    "key": 0,
-    "solver": 1
-   },
-   {
-    "q": 24,
-    "pass": 1,
-    "key": 0,
-    "solver": 1
-   },
-   {
-    "q": 4,
-    "pass": 2,
-    "key": 3,
-    "solver": 2
-   },
-   {
-    "q": 19,
-    "pass": 2,
-    "key": 0,
+    "key": 1,
     "solver": 3
-   }
-  ],
-  "same_provider_as_writer": []
- },
- "numericals": [
-  {
-   "n": 1,
-   "stored": "The electric current I is 1 A.",
-   "solver": "1 A",
-   "agree": true,
-   "code": true,
-   "code_detail": "code 1 = stated 1 ampere"
-  },
-  {
-   "n": 2,
-   "stored": "The resulting electric current is 3 A.",
-   "solver": "3 A",
-   "agree": true,
-   "code": true,
-   "code_detail": "code 3 = stated 3 ampere"
-  },
-  {
-   "n": 3,
-   "stored": "The equivalent resistance in parallel combination is 2 ohm.",
-   "solver": "2 ohm",
-   "agree": true,
-   "code": true,
-   "code_detail": "code 2 = stated 2 ohm"
-  },
-  {
-   "n": 4,
-   "stored": "J",
-   "solver": "4000 J",
-   "agree": false,
-   "code": true,
-   "code_detail": "code 400 = stated 400 joule"
-  },
-  {
-   "n": 5,
-   "stored": "The total electrical energy consumed is 360000 J.",
-   "solver": "360000 J",
-   "agree": true,
-   "code": true,
-   "code_detail": "code 360000 = stated 360000 joule"
-  },
-  {
-   "n": 6,
-   "stored": "3 A",
-   "solver": "3 A",
-   "agree": true,
-   "code": true,
-   "code_detail": "code 3 = stated 3 ampere"
-  },
-  {
-   "n": 7,
-   "stored": "4 Ω",
-   "solver"
+   },
+   {
+    "q": 8,
+    "pass": 1,
+    "key": 0,
+    
 ```
 
 ## Who did what
@@ -321,6 +266,30 @@ review_ready = all automatic checks passed; NOT published; owner review needed.
 - checks / blind_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
 - checks / numerical_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
 - checks / fact_checker: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / blind_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / blind_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / numerical_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / fact_checker: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- correction / writer: gemini gemini-3.6-flash
+- correction / writer: groq openai/gpt-oss-120b
+- correction / writer: gemini gemini-3.6-flash
+- correction / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- correction / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- correction / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- correction / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- hinglish / transliterator: gemini gemini-3.6-flash
+- checks / blind_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / blind_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / numerical_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / fact_checker: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- correction / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- correction / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- correction / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- correction / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- checks / blind_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / blind_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / numerical_solver: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
+- checks / fact_checker: openrouter nvidia/nemotron-3-ultra-550b-a55b:free
 
 ## Issues
 - diagram_dropped: c7: SVG failed the safety check
@@ -351,3 +320,5 @@ TypeError: unhashable type: 'list'
 Node.js v24.22.2
 
 - checks_failed: book checks: numerical 7: not code-verified (not verifiable: given symbol 'V1' not in registry); numerical 4: independent solver got a different answer; numerical 10: independent solver got a different answer; knowledge_understanding questions 38% (min 40%); copyright: 12 words in a row match a reference book: 'एकांक आवेश को एक बिंदु से दूसरे बिंदु तक ले जाने में'; question 4: answer-blind solver did not reach the key; question 19: answer-blind solver did not reach the key; question 24: answer-blind solver did not reach the key; Hindi term not the standard one for: resistor (2), charge (5), temperature (1), potential difference (2), filament (1), circuit (5), work (2), series (13), fuse (1), conductor (4
+- correction_failed: pairs: JSONDecodeError: Extra data: line 11 column 4 (char 965)
+- checks_failed: book checks: copyright: 16 words in a row match a reference book: 'the potential difference across a conductor is directly proportional to the elec'; question 2: answer-blind solver did not reach the key; question 8: answer-blind solver did not reach the key; Hindi term not the standard one for: potential difference (1), circuit (1), series (1), conductor (1); 1 Hindi/English pairs carry different numbers

@@ -71,12 +71,12 @@
     "Electric current is the flow in which electrons move one coulomb of charge per second."
    ],
    [
-    "विद्युत धारा वह ऊर्जा है जो परिपथ में संग्रहीत होती है।",
-    "Electric current is the energy stored in a circuit."
+    "विद्युत धारा परिपथ में ऊर्जा का संचार करने वाली एक मूलभूत मात्रा है।",
+    "Electric current is a fundamental quantity that transfers energy in a circuit."
    ],
    [
-    "विद्युत धारा वह विभवांतर है जो दो बिंदुओं के बीच मौजूद है।",
-    "Electric current is the potential difference between two points."
+    "विद्युत धारा और विभवांतर दो अलग-अलग भौतिक राशियाँ हैं, जिनमें विभवांतर दो बिंदुओं के बीच के विद्युत विभव में अंतर को दर्शाता है।",
+    "Electric current and potential difference are two different physical quantities, where potential difference represents the difference in electric potential between two points."
    ]
   ],
   "answer_index": 1,
@@ -103,17 +103,17 @@
     "In parallel with the flow of current."
    ],
    [
-    "धारा के प्रवाह के साथ श्रृंखला (series) में।",
+    "धारा के प्रवाह के साथ श्रेणीक्रम में।",
     "In series with the flow of current."
    ],
    [
-    "वोल्टेज के साथ श्रृंखला में।",
+    "वोल्टेज के साथ श्रेणीक्रम में।",
     "In series with voltage."
    ]
   ],
   "answer_index": 2,
   "answer": [
-   "धारा के प्रवाह के साथ श्रृंखला (series) में।",
+   "धारा के प्रवाह के साथ श्रेणीक्रम में।",
    "In series with the flow of current."
   ]
  },
@@ -122,31 +122,31 @@
   "outcome": "o2",
   "bloom": "understand",
   "q": [
-   "वोल्टमीटर (voltmeter) को परिपथ में किस प्रकार जोड़ना चाहिए?",
-   "How should a voltmeter be connected in a circuit?"
+   "विद्युत परिपथ (electric circuit) में **वोल्टमीटर (voltmeter)** को किस प्रकार जोड़ा जाना चाहिए?",
+   "How should a **voltmeter** be connected in an electric circuit?"
   ],
   "options": [
    [
-    "वोल्टेज के साथ श्रृंखला में।",
-    "In series with voltage."
+    "उस घटक के **श्रेणीक्रम (series)** में जिसके सिरों का विभवांतर मापना हो।",
+    "In **series** with the component across which potential difference is to be measured."
    ],
    [
-    "धारा के साथ श्रृंखला (series) में।",
-    "In series with the current."
+    "उस घटक के **पार्श्वक्रम (parallel)** में जिसके सिरों का **विभवांतर (potential difference)** मापना हो।",
+    "In **parallel** with the component across which **potential difference** is to be measured."
    ],
    [
-    "वोल्टेज के साथ समानांतर में।",
-    "In parallel with voltage."
+    "परिपथ में बिना किसी संयोजन नियम के केवल स्रोत के **श्रेणीक्रम (series)** में।",
+    "Only in **series** with the power source without any connection rules."
    ],
    [
-    "धारा के साथ समानांतर (parallel) में।",
-    "In parallel with the current."
+    "हमेशा **एमीटर (ammeter)** के साथ **श्रेणीक्रम (series)** में।",
+    "Always in **series** with the **ammeter**."
    ]
   ],
-  "answer_index": 3,
+  "answer_index": 1,
   "answer": [
-   "धारा के साथ समानांतर (parallel) में।",
-   "In parallel with the current."
+   "उस घटक के **पार्श्वक्रम (parallel)** में जिसके सिरों का **विभवांतर (potential difference)** मापना हो।",
+   "In **parallel** with the component across which **potential difference** is to be measured."
   ]
  },
  {
@@ -272,90 +272,63 @@
   "outcome": "o5",
   "bloom": "apply",
   "q": [
-   "यदि प्रतिरोधकता (resistivity) ρ = 1.68×10⁻⁸ Ω·m, लंबाई L = 2 m और अनुप्रस्थ काट A = 1×10⁻⁶ m² हो, तो प्रतिरोध R की गणना करें।",
-   "Given resistivity ρ = 1.68×10⁻⁸ Ω·m, length L = 2 m and cross‑sectional area A = 1×10⁻⁶ m², calculate resistance R."
+   "एक **चालक (conductor)** का **प्रतिरोध (resistance)** R = ρL/A द्वारा दिया जाता है, जहाँ ρ = 1.68 × 10^-8 Ω·m, **लंबाई (length)** L = 10 m और **अनुप्रस्थ काट (cross-sectional area)** A = 1 × 10^-4 m² हो। **प्रतिरोध (resistance)** R की गणना करें।",
+   "The **resistance** R of a **conductor** is given by R = ρL/A, where ρ = 1.68 × 10^-8 Ω·m, **length** L = 10 m and **cross-sectional area** A = 1 × 10^-4 m². Calculate the **resistance** R."
   ],
   "options": [
    [
-    "0.00336 Ω",
-    "0.00336 Ω"
+    "0.0168 Ω",
+    "0.0168 Ω"
    ],
    [
-    "3.36 Ω",
-    "3.36 Ω"
+    "1.68 Ω",
+    "1.68 Ω"
    ],
    [
-    "0.336 Ω",
-    "0.336 Ω"
+    "16.8 Ω",
+    "16.8 Ω"
    ],
    [
-    "0.0336 Ω",
-    "0.0336 Ω"
+    "168 Ω",
+    "168 Ω"
    ]
   ],
-  "answer_index": 3,
-  "check": {
-   "givens": [
-    {
-     "symbol": "rho",
-     "value": 1.68e-08,
-     "unit": "Ω·m"
-    },
-    {
-     "symbol": "L",
-     "value": 2,
-     "unit": "m"
-    },
-    {
-     "symbol": "A",
-     "value": 1e-06,
-     "unit": "m²"
-    }
-   ],
-   "formulas": [
-    "resistivity"
-   ],
-   "unknown": "R",
-   "answer": {
-    "value": 0.0336,
-    "unit": "Ω"
-   }
-  },
+  "answer_index": 0,
   "answer": [
-   "0.0336 Ω",
-   "0.0336 Ω"
+   "0.0168 Ω",
+   "0.0168 Ω"
   ]
  },
  {
   "type": "mcq",
   "outcome": "o6",
-  "bloom": "apply",
+  "bloom": "understand",
   "q": [
-   "दो प्रतिरोधक 2 Ω और 3 Ω को श्रृंखला (series) में जोड़ते हैं। कुल प्रतिरोध Rs क्या होगा?",
-   "Two resistors 2 Ω and 3 Ω are connected in series. What is the total resistance Rs?"
+   "क्या प्रतिरोधकों का **श्रेणीक्रम (series)** संयोजन उनके कुल प्रतिरोध को बढ़ाता है?",
+   "Does the **series** combination of resistors increase their total resistance?"
   ],
   "options": [
    [
-    "5 Ω",
-    "5 Ω"
+    "परिपथ का कुल **प्रतिरोध (resistance)** सभी प्रतिरोधकों के योग के बराबर होता है।",
+    "The total **resistance** of the circuit is equal to the sum of all individual resistors."
    ],
    [
-    "6 Ω",
-    "6 Ω"
+    "प्रत्येक प्रतिरोधक के सिरों का **विभवांतर (potential difference)** हमेशा समान रहता है।",
+    "The **potential difference** across each resistor is always the same."
    ],
    [
-    "1 Ω",
-    "1 Ω"
+    "कुल **प्रतिरोध (resistance)** सबसे छोटे प्रतिरोधक के मान से भी कम होता है।",
+    "The total **resistance** is smaller than the value of the smallest resistor."
    ],
    [
-    "10 Ω",
-    "10 Ω"
+    "परिपथ में प्रवाहित **विद्युत धारा (electric current)** शून्य हो जाती है।",
+    "The **electric current** flowing in the circuit becomes zero."
    ]
   ],
   "answer_index": 0,
   "answer": [
-   "5 Ω",
-   "5 Ω"
+   "परिपथ का कुल **प्रतिरोध (resistance)** सभी प्रतिरोधकों के योग के बराबर होता है।",
+   "The total **resistance** of the circuit is equal to the sum of all individual resistors."
   ]
  },
  {
@@ -434,7 +407,7 @@
     "All appliances receive the same potential difference."
    ],
    [
-    "सर्किट को बंद करना आसान होता है।",
+    "परिपथ को बंद करना आसान होता है।",
     "It is easier to close the circuit."
    ]
   ],
@@ -508,7 +481,7 @@
   "outcome": "o8",
   "bloom": "understand",
   "q": [
-   "फ़्यूज़ (fuse) का कार्य सिद्धांत क्या है?",
+   "फ्यूज़ का कार्य सिद्धांत क्या है?",
    "What is the operating principle of a fuse?"
   ],
   "options": [
@@ -645,19 +618,19 @@
   "type": "assertion_reason",
   "outcome": "o3",
   "bloom": "analyze",
+  "q": [
+   "अभिकथन (A): नियत ताप पर चालक के सिरों पर **विभवांतर (potential difference)** उसमें प्रवाहित **विद्युत धारा (electric current)** के समानुपाती होता है। कारण (R): **ओम का नियम (Ohm's law)** यह स्थापित करता है कि नियत ताप पर V / I का अनुपात एक नियतांक अर्थात **प्रतिरोध (resistance)** होता है।",
+   "Assertion (A): At constant temperature, the **potential difference** across a conductor is directly proportional to the **electric current** flowing through it. Reason (R): **Ohm's law** establishes that at constant temperature, the ratio V / I is a constant, which is the **resistance**."
+  ],
   "assertion": [
-   "ओम का नियम के अनुसार, विभवांतर (voltage) चालक में धारा (current) के समानुपाती होता है।",
-   "According to Ohm's law, the voltage across a conductor is directly proportional to the current through it."
+   "नियत ताप पर चालक के सिरों पर **विभवांतर (potential difference)** उसमें प्रवाहित **विद्युत धारा (electric current)** के समानुपाती होता है।",
+   "At constant temperature, the **potential difference** across a conductor is directly proportional to the **electric current** flowing through it."
   ],
   "reason": [
-   "V‑I ग्राफ की ढाल (slope) चालक का प्रतिरोध (resistance) देती है।",
-   "The slope of the V‑I graph gives the resistance of the conductor."
+   "**ओम का नियम (Ohm's law)** यह स्थापित करता है कि नियत ताप पर V / I का अनुपात एक नियतांक अर्थात **प्रतिरोध (resistance)** होता है।",
+   "**Ohm's law** establishes that at constant temperature, the ratio V / I is a constant, which is the **resistance**."
   ],
   "answer_index": 0,
-  "q": [
-   "अभिकथन (A): ओम का नियम के अनुसार, विभवांतर (voltage) चालक में धारा (current) के समानुपाती होता है। कारण (R): V‑I ग्राफ की ढाल (slope) चालक का प्रतिरोध (resistance) देती है।",
-   "Assertion (A): According to Ohm's law, the voltage across a conductor is directly proportional to the current through it. Reason (R): The slope of the V‑I graph gives the resistance of the conductor."
-  ],
   "answer": [
    "A और R दोनों सही हैं, और R, A की सही व्याख्या है।",
    "Both A and R are true, and R is the correct explanation of A."
@@ -712,7 +685,7 @@
   "outcome": "o4",
   "bloom": "understand",
   "assertion": [
-   "तापमान बढ़ने से धातु के प्रतिरोधक का प्रतिरोध हमेशा घटता है।",
+   "तापमान बढ़ने से धात्विक चालक का प्रतिरोध हमेशा घटता है।",
    "Increasing temperature always decreases the resistance of a metallic conductor."
   ],
   "reason": [
@@ -721,7 +694,7 @@
   ],
   "answer_index": 3,
   "q": [
-   "अभिकथन (A): तापमान बढ़ने से धातु के प्रतिरोधक का प्रतिरोध हमेशा घटता है। कारण (R): धातुओं की प्रतिरोधकता तापमान के साथ बढ़ती है।",
+   "अभिकथन (A): तापमान बढ़ने से धात्विक चालक का प्रतिरोध हमेशा घटता है। कारण (R): धातुओं की प्रतिरोधकता तापमान के साथ बढ़ती है।",
    "Assertion (A): Increasing temperature always decreases the resistance of a metallic conductor. Reason (R): Resistivity of metals increases with temperature."
   ],
   "answer": [
@@ -750,20 +723,20 @@
  {
   "type": "assertion_reason",
   "outcome": "o6",
-  "bloom": "apply",
+  "bloom": "understand",
+  "q": [
+   "अभिकथन (A): **श्रेणीक्रम (series)** परिपथ में प्रत्येक **प्रतिरोधक (resistor)** में समान **विद्युत धारा (electric current)** प्रवाहित होती है। कारण (R): **श्रेणीक्रम (series)** परिपथ में **आवेश (charge)** के प्रवाह के लिए केवल एक ही मार्ग उपलब्ध होता है।",
+   "Assertion (A): In a **series** circuit, the same **electric current** flows through each **resistor**. Reason (R): In a **series** circuit, there is only a single path available for the flow of **charge**."
+  ],
   "assertion": [
-   "श्रृंखला परिपथ में प्रत्येक प्रतिरोधक से समान धारा बहती है।",
-   "In a series circuit, the current through each resistor is the same."
+   "**श्रेणीक्रम (series)** परिपथ में प्रत्येक **प्रतिरोधक (resistor)** में समान **विद्युत धारा (electric current)** प्रवाहित होती है।",
+   "In a **series** circuit, the same **electric current** flows through each **resistor**."
   ],
   "reason": [
-   "एक ही चार्ज समान समय में सभी प्रतिरोधकों से गुजरता है।",
-   "The same charge passes through each resistor in a given time."
+   "**श्रेणीक्रम (series)** परिपथ में **आवेश (charge)** के प्रवाह के लिए केवल एक ही मार्ग उपलब्ध होता है।",
+   "In a **series** circuit, there is only a single path available for the flow of **charge**."
   ],
   "answer_index": 0,
-  "q": [
-   "अभिकथन (A): श्रृंखला परिपथ में प्रत्येक प्रतिरोधक से समान धारा बहती है। कारण (R): एक ही चार्ज समान समय में सभी प्रतिरोधकों से गुजरता है।",
-   "Assertion (A): In a series circuit, the current through each resistor is the same. Reason (R): The same charge passes through each resistor in a given time."
-  ],
   "answer": [
    "A और R दोनों सही हैं, और R, A की सही व्याख्या है।",
    "Both A and R are true, and R is the correct explanation of A."
@@ -790,20 +763,20 @@
  {
   "type": "assertion_reason",
   "outcome": "o9",
-  "bloom": "apply",
+  "bloom": "understand",
+  "q": [
+   "अभिकथन (A): जब किसी **चालक (conductor)** से **विद्युत धारा (electric current)** प्रवाहित होती है, तो उसमें **तापीय प्रभाव (heating effect)** उत्पन्न होता है। कारण (R): **इलेक्ट्रॉन (electron)** चालक के परमाणुओं से टकराते समय अपनी **ऊर्जा (energy)** का कुछ भाग ऊष्मा के रूप में स्थानांतरित कर देते हैं।",
+   "Assertion (A): When an **electric current** flows through a **conductor**, a **heating effect** is produced in it. Reason (R): **Electrons** transfer a portion of their **energy** as heat when colliding with the atoms of the conductor."
+  ],
   "assertion": [
-   "आपूर्ति वोल्टेज घटाकर उपकरण की शक्ति (power) कम की जा सकती है।",
-   "Power consumed by an appliance can be reduced by lowering the supply voltage."
+   "जब किसी **चालक (conductor)** से **विद्युत धारा (electric current)** प्रवाहित होती है, तो उसमें **तापीय प्रभाव (heating effect)** उत्पन्न होता है।",
+   "When an **electric current** flows through a **conductor**, a **heating effect** is produced in it."
   ],
   "reason": [
-   "शक्ति P = V² / R, इसलिए V घटाने से P घटता है।",
-   "Power P = V² / R, so decreasing V reduces P."
+   "**इलेक्ट्रॉन (electron)** चालक के परमाणुओं से टकराते समय अपनी **ऊर्जा (energy)** का कुछ भाग ऊष्मा के रूप में स्थानांतरित कर देते हैं।",
+   "**Electrons** transfer a portion of their **energy** as heat when colliding with the atoms of the conductor."
   ],
   "answer_index": 0,
-  "q": [
-   "अभिकथन (A): आपूर्ति वोल्टेज घटाकर उपकरण की शक्ति (power) कम की जा सकती है। कारण (R): शक्ति P = V² / R, इसलिए V घटाने से P घटता है।",
-   "Assertion (A): Power consumed by an appliance can be reduced by lowering the supply voltage. Reason (R): Power P = V² / R, so decreasing V reduces P."
-  ],
   "answer": [
    "A और R दोनों सही हैं, और R, A की सही व्याख्या है।",
    "Both A and R are true, and R is the correct explanation of A."
@@ -929,7 +902,7 @@
   "outcome": "o2",
   "bloom": "understand",
   "case": [
-   "भौतिक प्रयोगशाला में एक धातु तंतु (लंबाई 1.2 m, अनुप्रस्थ काट 0.5 mm²) को परिपथ में रखा गया। तंतु के दो सिरों पर वोल्टमीटर (वोल्टेज माप) और बीच में एमीटर (धारा माप) जोड़ा गया। विभिन्न धारा मानों पर वोल्टेज पढ़ा गया: (I=0.2 A, V=1.2 V), (I=0.4 A, V=2.4 V), (I=0.6 A, V=3.6 V)। प्रतिरोधकता (ρ) तांबे के लिए 1.68×10⁻⁸ Ω·m है।",
+   "भौतिक प्रयोगशाला में एक धातु तंतु (लंबाई 1.2 m, अनुप्रस्थ काट 0.5 mm²) को परिपथ में रखा गया। तंतु के दो सिरों पर वोल्टमीटर (वोल्टेज माप) और बीच में एमीटर (धारा माप) श्रेणीक्रम में जोड़ा गया। विभिन्न धारा मानों पर वोल्टेज पढ़ा गया: (I=0.2 A, V=1.2 V), (I=0.4 A, V=2.4 V), (I=0.6 A, V=3.6 V)। प्रतिरोधकता (ρ) तांबे के लिए 1.68×10⁻⁸ Ω·m है।",
    "In a physics lab, a metal wire (length 1.2 m, cross‑sectional area 0.5 mm²) is placed in a circuit. A voltmeter is connected across the ends and an ammeter in series. The V‑I readings are: (I=0.2 A, V=1.2 V), (I=0.4 A, V=2.4 V), (I=0.6 A, V=3.6 V). The resistivity of copper is 1.68×10⁻⁸ Ω·m."
   ],
   "q": [
@@ -995,7 +968,7 @@
   "outcome": "o1",
   "bloom": "apply",
   "case": [
-   "एक इलेक्ट्रिक हीटर 1500 W की शक्ति 240 V पर उपयोग किया जाता है। इसे 5 A के फ्यूज़ वाले सर्किट में जोड़ा गया। हीटर को 30 मिनट तक चलाया गया। कुल चार्ज, उत्पन्न तापीय ऊर्जा, और फ्यूज़ के काम करने का सिद्धांत बताइए।",
+   "एक इलेक्ट्रिक हीटर 1500 W की शक्ति 240 V पर उपयोग किया जाता है। इसे 5 A के फ्यूज़ वाले परिपथ में जोड़ा गया। हीटर को 30 मिनट तक चलाया गया। कुल आवेश, उत्पन्न तापीय ऊर्जा, और फ्यूज़ के काम करने का सिद्धांत बताइए।",
    "An electric heater rated 1500 W at 240 V is connected to a circuit protected by a 5 A fuse. The heater operates for 30 minutes. Determine the total charge passed, the thermal energy produced, and explain how the fuse works."
   ],
   "q": [
@@ -1228,7 +1201,7 @@
   "outcome": "o5",
   "bloom": "apply",
   "q": [
-   "प्रतिरोधकता 1.68 × 10⁻⁸ Ω·m, लंबाई 2 m और अनुप्रस्थ काट 1.0 × 10⁻⁶ m² वाले तारे का प्रतिरोध निकालें।",
+   "प्रतिरोधकता 1.68 × 10⁻⁸ Ω·m, लंबाई 2 m और अनुप्रस्थ काट 1.0 × 10⁻⁶ m² वाले चालक का प्रतिरोध निकालें।",
    "A conductor has resistivity 1.68×10⁻⁸ Ω·m, length 2 m and cross‑sectional area 1.0×10⁻⁶ m². Calculate its resistance."
   ],
   "answer": [
@@ -1400,7 +1373,7 @@
    "State the functions of an ammeter and a voltmeter and describe their correct connections in a circuit."
   ],
   "answer": [
-   "एमीटर धारा (I) मापता है और इसे परिपथ के क्रम में (सीरियल) जोड़ा जाता है; वोल्टमीटर विभवांतर (V) मापता है और इसे परिपथ के दो बिंदुओं के पार (पैरेलल) जोड़ा जाता है।",
+   "एमीटर धारा (I) मापता है और इसे परिपथ के क्रम में (श्रेणीक्रम) जोड़ा जाता है; वोल्टमीटर विभवांतर (V) मापता है और इसे परिपथ के दो बिंदुओं के पार (पार्श्वक्रम) जोड़ा जाता है।",
    "An ammeter measures current and is connected in series; a voltmeter measures potential difference and is connected in parallel across the two points."
   ]
  },
@@ -1526,7 +1499,7 @@
    "Explain the function of an ammeter and how it is connected in a circuit."
   ],
   "answer": [
-   "एमीटर धारा (current) मापता है; इसे परिपथ के श्रृंखला (series) में, यानी धारा के प्रवाह के मार्ग में जोड़ा जाता है।",
+   "एमीटर धारा (current) मापता है; इसे परिपथ के श्रेणीक्रम में, यानी धारा के प्रवाह के मार्ग में जोड़ा जाता है।",
    "An ammeter measures current; it is connected in series in the circuit, i.e., in the path of the current."
   ]
  },
@@ -1633,7 +1606,7 @@
   "outcome": "o6",
   "bloom": "apply",
   "q": [
-   "एक लाइटिंग परिपथ में तीन बल्ब क्रमशः 2 Ω, 3 Ω और 5 Ω के प्रतिरोध वाले जुड़े हैं। कुल प्रतिरोध निकालें।",
+   "एक लाइटिंग परिपथ में तीन बल्ब क्रमशः 2 Ω, 3 Ω और 5 Ω के प्रतिरोध वाले श्रेणीक्रम में जुड़े हैं। कुल प्रतिरोध निकालें।",
    "In a lighting circuit three bulbs of resistances 2 Ω, 3 Ω and 5 Ω are connected in series. Find the total resistance."
   ],
   "answer": [
@@ -1805,7 +1778,7 @@
    "Explain the advantages of connecting resistors in parallel rather than in series in domestic electric circuits."
   ],
   "answer": [
-   "पार्श्वक्रम में प्रत्येक उपकरण को समान विभवांतर (वोल्टेज) मिलता है, इसलिए बल्ब समान चमकते हैं। यदि एक उपकरण फेल हो जाए तो बाकी काम करते रहते हैं, जिससे सुरक्षा बढ़ती है। कुल प्रतिरोध कम रहने से करंट अधिक होता है और पावर सप्लाई पर कम लोड पड़ता है, जिससे सर्किट की दक्षता बढ़ती है।",
+   "पार्श्वक्रम में प्रत्येक उपकरण को समान विभवांतर (वोल्टेज) मिलता है, इसलिए बल्ब समान चमकते हैं। यदि एक उपकरण फेल हो जाए तो बाकी काम करते रहते हैं, जिससे सुरक्षा बढ़ती है। कुल प्रतिरोध कम रहने से धारा अधिक होती है और पावर सप्लाई पर कम लोड पड़ता है, जिससे परिपथ की दक्षता बढ़ती है।",
    "In parallel each appliance receives the full supply voltage, so bulbs glow uniformly. If one device fails, the others continue to operate, enhancing safety. The lower total resistance allows higher current with less load on the power source, improving circuit efficiency."
   ]
  },

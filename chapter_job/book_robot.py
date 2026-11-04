@@ -139,7 +139,9 @@ def p_questions(r, outcomes, quota, depth, feedback=''):
 
 
 # ---------------- runner ----------------
-def run(command, P, retry=False, reference_dir=None):
+def run(command, P, retry=False, reference_dir=None, repair=None):
+    """repair = {"questions": [bank numbers], "tables": [concept keys]}: resume a finished job, regenerate NOTHING; only the listed items,
+    the flagged term/number/copied-run pairs and the stale Hinglish sections are rewritten, then all checks run again."""
     syl = json.load(open(J.SYLLABUS, encoding='utf-8'))
     try:
         r = J.resolve(J.parse_command(command), syl); r['app'] = C.find_app(syl, r)
@@ -151,13 +153,17 @@ def run(command, P, retry=False, reference_dir=None):
     if job.d is None:
         job.d = {'job_id': key, 'robot': VERSION, 'command': command, 'created_at': J.now(), 'stages': {}, 'attribution': [],
                  'issues': [], 'final_state': None, 'runs': 0, 'provider_calls': []}
-    if job.d['final_state'] == 'review_ready' or (job.d['final_state'] in ('needs_review', 'failed') and not retry):
+    if not repair and (job.d['final_state'] == 'review_ready' or (job.d['final_state'] in ('needs_review', 'failed') and not retry)):
         return {'final_state': job.d['final_state'], 'job': key, 'dir': job.dir, 'reused': True}
     if retry:
         for s, v in job.d['stages'].items():
             if v.get('status') in ('needs_review', 'failed', 'running'): v['status'] = 'pending'; v['budget_start'] = v.get('attempts', 0)
         ref = job.d['stages'].get('reference')
         if ref and ref.get('status') == 'done' and not ref.get('n_sources'): ref['status'] = 'pending'
+    if repair:
+        not_done = [s for s in ('outcomes', 'plan', 'concepts', 'extras', 'questions', 'teach', 'hinglish', 'demo') if job.d['stages'].get(s, {}).get('status') != 'done']
+        if not_done: return {'final_state': 'blocked', 'reason': 'repair needs a finished job; not done: ' + ', '.join(not_done), 'job': key}
+        job.d['repair_scope'] = repair; job.d.setdefault('correction_rounds_before_repair', []).extend(job.d.get('correction_rounds', [])); job.d['correction_rounds'] = []
     job.d['runs'] += 1; job.d['final_state'] = 'running'; job.save()
     refset, langs = J.load_reference(reference_dir); refset = refset if (langs.get('hi') and langs.get('en')) else set()
     try:
@@ -174,6 +180,7 @@ def run(command, P, retry=False, reference_dir=None):
                 s = fn(job, r, P, depth, ref)
                 if s == 'partial': job.d['partial_stage'] = name; continue
                 if s != 'done': return finish(job, r, s)
+        if repair: ROT.reset(); refresh_stale(job, P)
         state = st_checks(job, r, P, refset)
         if state == 'review_ready' and not ref.get('sources'):
             job.d['issues'].append({'at': J.now(), 'kind': 'reference_unsourced', 'detail': 'no web sources: depth not evidenced'}); state = 'needs_review'
@@ -417,6 +424,48 @@ def term_check(prs):
         if why: bad.append({'pair': [hi, en], 'why': why})
     return {'pairs': len(prs), 'missing_hindi_term': miss, 'banned_form': banned, 'number_mismatch_pairs': nums,
             'glossary_verified': GLOSSARY['verified'], 'bad_pairs': bad}
+
+
+def table_problems(concepts):
+    """A concept table must be head = [[hi, en] per column], rows = [[[hi, en] per column] per row]; English side has no Devanagari.
+    Run 12 c6: head was one Hindi-only pair, a row was [hindi label, value] cells (English replaced by the number)."""
+    out = []
+    for c in concepts:
+        tb = c.get('table')
+        if not tb: continue
+        head, rows = tb.get('head') or [], tb.get('rows') or []
+        cells = list(head) + [x for r_ in rows if isinstance(r_, list) for x in r_]
+        bad = (not head or not rows or any(not isinstance(r_, list) or len(r_) != len(head) for r_ in rows) or any(not pair_ok(x) for x in cells)
+               or any(HI.search(x[1]) for x in cells if pair_ok(x))
+               or any(HI.search(x[0]) and not re.search(r'[A-Za-z]{2}', x[1]) and not HI.search(x[1]) and num_set(x[1]) and not num_set(x[0]) for x in cells if pair_ok(x)))
+        if bad: out.append(c['key'])
+    return out
+
+
+def table_ok_after(old, new):
+    if not isinstance(new, dict): return False
+    if table_problems([{'key': 'x', 'table': new}]): return False
+    if term_check(pairs(new))['bad_pairs']: return False
+    old_nums = set().union(*[num_set(s) for pr in pairs(old) for s in pr]) if pairs(old) else set()
+    new_en = set().union(*[num_set(x[1]) for x in pairs(new)]) if pairs(new) else set()
+    return old_nums <= new_en                       # every value of the old table is still there
+
+
+def correct_tables(job, P, keys):
+    cs = job.get('concepts.json'); terms = '; '.join(f"{t['en']} = {t['hi'][0]}" for t in GLOSSARY['terms'])
+    for i, c in enumerate(cs):
+        if c['key'] not in keys: continue
+        prompt = ('This table of a Class 10 chapter panel has a wrong JSON shape. Rewrite it with EXACTLY this shape: '
+                  '{"table": {"head": [["Hindi column name", "English column name"], ...], "rows": [[["Hindi cell", "English cell"], ...one cell per column...], ...]}}. '
+                  'Keep every value, number and unit; a number cell is ["value", "value"]; English cells contain no Hindi. Standard Hindi terms: ' + terms + '.\n'
+                  f'Panel: {json.dumps(c.get("title"), ensure_ascii=False)}\nWrong table: {json.dumps(c["table"], ensure_ascii=False)}\nReturn ONLY JSON.')
+        for _ in range(2):
+            try: got = ask(job, P, 'correction', prompt, 'writer').get('table')
+            except ValueError: got = None
+            if table_ok_after(c['table'], got): cs[i] = {**c, 'table': got}; break
+        else:
+            job.d['issues'].append({'at': J.now(), 'kind': 'correction_rejected', 'detail': f"table of {c['key']}: rewrite failed the code shape/number/term check"})
+    job.put('concepts.json', cs); job.save()
 
 
 def num_set(s): return set(re.findall(r'\d+(?:\.\d+)?', s))
@@ -729,6 +778,7 @@ def st_checks(job, r, P, refset):
     probs += [f"numerical {x['n']}: independent solver got a different answer" for x in c['numericals'] if x['code'] is True and not x['agree'] and not x['givens_in_text']]
     code_over_ai = [x['n'] for x in c['numericals'] if x['code'] is True and not x['agree'] and x['givens_in_text']]
     probs += [f"mcq {x['q']}: {x['detail']}" for x in c['mcq_code'] if x['ok'] is not True]
+    probs += [f"mcq {i + 1}: calculated options but no code check" for i, q in enumerate(bank) if calc_mcq(q) and not q.get('check')]
     probs += band_problems(c['coverage']['bands'])
     if run_n is not None and run_n >= PATH['copyright']['max_run_words']: probs.append(f"copyright: {run_n} words in a row match a reference book: '{run_txt[:80]}'")
     for k in sorted({d_['q'] for d_ in c['blind']['disagree']}): probs.append(f'question {k}: answer-blind solver did not reach the key')
@@ -741,6 +791,7 @@ def st_checks(job, r, P, refset):
                     ([] if GLOSSARY['verified'] else ['Hindi glossary checked against official PYQ Hindi usage; line-by-line CSTT check pending'])
     if ok is not True: probs.append('fact check ' + ('inconclusive' if ok is None else 'failed') + f': {why}')
     if not d.get('demo_html'): probs.append('3D model missing')
+    for k_ in table_problems(ch['concepts']): probs.append(f'concept {k_}: table has a wrong shape (head/rows must be [Hindi, English] cells)')
     if job.d.get('hinglish_stale'): probs.append(f"hinglish not refreshed after Hindi rewrite: sections {job.d['hinglish_stale']}")
     c['problems'] = probs
     job.put('checks.json', c); job.put('chapter_books_row.json', row); job.save()
@@ -767,13 +818,21 @@ def correction_round(job, r, P, refset, ch, bank, c, probs, ok, why, ov, run_n, 
         fix_n = [x['n'] for x in c['numericals'] if (x['code'] is not True or (not x['agree'] and not x['givens_in_text'])) and x['n'] <= len(ch['numericals'])]
         fix_q = question_fixes(bank, c)
         bad_pairs = pair_fixes(ch, bank, c, refset, run_n, run_txt)
+        fix_t = table_problems(ch['concepts'])
+        scope = job.d.get('repair_scope')
+        if scope:      # repair run: only the owner-named items; nothing else is rewritten
+            fix_c, fix_n = [], []
+            fix_q = [x for x in fix_q if x[0] + 1 in scope['questions']]
+            fix_t = [k_ for k_ in fix_t if k_ in scope.get('tables', fix_t)]
         rec.update({'concepts': [x['key'] for x in fix_c], 'numericals': fix_n, 'questions': [[i + 1, w[:70]] for i, w, _ in fix_q], 'pairs': len(bad_pairs)}); job.save()
-        if not (fix_c or fix_n or fix_q or bad_pairs):      # nothing a rewrite can fix: report, do not spend calls on a useless re-check
+        rec['tables'] = fix_t
+        if not (fix_c or fix_n or fix_q or bad_pairs or fix_t):      # nothing a rewrite can fix: report, do not spend calls on a useless re-check
             job.d['issues'].append({'at': J.now(), 'kind': 'checks_failed', 'detail': 'book checks: ' + '; '.join(probs)[:700]}); job.save()
             return 'needs_review'
         if fix_c: guard(job, 'concepts', lambda: correct_concepts(job, r, P, fix_c, why))
         if fix_n: guard(job, 'numericals', lambda: correct_numericals(job, r, P, fix_n, c['numericals']))
-        if fix_q: guard(job, 'questions', lambda: correct_questions(job, r, P, fix_q))
+        if fix_q: guard(job, 'questions', lambda: correct_questions(job, r, P, fix_q, refset))
+        if fix_t: guard(job, 'tables', lambda: correct_tables(job, P, fix_t))
         if bad_pairs: guard(job, 'pairs', lambda: correct_pairs(job, r, P, bad_pairs, refset))
         return st_checks(job, r, P, refset)
 
@@ -799,6 +858,12 @@ def question_fixes(bank, c):
         sol = d_.get('solver'); opt = q['options'][sol][1] if isinstance(sol, int) and q.get('options') and 0 <= sol < 4 else 'no answer'
         out.append((i, f"an independent solver who did not see the key chose '{opt}' but the key is '{q['options'][q['answer_index']][1]}': the question is ambiguous or the key is wrong. "
                        'Rewrite it so exactly ONE option is correct beyond any doubt, every other option is clearly wrong, and the key is that option', None))
+    for x in c.get('mcq_code', []):
+        if x['ok'] is not True and x['q'] - 1 not in seen:
+            seen.add(x['q'] - 1); out.append((x['q'] - 1, f"code check of the options: {x['detail']}; recompute, give a correct \"check\" and exactly one option equal to the code value", None))
+    for i, q in enumerate(bank):
+        if calc_mcq(q) and not q.get('check') and i not in seen:
+            seen.add(i); out.append((i, 'the options are calculated numbers but there is no "check": add a correct code check and make exactly one option equal to it', None))
     n = len(bank); ku = PATH['bloom_bands']['groups']['knowledge_understanding']; lim = PATH['bloom_bands']['min']
     have = sum(1 for q in bank if q.get('bloom') in ku); need = max(0, -(-int(lim['knowledge_understanding'] * n * 1000) // 1000) - have)
     if need:
@@ -818,14 +883,35 @@ def question_fixes(bank, c):
     return out
 
 
-def correct_questions(job, r, P, fixes):
+NUM_OPT = re.compile(r'^\s*-?\d[\d.,]*\s*(?:[x×]\s*10\^?\s*[-−]?\d+|[x×]\s*10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)?\s*[A-Za-zΩµμ°/·²³^%-]{0,8}\s*$')
+
+
+def calc_mcq(q):
+    """An mcq whose 4 options are numbers with units is a calculation: it must carry a code check that the code confirms."""
+    return q.get('type') == 'mcq' and isinstance(q.get('options'), list) and len(q['options']) == 4 and all(pair_ok(o) and NUM_OPT.match(o[1]) for o in q['options'])
+
+
+def question_ok_after(g, refset):
+    """Code gates for a rewritten question (run 12: a rewrite brought in a 16-word textbook sentence, another a wrong numerical key)."""
+    prs = pairs({k: v for k, v in g.items() if not (g.get('type') == 'assertion_reason' and k in ('options', 'answer'))})
+    if term_check(prs)['bad_pairs']: return False
+    for pr in prs:
+        n_, _ = longest_run(re.sub(r'<[^>]+>', ' ', pr[0] + ' ' + pr[1]), refset)
+        if n_ is not None and n_ >= PATH['copyright']['max_run_words']: return False
+    if calc_mcq(g) and NC.mcq_options_ok(g)[0] is not True: return False
+    return True
+
+
+def correct_questions(job, r, P, fixes, refset=None):
     bank = job.get('questions.json'); outs = job.get('outcomes.json'); ids = {o['id'] for o in outs}
     for k in range(0, len(fixes), 6):
         part = fixes[k:k + 6]
         qs = [{kk: v for kk, v in bank[i].items() if kk not in ('options', 'answer') or bank[i].get('type') != 'assertion_reason'} for i, _, _ in part]
         prompt = (STYLE.format(depth=C.LEVELS[r['app']['level_id']]['depth']) + f"Rewrite these Class 10 {r['subject']} questions ({r['chapter']}). Keep each one's type and outcome. "
                   'Same JSON fields as given (mcq: 4 options + answer_index, no "answer"; assertion_reason: assertion, reason, answer_index 0-3 with 0: both true and R explains A, '
-                  '1: both true but R does not explain A, 2: A true R false, 3: A false R true). Every text is a pair ["Hindi", "English"].\n'
+                  '1: both true but R does not explain A, 2: A true R false, 3: A false R true). Every text is a pair ["Hindi", "English"]. '
+                  'Write every sentence in your own words (never a textbook sentence). An mcq whose options are calculated numbers MUST carry "check" '
+                  'shaped {"givens": [...], "formulas": [...], "unknown": "..", "answer": {"value": .., "unit": ".."}}; ' + NC.registry_prompt() + '.\n'
                   + '\n'.join(f'Question {j + 1}: {json.dumps(q, ensure_ascii=False)}\nWhy: {w}' for j, (q, (_, w, _)) in enumerate(zip(qs, part)))
                   + '\nReturn ONLY JSON: {"questions": [ ...same count, same order... ]}')
         got = ask(job, P, 'correction', prompt, 'writer').get('questions', [])
@@ -834,8 +920,11 @@ def correct_questions(job, r, P, fixes):
             if not isinstance(g, dict): continue
             g = {**g, 'type': bank[i]['type'], 'outcome': bank[i]['outcome']}
             if want: g['bloom'] = g.get('bloom') if g.get('bloom') in want else None
+            else: g['bloom'] = bank[i].get('bloom')          # a key/ambiguity rewrite keeps the Bloom level (bands stay as checked)
             if g.get('bloom') not in PATH['bloom'] or question_problems([g], {g['type']: 1}, ids): continue
             if g['type'] == 'assertion_reason': g['options'] = AR_OPTIONS; g['answer'] = AR_OPTIONS[g['answer_index']]
+            if not question_ok_after(g, refset):
+                job.d['issues'].append({'at': J.now(), 'kind': 'correction_rejected', 'detail': f'question {i + 1}: rewrite failed a code gate (terms / copied run / calculation key)'}); continue
             bank[i] = g
     job.put('questions.json', bank); job.save()
 
@@ -898,20 +987,44 @@ def correct_pairs(job, r, P, bad, refset):
     refresh_hinglish(job, P, before)
 
 
+def refresh_stale(job, P):
+    """Repair run: the sections listed in hinglish_stale are transliterated again from the CURRENT Hindi teaching text."""
+    idx = sorted(job.d.get('hinglish_stale') or [])
+    if not idx or not job.has('hinglish.json'): return
+    secs = R.teach_sections(assemble(job)); hg = job.get('hinglish.json')
+    for k in range(0, len(idx), 6):
+        part = [i for i in idx[k:k + 6] if i < len(secs) and i < len(hg)]; got = None
+        for _ in range(2):
+            try: got = ask(job, P, 'hinglish', p_hinglish([secs[i] for i in part]), 'transliterator').get('hinglish', [])
+            except ValueError: got = None
+            if isinstance(got, list) and len(got) == len(part) and all(isinstance(x, dict) for x in got): break
+            ROT.strike(); got = None
+        if got:
+            for i, g in zip(part, got): hg[i] = g
+            job.put('hinglish.json', hg); job.d['hinglish_stale'] = [i for i in job.d['hinglish_stale'] if i not in part]; job.save()
+        else:
+            job.d['issues'].append({'at': J.now(), 'kind': 'checks_failed', 'detail': f'hinglish refresh failed for sections {part}'}); job.save()
+
+
 def refresh_hinglish(job, P, before):
     """Hinglish is a transliteration of the Hindi teaching text: sections whose Hindi changed are transliterated again (dependent content stays valid)."""
     if not job.has('hinglish.json'): return
     after = R.teach_sections(assemble(job)); hg = job.get('hinglish.json')
     idx = [i for i, (a, b_) in enumerate(zip(before, after)) if json.dumps(a, ensure_ascii=False) != json.dumps(b_, ensure_ascii=False) and i < len(hg)]
+    # marked stale BEFORE any call (run 12: a crash here left 7 changed sections with old Hinglish and no flag); cleared only per success
+    job.d['hinglish_stale'] = sorted(set(job.d.get('hinglish_stale', [])) | set(idx)); job.save()
     for k in range(0, len(idx), 6):
-        part = idx[k:k + 6]
-        got = ask(job, P, 'hinglish', p_hinglish([after[i] for i in part]), 'transliterator').get('hinglish', [])
-        if isinstance(got, list) and len(got) == len(part) and all(isinstance(x, dict) for x in got):
+        part = idx[k:k + 6]; got = None
+        for _ in range(2):
+            try: got = ask(job, P, 'hinglish', p_hinglish([after[i] for i in part]), 'transliterator').get('hinglish', [])
+            except ValueError: got = None
+            if isinstance(got, list) and len(got) == len(part) and all(isinstance(x, dict) for x in got): break
+            got = None
+        if got:
             for i, g in zip(part, got): hg[i] = g
+            job.put('hinglish.json', hg); job.d['hinglish_stale'] = [i for i in job.d['hinglish_stale'] if i not in part]; job.save()
         else:
-            job.d['issues'].append({'at': J.now(), 'kind': 'checks_failed', 'detail': f'hinglish refresh failed for sections {part}'})
-            job.d['hinglish_stale'] = sorted(set(job.d.get('hinglish_stale', [])) | set(part))
-    job.put('hinglish.json', hg); job.save()
+            job.d['issues'].append({'at': J.now(), 'kind': 'checks_failed', 'detail': f'hinglish refresh failed for sections {part}'}); job.save()
 
 
 def correct_concepts(job, r, P, fix, reason):
@@ -951,6 +1064,7 @@ def finish(job, r, state):
 if __name__ == '__main__':
     import providers
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
-    out = run(args[0], providers.Real(), retry='--retry' in sys.argv, reference_dir=os.environ.get('COPYRIGHT_FINGERPRINTS'))
+    rp = json.loads(os.environ['BOOK_REPAIR']) if '--repair' in sys.argv else None
+    out = run(args[0], providers.Real(), retry='--retry' in sys.argv, reference_dir=os.environ.get('COPYRIGHT_FINGERPRINTS'), repair=rp)
     print(json.dumps(out, ensure_ascii=False))
     sys.exit(0 if out['final_state'] in ('review_ready', 'needs_review') else 2)
