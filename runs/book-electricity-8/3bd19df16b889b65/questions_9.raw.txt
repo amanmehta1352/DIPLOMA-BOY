@@ -1,0 +1,185 @@
+{
+  "questions": [
+    {
+      "type": "assertion_reason",
+      "outcome": "o1",
+      "bloom": "apply",
+      "assertion": [
+        "विद्युत धारा (electric current) का मान चार्ज (charge) को समय (time) से विभाजित करके प्राप्त किया जाता है।",
+        "Electric current is obtained by dividing charge by time."
+      ],
+      "reason": [
+        "क्योंकि धारा (current) की परिभाषा ही Q/t है, इसलिए समय बढ़ने पर धारा घटती है।",
+        "Because the definition of current is Q/t, increasing time reduces the current."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o4",
+      "bloom": "understand",
+      "assertion": [
+        "धातु के चालक (conductor) में ताप बढ़ने पर प्रतिरोध (resistance) घटता है।",
+        "In a metallic conductor, resistance decreases when temperature rises."
+      ],
+      "reason": [
+        "धातु में ताप बढ़ने से प्रतिरोधकता (resistivity) बढ़ती है, जिससे प्रतिरोध बढ़ता है।",
+        "In metals, resistivity increases with temperature, causing resistance to increase."
+      ],
+      "answer_index": 3
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "assertion": [
+        "घरेलू परिपथ में प्रतिरोधकों को समानांतर (parallel) में जोड़ने से कुल प्रतिरोध कम हो जाता है।",
+        "Connecting resistors in parallel in a domestic circuit reduces the total resistance."
+      ],
+      "reason": [
+        "समानांतर में प्रत्येक प्रतिरोधक अतिरिक्त पथ प्रदान करता है, जिससे धारा का प्रवाह बढ़ता है।",
+        "In parallel each resistor provides an additional path, increasing the overall current."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o9",
+      "bloom": "apply",
+      "assertion": [
+        "बल्ब की शक्ति (power) को P = V^2 / R से निकाला जा सकता है।",
+        "The power of a bulb can be calculated using P = V² / R."
+      ],
+      "reason": [
+        "क्योंकि ओम का नियम V = I*R है, इसे P = V*I में रखने पर P = V^2 / R मिलता है।",
+        "Since Ohm’s law is V = I·R, substituting I = V/R in P = V·I gives P = V² / R."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "hots",
+      "outcome": "o2",
+      "bloom": "understand",
+      "case": [
+        "एक प्रयोगशाला में छात्र ने 12 V बैटरी, 6 Ω प्रतिरोधक, एमीटर और वोल्टमीटर को परिपथ में जोड़ा। एमीटर को धारा के प्रवाह के मार्ग में सीधा जोड़ा गया, जबकि वोल्टमीटर को दो बिंदुओं के बीच समानांतर में जोड़ा गया।",
+        "In a lab a student connected a 12 V battery, a 6 Ω resistor, an ammeter and a voltmeter. The ammeter was placed directly in the path of the current, while the voltmeter was connected across two points in parallel."
+      ],
+      "q": [
+        "एमीटर और वोल्टमीटर को परिपथ में किस प्रकार जोड़ना चाहिए? क्यों?",
+        "How should the ammeter and voltmeter be connected in the circuit and why?"
+      ],
+      "answer": [
+        "एमीटर को **श्रृंखला** (series) में और वोल्टमीटर को **समानांतर** (parallel) में जोड़ना चाहिए। एमीटर को धारा के प्रवाह में बाधा नहीं बननी चाहिए, इसलिए इसे श्रृंखला में रखा जाता है; वोल्टमीटर को संभावित अंतर मापना होता है, इसलिए इसे दो बिंदुओं के बीच समानांतर में जोड़ा जाता है जिससे धारा में परिवर्तन नहीं होता।",
+        "The ammeter must be connected in series so that it does not impede the current flow, while the voltmeter must be connected in parallel across the two points whose potential difference is to be measured, ensuring it draws negligible current."
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "case": [
+        "एक धातु के तारे का V‑I ग्राफ नीचे दिया गया है। ग्राफ सीधी रेखा है जो मूल बिंदु से होकर गुजरती है और बिंदु (10 V, 2 A) से गुजरती है।",
+        "The V‑I graph of a metal wire is a straight line passing through the origin and the point (10 V, 2 A)."
+      ],
+      "q": [
+        "इस ग्राफ से धातु के तारे का प्रतिरोध निर्धारित करें और बताएं कि क्या यह ओम के नियम का पालन करता है?",
+        "Determine the resistance of the metal wire from the graph and state whether it obeys Ohm’s law."
+      ],
+      "answer": [
+        "प्रतिरोध ग्राफ की ढाल के बराबर है। ढाल = ΔV/ΔI = 10 V / 2 A = 5 Ω। क्योंकि ग्राफ मूल बिंदु से गुजरती है, V और I का अनुपात स्थिर है, इसलिए यह ओम के नियम का पालन करता है।",
+        "The resistance equals the slope of the graph: 10 V / 2 A = 5 Ω. Since the line passes through the origin, V/I is constant, confirming Ohm’s law is satisfied."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 10, "unit": "V" },
+          { "symbol": "I", "value": 2, "unit": "A" }
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": { "value": 5, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": [
+        "एक तांबे की तार की लंबाई 2 m और अनुप्रस्थ काट 1 mm² (1 × 10⁻⁶ m²) है। इस तार का प्रतिरोध 0.034 Ω मापा गया है।",
+        "A copper wire has length 2 m and cross‑sectional area 1 mm² (1 × 10⁻⁶ m²). Its measured resistance is 0.034 Ω."
+      ],
+      "q": [
+        "तार की प्रतिरोधकता (resistivity) निकालें।",
+        "Calculate the resistivity of the wire."
+      ],
+      "answer": [
+        "ρ = R·A / L = 0.034 Ω × 1 × 10⁻⁶ m² / 2 m = 1.7 × 10⁻⁸ Ω·m।",
+        "ρ = R·A / L = 0.034 Ω · 1 × 10⁻⁶ m² / 2 m = 1.7 × 10⁻⁸ Ω·m."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "R", "value": 0.034, "unit": "Ω" },
+          { "symbol": "A", "value": 1e-6, "unit": "m^2" },
+          { "symbol": "L", "value": 2, "unit": "m" }
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "rho",
+        "answer": { "value": 1.7e-8, "unit": "Ω·m" }
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o8",
+      "bloom": "apply",
+      "case": [
+        "एक फ्यूज़ 5 A पर 2 s तक धारा लेता है और फिर पिघल जाता है। फ्यूज़ के तंतु का प्रतिरोध 0.01 Ω है।",
+        "A fuse carries 5 A for 2 s before melting. The resistance of the fuse wire is 0.01 Ω."
+      ],
+      "q": [
+        "फ्यूज़ द्वारा उत्पन्न तापीय ऊर्जा (heat) की मात्रा निकालें और समझाएँ कि यह फ्यूज़ को पिघलने पर मजबूर क्यों करती है।",
+        "Calculate the amount of heat produced by the fuse and explain why this causes the fuse to melt."
+      ],
+      "answer": [
+        "H = I² R t = 5² × 0.01 Ω × 2 s = 0.5 J। यह ऊर्जा तंतु के ताप को बढ़ाती है; जब ताप फ्यूज़ के पिघलने बिंदु तक पहुँचता है, तंतु पिघल जाता है और परिपथ खुल जाता है।",
+        "H = I² R t = 5² × 0.01 Ω × 2 s = 0.5 J. This energy raises the temperature of the wire; once the temperature reaches the melting point, the fuse wire melts, breaking the circuit."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "I", "value": 5, "unit": "A" },
+          { "symbol": "R", "value": 0.01, "unit": "Ω" },
+          { "symbol": "t", "value": 2, "unit": "s" }
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": { "value": 0.5, "unit": "J" }
+      }
+    },
+    {
+      "type": "numerical",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "दो प्रतिरोधक 4 Ω और 6 Ω को श्रृंखला में जोड़ें और इस संयोजन को 3 Ω प्रतिरोधक के साथ समानांतर में जोड़ें। यदि आपूर्ति वोल्टेज 12 V है, तो (i) कुल प्रतिरोध, (ii) प्रत्येक शाखा में धारा निकालें।",
+        "Connect two resistors of 4 Ω and 6 Ω in series and place this combination in parallel with a 3 Ω resistor. With a supply voltage of 12 V, find (i) the equivalent resistance and (ii) the current in each branch."
+      ],
+      "answer": [
+        "(i) Rs(series) = 4 Ω + 6 Ω = 10 Ω; 1/Rp = 1/10 + 1/3 = 0.4333 → Rp ≈ 2.31 Ω।\n(ii) कुल धारा Iₜ = V / Rp = 12 V / 2.31 Ω ≈ 5.20 A।\n3 Ω शाखा में I₃ = V / 3 Ω = 4 A।\nश्रृंखला शाखा में Iₛ = V / 10 Ω = 1.20 A (या Iₜ – I₃)।",
+        "(i) Rs = 4 Ω + 6 Ω = 10 Ω; 1/Rp = 1/10 + 1/3 = 0.4333 → Rp ≈ 2.31 Ω.\n(ii) Total current Iₜ = 12 V / 2.31 Ω ≈ 5.20 A.\nCurrent through 3 Ω branch I₃ = 12 V / 3 Ω = 4 A.\nCurrent through the series branch Iₛ = 12 V / 10 Ω = 1.20 A (or Iₜ – I₃)."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "R1", "value": 4, "unit": "Ω" },
+          { "symbol": "R2", "value": 6, "unit": "Ω" },
+          { "symbol": "R3", "value": 3, "unit": "Ω" },
+          { "symbol": "V", "value": 12, "unit": "V" }
+        ],
+        "formulas": [
+          "series2",
+          "parallel2",
+          {"id":"ohm","map":{"R":"Rp"}}
+        ],
+        "unknown": "Rp",
+        "answer": { "value": 2.31, "unit": "Ω" }
+      }
+    }
+  ]
+}

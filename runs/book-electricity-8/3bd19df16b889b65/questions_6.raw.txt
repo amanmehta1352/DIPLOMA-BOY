@@ -1,0 +1,241 @@
+{
+  "questions": [
+    {
+      "type": "assertion_reason",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        ["विद्युत धारा (electric current) और विभवांतर (potential difference) को मापने वाले यंत्र कौन‑से हैं?", "Which devices are used to measure electric current and potential difference?"]
+      ],
+      "assertion": [
+        ["एमीटर (ammeter) धारा को मापता है और वोल्टमीटर (voltmeter) विभवांतर को मापता है।", "An ammeter measures current and a voltmeter measures potential difference."]
+      ],
+      "reason": [
+        ["एमीटर को परिपथ में धारा के प्रवाह के साथ श्रृंखला में जोड़ा जाता है, जबकि वोल्टमीटर को दो बिंदुओं के बीच विभवांतर मापने के लिये समानांतर में जोड़ा जाता है।", "An ammeter is connected in series with the current flow, whereas a voltmeter is connected in parallel across two points to measure potential difference."]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        ["एक चालक (conductor) के प्रतिरोध (resistance) को किन‑किन कारकों से प्रभावित किया जाता है?", "Which factors affect the resistance of a conductor?"]
+      ],
+      "assertion": [
+        ["प्रतिरोध केवल चालक की लंबाई (length) से बढ़ता है।", "Resistance increases only with the length of the conductor."]
+      ],
+      "reason": [
+        ["लंबाई बढ़ने से कणों के बीच टक्करों की संख्या बढ़ती है, जिससे प्रतिरोध बढ़ता है, परंतु अनुप्रस्थ काट (cross‑sectional area) और ताप (temperature) भी प्रभाव डालते हैं।", "Increasing length increases collisions, raising resistance, but cross‑sectional area and temperature also affect resistance."]
+      ],
+      "answer_index": 2
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o3",
+      "bloom": "remember",
+      "q": [
+        ["ओम का नियम (Ohm’s law) क्या कहता है?", "What does Ohm’s law state?"]
+      ],
+      "assertion": [
+        ["वोल्टेज (V) धारा (I) और प्रतिरोध (R) के गुणनफल के बराबर होता है।", "Voltage equals the product of current and resistance."]
+      ],
+      "reason": [
+        ["यदि धारा को दो गुना किया जाये तो वोल्टेज भी दो गुना हो जाता है, बशर्ते प्रतिरोध स्थिर रहे।", "If current is doubled, voltage also doubles, provided resistance remains constant."]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        ["घरेलू परिपथों में श्रेणीक्रम (series) की तुलना में पार्श्वक्रम (parallel) संयोजन के क्या लाभ हैं?", "What are the advantages of parallel combinations over series in domestic circuits?"]
+      ],
+      "assertion": [
+        ["पार्श्वक्रम में प्रत्येक उपकरण को समान विभवांतर मिलता है, जिससे उनका कार्य सही रहता है।", "In parallel, each appliance receives the same potential difference, so it works properly."]
+      ],
+      "reason": [
+        ["यदि एक उपकरण खराब हो जाये तो शेष उपकरणों पर प्रभाव नहीं पड़ता, क्योंकि वे अलग‑अलग शाखाओं में जुड़े होते हैं।", "If one appliance fails, the others are unaffected because they are in separate branches."]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "case_based",
+      "outcome": "o1",
+      "bloom": "apply",
+      "case": [
+        ["एक विद्युत परिपथ में 6 C (कूलॉम्ब) आवेश 2 s (सेकंड) में प्रवाहित होता है। यदि इस प्रक्रिया में 24 J (जूल) कार्य किया जाता है, तो धारा और विभवांतर निर्धारित करें।", "In an electric circuit, a charge of 6 C passes in 2 s. If 24 J of work is done during this process, determine the current and potential difference."]
+      ],
+      "q": [
+        ["धारा (I) और विभवांतर (V) की मान निकालें।", "Find the values of current (I) and potential difference (V)."]
+      ],
+      "answer": [
+        ["धारा = 3 A, विभवांतर = 4 V", "Current = 3 A, Potential difference = 4 V"]
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "Q", "value": 6, "unit": "C"},
+          {"symbol": "t", "value": 2, "unit": "s"},
+          {"symbol": "W", "value": 24, "unit": "J"}
+        ],
+        "formulas": ["charge", "pd_work"],
+        "unknown": "I",
+        "answer": {"value": 3, "unit": "A"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": [
+        ["एक तांबे की तार की लंबाई 2 m और अनुप्रस्थ काट 1.0×10⁻⁶ m² है। यदि उसकी प्रतिरोधकता 1.68×10⁻⁸ Ω·m है, तो उसका प्रतिरोध निकालें।", "A copper wire has length 2 m and cross‑sectional area 1.0×10⁻⁶ m². Its resistivity is 1.68×10⁻⁸ Ω·m. Find its resistance."]
+      ],
+      "q": [
+        ["तार का प्रतिरोध (R) क्या है?", "What is the resistance (R) of the wire?"]
+      ],
+      "answer": [
+        ["R ≈ 0.034 Ω", "R ≈ 0.034 Ω"]
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "rho", "value": 1.68e-8, "unit": "ohm*meter"},
+          {"symbol": "L", "value": 2, "unit": "m"},
+          {"symbol": "A", "value": 1e-6, "unit": "m^2"}
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": {"value": 0.034, "unit": "ohm"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o6",
+      "bloom": "apply",
+      "case": [
+        ["एक परिपथ में दो प्रतिरोधक 4 Ω और 6 Ω क्रमशः श्रेणीक्रम में जुड़े हैं, और यह संयोजन 12 V स्रोत से जुड़ा है। साथ ही एक 3 Ω प्रतिरोधक इस संयोजन के साथ समानांतर में जुड़ा है। कुल प्रतिरोध और प्रत्येक शाखा में धारा निकालें।", "In a circuit two resistors 4 Ω and 6 Ω are connected in series and this combination is connected to a 12 V source. Additionally a 3 Ω resistor is connected in parallel with this series combination. Find the total resistance and the current in each branch."]
+      ],
+      "q": [
+        ["कुल प्रतिरोध और प्रत्येक शाखा में धारा निर्धारित करें।", "Determine the total resistance and the current in each branch."]
+      ],
+      "answer": [
+        ["कुल प्रतिरोध ≈ 2.31 Ω, 3 Ω शाखा में धारा = 4 A, 4 Ω‑6 Ω श्रृंखला शाखा में धारा = 1.2 A", "Total resistance ≈ 2.31 Ω, current in 3 Ω branch = 4 A, current in 4 Ω‑6 Ω series branch = 1.2 A"]
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "R1", "value": 4, "unit": "ohm"},
+          {"symbol": "R2", "value": 6, "unit": "ohm"},
+          {"symbol": "R3", "value": 3, "unit": "ohm"},
+          {"symbol": "V", "value": 12, "unit": "V"}
+        ],
+        "formulas": ["series2", "parallel2"],
+        "unknown": "Rp",
+        "answer": {"value": 2.307, "unit": "ohm"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o8",
+      "bloom": "apply",
+      "case": [
+        ["एक फ्यूज़ में 0.5 Ω प्रतिरोध वाला तंतु (filament) है। यदि वह 5 A धारा लेता है और 10 s तक चलता है, तो उत्पन्न तापीय प्रभाव (heat) की मात्रा निकालें। यह फ्यूज़ 100 J से अधिक ताप प्राप्त होने पर पिघल जाता है। क्या फ्यूज़ पिघलेगा?", "A fuse has a filament of resistance 0.5 Ω. If it carries a current of 5 A for 10 s, calculate the heat produced. The fuse melts when heat exceeds 100 J. Will it melt?"]
+      ],
+      "q": [
+        ["उत्पन्न तापीय प्रभाव (H) और फ्यूज़ के पिघलने की स्थिति बताइए।", "State the heat produced (H) and whether the fuse melts."]
+      ],
+      "answer": [
+        ["H = 125 J, फ्यूज़ पिघलेगा।", "H = 125 J, the fuse will melt."]
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "I", "value": 5, "unit": "A"},
+          {"symbol": "R", "value": 0.5, "unit": "ohm"},
+          {"symbol": "t", "value": 10, "unit": "s"}
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": {"value": 125, "unit": "J"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o9",
+      "bloom": "apply",
+      "case": [
+        ["एक घर में 1.5 kW का इलेक्ट्रिक हीटर 8 घंटे प्रतिदिन चलाया जाता है। बिजली की दर 8 रुपये प्रति kWh है। एक महीने (30 दिन) में इस हीटर का कुल खर्च निकालें।", "A house uses a 1.5 kW electric heater for 8 h daily. Electricity cost is 8 Rs per kWh. Find the total monthly expense for 30 days."]
+      ],
+      "q": [
+        ["हीटर का मासिक खर्च (₹) क्या है?", "What is the heater’s monthly cost (₹)?"]
+      ],
+      "answer": [
+        ["₹ 2880", "₹ 2880"]
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "P", "value": 1.5, "unit": "kW"},
+          {"symbol": "h_per_day", "value": 8, "unit": "h"},
+          {"symbol": "days", "value": 30, "unit": ""},
+          {"symbol": "rate", "value": 8, "unit": "Rs/kWh"}
+        ],
+        "formulas": ["energy_pt", "power_vi"],
+        "unknown": "cost",
+        "answer": {"value": 2880, "unit": "Rs"}
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": [
+        ["यदि किसी चालक का V‑I ग्राफ एक सीधी रेखा है जिसमें दो बिंदु (2 V, 0.5 A) और (6 V, 1.5 A) हैं, तो उस चालक का प्रतिरोध (R) निकालें।", "If a conductor’s V‑I graph is a straight line passing through points (2 V, 0.5 A) and (6 V, 1.5 A), determine its resistance (R)."]
+      ],
+      "answer": [
+        ["R = 4 Ω", "R = 4 Ω"]
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        ["एक 12 V स्रोत से 2 A की धारा चाहिए। उपलब्ध प्रतिरोधक 2 Ω, 4 Ω, 6 Ω हैं। कौन‑सी श्रृंखला‑पार्श्वक्रम संयोजन से आवश्यक प्रतिरोध प्राप्त किया जा सकता है? अपने उत्तर में संयोजन बताइए।", "A 12 V source must supply 2 A. Available resistors are 2 Ω, 4 Ω, 6 Ω. Which series‑parallel combination can give the required resistance? State the combination."]
+      ],
+      "answer": [
+        ["6 Ω प्रतिरोधक को अकेले उपयोग करें, या 2 Ω और 4 Ω को श्रृंखला में जोड़कर 6 Ω बनाएं।", "Use the 6 Ω resistor alone, or connect 2 Ω and 4 Ω in series to obtain 6 Ω."]
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        ["घरेलू प्रकाश व्यवस्था में यदि एक बल्ब जलता नहीं है तो बाकी बल्बों पर क्या प्रभाव पड़ता है? श्रृंखला और पार्श्वक्रम दोनों के लिए समझाइए और कौन‑सा अधिक सुरक्षित है, बताइए।", "In a household lighting system, if one bulb fails, what happens to the other bulbs? Explain for both series and parallel connections and state which is safer."]
+      ],
+      "answer": [
+        ["श्रृंखला में सभी बल्ब बंद हो जाते हैं; पार्श्वक्रम में अन्य बल्ब सामान्य रूप से काम करते रहते हैं। इसलिए पार्श्वक्रम अधिक सुरक्षित है।", "In series all bulbs go off; in parallel the remaining bulbs continue to work. Hence parallel is safer."]
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        ["एक पंखा 60 W की शक्ति लेता है और प्रतिदिन 10 घंटे चलता है। बिजली की दर 6 रुपये/kWh है। एक महीने (30 दिन) में पंखे का खर्च कितना होगा?", "A fan consumes 60 W and runs 10 h daily. Electricity cost is 6 Rs/kWh. Find the monthly cost for 30 days."]
+      ],
+      "answer": [
+        ["₹ 108", "₹ 108"]
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "P", "value": 60, "unit": "W"},
+          {"symbol": "h_per_day", "value": 10, "unit": "h"},
+          {"symbol": "days", "value": 30, "unit": ""},
+          {"symbol": "rate", "value": 6, "unit": "Rs/kWh"}
+        ],
+        "formulas": ["energy_pt", "power_vi"],
+        "unknown": "cost",
+        "answer": {"value": 108, "unit": "Rs"}
+      }
+    }
+  ]
+}
