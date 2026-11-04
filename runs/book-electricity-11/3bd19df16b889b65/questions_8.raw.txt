@@ -1,0 +1,217 @@
+{
+  "questions": [
+    {
+      "type": "assertion_reason",
+      "outcome": "o2",
+      "bloom": "understand",
+      "assertion": [
+        "एमीटर धारा को मापता है।",
+        "An ammeter measures the current."
+      ],
+      "reason": [
+        "वोल्टमीटर को परिपथ में धारा के समान बिंदु पर जोड़ा जाता है।",
+        "A voltmeter is connected across the same points of the circuit as the current."
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o4",
+      "bloom": "understand",
+      "assertion": [
+        "प्रतिरोध केवल लंबाई पर निर्भर करता है।",
+        "Resistance depends only on the length."
+      ],
+      "reason": [
+        "लंबाई बढ़ने से अनुप्रस्थ काट नहीं बदलता, इसलिए प्रतिरोध बढ़ता है।",
+        "When length increases, the cross‑sectional area does not change, therefore resistance increases."
+      ],
+      "answer_index": 3
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "assertion": [
+        "पार्श्वक्रम में प्रत्येक बल्ब को समान वोल्टेज मिलता है।",
+        "In a parallel circuit each bulb receives the same voltage."
+      ],
+      "reason": [
+        "इससे सभी बल्ब समान चमकते हैं और कोई भी बल्ब जलने पर अन्य नहीं बुझते।",
+        "Hence all bulbs shine equally and if one bulb burns out the others remain lit."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o9",
+      "bloom": "apply",
+      "assertion": [
+        "विद्युत शक्ति P = V/I से निकाली जा सकती है।",
+        "Electric power P can be obtained as V/I."
+      ],
+      "reason": [
+        "ओम का नियम V = I×R है, जिससे P = V×I प्राप्त होता है।",
+        "Ohm’s law V = I·R gives P = V·I."
+      ],
+      "answer_index": 3
+    },
+    {
+      "type": "hots",
+      "outcome": "o1",
+      "bloom": "apply",
+      "case": [
+        "एक प्रयोगशाला में 12 कूलॉम्ब (C) आवेश 4 सेकंड (s) में एक धारा (धारा) के रूप में बहता है। उसी परिपथ में 24 जूल (J) कार्य (कार्य) 6 कूलॉम्ब (C) आवेश पर किया जाता है।",
+        "In a laboratory, 12 coulombs of charge flow as current in 4 seconds. In the same circuit, 24 joules of work is done on 6 coulombs of charge."
+      ],
+      "q": [
+        "विद्युत धारा (electric current) और विद्युत विभव (electric potential) की परिभाषा लिखें तथा ऊपर दिए गये डेटा से धारा (I) और विभवांतर (V) की गणना करें।",
+        "Write the definitions of electric current and electric potential and calculate the current (I) and potential difference (V) using the given data."
+      ],
+      "answer": [
+        "विद्युत धारा I = Q/t = 12 C / 4 s = 3 A; विद्युत विभव V = W/Q = 24 J / 6 C = 4 V।",
+        "Current I = Q/t = 12 C / 4 s = 3 A; Potential difference V = W/Q = 24 J / 6 C = 4 V."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "Q", "value": 12, "unit": "C" },
+          { "symbol": "t", "value": 4, "unit": "s" },
+          { "symbol": "W", "value": 24, "unit": "J" },
+          { "symbol": "Q2", "value": 6, "unit": "C" }
+        ],
+        "formulas": ["charge", "pd_work"],
+        "unknown": "I and V",
+        "answer": {
+          "I": { "value": 3, "unit": "A" },
+          "V": { "value": 4, "unit": "V" }
+        }
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "case": [
+        "एक चालक के लिए प्रयोग में प्राप्त वोल्टेज‑धारा (V‑I) डेटा इस प्रकार है: (2 V, 0.5 A), (4 V, 1 A), (6 V, 1.5 A)।",
+        "For a conductor the experimentally obtained voltage‑current (V‑I) data are: (2 V, 0.5 A), (4 V, 1 A), (6 V, 1.5 A)."
+      ],
+      "q": [
+        "ओम का नियम लिखें और ऊपर दिए गये V‑I ग्राफ का ढाल (slope) निकालें जिससे प्रतिरोध (R) निर्धारित हो।",
+        "State Ohm’s law and determine the slope of the given V‑I graph to find the resistance (R)."
+      ],
+      "answer": [
+        "ओम का नियम: V = I × R। ढाल ΔV/ΔI = (4‑2)/(1‑0.5) = 2/0.5 = 4 Ω, इसलिए प्रतिरोध 4 Ω है।",
+        "Ohm’s law: V = I·R. Slope ΔV/ΔI = (4‑2)/(1‑0.5) = 2/0.5 = 4 Ω, so resistance = 4 Ω."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V1", "value": 2, "unit": "V" },
+          { "symbol": "I1", "value": 0.5, "unit": "A" },
+          { "symbol": "V2", "value": 4, "unit": "V" },
+          { "symbol": "I2", "value": 1, "unit": "A" }
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": { "value": 4, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": [
+        "एक तांबे (copper) के तंतु की लंबाई 2 m है और उसका अनुप्रस्थ काट 0.5 mm² है। तंतु की प्रतिरोधकता 1.7×10⁻⁸ Ω·m है।",
+        "A copper wire has length 2 m and cross‑sectional area 0.5 mm². Its resistivity is 1.7×10⁻⁸ Ω·m."
+      ],
+      "q": [
+        "ऊपर दिए गये तंतु का प्रतिरोध (R) गणना करें और उसका SI इकाई लिखें।",
+        "Calculate the resistance (R) of the given wire and state its SI unit."
+      ],
+      "answer": [
+        "R = ρ L/A = (1.7×10⁻⁸ Ω·m × 2 m) / (0.5×10⁻⁶ m²) = 0.068 Ω।",
+        "R = ρ L/A = (1.7×10⁻⁸ Ω·m × 2 m) / (0.5×10⁻⁶ m²) = 0.068 Ω."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "rho", "value": 1.7e-8, "unit": "Ω·m" },
+          { "symbol": "L", "value": 2, "unit": "m" },
+          { "symbol": "A", "value": 0.5e-6, "unit": "m2" }
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": { "value": 0.068, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o6",
+      "bloom": "apply",
+      "case": [
+        "एक परिपथ में R1 = 2 Ω और R2 = 3 Ω श्रेणीक्रम में जुड़े हैं। यह श्रृंखला R3 = 6 Ω के साथ पार्श्वक्रम में जुड़ी है। कुल विभवांतर 12 V दिया गया है।",
+        "In a circuit R1 = 2 Ω and R2 = 3 Ω are connected in series. This series combination is in parallel with R3 = 6 Ω. The total potential difference is 12 V."
+      ],
+      "q": [
+        "समग्र प्रतिरोध (Rs) और प्रत्येक शाखा में धारा (I1, I2, I3) की गणना करें।",
+        "Find the equivalent resistance (Rs) and the current in each branch (I1, I2, I3)."
+      ],
+      "answer": [
+        "R12 = R1 + R2 = 5 Ω; 1/Rs = 1/5 + 1/6 ⇒ Rs = 30/11 ≈ 2.73 Ω। कुल धारा I = V/Rs = 12/2.73 ≈ 4.40 A।\nR3 में धारा I3 = V/R3 = 12/6 = 2.0 A।\nश्रेणीक्रम शाखा में धारा I12 = V/5 = 2.4 A, इसलिए I1 = I2 = 2.4 A।",
+        "R12 = R1 + R2 = 5 Ω; 1/Rs = 1/5 + 1/6 ⇒ Rs = 30/11 ≈ 2.73 Ω.\nTotal current I = 12 V / 2.73 Ω ≈ 4.40 A.\nCurrent through R3: I3 = 12 V / 6 Ω = 2.0 A.\nCurrent through series branch (R1‑R2): I12 = 12 V / 5 Ω = 2.4 A, so I1 = I2 = 2.4 A."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "R1", "value": 2, "unit": "Ω" },
+          { "symbol": "R2", "value": 3, "unit": "Ω" },
+          { "symbol": "R3", "value": 6, "unit": "Ω" },
+          { "symbol": "V", "value": 12, "unit": "V" }
+        ],
+        "formulas": [
+          "series2",
+          "parallel2",
+          "ohm"
+        ],
+        "unknown": "Rs, I, I1, I2, I3",
+        "answer": {
+          "Rs": { "value": 2.727, "unit": "Ω" },
+          "I_total": { "value": 4.40, "unit": "A" },
+          "I3": { "value": 2.0, "unit": "A" },
+          "I1": { "value": 2.4, "unit": "A" },
+          "I2": { "value": 2.4, "unit": "A" }
+        }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o8",
+      "bloom": "apply",
+      "case": [
+        "एक फ्यूज़ में 0.02 Ω प्रतिरोध है और वह 5 A धारा से 2 s तक जुड़ा रहता है। उसी परिपथ में एक बल्ब का तंतु 0.5 Ω प्रतिरोध वाला है, जो 10 A धारा लेता है और 5 s तक चालू रहता है।",
+        "A fuse has a resistance of 0.02 Ω and carries a current of 5 A for 2 s. In the same circuit a bulb filament of resistance 0.5 Ω carries 10 A for 5 s."
+      ],
+      "q": [
+        "ऊपर दिए गये फ्यूज़ में उत्पन्न तापीय ऊर्जा (H) की गणना करें और बताएं कि यह फ्यूज़ क्यों जल जाता है। साथ ही बल्ब के तंतु में उत्पन्न ताप (H) निकालें।",
+        "Calculate the heat energy (H) produced in the fuse and explain why the fuse melts. Also compute the heat generated in the bulb filament."
+      ],
+      "answer": [
+        "फ्यूज़: H = I² R t = 5² × 0.02 × 2 = 1.0 J। यह ताप फ्यूज़ के पिघलने बिंदु से अधिक होने पर फ्यूज़ जल जाता है।\nबल्ब: H = I² R t = 10² × 0.5 × 5 = 250 J।",
+        "Fuse: H = I² R t = 5² × 0.02 × 2 = 1.0 J. The heat raises the fuse temperature above its melting point, causing it to melt.\nBulb: H = I² R t = 10² × 0.5 × 5 = 250 J."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "I_fuse", "value": 5, "unit": "A" },
+          { "symbol": "R_fuse", "value": 0.02, "unit": "Ω" },
+          { "symbol": "t_fuse", "value": 2, "unit": "s" },
+          { "symbol": "I_bulb", "value": 10, "unit": "A" },
+          { "symbol": "R_bulb", "value": 0.5, "unit": "Ω" },
+          { "symbol": "t_bulb", "value": 5, "unit": "s" }
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H_fuse, H_bulb",
+        "answer": {
+          "H_fuse": { "value": 1.0, "unit": "J" },
+          "H_bulb": { "value": 250, "unit": "J" }
+        }
+      }
+    }
+  ]
+}

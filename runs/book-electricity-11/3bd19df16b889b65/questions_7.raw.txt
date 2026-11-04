@@ -1,0 +1,161 @@
+{
+  "questions": [
+    {
+      "type": "assertion_reason",
+      "outcome": "o1",
+      "bloom": "understand",
+      "assertion": ["विद्युत धारा (electric current) वह प्रवाह है जो एक सेकंड में 1 कूलॉम्ब आवेश ले जाता है।", "Electric current is the flow that carries 1 coulomb of charge in one second."],
+      "reason": ["इसे परिभाषित करने के लिये धारा (current) को आवेश (charge) और समय (time) के अनुपात में व्यक्त किया जाता है।", "It is defined by expressing current as the ratio of charge to time."],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o2",
+      "bloom": "understand",
+      "assertion": ["एमीटर (ammeter) को परिपथ में धारा (current) मापने के लिये श्रृंखला (series) में जोड़ा जाता है।", "An ammeter is connected in series in a circuit to measure current."],
+      "reason": ["क्योंकि एमीटर का प्रतिरोध बहुत कम होता है, जिससे परिपथ में कुल प्रतिरोध में न्यूनतम वृद्धि होती है।", "Because an ammeter has very low resistance, causing minimal increase in total circuit resistance."],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o3",
+      "bloom": "understand",
+      "assertion": ["ओम का नियम (Ohm's law) कहता है कि धारा (current) प्रतिरोध (resistance) के व्युत्क्रमानुपाती होती है।", "Ohm's law states that current is inversely proportional to resistance."],
+      "reason": ["यदि प्रतिरोध बढ़े तो धारा घटेगी, जबकि विभवांतर (potential difference) स्थिर रहे।", "If resistance increases, current decreases while the potential difference remains constant."],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o4",
+      "bloom": "understand",
+      "assertion": ["धारा (current) का मान लंबाई (length) बढ़ने से बढ़ता है।", "The value of current increases when length increases."],
+      "reason": ["क्योंकि लंबी चालक (conductor) में अधिक प्रतिरोध (resistance) होता है, जिससे धारा घटती है।", "Because a longer conductor has higher resistance, causing current to decrease."],
+      "answer_index": 3
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": "एक तांबे की तार की लंबाई 2 m और अनुप्रस्थ काट 1.0×10^-6 m^2 है। तांबे की प्रतिरोधकता 1.68×10^-8 Ω·m है। इस तार का प्रतिरोध निकालें।",
+      "q": ["प्रतिरोध (resistance) की गणना करें।", "Calculate the resistance."],
+      "answer": ["0.0336 Ω", "0.0336 Ω"],
+      "check": {
+        "givens": [
+          {"symbol": "rho", "value": 1.68e-8, "unit": "Ω·m"},
+          {"symbol": "L", "value": 2, "unit": "m"},
+          {"symbol": "A", "value": 1.0e-6, "unit": "m^2"}
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": {"value": 0.0336, "unit": "Ω"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o6",
+      "bloom": "apply",
+      "case": "एक परिपथ में दो प्रतिरोधक 6 Ω और 12 Ω क्रमशः श्रेणीक्रम (series) में जुड़े हैं और तीन प्रतिरोधक 4 Ω, 8 Ω, 12 Ω समानांतर (parallel) में जुड़े हैं। ये दो भाग कुल 24 V विभवांतर के साथ जुड़े हैं। कुल प्रतिरोध और प्रत्येक शाखा में धारा ज्ञात करें।",
+      "q": ["कुल प्रतिरोध (total resistance) और प्रत्येक शाखा की धारा (branch currents) निकालें।", "Find the total resistance and the current in each branch."],
+      "answer": ["कुल प्रतिरोध ≈ 20.18 Ω; श्रृंखला धारा ≈ 1.19 A; समानांतर शाखा धारा क्रमशः ≈ 0.65 A, 0.32 A, 0.22 A", "Total resistance ≈ 20.18 Ω; series current ≈ 1.19 A; parallel branch currents ≈ 0.65 A, 0.32 A, 0.22 A"],
+      "check": {
+        "givens": [
+          {"symbol": "R1", "value": 6, "unit": "Ω"},
+          {"symbol": "R2", "value": 12, "unit": "Ω"},
+          {"symbol": "R3", "value": 4, "unit": "Ω"},
+          {"symbol": "R4", "value": 8, "unit": "Ω"},
+          {"symbol": "R5", "value": 12, "unit": "Ω"},
+          {"symbol": "V", "value": 24, "unit": "V"}
+        ],
+        "formulas": ["series2", "parallel3", {"id": "ohm", "map": {"R": "Rs"}}],
+        "unknown": ["Rs", "I_total", "I_R3", "I_R4", "I_R5"],
+        "answer": {
+          "Rs": {"value": 20.18, "unit": "Ω"},
+          "I_total": {"value": 1.19, "unit": "A"},
+          "I_R3": {"value": 0.65, "unit": "A"},
+          "I_R4": {"value": 0.32, "unit": "A"},
+          "I_R5": {"value": 0.22, "unit": "A"}
+        }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o8",
+      "bloom": "apply",
+      "case": "एक फ्यूज़ (fuse) 0.5 Ω प्रतिरोध वाला तंतु (filament) है। यदि यह 10 A धारा लेता है, तो 5 सेकंड में उत्पन्न तापीय प्रभाव (heat) की मात्रा ज्ञात करें।",
+      "q": ["उत्पन्न तापीय प्रभाव (heat) की मात्रा (जूल में) निकालें।", "Calculate the heat produced (in joules)."],
+      "answer": ["250 J", "250 J"],
+      "check": {
+        "givens": [
+          {"symbol": "I", "value": 10, "unit": "A"},
+          {"symbol": "R", "value": 0.5, "unit": "Ω"},
+          {"symbol": "t", "value": 5, "unit": "s"}
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": {"value": 250, "unit": "J"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o9",
+      "bloom": "apply",
+      "case": "एक घर में 230 V की आपूर्ति से 2 kW का पावर वाला हीटर चलाया जाता है। यदि यह हीटर 4 घंटे चलता है, तो ऊर्जा की खपत kWh में कितनी होगी?",
+      "q": ["ऊर्जा की खपत (kWh) निकालें।", "Find the energy consumption in kWh."],
+      "answer": ["8 kWh", "8 kWh"],
+      "check": {
+        "givens": [
+          {"symbol": "P", "value": 2, "unit": "kW"},
+          {"symbol": "t", "value": 4, "unit": "h"}
+        ],
+        "formulas": ["energy_pt"],
+        "unknown": "E",
+        "answer": {"value": 8, "unit": "kWh"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o1",
+      "bloom": "apply",
+      "case": "एक बैटरी 12 V विभवांतर देती है और 3 A धारा प्रवाहित करती है। इस परिपथ में 1.5 कूलॉम्ब आवेश स्थानांतरित होने में कितना समय लगेगा?",
+      "q": ["समय (सेकंड) निकालें।", "Calculate the time in seconds."],
+      "answer": ["0.5 s", "0.5 s"],
+      "check": {
+        "givens": [
+          {"symbol": "Q", "value": 1.5, "unit": "C"},
+          {"symbol": "I", "value": 3, "unit": "A"}
+        ],
+        "formulas": ["charge"],
+        "unknown": "t",
+        "answer": {"value": 0.5, "unit": "s"}
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": ["घर में विद्युत उपकरणों को श्रेणीक्रम (series) के बजाय पार्श्वक्रम (parallel) में जोड़ने के क्या‑क्या लाभ हैं, समझाएँ।", "Explain the advantages of connecting domestic electrical appliances in parallel rather than in series."],
+      "answer": ["पार्श्वक्रम में प्रत्येक उपकरण को समान विभवांतर (वोल्टेज) मिलता है, इसलिए सभी समान शक्ति (power) पर कार्य करते हैं; यदि एक उपकरण खराब हो जाए तो अन्य बंद नहीं होते; कुल प्रतिरोध कम होने से कुल धारा बढ़ती है और सर्किट अधिक स्थिर रहता है।", "In parallel each appliance receives the full supply voltage, so they operate at their rated power; a failure in one does not interrupt others; total resistance is lower, allowing higher total current and a more reliable circuit."]
+    },
+    {
+      "type": "hots",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": ["एक धातु के तारे पर विभिन्न विभवांतर पर धारा मापी गई: V (V) = 2, 4, 6, 8 ; I (A) = 0.5, 1.0, 1.5, 2.0। V‑I ग्राफ का ढाल (slope) क्या है और प्रतिरोध (resistance) कितना होगा?", "For a metal rod the measured values are V = 2,4,6,8 V and I = 0.5,1.0,1.5,2.0 A. What is the slope of the V‑I graph and the resistance?"],
+      "answer": ["ढाल = 4 V/A, इसलिए प्रतिरोध = 4 Ω", "Slope = 4 V/A, therefore resistance = 4 Ω"]
+    },
+    {
+      "type": "hots",
+      "outcome": "o6",
+      "bloom": "create",
+      "q": ["दो 10 Ω बल्ब को 12 V आपूर्ति से समान चमक (brightness) पर चलाने के लिये एक परिपथ डिजाइन करें और प्रत्येक बल्ब में धारा की गणना करें।", "Design a circuit to make two 10 Ω bulbs glow with equal brightness on a 12 V supply and calculate the current through each bulb."],
+      "answer": ["बल्बों को समानांतर (parallel) में जोड़ें; प्रत्येक को 12 V मिलेगा, इसलिए धारा I = V/R = 12/10 = 1.2 A; कुल धारा 2.4 A होगी।", "Connect the bulbs in parallel; each receives 12 V, so current I = 12 V / 10 Ω = 1.2 A; total current = 2.4 A."]
+    },
+    {
+      "type": "hots",
+      "outcome": "o8",
+      "bloom": "evaluate",
+      "q": ["बुल्ब के तंतु (filament) में जूल का नियम (Joule's law) कैसे प्रकाश उत्पन्न करता है, समझाएँ और धारा बढ़ने पर चमक क्यों बढ़ती है।", "Explain how Joule's law in a bulb filament produces light and why increasing current increases brightness."],
+      "answer": ["तंतु में धारा प्रवाहित होने पर I²R t के अनुसार ताप उत्पन्न होता है; ताप बढ़ने से तंतु का तापमान बढ़ता है और वह गर्मी को प्रकाश में बदलता है। धारा बढ़ने से I² बढ़ता है, जिससे उत्पन्न गर्मी अधिक होती है और तंतु अधिक उज्ज्वल चमकता है।", "When current flows through the filament, heat is generated according to I²R t; the rise in temperature causes the filament to emit light. Increasing current raises I², producing more heat and thus a brighter filament."]
+    }
+  ]
+}

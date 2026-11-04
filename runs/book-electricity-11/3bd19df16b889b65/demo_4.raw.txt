@@ -1,0 +1,10 @@
+{
+  "title": ["Ohm's Law", "ओह्म का नियम"],
+  "hint": ["Move the slider to change the voltage", "वोल्टेज बदलने के लिए स्लाइडर चलाएँ"],
+  "slider": ["Voltage (V)", "वोल्टेज (V)"],
+  "min": 0,
+  "max": 12,
+  "step": 1,
+  "val": 6,
+  "script": "const R=4; const I=v/R; const left=new THREE.Vector3(-4,0,0); const right=new THREE.Vector3(4,0,0); add(line(left,new THREE.Vector3(-1,0,0),0xaaaaaa)); add(line(new THREE.Vector3(1,0,0),right,0xaaaaaa)); const res=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,2,16),mat(0x888888)); res.rotation.z=Math.PI/2; res.position.set(0,0,0); add(res); const arrowStart=new THREE.Vector3(1,0,0); const arrowEnd=new THREE.Vector3(1+I*0.5,0,0); arrow(arrowStart,arrowEnd,0xff0000); const bulbPos=new THREE.Vector3(3,0,0); const bulbColor=I>0?0xffff00:0x222222; const bulb=new THREE.Mesh(new THREE.SphereGeometry(0.6,16,16),mat(bulbColor)); bulb.position.copy(bulbPos); add(bulb); info.textContent=T(\"वोल्टेज = \"+v+\" V, धारा = \"+I.toFixed(2)+\" A\",\"Voltage = \"+v+\" V, Current = \"+I.toFixed(2)+\" A\");"
+}

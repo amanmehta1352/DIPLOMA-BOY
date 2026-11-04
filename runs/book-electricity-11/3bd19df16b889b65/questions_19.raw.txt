@@ -1,0 +1,283 @@
+{
+  "questions": [
+    {
+      "type": "sa",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "यदि 6 C (कूलॉम्ब) का आवेश 2 s (सेकंड) में चालक (conductor) से गुजरता है, तो विद्युत धारा (electric current) ज्ञात करें।",
+        "If a charge of 6 C passes through a conductor in 2 s, find the electric current."
+      ],
+      "answer": [
+        "I = 3 A",
+        "I = 3 A"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "Q", "value": 6, "unit": "C" },
+          { "symbol": "t", "value": 2, "unit": "s" }
+        ],
+        "formulas": ["charge"],
+        "unknown": "I",
+        "answer": { "value": 3, "unit": "A" }
+      }
+    },
+    {
+      "type": "sa",
+      "outcome": "o1",
+      "bloom": "understand",
+      "q": [
+        "विभवांतर (potential difference) को कार्य (work) और आवेश (charge) के संबंध में परिभाषित करें।",
+        "Define potential difference in terms of work and charge."
+      ],
+      "answer": [
+        "V = W / Q, जहाँ V विभवांतर (volt), W कार्य (joule), Q आवेश (coulomb) है।",
+        "V = W/Q, where V is potential difference (volt), W is work (joule), Q is charge (coulomb)."
+      ]
+    },
+    {
+      "type": "sa",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एमीटर (ammeter) का कार्य और इसे परिपथ (circuit) में कैसे जोड़ा जाता है, समझाएँ।",
+        "Explain the function of an ammeter and how it is connected in a circuit."
+      ],
+      "answer": [
+        "एमीटर धारा (current) मापता है; इसे परिपथ के श्रृंखला (series) में, यानी धारा के प्रवाह के मार्ग में जोड़ा जाता है।",
+        "An ammeter measures current; it is connected in series in the circuit, i.e., in the path of the current."
+      ]
+    },
+    {
+      "type": "sa",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "वोल्टमीटर (voltmeter) का कार्य और इसे परिपथ में कैसे जोड़ा जाता है, समझाएँ।",
+        "Explain the function of a voltmeter and how it is connected in a circuit."
+      ],
+      "answer": [
+        "वोल्टमीटर विभवांतर (potential difference) मापता है; इसे परिपथ के समानांतर (parallel) में, यानी दो बिंदुओं के बीच जोड़ा जाता है।",
+        "A voltmeter measures potential difference; it is connected in parallel across the two points whose voltage is to be measured."
+      ]
+    },
+    {
+      "type": "sa",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": [
+        "ओम का नियम (Ohm's law) लिखें और नीचे दिए गए V‑I ग्राफ के दो बिंदुओं (V=2 V, I=0.5 A और V=8 V, I=2 A) के आधार पर चालक का प्रतिरोध (resistance) निर्धारित करें।",
+        "State Ohm's law and determine the resistance of a conductor from the two points on a V‑I graph (V=2 V, I=0.5 A and V=8 V, I=2 A)."
+      ],
+      "answer": [
+        "R = 4 Ω",
+        "R = 4 Ω"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V1", "value": 2, "unit": "V" },
+          { "symbol": "I1", "value": 0.5, "unit": "A" },
+          { "symbol": "V2", "value": 8, "unit": "V" },
+          { "symbol": "I2", "value": 2, "unit": "A" }
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": { "value": 4, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "sa",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": [
+        "यदि एक तंतु (filament) का प्रतिरोध 5 Ω, लंबाई 2 m और अनुप्रस्थ काट 0.5 × 10⁻⁶ m² है, तो उसकी प्रतिरोधकता (resistivity) निकालें।",
+        "Given a filament has resistance 5 Ω, length 2 m and cross‑sectional area 0.5×10⁻⁶ m², calculate its resistivity."
+      ],
+      "answer": [
+        "ρ = 1.25 × 10⁻⁶ Ω·m",
+        "ρ = 1.25×10⁻⁶ Ω·m"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "R", "value": 5, "unit": "Ω" },
+          { "symbol": "L", "value": 2, "unit": "m" },
+          { "symbol": "A", "value": 0.5e-6, "unit": "m^2" }
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "rho",
+        "answer": { "value": 1.25e-6, "unit": "Ω·m" }
+      }
+    },
+    {
+      "type": "sa",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "एक लाइटिंग परिपथ में तीन बल्ब क्रमशः 2 Ω, 3 Ω और 5 Ω के प्रतिरोध वाले जुड़े हैं। कुल प्रतिरोध निकालें।",
+        "In a lighting circuit three bulbs of resistances 2 Ω, 3 Ω and 5 Ω are connected in series. Find the total resistance."
+      ],
+      "answer": [
+        "कुल प्रतिरोध Rs = 10 Ω",
+        "Total resistance Rs = 10 Ω"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "R1", "value": 2, "unit": "Ω" },
+          { "symbol": "R2", "value": 3, "unit": "Ω" },
+          { "symbol": "R3", "value": 5, "unit": "Ω" }
+        ],
+        "formulas": ["series3"],
+        "unknown": "Rs",
+        "answer": { "value": 10, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "sa",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "एक परिपथ में 12 V का स्रोत दो प्रतिरोधकों (R1=4 Ω, R2=6 Ω) के साथ समानांतर (parallel) जुड़ा है। प्रत्येक शाखा में धारा ज्ञात करें।",
+        "A 12 V source is connected in parallel with two resistors R1=4 Ω and R2=6 Ω. Find the current in each branch."
+      ],
+      "answer": [
+        "I₁ = 3 A, I₂ = 2 A",
+        "I1 = 3 A, I2 = 2 A"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 12, "unit": "V" },
+          { "symbol": "R1", "value": 4, "unit": "Ω" },
+          { "symbol": "R2", "value": 6, "unit": "Ω" }
+        ],
+        "formulas": ["ohm"],
+        "unknown": "I1",
+        "answer": { "value": 3, "unit": "A" }
+      }
+    },
+    {
+      "type": "sa",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": [
+        "यदि धारा 2 A (ampere) 10 Ω (ohm) प्रतिरोधक के माध्यम से 5 s (second) तक बहती है, तो उत्पन्न तापीय प्रभाव (heat) की मात्रा निकालें।",
+        "If a current of 2 A flows through a 10 Ω resistor for 5 s, calculate the heat produced."
+      ],
+      "answer": [
+        "H = 200 J",
+        "H = 200 J"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "I", "value": 2, "unit": "A" },
+          { "symbol": "R", "value": 10, "unit": "Ω" },
+          { "symbol": "t", "value": 5, "unit": "s" }
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": { "value": 200, "unit": "J" }
+      }
+    },
+    {
+      "type": "sa",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "एक 60 W (watt) बल्ब को 5 h (hour) तक चलाया जाता है। उपयोग की गई ऊर्जा को kWh (kilowatt‑hour) में निकालें।",
+        "A 60 W bulb is operated for 5 h. Find the energy consumed in kWh."
+      ],
+      "answer": [
+        "ऊर्जा E = 0.3 kWh",
+        "Energy E = 0.3 kWh"
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "P", "value": 60, "unit": "W" },
+          { "symbol": "t", "value": 5, "unit": "h" }
+        ],
+        "formulas": ["energy_pt"],
+        "unknown": "E",
+        "answer": { "value": 0.3, "unit": "kWh" }
+      }
+    },
+    {
+      "type": "la",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        "एक चालक (conductor) के प्रतिरोध (resistance) को प्रभावित करने वाले कारकों – लंबाई (length), अनुप्रस्थ काट (cross‑sectional area), और ताप (temperature) – को समझाएँ।",
+        "Explain the factors affecting the resistance of a conductor – length, cross‑sectional area, and temperature."
+      ],
+      "answer": [
+        "प्रतिरोध लंबाई के समानुपाती (R ∝ L) और अनुप्रस्थ काट के व्युत्क्रमानुपाती (R ∝ 1/A) होता है। धातु के लिए ताप बढ़ने पर प्रतिरोध बढ़ता है, जबकि कुछ पदार्थों में घट सकता है। इसलिए लंबा और पतला चालक अधिक प्रतिरोध देता है, और गर्मी से प्रतिरोध में परिवर्तन आता है।",
+        "Resistance is directly proportional to length (R ∝ L) and inversely proportional to cross‑sectional area (R ∝ 1/A). For metals, resistance increases with temperature. Hence a longer, thinner conductor offers higher resistance, and temperature changes affect resistance."
+      ]
+    },
+    {
+      "type": "la",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        "घरेलू विद्युत परिपथों में प्रतिरोधकों को श्रेणीक्रम (series) के बजाय पार्श्वक्रम (parallel) में जोड़ने के क्या‑क्या लाभ हैं, समझाएँ।",
+        "Explain the advantages of connecting resistors in parallel rather than in series in domestic electric circuits."
+      ],
+      "answer": [
+        "पार्श्वक्रम में प्रत्येक उपकरण को समान विभवांतर (वोल्टेज) मिलता है, इसलिए बल्ब समान चमकते हैं। यदि एक उपकरण फेल हो जाए तो बाकी काम करते रहते हैं, जिससे सुरक्षा बढ़ती है। कुल प्रतिरोध कम रहने से करंट अधिक होता है और पावर सप्लाई पर कम लोड पड़ता है, जिससे सर्किट की दक्षता बढ़ती है।",
+        "In parallel each appliance receives the full supply voltage, so bulbs glow uniformly. If one device fails, the others continue to operate, enhancing safety. The lower total resistance allows higher current with less load on the power source, improving circuit efficiency."
+      ]
+    },
+    {
+      "type": "la",
+      "outcome": "o8",
+      "bloom": "evaluate",
+      "case": [
+        [
+          "एक घर में 230 V (volt) की आपूर्ति है। मुख्य स्विच के बाद 5 A (ampere) की धारा प्रवाहित होती है। यदि कोई उपकरण शॉर्ट सर्किट कर देता है, तो धारा 30 A तक बढ़ जाती है। घर में 3 A का फ्यूज़ स्थापित है।",
+          "A house is supplied with 230 V. After the main switch a current of 5 A flows. If an appliance shorts, the current rises to 30 A. The house is fitted with a 3 A fuse."
+        ],
+        [
+          "फ्यूज़ के अंदर एक पतला तंतु (filament) होता है जिसकी प्रतिरोधकता बहुत कम होती है।",
+          "Inside the fuse there is a thin filament of very low resistance."
+        ]
+      ],
+      "q": [
+        "ज्यूल (Joule) के तापीय प्रभाव के सिद्धान्त के आधार पर समझाएँ कि फ्यूज़ कैसे काम करता है और शॉर्ट सर्किट से सुरक्षा कैसे प्रदान करता है।",
+        "Explain, based on Joule's heating principle, how a fuse works and how it provides protection against short circuits."
+      ],
+      "answer": [
+        "फ्यूज़ में तंतु की प्रतिरोधकता कम होती है, पर जब धारा उसकी rated धारा (3 A) से अधिक हो जाती है, तो I²R t के कारण तंतु बहुत गर्म हो जाता है और पिघल कर सर्किट तोड़ देता है। इस प्रकार शॉर्ट सर्किट में अत्यधिक धारा को रोककर परिपथ की सुरक्षा होती है।",
+        "The fuse contains a thin filament of low resistance; when the current exceeds its rating (3 A), the I²R t heating makes the filament melt, breaking the circuit. Thus it stops excessive current in a short circuit, protecting the circuit."
+      ]
+    },
+    {
+      "type": "la",
+      "outcome": "o9",
+      "bloom": "analyze",
+      "case": [
+        [
+          "एक घर में कुल विद्युत शक्ति 1500 W है और आपूर्ति वोल्टेज 230 V है। घर की मुख्य तार 2.5 mm² (cross‑section) कॉपर की है, प्रतिरोधकता 1.68 × 10⁻⁸ Ω·m, और प्रत्येक दिशा में 30 m लंबी है।",
+          "A house has total electric power 1500 W and supply voltage 230 V. The main wiring is copper of cross‑section 2.5 mm², resistivity 1.68×10⁻⁸ Ω·m, and 30 m long in each direction."
+        ]
+      ],
+      "q": [
+        "घरेलू लोड द्वारा ली गई धारा और तारों में कुल वोल्टेज ड्रॉप निकालें, तथा यह चर्चा करें कि ड्रॉप महत्त्वपूर्ण है या नहीं।",
+        "Calculate the current drawn by the domestic load and the total voltage drop across the wiring, and discuss whether the drop is significant."
+      ],
+      "answer": [
+        "धारा I = P/V = 1500 W / 230 V ≈ 6.5 A। प्रतिरोध R_one‑way = ρ L/A = (1.68×10⁻⁸ Ω·m × 30 m) / (2.5×10⁻⁶ m²) ≈ 0.20 Ω। दो‑तरफ़ा (लूप) प्रतिरोध ≈ 0.40 Ω। वोल्टेज ड्रॉप V_drop = I × R_total ≈ 6.5 A × 0.40 Ω ≈ 2.6 V, जो आपूर्ति वोल्टेज का लगभग 1 % है, इसलिए ड्रॉप नगण्य माना जा सकता है।",
+        "Current I = P/V = 1500 W / 230 V ≈ 6.5 A. Resistance one‑way R = ρ L/A = (1.68×10⁻⁸ Ω·m × 30 m) / (2.5×10⁻⁶ m²) ≈ 0.20 Ω. Loop resistance ≈ 0.40 Ω. Voltage drop V_drop = I × R_total ≈ 6.5 A × 0.40 Ω ≈ 2.6 V, about 1 % of supply, so the drop is negligible."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "P", "value": 1500, "unit": "W" },
+          { "symbol": "V", "value": 230, "unit": "V" },
+          { "symbol": "rho", "value": 1.68e-8, "unit": "Ω·m" },
+          { "symbol": "L", "value": 30, "unit": "m" },
+          { "symbol": "A", "value": 2.5e-6, "unit": "m^2" }
+        ],
+        "formulas": ["power_vi", "resistivity"],
+        "unknown": "Vdrop",
+        "answer": { "value": 2.6, "unit": "V" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+```json
+{
+  "questions": [
+    {
+      "type": "case_based",
+      "outcome": "o1",
+      "bloom": "apply",
+      "case": [
+        "एक घर में 12 वोल्ट का विद्युत स्रोत है और यह 5 कूलॉम का आवेश 2 सेकंड में प्रदान करता है। घर के मालिक को विद्युत धारा और विभवांतर की गणना करनी है।",
+        "A house has a 12-volt electric source and it provides 5 coulomb of charge in 2 seconds. The owner of the house needs to calculate the electric current and potential difference."
+      ],
+      "q": [
+        "विद्युत धारा की गणना करें और इसकी इकाई लिखें।",
+        "Calculate the electric current and write its unit."
+      ],
+      "answer": [
+        "2.5 एंपियर",
+        "2.5 ampere"
+      ],
+      "check": {
+        "givens": [
+          {
+            "symbol": "Q",
+            "value": 5,
+            "unit": "C"
+          },
+          {
+            "symbol": "t",
+            "value": 2,
+            "unit": "s"
+          }
+        ],
+        "formulas": [
+          "charge"
+        ],
+        "unknown": "I",
+        "answer": {
+          "value": 2.5,
+          "unit": "A"
+        }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o2",
+      "bloom": "understand",
+      "case": [
+        "एक विद्युत परिपथ में एमीटर और वोल्टमीटर का उपयोग किया जाता है। एमीटर को श्रेणीक्रम में और वोल्टमीटर को पार्श्वक्रम में जोड़ा जाता है। परिपथ में 10 ओम का प्रतिरोधक और 5 वोल्ट का विद्युत स्रोत है।",
+        "An electric circuit uses an ammeter and a voltmeter. The ammeter is connected in series and the voltmeter is connected in parallel. The circuit has a 10-ohm resistor and a 5-volt electric source."
+      ],
+      "q": [
+        "एमीटर और वोल्टमीटर के उपयोग को समझाएं और उनकी सही जोड़कर विधि बताएं।",
+        "Explain the use of ammeter and voltmeter and describe their correct connection method."
+      ],
+      "answer": [
+        "एमीटर को श्रेणीक्रम में जोड़कर धारा को मापा जा सकता है और वोल्टमीटर को पार्श्वक्रम में जोड़कर विभवांतर को मापा जा सकता है।",
+        "Ammeter can be used to measure current by connecting it in series and voltmeter can be used to measure potential difference by connecting it in parallel."
+      ]
+    },
+    {
+      "type": "case_based",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "case": [
+        "एक विद्युत परिपथ में ओम का नियम लागू किया जाता है। परिपथ में 5 ओम का प्रतिरोधक और 10 वोल्ट का विद्युत स्रोत है। विद्युत धारा 2 एंपियर है।",
+        "An electric circuit applies Ohm's law. The circuit has a 5-ohm resistor and a 10-volt electric source. The electric current is 2 ampere."
+      ],
+      "q": [
+        "ओम का नियम बताएं और विद्युत धारा और विभवांतर के बीच संबंध को समझाएं।",
+        "State Ohm's law and explain the relationship between electric current and potential difference."
+      ],
+      "answer": [
+        "ओम का नियम कहता है कि विद्युत धारा विभवांतर के अनुपात में होती है और प्रतिरोध के विपरीत अनुपात में होती है।",
+        "Ohm's law states that electric current is directly proportional to potential difference and inversely proportional to resistance."
+      ]
+    },
+    {
+      "type": "case_based",
+      "outcome": "o4",
+      "bloom": "understand",
+      "case": [
+        "एक तांबे के तार की लंबाई 10 मीटर और अनुप्रस्थ काट 0.1 मीटर^2 है। तार का प्रतिरोध 5 ओम है। तार को 20 डिग्री सेल्सियस तापमान पर रखा जाता है।",
+        "A copper wire has a length of 10 meters and a cross-sectional area of 0.1 meter^2. The wire has a resistance of 5 ohms. The wire is kept at a temperature of 20 degrees Celsius."
+      ],
+      "q": [
+        "प्रतिरोधक के प्रतिरोध को प्रभावित करने वाले कारकों को समझाएं।",
+        "Explain the factors that affect the resistance of a conductor."
+      ],
+      "answer": [
+        "प्रतिरोधक के प्रतिरोध को प्रभावित करने वाले कारक हैं - लंबाई, अनुप्रस्थ काट, और तापमान।",
+        "The factors that affect the resistance of a conductor are - length, cross-sectional area, and temperature."
+      ]
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": [
+        "एक प्रतिरोधक का प्रतिरोध 10 ओम है और इसकी लंबाई 5 मीटर है। प्रतिरोधक की प्रतिरोधकता की गणना करनी है।",
+        "A resistor has a resistance of 10 ohms and a length of 5 meters. The resistivity of the resistor needs to be calculated."
+      ],
+      "q": [
+        "प्रतिरोधकता की गणना करें और इसकी इकाई लिखें।",
+        "Calculate the resistivity and write its unit."
+      ],
+      "answer": [
+        "2 ओम-मीटर",
+        "2 ohm-meters"
+      ],
+      "check": {
+        "givens": [
+          {
+            "symbol": "R",
+            "value": 10,
+            "unit": "ohm"
+          },
+          {
+            "symbol": "L",
+            "value": 5,
+            "unit": "m"
+          }
+        ],
+        "formulas": [
+          "resistivity"
+        ],
+        "unknown": "rho",
+        "answer": {
+          "value": 2,
+          "unit": "ohm*m"
+        }
+      }
+    }
+  ]
+}
+```

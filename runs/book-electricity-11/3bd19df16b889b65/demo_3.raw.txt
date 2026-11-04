@@ -1,0 +1,12 @@
+```json
+{
+  "title": ["Electric Current and Bulb Brightness", "विद्युत धारा और बल्ब की चमक"],
+  "hint": ["Adjust the voltage to see the effect on current and bulb brightness", "वोल्टेज को समायोजित करें और धारा और बल्ब की चमक पर प्रभाव देखें"],
+  "slider": ["Voltage (V)", "वोल्टेज (वी)"],
+  "min": 0,
+  "max": 12,
+  "step": 1,
+  "val": 6,
+  "script": "const I=v/4; const bulbBrightness = I; add(new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), mat(0xffffff))); line(new Vector3(-2, 0, 0), new Vector3(2, 0, 0), 0xaaaaaa); arrow(new Vector3(-2, 0, 0), new Vector3(-2, I, 0), 0xff0000); info.textContent = T('Voltage: ', 'वोल्टेज: ') + v + T(' V, Current: ', ' वी , धारा: ') + I + T(' A, Bulb Brightness: ', ' ए , बल्ब की चमक: ') + bulbBrightness"
+}
+```
