@@ -1,0 +1,26 @@
+{
+ "version": "formulas.science.v1",
+ "note": "Formula registry for code verification (sympy+pint). expr is an equation 'lhs = rhs'; every symbol has its SI unit. Add formulas here; the robot may only cite ids from this file.",
+ "symbols": {
+  "V": "volt", "I": "ampere", "R": "ohm", "rho": "ohm*meter", "L": "meter", "A": "meter**2",
+  "P": "watt", "t": "second", "H": "joule", "E": "joule", "W": "joule", "Q": "coulomb",
+  "R1": "ohm", "R2": "ohm", "R3": "ohm", "Rs": "ohm", "Rp": "ohm", "n": "dimensionless"
+ },
+ "formulas": {
+  "ohm": {"expr": "V = I*R", "name": "Ohm's law"},
+  "resistivity": {"expr": "R = rho*L/A", "name": "Resistance from resistivity"},
+  "charge": {"expr": "Q = I*t", "name": "Charge = current x time"},
+  "pd_work": {"expr": "W = V*Q", "name": "Work = potential difference x charge"},
+  "power_vi": {"expr": "P = V*I", "name": "Power P = VI"},
+  "power_i2r": {"expr": "P = I**2*R", "name": "Power P = I^2 R"},
+  "power_v2r": {"expr": "P = V**2/R", "name": "Power P = V^2/R"},
+  "joule_heat": {"expr": "H = I**2*R*t", "name": "Joule heating"},
+  "energy_pt": {"expr": "E = P*t", "name": "Energy = power x time"},
+  "series2": {"expr": "Rs = R1 + R2", "name": "Two resistors in series"},
+  "series3": {"expr": "Rs = R1 + R2 + R3", "name": "Three resistors in series"},
+  "parallel2": {"expr": "1/Rp = 1/R1 + 1/R2", "name": "Two resistors in parallel"},
+  "parallel3": {"expr": "1/Rp = 1/R1 + 1/R2 + 1/R3", "name": "Three resistors in parallel"},
+  "series_n": {"expr": "Rs = n*R", "name": "n equal resistors in series"},
+  "parallel_n": {"expr": "Rp = R/n", "name": "n equal resistors in parallel"}
+ }
+}

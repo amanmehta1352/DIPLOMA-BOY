@@ -1,0 +1,18 @@
+{
+ "quota": {
+  "mcq": 14,
+  "assertion_reason": 4,
+  "fill_blank": 2,
+  "true_false": 2,
+  "vsa": 7,
+  "sa": 10,
+  "case_based": 5,
+  "la": 4,
+  "numerical": 6,
+  "hots": 4
+ },
+ "total": 58,
+ "min_bloom_levels": 4,
+ "bands": null,
+ "source": "class_9_10: CBSE Class 10 Science question paper design 2026-27 (no change from 2025-26; 20x1 incl. A-R, 6x2, 7x3, 3x4 case-based, 3x5) scaled to a chapter bank (PYQ profile not yet connected)"
+}

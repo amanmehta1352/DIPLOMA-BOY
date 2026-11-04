@@ -1,0 +1,110 @@
+[
+{
+"id": "govt_technical",
+"hi": "डिप्लोमा / JE (सरकारी तकनीकी)",
+"en": "Diploma / JE (technical)",
+"depth": "Diploma polytechnic + RRB JE, SSC JE: engineering concepts, units and dimensions, shortcuts, exam-pattern MCQs, numericals with step-by-step solutions."
+},
+{
+"id": "class_9_10",
+"hi": "कक्षा 9-10",
+"en": "Class 9-10",
+"depth": "Board level (NCERT style): clear definitions, basic formulas, everyday examples, board-type questions."
+},
+{
+"id": "class_6_8",
+"hi": "कक्षा 6-8",
+"en": "Class 6-8",
+"depth": "Very simple: short story-style explanation, daily-life examples, very few formulas, easy questions."
+},
+{
+"id": "class_11_12_sci",
+"hi": "कक्षा 11-12 विज्ञान",
+"en": "Class 11-12 Science",
+"depth": "Theory with derivations, multi-step numericals, board + entrance flavour."
+},
+{
+"id": "class_11_12_com",
+"hi": "कक्षा 11-12 कॉमर्स",
+"en": "Class 11-12 Commerce",
+"depth": "Commerce board level: concepts, formats, worked accounts/numericals."
+},
+{
+"id": "class_11_12_arts",
+"hi": "कक्षा 11-12 कला",
+"en": "Class 11-12 Arts",
+"depth": "Arts board level: concepts, key facts, analysis, long-answer points."
+},
+{
+"id": "govt_basic",
+"hi": "सरकारी सामान्य (NTPC, SSC)",
+"en": "Govt basic (NTPC, SSC)",
+"depth": "Competitive level: concepts, tricks/shortcuts, previous-year style MCQs."
+},
+{
+"id": "banking",
+"hi": "बैंकिंग",
+"en": "Banking",
+"depth": "Speed maths and reasoning: shortcuts, time-saving methods, bank-exam MCQs."
+},
+{
+"id": "govt_defence",
+"hi": "रक्षा (NDA, CDS)",
+"en": "Defence (NDA, CDS)",
+"depth": "Class 11-12 depth with defence-exam style MCQs."
+},
+{
+"id": "state_psc",
+"hi": "राज्य PSC",
+"en": "State PSC",
+"depth": "Conceptual + current-affairs angle, prelims MCQs and mains points."
+},
+{
+"id": "upsc_civil",
+"hi": "UPSC सिविल",
+"en": "UPSC Civil",
+"depth": "Analytical: concepts, linkages, policy angle, prelims MCQs, mains answer points."
+},
+{
+"id": "medical",
+"hi": "मेडिकल (NEET)",
+"en": "Medical (NEET)",
+"depth": "NEET level: concepts with biological/medical applications, NEET-style MCQs."
+},
+{
+"id": "engineering",
+"hi": "इंजीनियरिंग (JEE)",
+"en": "Engineering (JEE)",
+"depth": "JEE level: derivations, multi-concept numericals, JEE-style MCQs."
+},
+{
+"id": "graduation_sci",
+"hi": "स्नातक विज्ञान",
+"en": "Graduation Science",
+"depth": "B.Sc/B.Tech: calculus-based theory, derivations, university-exam problems."
+},
+{
+"id": "graduation_com",
+"hi": "स्नातक कॉमर्स",
+"en": "Graduation Commerce",
+"depth": "B.Com: theory, formats, numericals, case-style questions."
+},
+{
+"id": "graduation_arts",
+"hi": "स्नातक कला",
+"en": "Graduation Arts",
+"depth": "BA: analytical theory, critical points, essay-type answer points."
+},
+{
+"id": "advanced_research",
+"hi": "उच्च शोध (GATE, NET, PhD)",
+"en": "Advanced research (GATE, NET, PhD)",
+"depth": "Advanced: rigorous math, Lagrangian/tensor level where relevant, GATE/NET-style problems."
+},
+{
+"id": "law_management",
+"hi": "कानून / प्रबंधन (CLAT, CAT)",
+"en": "Law / Management (CLAT, CAT)",
+"depth": "Logic, reading comprehension, legal/management aptitude MCQs."
+}
+]
