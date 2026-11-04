@@ -42,6 +42,7 @@ class Real:
         sys.path.insert(0, ROUTE)
         import run_chapter as R
         self.R, self.sleep, self.clock = R, sleep, clock
+        self.dead = set()      # run 13: out-of-quota / refused providers were asked again on every call and used up the call budget
         self.or_key = os.environ.get('OPENROUTER_API_KEY', '').strip()
         self.or_model = os.environ.get('OPENROUTER_MODEL', '').strip()
         # owner-confirmed no-charge providers only; anything not listed is never called
@@ -307,12 +308,14 @@ class Real:
     def _free_chain(self, prompt, max_tokens, tried, avoid=()):
         """Next free provider in the owner's order; each one that is out of quota / down is skipped. Never a paid model.
         Providers in `avoid` (they already gave bad replies for this task) are tried last, not never."""
-        order = [c for c in self.chain if c[0] not in avoid] + [c for c in self.chain if c[0] in avoid]
+        live = [c for c in self.chain if c[0] not in self.dead]
+        order = [c for c in live if c[0] not in avoid] + [c for c in live if c[0] in avoid]
         for name, url, model, key in order:
             try:
                 return self._chat(url, key, model, prompt, name, 300, max_tokens)
             except ProviderUnavailable as e:
                 if e.kind in ('time_budget', 'call_budget'): raise
+                if e.kind in ('quota', 'permanent'): self.dead.add(name)      # not asked again in this run
                 tried.append(f'{name}:{e.kind}')
             except ProviderRequestError:     # this backup rejects the request size/shape: try the next one
                 tried.append(f'{name}:request_error')
@@ -320,12 +323,13 @@ class Real:
 
     def _gemini_then_chain(self, prompt, first=None, max_tokens=16000, avoid=()):
         tried = []
-        if 'gemini' not in avoid or not self.chain:
+        if 'gemini' not in self.dead and ('gemini' not in avoid or not self.chain):
             try:
                 models = ([first] if first else []) + [m for m in self.R.G_MODELS if m != first]
                 return self._gemini(prompt, models=models)
             except ProviderUnavailable as e:
                 if e.kind in ('time_budget', 'call_budget'): raise
+                if e.kind in ('quota', 'permanent'): self.dead.add('gemini')
                 tried.append(f'gemini:{e.kind}')
         return self._free_chain(prompt, max_tokens, tried, avoid)
 

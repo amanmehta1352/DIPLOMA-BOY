@@ -898,7 +898,7 @@ def question_ok_after(g, refset):
     for pr in prs:
         n_, _ = longest_run(re.sub(r'<[^>]+>', ' ', pr[0] + ' ' + pr[1]), refset)
         if n_ is not None and n_ >= PATH['copyright']['max_run_words']: return False
-    if calc_mcq(g) and NC.mcq_options_ok(g)[0] is not True: return False
+    if calc_mcq(g) and (NC.mcq_options_ok(g)[0] is not True or not NC.givens_in_text(g.get('check'), g['q'][1])): return False
     return True
 
 

@@ -762,6 +762,34 @@
    "provider": "cloudflare",
    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
    "at": "2026-11-04T18:41:23+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "none",
+   "model": "NOT RUN",
+   "at": "2026-11-04T18:50:16+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "none",
+   "model": "NOT RUN",
+   "at": "2026-11-04T18:50:16+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "none",
+   "model": "NOT RUN",
+   "at": "2026-11-04T18:50:16+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "none",
+   "model": "NOT RUN",
+   "at": "2026-11-04T18:50:17+00:00"
   }
  ],
  "issues": [

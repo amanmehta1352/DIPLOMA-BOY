@@ -58,31 +58,31 @@
   "outcome": "o1",
   "bloom": "remember",
   "q": [
-   "विद्युत धारा (electric current) को परिभाषित करने वाला सही कथन कौन सा है?",
-   "Which statement correctly defines electric current?"
+   "विद्युत धारा की सही परिभाषा कौन-सी है?",
+   "Which is the correct definition of electric current?"
   ],
   "options": [
    [
-    "विद्युत धारा एक प्रकार का विद्युत विभव है।",
-    "Electric current is a type of electric potential."
+    "हर सेकंड खर्च होने वाली विद्युत ऊर्जा",
+    "Electrical energy used up in each second"
    ],
    [
-    "विद्युत धारा वह प्रवाह है जिसमें इलेक्ट्रॉन (electron) का गति प्रति सेकंड एक कूलॉम्ब (coulomb) आवेश ले जाता है।",
-    "Electric current is the flow in which electrons move one coulomb of charge per second."
+    "एक कूलॉम आवेश को दो बिंदुओं के बीच ले जाने पर मिलने वाली ऊर्जा",
+    "Energy per coulomb of charge carried between two points"
    ],
    [
-    "विद्युत धारा एक प्रकार का विद्युतरोधी (insulator) है।",
-    "Electric current is a type of insulator."
+    "चालक द्वारा आवेश के बहाव में डाली गई रुकावट",
+    "The opposition that a conductor offers to the flow of charge"
    ],
    [
-    "विद्युत धारा एक प्रकार का विद्युत शक्ति (electric power) है।",
-    "Electric current is a type of electric power."
+    "किसी चालक की अनुप्रस्थ काट से प्रति सेकंड गुजरने वाले आवेश की मात्रा",
+    "The amount of charge passing through a cross-section of a conductor in each second"
    ]
   ],
-  "answer_index": 1,
+  "answer_index": 3,
   "answer": [
-   "विद्युत धारा वह प्रवाह है जिसमें इलेक्ट्रॉन (electron) का गति प्रति सेकंड एक कूलॉम्ब (coulomb) आवेश ले जाता है।",
-   "Electric current is the flow in which electrons move one coulomb of charge per second."
+   "किसी चालक की अनुप्रस्थ काट से प्रति सेकंड गुजरने वाले आवेश की मात्रा",
+   "The amount of charge passing through a cross-section of a conductor in each second"
   ]
  },
  {
@@ -154,32 +154,64 @@
   "outcome": "o3",
   "bloom": "analyze",
   "q": [
-   "यदि V‑I ग्राफ की ढाल 5 Ω है, तो उस चालक का प्रतिरोध (resistance) क्या होगा?",
-   "If the slope of a V‑I graph is 5 Ω, what is the resistance of that conductor?"
+   "किसी चालक के V-I ग्राफ पर दो बिंदु (0.5 A, 2.5 V) और (1.5 A, 7.5 V) हैं। चालक का प्रतिरोध (resistance) कितना है?",
+   "Two points on the V-I graph of a conductor are (0.5 A, 2.5 V) and (1.5 A, 7.5 V). What is the resistance of the conductor?"
   ],
   "options": [
    [
-    "5 Ω",
-    "5 Ω"
-   ],
-   [
-    "10 Ω",
-    "10 Ω"
+    "2.5 Ω",
+    "2.5 Ω"
    ],
    [
     "0.2 Ω",
     "0.2 Ω"
    ],
    [
-    "1 Ω",
-    "1 Ω"
+    "10 Ω",
+    "10 Ω"
+   ],
+   [
+    "5 Ω",
+    "5 Ω"
    ]
   ],
-  "answer_index": 0,
+  "answer_index": 3,
   "answer": [
    "5 Ω",
    "5 Ω"
-  ]
+  ],
+  "check": {
+   "givens": [
+    {
+     "symbol": "V1",
+     "value": 2.5,
+     "unit": "V"
+    },
+    {
+     "symbol": "I1",
+     "value": 0.5,
+     "unit": "A"
+    },
+    {
+     "symbol": "V2",
+     "value": 7.5,
+     "unit": "V"
+    },
+    {
+     "symbol": "I2",
+     "value": 1.5,
+     "unit": "A"
+    }
+   ],
+   "formulas": [
+    "ohm_slope"
+   ],
+   "unknown": "R",
+   "answer": {
+    "value": 5,
+    "unit": "Ω"
+   }
+  }
  },
  {
   "type": "mcq",
@@ -277,27 +309,54 @@
   ],
   "options": [
    [
+    "0.168 Ω",
+    "0.168 Ω"
+   ],
+   [
     "0.0168 Ω",
     "0.0168 Ω"
    ],
    [
+    "0.00168 Ω",
+    "0.00168 Ω"
+   ],
+   [
     "1.68 Ω",
     "1.68 Ω"
-   ],
-   [
-    "16.8 Ω",
-    "16.8 Ω"
-   ],
-   [
-    "168 Ω",
-    "168 Ω"
    ]
   ],
-  "answer_index": 0,
+  "answer_index": 2,
   "answer": [
-   "0.0168 Ω",
-   "0.0168 Ω"
-  ]
+   "0.00168 Ω",
+   "0.00168 Ω"
+  ],
+  "check": {
+   "givens": [
+    {
+     "symbol": "rho",
+     "value": 1.68e-08,
+     "unit": "ohm m"
+    },
+    {
+     "symbol": "L",
+     "value": 10,
+     "unit": "m"
+    },
+    {
+     "symbol": "A",
+     "value": 0.0001,
+     "unit": "m^2"
+    }
+   ],
+   "formulas": [
+    "resistivity"
+   ],
+   "unknown": "R",
+   "answer": {
+    "value": 0.00168,
+    "unit": "Ω"
+   }
+  }
  },
  {
   "type": "mcq",
@@ -619,16 +678,16 @@
   "outcome": "o3",
   "bloom": "analyze",
   "q": [
-   "अभिकथन (A): नियत ताप पर चालक के सिरों पर **विभवांतर (potential difference)** उसमें प्रवाहित **विद्युत धारा (electric current)** के समानुपाती होता है। कारण (R): **ओम का नियम (Ohm's law)** यह स्थापित करता है कि नियत ताप पर V / I का अनुपात एक नियतांक अर्थात **प्रतिरोध (resistance)** होता है।",
-   "Assertion (A): At constant temperature, the **potential difference** across a conductor is directly proportional to the **electric current** flowing through it. Reason (R): **Ohm's law** establishes that at constant temperature, the ratio V / I is a constant, which is the **resistance**."
+   "अभिकथन (A): किसी धातु के तार का ताप न बदले तो उसके सिरों के बीच का विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है। कारण (R): ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, बदलता नहीं है।",
+   "Assertion (A): If the temperature of a metal wire does not change, doubling the potential difference across its ends also doubles the current in it. Reason (R): By Ohm's law, at constant temperature the value of V/I, called the resistance, stays the same."
   ],
   "assertion": [
-   "नियत ताप पर चालक के सिरों पर **विभवांतर (potential difference)** उसमें प्रवाहित **विद्युत धारा (electric current)** के समानुपाती होता है।",
-   "At constant temperature, the **potential difference** across a conductor is directly proportional to the **electric current** flowing through it."
+   "किसी धातु के तार का ताप न बदले तो उसके सिरों के बीच का विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है।",
+   "If the temperature of a metal wire does not change, doubling the potential difference across its ends also doubles the current in it."
   ],
   "reason": [
-   "**ओम का नियम (Ohm's law)** यह स्थापित करता है कि नियत ताप पर V / I का अनुपात एक नियतांक अर्थात **प्रतिरोध (resistance)** होता है।",
-   "**Ohm's law** establishes that at constant temperature, the ratio V / I is a constant, which is the **resistance**."
+   "ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, बदलता नहीं है।",
+   "By Ohm's law, at constant temperature the value of V/I, called the resistance, stays the same."
   ],
   "answer_index": 0,
   "answer": [
@@ -765,12 +824,12 @@
   "outcome": "o9",
   "bloom": "understand",
   "q": [
-   "अभिकथन (A): जब किसी **चालक (conductor)** से **विद्युत धारा (electric current)** प्रवाहित होती है, तो उसमें **तापीय प्रभाव (heating effect)** उत्पन्न होता है। कारण (R): **इलेक्ट्रॉन (electron)** चालक के परमाणुओं से टकराते समय अपनी **ऊर्जा (energy)** का कुछ भाग ऊष्मा के रूप में स्थानांतरित कर देते हैं।",
-   "Assertion (A): When an **electric current** flows through a **conductor**, a **heating effect** is produced in it. Reason (R): **Electrons** transfer a portion of their **energy** as heat when colliding with the atoms of the conductor."
+   "अभिकथन (A): जब किसी **चालक (conductor)** में से **विद्युत धारा (electric current)** गुज़रती है, तो वह गर्म हो जाता है; इसे **तापीय प्रभाव (heating effect)** कहते हैं। कारण (R): **इलेक्ट्रॉन (electron)** चालक के परमाणुओं से टकराते समय अपनी **ऊर्जा (energy)** का कुछ भाग ऊष्मा के रूप में स्थानांतरित कर देते हैं।",
+   "Assertion (A): A **conductor** becomes warm when an **electric current** passes through it; this is called the **heating effect**. Reason (R): **Electrons** transfer a portion of their **energy** as heat when colliding with the atoms of the conductor."
   ],
   "assertion": [
-   "जब किसी **चालक (conductor)** से **विद्युत धारा (electric current)** प्रवाहित होती है, तो उसमें **तापीय प्रभाव (heating effect)** उत्पन्न होता है।",
-   "When an **electric current** flows through a **conductor**, a **heating effect** is produced in it."
+   "जब किसी **चालक (conductor)** में से **विद्युत धारा (electric current)** गुज़रती है, तो वह गर्म हो जाता है; इसे **तापीय प्रभाव (heating effect)** कहते हैं।",
+   "A **conductor** becomes warm when an **electric current** passes through it; this is called the **heating effect**."
   ],
   "reason": [
    "**इलेक्ट्रॉन (electron)** चालक के परमाणुओं से टकराते समय अपनी **ऊर्जा (energy)** का कुछ भाग ऊष्मा के रूप में स्थानांतरित कर देते हैं।",
@@ -910,7 +969,7 @@
    "Find the slope of the V‑I graph and determine the resistance. Then calculate the resistivity using R = ρ L/A and explain the correct connections of the ammeter and voltmeter."
   ],
   "answer": [
-   "ग्राफ का ढाल ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, इसलिए प्रतिरोध R = 6 Ω। अनुप्रस्थ काट A = 0.5 mm² = 0.5×10⁻⁶ m²। ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m। एमीटर को धारा के प्रवाह के क्रम में (सिर्‍स में) जोड़ा जाता है, जबकि वोल्टमीटर को मापे जाने वाले घटक के दोनों सिरों पर समानांतर (पार्श्वक्रम) में जोड़ा जाता है।",
+   "ग्राफ का ढाल ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, इसलिए प्रतिरोध R = 6 Ω। अनुप्रस्थ काट A = 0.5 mm² = 0.5×10⁻⁶ m²। ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m। एमीटर को परिपथ (circuit) में श्रेणीक्रम में जोड़ा जाता है ताकि वही धारा उससे होकर बहे, जबकि वोल्टमीटर को घटक के दोनों सिरों पर पार्श्वक्रम में जोड़ा जाता है ताकि वह विभवांतर (potential difference) माप सके।",
    "Slope = ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, so R = 6 Ω. Area A = 0.5 mm² = 0.5×10⁻⁶ m². ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m. The ammeter is placed in series with the circuit so that the same current passes through it, whereas the voltmeter is connected across the component (parallel) to measure the potential difference."
   ],
   "check": {
@@ -1386,7 +1445,7 @@
    "Write Ohm's law."
   ],
   "answer": [
-   "ओम का नियम कहता है कि धारा (I) और विभवांतर (V) के बीच प्रतिरोध (R) का अनुपात स्थिर रहता है: V = I × R।",
+   "ओम का नियम कहता है कि किसी चालक (conductor) के लिए विभवांतर (V) और धारा (I) का अनुपात स्थिर रहता है: V = I × R।",
    "Ohm's law states that the ratio between voltage and current is constant for a conductor: V = I × R."
   ]
  },

@@ -33,6 +33,16 @@ def to_si(value, unit, symbol, reg):
     return q.to(target).magnitude
 
 
+def parse_given(g):
+    """Run 13: a writer gave givens as text "V1 = 10 V" / "ρ = 1.68 × 10^-8 Ω·m". Parsed into {symbol, value, unit}; the code still verifies all of it."""
+    if isinstance(g, dict) or not isinstance(g, str): return g
+    m = re.match(r'\s*([A-Za-zρ][A-Za-z0-9₀-₉]*)\s*=\s*(-?\d+(?:\.\d+)?)\s*(?:[x×]\s*10\s*(?:\^\s*\(?\s*([-−]?\d+)\)?|([⁻−]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)))?\s*(.*?)\s*$', g)
+    if not m: raise ValueError(f'given {g!r} is not "symbol = value unit"')
+    sym = m.group(1).replace('ρ', 'rho').translate(str.maketrans('₀₁₂₃₄₅₆₇₈₉', '0123456789'))
+    v = float(m.group(2)) * (10 ** int((m.group(3) or m.group(4) or '0').translate(SUP)))
+    return {'symbol': sym, 'value': v, 'unit': m.group(5) or ''}
+
+
 def solve(check, reg=None):
     """Returns the code's value of the unknown in its SI unit (float). Raises ValueError with a reason."""
     reg = reg or load(); F = reg['formulas']
@@ -53,6 +63,7 @@ def solve(check, reg=None):
             if a not in syms or b not in syms or reg['symbols'][a] != reg['symbols'][b]: raise ValueError(f'bad map {a}->{b}')
         eqs.append(e.subs({syms[a]: syms[b] for a, b in m.items()}, simultaneous=True))
     vals = {}
+    check = {**check, 'givens': [parse_given(g) for g in check.get('givens') or []]}
     for g in check.get('givens') or []:
         if g.get('symbol') not in reg['symbols']: raise ValueError(f"given symbol {g.get('symbol')!r} not in registry")
         vals[syms[g['symbol']]] = sp.nsimplify(to_si(g['value'], g.get('unit'), g['symbol'], reg))
@@ -79,7 +90,7 @@ def verify(check, reg=None):
             exp, picked = pick_formula(check, reg, e1)
         a = check.get('answer') or {}
         got = to_si(a.get('value'), a.get('unit'), check['unknown'], reg)
-    except (ValueError, TypeError, pint.errors.PintError, sp.SympifyError) as e:
+    except (ValueError, TypeError, AttributeError, KeyError, IndexError, pint.errors.PintError, sp.SympifyError) as e:
         return None, f'not verifiable: {e}'[:200]
     if close(exp, got): return True, f'code {exp:.6g} = stated {got:.6g} {reg["symbols"][check["unknown"]]}' + (f' (formula chosen by code: {picked})' if picked else '')
     return False, f'code gives {exp:.6g} {reg["symbols"][check["unknown"]]}, stated answer is {got:.6g}'
@@ -112,8 +123,8 @@ def givens_in_text(check, text):
     nums += [float(x) for x in re.findall(r'\d+(?:\.\d+)?', re.sub(sci, ' ', t))]     # unit powers (m²) are not numbers: \d does not match superscripts
     if not isinstance(check, dict) or not check.get('givens'): return False
     for g in check['givens']:
-        try: v = float(g.get('value'))
-        except (TypeError, ValueError): return False
+        try: v = float(parse_given(g).get('value'))
+        except (TypeError, ValueError, AttributeError): return False
         if not any(close(n * k, v) for n in nums for k in (1, 60, 3600, 1000, 0.001, 0.01, 100, 1e-6)): return False
     return True
 
@@ -137,7 +148,7 @@ def mcq_options_ok(q, reg=None):
     try:
         exp = solve(c, reg); unit = (c.get('answer') or {}).get('unit')
         vals = [option_value(o[1], unit, c['unknown'], reg) for o in q['options']]
-    except (ValueError, TypeError, IndexError, pint.errors.PintError, sp.SympifyError) as e:
+    except (ValueError, TypeError, IndexError, AttributeError, KeyError, pint.errors.PintError, sp.SympifyError) as e:
         return None, f'not verifiable: {e}'[:200]
     hits = [i for i, v in enumerate(vals) if close(v, exp)]
     if hits != [q.get('answer_index')]: return False, f'code value {exp:.6g} matches options {hits}, key is {q.get("answer_index")}'

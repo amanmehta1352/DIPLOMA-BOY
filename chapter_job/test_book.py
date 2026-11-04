@@ -760,6 +760,35 @@ def _(d):
     assert out['final_state'] == 'needs_review' and any('concept c0: table has a wrong shape' in x for x in chk['problems']), chk['problems']
 
 
+@case('B56 run-13 gaps: givens as text "V1 = 10 V" are parsed and still code-verified; the wrong key 0.0168 ohm stays rejected; a provider out of quota is not asked again in the run')
+def _(d):
+    import numcheck as NC, providers as PR
+    q8 = {'givens': ['ρ = 1.68 × 10^-8 Ω·m', 'L = 10 m', 'A = 1 × 10^-4 m²'], 'formulas': ['resistivity'], 'unknown': 'R', 'answer': {'value': 0.0168, 'unit': 'Ω'}}
+    assert NC.verify(q8)[0] is False and NC.verify({**q8, 'answer': {'value': 0.00168, 'unit': 'Ω'}})[0] is True
+    assert NC.verify({**q8, 'givens': ['nonsense']})[0] is None and NC.mcq_options_ok({'check': {'givens': [3]}, 'options': [], 'answer_index': 0})[0] is None
+    q5 = {'type': 'mcq', 'outcome': 'o1', 'bloom': 'apply', 'q': ['बिंदु (2 A, 10 V) और (4 A, 20 V), R?', 'A V-I graph passes through (2 A, 10 V) and (4 A, 20 V). Find R.'],
+          'options': [['2 Ω', '2 Ω'], ['5 Ω', '5 Ω'], ['10 Ω', '10 Ω'], ['20 Ω', '20 Ω']], 'answer_index': 1,
+          'check': {'givens': ['V1 = 10 V', 'V2 = 20 V', 'I1 = 2 A', 'I2 = 4 A'], 'formulas': ['ohm_slope'], 'unknown': 'R', 'answer': {'value': 5, 'unit': 'Ω'}}}
+    assert B.question_ok_after(q5, None)
+    assert not B.question_ok_after({**q5, 'q': ['R?', 'A V-I graph has slope 5 ohm. Find R.']}, None)        # numbers of the check not in the question
+    env = {'FREE_TIER_CONFIRMED': 'gemini,groq,cloudflare', 'GEMINI_API_KEY': 'g', 'GROQ_API_KEY': 'k1', 'CLOUDFLARE_API_TOKEN': 'k4', 'CLOUDFLARE_ACCOUNT_ID': 'acc'}
+    old = {k: os.environ.get(k) for k in env}; os.environ.update(env)
+    try: R_ = PR.Real()
+    finally:
+        for k, v in old.items():
+            if v is None: os.environ.pop(k, None)
+            else: os.environ[k] = v
+    hits = []
+    def gem(prompt, models=None): hits.append('gemini'); raise ProviderUnavailable('gemini', 'quota', 'x')
+    def chat(url, key, model, prompt, provider, timeout=0, max_tokens=0):
+        hits.append(provider)
+        if provider == 'groq': raise ProviderUnavailable('groq', 'quota', 'x')
+        return 'ok', provider, model
+    R_._gemini = gem; R_._chat = chat; R_.writer = 'gemini'
+    for _ in range(3): assert R_.write('p')[1] == 'cloudflare'
+    assert hits == ['gemini', 'groq', 'cloudflare', 'cloudflare', 'cloudflare'], hits
+
+
 @case('B27 end to end: first question batch has repeated MCQ options -> that batch is rewritten with the lint reasons')
 def _(d):
     class Rep(Smart):

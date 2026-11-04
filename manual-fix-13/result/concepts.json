@@ -55,23 +55,45 @@
   "table": {
    "head": [
     [
-     "परम्परागत धारा (Conventional Current)",
-     "इलेक्ट्रॉन प्रवाह (Electron Flow)"
+     "गुण",
+     "Property"
+    ],
+    [
+     "परम्परागत धारा",
+     "Conventional current"
+    ],
+    [
+     "इलेक्ट्रॉन प्रवाह",
+     "Electron flow"
     ]
    ],
    "rows": [
     [
      [
-      "धारा की दिशा: धनात्मक → ऋणात्मक",
-      "धारा की दिशा: ऋणात्मक → धनात्मक"
+      "दिशा",
+      "Direction"
      ],
      [
-      "परिभाषा: धारा का मानक दिशा",
-      "परिभाषा: वास्तविक कणों की गति"
+      "धन (+) सिरे से ऋण (−) सिरे की ओर",
+      "From the positive (+) to the negative (−) terminal"
      ],
      [
-      "आवेश: धनात्मक आवेश का प्रवाह",
-      "आवेश: ऋणात्मक इलेक्ट्रॉन का प्रवाह"
+      "ऋण (−) सिरे से धन (+) सिरे की ओर",
+      "From the negative (−) to the positive (+) terminal"
+     ]
+    ],
+    [
+     [
+      "क्या बताती है",
+      "What it describes"
+     ],
+     [
+      "धनात्मक आवेश के बहाव की मानी गई दिशा",
+      "Agreed direction of flow of positive charge"
+     ],
+     [
+      "इलेक्ट्रॉनों की वास्तविक गति",
+      "Actual motion of the electrons"
      ]
     ]
    ]
@@ -252,25 +274,57 @@
   "table": {
    "head": [
     [
-     "उपकरण (Instrument)",
-     "परिपथ में जुड़ाव (Connection)",
-     "प्रतिरोध (Resistance)",
-     "इकाई (Unit)"
+     "उपकरण",
+     "Instrument"
+    ],
+    [
+     "परिपथ में जुड़ाव",
+     "Connection in circuit"
+    ],
+    [
+     "प्रतिरोध",
+     "Resistance"
+    ],
+    [
+     "इकाई",
+     "Unit"
     ]
    ],
    "rows": [
     [
      [
       "एमीटर",
-      "श्रृंखला (Series)",
-      "कम (Low)",
-      "एम्पीयर (A)"
+      "Ammeter"
      ],
      [
+      "श्रेणीक्रम",
+      "Series"
+     ],
+     [
+      "कम",
+      "Low"
+     ],
+     [
+      "एम्पीयर (A)",
+      "Ampere (A)"
+     ]
+    ],
+    [
+     [
       "वोल्टमीटर",
-      "पार्श्वक्रम (Parallel)",
-      "उच्च (High)",
-      "वोल्ट (V)"
+      "Voltmeter"
+     ],
+     [
+      "पार्श्वक्रम",
+      "Parallel"
+     ],
+     [
+      "उच्च",
+      "High"
+     ],
+     [
+      "वोल्ट (V)",
+      "Volt (V)"
      ]
     ]
    ]
@@ -299,8 +353,8 @@
   ],
   "paras": [
    [
-    "ओम का नियम कहता है कि जब किसी चालक का तापमान स्थिर रहता है, तो उसके माध्यम से बहने वाली धारा (I) और उसके सिरों के बीच विभवांतर (V) के बीच सीधा अनुपात होता है। इसे गणितीय रूप से V = I × R के रूप में लिखा जाता है, जहाँ R प्रतिरोध (resistance) है।",
-    "Ohm's law states that, at a constant temperature, the current (I) flowing through a conductor is directly proportional to the potential difference (V) across its ends. It is expressed as V = I × R, where R is the resistance."
+    "ओम का नियम: यदि किसी चालक (conductor) का ताप (temperature) समान रखा जाए, तो उसके सिरों के बीच का विभवांतर (V) उससे बहने वाली धारा (I) के साथ उसी अनुपात में बढ़ता-घटता है, इसलिए V/I स्थिर रहता है। समीकरण के रूप में V = I × R, जहाँ R प्रतिरोध (resistance) है।",
+    "Ohm's law: if the temperature of a conductor is kept the same, the potential difference (V) between its ends rises and falls in step with the current (I) through it, so V/I stays fixed. As an equation, V = I × R, where R is the resistance."
    ],
    [
     "यदि हम विभिन्न धारा मानों के लिये विभवांतर को मापें और उसे धारा के विरुद्ध ग्राफ में अंकित करें, तो प्राप्त रेखा मूल बिंदु से होकर सीधी होगी। इस रेखा का ढाल (slope) V/I के बराबर होता है, अर्थात् वही प्रतिरोध R।",
@@ -522,16 +576,16 @@
     "Conductors have low resistivity, such as copper, which has a resistivity of about 1.68 × 10^-8 Ω m."
    ],
    [
-    "मिश्र धातुओं (alloys) की प्रतिरोधकता अधिक होती है, जैसे कि नाइक्रोम (nichrome) की प्रतिरोधकता लगभग 10^-6 से 10^-5 Ω m है।",
-    "Alloys have higher resistivity, such as nichrome, which has a resistivity of about 10^-6 to 10^-5 Ω m."
+    "मिश्रधातुओं (alloys) की प्रतिरोधकता शुद्ध धातुओं से अधिक होती है; जैसे नाइक्रोम (nichrome) की प्रतिरोधकता लगभग 1.0 × 10^-6 Ω m है।",
+    "Alloys have a higher resistivity than pure metals; for example, nichrome has a resistivity of about 1.0 × 10^-6 Ω m."
    ],
    [
     "विद्युतरोधी (insulators) की प्रतिरोधकता बहुत अधिक होती है, जैसे कि ग्लास (glass) की प्रतिरोधकता लगभग 10^10 से 10^14 Ω m है।",
     "Insulators have very high resistivity, such as glass, which has a resistivity of about 10^10 to 10^14 Ω m."
    ],
    [
-    "प्रतिरोधकता का मान सामग्री के तापमान (temperature) पर भी निर्भर करता है।",
-    "The resistivity value also depends on the temperature of the material."
+    "पदार्थ के गर्म या ठंडा होने पर उसकी प्रतिरोधकता (resistivity) बदल जाती है।",
+    "Resistivity changes when the material gets hotter or colder."
    ],
    [
     "सामग्री के प्रतिरोधकता के मान को जानने से हमें उनके विद्युत गुणों के बारे में जानकारी मिलती है।",
@@ -571,23 +625,43 @@
   "table": {
    "head": [
     [
-     "सामग्री का प्रकार",
-     "प्रतिरोधकता का मान (Ω m)"
+     "पदार्थ का प्रकार",
+     "Type of material"
+    ],
+    [
+     "प्रतिरोधकता (Ω m)",
+     "Resistivity (Ω m)"
     ]
    ],
    "rows": [
     [
      [
-      "चालक (conductor) का मान 1.68 × 10^-8 है",
+      "चालक (जैसे ताँबा)",
+      "Conductor (e.g. copper)"
+     ],
+     [
+      "1.68 × 10^-8",
       "1.68 × 10^-8"
+     ]
+    ],
+    [
+     [
+      "मिश्रधातु (जैसे नाइक्रोम)",
+      "Alloy (e.g. nichrome)"
      ],
      [
-      "मिश्र धातु (alloy)",
-      "10^-6 से 10^-5"
+      "लगभग 1.0 × 10^-6",
+      "about 1.0 × 10^-6"
+     ]
+    ],
+    [
+     [
+      "विद्युतरोधी (जैसे काँच)",
+      "Insulator (e.g. glass)"
      ],
      [
-      "विद्युतरोधी (insulator)",
-      "10^10 से 10^14"
+      "10^10 से 10^14",
+      "10^10 to 10^14"
      ]
     ]
    ]
@@ -1035,7 +1109,7 @@
   },
   "formula": null,
   "tip": [
-   "याद रखें कि भले ही घरेलू उपकरण पार्श्वक्रम में जुड़े होते हैं, लेकिन सुरक्षा फ्यूज़ (fuse) को हमेशा मुख्य लाइन में श्रेणीक्रम में ही लगाया जाता है।",
+   "याद रखें कि भले ही घरेलू उपकरण पार्श्वक्रम में जुड़े होते हैं, लेकिन सुरक्षा फ्यूज़ (fuse) को हमेशा मुख्य लाइन में श्रेणीक्रम में ही रहता है।",
    "Remember that even though home appliances are connected in parallel, an electric fuse is always connected in series with the live wire."
   ],
   "diagram": null,
@@ -1202,12 +1276,12 @@
     "The rate at which work is done or electrical **energy** is consumed is called **electric power**. When **work** W is done in a **circuit** in time t, the electric power is P = W / t."
    ],
    [
-    "विद्युत शक्ति का SI मात्रक **वाट** (Watt, W) है। 1 वाट वह शक्ति है जब 1 वोल्ट के **विभवांतर** (potential difference) पर 1 ऐम्पियर की **विद्युत धारा** (electric current) प्रवाहित होती है (1 W = 1 V × 1 A)। शक्ति के अन्य रूप P = V × I = I^2 × R = V^2 / R हैं।",
-    "The SI unit of electric power is **Watt** (W). 1 Watt is the power consumed when 1 Ampere of **electric current** flows at a **potential difference** of 1 Volt (1 W = 1 V × 1 A). Other formulas for power are P = V × I = I^2 × R = V^2 / R."
+    "SI पद्धति में शक्ति को **वाट** (W) में मापा जाता है। जब किसी उपकरण में 1 वोल्ट के **विभवांतर** (potential difference) पर 1 ऐम्पियर की **धारा** (current) बहती है, तो वह 1 वाट शक्ति लेता है (1 W = 1 V × 1 A)। शक्ति को P = V × I = I^2 × R = V^2 / R भी लिखा जा सकता है।",
+    "Power is measured in **watt** (W) in SI units. A device takes 1 watt when a **current** of 1 ampere flows through it under a **potential difference** of 1 volt (1 W = 1 V × 1 A). Power can also be written as P = V × I = I^2 × R = V^2 / R."
    ],
    [
-    "विद्युत ऊर्जा का व्यावसायिक मात्रक **किलोवाट-घंटा** (kilowatt-hour, kWh) है, जिसे सामान्य भाषा में 'यूनिट' (Unit) कहा जाता है। 1 kWh विद्युत ऊर्जा की वह मात्रा है जो 1 किलोवाट (1000 W) शक्ति के उपकरण द्वारा 1 घंटे तक उपयोग की जाती है। 1 kWh = 3.6 × 10^6 जूल (J) होता है।",
-    "The commercial unit of electrical energy is **kilowatt-hour** (kWh), commonly known as 'Unit'. 1 kWh is the electrical energy consumed when a 1 kilowatt (1000 W) appliance runs for 1 hour. 1 kWh = 3.6 × 10^6 Joules (J)."
+    "बिजली के बिल में ऊर्जा **किलोवाट-घंटा** (kWh) में गिनी जाती है, जिसे आम बोलचाल में 'यूनिट' कहते हैं। 1 किलोवाट (1000 W) का उपकरण 1 घंटे चले तो वह 1 kWh ऊर्जा लेता है। 1 kWh = 3.6 × 10^6 जूल (J)।",
+    "For electricity bills, energy is counted in **kilowatt-hour** (kWh), usually just called a 'unit'. A 1 kilowatt (1000 W) appliance running for 1 hour uses 1 kWh. 1 kWh = 3.6 × 10^6 joule (J)."
    ]
   ],
   "kv": [

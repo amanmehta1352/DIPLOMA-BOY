@@ -263,8 +263,8 @@
     "In a series combination, the **electric current** is the same in all **resistors**, but the **potential difference** can be different across different **resistors**."
    ],
    [
-    "श्रेणीक्रम संयोजन का उपयोग **विद्युत परिपथ** [electric circuit] में **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] को नियंत्रित करने के लिए किया जा सकता है।",
-    "Series combination is used in **electric circuits** to control **electric current** and **potential difference**."
+    "**विद्युत परिपथ** [electric circuit] में श्रेणीक्रम संयोजन की मदद से **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] को काबू में रखा जाता है।",
+    "A series combination in **electric circuits** helps keep the **electric current** and the **potential difference** in check."
    ],
    [
     "इस प्रकार, **प्रतिरोधक** [resistor] का श्रेणीक्रम संयोजन हमें **विद्युत प्रणाली** [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।",
@@ -415,8 +415,8 @@
   ],
   "paras": [
    [
-    "विद्युत तंतु बल्ब में एक पतला तंतु होता है जो विद्युत धारा के प्रवाह से गर्म हो जाता है और प्रकाश उत्पन्न करता है।",
-    "The filament bulb has a thin filament that gets heated by the flow of electric current and produces light."
+    "तंतु बल्ब के अंदर एक पतला तार यानी तंतु (filament) होता है; इससे विद्युत धारा गुज़रने पर यह गर्म होकर चमकने लगता है।",
+    "A filament bulb contains a thin wire, the filament, which becomes hot as electric current passes through it and then gives out light."
    ],
    [
     "फ्यूज़ एक ऐसा उपकरण है जो विद्युत परिपथ में अधिक विद्युत धारा के प्रवाह को रोकता है और परिपथ की सुरक्षा करता है।",
@@ -427,8 +427,8 @@
     "Both the filament bulb and the fuse work on the heating effect of electric current."
    ],
    [
-    "विद्युत तंतु बल्ब में तंतु का प्रतिरोध इतना अधिक होता है कि जब विद्युत धारा प्रवाहित होती है, तो वह तंतु गर्म हो जाता है और प्रकाश उत्पन्न करता है।",
-    "In the filament bulb, the filament has a high resistance, so when electric current flows, it gets heated and produces light."
+    "बल्ब के तंतु (filament) का प्रतिरोध अधिक होता है, इसलिए उससे गुज़रने वाली धारा उसे बहुत गर्म कर देती है और वह चमकने लगता है।",
+    "The filament of a bulb has a high resistance, so the current passing through it heats it strongly and it starts to glow."
    ],
    [
     "फ्यूज़ में एक पतला तार होता है जो अधिक विद्युत धारा के प्रवाह से गर्म हो जाता है और पिघल जाता है, जिससे परिपथ टूट जाता है।",

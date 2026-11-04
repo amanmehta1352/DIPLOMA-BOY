@@ -1,0 +1,421 @@
+{
+ "note": "Manual fix proposal after run 13, written by Claude (not by the robot). Applied only to a local copy. Needs owner approval before any use.",
+ "questions": {
+  "2": {
+   "q": [
+    "विद्युत धारा की सही परिभाषा कौन-सी है?",
+    "Which is the correct definition of electric current?"
+   ],
+   "options": [
+    [
+     "हर सेकंड खर्च होने वाली विद्युत ऊर्जा",
+     "Electrical energy used up in each second"
+    ],
+    [
+     "एक कूलॉम आवेश को दो बिंदुओं के बीच ले जाने पर मिलने वाली ऊर्जा",
+     "Energy per coulomb of charge carried between two points"
+    ],
+    [
+     "चालक द्वारा आवेश के बहाव में डाली गई रुकावट",
+     "The opposition that a conductor offers to the flow of charge"
+    ],
+    [
+     "किसी चालक की अनुप्रस्थ काट से प्रति सेकंड गुजरने वाले आवेश की मात्रा",
+     "The amount of charge passing through a cross-section of a conductor in each second"
+    ]
+   ],
+   "answer_index": 3
+  },
+  "5": {
+   "q": [
+    "किसी चालक के V-I ग्राफ पर दो बिंदु (0.5 A, 2.5 V) और (1.5 A, 7.5 V) हैं। चालक का प्रतिरोध (resistance) कितना है?",
+    "Two points on the V-I graph of a conductor are (0.5 A, 2.5 V) and (1.5 A, 7.5 V). What is the resistance of the conductor?"
+   ],
+   "options": [
+    [
+     "2.5 Ω",
+     "2.5 Ω"
+    ],
+    [
+     "0.2 Ω",
+     "0.2 Ω"
+    ],
+    [
+     "10 Ω",
+     "10 Ω"
+    ],
+    [
+     "5 Ω",
+     "5 Ω"
+    ]
+   ],
+   "answer_index": 3,
+   "check": {
+    "givens": [
+     {
+      "symbol": "V1",
+      "value": 2.5,
+      "unit": "V"
+     },
+     {
+      "symbol": "I1",
+      "value": 0.5,
+      "unit": "A"
+     },
+     {
+      "symbol": "V2",
+      "value": 7.5,
+      "unit": "V"
+     },
+     {
+      "symbol": "I2",
+      "value": 1.5,
+      "unit": "A"
+     }
+    ],
+    "formulas": [
+     "ohm_slope"
+    ],
+    "unknown": "R",
+    "answer": {
+     "value": 5,
+     "unit": "Ω"
+    }
+   }
+  },
+  "8": {
+   "options": [
+    [
+     "0.168 Ω",
+     "0.168 Ω"
+    ],
+    [
+     "0.0168 Ω",
+     "0.0168 Ω"
+    ],
+    [
+     "0.00168 Ω",
+     "0.00168 Ω"
+    ],
+    [
+     "1.68 Ω",
+     "1.68 Ω"
+    ]
+   ],
+   "answer_index": 2,
+   "check": {
+    "givens": [
+     {
+      "symbol": "rho",
+      "value": 1.68e-08,
+      "unit": "ohm m"
+     },
+     {
+      "symbol": "L",
+      "value": 10,
+      "unit": "m"
+     },
+     {
+      "symbol": "A",
+      "value": 0.0001,
+      "unit": "m^2"
+     }
+    ],
+    "formulas": [
+     "resistivity"
+    ],
+    "unknown": "R",
+    "answer": {
+     "value": 0.00168,
+     "unit": "Ω"
+    }
+   }
+  },
+  "19": {
+   "assertion": [
+    "किसी धातु के तार का ताप न बदले तो उसके सिरों के बीच का विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है।",
+    "If the temperature of a metal wire does not change, doubling the potential difference across its ends also doubles the current in it."
+   ],
+   "reason": [
+    "ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, बदलता नहीं है।",
+    "By Ohm's law, at constant temperature the value of V/I, called the resistance, stays the same."
+   ],
+   "answer_index": 0
+  }
+ },
+ "pairs": [
+  {
+   "match_en_start": "Slope = ΔV/ΔI",
+   "hi_replace": [
+    "एमीटर को धारा के प्रवाह के क्रम में (सिर्‍स में) जोड़ा जाता है, जबकि वोल्टमीटर को मापे जाने वाले घटक के दोनों सिरों पर समानांतर (पार्श्वक्रम) में जोड़ा जाता है।",
+    "एमीटर को परिपथ (circuit) में श्रेणीक्रम में जोड़ा जाता है ताकि वही धारा उससे होकर बहे, जबकि वोल्टमीटर को घटक के दोनों सिरों पर पार्श्वक्रम में जोड़ा जाता है ताकि वह विभवांतर (potential difference) माप सके।"
+   ]
+  },
+  {
+   "match_en_start": "Ohm's law states that the ratio between voltage and current",
+   "hi_full": "ओम का नियम कहता है कि किसी चालक (conductor) के लिए विभवांतर (V) और धारा (I) का अनुपात स्थिर रहता है: V = I × R।"
+  }
+ ],
+ "tables": {
+  "c1": {
+   "head": [
+    [
+     "गुण",
+     "Property"
+    ],
+    [
+     "परम्परागत धारा",
+     "Conventional current"
+    ],
+    [
+     "इलेक्ट्रॉन प्रवाह",
+     "Electron flow"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "दिशा",
+      "Direction"
+     ],
+     [
+      "धन (+) सिरे से ऋण (−) सिरे की ओर",
+      "From the positive (+) to the negative (−) terminal"
+     ],
+     [
+      "ऋण (−) सिरे से धन (+) सिरे की ओर",
+      "From the negative (−) to the positive (+) terminal"
+     ]
+    ],
+    [
+     [
+      "क्या बताती है",
+      "What it describes"
+     ],
+     [
+      "धनात्मक आवेश के बहाव की मानी गई दिशा",
+      "Agreed direction of flow of positive charge"
+     ],
+     [
+      "इलेक्ट्रॉनों की वास्तविक गति",
+      "Actual motion of the electrons"
+     ]
+    ]
+   ]
+  },
+  "c3": {
+   "head": [
+    [
+     "उपकरण",
+     "Instrument"
+    ],
+    [
+     "परिपथ में जुड़ाव",
+     "Connection in circuit"
+    ],
+    [
+     "प्रतिरोध",
+     "Resistance"
+    ],
+    [
+     "इकाई",
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "एमीटर",
+      "Ammeter"
+     ],
+     [
+      "श्रेणीक्रम",
+      "Series"
+     ],
+     [
+      "कम",
+      "Low"
+     ],
+     [
+      "एम्पीयर (A)",
+      "Ampere (A)"
+     ]
+    ],
+    [
+     [
+      "वोल्टमीटर",
+      "Voltmeter"
+     ],
+     [
+      "पार्श्वक्रम",
+      "Parallel"
+     ],
+     [
+      "उच्च",
+      "High"
+     ],
+     [
+      "वोल्ट (V)",
+      "Volt (V)"
+     ]
+    ]
+   ]
+  },
+  "c6": {
+   "head": [
+    [
+     "पदार्थ का प्रकार",
+     "Type of material"
+    ],
+    [
+     "प्रतिरोधकता (Ω m)",
+     "Resistivity (Ω m)"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "चालक (जैसे ताँबा)",
+      "Conductor (e.g. copper)"
+     ],
+     [
+      "1.68 × 10^-8",
+      "1.68 × 10^-8"
+     ]
+    ],
+    [
+     [
+      "मिश्रधातु (जैसे नाइक्रोम)",
+      "Alloy (e.g. nichrome)"
+     ],
+     [
+      "लगभग 1.0 × 10^-6",
+      "about 1.0 × 10^-6"
+     ]
+    ],
+    [
+     [
+      "विद्युतरोधी (जैसे काँच)",
+      "Insulator (e.g. glass)"
+     ],
+     [
+      "10^10 से 10^14",
+      "10^10 to 10^14"
+     ]
+    ]
+   ]
+  }
+ },
+ "outside_list_fact_check": {
+  "match_en_start": "Alloys have higher resistivity, such as nichrome",
+  "pair": [
+   "मिश्रधातुओं (alloys) की प्रतिरोधकता शुद्ध धातुओं से अधिक होती है; जैसे नाइक्रोम (nichrome) की प्रतिरोधकता लगभग 1.0 × 10^-6 Ω m है।",
+   "Alloys have a higher resistivity than pure metals; for example, nichrome has a resistivity of about 1.0 × 10^-6 Ω m."
+  ]
+ },
+ "copy_runs": [
+  {
+   "match_en_start": "Ohm's law states that, at a constant temperature, the current (I)",
+   "pair": [
+    "ओम का नियम: यदि किसी चालक (conductor) का ताप (temperature) समान रखा जाए, तो उसके सिरों के बीच का विभवांतर (V) उससे बहने वाली धारा (I) के साथ उसी अनुपात में बढ़ता-घटता है, इसलिए V/I स्थिर रहता है। समीकरण के रूप में V = I × R, जहाँ R प्रतिरोध (resistance) है।",
+    "Ohm's law: if the temperature of a conductor is kept the same, the potential difference (V) between its ends rises and falls in step with the current (I) through it, so V/I stays fixed. As an equation, V = I × R, where R is the resistance."
+   ]
+  },
+  {
+   "match_en_start": "The resistivity value also depends on the temperature",
+   "pair": [
+    "पदार्थ के गर्म या ठंडा होने पर उसकी प्रतिरोधकता (resistivity) बदल जाती है।",
+    "Resistivity changes when the material gets hotter or colder."
+   ]
+  },
+  {
+   "match_en_start": "The SI unit of electric power is **Watt**",
+   "pair": [
+    "SI पद्धति में शक्ति को **वाट** (W) में मापा जाता है। जब किसी उपकरण में 1 वोल्ट के **विभवांतर** (potential difference) पर 1 ऐम्पियर की **धारा** (current) बहती है, तो वह 1 वाट शक्ति लेता है (1 W = 1 V × 1 A)। शक्ति को P = V × I = I^2 × R = V^2 / R भी लिखा जा सकता है।",
+    "Power is measured in **watt** (W) in SI units. A device takes 1 watt when a **current** of 1 ampere flows through it under a **potential difference** of 1 volt (1 W = 1 V × 1 A). Power can also be written as P = V × I = I^2 × R = V^2 / R."
+   ]
+  },
+  {
+   "match_en_start": "The commercial unit of electrical energy is **kilowatt-hour**",
+   "pair": [
+    "बिजली के बिल में ऊर्जा **किलोवाट-घंटा** (kWh) में गिनी जाती है, जिसे आम बोलचाल में 'यूनिट' कहते हैं। 1 किलोवाट (1000 W) का उपकरण 1 घंटे चले तो वह 1 kWh ऊर्जा लेता है। 1 kWh = 3.6 × 10^6 जूल (J)।",
+    "For electricity bills, energy is counted in **kilowatt-hour** (kWh), usually just called a 'unit'. A 1 kilowatt (1000 W) appliance running for 1 hour uses 1 kWh. 1 kWh = 3.6 × 10^6 joule (J)."
+   ]
+  },
+  {
+   "match_en_start": "Work done in moving a unit charge from one point to another is called potential difference",
+   "pair": [
+    "दो बिंदुओं के बीच का विभवांतर (potential difference) वह कार्य (work) है जो प्रति कूलॉम आवेश को दोनों बिंदुओं के बीच खिसकाने में लगता है: V = W/Q। इसका SI मात्रक वोल्ट (V) है।",
+    "Potential difference between two points is the work needed for each coulomb of charge shifted between them: V = W/Q. Its SI unit is the volt (V)."
+   ],
+   "hinglish": "Do binduon ke beech ka vibhavantar (potential difference) woh kaarya (work) hai jo prati coulomb aavesh ko dono binduon ke beech khiskaane mein lagta hai: V = W/Q. Iska SI maatrak volt (V) hai."
+  },
+  {
+   "match_en_start": "At constant temperature, current flowing through a conductor is directly proportional",
+   "pair": [
+    "यदि ताप (temperature) न बदले, तो चालक (conductor) में V और I एक ही अनुपात में साथ-साथ घटते-बढ़ते हैं: V = I × R।",
+    "If the temperature does not change, V and I in a conductor rise and fall together in the same ratio: V = I × R."
+   ],
+   "hinglish": "Yadi taap (temperature) na badle, to chalak (conductor) mein V aur I ek hi anupaat mein saath-saath ghatte-badhte hain: V = I × R."
+  },
+  {
+   "match_en_start": "Commercial unit of electrical energy is kilowatt-hour (kWh) or unit",
+   "pair": [
+    "बिजली किलोवाट-घंटा (kWh) के हिसाब से बिकती है, जिसे यूनिट भी कहते हैं। 1 kWh = 3.6 × 10^6 J।",
+    "Electricity is sold by the kilowatt-hour (kWh), also called a unit. 1 kWh = 3.6 × 10^6 J."
+   ],
+   "hinglish": "Bijli kilowatt-ghanta (kWh) ke hisaab se bikti hai, jise unit bhi kehte hain. 1 kWh = 3.6 × 10^6 J."
+  },
+  {
+   "match_en_start": "Series combination is used in **electric circuits** to control",
+   "pair": [
+    "**विद्युत परिपथ** [electric circuit] में श्रेणीक्रम संयोजन की मदद से **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] को काबू में रखा जाता है।",
+    "A series combination in **electric circuits** helps keep the **electric current** and the **potential difference** in check."
+   ],
+   "hinglish": "**Vidyut paripath** [electric circuit] mein shreni-kram sanyojan ki madad se **vidyut dhara** [electric current] aur **vibhavantar** [potential difference] ko kaabu mein rakha jaata hai."
+  },
+  {
+   "match_en_start": "The filament bulb has a thin filament that gets heated",
+   "pair": [
+    "तंतु बल्ब के अंदर एक पतला तार यानी तंतु (filament) होता है; इससे विद्युत धारा गुज़रने पर यह गर्म होकर चमकने लगता है।",
+    "A filament bulb contains a thin wire, the filament, which becomes hot as electric current passes through it and then gives out light."
+   ],
+   "hinglish": "Tantu bulb ke andar ek patla taar yaani tantu (filament) hota hai; isse vidyut dhara guzarne par yeh garam hokar chamakne lagta hai."
+  },
+  {
+   "match_en_start": "In the filament bulb, the filament has a high resistance",
+   "pair": [
+    "बल्ब के तंतु (filament) का प्रतिरोध अधिक होता है, इसलिए उससे गुज़रने वाली धारा उसे बहुत गर्म कर देती है और वह चमकने लगता है।",
+    "The filament of a bulb has a high resistance, so the current passing through it heats it strongly and it starts to glow."
+   ],
+   "hinglish": "Bulb ke tantu (filament) ka pratirodh adhik hota hai, isliye usse guzarne wali dhara use bahut garam kar deti hai aur woh chamakne lagta hai."
+  },
+  {
+   "match_en_start": "When an **electric current** flows through a **conductor**, a **heating effect**",
+   "pair": [
+    "जब किसी **चालक (conductor)** में से **विद्युत धारा (electric current)** गुज़रती है, तो वह गर्म हो जाता है; इसे **तापीय प्रभाव (heating effect)** कहते हैं।",
+    "A **conductor** becomes warm when an **electric current** passes through it; this is called the **heating effect**."
+   ]
+  },
+  {
+   "match_en_start": "Remember that even though home appliance",
+   "pair": [
+    "याद रखें कि भले ही घरेलू उपकरण पार्श्वक्रम में जुड़े होते हैं, लेकिन सुरक्षा फ्यूज़ (fuse) को हमेशा मुख्य लाइन में श्रेणीक्रम में ही रहता है।",
+    "Remember that even though home appliances are connected in parallel, an electric fuse is always connected in series with the live wire."
+   ],
+   "why": "8-word run across the tip end and the next panel title"
+  },
+  {
+   "match_en_start": "Why is parallel combination used in dome",
+   "pair": [
+    "घरेलू परिपथों (domestic circuits) में उपकरण पार्श्वक्रम में ही क्यों जोड़े जाते हैं?",
+    "Why is parallel combination used in domestic circuits?"
+   ],
+   "why": "8-word run with the answer that follows",
+   "hinglish_replace": [
+    "Parshvakram Sanyojan ka Upyog Kyon Kiya Jata Hai?",
+    "Upkaran Parshvakram mein hi Kyon Jode Jaate Hain?"
+   ]
+  }
+ ]
+}

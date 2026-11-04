@@ -1,1 +1,0 @@
-{"shots":["out/app_book_hi.png","out/app_notes_hi.png","out/app_notes_en.png","out/app_teach_hi.png","out/app_formula_hi.png","out/app_3d_hi.png"],"errors":0}

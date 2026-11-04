@@ -265,8 +265,8 @@
     "Potential Difference"
    ],
    [
-    "एकांक आवेश को एक बिंदु से दूसरे बिंदु तक ले जाने में किया गया कार्य (work) विभवांतर (potential difference) कहलाता है। इसका SI मात्रक वोल्ट (V) है।",
-    "Work done in moving a unit charge from one point to another is called potential difference. Its SI unit is volt (V)."
+    "दो बिंदुओं के बीच का विभवांतर (potential difference) वह कार्य (work) है जो प्रति कूलॉम आवेश को दोनों बिंदुओं के बीच खिसकाने में लगता है: V = W/Q। इसका SI मात्रक वोल्ट (V) है।",
+    "Potential difference between two points is the work needed for each coulomb of charge shifted between them: V = W/Q. Its SI unit is the volt (V)."
    ]
   ],
   [
@@ -275,8 +275,8 @@
     "Ohm's Law"
    ],
    [
-    "नियत ताप (temperature) पर, चालक (conductor) से प्रवाहित धारा उसमें उत्पन्न विभवांतर (V) के समानुपाती होती है: V = I × R।",
-    "At constant temperature, current flowing through a conductor is directly proportional to potential difference across it: V = I × R."
+    "यदि ताप (temperature) न बदले, तो चालक (conductor) में V और I एक ही अनुपात में साथ-साथ घटते-बढ़ते हैं: V = I × R।",
+    "If the temperature does not change, V and I in a conductor rise and fall together in the same ratio: V = I × R."
    ]
   ],
   [
@@ -345,8 +345,8 @@
     "Commercial Unit of Energy"
    ],
    [
-    "विद्युत ऊर्जा का व्यावसायिक मात्रक किलोवाट-घंटा (kWh) या यूनिट है। 1 kWh = 3.6 × 10^6 J।",
-    "Commercial unit of electrical energy is kilowatt-hour (kWh) or unit. 1 kWh = 3.6 × 10^6 J."
+    "बिजली किलोवाट-घंटा (kWh) के हिसाब से बिकती है, जिसे यूनिट भी कहते हैं। 1 kWh = 3.6 × 10^6 J।",
+    "Electricity is sold by the kilowatt-hour (kWh), also called a unit. 1 kWh = 3.6 × 10^6 J."
    ]
   ]
  ],
@@ -373,7 +373,7 @@
   },
   {
    "q": [
-    "घरेलू परिपथों (domestic circuits) में पार्श्वक्रम संयोजन का उपयोग क्यों किया जाता है?",
+    "घरेलू परिपथों (domestic circuits) में उपकरण पार्श्वक्रम में ही क्यों जोड़े जाते हैं?",
     "Why is parallel combination used in domestic circuits?"
    ],
    "a": [
