@@ -1,0 +1,193 @@
+{
+  "concepts": [
+    {
+      "key": "c1",
+      "emoji": "⚡",
+      "title": [
+        "विद्युत आवेश और विद्युत धारा",
+        "Electric Charge and Electric Current"
+      ],
+      "paras": [
+        [
+          "विद्युत आवेश (electric charge) वह गुण है जो कणों को विद्युत बल के अधीन बनाता है। यह कूलॉम्ब (C) में मापा जाता है।",
+          "Electric charge is a property of particles that makes them experience electric forces. It is measured in coulombs (C)."
+        ],
+        [
+          "आवेश दो प्रकार के होते हैं: धनात्मक (positive) और ऋणात्मक (negative)। इलेक्ट्रॉन (electron) ऋणात्मक आवेश ले जाते हैं।",
+          "Charges exist in two types: positive and negative. Electrons carry negative charge."
+        ],
+        [
+          "जब इलेक्ट्रॉन चालक (conductor) में गति करते हैं तो धारा (current) बनती है। धारा I = Q ÷ t द्वारा परिभाषित होती है, जहाँ Q आवेश (C) और t समय (s) है।",
+          "When electrons move through a conductor, a current is produced. Current I = Q ÷ t, where Q is charge (C) and t is time (s)."
+        ],
+        [
+          "परम्परागत धारा दिशा को धनात्मक टर्मिनल से ऋणात्मक टर्मिनल की ओर माना जाता है, जबकि वास्तविक इलेक्ट्रॉन प्रवाह विपरीत दिशा में होता है।",
+          "Conventional current direction is taken from the positive terminal to the negative terminal, whereas the actual electron flow is opposite."
+        ],
+        [
+          "धारा को एमीटर (ammeter) से मापा जाता है और इसकी इकाई एम्पीयर (A) है।",
+          "Current is measured with an ammeter and its unit is ampere (A)."
+        ]
+      ],
+      "kv": [
+        [
+          ["विद्युत आवेश (Electric charge)", "कूलॉम्ब (C)"],
+          ["धारा (Current)", "एम्पीयर (A)"],
+          ["समय (Time)", "सेकंड (s)"],
+          ["इलेक्ट्रॉन (Electron)", "ऋणात्मक आवेश (negative charge)"],
+          ["परम्परागत दिशा (Conventional direction)", "धनात्मक → ऋणात्मक (positive → negative)"]
+        ]
+      ],
+      "table": {
+        "head": [
+          ["परम्परागत धारा (Conventional Current)", "इलेक्ट्रॉन प्रवाह (Electron Flow)"]
+        ],
+        "rows": [
+          [
+            ["धारा की दिशा: धनात्मक → ऋणात्मक", "धारा की दिशा: ऋणात्मक → धनात्मक"],
+            ["परिभाषा: धारा का मानक दिशा", "परिभाषा: वास्तविक कणों की गति"],
+            ["आवेश: धनात्मक आवेश का प्रवाह", "आवेश: ऋणात्मक इलेक्ट्रॉन का प्रवाह"]
+          ]
+        ]
+      },
+      "formula": {
+        "expr": "I = Q ÷ t",
+        "units": [
+          ["धारा (I)", "एम्पीयर (A)"],
+          ["आवेश (Q)", "कूलॉम्ब (C)"],
+          ["समय (t)", "सेकंड (s)"]
+        ]
+      },
+      "tip": [
+        "⚠ अक्सर छात्र इलेक्ट्रॉन प्रवाह को परम्परागत धारा दिशा मान लेते हैं; याद रखें कि दिशा उल्टी होती है।"
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <line x1=\"40\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"70\" y1=\"80\" x2=\"70\" y2=\"120\" stroke=\"black\" stroke-width=\"4\"/>\n  <line x1=\"70\" y1=\"80\" x2=\"100\" y2=\"80\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"70\" y1=\"120\" x2=\"100\" y2=\"120\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Wire -->\n  <line x1=\"100\" y1=\"100\" x2=\"300\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Conventional current arrow -->\n  <defs><marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"red\"/></marker></defs>\n  <line x1=\"150\" y1=\"95\" x2=\"250\" y2=\"95\" stroke=\"red\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <text x=\"200\" y=\"85\" font-size=\"12\" fill=\"red\">I (conventional)</text>\n  <!-- Electron flow arrow (opposite) -->\n  <defs><marker id=\"arrow2\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"blue\"/></marker></defs>\n  <line x1=\"250\" y1=\"105\" x2=\"150\" y2=\"105\" stroke=\"blue\" stroke-width=\"2\" marker-end=\"url(#arrow2)\"/>\n  <text x=\"200\" y=\"120\" font-size=\"12\" fill=\"blue\">-e (electron)</text>\n</svg>",
+        "caption": [
+          "विद्युत धारा और इलेक्ट्रॉन प्रवाह का आरेख",
+          "Diagram of conventional current and electron flow"
+        ]
+      }
+    },
+    {
+      "key": "c2",
+      "emoji": "🔋",
+      "title": [
+        "विद्युत विभव और विभवांतर",
+        "Electric Potential and Potential Difference"
+      ],
+      "paras": [
+        [
+          "विद्युत विभव (electric potential) किसी बिंदु पर इकाई आवेश को रखने पर उसमें संग्रहित ऊर्जा को दर्शाता है। यह वोल्ट (V) में मापा जाता है।",
+          "Electric potential at a point represents the energy stored per unit charge placed there. It is measured in volts (V)."
+        ],
+        [
+          "विभवांतर (potential difference) दो बिंदुओं के बीच ऊर्जा अंतर है और इसे V = W ÷ Q से परिभाषित किया जाता है, जहाँ W कार्य (J) और Q आवेश (C) है।",
+          "Potential difference between two points is the energy difference and is defined as V = W ÷ Q, where W is work (J) and Q is charge (C)."
+        ],
+        [
+          "सेल (cell) या बैटरी (battery) दो टर्मिनल के बीच विभवांतर बनाती है, जिससे चार्ज प्रवाहित हो पाता है।",
+          "A cell or battery creates a potential difference between its terminals, allowing charge to flow."
+        ],
+        [
+          "वोल्टमीटर (voltmeter) को परिपथ में पार्श्वक्रम (parallel) में जोड़ा जाता है ताकि वह विभवांतर को बिना धारा बदलें माप सके।",
+          "A voltmeter is connected in parallel across a component to measure potential difference without altering the current."
+        ],
+        [
+          "दैनिक जीवन में 1.5 V की बैटरी, घर की सॉकेट की 230 V आदि सामान्य उदाहरण हैं।",
+          "Common everyday examples are a 1.5 V battery and a 230 V household socket."
+        ]
+      ],
+      "kv": [
+        [
+          ["विद्युत विभव (Electric potential)", "वोल्ट (V)"],
+          ["विभवांतर (Potential difference)", "वोल्ट (V)"],
+          ["कार्य (Work)", "जूल (J)"],
+          ["आवेश (Charge)", "कूलॉम्ब (C)"],
+          ["सेल/बैटरी (Cell/Battery)", "वोल्टेज स्रोत (Voltage source)"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "V = W ÷ Q",
+        "units": [
+          ["वोल्टेज (V)", "वोल्ट (V)"],
+          ["कार्य (W)", "जूल (J)"],
+          ["आवेश (Q)", "कूलॉम्ब (C)"]
+        ]
+      },
+      "tip": [
+        "⚠ अक्सर छात्र वोल्टेज को ऊर्जा (जूल) समझ लेते हैं; याद रखें कि वोल्टेज ऊर्जा प्रति इकाई आवेश है।"
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <line x1=\"40\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"70\" y1=\"80\" x2=\"70\" y2=\"120\" stroke=\"black\" stroke-width=\"4\"/>\n  <line x1=\"70\" y1=\"80\" x2=\"100\" y2=\"80\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"70\" y1=\"120\" x2=\"100\" y2=\"120\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Wire -->\n  <line x1=\"100\" y1=\"100\" x2=\"300\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Points A and B -->\n  <circle cx=\"150\" cy=\"100\" r=\"4\" fill=\"black\"/>\n  <text x=\"140\" y=\"95\" font-size=\"12\">A</text>\n  <circle cx=\"250\" cy=\"100\" r=\"4\" fill=\"black\"/>\n  <text x=\"240\" y=\"95\" font-size=\"12\">B</text>\n  <!-- Arrow showing V -->\n  <defs><marker id=\"arrowV\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"green\"/></marker></defs>\n  <line x1=\"150\" y1=\"80\" x2=\"250\" y2=\"80\" stroke=\"green\" stroke-width=\"2\" marker-end=\"url(#arrowV)\"/>\n  <text x=\"190\" y=\"70\" font-size=\"12\" fill=\"green\">V</text>\n</svg>",
+        "caption": [
+          "विभवांतर (V) का आरेख",
+          "Diagram of potential difference V"
+        ]
+      }
+    },
+    {
+      "key": "c3",
+      "emoji": "🔌",
+      "title": [
+        "परिपथ आरेख और मापक यंत्र (एमीटर व वोल्टमीटर)",
+        "Circuit Diagrams and Measuring Instruments (Ammeter and Voltmeter)"
+      ],
+      "paras": [
+        [
+          "परिपथ आरेख (circuit diagram) में विभिन्न घटकों को मानक प्रतीकों से दर्शाया जाता है, जैसे सेल, प्रतिरोधक (resistor), धारा नियंत्रक (rheostat) आदि।",
+          "In circuit diagrams, different components are represented by standard symbols such as cell, resistor, rheostat, etc."
+        ],
+        [
+          "एमीटर (ammeter) को परिपथ में श्रेणीक्रम (series) में जोड़ा जाता है क्योंकि उसका प्रतिरोध कम (low resistance) होता है, जिससे धारा में न्यूनतम परिवर्तन होता है।",
+          "An ammeter is connected in series because it has low resistance, causing minimal change in the current."
+        ],
+        [
+          "वोल्टमीटर (voltmeter) को परिपथ में पार्श्वक्रम (parallel) में जोड़ा जाता है क्योंकि उसका प्रतिरोध अधिक (high resistance) होता है, जिससे वह लगभग शून्य धारा लेता है।",
+          "A voltmeter is connected in parallel because it has high resistance, drawing almost no current."
+        ],
+        [
+          "सही मापन के लिये एमीटर और वोल्टमीटर को सही स्थान पर जोड़ना आवश्यक है; अन्यथा परिपथ की कार्यप्रणाली बदल सकती है।",
+          "For accurate measurement, ammeter and voltmeter must be placed correctly; otherwise the circuit operation may change."
+        ],
+        [
+          "परिपथ में स्विच (key) खोलने या बंद करने से धारा का प्रवाह नियंत्रित होता है, जिससे उपकरणों की सुरक्षा भी सुनिश्चित होती है।",
+          "Opening or closing a switch controls the flow of current, also ensuring the safety of the devices."
+        ]
+      ],
+      "kv": [
+        [
+          ["एमीटर (Ammeter)", "एम्पीयर (A)"],
+          ["वोल्टमीटर (Voltmeter)", "वोल्ट (V)"],
+          ["प्रतिरोध (Resistance)", "ओह्म (Ω)"],
+          ["श्रृंखला (Series)", "घटकों का क्रमिक जुड़ाव"],
+          ["पार्श्वक्रम (Parallel)", "घटकों का समानांतर जुड़ाव"],
+          ["स्विच (Switch)", "धारा नियंत्रण (Current control)"]
+        ]
+      ],
+      "table": {
+        "head": [
+          ["उपकरण (Instrument)", "परिपथ में जुड़ाव (Connection)", "प्रतिरोध (Resistance)", "इकाई (Unit)"]
+        ],
+        "rows": [
+          [
+            ["एमीटर", "श्रृंखला (Series)", "कम (Low)", "एम्पीयर (A)"],
+            ["वोल्टमीटर", "पार्श्वक्रम (Parallel)", "उच्च (High)", "वोल्ट (V)"]
+          ]
+        ]
+      },
+      "formula": null,
+      "tip": [
+        "⚠ एमीटर को कभी भी पार्श्वक्रम में या वोल्टमीटर को श्रृंखला में नहीं जोड़ें; इससे मापन गलत हो जाएगा।"
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Cell -->\n  <line x1=\"30\" y1=\"100\" x2=\"60\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"60\" y1=\"80\" x2=\"60\" y2=\"120\" stroke=\"black\" stroke-width=\"4\"/>\n  <line x1=\"60\" y1=\"80\" x2=\"90\" y2=\"80\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"60\" y1=\"120\" x2=\"90\" y2=\"120\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Resistor -->\n  <rect x=\"150\" y=\"85\" width=\"40\" height=\"30\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"160\" y=\"105\" font-size=\"12\">R</text>\n  <!-- Ammeter (low resistance) -->\n  <circle cx=\"120\" cy=\"100\" r=\"12\" fill=\"none\" stroke=\"red\" stroke-width=\"2\"/>\n  <text x=\"112\" y=\"105\" font-size=\"10\" fill=\"red\">A</text>\n  <!-- Voltmeter (high resistance) -->\n  <rect x=\"210\" y=\"50\" width=\"30\" height=\"30\" fill=\"none\" stroke=\"blue\" stroke-width=\"2\"/>\n  <text x=\"215\" y=\"70\" font-size=\"10\" fill=\"blue\">V</text>\n  <!-- Wires -->\n  <line x1=\"90\" y1=\"100\" x2=\"108\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"132\" y1=\"100\" x2=\"148\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"190\" y1=\"100\" x2=\"210\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"240\" y1=\"100\" x2=\"300\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Return wire -->\n  <line x1=\"300\" y1=\"100\" x2=\"300\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"300\" y1=\"150\" x2=\"30\" y2=\"150\" stroke=\"black\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"150\" x2=\"30\" y2=\"100\" stroke=\"black\" stroke-width=\"2\"/>\n  <!-- Switch -->\n  <rect x=\"260\" y=\"140\" width=\"20\" height=\"10\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n  <text x=\"262\" y=\"148\" font-size=\"8\">S</text>\n</svg>",
+        "caption": [
+          "एमीटर और वोल्टमीटर के साथ सरल परिपथ",
+          "Simple circuit showing ammeter and voltmeter"
+        ]
+      }
+    }
+  ]
+}

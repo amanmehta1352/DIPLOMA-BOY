@@ -1,0 +1,415 @@
+{
+  "questions": [
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "किसी **चालक** (conductor) से 10 मिनट में 600 C **आवेश** (charge) प्रवाहित होता है। परिपथ में **विद्युत धारा** (electric current) का मान ज्ञात कीजिए।",
+        "A **charge** of 600 C flows through a **conductor** in 10 minutes. Calculate the **electric current** in the circuit."
+      ],
+      "options": [
+        ["1 A", "1 A"],
+        ["60 A", "60 A"],
+        ["6 A", "6 A"],
+        ["0.1 A", "0.1 A"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "Q", "value": 600, "unit": "C"},
+          {"symbol": "t", "value": 600, "unit": "s"}
+        ],
+        "formulas": ["charge"],
+        "unknown": "I",
+        "answer": {"value": 1, "unit": "A"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एक **परिपथ** (circuit) में **विद्युत धारा** (electric current) और **विभवांतर** (potential difference) मापने के लिए **एमीटर** (ammeter) और **वोल्टमीटर** (voltmeter) को सही तरीके से कैसे जोड़ा जाता है?",
+        "How are an **ammeter** and a **voltmeter** correctly connected in a **circuit** to measure **electric current** and **potential difference**?"
+      ],
+      "options": [
+        [
+          "एमीटर को **श्रेणीक्रम** (series) में और वोल्टमीटर को **पार्श्वक्रम** (parallel) में",
+          "Ammeter in **series** and voltmeter in **parallel**"
+        ],
+        [
+          "एमीटर को पार्श्वक्रम में और वोल्टमीटर को श्रेणीक्रम में",
+          "Ammeter in parallel and voltmeter in series"
+        ],
+        [
+          "दोनों को श्रेणीक्रम में",
+          "Both in series"
+        ],
+        [
+          "दोनों को पार्श्वक्रम में",
+          "Both in parallel"
+        ]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": [
+        "**ओम का नियम** (Ohm's law) दर्शाने वाले V-I ग्राफ का ढाल (slope) क्या व्यक्त करता है, जब विभवांतर (V) Y-अक्ष पर और धारा (I) X-अक्ष पर हो?",
+        "What does the slope of a V-I graph representing **Ohm's law** express, when potential difference (V) is on the Y-axis and current (I) is on the X-axis?"
+      ],
+      "options": [
+        [
+          "चालक का **प्रतिरोध** (resistance)",
+          "The **resistance** of the conductor"
+        ],
+        [
+          "चालक की **प्रतिरोधकता** (resistivity)",
+          "The **resistivity** of the conductor"
+        ],
+        [
+          "उपभुक्त **विद्युत शक्ति** (electric power)",
+          "The consumed **electric power**"
+        ],
+        [
+          "प्रवाहित **आवेश** (charge)",
+          "The flowing **charge**"
+        ]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        "यदि किसी **चालक** (conductor) की **लंबाई** (length) को दोगुना कर दिया जाए और उसकी **अनुप्रस्थ काट** (cross-sectional area) के क्षेत्रफल को आधा कर दिया जाए, तो उसका नया **प्रतिरोध** (resistance) कितना हो जाएगा?",
+        "If the **length** of a **conductor** is doubled and its **cross-sectional area** is halved, how much will its new **resistance** become?"
+      ],
+      "options": [
+        [
+          "मूल प्रतिरोध का 4 गुना",
+          "4 times the original resistance"
+        ],
+        [
+          "मूल प्रतिरोध का 2 गुना",
+          "2 times the original resistance"
+        ],
+        [
+          "मूल प्रतिरोध का आधा",
+          "Half the original resistance"
+        ],
+        [
+          "अपरिवर्तित रहेगा",
+          "Remains unchanged"
+        ]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": [
+        "100 m **लंबाई** (length) और 10^-6 m^2 **अनुप्रस्थ काट** (cross-sectional area) वाले तार का **प्रतिरोध** (resistance) क्या होगा, यदि उसकी **प्रतिरोधकता** (resistivity) 1.6 × 10^-8 ohm*m है?",
+        "What is the **resistance** of a wire of **length** 100 m and **cross-sectional area** 10^-6 m^2, if its **resistivity** is 1.6 × 10^-8 ohm*m?"
+      ],
+      "options": [
+        ["1.6 ohm", "1.6 ohm"],
+        ["0.16 ohm", "0.16 ohm"],
+        ["16 ohm", "16 ohm"],
+        ["160 ohm", "160 ohm"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "rho", "value": 1.6e-8, "unit": "ohm*m"},
+          {"symbol": "L", "value": 100, "unit": "m"},
+          {"symbol": "A", "value": 1e-6, "unit": "m**2"}
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": {"value": 1.6, "unit": "ohm"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "दो **प्रतिरोधक** (resistors) 6 ohm और 3 ohm **पार्श्वक्रम** (parallel) में जुड़े हैं। इस संयोजन का तुल्य **प्रतिरोध** (resistance) क्या होगा?",
+        "Two **resistors** of 6 ohm and 3 ohm are connected in **parallel**. What is the equivalent **resistance** of the combination?"
+      ],
+      "options": [
+        ["2 ohm", "2 ohm"],
+        ["9 ohm", "9 ohm"],
+        ["4.5 ohm", "4.5 ohm"],
+        ["18 ohm", "18 ohm"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "R1", "value": 6, "unit": "ohm"},
+          {"symbol": "R2", "value": 3, "unit": "ohm"}
+        ],
+        "formulas": ["parallel2"],
+        "unknown": "Rp",
+        "answer": {"value": 2, "unit": "ohm"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        "घरेलू परिपथों में विद्युत उपकरणों को **श्रेणीक्रम** (series) के स्थान पर **पार्श्वक्रम** (parallel) में जोड़ने का मुख्य लाभ क्या है?",
+        "What is the main advantage of connecting electrical appliances in **parallel** instead of **series** in domestic circuits?"
+      ],
+      "options": [
+        [
+          "एक उपकरण के खराब होने पर अन्य उपकरण स्वतंत्र रूप से कार्य करते रहते हैं",
+          "If one appliance stops working, other appliances continue to work independently"
+        ],
+        [
+          "परिपथ का कुल प्रतिरोध बढ़ जाता है",
+          "The total resistance of the circuit increases"
+        ],
+        [
+          "सभी उपकरणों में धारा का मान समान रहता है",
+          "The value of current remains the same in all appliances"
+        ],
+        [
+          "सभी उपकरणों को उनके रेटेड मान से कम विभवांतर मिलता है",
+          "All appliances get less potential difference than their rated value"
+        ]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": [
+        "एक 5 ohm के **प्रतिरोधक** (resistor) में 2 A की **धारा** (current) 10 सेकंड तक प्रवाहित होती है। उत्पन्न ऊष्मा की गणना कीजिए।",
+        "A **current** of 2 A flows through a 5 ohm **resistor** for 10 seconds. Calculate the heat produced."
+      ],
+      "options": [
+        ["200 J", "200 J"],
+        ["100 J", "100 J"],
+        ["50 J", "50 J"],
+        ["400 J", "400 J"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "I", "value": 2, "unit": "A"},
+          {"symbol": "R", "value": 5, "unit": "ohm"},
+          {"symbol": "t", "value": 10, "unit": "s"}
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": {"value": 200, "unit": "J"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "220 V के स्रोत से जुड़े एक उपकरण में 0.5 A की **विद्युत धारा** (electric current) प्रवाहित होती है। इसकी **विद्युत शक्ति** (electric power) ज्ञात कीजिए।",
+        "An appliance connected to a 220 V source draws an **electric current** of 0.5 A. Calculate its **electric power**."
+      ],
+      "options": [
+        ["110 W", "110 W"],
+        ["440 W", "440 W"],
+        ["220 W", "220 W"],
+        ["11 W", "11 W"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "V", "value": 220, "unit": "V"},
+          {"symbol": "I", "value": 0.5, "unit": "A"}
+        ],
+        "formulas": ["power_vi"],
+        "unknown": "P",
+        "answer": {"value": 110, "unit": "W"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "12 V **विभवांतर** (potential difference) वाले दो बिंदुओं के बीच 4 C **आवेश** (charge) को ले जाने में कितना **कार्य** (work) किया जाएगा?",
+        "How much **work** is done in moving a **charge** of 4 C across two points having a **potential difference** of 12 V?"
+      ],
+      "options": [
+        ["48 J", "48 J"],
+        ["3 J", "3 J"],
+        ["0.33 J", "0.33 J"],
+        ["16 J", "16 J"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "V", "value": 12, "unit": "V"},
+          {"symbol": "Q", "value": 4, "unit": "C"}
+        ],
+        "formulas": ["pd_work"],
+        "unknown": "W",
+        "answer": {"value": 48, "unit": "J"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "9 ohm **प्रतिरोध** (resistance) के तीन **प्रतिरोधक** (resistors) **पार्श्वक्रम** (parallel) में जुड़े हैं। इस संयोजन का तुल्य प्रतिरोध क्या होगा?",
+        "Three **resistors** of 9 ohm **resistance** each are connected in **parallel**. What is the equivalent resistance of this combination?"
+      ],
+      "options": [
+        ["3 ohm", "3 ohm"],
+        ["27 ohm", "27 ohm"],
+        ["9 ohm", "9 ohm"],
+        ["1 ohm", "1 ohm"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "R1", "value": 9, "unit": "ohm"},
+          {"symbol": "R2", "value": 9, "unit": "ohm"},
+          {"symbol": "R3", "value": 9, "unit": "ohm"}
+        ],
+        "formulas": ["parallel3"],
+        "unknown": "Rp",
+        "answer": {"value": 3, "unit": "ohm"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o8",
+      "bloom": "understand",
+      "q": [
+        "विद्युत बल्ब के **तंतु** (filament) के निर्माण के लिए टंगस्टन धातु को उपयुक्त क्यों माना जाता है?",
+        "Why is tungsten metal considered suitable for constructing the **filament** of an electric bulb?"
+      ],
+      "options": [
+        [
+          "इसका गलनांक अत्यधिक उच्च होता है और यह उच्च ताप पर पिघलता नहीं है",
+          "It has an extremely high melting point and does not melt at high temperatures"
+        ],
+        [
+          "यह विद्युत का एक अच्छा **विद्युतरोधी** (insulator) है",
+          "It is a good **insulator** of electricity"
+        ],
+        [
+          "इसका गलनांक बहुत निम्न होता है",
+          "It has a very low melting point"
+        ],
+        [
+          "यह कमरे के ताप पर द्रव अवस्था में रहता है",
+          "It remains in liquid state at room temperature"
+        ]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o3",
+      "bloom": "apply",
+      "q": [
+        "एक अज्ञात **प्रतिरोधक** (resistor) के सिरों पर 12 V की बैटरी जोड़ने पर परिपथ में 0.0025 A की **धारा** (current) प्रवाहित होती है। प्रतिरोधक का **प्रतिरोध** (resistance) ज्ञात कीजिए।",
+        "When a 12 V battery is connected across an unknown **resistor**, a **current** of 0.0025 A flows through the circuit. Find the **resistance** of the resistor."
+      ],
+      "options": [
+        ["4800 ohm", "4800 ohm"],
+        ["0.03 ohm", "0.03 ohm"],
+        ["300 ohm", "300 ohm"],
+        ["480 ohm", "480 ohm"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "V", "value": 12, "unit": "V"},
+          {"symbol": "I", "value": 0.0025, "unit": "A"}
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": {"value": 4800, "unit": "ohm"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o8",
+      "bloom": "understand",
+      "q": [
+        "विद्युत **फ्यूज़** (fuse) किस सिद्धांत के आधार पर परिपथ को अत्यधिक धारा से सुरक्षित रखता है?",
+        "On the basis of which principle does an electric **fuse** protect the circuit from excess current?"
+      ],
+      "options": [
+        [
+          "धारा का **तापीय प्रभाव** (heating effect of current)",
+          "The **heating effect** of current"
+        ],
+        [
+          "धारा का चुंबकीय प्रभाव",
+          "The magnetic effect of current"
+        ],
+        [
+          "धारा का रासायनिक प्रभाव",
+          "The chemical effect of current"
+        ],
+        [
+          "विद्युत प्रेरण का प्रभाव",
+          "The effect of electromagnetic induction"
+        ]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "true_false",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        "धात्विक **चालक** (conductor) का **ताप** (temperature) बढ़ाने पर उसका **प्रतिरोध** (resistance) घटता है।",
+        "The **resistance** of a metallic **conductor** decreases with an increase in its **temperature**."
+      ],
+      "answer": ["असत्य", "False"]
+    },
+    {
+      "type": "true_false",
+      "outcome": "o8",
+      "bloom": "understand",
+      "q": [
+        "घरेलू परिपथ की सुरक्षा के लिए **फ्यूज़** (fuse) को हमेशा मुख्य तार के साथ **श्रेणीक्रम** (series) में जोड़ा जाता है।",
+        "An electric **fuse** is always connected in **series** with the live wire for circuit safety."
+      ],
+      "answer": ["सत्य", "True"]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o5",
+      "bloom": "understand",
+      "q": [
+        "**प्रतिरोधकता** (resistivity) का SI मात्रक ______ होता है।",
+        "The SI unit of **resistivity** is ______."
+      ],
+      "answer": ["ओम मीटर (ohm m)", "ohm metre (ohm m)"]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एक आदर्श **एमीटर** (ammeter) का **प्रतिरोध** (resistance) अत्यधिक ______ होना चाहिए ताकि परिपथ की मूल धारा न बदले।",
+        "An ideal **ammeter** should have extremely ______ **resistance** so that the original circuit current is not altered."
+      ],
+      "answer": ["कम (शून्य)", "low (zero)"]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+```json
+{
+  "numericals": [
+    {
+      "title": ["विद्युत धारा की गणना", "Calculating Electric Current"],
+      "given": ["विभवांतर (V) = 12 V, प्रतिरोध (R) = 4 ohm", "Potential difference (V) = 12 V, Resistance (R) = 4 ohm"],
+      "steps": [
+        ["विद्युत धारा (I) = V / R", "Electric current (I) = V / R"],
+        ["I = 12 V / 4 ohm", "I = 12 V / 4 ohm"],
+        ["I = 3 A", "I = 3 A"]
+      ],
+      "answer": ["3", "A"],
+      "check": {"givens": [{"symbol": "V", "value": 12, "unit": "V"}, {"symbol": "R", "value": 4, "unit": "ohm"}], "formulas": ["ohm"], "unknown": "I", "answer": {"value": 3, "unit": "A"}}
+    },
+    {
+      "title": ["विद्युत शक्ति की गणना", "Calculating Electric Power"],
+      "given": ["विभवांतर (V) = 12 V, विद्युत धारा (I) = 3 A", "Potential difference (V) = 12 V, Electric current (I) = 3 A"],
+      "steps": [
+        ["विद्युत शक्ति (P) = V × I", "Electric power (P) = V × I"],
+        ["P = 12 V × 3 A", "P = 12 V × 3 A"],
+        ["P = 36 W", "P = 36 W"]
+      ],
+      "answer": ["36", "W"],
+      "check": {"givens": [{"symbol": "V", "value": 12, "unit": "V"}, {"symbol": "I", "value": 3, "unit": "A"}], "formulas": ["power_vi"], "unknown": "P", "answer": {"value": 36, "unit": "W"}}
+    },
+    {
+      "title": ["प्रतिरोधकता की गणना", "Calculating Resistivity"],
+      "given": ["प्रतिरोध (R) = 4 ohm, लंबाई (L) = 2 m, अनुप्रस्थ काट (A) = 0.5 m^2", "Resistance (R) = 4 ohm, Length (L) = 2 m, Cross-sectional area (A) = 0.5 m^2"],
+      "steps": [
+        ["प्रतिरोधकता (rho) = R × A / L", "Resistivity (rho) = R × A / L"],
+        ["rho = 4 ohm × 0.5 m^2 / 2 m", "rho = 4 ohm × 0.5 m^2 / 2 m"],
+        ["rho = 1 ohm*m", "rho = 1 ohm*m"]
+      ],
+      "answer": ["1", "ohm*m"],
+      "check": {"givens": [{"symbol": "R", "value": 4, "unit": "ohm"}, {"symbol": "L", "value": 2, "unit": "m"}, {"symbol": "A", "value": 0.5, "unit": "m^2"}], "formulas": ["resistivity"], "unknown": "rho", "answer": {"value": 1, "unit": "ohm*m"}}
+    },
+    {
+      "title": ["तापीय प्रभाव की गणना", "Calculating Heating Effect"],
+      "given": ["विद्युत धारा (I) = 2 A, प्रतिरोध (R) = 10 ohm, समय (t) = 10 s", "Electric current (I) = 2 A, Resistance (R) = 10 ohm, Time (t) = 10 s"],
+      "steps": [
+        ["तापीय प्रभाव (H) = I^2 × R × t", "Heating effect (H) = I^2 × R × t"],
+        ["H = (2 A)^2 × 10 ohm × 10 s", "H = (2 A)^2 × 10 ohm × 10 s"],
+        ["H = 4 A^2 × 10 ohm × 10 s", "H = 4 A^2 × 10 ohm × 10 s"],
+        ["H = 400 J", "H = 400 J"]
+      ],
+      "answer": ["400", "J"],
+      "check": {"givens": [{"symbol": "I", "value": 2, "unit": "A"}, {"symbol": "R", "value": 10, "unit": "ohm"}, {"symbol": "t", "value": 10, "unit": "s"}], "formulas": ["joule_heat"], "unknown": "H", "answer": {"value": 400, "unit": "J"}}
+    },
+    {
+      "title": ["विद्युत ऊर्जा की गणना", "Calculating Electric Energy"],
+      "given": ["विद्युत शक्ति (P) = 50 W, समय (t) = 10 s", "Electric power (P) = 50 W, Time (t) = 10 s"],
+      "steps": [
+        ["विद्युत ऊर्जा (E) = P × t", "Electric energy (E) = P × t"],
+        ["E = 50 W × 10 s", "E = 50 W × 10 s"],
+        ["E = 500 J", "E = 500 J"]
+      ],
+      "answer": ["500", "J"],
+      "check": {"givens": [{"symbol": "P", "value": 50, "unit": "W"}, {"symbol": "t", "value": 10, "unit": "s"}], "formulas": ["energy_pt"], "unknown": "E", "answer": {"value": 500, "unit": "J"}}
+    }
+  ],
+  "revision": [
+    ["विद्युत धारा", "Electric Current"],
+    ["विभवांतर", "Potential Difference"],
+    ["प्रतिरोध", "Resistance"],
+    ["प्रतिरोधकता", "Resistivity"],
+    ["विद्युत शक्ति", "Electric Power"],
+    ["तापीय प्रभाव", "Heating Effect"],
+    ["विद्युत ऊर्जा", "Electric Energy"],
+    ["ओम का नियम", "Ohm's Law"],
+    ["श्रेणीक्रम", "Series Circuit"],
+    ["पार्श्वक्रम", "Parallel Circuit"]
+  ],
+  "practice": [
+    {"q": ["विद्युत धारा की परिभाषा क्या है?", "What is the definition of electric current?"], "a": ["विद्युत धारा किसी चालक में प्रति इकाई समय में प्रवाहित आवेश की मात्रा है।", "Electric current is the amount of charge flowing through a conductor per unit time."]},
+    {"q": ["विभवांतर की परिभाषा क्या है?", "What is the definition of potential difference?"], "a": ["विभवांतर दो बिंदुओं के बीच विद्युत विभव में अंतर है।", "Potential difference is the difference in electric potential between two points."]},
+    {"q": ["प्रतिरोध की परिभाषा क्या है?", "What is the definition of resistance?"], "a": ["प्रतिरोध विद्युत धारा के प्रवाह का विरोध है।", "Resistance is the opposition to the flow of electric current."]},
+    {"q": ["प्रतिरोधकता की परिभाषा क्या है?", "What is the definition of resistivity?"], "a": ["प्रतिरोधकता किसी पदार्थ के प्रतिरोध की माप है।", "Resistivity is a measure of a material's resistance."]},
+    {"q": ["विद्युत शक्ति की परिभाषा क्या है?", "What is the definition of electric power?"], "a": ["विद्युत शक्ति विद्युत ऊर्जा की दर है।", "Electric power is the rate of electric energy."]},
+    {"q": ["तापीय प्रभाव की परिभाषा क्या है?", "What is the definition of heating effect?"], "a": ["तापीय प्रभाव विद्युत धारा के कारण उत्पन्न ताप है।", "Heating effect is the heat generated by electric current."]},
+    {"q": ["विद्युत ऊर्जा की परिभाषा क्या है?", "What is the definition of electric energy?"], "a": ["विद्युत ऊर्जा विद्युत धारा द्वारा किया गया कार्य है।", "Electric energy is the work done by electric current."]},
+    {"q": ["ओम का नियम क्या है?", "What is Ohm's Law?"], "a": ["ओम का नियम कहता है कि विद्युत धारा विभवांतर के समानुपाती होती है।", "Ohm's Law states that electric current is directly proportional to potential difference."]},
+    {"q": ["श्रेणीक्रम की परिभाषा क्या है?", "What is the definition of series circuit?"], "a": ["श्रेणीक्रम में घटक एक के बाद एक जुड़े होते हैं।", "In a series circuit, components are connected one after the other."]},
+    {"q": ["पार्श्वक्रम की परिभाषा क्या है?", "What is the definition of parallel circuit?"], "a": ["पार्श्वक्रम में घटक एक साथ जुड़े होते हैं।", "In a parallel circuit, components are connected together."]}
+  ],
+  "formulas": [
+    {"f": "V = I × R", "t": ["ओम का नियम", "Ohm's Law"], "s": ["विभवांतर की गणना", "Calculating Potential Difference"], "u": ["V", "volt"], "group": "electricity"},
+    {"f": "I = V / R", "t": ["ओम का नियम", "Ohm's Law"], "s": ["विद्युत धारा की गणना", "Calculating Electric Current"], "u": ["I", "A"], "group": "electricity"},
+    {"f": "R = rho × L / A", "t": ["प्रतिरोधकता", "Resistivity"], "s": ["प्रतिरोध की गणना", "Calculating Resistance"], "u": ["R", "ohm"], "group": "resistivity"},
+    {"f": "P = V × I", "t": ["विद्युत शक्ति", "Electric Power"], "s": ["विद्युत शक्ति की गणना", "Calculating Electric Power"], "u": ["P", "W"], "group": "power"},
+    {"f": "H = I^2 × R × t", "t": ["तापीय प्रभाव", "Heating Effect"], "s": ["तापीय प्रभाव की गणना", "Calculating Heating Effect"], "u": ["H", "J"], "group": "heating"},
+    {"f": "E = P × t", "t": ["विद्युत ऊर्जा", "Electric Energy"], "s": ["विद्युत ऊर्जा की गणना", "Calculating Electric Energy"], "u": ["E", "J"], "group": "energy"},
+    {"f": "R1 + R2", "t": ["श्रेणीक्रम", "Series Circuit"], "s": ["श्रेणीक्रम में प्रतिरोध की गणना", "Calculating Resistance in Series Circuit"], "u": ["R", "ohm"], "group": "series"},
+    {"f": "1/R1 + 1/R2", "t": ["पार्श्वक्रम", "Parallel Circuit"], "s": ["पार्श्वक्रम में प्रतिरोध की गणना", "Calculating Resistance in Parallel Circuit"], "u": ["R", "ohm"], "group": "parallel"},
+    {"f": "Q = I × t", "t": ["आवेश", "Charge"], "s": ["आवेश की गणना", "Calculating Charge"], "u": ["Q", "C"], "group": "charge"},
+    {"f": "W = V × Q", "t": ["कार्य", "Work"], "s": ["कार्य की गणना", "Calculating Work"], "u": ["W", "J"], "group": "work"},
+    {"f": "P = I^2 × R", "t": ["विद्युत शक्ति", "Electric Power"], "s": ["विद्युत शक्ति की गणना", "Calculating Electric Power"], "u": ["P", "W"], "group": "power"},
+    {"f": "P = V^2 / R", "t": ["विद्युत शक्ति", "Electric Power"], "s": ["विद्युत शक्ति की गणना", "Calculating Electric Power"], "u": ["P", "W"], "group": "power"}
+  ],
+  "formula_groups": [
+    ["electricity", "विद्युत", "Electricity"],
+    ["resistivity", "प्रतिरोधकता", "Resistivity"],
+    ["power", "विद्युत शक्ति", "Electric Power"],
+    ["heating", "तापीय प्रभाव", "Heating Effect"],
+    ["energy", "विद्युत ऊर्जा", "Electric Energy"],
+    ["series", "श्रेणीक्रम", "Series Circuit"],
+    ["parallel", "पार्श्वक्रम", "Parallel Circuit"],
+    ["charge", "आवेश", "Charge"],
+    ["work", "कार्य", "Work"]
+  ]
+}
+```

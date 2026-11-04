@@ -1,0 +1,354 @@
+{
+  "titles": [
+    "विद्युत",
+    "Electricity"
+  ],
+  "short": [
+    "विद्युत धारा, विभवांतर, ओम का नियम, प्रतिरोध, संयोजन, तापीय प्रभाव और विद्युत शक्ति का गहन अध्ययन।",
+    "Comprehensive study of electric current, potential difference, Ohm's law, resistance, resistor combinations, heating effect, and electric power."
+  ],
+  "intro": {
+    "paras": [
+      [
+        "विद्युत (electricity) आधुनिक समाज का एक मूलभूत आधार है। घरों, अस्पतालों, उद्योगों और संचार प्रणालियों में इसका नियंत्रण योग्य उपयोग हमारी जीवनशैली का मुख्य अंग बन चुका है।",
+        "Electricity is a fundamental pillar of modern society. Its controllable use in homes, hospitals, industries, and communication systems has become an essential part of daily life."
+      ],
+      [
+        "इस अध्याय में हम आवेश (charge), विद्युत धारा (electric current), विभवांतर (potential difference), ओम का नियम (Ohm's law), प्रतिरोधकों का श्रेणीक्रम (series) और पार्श्वक्रम (parallel) संयोजन, विद्युत धारा का तापीय प्रभाव (heating effect of electric current) तथा विद्युत शक्ति (electric power) की संकल्पनाओं को विस्तृत रूप से समझेंगे।",
+        "In this chapter, we will study electric charge, electric current, potential difference, Ohm's law, series and parallel combination of resistors, heating effect of electric current, and electric power in detail."
+      ]
+    ],
+    "kv": [
+      [
+        [
+          "विद्युत धारा का SI मात्रक",
+          "SI Unit of Electric Current"
+        ],
+        [
+          "ऐम्पियर (A)",
+          "Ampere (A)"
+        ]
+      ],
+      [
+        [
+          "विभवांतर का SI मात्रक",
+          "SI Unit of Potential Difference"
+        ],
+        [
+          "वोल्ट (V)",
+          "Volt (V)"
+        ]
+      ],
+      [
+        [
+          "प्रतिरोध का SI मात्रक",
+          "SI Unit of Resistance"
+        ],
+        [
+          "ओम (Ω)",
+          "Ohm (Ω)"
+        ]
+      ],
+      [
+        [
+          "प्रतिरोधकता का SI मात्रक",
+          "SI Unit of Resistivity"
+        ],
+        [
+          "ओम-मीटर (Ω m)",
+          "Ohm-metre (Ω m)"
+        ]
+      ]
+    ]
+  },
+  "concepts": [
+    {
+      "key": "c1",
+      "emoji": "⚡",
+      "title": [
+        "विद्युत आवेश और विद्युत धारा",
+        "Electric Charge and Electric Current"
+      ],
+      "scope_ids": [
+        "current_pd"
+      ],
+      "diagram": true,
+      "points": "Definition of electric charge (Q) in Coulombs (C), net flow of electron particles, definition of electric current I = Q/t in Amperes (A), conventional current direction from positive to negative terminal versus electron flow."
+    },
+    {
+      "key": "c2",
+      "emoji": "🔋",
+      "title": [
+        "विद्युत विभव और विभवांतर",
+        "Electric Potential and Potential Difference"
+      ],
+      "scope_ids": [
+        "current_pd"
+      ],
+      "diagram": true,
+      "points": "Concept of electric potential, definition of potential difference V = W/Q in Volts (V), work done in moving unit positive charge from one point to another, role of cell or battery in maintaining potential difference."
+    },
+    {
+      "key": "c3",
+      "emoji": "🔌",
+      "title": [
+        "परिपथ आरेख और मापक यंत्र (एमीटर व वोल्टमीटर)",
+        "Circuit Diagrams and Measuring Instruments (Ammeter and Voltmeter)"
+      ],
+      "scope_ids": [
+        "current_pd"
+      ],
+      "diagram": true,
+      "points": "Circuit symbols for cell, battery, key, wire joint, resistor, rheostat, ammeter connected in series (low resistance), and voltmeter connected in parallel (high resistance)."
+    },
+    {
+      "key": "c4",
+      "emoji": "📐",
+      "title": [
+        "ओम का नियम और V-I ग्राफ",
+        "Ohm's Law and V-I Graph"
+      ],
+      "scope_ids": [
+        "ohm"
+      ],
+      "diagram": true,
+      "points": "Statement of Ohm's law V = I × R at constant temperature, V-I linear graph, calculating resistance R from the slope (slope = V/I = R) of V-I graph."
+    },
+    {
+      "key": "c5",
+      "emoji": "🧱",
+      "title": [
+        "प्रतिरोध और इसे प्रभावित करने वाले कारक",
+        "Resistance and Factors Affecting It"
+      ],
+      "scope_ids": [
+        "resistance"
+      ],
+      "diagram": true,
+      "points": "Definition of resistance R = V/I with SI unit Ohm (Ω), dependence of resistance on length (R ∝ l), cross-sectional area (R ∝ 1/A), and temperature of conductor."
+    },
+    {
+      "key": "c6",
+      "emoji": "🧪",
+      "title": [
+        "प्रतिरोधकता तथा सामग्री के प्रकार",
+        "Resistivity and Types of Materials"
+      ],
+      "scope_ids": [
+        "resistance"
+      ],
+      "diagram": false,
+      "points": "Formula R = rho × l / A, definition of resistivity (rho) with SI unit Ohm-metre (Ω m), comparison of conductors, alloys, and insulators based on resistivity values."
+    },
+    {
+      "key": "c7",
+      "emoji": "🔗",
+      "title": [
+        "श्रेणीक्रम में प्रतिरोधकों का संयोजन",
+        "Resistors in Series Combination"
+      ],
+      "scope_ids": [
+        "combos"
+      ],
+      "diagram": true,
+      "points": "Derivation of equivalent resistance Rs = R1 + R2 + R3, constant current through all resistors, division of total potential difference V = V1 + V2 + V3 across resistors."
+    },
+    {
+      "key": "c8",
+      "emoji": "🔀",
+      "title": [
+        "पार्श्वक्रम में प्रतिरोधकों का संयोजन",
+        "Resistors in Parallel Combination"
+      ],
+      "scope_ids": [
+        "combos"
+      ],
+      "diagram": true,
+      "points": "Derivation of equivalent resistance 1/Rp = 1/R1 + 1/R2 + 1/R3, constant potential difference across each branch, division of total current I = I1 + I2 + I3."
+    },
+    {
+      "key": "c9",
+      "emoji": "🏠",
+      "title": [
+        "घरेलू परिपथ: श्रेणीक्रम बनाम पार्श्वक्रम की तुलना",
+        "Domestic Circuits: Series vs Parallel Comparison"
+      ],
+      "scope_ids": [
+        "combos"
+      ],
+      "diagram": false,
+      "points": "Disadvantages of series circuits (single fault breaks circuit, variable potential difference) and advantages of parallel circuits (independent switching, equal potential difference across devices)."
+    },
+    {
+      "key": "c10",
+      "emoji": "🔥",
+      "title": [
+        "विद्युत धारा का तापीय प्रभाव और जूल का नियम",
+        "Heating Effect of Electric Current and Joule's Law"
+      ],
+      "scope_ids": [
+        "heating"
+      ],
+      "diagram": false,
+      "points": "Conversion of electrical energy into thermal energy, derivation of Joule's law H = I^2 × R × t, factors influencing heat produced in a resistor."
+    },
+    {
+      "key": "c11",
+      "emoji": "💡",
+      "title": [
+        "तापीय प्रभाव के व्यावहारिक अनुप्रयोग (बल्ब और फ्यूज़)",
+        "Practical Applications of Heating Effect (Bulb and Fuse)"
+      ],
+      "scope_ids": [
+        "heating"
+      ],
+      "diagram": true,
+      "points": "Working mechanism of tungsten filament in electric light bulbs, role of inert gases (N2, Ar), and safety operation of electric fuse wire rated in Amperes."
+    },
+    {
+      "key": "c12",
+      "emoji": "⚡",
+      "title": [
+        "विद्युत शक्ति और ऊर्जा का व्यावसायिक मात्रक",
+        "Electric Power and Commercial Unit of Electrical Energy"
+      ],
+      "scope_ids": [
+        "power"
+      ],
+      "diagram": false,
+      "points": "Definition of electric power P = W/t with SI unit Watt (W), formulas P = V × I = I^2 × R = V^2 / R, commercial unit kilowatt-hour (kWh), conversion 1 kWh = 3.6 × 10^6 J."
+    }
+  ],
+  "teach": [
+    {
+      "heading": [
+        "प्रस्तावना: विद्युत ऊर्जा का जीवन में महत्त्व",
+        "Introduction: Importance of Electrical Energy"
+      ],
+      "emoji": "🚀",
+      "concept_keys": [
+        "c1"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 1: विद्युत आवेश और विद्युत धारा",
+        "Lesson 1: Electric Charge and Electric Current"
+      ],
+      "emoji": "⚡",
+      "concept_keys": [
+        "c1"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 2: विद्युत विभव और विभवांतर",
+        "Lesson 2: Electric Potential and Potential Difference"
+      ],
+      "emoji": "🔋",
+      "concept_keys": [
+        "c2"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 3: परिपथ प्रतीक, एमीटर और वोल्टमीटर",
+        "Lesson 3: Circuit Symbols, Ammeter, and Voltmeter"
+      ],
+      "emoji": "🔌",
+      "concept_keys": [
+        "c3"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 4: ओम का नियम और V-I रेखाचित्र विश्लेषण",
+        "Lesson 4: Ohm's Law and V-I Graph Analysis"
+      ],
+      "emoji": "📐",
+      "concept_keys": [
+        "c4"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 5: चालक का प्रतिरोध और उसके प्रभावित करने वाले कारक",
+        "Lesson 5: Conductor Resistance and Factors Affecting It"
+      ],
+      "emoji": "🧱",
+      "concept_keys": [
+        "c5"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 6: पदार्थों की प्रतिरोधकता (चालक, मिश्रधातु और विद्युतरोधी)",
+        "Lesson 6: Resistivity of Materials (Conductors, Alloys, and Insulators)"
+      ],
+      "emoji": "🧪",
+      "concept_keys": [
+        "c6"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 7: प्रतिरोधकों का श्रेणीक्रम संयोजन",
+        "Lesson 7: Series Combination of Resistors"
+      ],
+      "emoji": "🔗",
+      "concept_keys": [
+        "c7"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 8: प्रतिरोधकों का पार्श्वक्रम संयोजन",
+        "Lesson 8: Parallel Combination of Resistors"
+      ],
+      "emoji": "🔀",
+      "concept_keys": [
+        "c8"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 9: घरेलू विद्युत परिपथ: श्रेणीक्रम बनाम पार्श्वक्रम",
+        "Lesson 9: Domestic Electric Circuits: Series vs Parallel"
+      ],
+      "emoji": "🏠",
+      "concept_keys": [
+        "c9"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 10: विद्युत धारा का तापीय प्रभाव और जूल का नियम",
+        "Lesson 10: Heating Effect of Current and Joule's Law"
+      ],
+      "emoji": "🔥",
+      "concept_keys": [
+        "c10"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 11: विद्युत तंतु बल्ब और फ्यूज़ का कार्य-सिद्धान्त",
+        "Lesson 11: Working Principles of Filament Bulb and Fuse"
+      ],
+      "emoji": "💡",
+      "concept_keys": [
+        "c11"
+      ]
+    },
+    {
+      "heading": [
+        "पाठ 12: विद्युत शक्ति तथा व्यावसायिक ऊर्जा की गणना",
+        "Lesson 12: Electric Power and Commercial Energy Calculation"
+      ],
+      "emoji": "📊",
+      "concept_keys": [
+        "c12"
+      ]
+    }
+  ]
+}

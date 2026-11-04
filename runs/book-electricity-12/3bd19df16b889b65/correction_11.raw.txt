@@ -1,0 +1,3 @@
+{"questions": [
+{"type": "mcq", "outcome": "o5", "bloom": "apply", "q": ["एक **चालक (conductor)** का **प्रतिरोध (resistance)** R = ρL/A द्वारा दिया जाता है, जहाँ ρ = 1.68 × 10^-8 Ω·m, **लंबाई (length)** L = 10 m और **अनुप्रस्थ काट (cross-sectional area)** A = 1 × 10^-4 m² हो। **प्रतिरोध (resistance)** R की गणना करें।", "The **resistance** R of a **conductor** is given by R = ρL/A, where ρ = 1.68 × 10^-8 Ω·m, **length** L = 10 m and **cross-sectional area** A = 1 × 10^-4 m². Calculate the **resistance** R."], "options": [["0.0168 Ω", "0.0168 Ω"], ["1.68 Ω", "1.68 Ω"], ["16.8 Ω", "16.8 Ω"], ["168 Ω", "168 Ω"]], "answer_index": 0}
+]}

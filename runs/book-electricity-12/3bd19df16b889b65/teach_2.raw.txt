@@ -1,0 +1,69 @@
+{"teach": [
+{"emoji": "📐", "heading": ["पाठ 4: ओम का नियम और V-I रेखाचित्र विश्लेषण", "Lesson 4: Ohm's Law and V-I Graph Analysis"], 
+"paras": [
+["ओम का नियम [Ohm's law] एक मूलभूत सिद्धांत है जो किसी **चालक** [conductor] में **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] के बीच संबंध को दर्शाता है।", 
+"Ohm's law is a fundamental principle that describes the relationship between **electric current** and **potential difference** in a **conductor**."],
+["इस नियम के अनुसार, यदि किसी **चालक** [conductor] का **प्रतिरोध** [resistance] नियत रहता है, तो **विद्युत धारा** [electric current] **विभवांतर** [potential difference] के सीधे अनुपात में होती है।", 
+"According to this law, if the **resistance** of a **conductor** remains constant, then the **electric current** is directly proportional to the **potential difference**."],
+["ओम का नियम एक **वोल्टमीटर** [voltmeter] और **एमीटर** [ammeter] का उपयोग करके प्रयोगशाला में सत्यापित किया जा सकता है।", 
+"Ohm's law can be verified in a laboratory using a **voltmeter** and an **ammeter**."],
+["V-I रेखाचित्र विश्लेषण [V-I graph analysis] से हमें किसी **चालक** [conductor] के **प्रतिरोध** [resistance] के मान की गणना करने में मदद मिलती है।", 
+"V-I graph analysis helps us to calculate the value of **resistance** of a **conductor**."],
+["इस प्रकार, ओम का नियम और V-I रेखाचित्र विश्लेषण हमें **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] के बीच संबंध को समझने में मदद करते हैं।", 
+"Ohm's law and V-I graph analysis help us to understand the relationship between **electric current** and **potential difference**."]
+], 
+"formula": "V = I × R", 
+"example": {"label": ["समझो ऐसे", "Think of it like this"], "text": ["एक उदाहरण के रूप में, यदि आप एक **विद्युत बल्ब** [electric bulb] को 5 वोल्ट के **विभवांतर** [potential difference] पर 2 एम्पियर का **विद्युत धारा** [electric current] प्रवाहित करते हैं, तो बल्ब का **प्रतिरोध** [resistance] 2.5 ओम होगा।", 
+"For example, if you pass 2 amperes of **electric current** through an **electric bulb** at a **potential difference** of 5 volts, the **resistance** of the bulb will be 2.5 ohms."]}}
+,
+{"emoji": "🧱", "heading": ["पाठ 5: चालक का प्रतिरोध और उसके प्रभावित करने वाले कारक", "Lesson 5: Conductor Resistance and Factors Affecting It"], 
+"paras": [
+["किसी **चालक** [conductor] का **प्रतिरोध** [resistance] उसकी **लंबाई** [length], **अनुप्रस्थ काट** [cross-sectional area], और **ताप** [temperature] पर निर्भर करता है।", 
+"The **resistance** of a **conductor** depends on its **length**, **cross-sectional area**, and **temperature**."],
+["एक **चालक** [conductor] की **लंबाई** [length] बढ़ाने से उसका **प्रतिरोध** [resistance] बढ़ जाता है, जबकि **अनुप्रस्थ काट** [cross-sectional area] बढ़ाने से **प्रतिरोध** [resistance] कम हो जाता है।", 
+"Increasing the **length** of a **conductor** increases its **resistance**, while increasing the **cross-sectional area** decreases the **resistance**."],
+["ताप [temperature] में परिवर्तन से भी **चालक** [conductor] का **प्रतिरोध** [resistance] प्रभावित होता है। अधिकांश **चालक** [conductor] का **प्रतिरोध** [resistance] ताप बढ़ने पर बढ़ जाता है।", 
+"A change in **temperature** also affects the **resistance** of a **conductor**. The **resistance** of most **conductors** increases with an increase in **temperature**."],
+["इन कारकों को समझने से हमें विभिन्न **विद्युत परिपथ** [electric circuit] में **प्रतिरोध** [resistance] की गणना करने में मदद मिलती है।", 
+"Understanding these factors helps us to calculate **resistance** in various **electric circuits**."],
+["इस प्रकार, **चालक** [conductor] का **प्रतिरोध** [resistance] और उसके प्रभावित करने वाले कारकों का ज्ञान हमें **विद्युत प्रणाली** [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।", 
+"Thus, knowledge of **conductor resistance** and the factors affecting it helps us to design and analyze **electric systems**."]
+], 
+"formula": null, 
+"example": {"label": ["याद रखो", "Remember"], "text": ["एक उदाहरण के रूप में, यदि आप एक **तार** [wire] को गर्म करते हैं, तो उसका **प्रतिरोध** [resistance] बढ़ जाएगा और **विद्युत धारा** [electric current] कम हो जाएगी।", 
+"For example, if you heat a **wire**, its **resistance** will increase and the **electric current** will decrease."]}}
+,
+{"emoji": "🧪", "heading": ["पाठ 6: पदार्थों की प्रतिरोधकता (चालक, मिश्रधातु और विद्युतरोधी)", "Lesson 6: Resistivity of Materials (Conductors, Alloys, and Insulators)"], 
+"paras": [
+["प्रत्येक **पदार्थ** [material] की एक विशिष्ट **प्रतिरोधकता** [resistivity] होती है, जो उसके **प्रतिरोध** [resistance] को निर्धारित करती है।", 
+"Each **material** has a specific **resistivity** that determines its **resistance**."],
+["**चालक** [conductor] जैसे तांबा और चाँदी की **प्रतिरोधकता** [resistivity] कम होती है, जबकि **विद्युतरोधी** [insulator] जैसे प्लास्टिक और लकड़ी की **प्रतिरोधकता** [resistivity] उच्च होती है।", 
+"**Conductors** like copper and silver have low **resistivity**, while **insulators** like plastic and wood have high **resistivity**."],
+["**मिश्रधातु** [alloy] जैसे पीतल और लोहा की **प्रतिरोधकता** [resistivity] उनके घटक **पदार्थ** [material] पर निर्भर करती है।", 
+"The **resistivity** of **alloys** like brass and iron depends on their constituent **materials**."],
+["इन **पदार्थ** [material] की **प्रतिरोधकता** [resistivity] को समझने से हमें विभिन्न **विद्युत परिपथ** [electric circuit] में **प्रतिरोध** [resistance] की गणना करने में मदद मिलती है।", 
+"Understanding the **resistivity** of these **materials** helps us to calculate **resistance** in various **electric circuits**."],
+["इस प्रकार, **पदार्थ** [material] की **प्रतिरोधकता** [resistivity] का ज्ञान हमें **विद्युत प्रणाली** [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।", 
+"Thus, knowledge of **material resistivity** helps us to design and analyze **electric systems**."]
+], 
+"formula": "ρ = R × A / L", 
+"example": {"label": ["समझो ऐसे", "Think of it like this"], "text": ["एक उदाहरण के रूप में, यदि आप एक **तार** [wire] को बनाने के लिए तांबा का उपयोग करते हैं, तो उसकी **प्रतिरोधकता** [resistivity] कम होगी और **विद्युत धारा** [electric current] अधिक होगी।", 
+"For example, if you use copper to make a **wire**, its **resistivity** will be low and the **electric current** will be high."]}}
+,
+{"emoji": "🔗", "heading": ["पाठ 7: प्रतिरोधकों का श्रेणीक्रम संयोजन", "Lesson 7: Series Combination of Resistors"], 
+"paras": [
+["जब दो या दो से अधिक **प्रतिरोधक** [resistor] श्रेणीक्रम में जुड़े होते हैं, तो उनका कुल **प्रतिरोध** [resistance] अलग-अलग **प्रतिरोधक** [resistor] के **प्रतिरोध** [resistance] के योग के बराबर होता है।", 
+"When two or more **resistors** are connected in series, their total **resistance** is equal to the sum of the individual **resistor** resistances."],
+["श्रेणीक्रम संयोजन में, **विद्युत धारा** [electric current] सभी **प्रतिरोधक** [resistor] में समान होती है, लेकिन **विभवांतर** [potential difference] अलग-अलग **प्रतिरोधक** [resistor] में विभिन्न हो सकता है।", 
+"In a series combination, the **electric current** is the same in all **resistors**, but the **potential difference** can be different across different **resistors**."],
+["श्रेणीक्रम संयोजन का उपयोग **विद्युत परिपथ** [electric circuit] में **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] को नियंत्रित करने के लिए किया जा सकता है।", 
+"Series combination is used in **electric circuits** to control **electric current** and **potential difference**."],
+["इस प्रकार, **प्रतिरोधक** [resistor] का श्रेणीक्रम संयोजन हमें **विद्युत प्रणाली** [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।", 
+"Thus, series combination of **resistors** helps us to design and analyze **electric systems**."],
+["श्रेणीक्रम संयोजन के गुणों को समझने से हमें **विद्युत परिपथ** [electric circuit] में **प्रतिरोध** [resistance] और **विद्युत धारा** [electric current] की गणना करने में मदद मिलती है।", 
+"Understanding the properties of series combination helps us to calculate **resistance** and **electric current** in **electric circuits**."]
+], 
+"formula": "R_total = R1 + R2 + ... + Rn", 
+"example": {"label": ["याद रखो", "Remember"], "text": ["एक उदाहरण के रूप में, यदि आप दो **प्रतिरोधक** [resistor] 2 ओम और 3 ओम को श्रेणीक्रम में जोड़ते हैं, तो उनका कुल **प्रतिरोध** [resistance] 5 ओम होगा।", 
+"For example, if you connect two **resistors** of 2 ohms and 3 ohms in series, their total **resistance** will be 5 ohms."]}}
+]}

@@ -1,0 +1,49 @@
+{"teach": [
+{"emoji": "🚀", "heading": ["प्रस्तावना: विद्युत ऊर्जा का जीवन में महत्त्व", "Introduction: Importance of Electrical Energy"], 
+"paras": [
+["विद्युत ऊर्जा हमारे जीवन में बहुत महत्त्वपूर्ण भूमिका निभाती है। यह हमारे घरों में प्रकाश व्यवस्था के लिए बल्ब जलाती है, हमारे फ्रिज को चलती रखती है, और हमारे मोबाइल फोन को चार्ज करती है।", 
+"Electrical energy plays a vital role in our lives. It powers the lights in our homes, keeps our refrigerators running, and charges our mobile phones."],
+["विद्युत ऊर्जा के बिना हमारा जीवन बहुत मुश्किल हो जाएगा। हमें विद्युत ऊर्जा के महत्त्व को समझना चाहिए और इसका सही तरीके से उपयोग करना चाहिए।", 
+"Life without electrical energy would be very difficult. We need to understand the importance of electrical energy and use it in the right way."],
+["विद्युत ऊर्जा के बारे में जानने के लिए हमें विद्युत धारा और विद्युत आवेश के बारे में जानना होगा। विद्युत धारा इलेक्ट्रॉनों की गति है, और विद्युत आवेश इलेक्ट्रॉनों की मात्रा है।", 
+"To learn about electrical energy, we need to know about electric current and electric charge. Electric current is the flow of electrons, and electric charge is the amount of electrons."]],
+"formula": null, 
+"example": {"label": ["समझो ऐसे", "Think of it like this"], "text": ["विद्युत ऊर्जा को समझने के लिए एक उदाहरण लेते हैं। जब आप अपने मोबाइल फोन को चार्ज करते हैं, तो विद्युत ऊर्जा आपके फोन में जाती है और इसे चलाने के लिए उपयोग की जाती है।", 
+"Let's take an example to understand electrical energy. When you charge your mobile phone, electrical energy flows into your phone and is used to power it."]}}
+,
+{"emoji": "⚡", "heading": ["पाठ 1: विद्युत आवेश और विद्युत धारा", "Lesson 1: Electric Charge and Electric Current"], 
+"paras": [
+["विद्युत आवेश इलेक्ट्रॉनों की मात्रा है। यह दो प्रकार का होता है - धनात्मक और ऋणात्मक। जब दो वस्तुएं एक दूसरे के संपर्क में आती हैं, तो वे इलेक्ट्रॉनों को एक दूसरे में स्थानांतरित कर सकती हैं।", 
+"Electric charge is the amount of electrons. It can be positive or negative. When two objects come into contact with each other, they can transfer electrons from one to the other."],
+["विद्युत धारा इलेक्ट्रॉनों की गति है। यह एक **चालक** से होकर गुजरती है। विद्युत धारा को मापने के लिए हम **एमीटर** का उपयोग करते हैं।", 
+"Electric current is the flow of electrons. It flows through a **conductor**. We use an **ammeter** to measure electric current."],
+["विद्युत धारा की इकाई एम्पियर है। विद्युत धारा को Q/t से व्यक्त किया जा सकता है, जहां Q आवेश है और t समय है।", 
+"The unit of electric current is ampere. Electric current can be expressed as Q/t, where Q is the charge and t is the time."]],
+"formula": "I = Q/t", 
+"example": {"label": ["समझो ऐसे", "Think of it like this"], "text": ["एक उदाहरण लेते हैं। जब आप एक बल्ब को जलाते हैं, तो विद्युत धारा बल्ब से होकर गुजरती है और इसे जलाने के लिए उपयोग की जाती है।", 
+"Let's take an example. When you turn on a light bulb, electric current flows through the bulb and is used to light it up."]}}
+,
+{"emoji": "🔋", "heading": ["पाठ 2: विद्युत विभव और विभवांतर", "Lesson 2: Electric Potential and Potential Difference"], 
+"paras": [
+["विद्युत विभव एक बिंदु पर विद्युत क्षेत्र की तीव्रता को मापता है। यह एक **वोल्टमीटर** से मापा जा सकता है।", 
+"Electric potential measures the strength of the electric field at a point. It can be measured using a **voltmeter**."],
+["विभवांतर दो बिंदुओं के बीच विद्युत विभव का अंतर है। यह विद्युत धारा के प्रवाह के लिए जिम्मेदार है।", 
+"Potential difference is the difference in electric potential between two points. It is responsible for the flow of electric current."],
+["विभवांतर की इकाई वोल्ट है। विभवांतर को V = W/q से व्यक्त किया जा सकता है, जहां V विभवांतर है, W कार्य है, और q आवेश है।", 
+"The unit of potential difference is volt. Potential difference can be expressed as V = W/q, where V is the potential difference, W is the work, and q is the charge."]],
+"formula": "V = W/q", 
+"example": {"label": ["समझो ऐसे", "Think of it like this"], "text": ["एक उदाहरण लेते हैं। जब आप एक बैटरी से एक बल्ब को जलाते हैं, तो विभवांतर बैटरी और बल्ब के बीच होता है और विद्युत धारा को प्रवाहित करने के लिए जिम्मेदार है।", 
+"Let's take an example. When you connect a battery to a light bulb, the potential difference is between the battery and the bulb and is responsible for the flow of electric current."]}}
+,
+{"emoji": "🔌", "heading": ["पाठ 3: परिपथ प्रतीक, एमीटर और वोल्टमीटर", "Lesson 3: Circuit Symbols, Ammeter, and Voltmeter"], 
+"paras": [
+["परिपथ प्रतीक विद्युत परिपथ को दर्शाने के लिए उपयोग किए जाते हैं। वे विद्युत धारा के प्रवाह को समझने में मदद करते हैं।", 
+"Circuit symbols are used to represent an electric circuit. They help us understand the flow of electric current."],
+["एमीटर विद्युत धारा को मापने के लिए उपयोग किया जाता है। यह परिपथ में श्रेणीक्रम में जोड़ा जाता है।", 
+"An ammeter is used to measure electric current. It is connected in series in the circuit."],
+["वोल्टमीटर विभवांतर को मापने के लिए उपयोग किया जाता है। यह परिपथ में पार्श्वक्रम में जोड़ा जाता है।", 
+"A voltmeter is used to measure potential difference. It is connected in parallel in the circuit."]],
+"formula": null, 
+"example": {"label": ["समझो ऐसे", "Think of it like this"], "text": ["एक उदाहरण लेते हैं। जब आप एक परिपथ में एमीटर और वोल्टमीटर का उपयोग करते हैं, तो आप विद्युत धारा और विभवांतर को माप सकते हैं और विद्युत परिपथ को समझ सकते हैं।", 
+"Let's take an example. When you use an ammeter and a voltmeter in a circuit, you can measure electric current and potential difference and understand the electric circuit."]}}
+]}

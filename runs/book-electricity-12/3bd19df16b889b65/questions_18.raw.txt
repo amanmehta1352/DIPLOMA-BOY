@@ -1,0 +1,330 @@
+{
+  "questions": [
+    {
+      "type": "numerical",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "यदि 12 कूलॉम्ब आवेश 4 सेकंड में प्रवाहित होता है, तो धारा (I) की मात्रा ज्ञात करें।",
+        "If a charge of 12 coulombs flows in 4 seconds, calculate the current (I)."
+      ],
+      "answer": [
+        "3 A",
+        "3 A"
+      ],
+      "check": {
+        "givens": [
+          {
+            "symbol": "Q",
+            "value": 12,
+            "unit": "C"
+          },
+          {
+            "symbol": "t",
+            "value": 4,
+            "unit": "s"
+          }
+        ],
+        "formulas": [
+          "charge"
+        ],
+        "unknown": "I",
+        "answer": {
+          "value": 3,
+          "unit": "A"
+        }
+      }
+    },
+    {
+      "type": "numerical",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": [
+        "एक चालक के V‑I ग्राफ में दो बिंदु (2 V, 0.5 A) और (8 V, 2 A) हैं। प्रतिरोध (R) निकालें।",
+        "A V‑I graph of a conductor passes through points (2 V, 0.5 A) and (8 V, 2 A). Find the resistance (R)."
+      ],
+      "answer": [
+        "4 Ω",
+        "4 Ω"
+      ],
+      "check": {
+        "givens": [
+          {
+            "symbol": "V1",
+            "value": 2,
+            "unit": "V"
+          },
+          {
+            "symbol": "I1",
+            "value": 0.5,
+            "unit": "A"
+          },
+          {
+            "symbol": "V2",
+            "value": 8,
+            "unit": "V"
+          },
+          {
+            "symbol": "I2",
+            "value": 2,
+            "unit": "A"
+          }
+        ],
+        "formulas": [
+          "ohm"
+        ],
+        "unknown": "R",
+        "answer": {
+          "value": 4,
+          "unit": "Ω"
+        }
+      }
+    },
+    {
+      "type": "numerical",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": [
+        "प्रतिरोधकता 1.68 × 10⁻⁸ Ω·m, लंबाई 2 m और अनुप्रस्थ काट 1.0 × 10⁻⁶ m² वाले तारे का प्रतिरोध निकालें।",
+        "A conductor has resistivity 1.68×10⁻⁸ Ω·m, length 2 m and cross‑sectional area 1.0×10⁻⁶ m². Calculate its resistance."
+      ],
+      "answer": [
+        "0.0336 Ω",
+        "0.0336 Ω"
+      ],
+      "check": {
+        "givens": [
+          {
+            "symbol": "rho",
+            "value": 1.68e-8,
+            "unit": "Ω·m"
+          },
+          {
+            "symbol": "L",
+            "value": 2,
+            "unit": "m"
+          },
+          {
+            "symbol": "A",
+            "value": 1.0e-6,
+            "unit": "m²"
+          }
+        ],
+        "formulas": [
+          "resistivity"
+        ],
+        "unknown": "R",
+        "answer": {
+          "value": 0.0336,
+          "unit": "Ω"
+        }
+      }
+    },
+    {
+      "type": "numerical",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "R1=2 Ω, R2=3 Ω, R3=6 Ω प्रतिरोधक समानांतर में जुड़े हैं और 12 V बैटरी से जुड़े हैं। समतुल्य प्रतिरोध (Rp) निकालें।",
+        "Resistors R1=2 Ω, R2=3 Ω, R3=6 Ω are connected in parallel across a 12 V battery. Find the equivalent resistance (Rp)."
+      ],
+      "answer": [
+        "1 Ω",
+        "1 Ω"
+      ],
+      "check": {
+        "givens": [
+          {
+            "symbol": "R1",
+            "value": 2,
+            "unit": "Ω"
+          },
+          {
+            "symbol": "R2",
+            "value": 3,
+            "unit": "Ω"
+          },
+          {
+            "symbol": "R3",
+            "value": 6,
+            "unit": "Ω"
+          }
+        ],
+        "formulas": [
+          "parallel3"
+        ],
+        "unknown": "Rp",
+        "answer": {
+          "value": 1,
+          "unit": "Ω"
+        }
+      }
+    },
+    {
+      "type": "numerical",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": [
+        "10 Ω प्रतिरोध वाला हीटर 5 A धारा 2 मिनट तक लेता है। उत्पन्न तापीय प्रभाव (H) जूल में निकालें।",
+        "A heater of resistance 10 Ω carries a current of 5 A for 2 minutes. Calculate the heat produced (H) in joules."
+      ],
+      "answer": [
+        "30000 J",
+        "30000 J"
+      ],
+      "check": {
+        "givens": [
+          {
+            "symbol": "I",
+            "value": 5,
+            "unit": "A"
+          },
+          {
+            "symbol": "R",
+            "value": 10,
+            "unit": "Ω"
+          },
+          {
+            "symbol": "t",
+            "value": 120,
+            "unit": "s"
+          }
+        ],
+        "formulas": [
+          "joule_heat"
+        ],
+        "unknown": "H",
+        "answer": {
+          "value": 30000,
+          "unit": "J"
+        }
+      }
+    },
+    {
+      "type": "numerical",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "60 W बल्ब 5 घंटे चलाया जाता है। ऊर्जा खपत (kWh) निकालें।",
+        "A 60 W bulb operates for 5 hours. Find the energy consumption in kWh."
+      ],
+      "answer": [
+        "0.3 kWh",
+        "0.3 kWh"
+      ],
+      "check": {
+        "givens": [
+          {
+            "symbol": "P",
+            "value": 60,
+            "unit": "W"
+          },
+          {
+            "symbol": "t",
+            "value": 5,
+            "unit": "h"
+          }
+        ],
+        "formulas": [
+          "energy_pt"
+        ],
+        "unknown": "E",
+        "answer": {
+          "value": 0.3,
+          "unit": "kWh"
+        }
+      }
+    },
+    {
+      "type": "vsa",
+      "outcome": "o1",
+      "bloom": "remember",
+      "q": [
+        "विद्युत धारा (current) और विभवांतर (potential difference) को परिभाषित करें तथा उनके सूत्र लिखें।",
+        "Define electric current and potential difference and write their formulas."
+      ],
+      "answer": [
+        "विद्युत धारा (current) वह प्रवाह है जिसमें इकाई समय में आवेश (Q) का प्रवाह होता है; I = Q/t. विभवांतर (potential difference) वह कार्य (W) है जो इकाई आवेश पर किया जाता है; V = W/Q.",
+        "Electric current is the flow of charge per unit time; I = Q/t. Potential difference is the work done per unit charge; V = W/Q."
+      ]
+    },
+    {
+      "type": "vsa",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एमीटर और वोल्टमीटर के कार्य और परिपथ में सही जुड़ाव बताइए।",
+        "State the functions of an ammeter and a voltmeter and describe their correct connections in a circuit."
+      ],
+      "answer": [
+        "एमीटर धारा (I) मापता है और इसे परिपथ के क्रम में (सीरियल) जोड़ा जाता है; वोल्टमीटर विभवांतर (V) मापता है और इसे परिपथ के दो बिंदुओं के पार (पैरेलल) जोड़ा जाता है।",
+        "An ammeter measures current and is connected in series; a voltmeter measures potential difference and is connected in parallel across the two points."
+      ]
+    },
+    {
+      "type": "vsa",
+      "outcome": "o3",
+      "bloom": "remember",
+      "q": [
+        "ओम का नियम लिखिए।",
+        "Write Ohm's law."
+      ],
+      "answer": [
+        "ओम का नियम कहता है कि धारा (I) और विभवांतर (V) के बीच प्रतिरोध (R) का अनुपात स्थिर रहता है: V = I × R।",
+        "Ohm's law states that the ratio between voltage and current is constant for a conductor: V = I × R."
+      ]
+    },
+    {
+      "type": "vsa",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        "एक चालक के प्रतिरोध को प्रभावित करने वाले कारकों की व्याख्या कीजिए।",
+        "Explain the factors affecting the resistance of a conductor."
+      ],
+      "answer": [
+        "प्रतिरोध (R) सीधे लंबाई (L) के अनुपात में और अनुप्रस्थ काट (A) के व्युत्क्रमानुपात में बदलता है; साथ ही ताप (T) बढ़ने पर प्रतिरोध बढ़ता है। सूत्र: R = ρ L/A।",
+        "Resistance is directly proportional to length, inversely proportional to cross‑sectional area, and increases with temperature. Formula: R = ρ L/A."
+      ]
+    },
+    {
+      "type": "vsa",
+      "outcome": "o5",
+      "bloom": "remember",
+      "q": [
+        "प्रतिरोधकता (resistivity) की SI इकाई क्या है?",
+        "What is the SI unit of resistivity?"
+      ],
+      "answer": [
+        "ओह्म‑मीटर (Ω·m)।",
+        "Ohm‑meter (Ω·m)."
+      ]
+    },
+    {
+      "type": "vsa",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        "घरेलू परिपथ में श्रेणीक्रम के मुकाबले पार्श्वक्रम के क्या लाभ हैं?",
+        "What are the advantages of parallel combinations over series in domestic circuits?"
+      ],
+      "answer": [
+        "पार्श्वक्रम में प्रत्येक उपकरण को समान विभवांतर मिलता है, किसी एक उपकरण के फेल होने पर बाकी काम करते रहते हैं, और कुल धारा अधिक होती है जिससे पावर वितरण बेहतर होता है।",
+        "In parallel, each appliance receives the full voltage, a failure of one does not affect others, and the total current is higher allowing better power distribution."
+      ]
+    },
+    {
+      "type": "vsa",
+      "outcome": "o8",
+      "bloom": "understand",
+      "q": [
+        "इलेक्ट्रिक फ्यूज़ कैसे काम करता है, समझाइए।",
+        "Explain how an electric fuse works."
+      ],
+      "answer": [
+        "फ्यूज़ में पतला तंतु (फिलामेंट) होता है जो निर्धारित धारा से अधिक होने पर तेजी से गर्म होकर पिघल जाता है, जिससे परिपथ खुल जाता है और अधिक धारा का प्रवाह रुक जाता है।",
+        "A fuse contains a thin filament that melts when the current exceeds a preset value, opening the circuit and stopping excess current flow."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,353 @@
+{
+ "notes_words": {
+  "hi": 4263,
+  "en": 3751
+ },
+ "teach_words": {
+  "hindi": 2524,
+  "english": 2134
+ },
+ "panels": 20,
+ "teach_sections": 17,
+ "diagrams": 6,
+ "scope": [
+  {
+   "id": "current_pd",
+   "covered": true
+  },
+  {
+   "id": "ohm",
+   "covered": true
+  },
+  {
+   "id": "resistance",
+   "covered": true
+  },
+  {
+   "id": "combos",
+   "covered": true
+  },
+  {
+   "id": "heating",
+   "covered": true
+  },
+  {
+   "id": "power",
+   "covered": true
+  }
+ ],
+ "coverage": {
+  "outcomes": [
+   {
+    "id": "o1",
+    "questions": 8,
+    "concept": true
+   },
+   {
+    "id": "o2",
+    "questions": 6,
+    "concept": true
+   },
+   {
+    "id": "o3",
+    "questions": 8,
+    "concept": true
+   },
+   {
+    "id": "o4",
+    "questions": 6,
+    "concept": true
+   },
+   {
+    "id": "o5",
+    "questions": 5,
+    "concept": true
+   },
+   {
+    "id": "o6",
+    "questions": 7,
+    "concept": true
+   },
+   {
+    "id": "o7",
+    "questions": 5,
+    "concept": true
+   },
+   {
+    "id": "o8",
+    "questions": 7,
+    "concept": true
+   },
+   {
+    "id": "o9",
+    "questions": 6,
+    "concept": true
+   }
+  ],
+  "bloom_in_questions": [
+   "analyze",
+   "apply",
+   "evaluate",
+   "remember",
+   "understand"
+  ],
+  "types": {
+   "mcq": 14,
+   "true_false": 2,
+   "fill_blank": 2,
+   "vsa": 7,
+   "sa": 10,
+   "la": 4,
+   "numerical": 6,
+   "assertion_reason": 4,
+   "case_based": 5,
+   "hots": 4
+  },
+  "bands": {
+   "knowledge_understanding": 0.431,
+   "application": 0.379,
+   "higher_order": 0.19,
+   "competency": 0.655
+  }
+ },
+ "copyright": {
+  "overlap": 0.1847,
+  "threshold": 0.2,
+  "longest_copied_run_words": 16,
+  "run_text": "the potential difference across a conductor is directly proportional to the electric current flowing through it",
+  "max_run_words": 8,
+  "note": "automatic metric, not legal clearance"
+ },
+ "terms": {
+  "pairs": 647,
+  "missing_hindi_term": {
+   "potential difference": 1,
+   "circuit": 1,
+   "series": 1,
+   "conductor": 1
+  },
+  "banned_form": {},
+  "number_mismatch_pairs": 1,
+  "glossary_verified": false,
+  "bad_pairs": [
+   {
+    "pair": [
+     "चालक (conductor)",
+     "1.68 × 10^-8"
+    ],
+    "why": [
+     "Hindi and English must carry the same numbers and formulas (Hindi has [], English has ['1.68', '10', '8'])"
+    ]
+   },
+   {
+    "pair": [
+     "ग्राफ का ढाल ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, इसलिए प्रतिरोध R = 6 Ω। अनुप्रस्थ काट A = 0.5 mm² = 0.5×10⁻⁶ m²। ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m। एमीटर को धारा के प्रवाह के क्रम में (सिर्‍स में) जोड़ा जाता है, जबकि वोल्टमीटर को मापे जाने वाले घटक के दोनों सिरों पर समानांतर (पार्श्वक्रम) में जोड़ा जाता है।",
+     "Slope = ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, so R = 6 Ω. Area A = 0.5 mm² = 0.5×10⁻⁶ m². ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m. The ammeter is placed in series with the circuit so that the same current passes through it, whereas the voltmeter is connected across the component (parallel) to measure the potential difference."
+    ],
+    "why": [
+     "'potential difference' must be 'विभवांतर' in Hindi",
+     "'circuit' must be 'परिपथ' in Hindi",
+     "'series' must be 'श्रेणीक्रम' in Hindi"
+    ]
+   },
+   {
+    "pair": [
+     "ओम का नियम कहता है कि धारा (I) और विभवांतर (V) के बीच प्रतिरोध (R) का अनुपात स्थिर रहता है: V = I × R।",
+     "Ohm's law states that the ratio between voltage and current is constant for a conductor: V = I × R."
+    ],
+    "why": [
+     "'conductor' must be 'चालक' in Hindi"
+    ]
+   }
+  ]
+ },
+ "key_balance": {
+  "positions": [
+   5,
+   5,
+   3,
+   1
+  ],
+  "max_share": 0.357
+ },
+ "blind": {
+  "n": 18,
+  "passes": [
+   {
+    "provider": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "answered": 18
+   },
+   {
+    "provider": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "answered": 18
+   }
+  ],
+  "disagree": [
+   {
+    "q": 2,
+    "pass": 1,
+    "key": 1,
+    "solver": 3
+   },
+   {
+    "q": 8,
+    "pass": 1,
+    "key": 0,
+    "solver": 1
+   },
+   {
+    "q": 2,
+    "pass": 2,
+    "key": 1,
+    "solver": 3
+   }
+  ],
+  "same_provider_as_writer": []
+ },
+ "numericals": [
+  {
+   "n": 1,
+   "stored": "The electric current I is 1 A.",
+   "solver": "1 A",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 1 = stated 1 ampere",
+   "givens_in_text": true
+  },
+  {
+   "n": 2,
+   "stored": "The resulting electric current is 3 A.",
+   "solver": "3 A",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 3 = stated 3 ampere",
+   "givens_in_text": true
+  },
+  {
+   "n": 3,
+   "stored": "The equivalent resistance in parallel combination is 2 ohm.",
+   "solver": "2 ohm",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 2 = stated 2 ohm",
+   "givens_in_text": true
+  },
+  {
+   "n": 4,
+   "stored": "400 J",
+   "solver": "4000 J",
+   "agree": false,
+   "code": true,
+   "code_detail": "code 400 = stated 400 joule",
+   "givens_in_text": true
+  },
+  {
+   "n": 5,
+   "stored": "The total electrical energy consumed is 360000 J.",
+   "solver": "360000 J",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 360000 = stated 360000 joule",
+   "givens_in_text": true
+  },
+  {
+   "n": 6,
+   "stored": "3 A",
+   "solver": "3 A",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 3 = stated 3 ampere",
+   "givens_in_text": true
+  },
+  {
+   "n": 7,
+   "stored": "4 Ω",
+   "solver": "4 Ω",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 4 = stated 4 ohm (formula chosen by code: ohm_slope)",
+   "givens_in_text": true
+  },
+  {
+   "n": 8,
+   "stored": "0.0336 Ω",
+   "solver": "0.0336 Ω",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 0.0336 = stated 0.0336 ohm",
+   "givens_in_text": true
+  },
+  {
+   "n": 9,
+   "stored": "1 Ω",
+   "solver": "1 Ω",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 1 = stated 1 ohm",
+   "givens_in_text": true
+  },
+  {
+   "n": 10,
+   "stored": "30000 J",
+   "solver": "300000 J",
+   "agree": false,
+   "code": true,
+   "code_detail": "code 30000 = stated 30000 joule",
+   "givens_in_text": true
+  },
+  {
+   "n": 11,
+   "stored": "0.3 kWh",
+   "solver": "0.3 kWh",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 1.08e+06 = stated 1.08e+06 joule",
+   "givens_in_text": true
+  }
+ ],
+ "mcq_code": [
+  {
+   "q": 1,
+   "ok": true,
+   "detail": "key matches code; no distractor equals the answer"
+  },
+  {
+   "q": 6,
+   "ok": true,
+   "detail": "key matches code; no distractor equals the answer"
+  },
+  {
+   "q": 10,
+   "ok": true,
+   "detail": "key matches code; no distractor equals the answer"
+  },
+  {
+   "q": 12,
+   "ok": true,
+   "detail": "key matches code; no distractor equals the answer"
+  },
+  {
+   "q": 14,
+   "ok": true,
+   "detail": "key matches code; no distractor equals the answer"
+  }
+ ],
+ "fact_check": {
+  "correct": true,
+  "reason": ""
+ },
+ "warnings": [
+  "numerical 4: AI solver disagreed, code-verified answer kept (all givens are in the question)",
+  "numerical 10: AI solver disagreed, code-verified answer kept (all givens are in the question)",
+  "Hindi glossary checked against official PYQ Hindi usage; line-by-line CSTT check pending"
+ ],
+ "problems": [
+  "copyright: 16 words in a row match a reference book: 'the potential difference across a conductor is directly proportional to the elec'",
+  "question 2: answer-blind solver did not reach the key",
+  "question 8: answer-blind solver did not reach the key",
+  "Hindi term not the standard one for: potential difference (1), circuit (1), series (1), conductor (1)",
+  "1 Hindi/English pairs carry different numbers"
+ ]
+}

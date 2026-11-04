@@ -1,0 +1,14 @@
+```json
+{
+  "pairs": [
+    ["जूल का नियम को इस तरह समझाया जा सकता है: ताप ऊर्जा की मात्रा विद्युत धारा के वर्ग और प्रतिरोध serta समय के गुणनफल के बराबर होती है, जैसा कि Q = I^2Rt सूत्र में दिखाया गया है।", "Joule's law can be expressed as: Q = I^2Rt, where Q is the heat energy, I is the electric current, R is the resistance, and t is the time."],
+    ["एक विद्युत हीटर के मामले में, यदि यह 5 ए की विद्युत धारा को 20 ओम के प्रतिरोध के साथ 10 मिनट तक चलाया जाता है, तो यह कितनी ताप ऊर्जा पैदा करेगा?", "Suppose you are using an electric heater with a current of 5 A and a resistance of 20 ohm. If you run it for 10 minutes, how much heat energy will it produce?"],
+    ["विद्युत तंतु बल्ब में एक पतला तंतु होता है जो विद्युत धारा के प्रवाह के कारण गर्म हो जाता है और प्रकाश उत्पन्न करता है।", "The filament bulb has a thin filament that gets heated by the flow of electric current and produces light."],
+    ["विद्युत तंतु बल्ब में तंतु का प्रतिरोध इतना अधिक होता है कि जब विद्युत धारा प्रवाहित होती है, तो यह तंतु गर्म हो जाता है और प्रकाश उत्पन्न करता है।", "In the filament bulb, the filament has a high resistance, so when electric current flows, it gets heated and produces light."],
+    ["विद्युत धारा एक परिपथ में इलेक्ट्रॉनों की गति को मापती है।", "Electric current is the energy stored in a circuit."],
+    ["विद्युत धारा वास्तव में दो बिंदुओं के बीच विद्युत विभव में अंतर के कारण होती है।", "Electric current is the potential difference between two points."],
+    ["ओम का नियम बताता है कि किसी चालक में विद्युत धारा और विभवांतर के बीच एक सीधा सम्बन्ध होता है।", "According to Ohm's law, the voltage across a conductor is directly proportional to the current through it."],
+    ["ओम का नियम के अनुसार, विभवांतर और धारा का सम्बन्ध एक चालक में सीधा होता है। कारण यह है कि V‑I ग्राफ की ढाल चालक का प्रतिरोध देती है।", "Assertion (A): According to Ohm's law, the voltage across a conductor is directly proportional to the current through it. Reason (R): The slope of the V‑I graph gives the resistance of the conductor."]
+  ]
+}
+```

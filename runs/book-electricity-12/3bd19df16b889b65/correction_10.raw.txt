@@ -1,0 +1,48 @@
+```json
+{
+  "concepts": [
+    {
+      "key": "c6",
+      "emoji": "🧪",
+      "title": ["प्रतिरोधकता तथा सामग्री के प्रकार", "Resistivity and Types of Materials"],
+      "paras": [
+        ["प्रतिरोधकता (resistivity) किसी सामग्री के प्रतिरोध (resistance) की एक माप है जो उसके आकार और आयतन पर निर्भर नहीं करती है।", "Resistivity is a measure of a material's resistance that does not depend on its shape or volume."],
+        ["प्रतिरोधकता को rho (ρ) से दर्शाया जाता है और इसकी SI इकाई ओम-मीटर (Ω m) है।", "Resistivity is denoted by rho (ρ) and its SI unit is ohm-meter (Ω m)."],
+        ["विभिन्न सामग्रियों की प्रतिरोधकता के मान उनके प्रतिरोधक (resistor) गुणों को दर्शाते हैं।", "The resistivity values of different materials indicate their resistive properties."],
+        ["चालकों (conductors) की प्रतिरोधकता कम होती है, जैसे कि तांबा (copper) की प्रतिरोधकता लगभग 1.68 × 10^-8 Ω m है।", "Conductors have low resistivity, such as copper, which has a resistivity of about 1.68 × 10^-8 Ω m."],
+        ["मिश्र धातुओं (alloys) की प्रतिरोधकता अधिक होती है, जैसे कि नाइक्रोम (nichrome) की प्रतिरोधकता लगभग 10^-6 से 10^-5 Ω m है।", "Alloys have higher resistivity, such as nichrome, which has a resistivity of about 10^-6 to 10^-5 Ω m."],
+        ["विद्युतरोधी (insulators) की प्रतिरोधकता बहुत अधिक होती है, जैसे कि ग्लास (glass) की प्रतिरोधकता लगभग 10^10 से 10^14 Ω m है।", "Insulators have very high resistivity, such as glass, which has a resistivity of about 10^10 to 10^14 Ω m."],
+        ["प्रतिरोधकता का मान सामग्री के तापमान (temperature) पर भी निर्भर करता है।", "The resistivity value also depends on the temperature of the material."],
+        ["सामग्री के प्रतिरोधकता के मान को जानने से हमें उनके विद्युत गुणों के बारे में जानकारी मिलती है।", "Knowing the resistivity value of a material gives us information about its electrical properties."]
+      ],
+      "kv": [
+        [["प्रतिरोधकता (resistivity)", "ओम-मीटर (Ω m)"], 
+         ["चालकों की प्रतिरोधकता", "कम (low)"], 
+         ["मिश्र धातुओं की प्रतिरोधकता", "10^-6 से 10^-5 Ω m"], 
+         ["विद्युतरोधी की प्रतिरोधकता", "बहुत अधिक (very high)"]],
+        [["सामग्री के प्रतिरोधकता के मान", "सामग्री के विद्युत गुणों के बारे में जानकारी देता है"], 
+         ["प्रतिरोधकता का मान", "सामग्री के तापमान पर निर्भर करता है"]]
+      ],
+      "table": {
+        "head": [["सामग्री का प्रकार", "प्रतिरोधकता का मान (Ω m)"]],
+        "rows": [
+          [["चालक (conductor)", "1.68 × 10^-8"], 
+           ["मिश्र धातु (alloy)", "10^-6 से 10^-5"], 
+           ["विद्युतरोधी (insulator)", "10^10 से 10^14"]]
+        ]
+      },
+      "formula": {
+        "expr": "R = rho × l / A",
+        "units": [
+          [["R", "ओम (Ω)"], 
+           ["rho", "ओम-मीटर (Ω m)"], 
+           ["l", "मीटर (m)"], 
+           ["A", "मीटर^2 (m^2)"]]
+        ]
+      },
+      "tip": ["प्रतिरोधकता के मान को हमेशा ओम-मीटर (Ω m) में व्यक्त करें।", "Always express resistivity values in ohm-meter (Ω m)."],
+      "diagram": null
+    }
+  ]
+}
+```
