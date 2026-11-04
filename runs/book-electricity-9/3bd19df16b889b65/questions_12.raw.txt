@@ -1,0 +1,146 @@
+{
+  "questions": [
+    {
+      "type": "case_based",
+      "outcome": ["o1", "o7"],
+      "bloom": "apply",
+      "case": [
+        "एक घर में 230 V की आपूर्ति से तीन बल्ब क्रमशः 60 W की शक्ति का उपयोग कर रहे हैं। सभी बल्ब समानांतर में जुड़े हैं और घर में 5 A का फ्यूज़ स्थापित है।",
+        "In a house, three bulbs each of 60 W are connected to a 230 V supply in parallel. The house is protected by a 5 A fuse."
+      ],
+      "q": [
+        "तीन बल्बों द्वारा कुल धारा (I) की गणना करें और बताएं कि 5 A फ्यूज़ सुरक्षित रहेगा या नहीं।",
+        "Calculate the total current drawn by the three bulbs and state whether the 5 A fuse will remain safe."
+      ],
+      "answer": [
+        "कुल धारा I = (3 × 60) / 230 = 0.78 A ≈ 0.78 A; फ्यूज़ 5 A से अधिक नहीं है, इसलिए सुरक्षित रहेगा।",
+        "Total current I = (3 × 60) / 230 = 0.78 A ≈ 0.78 A; the fuse rating is 5 A, so it will not blow."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 230, "unit": "V" },
+          { "symbol": "P", "value": 60, "unit": "W" },
+          { "symbol": "n", "value": 3, "unit": "" },
+          { "symbol": "F", "value": 5, "unit": "A" }
+        ],
+        "formulas": ["power_vi"],
+        "unknown": "I",
+        "answer": { "value": 0.78, "unit": "A" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": ["o3", "o4", "o5"],
+      "bloom": "analyze",
+      "case": [
+        "एक प्रयोगशाला में दो प्रतिरोधक R1 = 2 Ω और R2 = 4 Ω का उपयोग किया गया। इन दोनों को श्रेणीक्रम में जोड़कर कुल प्रतिरोध मापा गया। साथ ही, 1.2 m लंबी और 1.5×10⁻⁶ m² अनुप्रस्थ काट वाली एक तारा का प्रतिरोध 0.5 Ω पाया गया।",
+        "In a laboratory, two resistors R1 = 2 Ω and R2 = 4 Ω are used. When connected in series, the total resistance is measured. Additionally, a wire of length 1.2 m and cross‑sectional area 1.5×10⁻⁶ m² shows a resistance of 0.5 Ω."
+      ],
+      "q": [
+        "श्रेणीक्रम में R1 और R2 का कुल प्रतिरोध (Rs) निकालें, V‑I ग्राफ़ की ढाल से प्रतिरोध (Req) निर्धारित करें, और तारे की प्रतिरोधकता (ρ) की गणना करें।",
+        "Find the series resistance Rs of R1 and R2, determine the equivalent resistance (Req) from the V‑I graph slope, and calculate the resistivity (ρ) of the wire."
+      ],
+      "answer": [
+        "श्रेणीक्रम में Rs = R1 + R2 = 2 Ω + 4 Ω = 6 Ω; ग्राफ़ की ढाल = 0.5 Ω, इसलिए Req = 0.5 Ω; ρ = R·A / L = 0.5 × 1.5×10⁻⁶ / 1.2 = 6.25×10⁻⁷ Ω·m.",
+        "Series resistance Rs = R1 + R2 = 2 Ω + 4 Ω = 6 Ω; slope of the V‑I graph = 0.5 Ω, so Req = 0.5 Ω; ρ = R·A / L = 0.5 × 1.5×10⁻⁶ / 1.2 = 6.25×10⁻⁷ Ω·m."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "R1", "value": 2, "unit": "Ω" },
+          { "symbol": "R2", "value": 4, "unit": "Ω" },
+          { "symbol": "R", "value": 0.5, "unit": "Ω" },
+          { "symbol": "L", "value": 1.2, "unit": "m" },
+          { "symbol": "A", "value": 1.5e-6, "unit": "m^2" }
+        ],
+        "formulas": ["series2", "resistivity"],
+        "unknown": "ρ",
+        "answer": { "value": 6.25e-7, "unit": "Ω·m" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": ["o8", "o1", "o9"],
+      "bloom": "apply",
+      "case": [
+        "एक इलेक्ट्रिक हीटर 240 V पर 1500 W की शक्ति उत्पन्न करता है और इसे 2 घंटे तक चलाया जाता है। घर में 10 A का फ्यूज़ स्थापित है।",
+        "An electric heater operates at 240 V and produces 1500 W of power, running for 2 hours. The house is protected by a 10 A fuse."
+      ],
+      "q": [
+        "हीटर द्वारा उत्पन्न तापीय ऊर्जा (जूल में) और ऊर्जा खपत (kWh में) की गणना करें, तथा यह बताएं कि 10 A फ्यूज़ सुरक्षित रहेगा या नहीं।",
+        "Calculate the heat energy produced by the heater in joules, the energy consumption in kWh, and state whether the 10 A fuse will remain safe."
+      ],
+      "answer": [
+        "धारा I = P/V = 1500/240 = 6.25 A; तापीय ऊर्जा H = P·t = 1500 × 7200 = 1.08×10⁷ J; ऊर्जा खपत = 1500 W × 2 h = 3 kWh; फ्यूज़ 10 A से अधिक नहीं है, इसलिए सुरक्षित रहेगा।",
+        "Current I = P/V = 1500/240 = 6.25 A; heat H = P·t = 1500 × 7200 = 1.08×10⁷ J; energy consumption = 1500 W × 2 h = 3 kWh; the 10 A fuse is not exceeded, so it remains safe."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 240, "unit": "V" },
+          { "symbol": "P", "value": 1500, "unit": "W" },
+          { "symbol": "t_h", "value": 2, "unit": "h" },
+          { "symbol": "F", "value": 10, "unit": "A" }
+        ],
+        "formulas": ["power_vi", "energy_pt"],
+        "unknown": "H",
+        "answer": { "value": 1.08e7, "unit": "J" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": ["o2", "o5", "o9"],
+      "bloom": "apply",
+      "case": [
+        "एक स्मार्टफ़ोन चार्जर 230 V इनपुट लेता है और 5 V, 2 A आउटपुट देता है। चार्जर की दक्षता 85 % है। अंदर 0.5 m लंबी तांबे की तार (अनुप्रस्थ काट 1 mm²) उपयोग की गई है।",
+        "A smartphone charger takes a 230 V input and provides a 5 V, 2 A output. The charger’s efficiency is 85 %. Inside, a copper wire of length 0.5 m with a cross‑sectional area of 1 mm² is used."
+      ],
+      "q": [
+        "इनपुट धारा, कुल शक्ति खपत, और तार की प्रतिरोधकता (ρ) की गणना करें।",
+        "Calculate the input current, total power consumption, and the resistivity (ρ) of the internal copper wire."
+      ],
+      "answer": [
+        "आउटपुट शक्ति P_out = 5 × 2 = 10 W; इनपुट शक्ति P_in = P_out / 0.85 = 11.76 W; इनपुट धारा I_in = P_in / 230 = 0.051 A; शक्ति हानि = P_in – P_out = 1.76 W; तार का प्रतिरोध R = हानि / I_in² = 1.76 / (0.051)² ≈ 674 Ω; ρ = R·A / L = 674 × 1×10⁻⁶ / 0.5 ≈ 1.35×10⁻³ Ω·m.",
+        "Output power P_out = 5 × 2 = 10 W; Input power P_in = P_out / 0.85 = 11.76 W; Input current I_in = P_in / 230 = 0.051 A; Power loss = P_in – P_out = 1.76 W; Wire resistance R = loss / I_in² = 1.76 / (0.051)² ≈ 674 Ω; ρ = R·A / L = 674 × 1×10⁻⁶ / 0.5 ≈ 1.35×10⁻³ Ω·m."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V_in", "value": 230, "unit": "V" },
+          { "symbol": "V_out", "value": 5, "unit": "V" },
+          { "symbol": "I_out", "value": 2, "unit": "A" },
+          { "symbol": "η", "value": 0.85, "unit": "" },
+          { "symbol": "L", "value": 0.5, "unit": "m" },
+          { "symbol": "A", "value": 1e-6, "unit": "m^2" }
+        ],
+        "formulas": ["power_vi", "power_i2r"],
+        "unknown": "ρ",
+        "answer": { "value": 1.35e-3, "unit": "Ω·m" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": ["o7", "o6", "o4", "o8"],
+      "bloom": "evaluate",
+      "case": [
+        "एक स्कूल बस में 12 V बैटरी से चार 40 W के बल्ब जुड़े हैं। इन्हें या तो श्रेणीक्रम में या समानांतर में जोड़ा जा सकता है। बल्बों की प्रतिरोध R_b = V²/P है।",
+        "A school bus uses a 12 V battery to power four 40 W bulbs. The bulbs can be connected either in series or in parallel. Each bulb’s resistance is R_b = V²/P."
+      ],
+      "q": [
+        "श्रेणीक्रम और समानांतर दोनों संयोजनों के लिए कुल प्रतिरोध, कुल धारा, तथा प्रत्येक बल्ब में धारा की गणना करें, और घरेलू परिपथ में समानांतर संयोजन के लाभों की व्याख्या करें।",
+        "Calculate the total resistance, total current, and the current through each bulb for both series and parallel connections, and explain the advantages of parallel circuits in domestic wiring."
+      ],
+      "answer": [
+        "बल्ब प्रतिरोध R_b = 12²/40 = 3.6 Ω।\nश्रेणीक्रम: Rs = 4×3.6 = 14.4 Ω, कुल धारा I_s = 12/14.4 = 0.83 A, प्रत्येक बल्ब में I = 0.83 A (पावर ≈ 2.5 W, मंद)।\nसमानांतर: Rp = 1/(4/3.6) = 0.9 Ω, कुल धारा I_p = 12/0.9 = 13.3 A, प्रत्येक बल्ब में I = 12/3.6 = 3.33 A (पावर = 40 W, पूर्ण चमक)।\nसमानांतर में प्रत्येक उपकरण को पूर्ण वोल्टेज मिलता है, धारा विभाजित होती है, इसलिए उपकरण अधिक प्रभावी और सुरक्षित रहते हैं; यह घरेलू परिपथ में प्राथमिकता है।",
+        "Bulb resistance R_b = 12²/40 = 3.6 Ω.\nSeries: Rs = 4×3.6 = 14.4 Ω, total current I_s = 12/14.4 = 0.83 A, each bulb gets I = 0.83 A (≈2.5 W, dim).\nParallel: Rp = 1/(4/3.6) = 0.9 Ω, total current I_p = 12/0.9 = 13.3 A, each bulb gets I = 12/3.6 = 3.33 A (40 W, full brightness).\nIn parallel each appliance receives the full supply voltage, currents divide, giving efficient and safe operation—hence preferred in domestic circuits."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 12, "unit": "V" },
+          { "symbol": "P", "value": 40, "unit": "W" },
+          { "symbol": "n", "value": 4, "unit": "" }
+        ],
+        "formulas": ["resistivity", "series_n", "parallel_n"],
+        "unknown": "I_p",
+        "answer": { "value": 13.3, "unit": "A" }
+      }
+    }
+  ]
+}
