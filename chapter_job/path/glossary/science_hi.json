@@ -1,0 +1,292 @@
+{
+ "version": "glossary.science_hi.v2",
+ "source": "Seed list of standard Hindi science terms; each form counted in the Hindi text of 21,197 official PYQs in mtb.questions (read-only query 4 Nov 2026). Banned forms (रेज़िस्टेंस, रेजिस्टेंस, विशिष्ट प्रतिरोध) appear 0 times. सर्किट appears 25 times in official papers, so it is not banned, but notes must use परिपथ. Line-by-line CSTT check still pending (CSTT portal not reachable from this workspace).",
+ "verified": false,
+ "terms": [
+  {
+   "en": "electric current",
+   "hi": [
+    "विद्युत धारा"
+   ],
+   "pyq_hi_count": {
+    "विद्युत धारा": 11
+   }
+  },
+  {
+   "en": "current",
+   "hi": [
+    "धारा"
+   ],
+   "pyq_hi_count": {
+    "धारा": 0
+   }
+  },
+  {
+   "en": "potential difference",
+   "hi": [
+    "विभवांतर",
+    "विभवान्तर"
+   ],
+   "pyq_hi_count": {
+    "विभवांतर": 9,
+    "विभवान्तर": 0
+   }
+  },
+  {
+   "en": "electric potential",
+   "hi": [
+    "विद्युत विभव"
+   ],
+   "pyq_hi_count": {
+    "विद्युत विभव": 1
+   }
+  },
+  {
+   "en": "resistance",
+   "hi": [
+    "प्रतिरोध"
+   ],
+   "not": [
+    "रेज़िस्टेंस",
+    "रेजिस्टेंस"
+   ],
+   "pyq_hi_count": {
+    "प्रतिरोध": 185
+   }
+  },
+  {
+   "en": "resistivity",
+   "hi": [
+    "प्रतिरोधकता"
+   ],
+   "not": [
+    "विशिष्ट प्रतिरोध"
+   ],
+   "pyq_hi_count": {
+    "प्रतिरोधकता": 14
+   }
+  },
+  {
+   "en": "resistor",
+   "hi": [
+    "प्रतिरोधक"
+   ],
+   "pyq_hi_count": {
+    "प्रतिरोधक": 35
+   }
+  },
+  {
+   "en": "charge",
+   "hi": [
+    "आवेश"
+   ],
+   "pyq_hi_count": {
+    "आवेश": 32
+   }
+  },
+  {
+   "en": "circuit",
+   "hi": [
+    "परिपथ"
+   ],
+   "pyq_hi_count": {
+    "परिपथ": 75
+   }
+  },
+  {
+   "en": "conductor",
+   "hi": [
+    "चालक"
+   ],
+   "pyq_hi_count": {
+    "चालक": 56
+   }
+  },
+  {
+   "en": "insulator",
+   "hi": [
+    "विद्युतरोधी",
+    "कुचालक",
+    "विद्युत रोधी"
+   ],
+   "pyq_hi_count": {
+    "विद्युतरोधी": 1,
+    "कुचालक": 0,
+    "विद्युत रोधी": 0
+   }
+  },
+  {
+   "en": "series",
+   "hi": [
+    "श्रेणीक्रम",
+    "श्रेणी"
+   ],
+   "pyq_hi_count": {
+    "श्रेणीक्रम": 2,
+    "श्रेणी": 102
+   }
+  },
+  {
+   "en": "parallel",
+   "hi": [
+    "पार्श्वक्रम",
+    "पार्श्व",
+    "समानांतर",
+    "समांतर"
+   ],
+   "pyq_hi_count": {
+    "पार्श्वक्रम": 0,
+    "पार्श्व": 0,
+    "समानांतर": 87,
+    "समांतर": 41
+   }
+  },
+  {
+   "en": "electric power",
+   "hi": [
+    "विद्युत शक्ति"
+   ],
+   "pyq_hi_count": {
+    "विद्युत शक्ति": 4
+   }
+  },
+  {
+   "en": "heating effect",
+   "hi": [
+    "तापीय प्रभाव",
+    "ऊष्मीय प्रभाव"
+   ],
+   "pyq_hi_count": {
+    "तापीय प्रभाव": 2,
+    "ऊष्मीय प्रभाव": 0
+   }
+  },
+  {
+   "en": "ammeter",
+   "hi": [
+    "एमीटर",
+    "ऐमीटर",
+    "अमीटर"
+   ],
+   "pyq_hi_count": {
+    "एमीटर": 4,
+    "ऐमीटर": 0,
+    "अमीटर": 0
+   }
+  },
+  {
+   "en": "voltmeter",
+   "hi": [
+    "वोल्टमीटर"
+   ],
+   "pyq_hi_count": {
+    "वोल्टमीटर": 8
+   }
+  },
+  {
+   "en": "rheostat",
+   "hi": [
+    "धारा नियंत्रक",
+    "रिओस्टेट"
+   ],
+   "pyq_hi_count": {
+    "धारा नियंत्रक": 0,
+    "रिओस्टेट": 0
+   }
+  },
+  {
+   "en": "fuse",
+   "hi": [
+    "फ्यूज़",
+    "फ्यूज"
+   ],
+   "pyq_hi_count": {
+    "फ्यूज़": 0,
+    "फ्यूज": 4
+   }
+  },
+  {
+   "en": "filament",
+   "hi": [
+    "तंतु",
+    "फिलामेंट"
+   ],
+   "pyq_hi_count": {
+    "तंतु": 11,
+    "फिलामेंट": 0
+   }
+  },
+  {
+   "en": "electron",
+   "hi": [
+    "इलेक्ट्रॉन"
+   ],
+   "pyq_hi_count": {
+    "इलेक्ट्रॉन": 0
+   }
+  },
+  {
+   "en": "energy",
+   "hi": [
+    "ऊर्जा"
+   ],
+   "pyq_hi_count": {
+    "ऊर्जा": 0
+   }
+  },
+  {
+   "en": "work",
+   "hi": [
+    "कार्य"
+   ],
+   "pyq_hi_count": {
+    "कार्य": 0
+   }
+  },
+  {
+   "en": "length",
+   "hi": [
+    "लंबाई",
+    "लम्बाई"
+   ],
+   "pyq_hi_count": {
+    "लंबाई": 0,
+    "लम्बाई": 0
+   }
+  },
+  {
+   "en": "cross-sectional area",
+   "hi": [
+    "अनुप्रस्थ काट",
+    "अनुप्रस्थ-काट"
+   ],
+   "pyq_hi_count": {
+    "अनुप्रस्थ काट": 13,
+    "अनुप्रस्थ-काट": 0
+   }
+  },
+  {
+   "en": "temperature",
+   "hi": [
+    "ताप",
+    "तापमान"
+   ],
+   "pyq_hi_count": {
+    "ताप": 0,
+    "तापमान": 0
+   }
+  },
+  {
+   "en": "Ohm's law",
+   "hi": [
+    "ओम का नियम",
+    "ओम नियम"
+   ],
+   "pyq_hi_count": {
+    "ओम का नियम": 8,
+    "ओम नियम": 0
+   }
+  }
+ ],
+ "evidence": "official PYQ Hindi usage"
+}
