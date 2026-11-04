@@ -1,0 +1,101 @@
+# One-time run of the BOOK robot book.v3 (Universal Subject Path, code-verified numericals, blind solve, Hindi term lock) for Class 10 Science Electricity.
+# Writes nothing to main, DB, Supabase or Pages. Results land only under runs/book-electricity-6/ on this branch.
+name: 'book-robot-electricity-6 (one time, book.v3, path and code checks)'
+
+on:
+  push:
+    branches: [book-robot-electricity-6]
+
+permissions: {}            # nothing by default; each job asks for the minimum
+
+concurrency:
+  group: book-robot-electricity-6
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    # Guard 1: only the push that CREATES the branch. Guard 2: that commit carries the run token.
+    if: github.event.created == true && contains(github.event.head_commit.message, '[book-robot-electricity-6-once]')
+    runs-on: ubuntu-latest          # standard runner (larger runners are billed even on public repos)
+    timeout-minutes: 60
+    permissions:
+      contents: read                # this job holds the AI keys and cannot write to the repo
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - name: Guard 3 - stop if a result already exists
+        run: |
+          if [ -e runs/book-electricity-6 ]; then echo "result already present; refusing a second AI run"; exit 1; fi
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Book robot Electricity (owner format) + app preview screenshots
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          SAMBANOVA_API_KEY: ${{ secrets.SAMBANOVA_API_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GROQ_WRITE_MODEL: ${{ vars.GROQ_WRITE_MODEL }}
+          SAMBANOVA_WRITE_MODEL: ${{ vars.SAMBANOVA_WRITE_MODEL }}
+          CLOUDFLARE_WRITE_MODEL: ${{ vars.CLOUDFLARE_WRITE_MODEL }}
+          OPENROUTER_MODEL: nvidia/nemotron-3-ultra-550b-a55b:free
+          FREE_TIER_CONFIRMED: gemini,groq,nvidia,sambanova,cloudflare     # owner instruction 2026-11-03 20:16 IST: switch to the next free AI when quota ends
+          ROUTE_DIR: robots/route
+          COPYRIGHT_FINGERPRINTS: robots/copyright/fingerprints
+          CHAPTER_JOBS_DIR: out
+          PROVIDER_TIME_BUDGET_S: '2400'
+          PROVIDER_MAX_CALLS: '120'
+          WRITER_PROVIDER: gemini
+          GEMINI_WRITER_MODEL: gemini-3.5-flash
+          JOB_CYCLE: book-6
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          WRITER_DIR: robots/writer
+        run: |
+          pip install -q reportlab sympy==1.14.0 pint==0.26.2
+          mkdir -p out
+          npm i --silent playwright@1 >/dev/null 2>&1 && npx playwright install --with-deps chromium >/dev/null 2>&1 || echo "playwright install failed" > out/preview_error.txt
+          python3 chapter_job/test_book.py | tail -1; python3 chapter_job/test_numcheck.py | tail -1
+          python3 -c "import sys; sys.path.insert(0, 'chapter_job'); import providers, book_robot, numcheck; providers.Real(); print('preflight ok')" > out/preflight.txt 2>&1 || { cat out/preflight.txt; echo 'preflight failed: no AI call made' >> out/run_summary.txt; exit 0; }
+          python3 chapter_job/book_robot.py "Class 10, CBSE 2026-27, Science, Electricity" > out/run_summary.txt 2>&1 || echo "job exited non-zero" >> out/run_summary.txt
+          ROW=$(ls out/*/chapter_books_row.json 2>/dev/null | head -1)
+          if [ -n "$ROW" ]; then node chapter_job/preview_book.js book.html "$ROW" out live > out/preview.txt 2>&1 || echo "preview failed" >> out/preview.txt; fi
+      - name: Refuse to publish if any secret value is in the output
+        env:
+          S1: ${{ secrets.OPENROUTER_API_KEY }}
+          S2: ${{ secrets.GEMINI_API_KEY }}
+          S3: ${{ secrets.GROQ_API_KEY }}
+          S4: ${{ secrets.NVIDIA_API_KEY }}
+          S5: ${{ secrets.SAMBANOVA_API_KEY }}
+          S6: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          S7: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, sys
+          vals = [os.environ[k] for k in ('S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7') if len(os.environ.get(k, '')) >= 8]
+          bad = [str(p) for p in pathlib.Path('out').rglob('*') if p.is_file() and any(v in p.read_text(errors='ignore') for v in vals)]
+          if bad: print('secret found in', len(bad), 'file(s); not publishing'); sys.exit(1)
+          print('no secret values in output')
+          PY
+      - uses: actions/upload-artifact@v4
+        with: { name: electricity-result, path: out/, retention-days: 1 }
+
+  publish:
+    needs: generate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write               # repo-wide token; the destination is limited by the script below, not by the token
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: book-robot-electricity-6 }
+      - uses: actions/download-artifact@v4
+        with: { name: electricity-result, path: runs/book-electricity-6 }
+      - name: Commit result to this branch only, under runs/book-electricity-6/
+        run: |
+          git add runs/book-electricity-6
+          if git diff --cached --name-only | grep -v '^runs/book-electricity-6/'; then echo "unexpected path; abort"; exit 1; fi
+          git config user.name "chapter-job-run"; git config user.email "chapter-job-run@users.noreply.github.com"
+          git commit -m "Book robot Electricity 6 result [skip ci]"
+          git push origin HEAD:refs/heads/book-robot-electricity-6    # explicit ref, no force
