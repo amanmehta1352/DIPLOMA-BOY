@@ -1,0 +1,82 @@
+# Electricity — needs_review (book format)
+review_ready = all automatic checks passed; NOT published; owner review needed.
+
+- resolve: done (attempts 0, calls 0)
+- reference: done (attempts 0, calls 0)
+- outcomes: done (attempts 1, calls 1)
+- plan: done (attempts 1, calls 1)
+- concepts: done (attempts 0, calls 5)
+- extras: done (attempts 1, calls 1)
+- questions: needs_review (attempts 0, calls 19)
+- teach: done (attempts 0, calls 4)
+- hinglish: done (attempts 0, calls 3)
+- demo: needs_review (attempts 3, calls 3)
+
+## Who did what
+- reference / researcher: groq openai/gpt-oss-120b
+- outcomes / planner: gemini gemini-3.8-flash
+- plan / planner: gemini gemini-3.6-flash
+- concepts / writer: groq openai/gpt-oss-120b
+- concepts / writer: gemini gemini-3.6-flash
+- concepts / writer: gemini gemini-3.6-flash
+- concepts / writer: groq openai/gpt-oss-120b
+- concepts / writer: gemini gemini-3.6-flash
+- extras / writer: gemini gemini-3.6-flash
+- questions / writer: gemini gemini-3.6-flash
+- questions / writer: gemini gemini-3.6-flash
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- questions / writer: groq openai/gpt-oss-120b
+- teach / teacher: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- teach / teacher: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- teach / teacher: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- teach / teacher: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- hinglish / transliterator: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- hinglish / transliterator: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- hinglish / transliterator: groq openai/gpt-oss-120b
+- demo / demo_writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- demo / demo_writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+- demo / demo_writer: cloudflare @cf/meta/llama-3.3-70b-instruct-fp8-fast
+
+## Issues
+- diagram_dropped: c7: SVG failed the safety check
+- diagram_dropped: c8: SVG failed the safety check
+- checks_failed: questions group 0: q3: mcq options repeat; q4: mcq options repeat; q7: mcq answer text is not the keyed option
+- checks_failed: questions group 1: q1: q/answer must be [hi,en]; q2: q/answer must be [hi,en]; q3: q/answer must be [hi,en]; q4: q/answer must be [hi,en]; q5: case_based needs a "case" passage (40+ words); q6: case_based needs a "case" passage (40+ words); q7: case_based needs a "case" passage (40+ words); q8: case_based needs a "case" passage (40+ words); q9: case_based needs a "case" passage (40+ words)
+- crash: unhashable type: 'list' Traceback (most recent call last):
+  File "/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/book_robot.py", line 174, in run
+    s = fn(job, r, P, depth, ref)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/book_robot.py", line 411, in st_questions
+    probs = question_problems(got, quota, ids)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/DIPLOMA-BOY/DIPLOMA-BOY/chapter_job/book_robot.py", line 263, in question_problems
+    if q.get('outcome') not in outcome_ids: p.append(f'q{i + 1}: unknown outcome {q.get("outcome")}')
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'list'
+
+- checks_failed: questions group 2: q1: case_based needs a "case" passage of 60-100 English words (yours has 29); write a real-life situation with every number the question needs; q3: case_based needs a "case" passage of 60-100 English words (yours has 27); write a real-life situation with every number the question needs; q4: case_based needs a "case" passage of 60-100 English words (yours has 37); write a real-life situation with every number the question needs; q5: case_based needs a "case" passage of 60-100 English words (yours has 21); write a real-life situation with every number the question needs
+- checks_failed: questions group 2 (case_based): q3: case_based needs a "case" passage of 60-100 English words (yours has 32); write a real-life situation with every number the question needs; q4: case_based needs a "case" passage of 60-100 English words (yours has 22); write a real-life situation with every number the question needs; q5: case_based needs a "case" passage of 60-100 English words (yours has 34); write a real-life situation with every number the question needs
+- checks_failed: demo: script error: cess/execution:451:12
+    at [eval]-wrapper:6:24
+    at runScriptInContext (node:internal/process/execution:449:60)
+    at evalFunction (node:internal/process/execution:283:30)
+    at evalTypeScript (node:internal/process/execution:295:3)
+    at node:internal/main/eval_string:71:3
+
+Node.js v24.22.2
+

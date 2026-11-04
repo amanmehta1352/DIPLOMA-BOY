@@ -1,0 +1,196 @@
+{
+  "questions": [
+    {
+      "type": "case_based",
+      "outcome": "o1",
+      "bloom": "apply",
+      "case": [
+        "एक प्रयोगशाला में विद्युत धारा (electric current) को मापने के लिये 12 कूलॉम्ब (coulomb) आवेश (charge) 4 सेकंड में एक परिपथ (circuit) से गुज़रता है। साथ ही इस प्रक्रिया में 24 जूल (joule) कार्य (work) किया जाता है।",
+        "In a laboratory, electric current is measured by letting 12 coulomb of charge pass through a circuit in 4 seconds. During this process, 24 joule of work is done."
+      ],
+      "q": [
+        "विद्युत धारा (current) और विभवांतर (potential difference) की परिभाषा लिखें तथा धारा I और विभवांतर V की मान निकालें।",
+        "Write the definitions of electric current and potential difference and calculate the values of current I and potential difference V."
+      ],
+      "answer": [
+        "विद्युत धारा वह प्रवाह है जो प्रति सेकंड आवेश (coulomb) ले जाता है; I = Q/t = 12 C / 4 s = 3 A. विभवांतर वह कार्य है जो प्रति कूलॉम्ब किया जाता है; V = W/Q = 24 J / 12 C = 2 V।",
+        "Electric current is the flow of charge per second; I = Q/t = 12 C / 4 s = 3 A. Potential difference is the work done per coulomb; V = W/Q = 24 J / 12 C = 2 V."
+      ],
+      "check": [
+        {
+          "givens": [
+            { "symbol": "Q", "value": 12, "unit": "C" },
+            { "symbol": "t", "value": 4, "unit": "s" }
+          ],
+          "formulas": ["charge"],
+          "unknown": "I",
+          "answer": { "value": 3, "unit": "A" }
+        },
+        {
+          "givens": [
+            { "symbol": "W", "value": 24, "unit": "J" },
+            { "symbol": "Q", "value": 12, "unit": "C" }
+          ],
+          "formulas": ["pd_work"],
+          "unknown": "V",
+          "answer": { "value": 2, "unit": "V" }
+        }
+      ]
+    },
+    {
+      "type": "case_based",
+      "outcome": "o2",
+      "bloom": "understand",
+      "case": [
+        "एक परिपथ में 9 V बैटरी, 3 Ω प्रतिरोधक और दो मापने वाले उपकरण जुड़े हैं। एमीटर (ammeter) को धारा (current) मापने के लिये परिपथ में श्रृंखला में और वोल्टमीटर (voltmeter) को विभवांतर (potential difference) मापने के लिये प्रतिरोधक के समानांतर में जोड़ा गया है।",
+        "In a circuit, a 9 V battery, a 3 Ω resistor and two measuring devices are connected. The ammeter is placed in series to measure current, and the voltmeter is placed in parallel across the resistor to measure potential difference."
+      ],
+      "q": [
+        "एमीटर और वोल्टमीटर के कार्य और सही जुड़ाव विधि बताइए।",
+        "State the functions of an ammeter and a voltmeter and describe their correct connections."
+      ],
+      "answer": [
+        "एमीटर धारा (current) मापता है और इसे परिपथ में श्रृंखला में जोड़ा जाता है; वोल्टमीटर विभवांतर (potential difference) मापता है और इसे प्रतिरोधक के समानांतर में जोड़ा जाता है।",
+        "An ammeter measures current and is connected in series with the circuit; a voltmeter measures potential difference and is connected in parallel across the component."
+      ]
+    },
+    {
+      "type": "case_based",
+      "outcome": "o3",
+      "bloom": "apply",
+      "case": [
+        "एक चालक (conductor) के लिए प्रयोग में धारा (current) और विभवांतर (potential difference) के मान क्रमशः (0 A, 0 V), (2 A, 6 V) और (4 A, 12 V) प्राप्त हुए।",
+        "In an experiment on a conductor, the measured current and potential difference values are (0 A, 0 V), (2 A, 6 V) and (4 A, 12 V)."
+      ],
+      "q": [
+        "ओम का नियम लिखिए तथा इस डेटा से चालक का प्रतिरोध (resistance) निकालिए।",
+        "Write Ohm's law and determine the resistance of the conductor from the given data."
+      ],
+      "answer": [
+        "ओम का नियम: V = I R. डेटा के दो बिंदुओं के बीच ढाल ΔV/ΔI = (12 V‑6 V)/(4 A‑2 A) = 3 V/A, अतः प्रतिरोध R = 3 Ω।",
+        "Ohm's law: V = I R. The slope between any two points is ΔV/ΔI = (12 V‑6 V)/(4 A‑2 A) = 3 V/A, therefore resistance R = 3 Ω."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V1", "value": 6, "unit": "V" },
+          { "symbol": "I1", "value": 2, "unit": "A" },
+          { "symbol": "V2", "value": 12, "unit": "V" },
+          { "symbol": "I2", "value": 4, "unit": "A" }
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": { "value": 3, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o4",
+      "bloom": "understand",
+      "case": [
+        "एक तांबे की तार (copper wire) की लंबाई 2 m और अनुप्रस्थ काट 1×10⁻⁶ m² है। इसका प्रतिरोधकता (resistivity) 20 °C पर 1.68×10⁻⁸ Ω·m है तथा तापांक गुणांक α = 0.0039 °C⁻¹ है। ताप 20 °C से 80 °C तक बढ़ता है।",
+        "A copper wire has length 2 m and cross‑sectional area 1×10⁻⁶ m². Its resistivity at 20 °C is 1.68×10⁻⁸ Ω·m and its temperature coefficient α = 0.0039 °C⁻¹. The temperature rises from 20 °C to 80 °C."
+      ],
+      "q": [
+        "ऊपर दिए गये डेटा से बताइए कि लंबाई, अनुप्रस्थ काट और ताप में परिवर्तन से प्रतिरोध (resistance) पर क्या प्रभाव पड़ेगा।",
+        "Using the data above, explain how length, cross‑sectional area and temperature affect the resistance."
+      ],
+      "answer": [
+        "प्रतिरोध R = ρ L/A. इसलिए लंबाई बढ़ने से R बढ़ेगा, अनुप्रस्थ काट बढ़ने से R घटेगा। ताप बढ़ने से ρ बढ़ेगा (R = R₀[1+αΔT]), इसलिए R भी बढ़ेगा।",
+        "Resistance R = ρ L/A, so increasing length increases R, increasing area decreases R. Temperature rise increases resistivity (R = R₀[1+αΔT]), thus R also increases."
+      ]
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": [
+        "निच्रोम (nichrome) का प्रतिरोधकता 1.10×10⁻⁶ Ω·m है। एक निच्रोम का तंतु (filament) 0.5 m लंबा और 2×10⁻⁶ m² अनुप्रस्थ काट वाला है।",
+        "The resistivity of nichrome is 1.10×10⁻⁶ Ω·m. A nichrome filament is 0.5 m long with a cross‑sectional area of 2×10⁻⁶ m²."
+      ],
+      "q": [
+        "ऊपर दिए गये डेटा से तंतु का प्रतिरोध (resistance) निकालिए।",
+        "Calculate the resistance of the filament using the given data."
+      ],
+      "answer": [
+        "R = ρ L/A = (1.10×10⁻⁶ Ω·m × 0.5 m) / (2×10⁻⁶ m²) = 0.275 Ω।",
+        "R = ρ L/A = (1.10×10⁻⁶ Ω·m × 0.5 m) / (2×10⁻⁶ m²) = 0.275 Ω."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "rho", "value": 1.10e-6, "unit": "Ω·m" },
+          { "symbol": "L", "value": 0.5, "unit": "m" },
+          { "symbol": "A", "value": 2e-6, "unit": "m²" }
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": { "value": 0.275, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "तीन प्रतिरोधक R1=2 Ω, R2=3 Ω, R3=6 Ω को पहले श्रेणीक्रम (series) में और फिर समानांतर (parallel) में जोड़ने पर क्रमशः कुल प्रतिरोध (equivalent resistance) क्या होगा?",
+        "Three resistors R1=2 Ω, R2=3 Ω, R3=6 Ω are first connected in series and then in parallel. What are the equivalent resistances respectively?"
+      ],
+      "options": [
+        ["श्रृंखला में 11 Ω, समानांतर में 1 Ω", "Series: 11 Ω, Parallel: 1 Ω"],
+        ["श्रृंखला में 10 Ω, समानांतर में 2 Ω", "Series: 10 Ω, Parallel: 2 Ω"],
+        ["श्रृंखला में 11 Ω, समानांतर में 2 Ω", "Series: 11 Ω, Parallel: 2 Ω"],
+        ["श्रृंखला में 10 Ω, समानांतर में 1 Ω", "Series: 10 Ω, Parallel: 1 Ω"]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "assertion": [
+        "पार्श्वक्रम (parallel) संयोजन में प्रत्येक उपकरण को समान विभवांतर (potential difference) मिलता है।",
+        "In a parallel combination each appliance receives the same potential difference."
+      ],
+      "reason": [
+        "इससे घरेलू परिपथ में किसी एक उपकरण के खराब होने पर अन्य उपकरण काम करना जारी रख सकते हैं।",
+        "Therefore, if one appliance fails in a domestic circuit, the others continue to operate."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "numerical",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": [
+        "एक हीटर में 5 A धारा 4 Ω प्रतिरोधक के माध्यम से 10 s तक प्रवाहित होती है। हीटर द्वारा उत्पन्न तापीय प्रभाव (heat) की मात्रा (जूल में) निकालिए।",
+        "A heater carries a current of 5 A through a 4 Ω resistor for 10 s. Calculate the heat produced (in joules)."
+      ],
+      "answer": [
+        "H = I² R t = 5² × 4 × 10 = 1000 J।",
+        "H = I² R t = 5² × 4 × 10 = 1000 J."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "I", "value": 5, "unit": "A" },
+          { "symbol": "R", "value": 4, "unit": "Ω" },
+          { "symbol": "t", "value": 10, "unit": "s" }
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": { "value": 1000, "unit": "J" }
+      }
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "एक 60 W बल्ब को 5 घंटे तक चलाया जाता है। बल्ब द्वारा उपयोग की गई ऊर्जा (kWh में) _______ है।",
+        "A 60 W bulb is operated for 5 hours. The energy consumed by the bulb (in kWh) is _______."
+      ],
+      "answer": [
+        "0.3 kWh",
+        "0.3 kWh"
+      ]
+    }
+  ]
+}
