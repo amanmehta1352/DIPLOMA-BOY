@@ -1,0 +1,293 @@
+{
+  "questions": [
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": ["यदि आवेश Q = 6 C और समय t = 2 s हो, तो विद्युत धारा (current) I की मात्रा क्या होगी?", "If the charge Q = 6 C and time t = 2 s, what is the magnitude of the electric current I?"],
+      "options": [
+        ["3 A", "3 A"],
+        ["12 A", "12 A"],
+        ["0.33 A", "0.33 A"],
+        ["4 A", "4 A"]
+      ],
+      "answer": ["3 A", "3 A"],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          {"symbol": "Q", "value": 6, "unit": "C"},
+          {"symbol": "t", "value": 2, "unit": "s"}
+        ],
+        "formulas": ["charge"],
+        "unknown": "I",
+        "answer": {"value": 3, "unit": "A"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "understand",
+      "q": ["विद्युत धारा (electric current) को सबसे सही रूप से कौन-सा कथन दर्शाता है?", "Which statement best describes electric current?"],
+      "options": [
+        ["विभवांतर का प्रवाह", "Flow of potential difference"],
+        ["आवेश का प्रवाह", "Flow of charge"],
+        ["ऊर्जा का प्रवाह", "Flow of energy"],
+        ["प्रतिरोध का प्रवाह", "Flow of resistance"]
+      ],
+      "answer": ["आवेश का प्रवाह", "Flow of charge"],
+      "answer_index": 1
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": ["एमीटर (ammeter) को परिपथ में किस प्रकार जुड़ना चाहिए?", "How should an ammeter be connected in a circuit?"],
+      "options": [
+        ["समानांतर में", "In parallel"],
+        ["श्रेणीक्रम में", "In series"],
+        ["श्रेणीक्रम में", "In series"],
+        ["नहीं जुड़ता", "Not connected"]
+      ],
+      "answer": ["श्रेणीक्रम में", "In series"],
+      "answer_index": 2
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": ["वोल्टमीटर (voltmeter) को परिपथ में किस प्रकार जुड़ना चाहिए?", "How should a voltmeter be connected in a circuit?"],
+      "options": [
+        ["श्रेणीक्रम में", "In series"],
+        ["समानांतर में", "In parallel"],
+        ["दोनों में", "In both"],
+        ["समानांतर में", "In parallel"]
+      ],
+      "answer": ["समानांतर में", "In parallel"],
+      "answer_index": 3
+    },
+    {
+      "type": "mcq",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": ["ओम का नियम (Ohm's law) के अनुसार V‑I ग्राफ की ढाल (slope) क्या दर्शाती है?", "According to Ohm's law, what does the slope of a V‑I graph represent?"],
+      "options": [
+        ["विद्युत धारा", "Electric current"],
+        ["विभवांतर", "Potential difference"],
+        ["प्रतिरोध", "Resistance"],
+        ["प्रतिरोधकता", "Resistivity"]
+      ],
+      "answer": ["प्रतिरोध", "Resistance"],
+      "answer_index": 2
+    },
+    {
+      "type": "mcq",
+      "outcome": "o3",
+      "bloom": "apply",
+      "q": ["यदि विभवांतर V = 12 V और धारा I = 3 A हो, तो प्रतिरोध R कितना होगा?", "If the potential difference V = 12 V and current I = 3 A, what is the resistance R?"],
+      "options": [
+        ["36 Ω", "36 Ω"],
+        ["4 Ω", "4 Ω"],
+        ["0.25 Ω", "0.25 Ω"],
+        ["9 Ω", "9 Ω"]
+      ],
+      "answer": ["4 Ω", "4 Ω"],
+      "answer_index": 1,
+      "check": {
+        "givens": [
+          {"symbol": "V", "value": 12, "unit": "V"},
+          {"symbol": "I", "value": 3, "unit": "A"}
+        ],
+        "formulas": ["ohm"],
+        "unknown": "R",
+        "answer": {"value": 4, "unit": "Ω"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": ["किसी चालक (conductor) की लंबाई (length) बढ़ाने से प्रतिरोध पर क्या प्रभाव पड़ेगा?", "What effect does increasing the length of a conductor have on its resistance?"],
+      "options": [
+        ["प्रतिरोध घटेगा", "Resistance decreases"],
+        ["कोई परिवर्तन नहीं", "No change"],
+        ["प्रतिरोध बढ़ेगा", "Resistance increases"],
+        ["प्रतिरोध शून्य हो जाएगा", "Resistance becomes zero"]
+      ],
+      "answer": ["प्रतिरोध बढ़ेगा", "Resistance increases"],
+      "answer_index": 3
+    },
+    {
+      "type": "mcq",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": ["किसी चालक (conductor) के अनुप्रस्थ काट (cross-sectional area) को बढ़ाने से प्रतिरोध पर क्या प्रभाव पड़ेगा?", "What effect does increasing the cross‑sectional area of a conductor have on its resistance?"],
+      "options": [
+        ["प्रतिरोध बढ़ेगा", "Resistance increases"],
+        ["कोई परिवर्तन नहीं", "No change"],
+        ["प्रतिरोध घटेगा", "Resistance decreases"],
+        ["प्रतिरोध अनंत हो जाएगा", "Resistance becomes infinite"]
+      ],
+      "answer": ["प्रतिरोध घटेगा", "Resistance decreases"],
+      "answer_index": 2
+    },
+    {
+      "type": "mcq",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": ["यदि प्रतिरोधकता ρ = 1.68×10⁻⁸ Ω·m, लंबाई L = 2 m, और अनुप्रस्थ काट A = 0.5 mm² (0.5×10⁻⁶ m²) हो, तो प्रतिरोध R की गणना करें।", "If resistivity ρ = 1.68×10⁻⁸ Ω·m, length L = 2 m, and cross‑sectional area A = 0.5 mm² (0.5×10⁻⁶ m²), calculate the resistance R."],
+      "options": [
+        ["0.067 Ω", "0.067 Ω"],
+        ["0.072 Ω", "0.072 Ω"],
+        ["0.06 Ω", "0.06 Ω"],
+        ["0.0672 Ω", "0.0672 Ω"]
+      ],
+      "answer": ["0.0672 Ω", "0.0672 Ω"],
+      "answer_index": 3,
+      "check": {
+        "givens": [
+          {"symbol": "rho", "value": 1.68e-8, "unit": "Ω·m"},
+          {"symbol": "L", "value": 2, "unit": "m"},
+          {"symbol": "A", "value": 0.5e-6, "unit": "m^2"}
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": {"value": 0.0672, "unit": "Ω"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": ["2 Ω और 3 Ω प्रतिरोधक (resistors) को श्रेणीक्रम (series) में जोड़ने पर कुल प्रतिरोध कितना होगा?", "What is the total resistance when 2 Ω and 3 Ω resistors are connected in series?"],
+      "options": [
+        ["1 Ω", "1 Ω"],
+        ["6 Ω", "6 Ω"],
+        ["5 Ω", "5 Ω"],
+        ["0.6 Ω", "0.6 Ω"]
+      ],
+      "answer": ["5 Ω", "5 Ω"],
+      "answer_index": 2,
+      "check": {
+        "givens": [
+          {"symbol": "R1", "value": 2, "unit": "Ω"},
+          {"symbol": "R2", "value": 3, "unit": "Ω"}
+        ],
+        "formulas": ["series2"],
+        "unknown": "Rs",
+        "answer": {"value": 5, "unit": "Ω"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": ["4 Ω और 12 Ω प्रतिरोधक को समानांतर (parallel) में जोड़ने पर समकक्ष प्रतिरोध (Rp) क्या होगा?", "What is the equivalent resistance when 4 Ω and 12 Ω resistors are connected in parallel?"],
+      "options": [
+        ["4 Ω", "4 Ω"],
+        ["3 Ω", "3 Ω"],
+        ["6 Ω", "6 Ω"],
+        ["2 Ω", "2 Ω"]
+      ],
+      "answer": ["3 Ω", "3 Ω"],
+      "answer_index": 1,
+      "check": {
+        "givens": [
+          {"symbol": "R1", "value": 4, "unit": "Ω"},
+          {"symbol": "R2", "value": 12, "unit": "Ω"}
+        ],
+        "formulas": ["parallel2"],
+        "unknown": "Rp",
+        "answer": {"value": 3, "unit": "Ω"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": ["घरेलू परिपथ में समानांतर (parallel) संयोजन के प्रमुख लाभ क्या है?", "What is the main advantage of parallel connections in domestic circuits?"],
+      "options": [
+        ["प्रत्येक उपकरण को समान वोल्टेज मिलता है", "Each appliance receives the same voltage"],
+        ["कुल प्रतिरोध बढ़ता है", "Total resistance increases"],
+        ["सभी उपकरण एक साथ बंद/खुलते हैं", "All appliances turn on/off together"],
+        ["फ्यूज़ की आवश्यकता नहीं रहती", "Fuse is not required"]
+      ],
+      "answer": ["प्रत्येक उपकरण को समान वोल्टेज मिलता है", "Each appliance receives the same voltage"],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": ["यदि धारा I = 2 A, प्रतिरोध R = 5 Ω, और समय t = 10 s हो, तो उत्पन्न तापीय प्रभाव (heat) H की मात्रा (जूल में) क्या होगी?", "If current I = 2 A, resistance R = 5 Ω, and time t = 10 s, what is the heat produced H in joules?"],
+      "options": [
+        ["100 J", "100 J"],
+        ["250 J", "250 J"],
+        ["50 J", "50 J"],
+        ["200 J", "200 J"]
+      ],
+      "answer": ["200 J", "200 J"],
+      "answer_index": 3,
+      "check": {
+        "givens": [
+          {"symbol": "I", "value": 2, "unit": "A"},
+          {"symbol": "R", "value": 5, "unit": "Ω"},
+          {"symbol": "t", "value": 10, "unit": "s"}
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": {"value": 200, "unit": "J"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": ["एक 60 W बल्ब 240 V पर चल रहा है। बल्ब में बहने वाली धारा I कितनी होगी?", "A 60 W bulb operates at 240 V. What is the current I through the bulb?"],
+      "options": [
+        ["2 A", "2 A"],
+        ["0.5 A", "0.5 A"],
+        ["0.25 A", "0.25 A"],
+        ["1 A", "1 A"]
+      ],
+      "answer": ["0.25 A", "0.25 A"],
+      "answer_index": 2,
+      "check": {
+        "givens": [
+          {"symbol": "P", "value": 60, "unit": "W"},
+          {"symbol": "V", "value": 240, "unit": "V"}
+        ],
+        "formulas": ["power_vi"],
+        "unknown": "I",
+        "answer": {"value": 0.25, "unit": "A"}
+      }
+    },
+    {
+      "type": "true_false",
+      "outcome": "o8",
+      "bloom": "evaluate",
+      "q": ["फ्यूज़ (fuse) अधिक धारा प्रवाह पर पिघल कर परिपथ को सुरक्षा प्रदान करता है।", "A fuse melts under excessive current to protect the circuit."],
+      "answer": ["सही", "True"]
+    },
+    {
+      "type": "true_false",
+      "outcome": "o9",
+      "bloom": "evaluate",
+      "q": ["विद्युत शक्ति (electric power) को V/I के सूत्र से निकाला जा सकता है।", "Electric power can be calculated using the formula P = V/I."],
+      "answer": ["गलत", "False"]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o5",
+      "bloom": "understand",
+      "q": ["प्रतिरोध R = ____ × L / A", "Resistance R = ____ × L / A"],
+      "answer": ["प्रतिरोधकता (resistivity)", "resistivity"]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o3",
+      "bloom": "understand",
+      "q": ["ओम का नियम के अनुसार V = I × ____", "According to Ohm's law, V = I × ____"],
+      "answer": ["प्रतिरोध (resistance)", "resistance"]
+    }
+  ]
+}
