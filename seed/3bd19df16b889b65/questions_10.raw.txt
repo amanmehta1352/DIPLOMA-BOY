@@ -1,0 +1,149 @@
+{
+  "questions": [
+    {
+      "type": "assertion_reason",
+      "outcome": "o1",
+      "bloom": "apply",
+      "assertion": [
+        "विद्युत धारा (electric current) का परिमाण आवेश (charge) के प्रवाह से निर्धारित होता है।",
+        "The magnitude of electric current (विद्युत धारा) is determined by the flow of charge (आवेश)."
+      ],
+      "reason": [
+        "इसे I = Q/t सूत्र से गणना किया जाता है।",
+        "It is calculated using the formula I = Q/t."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "assertion": [
+        "ओम का नियम कहता है V = I × R।",
+        "Ohm's law states V = I × R."
+      ],
+      "reason": [
+        "V‑I ग्राफ की ढाल प्रतिरोध (R) के बराबर होती है।",
+        "The slope of a V‑I graph equals the resistance (R)."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "assertion": [
+        "पार्श्वक्रम (parallel) संयोजन में प्रत्येक उपकरण को समान विभवांतर मिलता है।",
+        "In a parallel combination each appliance receives the same potential difference."
+      ],
+      "reason": [
+        "इससे उपकरणों की शक्ति (power) समान रहती है और फ्यूज़ ट्रिप नहीं होते।",
+        "Thus the power of the appliances remains equal and the fuse does not trip."
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o9",
+      "bloom": "understand",
+      "assertion": [
+        "विद्युत शक्ति (electric power) P = V × I से निकाली जाती है।",
+        "Electric power (विद्युत शक्ति) P is obtained from P = V × I."
+      ],
+      "reason": [
+        "ऊर्जा (energy) को kWh में मापने के लिए P को समय (hours) से गुणा किया जाता है।",
+        "To measure energy in kWh, power (P) is multiplied by time (hours)."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "hots",
+      "outcome": ["o2", "o4"],
+      "bloom": "understand",
+      "case": [
+        "एक प्रयोगशाला में 12 V बैटरी, 2 मीटर लंबी तांबे की चालक (cross‑sectional area 0.5 mm²) और एक प्रतिरोधक (R) को परिपथ में जोड़ा गया है। एमीटर को धारा (धारा) के प्रवाह को मापने के लिये बैटरी के साथ श्रृंखला में रखा गया है, जबकि वोल्टमीटर को प्रतिरोधक के दोनों सिरों पर समानांतर में जुड़ा गया है। तापमान 30°C से बढ़कर 50°C हो जाता है, जिससे चालक का प्रतिरोध बदलता है।",
+        "In a lab, a 12 V battery, a copper conductor 2 m long (cross‑sectional area 0.5 mm²) and a resistor (R) are connected in a circuit. An ammeter is placed in series with the battery to measure the current (धारा), and a voltmeter is connected across the resistor in parallel. The temperature rises from 30°C to 50°C, changing the conductor’s resistance."
+      ],
+      "q": [
+        "एमीटर और वोल्टमीटर को परिपथ में कैसे जोड़ा जाना चाहिए और लंबाई, अनुप्रस्थ काट और तापमान कैसे चालक के प्रतिरोध को प्रभावित करते हैं, समझाइए।",
+        "Explain how the ammeter and voltmeter should be connected in the circuit and how length, cross‑sectional area and temperature affect the resistance of the conductor."
+      ],
+      "answer": [
+        "एमीटर को हमेशा धारा के प्रवाह के साथ श्रृंखला में जोड़ा जाता है, जबकि वोल्टमीटर को मापे जाने वाले घटक के दोनों सिरों पर समानांतर में जोड़ा जाता है। प्रतिरोध R = ρ L/A से लंबाई (L) बढ़ने पर प्रतिरोध बढ़ता है, अनुप्रस्थ काट (A) बढ़ने पर प्रतिरोध घटता है, और तापमान बढ़ने पर प्रतिरोधकता (ρ) बढ़ती है, जिससे कुल प्रतिरोध बढ़ता है।",
+        "The ammeter must always be connected in series with the current path, whereas the voltmeter is connected in parallel across the component whose voltage is to be measured. From R = ρ L/A, resistance increases with length (L), decreases with larger cross‑sectional area (A), and rises with temperature because resistivity (ρ) increases."
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": ["o5", "o6"],
+      "bloom": "apply",
+      "case": [
+        "एक प्रयोग में 3 मीटर लंबी तांबे की तार (अनुप्रस्थ काट 1.0 mm², प्रतिरोधकता 1.68×10⁻⁸ Ω·m) को परिपथ में उपयोग किया गया है। साथ ही तीन प्रतिरोधक R1 = 4 Ω, R2 = 6 Ω और R3 = 12 Ω को इस प्रकार जोड़ा गया है: R1 और R2 समानांतर में हैं, और यह समानांतर संयोजन R3 के साथ श्रृंखला में जुड़ा है। बैटरी का विभवांतर 24 V है।",
+        "In an experiment a copper wire 3 m long (cross‑sectional area 1.0 mm², resistivity 1.68×10⁻⁸ Ω·m) is used in a circuit. Three resistors R1 = 4 Ω, R2 = 6 Ω and R3 = 12 Ω are connected such that R1 and R2 are in parallel, and this parallel combination is in series with R3. The battery voltage is 24 V."
+      ],
+      "q": [
+        "तार का प्रतिरोध, कुल समतुल्य प्रतिरोध, तथा प्रत्येक शाखा में धारा की मात्रा निकालिए।",
+        "Calculate the resistance of the wire, the total equivalent resistance, and the current in each branch."
+      ],
+      "answer": [
+        "तार का प्रतिरोध R = ρ L/A = (1.68×10⁻⁸ Ω·m × 3 m) / (1.0×10⁻⁶ m²) = 0.0504 Ω।\nR1 और R2 का समानांतर प्रतिरोध Rp = (R1 × R2)/(R1+R2) = (4 × 6)/(4+6) = 2.4 Ω।\nसमतुल्य प्रतिरोध Rs = Rp + R3 + Rतार = 2.4 + 12 + 0.0504 ≈ 14.45 Ω।\nकुल धारा I = V / Rs = 24 V / 14.45 Ω ≈ 1.66 A।\nसमानांतर शाखा में Vp = I × Rp = 1.66 × 2.4 ≈ 3.98 V।\nI_R1 = Vp / R1 ≈ 3.98 / 4 ≈ 0.996 A, I_R2 = Vp / R2 ≈ 3.98 / 6 ≈ 0.664 A।",
+        "Wire resistance R = ρ L/A = (1.68×10⁻⁸ Ω·m × 3 m) / (1.0×10⁻⁶ m²) = 0.0504 Ω.\nParallel resistance of R1 and R2: Rp = (R1 × R2)/(R1+R2) = (4 × 6)/(4+6) = 2.4 Ω.\nTotal equivalent resistance Rs = Rp + R3 + Rwire ≈ 14.45 Ω.\nTotal current I = V / Rs = 24 V / 14.45 Ω ≈ 1.66 A.\nVoltage across the parallel part Vp = I × Rp ≈ 3.98 V.\nCurrent through R1 = Vp / R1 ≈ 0.996 A, through R2 = Vp / R2 ≈ 0.664 A."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 24, "unit": "V" },
+          { "symbol": "rho", "value": 1.68e-8, "unit": "ohm*meter" },
+          { "symbol": "L", "value": 3, "unit": "m" },
+          { "symbol": "A", "value": 1e-6, "unit": "meter**2" }
+        ],
+        "formulas": ["resistivity", "parallel2", "series2"],
+        "unknown": "I",
+        "answer": { "value": 1.66, "unit": "A" }
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": ["o8", "o9"],
+      "bloom": "apply",
+      "case": [
+        "एक घर में 60 W का बल्ब 240 V पर उपयोग किया जाता है और यह प्रतिदिन 5 घंटे जलता है। घर की मुख्य फ्यूज़ 5 A की है।",
+        "A house uses a 60 W bulb rated at 240 V, which operates 5 hours each day. The main fuse of the house is rated at 5 A."
+      ],
+      "q": [
+        "बल्ब में एक घंटे में उत्पन्न तापीय ऊर्जा (Joule heating) की मात्रा निकालिए, यह जाँचिए कि फ्यूज़ ट्रिप होगा या नहीं, और एक महीने (30 दिन) में कुल ऊर्जा खपत (kWh) की गणना कीजिए।",
+        "Calculate the heat energy produced in the bulb in one hour, verify whether the fuse will blow, and compute the total energy consumption in a month (30 days) in kWh."
+      ],
+      "answer": [
+        "धारा I = P/V = 60 W / 240 V = 0.25 A।\nप्रतिरोध R = V/I = 240 V / 0.25 A = 960 Ω।\nएक घंटे में उत्पन्न गर्मी H = I² R t = (0.25)² × 960 × 3600 ≈ 2.16×10⁵ J = 0.06 kWh।\nफ्यूज़ की सीमा 5 A है, जबकि बल्ब में केवल 0.25 A बहती है, इसलिए फ्यूज़ नहीं ट्रिप होगा।\nमासिक ऊर्जा = 60 W × 5 h × 30 दिन = 9000 Wh = 9 kWh।",
+        "Current I = P/V = 60 W / 240 V = 0.25 A.\nResistance R = V/I = 240 V / 0.25 A = 960 Ω.\nHeat in one hour H = I² R t = (0.25)² × 960 × 3600 ≈ 2.16×10⁵ J = 0.06 kWh.\nThe fuse rating is 5 A, far above the 0.25 A drawn, so it will not blow.\nMonthly energy consumption = 60 W × 5 h × 30 days = 9000 Wh = 9 kWh."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "P", "value": 60, "unit": "W" },
+          { "symbol": "V", "value": 240, "unit": "V" },
+          { "symbol": "t_hour", "value": 3600, "unit": "s" }
+        ],
+        "formulas": ["power_vi", "ohm", "joule_heat", "energy_pt"],
+        "unknown": "E_month",
+        "answer": { "value": 9, "unit": "kWh" }
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "case": [
+        "एक घर में पाँच उपकरण (प्रत्येक 1 kW) 240 V की आपूर्ति से जुड़े हैं। यदि सभी उपकरण श्रृंखला में जुड़े हों तो कुल धारा, वोल्टेज वितरण और सुरक्षा पर क्या प्रभाव पड़ेगा? यदि समान उपकरण समानांतर में जुड़े हों तो स्थिति कैसे बदलती है?",
+        "In a house five appliances (each 1 kW) are connected to a 240 V supply. What would be the effect on total current, voltage distribution and safety if all appliances were connected in series? How does the situation change when the same appliances are connected in parallel?"
+      ],
+      "q": [
+        "घरेलू परिपथ में समानांतर संयोजन के लाभों का मूल्यांकन कीजिए।",
+        "Evaluate the advantages of parallel combination in a domestic circuit."
+      ],
+      "answer": [
+        "समानांतर में प्रत्येक उपकरण को पूरा 240 V मिलता है, इसलिए प्रत्येक की शक्ति 1 kW रहती है और कुल धारा 5 kW/240 V ≈ 20.8 A होती है। यदि श्रृंखला में जुड़े हों तो प्रत्येक को केवल 48 V (240 V/5) मिलेगा, शक्ति घटेगी और किसी भी उपकरण का फ्यूज़ ट्रिप होने की संभावना बढ़ेगी क्योंकि कुल प्रतिरोध बढ़ेगा और धारा समान रहती है। समानांतर में फ्यूज़ प्रत्येक शाखा को अलग‑अलग सुरक्षा देता है, ओवरलोड से बचाव आसान होता है, और किसी एक उपकरण के खराब होने पर बाकी काम करते रहते हैं।",
+        "In parallel each appliance receives the full 240 V, so each continues to draw 1 kW and the total current is 5 kW/240 V ≈ 20.8 A. In series each would get only 48 V (240 V/5), reducing power and increasing the chance of fuse blowing because the total resistance is higher while the current remains the same. Parallel wiring gives individual protection by fuses on each branch, prevents total shutdown when one appliance fails, and ensures proper voltage for all devices."
+      ]
+    }
+  ]
+}
