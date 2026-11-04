@@ -1,0 +1,380 @@
+{
+  "questions": [
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "यदि किसी विद्युत परिपथ (electric circuit) में 2 मिनट (120 s) में 300 C का आवेश (charge) प्रवाहित होता है, तो परिपथ में विद्युत धारा (electric current) का मान क्या होगा?",
+        "If a charge of 300 C flows through an electric circuit in 2 minutes (120 s), what is the value of electric current in the circuit?"
+      ],
+      "options": [
+        ["2.5 A", "2.5 A"],
+        ["150 A", "150 A"],
+        ["0.4 A", "0.4 A"],
+        ["600 A", "600 A"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "Q", "value": 300, "unit": "C" },
+          { "symbol": "t", "value": 120, "unit": "s" }
+        ],
+        "formulas": ["charge"],
+        "unknown": "I",
+        "answer": { "value": 2.5, "unit": "A" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "12 V विभवांतर (potential difference) के दो बिंदुओं के बीच 2 C आवेश (charge) को ले जाने में कितना कार्य (work) किया जाता है?",
+        "How much work is done in moving a charge of 2 C across two points having a potential difference of 12 V?"
+      ],
+      "options": [
+        ["6 J", "6 J"],
+        ["24 J", "24 J"],
+        ["14 J", "14 J"],
+        ["10 J", "10 J"]
+      ],
+      "answer_index": 1,
+      "check": {
+        "givens": [
+          { "symbol": "V", "value": 12, "unit": "V" },
+          { "symbol": "Q", "value": 2, "unit": "C" }
+        ],
+        "formulas": ["pd_work"],
+        "unknown": "W",
+        "answer": { "value": 24, "unit": "J" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एक परिपथ (circuit) में धारा (current) और विभवांतर (potential difference) मापने के लिए एमीटर (ammeter) और वोल्टमीटर (voltmeter) को किस प्रकार जोड़ा जाता है?",
+        "How are an ammeter and a voltmeter connected in a circuit to measure current and potential difference?"
+      ],
+      "options": [
+        [
+          "एमीटर श्रेणीक्रम (series) में और वोल्टमीटर पार्श्वक्रम (parallel) में",
+          "Ammeter in series and voltmeter in parallel"
+        ],
+        [
+          "एमीटर पार्श्वक्रम (parallel) में और वोल्टमीटर श्रेणीक्रम (series) में",
+          "Ammeter in parallel and voltmeter in series"
+        ],
+        ["दोनों श्रेणीक्रम (series) में", "Both in series"],
+        ["दोनों पार्श्वक्रम (parallel) में", "Both in parallel"]
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एमीटर (ammeter) को हमेशा परिपथ (circuit) में श्रेणीक्रम (series) में क्यों जोड़ा जाता है?",
+        "Why is an ammeter always connected in series in a circuit?"
+      ],
+      "options": [
+        [
+          "ताकि यह परिपथ के प्रतिरोध (resistance) को बढ़ा सके",
+          "So that it can increase the resistance of the circuit"
+        ],
+        [
+          "क्योंकि इसका प्रतिरोध (resistance) बहुत कम होता है जिससे परिपथ की कुल धारा (current) अपरिवर्तित रहती है",
+          "Because it has very low resistance so that the total current in the circuit remains unchanged"
+        ],
+        [
+          "क्योंकि इसका प्रतिरोध (resistance) बहुत उच्च होता है",
+          "Because it has very high resistance"
+        ],
+        [
+          "ताकि विभवांतर (potential difference) का सही मान ज्ञात किया जा सके",
+          "So that the correct value of potential difference can be measured"
+        ]
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "mcq",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": [
+        "यदि V-I ग्राफ में Y-अक्ष पर विभवांतर (potential difference) V और X-अक्ष पर धारा (current) I दर्शाई गई है, तो ग्राफ की ढाल (slope) क्या निरूपित करती है?",
+        "If in a V-I graph, potential difference V is shown on the Y-axis and current I on the X-axis, what does the slope of the graph represent?"
+      ],
+      "options": [
+        ["आवेश (charge)", "Charge"],
+        ["प्रतिरोधकता (resistivity)", "Resistivity"],
+        ["प्रतिरोध (resistance)", "Resistance"],
+        ["विद्युत शक्ति (electric power)", "Electric power"]
+      ],
+      "answer_index": 2
+    },
+    {
+      "type": "mcq",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        "यदि किसी चालक (conductor) तार की लंबाई (length) दोगुनी कर दी जाए और उसका अनुप्रस्थ काट (cross-sectional area) आधा कर दिया जाए, तो उसका नया प्रतिरोध (resistance) कितना हो जाएगा?",
+        "If the length of a conductor wire is doubled and its cross-sectional area is halved, how much will its new resistance become?"
+      ],
+      "options": [
+        ["प्रारंभिक का 2 गुना", "2 times the initial value"],
+        ["प्रारंभिक का आधा", "Half of the initial value"],
+        ["प्रारंभिक का 4 गुना", "4 times the initial value"],
+        ["अपरिवर्तित रहेगा", "Remains unchanged"]
+      ],
+      "answer_index": 2
+    },
+    {
+      "type": "mcq",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": [
+        "एक चालक (conductor) की लंबाई (length) 10 m और अनुप्रस्थ काट (cross-sectional area) 1 × 10^-6 m^2 है। यदि इसकी प्रतिरोधकता (resistivity) 1.6 × 10^-8 ohm*m है, तो इसका प्रतिरोध (resistance) कितना होगा?",
+        "A conductor has a length of 10 m and a cross-sectional area of 1 × 10^-6 m^2. If its resistivity is 1.6 × 10^-8 ohm*m, what is its resistance?"
+      ],
+      "options": [
+        ["1.6 ohm", "1.6 ohm"],
+        ["0.16 ohm", "0.16 ohm"],
+        ["0.016 ohm", "0.016 ohm"],
+        ["16 ohm", "16 ohm"]
+      ],
+      "answer_index": 1,
+      "check": {
+        "givens": [
+          { "symbol": "rho", "value": 1.6e-8, "unit": "ohm*meter" },
+          { "symbol": "L", "value": 10, "unit": "meter" },
+          { "symbol": "A", "value": 1e-6, "unit": "meter**2" }
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": { "value": 0.16, "unit": "ohm" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "6 ohm तथा 3 ohm के दो प्रतिरोधक (resistors) पार्श्वक्रम (parallel) संयोजन में जुड़े हैं। इनका तुल्य प्रतिरोध (equivalent resistance) क्या होगा?",
+        "Two resistors of 6 ohm and 3 ohm are connected in a parallel combination. What will be their equivalent resistance?"
+      ],
+      "options": [
+        ["9 ohm", "9 ohm"],
+        ["4.5 ohm", "4.5 ohm"],
+        ["2 ohm", "2 ohm"],
+        ["18 ohm", "18 ohm"]
+      ],
+      "answer_index": 2,
+      "check": {
+        "givens": [
+          { "symbol": "R1", "value": 6, "unit": "ohm" },
+          { "symbol": "R2", "value": 3, "unit": "ohm" }
+        ],
+        "formulas": ["parallel2"],
+        "unknown": "Rp",
+        "answer": { "value": 2, "unit": "ohm" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": [
+        "2 ohm, 3 ohm तथा 6 ohm के तीन प्रतिरोधक (resistors) 6 V की बैटरी के साथ पार्श्वक्रम (parallel) में जुड़े हैं। बैटरी से प्रवाहित कुल धारा (current) ज्ञात कीजिए।",
+        "Three resistors of 2 ohm, 3 ohm, and 6 ohm are connected in parallel with a 6 V battery. Find the total current drawn from the battery."
+      ],
+      "options": [
+        ["6 A", "6 A"],
+        ["1 A", "1 A"],
+        ["0.5 A", "0.5 A"],
+        ["11 A", "11 A"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "R1", "value": 2, "unit": "ohm" },
+          { "symbol": "R2", "value": 3, "unit": "ohm" },
+          { "symbol": "R3", "value": 6, "unit": "ohm" },
+          { "symbol": "V", "value": 6, "unit": "V" }
+        ],
+        "formulas": [
+          "parallel3",
+          { "id": "ohm", "map": { "R": "Rp" } }
+        ],
+        "unknown": "I",
+        "answer": { "value": 6, "unit": "A" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        "घरेलू विद्युत परिपथों (domestic electric circuits) में उपकरणों को श्रेणीक्रम (series) की अपेक्षा पार्श्वक्रम (parallel) में जोड़ने का क्या मुख्य लाभ है?",
+        "What is the main advantage of connecting appliances in parallel rather than in series in domestic electric circuits?"
+      ],
+      "options": [
+        [
+          "परिपथ का कुल प्रतिरोध (resistance) बढ़ जाता है",
+          "Total resistance of the circuit increases"
+        ],
+        [
+          "प्रत्येक उपकरण को समान विभवांतर (potential difference) मिलता है और एक उपकरण के खराब होने पर अन्य कार्य करते रहते हैं",
+          "Each appliance receives the same potential difference and others continue to operate if one fails"
+        ],
+        [
+          "सभी उपकरणों से एक समान धारा (current) प्रवाहित होती है",
+          "Same current flows through all appliances"
+        ],
+        [
+          "विद्युत ऊर्जा (electric energy) का उपयोग कम होता है",
+          "Electric energy consumption decreases"
+        ]
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "mcq",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": [
+        "10 ohm प्रतिरोध (resistance) वाले एक प्रतिरोधक (resistor) में 2 A की धारा (current) 5 सेकंड के लिए प्रवाहित होती है। उत्पन्न तापीय ऊर्जा (heat produced) की गणना कीजिए।",
+        "A current of 2 A flows through a resistor of 10 ohm for 5 seconds. Calculate the heat produced."
+      ],
+      "options": [
+        ["100 J", "100 J"],
+        ["200 J", "200 J"],
+        ["400 J", "400 J"],
+        ["20 J", "20 J"]
+      ],
+      "answer_index": 1,
+      "check": {
+        "givens": [
+          { "symbol": "I", "value": 2, "unit": "A" },
+          { "symbol": "R", "value": 10, "unit": "ohm" },
+          { "symbol": "t", "value": 5, "unit": "s" }
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": { "value": 200, "unit": "J" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o8",
+      "bloom": "understand",
+      "q": [
+        "विद्युत बल्ब के टंगस्टन तंतु (filament) के जीवन काल को बढ़ाने के लिए बल्ब में कौन-सी रासायनिक रूप से अक्रिय गैसें भरी जाती हैं?",
+        "Which chemically unreactive gases are filled inside an electric bulb to prolong the life of its tungsten filament?"
+      ],
+      "options": [
+        ["ऑक्सीजन और हाइड्रोजन", "Oxygen and hydrogen"],
+        ["ऑर्गन और नाइट्रोजन", "Argon and nitrogen"],
+        ["हीलियम और कार्बन डाइऑक्साइड", "Helium and carbon dioxide"],
+        ["क्लोरीन और अमोनिया", "Chlorine and ammonia"]
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "mcq",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "1000 W की एक विद्युत स्त्री (electric iron) प्रतिदिन 2 घंटे उपयोग की जाती है। 30 दिनों में इसके द्वारा उपभुक्त विद्युत ऊर्जा (electric energy) kWh में क्या होगी?",
+        "An electric iron of rating 1000 W is used daily for 2 hours. What will be the electric energy consumed by it in kWh over 30 days?"
+      ],
+      "options": [
+        ["60 kWh", "60 kWh"],
+        ["30 kWh", "30 kWh"],
+        ["120 kWh", "120 kWh"],
+        ["2000 kWh", "2000 kWh"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "P", "value": 1000, "unit": "W" },
+          { "symbol": "t", "value": 216000, "unit": "s" }
+        ],
+        "formulas": ["energy_pt"],
+        "unknown": "E",
+        "answer": { "value": 216000000, "unit": "J" }
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "220 V पर 100 W विद्युत शक्ति (electric power) वाले एक बल्ब को जब 110 V की लाइन से जोड़ा जाता है, तो इसके द्वारा उपभुक्त शक्ति क्या होगी?",
+        "An electric bulb rated 100 W at 220 V is connected to a 110 V supply line. What power will be consumed by it?"
+      ],
+      "options": [
+        ["50 W", "50 W"],
+        ["25 W", "25 W"],
+        ["100 W", "100 W"],
+        ["75 W", "75 W"]
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "true_false",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        "किसी चालक (conductor) की प्रतिरोधकता (resistivity) उसकी लंबाई (length) और अनुप्रस्थ काट (cross-sectional area) पर निर्भर करती है।",
+        "The resistivity of a conductor depends on its length and cross-sectional area."
+      ],
+      "answer": [
+        "असत्य। प्रतिरोधकता केवल पदार्थ की प्रकृति तथा ताप (temperature) पर निर्भर करती है, यह लंबाई या आकार पर निर्भर नहीं करती।",
+        "False. Resistivity depends only on the nature of the material and temperature, not on length or shape."
+      ]
+    },
+    {
+      "type": "true_false",
+      "outcome": "o8",
+      "bloom": "understand",
+      "q": [
+        "सुरक्षा के लिए विद्युत परिपथ (electric circuit) में लगाया जाने वाला फ्यूज़ (fuse) तार उच्च गलनांक वाले पदार्थ से बनाया जाता है।",
+        "A fuse wire used in an electric circuit for safety is made of a material with a high melting point."
+      ],
+      "answer": [
+        "असत्य। फ्यूज़ तार कम गलनांक वाले पदार्थ का बना होता है ताकि परिपथ में अत्यधिक धारा (current) प्रवाहित होने पर यह तुरंत पिघलकर परिपथ को तोड़ सके।",
+        "False. Fuse wire is made of a material with a low melting point so that it melts quickly and breaks the circuit when excessive current flows."
+      ]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o3",
+      "bloom": "remember",
+      "q": [
+        "ओम का नियम (Ohm's law) दर्शाने वाला गणितीय सूत्र V = ______ है।",
+        "The mathematical formula representing Ohm's law is V = ______."
+      ],
+      "answer": [
+        "I × R",
+        "I × R"
+      ]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o1",
+      "bloom": "remember",
+      "q": [
+        "अंतरराष्ट्रीय मानक पद्धति में विद्युत आवेश (charge) का SI मात्रक ______ होता है।",
+        "In the International System of Units, the SI unit of electric charge is ______."
+      ],
+      "answer": [
+        "कूलाम (coulomb)",
+        "coulomb"
+      ]
+    }
+  ]
+}
