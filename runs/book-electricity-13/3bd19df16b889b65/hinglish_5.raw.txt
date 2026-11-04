@@ -1,0 +1,76 @@
+{
+  "hinglish": [
+    {
+      "emoji": "🚀",
+      "heading": "prastavna: vidyut urja ka jeevan mein mahatva",
+      "paras": [
+        "vidyut urja hamare jeevan mein bahut mahatvapurn bhumika nibhati hai. yeh hamare gharo mein prakash vyavastha ke liye bulb jalati hai, hamare fridge ko chalti rakhti hai, aur hamare mobile phone ko aavesh deti hai.",
+        "vidyut urja ke bina hamara jeevan bahut mushkil ho jayega. hamein vidyut urja ke mahatva ko samajhna chahiye aur iska sahi tareeke se upyog karna chahiye.",
+        "vidyut urja ke bare mein jaanne ke liye hamein vidyut dhara aur vidyut aavesh ke bare mein jaanna hoga. vidyut dhara electrons ki gati hai, aur vidyut aavesh electrons ki matra hai."
+      ],
+      "formula": null,
+      "example": "vidyut urja ko samajhne ke liye ek udaharan lete hain. jab aap apne mobile phone ko aaveshit karte hain, to vidyut urja aapke phone mein jati hai aur ise chalane ke liye upyog ki jati hai."
+    },
+    {
+      "emoji": "⚡",
+      "heading": "paath 1: vidyut aavesh aur vidyut dhara",
+      "paras": [
+        "vidyut aavesh electrons ki matra hai. yeh do prakaar ka hota hai - dhanatmak aur rinitmak. jab do vastuayein ek dusre ke sampark mein aati hain, to ve electrons ko ek dusre mein sthanantarit kar sakti hain.",
+        "vidyut dhara electrons ki gati hai, jo ek **chalaak** se hokar guzarti hai. ham iski maap ke liye **ammeter** ka upyog karte hain.",
+        "vidyut dhara ki ikai ampere hai. vidyut dhara ko Q/t se vyakt kiya ja sakta hai, jahan Q aavesh hai aur t samay hai."
+      ],
+      "formula": "I = Q/t",
+      "example": "ek udaharan lete hain. jab aap ek bulb ko jalate hain, to vidyut dhara bulb se hokar guzarti hai aur ise jalane ke liye upyog ki jati hai."
+    },
+    {
+      "emoji": "🔋",
+      "heading": "paath 2: vidyut vibhav aur vibhavantar",
+      "paras": [
+        "vidyut vibhav ek bindu par vidyut kshetra ki teevrata ko mapta hai. yeh ek **voltmeter** se mapta ja sakta hai.",
+        "vibhavantar do binduon ke beech vidyut vibhav ka antar hai, jo vidyut dhara ke pravah ko niyantrit karta hai.",
+        "vibhavantar ki ikai volt hai. vibhavantar ko V = W/q se vyakt kiya ja sakta hai, jahan V vibhavantar hai, W karya hai, aur q aavesh hai."
+      ],
+      "formula": "V = W/q",
+      "example": "ek udaharan ke roop mein, jab aap ek battery se ek bulb ko jalate hain, to battery aur bulb ke beech vibhavantar vidyut dhara ke pravah ko sambhav banata hai."
+    },
+    {
+      "emoji": "🔗",
+      "heading": "paath 7: pratirodhakon ka shrenikram sanyojan",
+      "paras": [
+        "do ya do se adhik **pratirodhak** [resistor] jab shrenikram mein jude hote hain, to unka kul **pratirodh** [resistance] vyaktigat **pratirodhak** [resistor] ke **pratirodh** [resistance] ke yog ke barabar hota hai.",
+        "shrenikram sanyojan mein, **vidyut dhara** [electric current] sabhi **pratirodhak** [resistor] mein saman hoti hai, lekin **vibhavantar** [potential difference] alag-alag **pratirodhak** [resistor] mein vibhinn ho sakta hai.",
+        "shrenikram sanyojan ka upyog **vidyut paripath** [electric circuit] mein **vidyut dhara** [electric current] aur **vibhavantar** [potential difference] ko niyantrit karne ke liye kiya ja sakta hai.",
+        "is prakar, **pratirodhak** [resistor] ka shrenikram sanyojan humein **vidyut pranali** [electric system] ko design aur vishleshan karne mein madad karta hai.",
+        "shrenikram sanyojan ke gunon ko samajhne se humein **vidyut paripath** [electric circuit] mein **pratirodh** [resistance] aur **vidyut dhara** [electric current] ki ganana karne mein madad milti hai."
+      ],
+      "formula": "R_total = R1 + R2 + ... + Rn",
+      "example": "ek udaharan ke roop mein, yadi aap do **pratirodhak** [resistor] 2 ohm aur 3 ohm ko shrenikram mein jodte hain, to unka kul **pratirodh** [resistance] 5 ohm hoga."
+    },
+    {
+      "emoji": "🔀",
+      "heading": "paath 8: pratirodhakon ka parshvkrama sanyojan",
+      "paras": [
+        "pratirodhakon ka parshvkrama sanyojan ek aisi vyavastha hai jismein do ya do se adhik pratirodhak ek saath jude hote hain, lekin unke anupasth kat ek dusre ke samantar hote hain.",
+        "is sanyojan mein, yadi ek pratirodhak mein vidyut dhara ka pravah hota hai, to yeh anya pratirodhakon par koi prabhav nahi dalta hai.",
+        "pratirodhakon ke parshvkrama sanyojan ka upyog vidyut paripathon mein kiya jata hai jahan vibhinn upkaranon ko alag-alag vibhavantar par chalane ki avashyakta hoti hai.",
+        "ek gharelu vidyut paripath mein, pratirodhakon ka parshvkrama sanyojan is tarah se kiya ja sakta hai ki pratyek upkaran ko uske anusar vibhavantar prapt ho.",
+        "is prakar, pratirodhakon ka parshvkrama sanyojan vidyut paripathon mein bahut upyogi hota hai."
+      ],
+      "formula": "1/R = 1/R1 + 1/R2 + ...",
+      "example": "maan lijiye ki aapke paas do pratirodhak hain - ek 2 ohm aur dusra 3 ohm. yadi aap inhen parshvkrama mein jodte hain, to paripath ka kul pratirodh kya hoga?"
+    },
+    {
+      "emoji": "🔥",
+      "heading": "paath 10: vidyut dhara ka taapey prabhav aur jul ka niyam",
+      "paras": [
+        "vidyut dhara ka taapey prabhav yeh hai ki jab yeh kisi chalaak mein pravahit hoti hai, to chalaak ka taapman badh jata hai.",
+        "yeh taapey prabhav vidyut urja ke roopantaran ke karan hota hai, jismein vidyut urja taap urja mein parivartit ho jati hai.",
+        "jul ka niyam kehta hai ki kisi chalaak mein utpann hone wali taap urja vidyut dhara ke varg aur chalaak ke pratirodh ke gunank ke samanupati hoti hai.",
+        "jul ka niyam ko is tarah samjhaaya ja sakta hai: taap urja ki matra vidyut dhara ke varg aur pratirodh serta samay ke gunank ke barabar hoti hai, jaisa ki Q = I^2Rt sutra mein dikhaya gaya hai.",
+        "vidyut dhara ka taapey prabhav aur jul ka niyam vidyut paripathon ke design aur sanchalan mein bahut mahatvapurn hain."
+      ],
+      "formula": "Q = I^2Rt",
+      "example": "ek vidyut heater ke maamle mein, yadi yeh 5 A ki vidyut dhara ko 20 ohm ke pratirodh ke sath 10 minute tak chalaya jata hai, to yeh kitni taap urja paida karega?"
+    }
+  ]
+}

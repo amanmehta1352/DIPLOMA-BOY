@@ -1,0 +1,12 @@
+```json
+{
+  "pairs": [
+    ["विद्युत तंतु बल्ब में एक पतला तंतु होता है जो विद्युत धारा के प्रवाह से गर्म होकर प्रकाश उत्पन्न करता है।", "The filament bulb has a thin filament that gets heated by the flow of electric current and produces light."],
+    ["विद्युत तंतु बल्ब में तंतु का प्रतिरोध इतना अधिक होता है कि विद्युत धारा प्रवाहित होने पर तंतु गर्म हो जाता है और प्रकाश उत्पन्न करता है।", "In the filament bulb, the filament has a high resistance, so when electric current flows, it gets heated and produces light."],
+    ["अभिकथन (A): नियत ताप पर किसी चालक में प्रवाहित विद्युत धारा के साथ उसके सिरों पर लगने वाला विभवांतर संबंधित होता है। कारण (R): ओम का नियम यह स्थापित करता है कि नियत ताप पर V / I का अनुपात एक नियतांक अर्थात प्रतिरोध होता है।", "Assertion (A): At constant temperature, the potential difference across a conductor is related to the electric current flowing through it. Reason (R): Ohm's law establishes that at constant temperature, the ratio V / I is a constant, which is the resistance."],
+    ["नियत ताप पर किसी चालक में प्रवाहित विद्युत धारा के साथ उसके सिरों पर लगने वाला विभवांतर संबंधित होता है।", "At constant temperature, the potential difference across a conductor is related to the electric current flowing through it."],
+    ["अभिकथन (A): किसी चालक से विद्युत धारा प्रवाहित होने पर उसमें तापीय प्रभाव उत्पन्न होता है। कारण (R): इलेक्ट्रॉन चालक के परमाणुओं से टकराते समय अपनी ऊर्जा का कुछ भाग ऊष्मा के रूप में स्थानांतरित कर देते हैं।", "Assertion (A): A heating effect is produced in a conductor when electric current flows through it. Reason (R): Electrons transfer a portion of their energy as heat when colliding with the atoms of the conductor."],
+    ["किसी चालक से विद्युत धारा प्रवाहित होने पर उसमें तापीय प्रभाव उत्पन्न होता है।", "A heating effect is produced in a conductor when electric current flows through it."]
+  ]
+}
+```

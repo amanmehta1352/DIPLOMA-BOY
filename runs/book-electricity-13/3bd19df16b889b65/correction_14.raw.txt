@@ -1,0 +1,58 @@
+```json
+{
+  "questions": [
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "remember",
+      "q": ["विद्युत धारा (electric current) को परिभाषित करने वाला सही कथन कौन सा है?", "Which statement correctly defines electric current?"],
+      "options": [
+        ["विद्युत धारा एक प्रकार का विद्युत विभव है।", "Electric current is a type of electric potential."],
+        ["विद्युत धारा वह प्रवाह है जिसमें इलेक्ट्रॉन (electron) का गति प्रति सेकंड एक कूलॉम्ब (coulomb) आवेश ले जाता है।", "Electric current is the flow in which electrons move one coulomb of charge per second."],
+        ["विद्युत धारा एक प्रकार का विद्युतरोधी (insulator) है।", "Electric current is a type of insulator."],
+        ["विद्युत धारा एक प्रकार का प्रतिरोधक (resistor) है।", "Electric current is a type of resistor."]
+      ],
+      "answer_index": 1,
+      "answer": ["विद्युत धारा वह प्रवाह है जिसमें इलेक्ट्रॉन (electron) का गति प्रति सेकंड एक कूलॉम्ब (coulomb) आवेश ले जाता है।", "Electric current is the flow in which electrons move one coulomb of charge per second."]
+    },
+    {
+      "type": "mcq",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": ["यदि V‑I ग्राफ की ढाल 5 Ω है, तो उस चालक का प्रतिरोध (resistance) क्या होगा?", "If the slope of a V‑I graph is 5 Ω, what is the resistance of that conductor?"],
+      "options": [
+        ["2 Ω", "2 Ω"],
+        ["5 Ω", "5 Ω"],
+        ["10 Ω", "10 Ω"],
+        ["20 Ω", "20 Ω"]
+      ],
+      "answer_index": 1,
+      "check": {
+        "givens": ["V1 = 10 V", "V2 = 20 V", "I1 = 2 A", "I2 = 4 A"],
+        "formulas": ["ohm_slope"],
+        "unknown": "R",
+        "answer": {"value": 5, "unit": "Ω"}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": ["एक **चालक (conductor)** का **प्रतिरोध (resistance)** R = ρL/A द्वारा दिया जाता है, जहाँ ρ = 1.68 × 10^-8 Ω·m, **लंबाई (length)** L = 10 m और **अनुप्रस्थ काट (cross-sectional area)** A = 1 × 10^-4 m² हो। **प्रतिरोध (resistance)** R की गणना करें।", "The **resistance** R of a **conductor** is given by R = ρL/A, where ρ = 1.68 × 10^-8 Ω·m, **length** L = 10 m and **cross-sectional area** A = 1 × 10^-4 m². Calculate the **resistance** R."],
+      "options": [
+        ["0.0168 Ω", "0.0168 Ω"],
+        ["0.168 Ω", "0.168 Ω"],
+        ["1.68 Ω", "1.68 Ω"],
+        ["16.8 Ω", "16.8 Ω"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": ["ρ = 1.68 × 10^-8 Ω·m", "L = 10 m", "A = 1 × 10^-4 m²"],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": {"value": 0.0168, "unit": "Ω"}
+      }
+    }
+  ]
+}
+```

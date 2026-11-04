@@ -1,0 +1,623 @@
+{
+ "numericals": [
+  {
+   "title": [
+    "विद्युत परिपथ में विद्युत धारा की गणना",
+    "Calculation of Electric Current in a Circuit"
+   ],
+   "given": [
+    "आवेश (charge) Q = 300 C, समय (time) t = 300 s",
+    "Charge Q = 300 C, Time t = 300 s"
+   ],
+   "steps": [
+    [
+     "सूत्र Q = I × t का उपयोग करने पर, I = Q / t",
+     "Using formula Q = I × t, I = Q / t"
+    ],
+    [
+     "I = 300 / 300 = 1 A",
+     "I = 300 / 300 = 1 A"
+    ]
+   ],
+   "answer": [
+    "विद्युत धारा (electric current) I = 1 A है।",
+    "The electric current I is 1 A."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "Q",
+      "value": 300,
+      "unit": "C"
+     },
+     {
+      "symbol": "t",
+      "value": 300,
+      "unit": "s"
+     }
+    ],
+    "formulas": [
+     "charge"
+    ],
+    "unknown": "I",
+    "answer": {
+     "value": 1,
+     "unit": "A"
+    }
+   }
+  },
+  {
+   "title": [
+    "ओम के नियम से धारा ज्ञात करना",
+    "Finding Current using Ohm's Law"
+   ],
+   "given": [
+    "विभवांतर (potential difference) V = 12 V, प्रतिरोध (resistance) R = 4 ohm",
+    "Potential difference V = 12 V, Resistance R = 4 ohm"
+   ],
+   "steps": [
+    [
+     "ओम का नियम (Ohm's law) V = I × R के अनुसार, I = V / R",
+     "According to Ohm's law V = I × R, I = V / R"
+    ],
+    [
+     "I = 12 / 4 = 3 A",
+     "I = 12 / 4 = 3 A"
+    ]
+   ],
+   "answer": [
+    "परिणामी विद्युत धारा (electric current) 3 A है।",
+    "The resulting electric current is 3 A."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "V",
+      "value": 12,
+      "unit": "V"
+     },
+     {
+      "symbol": "R",
+      "value": 4,
+      "unit": "ohm"
+     }
+    ],
+    "formulas": [
+     "ohm"
+    ],
+    "unknown": "I",
+    "answer": {
+     "value": 3,
+     "unit": "A"
+    }
+   }
+  },
+  {
+   "title": [
+    "पार्श्वक्रम में तुल्य प्रतिरोध की गणना",
+    "Calculation of Equivalent Resistance in Parallel Combination"
+   ],
+   "given": [
+    "प्रतिरोधक (resistor) R1 = 6 ohm, प्रतिरोधक R2 = 3 ohm",
+    "Resistor R1 = 6 ohm, Resistor R2 = 3 ohm"
+   ],
+   "steps": [
+    [
+     "पार्श्वक्रम (parallel) संयोजन के लिए, 1/Rp = 1/R1 + 1/R2",
+     "For parallel combination, 1/Rp = 1/R1 + 1/R2"
+    ],
+    [
+     "1/Rp = 1/6 + 1/3 = 1/6 + 2/6 = 3/6 = 1/2 ohm^-1",
+     "1/Rp = 1/6 + 1/3 = 1/6 + 2/6 = 3/6 = 1/2 ohm^-1"
+    ],
+    [
+     "Rp = 2 ohm",
+     "Rp = 2 ohm"
+    ]
+   ],
+   "answer": [
+    "पार्श्वक्रम संयोजन में तुल्य प्रतिरोध 2 ohm है।",
+    "The equivalent resistance in parallel combination is 2 ohm."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "R1",
+      "value": 6,
+      "unit": "ohm"
+     },
+     {
+      "symbol": "R2",
+      "value": 3,
+      "unit": "ohm"
+     }
+    ],
+    "formulas": [
+     "parallel2"
+    ],
+    "unknown": "Rp",
+    "answer": {
+     "value": 2,
+     "unit": "ohm"
+    }
+   }
+  },
+  {
+   "title": [
+    "तापीय प्रभाव की गणना",
+    "Calculating Heating Effect"
+   ],
+   "given": [
+    "विद्युत धारा (I) = 2 A, प्रतिरोध (R) = 10 ohm, समय (t) = 10 s",
+    "Electric current (I) = 2 A, Resistance (R) = 10 ohm, Time (t) = 10 s"
+   ],
+   "steps": [
+    [
+     "तापीय प्रभाव (H) = I^2 × R × t",
+     "Heating effect (H) = I^2 × R × t"
+    ],
+    [
+     "H = (2 A)^2 × 10 ohm × 10 s",
+     "H = (2 A)^2 × 10 ohm × 10 s"
+    ],
+    [
+     "H = 4 A^2 × 10 ohm × 10 s",
+     "H = 4 A^2 × 10 ohm × 10 s"
+    ],
+    [
+     "H = 400 J",
+     "H = 400 J"
+    ]
+   ],
+   "answer": [
+    "400 J",
+    "400 J"
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "I",
+      "value": 2,
+      "unit": "A"
+     },
+     {
+      "symbol": "R",
+      "value": 10,
+      "unit": "ohm"
+     },
+     {
+      "symbol": "t",
+      "value": 10,
+      "unit": "s"
+     }
+    ],
+    "formulas": [
+     "joule_heat"
+    ],
+    "unknown": "H",
+    "answer": {
+     "value": 400,
+     "unit": "J"
+    }
+   }
+  },
+  {
+   "title": [
+    "विद्युत उपकरण द्वारा उपभुक्त ऊर्जा की गणना",
+    "Calculation of Electrical Energy Consumed by an Appliance"
+   ],
+   "given": [
+    "विद्युत शक्ति (electric power) P = 100 W, समय (time) t = 3600 s",
+    "Electric power P = 100 W, Time t = 3600 s"
+   ],
+   "steps": [
+    [
+     "उपभुक्त ऊर्जा (consumed energy) E = P × t",
+     "Consumed energy E = P × t"
+    ],
+    [
+     "E = 100 × 3600 = 360000 J",
+     "E = 100 × 3600 = 360000 J"
+    ]
+   ],
+   "answer": [
+    "कुल उपभुक्त विद्युत ऊर्जा 360000 J है।",
+    "The total electrical energy consumed is 360000 J."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "P",
+      "value": 100,
+      "unit": "W"
+     },
+     {
+      "symbol": "t",
+      "value": 3600,
+      "unit": "s"
+     }
+    ],
+    "formulas": [
+     "energy_pt"
+    ],
+    "unknown": "E",
+    "answer": {
+     "value": 360000,
+     "unit": "J"
+    }
+   }
+  }
+ ],
+ "revision": [
+  [
+   [
+    "विद्युत धारा",
+    "Electric Current"
+   ],
+   [
+    "विद्युत धारा की परिभाषा समय के साथ प्रवाहित आवेश की दर से जुड़ी होती है। इसकी माप की एक मानक इकाई है।",
+    "Electric current is related to the rate at which charge flows over time. There is a standard unit for its measurement."
+   ]
+  ],
+  [
+   [
+    "विभवांतर",
+    "Potential Difference"
+   ],
+   [
+    "एकांक आवेश को एक बिंदु से दूसरे बिंदु तक ले जाने में किया गया कार्य (work) विभवांतर (potential difference) कहलाता है। इसका SI मात्रक वोल्ट (V) है।",
+    "Work done in moving a unit charge from one point to another is called potential difference. Its SI unit is volt (V)."
+   ]
+  ],
+  [
+   [
+    "ओम का नियम",
+    "Ohm's Law"
+   ],
+   [
+    "नियत ताप (temperature) पर, चालक (conductor) से प्रवाहित धारा उसमें उत्पन्न विभवांतर (V) के समानुपाती होती है: V = I × R।",
+    "At constant temperature, current flowing through a conductor is directly proportional to potential difference across it: V = I × R."
+   ]
+  ],
+  [
+   [
+    "प्रतिरोधकता",
+    "Resistivity"
+   ],
+   [
+    "प्रतिरोधकता एक ऐसा गुण है जो बताता है कि कोई पदार्थ विद्युत धारा का प्रवाह कितना प्रतिरोध करता है। इसकी एक मानक इकाई होती है।",
+    "Resistivity is a property that indicates how much a material resists the flow of electric current. It has a standard unit."
+   ]
+  ],
+  [
+   [
+    "श्रेणीक्रम संयोजन",
+    "Series Combination"
+   ],
+   [
+    "श्रेणीक्रम (series) में सभी प्रतिरोधकों से समान धारा प्रवाहित होती है और कुल प्रतिरोध Rs = R1 + R2 + R3 होता है।",
+    "In series combination, same current flows through all resistors and total resistance is Rs = R1 + R2 + R3."
+   ]
+  ],
+  [
+   [
+    "पार्श्वक्रम संयोजन",
+    "Parallel Combination"
+   ],
+   [
+    "पार्श्वक्रम (parallel) में सभी प्रतिरोधकों पर समान विभवांतर होता है और 1/Rp = 1/R1 + 1/R2 + 1/R3 होता है।",
+    "In parallel combination, potential difference across all resistors is same and 1/Rp = 1/R1 + 1/R2 + 1/R3."
+   ]
+  ],
+  [
+   [
+    "तापीय प्रभाव",
+    "Heating Effect"
+   ],
+   [
+    "जब किसी चालक से धारा प्रवाहित होती है, तो विद्युत ऊर्जा का ऊष्मा में रूपांतरण होता है। जूल के नियम से H = I^2 × R × t।",
+    "When current flows through a conductor, electrical energy transforms into heat. By Joule's law H = I^2 × R × t."
+   ]
+  ],
+  [
+   [
+    "फ्यूज़",
+    "Fuse"
+   ],
+   [
+    "एक फ्यूज़ एक सुरक्षा उपकरण है जो परिपथ को नुकसान से बचाता है। यह एक निश्चित तापमान पर पिघल जाता है और परिपथ को तोड़ देता है।",
+    "A fuse is a safety device that protects circuits from damage. It melts at a certain temperature and breaks the circuit."
+   ]
+  ],
+  [
+   [
+    "विद्युत शक्ति",
+    "Electric Power"
+   ],
+   [
+    "विद्युत ऊर्जा के उपभोग की दर को विद्युत शक्ति (electric power) कहते हैं। P = V × I, इसका SI मात्रक वाट (W) है।",
+    "The rate at which electrical energy is consumed is electric power. P = V × I, its SI unit is watt (W)."
+   ]
+  ],
+  [
+   [
+    "व्यावसायिक मात्रक",
+    "Commercial Unit of Energy"
+   ],
+   [
+    "विद्युत ऊर्जा का व्यावसायिक मात्रक किलोवाट-घंटा (kWh) या यूनिट है। 1 kWh = 3.6 × 10^6 J।",
+    "Commercial unit of electrical energy is kilowatt-hour (kWh) or unit. 1 kWh = 3.6 × 10^6 J."
+   ]
+  ]
+ ],
+ "practice": [
+  {
+   "q": [
+    "एमीटर (ammeter) और वोल्टमीटर (voltmeter) को परिपथ में कैसे जोड़ा जाता है?",
+    "How are ammeter and voltmeter connected in a circuit?"
+   ],
+   "a": [
+    "एमीटर को हमेशा **श्रेणीक्रम** (series) में और वोल्टमीटर को हमेशा **पार्श्वक्रम** (parallel) में जोड़ा जाता है।",
+    "Ammeter is always connected in **series** and voltmeter is always connected in **parallel**."
+   ]
+  },
+  {
+   "q": [
+    "चालक (conductor) का प्रतिरोध किन कारकों से प्रभावित होता है?",
+    "What factors affect the resistance of a conductor?"
+   ],
+   "a": [
+    "प्रतिरोध चालक की **लंबाई** (length) L के समानुपाती, **अनुप्रस्थ काट** (cross-sectional area) A के व्युत्क्रमानुपाती तथा **ताप** और पदार्थ की प्रकृति पर निर्भर करता है।",
+    "Resistance is directly proportional to **length** L, inversely proportional to **cross-sectional area** A, and depends on **temperature** and material."
+   ]
+  },
+  {
+   "q": [
+    "घरेलू परिपथों (domestic circuits) में पार्श्वक्रम संयोजन का उपयोग क्यों किया जाता है?",
+    "Why is parallel combination used in domestic circuits?"
+   ],
+   "a": [
+    "क्योंकि पार्श्वक्रम (parallel) में प्रत्येक उपकरण को समान **विभवांतर** (potential difference) मिलता है और एक उपकरण के खराब होने पर अन्य कार्य करते रहते हैं।",
+    "Because in parallel each appliance gets equal **potential difference** and if one appliance fails, others continue to work."
+   ]
+  },
+  {
+   "q": [
+    "विद्युत बल्ब के तंतु (filament) के लिए टंगस्टन का उपयोग क्यों किया जाता है?",
+    "Why is tungsten used for the filament of an electric bulb?"
+   ],
+   "a": [
+    "क्योंकि टंगस्टन की **प्रतिरोधकता** (resistivity) और उच्च **गलनांक** होता है, जिससे यह उच्च ताप पर भी नहीं पिघलता।",
+    "Because tungsten has high **resistivity** and a high **melting point**, so it does not melt even at high temperatures."
+   ]
+  },
+  {
+   "q": [
+    "फ्यूज़ (fuse) तार की दो मुख्य विशेषताएं लिखिए।",
+    "State two key properties of a fuse wire."
+   ],
+   "a": [
+    "फ्यूज़ तार का **गलनांक** (melting point) कम होता है तथा **प्रतिरोध** (resistance) उच्च होता है।",
+    "A fuse wire has a low **melting point** and high **resistance**."
+   ]
+  },
+  {
+   "q": [
+    "1 kWh और जूल (Joule) में क्या संबंध है?",
+    "What is the relation between 1 kWh and Joule?"
+   ],
+   "a": [
+    "1 kWh = 1 kW × 1 h = 1000 W × 3600 s = **3.6 × 10^6 J**।",
+    "1 kWh = 1 kW × 1 h = 1000 W × 3600 s = **3.6 × 10^6 J**."
+   ]
+  },
+  {
+   "q": [
+    "धारा नियंत्रक (rheostat) का क्या कार्य है?",
+    "What is the function of a rheostat?"
+   ],
+   "a": [
+    "धारा नियंत्रक (rheostat) परिपथ (circuit) के विभवांतर को बदले बिना **धारा** (current) को नियंत्रित करने के काम आता है।",
+    "A rheostat is used to adjust the **current** in a circuit without changing the potential difference."
+   ]
+  },
+  {
+   "q": [
+    "किसी तार की लंबाई को दोगुना करने पर उसके प्रतिरोध में क्या बदलाव आता है?",
+    "How does doubling the length of a wire affect its resistance?"
+   ],
+   "a": [
+    "चूंकि R, लंबाई L के समानुपाती होता है, इसलिए नया **प्रतिरोध** (resistance) दोगुना (2R) हो जाएगा।",
+    "Since R is directly proportional to length L, the new **resistance** will become double (2R)."
+   ]
+  },
+  {
+   "q": [
+    "विद्युत विभव (electric potential) की परिभाषा दीजिए।",
+    "Define electric potential."
+   ],
+   "a": [
+    "किसी एकांक धनावेश (charge) को अनंत से किसी बिंदु तक लाने में किए गए **कार्य** (work) को उस बिंदु का **विद्युत विभव** कहते हैं।",
+    "The **work** done in moving a unit positive **charge** from infinity to a point is defined as the **electric potential** at that point."
+   ]
+  },
+  {
+   "q": [
+    "विद्युत हीटर का तार नाइक्रोम का क्यों बनाया जाता है?",
+    "Why is the heating element of an electric heater made of nichrome?"
+   ],
+   "a": [
+    "नाइक्रोम मिश्रधातु की **प्रतिरोधकता** उच्च होती है और यह उच्च **ताप** (temperature) पर भी आसानी से उपचयित (ऑक्सीकृत) नहीं होता।",
+    "Nichrome alloy has high **resistivity** and does not readily oxidize at high **temperature**."
+   ]
+  }
+ ],
+ "formulas": [
+  {
+   "f": "I = Q / t",
+   "t": [
+    "विद्युत धारा सूत्र",
+    "Electric Current Formula"
+   ],
+   "s": [
+    "प्रवाहित आवेश Q और समय t का अनुपात धारा I देता है।",
+    "Ratio of charge Q to time t gives current I."
+   ],
+   "u": [
+    "परिपथ में धारा का मान ज्ञात करने के लिए।",
+    "To find the value of current in a circuit."
+   ],
+   "group": "circuit_basic"
+  },
+  {
+   "f": "V = W / Q",
+   "t": [
+    "विभवांतर सूत्र",
+    "Potential Difference Formula"
+   ],
+   "s": [
+    "कार्य W तथा स्थानांतरित आवेश Q का अनुपात विभवांतर V होता है।",
+    "Ratio of work done W to charge Q transferred is potential difference V."
+   ],
+   "u": [
+    "दो बिंदुओं के बीच विभवांतर ज्ञात करने के लिए।",
+    "To calculate potential difference between two points."
+   ],
+   "group": "circuit_basic"
+  },
+  {
+   "f": "V = I × R",
+   "t": [
+    "ओम का नियम",
+    "Ohm's Law"
+   ],
+   "s": [
+    "विभवांतर V, धारा I और प्रतिरोध R का गुणनफल होता है।",
+    "Potential difference V is the product of current I and resistance R."
+   ],
+   "u": [
+    "विभवांतर, धारा या प्रतिरोध में से अज्ञात राशि ज्ञात करने के लिए।",
+    "To find unknown potential difference, current, or resistance."
+   ],
+   "group": "ohm_law"
+  },
+  {
+   "f": "R = rho × L / A",
+   "t": [
+    "प्रतिरोधकता सूत्र",
+    "Resistivity Formula"
+   ],
+   "s": [
+    "प्रतिरोध R, प्रतिरोधकता rho, लंबाई L और अनुप्रस्थ काट A पर निर्भर करता है।",
+    "Resistance R depends on resistivity rho, length L, and cross-sectional area A."
+   ],
+   "u": [
+    "तार के भौतिक आकार के आधार पर प्रतिरोध की गणना हेतु।",
+    "To calculate resistance based on physical dimensions of a wire."
+   ],
+   "group": "ohm_law"
+  },
+  {
+   "f": "Rs = R1 + R2 + R3",
+   "t": [
+    "श्रेणीक्रम संयोजन",
+    "Series Combination"
+   ],
+   "s": [
+    "श्रेणीक्रम में कुल तुल्य प्रतिरोध सभी प्रतिरोधों के योग के बराबर होता है।",
+    "Total equivalent resistance in series is the sum of individual resistances."
+   ],
+   "u": [
+    "श्रेणीक्रम परिपथ का कुल प्रतिरोध ज्ञात करने के लिए।",
+    "To find total resistance of a series circuit."
+   ],
+   "group": "combinations"
+  },
+  {
+   "f": "1 / Rp = 1 / R1 + 1 / R2 + 1 / R3",
+   "t": [
+    "पार्श्वक्रम संयोजन",
+    "Parallel Combination"
+   ],
+   "s": [
+    "पार्श्वक्रम में जुड़े प्रतिरोधकों का कुल प्रतिरोध उनके व्यक्तिगत प्रतिरोधों के व्युत्क्रमों के योग के व्युत्क्रम के बराबर होता है।",
+    "Reciprocal of equivalent resistance in parallel equals sum of reciprocals of individual resistances."
+   ],
+   "u": [
+    "पार्श्वक्रम परिपथ का कुल प्रतिरोध ज्ञात करने के लिए।",
+    "To find total resistance of a parallel circuit."
+   ],
+   "group": "combinations"
+  },
+  {
+   "f": "H = I^2 × R × t",
+   "t": [
+    "जूल का तापन नियम",
+    "Joule's Law of Heating"
+   ],
+   "s": [
+    "उत्पन्न ऊष्मा H, धारा के वर्ग, प्रतिरोध और समय के गुणनफल के बराबर होती है।",
+    "Generated heat H equals product of square of current, resistance, and time."
+   ],
+   "u": [
+    "तापीय उपकरणों में उत्पन्न ऊष्मा की मात्रा की गणना हेतु।",
+    "To calculate heat generated in heating appliances."
+   ],
+   "group": "power_heating"
+  },
+  {
+   "f": "P = V × I",
+   "t": [
+    "विद्युत शक्ति सूत्र",
+    "Electric Power Formula"
+   ],
+   "s": [
+    "विद्युत शक्ति P, विभवांतर V और धारा I का गुणनफल है।",
+    "Electric power P is the product of potential difference V and current I."
+   ],
+   "u": [
+    "उपकरण की शक्ति की गणना करने के लिए।",
+    "To calculate power rating of an appliance."
+   ],
+   "group": "power_heating"
+  },
+  {
+   "f": "E = P × t",
+   "t": [
+    "विद्युत ऊर्जा सूत्र",
+    "Electrical Energy Formula"
+   ],
+   "s": [
+    "कुल विद्युत ऊर्जा E, शक्ति P और समय t का गुणनफल है।",
+    "Total electrical energy E is the product of power P and time t."
+   ],
+   "u": [
+    "घरेलू विद्युत खपत (यूनिट) की गणना करने के लिए।",
+    "To calculate domestic electricity consumption (units)."
+   ],
+   "group": "power_heating"
+  }
+ ],
+ "formula_groups": [
+  [
+   "circuit_basic",
+   "मूल परिपथ सूत्र",
+   "Basic Circuit Formulas"
+  ],
+  [
+   "ohm_law",
+   "ओम का नियम तथा प्रतिरोधकता",
+   "Ohm's Law and Resistivity"
+  ],
+  [
+   "combinations",
+   "प्रतिरोधकों के संयोजन",
+   "Resistor Combinations"
+  ],
+  [
+   "power_heating",
+   "तापीय प्रभाव और विद्युत शक्ति",
+   "Heating Effect and Power"
+  ]
+ ]
+}

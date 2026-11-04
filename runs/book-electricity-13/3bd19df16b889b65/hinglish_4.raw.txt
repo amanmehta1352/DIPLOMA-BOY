@@ -1,0 +1,74 @@
+[
+  {
+    "emoji": "🚀",
+    "heading": "Prastavna: Electrical Energy ka Jeevan mein Mahatva",
+    "paras": [
+      "Electrical energy hamare jeevan mein bahut mahatvapurna bhumika nibhati hai. Yeh hamare gharon mein lighting ke liye bulb jalati hai, hamare fridge ko chalati rakhti hai, aur hamare mobile phone ko charge karti hai.",
+      "Electrical energy ke bina hamara jeevan bahut mushkil ho jayega. Humein electrical energy ke mahatva ko samajhna chahiye aur iska sahi tarike se use karna chahiye.",
+      "Electrical energy ke baare mein jaane ke liye humein electric current aur electric charge ke baare mein jaanna hoga. Electric current electrons ki motion hai, aur electric charge electrons ki quantity hai."
+    ],
+    "formula": null,
+    "example": "Electrical energy ko samajhne ke liye ek example lete hain. Jab aap apne mobile phone ko charge karte hain, toh electrical energy aapke phone mein jaati hai aur isey chalane ke liye use ki jaati hai."
+  },
+  {
+    "emoji": "⚡",
+    "heading": "Paath 1: Electric Charge aur Electric Current",
+    "paras": [
+      "Electric charge electrons ki quantity hai. Yeh do prakar ka hota hai - positive aur negative. Jab do objects ek doosre ke contact mein aate hain, toh ve electrons ko ek doosre mein transfer kar sakte hain.",
+      "Electric current electrons ki motion hai, jo ek conductor se hokar guzarti hai. Hum iski measurement ke liye ammeter ka use karte hain.",
+      "Electric current ki unit Ampere hai. Electric current ko Q/t se express kiya ja sakta hai, jahan Q charge hai aur t time hai."
+    ],
+    "formula": "I = Q/t",
+    "example": "Ek example lete hain. Jab aap ek bulb ko jalate hain, toh electric current bulb se hokar guzarti hai aur isey jalane ke liye use ki jaati hai."
+  },
+  {
+    "emoji": "🔋",
+    "heading": "Paath 2: Electric Potential aur Potential Difference",
+    "paras": [
+      "Electric potential ek point par electric field ki intensity ko meapta hai. Yeh ek voltmeter se meapa ja sakta hai.",
+      "Potential difference do points ke beech electric potential ka difference hai, jo electric current ke flow ko control karta hai.",
+      "Potential difference ki unit Volt hai. Potential difference ko V = W/q se express kiya ja sakta hai, jahan V potential difference hai, W work hai, aur q charge hai."
+    ],
+    "formula": "V = W/q",
+    "example": "Ek example ke roop mein, jab aap ek battery se ek bulb ko jalate hain, toh battery aur bulb ke beech potential difference electric current ke flow ko possible banata hai."
+  },
+  {
+    "emoji": "🔗",
+    "heading": "Paath 7: Resistors ka Series Combination",
+    "paras": [
+      "Do ya do se adhik resistor jab series combination mein jude hote hain, toh unka total resistance individual resistor ke resistance ke sum ke barabar hota hai.",
+      "Series combination mein, electric current sabhi resistor mein same hoti hai, lekin potential difference alag-alag resistor mein different ho sakta hai.",
+      "Series combination ka use electric circuit mein electric current aur potential difference ko control karne ke liye kiya ja sakta hai.",
+      "Is prakar, resistor ka series combination humein electric system ko design aur analyze karne mein help karta hai.",
+      "Series combination ke properties ko samajhne se humein electric circuit mein resistance aur electric current ki calculation karne mein help milti hai."
+    ],
+    "formula": "R_total = R1 + R2 + ... + Rn",
+    "example": "Ek example ke roop mein, yadi aap do resistor 2 ohm aur 3 ohm ko series mein jodte hain, toh unka total resistance 5 ohm hoga."
+  },
+  {
+    "emoji": "🔀",
+    "heading": "Paath 8: Resistors ka Parallel Combination",
+    "paras": [
+      "Resistors ka parallel combination ek aisi arrangement hai jismein do ya do se adhik resistors ek saath jude hote hain, lekin unke cross-section ek doosre ke parallel hote hain.",
+      "Is combination mein, agar ek resistor mein electric current ka flow hota hai, toh yeh baaki resistors par koi effect nahi dalta hai.",
+      "Resistors ke parallel combination ka use electric circuits mein kiya jata hai jahan alag-alag appliances ko alag-alag potential difference par chalane ki zaroorat hoti hai.",
+      "Ek domestic electric circuit mein, resistors ka parallel combination is tarah se kiya ja sakta hai ki har appliance ko uske according potential difference mil sake.",
+      "Is prakar, resistors ka parallel combination electric circuits mein bahut useful hota hai."
+    ],
+    "formula": "1/R = 1/R1 + 1/R2 + ...",
+    "example": "Maan lijiye ki aapke paas do resistors hain - ek 2 ohm aur doosra 3 ohm. Agar aap inhein parallel mein jodte hain, toh circuit ka total resistance kya hoga?"
+  },
+  {
+    "emoji": "🔥",
+    "heading": "Paath 10: Electric Current ka Heating Effect aur Joule's Law",
+    "paras": [
+      "Electric current ka heating effect yeh hai ki jab yeh kisi conductor mein flow karti hai, toh conductor ka temperature badh jata hai.",
+      "Yeh heating effect electrical energy ke conversion ke karan hota hai, jismein electrical energy heat energy mein convert ho jaati hai.",
+      "Joule's law kehta hai ki kisi conductor mein produce hone wali heat energy electric current ke square aur conductor ke resistance ke product ke directly proportional hoti hai.",
+      "Joule's law ko is tarah samjhaaya ja sakta hai: heat energy ki quantity electric current ke square, resistance tatha time ke product ke barabar hoti hai, jaisa ki Q = I^2Rt formula mein dikhaya gaya hai.",
+      "Electric current ka heating effect aur Joule's law electric circuits ke design aur operation mein bahut important hain."
+    ],
+    "formula": "Q = I^2Rt",
+    "example": "Ek electric heater ke case mein, yadi yeh 5 A ki electric current ko 20 ohm ke resistance ke saath 10 minutes tak chalaya jata hai, toh yeh kitni heat energy produce karega?"
+  }
+]

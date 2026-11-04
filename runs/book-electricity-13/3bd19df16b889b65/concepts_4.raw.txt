@@ -1,0 +1,218 @@
+{
+  "concepts": [
+    {
+      "key": "c10",
+      "emoji": "🔥",
+      "title": [
+        "विद्युत धारा का तापीय प्रभाव और जूल का नियम",
+        "Heating Effect of Electric Current and Joule's Law"
+      ],
+      "paras": [
+        [
+          "जब विद्युत धारा (current) किसी प्रतिरोधक (resistor) में प्रवाहित होती है तो वह प्रतिरोध (resistance) के कारण कुछ ऊर्जा को तापीय प्रभाव (heating effect) के रूप में छोड़ती है। यह ऊर्जा विद्युत ऊर्जा (electrical energy) से बदलकर तापीय ऊर्जा (thermal energy) बनती है।",
+          "When an electric current flows through a resistor, the resistance causes part of the electrical energy to be released as heat. This converts electrical energy into thermal energy."
+        ],
+        [
+          "जूल का नियम (Joule's law) कहता है कि प्रतिरोधक में उत्पन्न गर्मी (H) का मान धारा (I) के वर्ग, प्रतिरोध (R) और समय (t) के गुणनफल के बराबर होता है: H = I² × R × t। यह समीकरण प्रयोगशाला में प्राप्त डेटा से सिद्ध किया गया है।",
+          "Joule's law states that the heat produced (H) in a resistor is equal to the product of the square of the current (I), the resistance (R) and the time (t): H = I² × R × t. This equation is derived from experimental observations."
+        ],
+        [
+          "गर्मि के उत्पादन को प्रभावित करने वाले प्रमुख कारक हैं: (i) धारा (I) – अधिक धारा से अधिक गर्मी, (ii) प्रतिरोध (R) – अधिक प्रतिरोध से अधिक गर्मी, (iii) समय (t) – धारा के प्रवाह की अवधि जितनी अधिक, उतनी अधिक गर्मी। इन तीनों को बदलकर विभिन्न उपकरणों में वांछित तापीय प्रभाव प्राप्त किया जाता है।",
+          "The main factors influencing heat production are: (i) current (I) – higher current gives more heat, (ii) resistance (R) – higher resistance gives more heat, (iii) time (t) – longer duration of current flow gives more heat. By adjusting these, desired heating effects are achieved in various devices."
+        ]
+      ],
+      "kv": [
+        [
+          ["तापीय प्रभाव (Heating effect)", "Heating effect"],
+          ["विद्युत ऊर्जा का तापीय ऊर्जा में परिवर्तन", "Conversion of electrical energy into thermal energy"]
+        ],
+        [
+          ["जूल का नियम (Joule's law)", "Joule's law"],
+          ["H = I² × R × t", "H = I² × R × t"]
+        ],
+        [
+          ["धारा (Current)", "Current"],
+          ["एम्पीयर (A)", "Ampere (A)"]
+        ],
+        [
+          ["प्रतिरोध (Resistance)", "Resistance"],
+          ["ओह्म (Ω)", "Ohm (Ω)"]
+        ],
+        [
+          ["समय (Time)", "Time"],
+          ["सेकंड (s)", "Second (s)"]
+        ],
+        [
+          ["ऊर्जा (Heat produced)", "Heat produced"],
+          ["जूल (J)", "Joule (J)"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "H = I^2 × R × t",
+        "units": [
+          [
+            ["ऊर्जा (J)", "Energy (J)"],
+            ["H", "H"]
+          ],
+          [
+            ["एम्पीयर (A)", "Ampere (A)"],
+            ["I", "I"]
+          ],
+          [
+            ["ओह्म (Ω)", "Ohm (Ω)"],
+            ["R", "R"]
+          ],
+          [
+            ["सेकंड (s)", "Second (s)"],
+            ["t", "t"]
+          ]
+        ]
+      },
+      "tip": [
+        [
+          "⚠️ सामान्य गलती: धारा (I) को वर्ग (I²) करना भूल जाना। इससे गणना में बहुत बड़ा अंतर आ सकता है।",
+          "⚠️ Common mistake: Forgetting to square the current (I). This leads to a large error in the calculated heat."
+        ]
+      ],
+      "diagram": null
+    },
+    {
+      "key": "c11",
+      "emoji": "💡",
+      "title": [
+        "तापीय प्रभाव के व्यावहारिक अनुप्रयोग (बल्ब और फ्यूज़)",
+        "Practical Applications of Heating Effect (Bulb and Fuse)"
+      ],
+      "paras": [
+        [
+          "विद्युत बल्ब में टंगस्टन तंतु (tungsten filament) को विद्युत धारा (current) प्रवाहित करने पर प्रतिरोध (resistance) के कारण बहुत अधिक ताप उत्पन्न होता है, जिससे तंतु चमकता है और प्रकाश (light) देता है।",
+          "In an electric bulb, when current passes through the tungsten filament, its resistance generates a lot of heat, causing the filament to glow and emit light."
+        ],
+        [
+          "बल्ब के अंदर नाइट्रोजन (N₂) या आर्गन (Ar) जैसे निष्क्रिय गैसें रखी जाती हैं ताकि तंतु पर अत्यधिक ताप से होने वाले वाष्पीकरण को कम किया जा सके और बल्ब की आयु बढ़े।",
+          "Inert gases such as nitrogen (N₂) or argon (Ar) are sealed inside the bulb to reduce evaporation of the filament at high temperatures, thereby extending the bulb’s life."
+        ],
+        [
+          "फ्यूज़ (fuse) एक पतली धातु की तार (usually copper or alloy) होती है, जिसका प्रतिरोध (resistance) कम लेकिन धारा‑सहनशीलता (current rating) सीमित होती है। जब धारा निर्धारित मान (उदा., 5 A) से अधिक हो जाती है तो फ्यूज़ गर्म होकर पिघल जाता है, जिससे परिपथ (circuit) खुल जाता है और उपकरण सुरक्षित रहता है।",
+          "A fuse is a thin metal wire (usually copper or an alloy) with low resistance but a limited current‑carrying capacity. When the current exceeds its rated value (e.g., 5 A), the fuse heats and melts, opening the circuit and protecting the device."
+        ]
+      ],
+      "kv": [
+        [
+          ["टंगस्टन तंतु (Tungsten filament)", "Tungsten filament"],
+          ["उच्च प्रतिरोध और उच्च गलनांक", "High resistance and high melting point"]
+        ],
+        [
+          ["निष्क्रिय गैस (Inert gas)", "Inert gas"],
+          ["तंतु के वाष्पीकरण को रोकती है", "Prevents filament evaporation"]
+        ],
+        [
+          ["फ्यूज़ (Fuse)", "Fuse"],
+          ["धारा‑सुरक्षा उपकरण", "Current‑safety device"]
+        ],
+        [
+          ["धारा‑सहनशीलता (Current rating)", "Current rating"],
+          ["एम्पीयर (A) में निर्दिष्ट", "Specified in amperes (A)"]
+        ],
+        [
+          ["पिघलन बिंदु (Melting point)", "Melting point"],
+          ["धारा‑अधिकता पर फ्यूज़ का पिघलना", "Fuse melts on over‑current"]
+        ]
+      ],
+      "table": null,
+      "formula": null,
+      "tip": [
+        [
+          "⚠️ सामान्य गलती: फ्यूज़ को बदलते समय उसी मान (rating) का फ्यूज़ न चुनना। इससे परिपथ को नुकसान या सुरक्षा जोखिम हो सकता है।",
+          "⚠️ Common mistake: Replacing a fuse with one of a different rating. This can damage the circuit or create safety hazards."
+        ]
+      ],
+      "diagram": {
+        "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Battery -->\n  <rect x=\"20\" y=\"80\" width=\"40\" height=\"40\" fill=\"#ddd\" stroke=\"#000\"/>\n  <text x=\"30\" y=\"105\" font-size=\"12\" fill=\"#000\">Battery</text>\n  <!-- Fuse -->\n  <line x1=\"70\" y1=\"100\" x2=\"110\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <rect x=\"110\" y=\"90\" width=\"20\" height=\"20\" fill=\"#f99\" stroke=\"#000\"/>\n  <text x=\"112\" y=\"105\" font-size=\"10\" fill=\"#000\">Fuse</text>\n  <!-- Bulb -->\n  <line x1=\"130\" y1=\"100\" x2=\"170\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <circle cx=\"190\" cy=\"100\" r=\"20\" fill=\"#ff0\" stroke=\"#000\"/>\n  <line x1=\"190\" y1=\"80\" x2=\"190\" y2=\"60\" stroke=\"#000\" stroke-width=\"2\"/>\n  <text x=\"180\" y=\"115\" font-size=\"12\" fill=\"#000\">Bulb</text>\n  <!-- Return path -->\n  <line x1=\"210\" y1=\"100\" x2=\"250\" y2=\"100\" stroke=\"#000\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/>\n  <line x1=\"250\" y1=\"100\" x2=\"250\" y2=\"50\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"250\" y1=\"50\" x2=\"30\" y2=\"50\" stroke=\"#000\" stroke-width=\"2\"/>\n  <line x1=\"30\" y1=\"50\" x2=\"30\" y2=\"80\" stroke=\"#000\" stroke-width=\"2\"/>\n  <!-- Arrow marker definition -->\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"#000\" />\n    </marker>\n  </defs>\n</svg>",
+        "caption": [
+          "बल्ब और फ्यूज़ वाला सरल परिपथ (Simple circuit with bulb and fuse)",
+          "Simple circuit showing a bulb and a fuse"
+        ]
+      }
+    },
+    {
+      "key": "c12",
+      "emoji": "⚡",
+      "title": [
+        "विद्युत शक्ति और ऊर्जा का व्यावसायिक मात्रक",
+        "Electric Power and Commercial Unit of Electrical Energy",
+        "Electric Power and Commercial Unit of Electrical Energy"
+      ],
+      "paras": [
+        [
+          "विद्युत शक्ति (electric power) वह दर है जिस पर विद्युत ऊर्जा (electrical energy) कार्य (work) या ऊर्जा (energy) में बदलती है। इसे P = W/t से परिभाषित किया जाता है, जहाँ W कार्य (Joule) है और t समय (second) है। शक्ति की SI इकाई वाट (Watt, W) है।",
+          "Electric power is the rate at which electrical energy is converted into work or energy. It is defined as P = W/t, where W is work (joule) and t is time (second). The SI unit of power is the watt (W)."
+        ],
+        [
+          "ओम के नियम (Ohm's law) के साथ मिलाकर शक्ति के विभिन्न रूप लिखे जा सकते हैं: P = V × I, P = I² × R, तथा P = V² / R। इन समीकरणों से हम विभिन्न परिपथ स्थितियों में शक्ति की गणना आसानी से कर सकते हैं।",
+          "Combining with Ohm's law, power can be expressed in several forms: P = V × I, P = I² × R, and P = V² / R. These equations allow easy calculation of power under different circuit conditions."
+        ],
+        [
+          "व्यावसायिक रूप में ऊर्जा की माप किलowatt‑hour (kWh) में की जाती है। 1 kWh = 1000 W × 3600 s = 3.6 × 10⁶ J. यह इकाई घर‑परिवार और औद्योगिक बिलों में उपयोग की जाती है।",
+          "Commercially, electrical energy is measured in kilowatt‑hours (kWh). 1 kWh = 1000 W × 3600 s = 3.6 × 10⁶ J. This unit appears on household and industrial electricity bills."
+        ]
+      ],
+      "kv": [
+        [
+          ["विद्युत शक्ति (Electric power)", "Electric power"],
+          ["वाट (W)", "Watt (W)"]
+        ],
+        [
+          ["ऊर्जा (Energy)", "Energy"],
+          ["जूल (J)", "Joule (J)"]
+        ],
+        [
+          ["किलowatt‑hour (kWh)", "kilowatt‑hour (kWh)"],
+          ["3.6 × 10⁶ J", "3.6 × 10⁶ J"]
+        ],
+        [
+          ["वोल्टेज (Voltage)", "Voltage"],
+          ["वोल्ट (V)", "Volt (V)"]
+        ],
+        [
+          ["धारा (Current)", "Current"],
+          ["एम्पीयर (A)", "Ampere (A)"]
+        ],
+        [
+          ["प्रतिरोध (Resistance)", "Resistance"],
+          ["ओह्म (Ω)", "Ohm (Ω)"]
+        ]
+      ],
+      "table": null,
+      "formula": {
+        "expr": "P = V × I = I^2 × R = V^2 / R",
+        "units": [
+          [
+            ["वाट (W)", "Watt (W)"],
+            ["P", "P"]
+          ],
+          [
+            ["वोल्ट (V)", "Volt (V)"],
+            ["V", "V"]
+          ],
+          [
+            ["एम्पीयर (A)", "Ampere (A)"],
+            ["I", "I"]
+          ],
+          [
+            ["ओह्म (Ω)", "Ohm (Ω)"],
+            ["R", "R"]
+          ]
+        ]
+      },
+      "tip": [
+        [
+          "⚠️ सामान्य गलती: kWh को सीधे वाट में बदलते समय समय को घंटे (h) के रूप में नहीं लेना। सही रूपांतरण: 1 kWh = 1000 W × 1 h.",
+          "⚠️ Common mistake: Converting kWh directly to watts without using hours. Correct conversion: 1 kWh = 1000 W × 1 h."
+        ]
+      ],
+      "diagram": null
+    }
+  ]
+}

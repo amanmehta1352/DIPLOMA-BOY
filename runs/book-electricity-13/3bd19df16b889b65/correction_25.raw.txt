@@ -1,0 +1,1 @@
+{"table": {"head": [["विद्युत धारा", "Electric Current"]], "rows": [[["विद्युत धारा की दिशा: धनात्मक → ऋणात्मक", "Current direction: positive → negative"], ["विद्युत धारा की परिभाषा: धारा का मानक दिशा", "Current definition: standard direction of flow"], ["आवेश प्रवाह: धनात्मक आवेश का प्रवाह", "Charge flow: flow of positive charge"]]]}}

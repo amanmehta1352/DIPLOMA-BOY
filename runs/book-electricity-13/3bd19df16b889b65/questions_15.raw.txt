@@ -1,0 +1,149 @@
+```json
+{
+  "questions": [
+    {
+      "type": "mcq",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": ["विद्युत धारा को कैसे परिभाषित किया जा सकता है?", "How can electric current be defined?"],
+      "options": [
+        ["आवेश की दर से", "Rate of charge"],
+        ["विभवांतर की दर से", "Rate of potential difference"],
+        ["धारा की दर से", "Rate of current"],
+        ["आवेश को समय से विभाजित करने से", "Charge divided by time"]
+      ],
+      "answer_index": 3,
+      "check": {"givens": [{"symbol": "Q", "value": 2, "unit": "C"}, {"symbol": "t", "value": 1, "unit": "s"}], "formulas": ["charge"], "unknown": "I", "answer": {"value": 2, "unit": "A"}}
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": ["एक एमीटर का उपयोग विद्युत परिपथ में किया जाता है ताकि हम _______ को माप सकें।", "An ammeter is used in an electric circuit to measure _______."],
+      "answer": ["विद्युत धारा", "electric current"]
+    },
+    {
+      "type": "numerical",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": ["एक विद्युत परिपथ में विभवांतर 10 V है और धारा 2 A है। प्रतिरोध की गणना करें।", "In an electric circuit, the potential difference is 10 V and the current is 2 A. Calculate the resistance."],
+      "answer": {"value": 5, "unit": "ohm"},
+      "check": {"givens": [{"symbol": "V", "value": 10, "unit": "V"}, {"symbol": "I", "value": 2, "unit": "A"}], "formulas": ["ohm"], "unknown": "R", "answer": {"value": 5, "unit": "ohm"}}
+    },
+    {
+      "type": "vsa",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": ["एक चालक की प्रतिरोधकता को प्रभावित करने वाले कारक क्या हैं?", "What are the factors that affect the resistivity of a conductor?"],
+      "answer": ["लंबाई, अनुप्रस्थ काट, और ताप", "length, cross-sectional area, and temperature"]
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": {
+        "case": [
+          "एक घर में विद्युत तार की लंबाई 100 मीटर है और इसका अनुप्रस्थ काट 0.1 मीटर^2 है। तार की प्रतिरोधकता 1.7 × 10^-8 ओम-मीटर है। तार का प्रतिरोध क्या होगा?", 
+          "In a house, the length of the electric wire is 100 meters and its cross-sectional area is 0.1 m^2. The resistivity of the wire is 1.7 × 10^-8 ohm-meters. What will be the resistance of the wire?"
+        ],
+        "answer": {"value": 1.7, "unit": "ohm"},
+        "check": {"givens": [{"symbol": "L", "value": 100, "unit": "m"}, {"symbol": "A", "value": 0.1, "unit": "m^2"}, {"symbol": "rho", "value": 1.7e-8, "unit": "ohm*m"}], "formulas": ["resistivity"], "unknown": "R", "answer": {"value": 1.7, "unit": "ohm"}}
+      }
+    },
+    {
+      "type": "mcq",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": ["दो प्रतिरोधक 2 ओम और 3 ओम श्रेणीक्रम में जुड़े हुए हैं। उनका समतुल्य प्रतिरोध क्या होगा?", "Two resistors of 2 ohms and 3 ohms are connected in series. What will be their equivalent resistance?"],
+      "options": [
+        ["1 ओम", "1 ohm"],
+        ["2 ओम", "2 ohms"],
+        ["5 ओम", "5 ohms"],
+        ["6 ओम", "6 ohms"]
+      ],
+      "answer_index": 3,
+      "check": {"givens": [{"symbol": "R1", "value": 2, "unit": "ohm"}, {"symbol": "R2", "value": 3, "unit": "ohm"}], "formulas": ["series2"], "unknown": "Rs", "answer": {"value": 5, "unit": "ohm"}}
+    },
+    {
+      "type": "sa",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": ["घरेलू विद्युत परिपथ में पार्श्वक्रम संयोजन के क्या फायदे हैं?", "What are the advantages of parallel combination in domestic electric circuits?"],
+      "answer": ["प्रत्येक उपकरण को अलग से नियंत्रित किया जा सकता है और यदि एक उपकरण खराब हो जाए तो अन्य उपकरणों पर कोई प्रभाव नहीं पड़ता है।", "Each device can be controlled separately and if one device fails, it does not affect the other devices."]
+    },
+    {
+      "type": "numerical",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": ["एक विद्युत परिपथ में धारा 4 A है और प्रतिरोध 5 ओम है। 2 मिनट में उत्पन्न ऊर्जा की गणना करें।", "In an electric circuit, the current is 4 A and the resistance is 5 ohms. Calculate the energy produced in 2 minutes."],
+      "answer": {"value": 960, "unit": "joule"},
+      "check": {"givens": [{"symbol": "I", "value": 4, "unit": "A"}, {"symbol": "R", "value": 5, "unit": "ohm"}, {"symbol": "t", "value": 120, "unit": "s"}], "formulas": ["joule_heat", "energy_pt"], "unknown": "E", "answer": {"value": 960, "unit": "joule"}}
+    },
+    {
+      "type": "case_based",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": {
+        "case": [
+          "एक घर में विद्युत ऊर्जा की खपत 500 वाट है और यह 8 घंटे तक चलती है। विद्युत ऊर्जा की खपत को किलोवाट-घंटे में क्या होगी?", 
+          "In a house, the electric power consumption is 500 watts and it runs for 8 hours. What will be the electric energy consumption in kilowatt-hours?"
+        ],
+        "answer": {"value": 4, "unit": "kWh"},
+        "check": {"givens": [{"symbol": "P", "value": 500, "unit": "W"}, {"symbol": "t", "value": 28800, "unit": "s"}], "formulas": ["energy_pt"], "unknown": "E", "answer": {"value": 4, "unit": "kWh"}}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": {
+        "case": [
+          "एक तार की प्रतिरोधकता 2.5 × 10^-8 ओम-मीटर है और इसकी लंबाई 50 मीटर है। यदि इसका अनुप्रस्थ काट 0.05 मीटर^2 है, तो इसका प्रतिरोध क्या होगा?", 
+          "A wire has a resistivity of 2.5 × 10^-8 ohm-meters and its length is 50 meters. If its cross-sectional area is 0.05 m^2, what will be its resistance?"
+        ],
+        "answer": {"value": 2.5, "unit": "ohm"},
+        "check": {"givens": [{"symbol": "L", "value": 50, "unit": "m"}, {"symbol": "A", "value": 0.05, "unit": "m^2"}, {"symbol": "rho", "value": 2.5e-8, "unit": "ohm*m"}], "formulas": ["resistivity"], "unknown": "R", "answer": {"value": 2.5, "unit": "ohm"}}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o6",
+      "bloom": "apply",
+      "q": {
+        "case": [
+          "तीन प्रतिरोधक 4 ओम, 5 ओम और 6 ओम पार्श्वक्रम में जुड़े हुए हैं। उनका समतुल्य प्रतिरोध क्या होगा?", 
+          "Three resistors of 4 ohms, 5 ohms, and 6 ohms are connected in parallel. What will be their equivalent resistance?"
+        ],
+        "answer": {"value": 1.56, "unit": "ohm"},
+        "check": {"givens": [{"symbol": "R1", "value": 4, "unit": "ohm"}, {"symbol": "R2", "value": 5, "unit": "ohm"}, {"symbol": "R3", "value": 6, "unit": "ohm"}], "formulas": ["parallel3"], "unknown": "Rp", "answer": {"value": 1.56, "unit": "ohm"}}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": {
+        "case": [
+          "एक विद्युत परिपथ में धारा 3 A है और प्रतिरोध 10 ओम है। 5 मिनट में उत्पन्न ऊर्जा की गणना करें।", 
+          "In an electric circuit, the current is 3 A and the resistance is 10 ohms. Calculate the energy produced in 5 minutes."
+        ],
+        "answer": {"value": 2700, "unit": "joule"},
+        "check": {"givens": [{"symbol": "I", "value": 3, "unit": "A"}, {"symbol": "R", "value": 10, "unit": "ohm"}, {"symbol": "t", "value": 300, "unit": "s"}], "formulas": ["joule_heat", "energy_pt"], "unknown": "E", "answer": {"value": 2700, "unit": "joule"}}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": {
+        "case": [
+          "एक घर में विद्युत ऊर्जा की खपत 1000 वाट है और यह 6 घंटे तक चलती है। विद्युत ऊर्जा की खपत को किलोवाट-घंटे में क्या होगी?", 
+          "In a house, the electric power consumption is 1000 watts and it runs for 6 hours. What will be the electric energy consumption in kilowatt-hours?"
+        ],
+        "answer": {"value": 6, "unit": "kWh"},
+        "check": {"givens": [{"symbol": "P", "value": 1000, "unit": "W"}, {"symbol": "t", "value": 21600, "unit": "s"}], "formulas": ["energy_pt"], "unknown": "E", "answer": {"value": 6, "unit": "kWh"}}
+      }
+    }
+  ]
+}
+```

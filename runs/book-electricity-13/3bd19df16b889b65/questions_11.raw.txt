@@ -1,0 +1,321 @@
+{
+  "questions": [
+    {
+      "type": "mcq",
+      "outcome": "o9",
+      "bloom": "apply",
+      "q": [
+        "एक 60 W बल्ब 240 V आपूर्ति से जुड़ा है। वह धारा कितना होगी?",
+        "A 60 W bulb is connected to a 240 V supply. What is the current drawn?"
+      ],
+      "options": [
+        ["0.25 A", "0.25 A"],
+        ["0.5 A", "0.5 A"],
+        ["0.75 A", "0.75 A"],
+        ["1 A", "1 A"]
+      ],
+      "answer_index": 0,
+      "check": {
+        "givens": [
+          { "symbol": "P", "value": 60, "unit": "W" },
+          { "symbol": "V", "value": 240, "unit": "V" }
+        ],
+        "formulas": ["power_vi"],
+        "unknown": "I",
+        "answer": { "value": 0.25, "unit": "A" }
+      }
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "assertion": [
+        "ओम का नियम के अनुसार, विभवांतर (voltage) चालक में धारा (current) के समानुपाती होता है।",
+        "According to Ohm's law, the voltage across a conductor is directly proportional to the current through it."
+      ],
+      "reason": [
+        "V‑I ग्राफ की ढाल (slope) चालक का प्रतिरोध (resistance) देती है।",
+        "The slope of the V‑I graph gives the resistance of the conductor."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "hots",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        "घरेलू परिपथ में श्रेणीक्रम (series) की बजाय पार्श्वक्रम (parallel) कनेक्शन क्यों अधिक उपयोग किया जाता है? सुरक्षा और उपकरणों के संचालन के पहलुओं को समझाएँ।",
+        "Why is parallel connection preferred over series connection in household wiring? Explain with reference to safety and appliance operation."
+      ],
+      "answer": [
+        "पार्श्वक्रम में प्रत्येक उपकरण अलग‑अलग वोल्टेज (विधुत विभव) प्राप्त करता है, इसलिए किसी एक उपकरण के खराब होने से अन्य नहीं बंद होते। साथ ही, प्रत्येक शाखा में धारा अलग‑अलग होती है, जिससे ओवरलोड से बचाव आसान होता है और फ्यूज़ या सर्किट ब्रेकर जल्दी काम करते हैं। श्रेणीक्रम में सभी उपकरण एक ही धारा साझा करते हैं; एक उपकरण का फेल होना पूरी परिपथ को बंद कर देता है और वोल्टेज घट जाता है, जिससे अन्य उपकरण ठीक से नहीं चल पाते। इसलिए सुरक्षा और विश्वसनीयता के कारण पार्श्वक्रम अधिक उपयुक्त है।",
+        "Parallel wiring is preferred because each appliance receives the full supply voltage, so failure of one does not affect others. Currents in each branch are separate, allowing easier overload protection with fuses or circuit breakers. In series, all appliances share the same current; a failure interrupts the whole circuit and voltage drops across remaining devices, causing improper operation. Hence, safety and reliability favor parallel connections."
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": "o8",
+      "bloom": "apply",
+      "q": [
+        "एक हीटर जिसकी प्रतिरोध 20 Ω है, 230 V आपूर्ति से जुड़ा है। क्या 5 A के फ्यूज़ को ब्लो (सड़) जाएगा? जूल के नियम का उपयोग करके समझाएँ।",
+        "A heater of resistance 20 Ω is connected to a 230 V supply. Will a 5 A fuse blow? Justify using Joule's law."
+      ],
+      "answer": [
+        "हीटर में धारा I = V/R = 230/20 = 11.5 A होगी, जो फ्यूज़ की रेटिंग 5 A से अधिक है। इसलिए फ्यूज़ तुरंत ब्लो हो जाएगा। जूल के नियम से उत्पन्न गर्मी H = I²Rt = (11.5)²×20×t, जहाँ t कोई भी समय है, यह बहुत अधिक होगी, जिससे फ्यूज़ पिघल जाएगा।",
+        "The heater draws I = V/R = 230/20 = 11.5 A, exceeding the 5 A rating. Hence the fuse will blow instantly. Joule's law H = I²Rt shows large heat generation, causing the fuse element to melt."
+      ]
+    },
+    {
+      "type": "case_based",
+      "outcome": "o6",
+      "bloom": "apply",
+      "case": [
+        "दो प्रतिरोधक R1 = 10 Ω और R2 = 30 Ω को एक 12 V बैटरी के साथ पार्श्वक्रम (parallel) में जोड़ा गया है।",
+        "Two resistors R1 = 10 Ω and R2 = 30 Ω are connected in parallel across a 12 V battery."
+      ],
+      "q": [
+        "परिपथ का कुल प्रतिरोध और प्रत्येक शाखा में धारा ज्ञात कीजिए।",
+        "Find the total resistance of the circuit and the current in each branch."
+      ],
+      "answer": [
+        "1/Rp = 1/10 + 1/30 = 0.1 + 0.0333 = 0.1333 ⇒ Rp ≈ 7.5 Ω।\nI1 = V/R1 = 12/10 = 1.2 A, I2 = V/R2 = 12/30 = 0.4 A, कुल धारा It = 1.6 A।",
+        "1/Rp = 1/10 + 1/30 = 0.1333 ⇒ Rp ≈ 7.5 Ω.\nI1 = V/R1 = 12/10 = 1.2 A, I2 = V/R2 = 12/30 = 0.4 A, total current It = 1.6 A."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "R1", "value": 10, "unit": "Ω" },
+          { "symbol": "R2", "value": 30, "unit": "Ω" },
+          { "symbol": "V", "value": 12, "unit": "V" }
+        ],
+        "formulas": ["parallel2", "ohm"],
+        "unknown": ["Rp", "I1", "I2", "It"],
+        "answer": {
+          "Rp": { "value": 7.5, "unit": "Ω" },
+          "I1": { "value": 1.2, "unit": "A" },
+          "I2": { "value": 0.4, "unit": "A" },
+          "It": { "value": 1.6, "unit": "A" }
+        }
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": [
+        "एक तांबे की तार की लंबाई 2 m और अनुप्रस्थ काट 1 mm² (1×10⁻⁶ m²) है। तांबे की प्रतिरोधकता 1.7×10⁻⁸ Ω·m है।",
+        "A copper wire of length 2 m and cross‑sectional area 1 mm² (1×10⁻⁶ m²) has resistivity 1.7×10⁻⁸ Ω·m."
+      ],
+      "q": [
+        "तार का प्रतिरोध निकालिए।",
+        "Calculate the resistance of the wire."
+      ],
+      "answer": [
+        "R = ρL/A = (1.7×10⁻⁸ × 2) / (1×10⁻⁶) = 3.4×10⁻² Ω = 0.034 Ω।",
+        "R = ρL/A = (1.7×10⁻⁸ × 2) / (1×10⁻⁶) = 0.034 Ω."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "rho", "value": 1.7e-8, "unit": "Ω·m" },
+          { "symbol": "L", "value": 2, "unit": "m" },
+          { "symbol": "A", "value": 1e-6, "unit": "m²" }
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": { "value": 0.034, "unit": "Ω" }
+      }
+    },
+    {
+      "type": "numerical",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "यदि 600 C आवेश 120 s में स्थानांतरित हो, तो धारा (I) की मान निकालिए।",
+        "If a charge of 600 C is transferred in 120 s, find the current I."
+      ],
+      "answer": [
+        "I = Q/t = 600/120 = 5 A।",
+        "I = Q/t = 600/120 = 5 A."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "Q", "value": 600, "unit": "C" },
+          { "symbol": "t", "value": 120, "unit": "s" }
+        ],
+        "formulas": ["charge"],
+        "unknown": "I",
+        "answer": { "value": 5, "unit": "A" }
+      }
+    },
+    {
+      "type": "true_false",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "एमीटर को हमेशा उस घटक के समानांतर (parallel) में जोड़ा जाता है, जिसकी धारा मापनी होती है।",
+        "An ammeter is always connected in parallel with the component whose current is to be measured."
+      ],
+      "answer": [
+        "False – एमीटर को श्रृंखला (series) में जोड़ा जाता है ताकि वह पूरी धारा को माप सके।",
+        "False – An ammeter is connected in series so that the same current flows through it."
+      ]
+    },
+    {
+      "type": "fill_blank",
+      "outcome": "o4",
+      "bloom": "understand",
+      "q": [
+        "प्रतिरोध (resistance) लंबाई बढ़ने से _______ और अनुप्रस्थ काट बढ़ने से _______ होता है।",
+        "Resistance increases with increase in _______ and decreases with increase in _______."
+      ],
+      "answer": [
+        ["लंबाई", "अनुप्रस्थ काट"],
+        ["length", "cross‑sectional area"]
+      ]
+    },
+    {
+      "type": "sa",
+      "outcome": "o3",
+      "bloom": "remember",
+      "q": [
+        "ओम का नियम लिखिए।",
+        "State Ohm's law."
+      ],
+      "answer": [
+        "ओम का नियम: V = I R, अर्थात् विभवांतर (voltage) धारा (current) और प्रतिरोध (resistance) के गुणनफल के बराबर होता है।",
+        "Ohm's law: V = I R, i.e., voltage equals the product of current and resistance."
+      ]
+    },
+    {
+      "type": "la",
+      "outcome": "o2",
+      "bloom": "understand",
+      "q": [
+        "परिपथ में एमीटर और वोल्टमीटर को सही तरीके से कैसे जोड़ते हैं? उनके कार्य भी समझाइए।",
+        "Describe the correct connections of an ammeter and a voltmeter in a circuit and explain their functions."
+      ],
+      "answer": [
+        "एमीटर को धारा (current) मापने के लिये उस शाखा में श्रृंखला (series) में जोड़ा जाता है, जिससे वही धारा एमीटर से होकर गुजरती है। वोल्टमीटर को विभवांतर (potential difference) मापने के लिये दो बिंदुओं के बीच समानांतर (parallel) में जोड़ा जाता है, ताकि वह केवल दो बिंदुओं के बीच का वोल्टेज ले सके और परिपथ में बहुत कम धारा लेता है। एमीटर धारा को एमीटर स्केल पर दिखाता है, जबकि वोल्टमीटर वोल्टेज को वोल्टमीटर स्केल पर दिखाता है।",
+        "An ammeter is connected in series with the component whose current is to be measured, so the same current flows through it. A voltmeter is connected in parallel across two points to measure the potential difference, drawing negligible current. The ammeter indicates current on its scale, and the voltmeter indicates voltage on its scale."
+      ]
+    },
+    {
+      "type": "mcq",
+      "outcome": "o5",
+      "bloom": "apply",
+      "q": [
+        "एक प्रतिरोधक 5 Ω पर 2 A धारा 3 minutes तक बहती है। उत्पन्न तापीय प्रभाव (heat) कितना होगा?",
+        "A resistor of 5 Ω carries a current of 2 A for 3 minutes. What is the heat produced?"
+      ],
+      "options": [
+        ["1800 J", "1800 J"],
+        ["900 J", "900 J"],
+        ["3600 J", "3600 J"],
+        ["720 J", "720 J"]
+      ],
+      "answer_index": 2,
+      "check": {
+        "givens": [
+          { "symbol": "I", "value": 2, "unit": "A" },
+          { "symbol": "R", "value": 5, "unit": "Ω" },
+          { "symbol": "t", "value": 180, "unit": "s" }
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": { "value": 3600, "unit": "J" }
+      }
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o4",
+      "bloom": "understand",
+      "assertion": [
+        "तापमान बढ़ने से धातु के प्रतिरोधक का प्रतिरोध हमेशा घटता है।",
+        "Increasing temperature always decreases the resistance of a metallic conductor."
+      ],
+      "reason": [
+        "धातुओं की प्रतिरोधकता तापमान के साथ बढ़ती है।",
+        "Resistivity of metals increases with temperature."
+      ],
+      "answer_index": 3
+    },
+    {
+      "type": "mcq",
+      "outcome": "o2",
+      "bloom": "remember",
+      "q": [
+        "विधुत विभव (potential difference) मापने के लिये कौन-सा यंत्र प्रयोग किया जाता है?",
+        "Which instrument is used to measure potential difference?"
+      ],
+      "options": [
+        ["एमीटर", "Ammeter"],
+        ["वोल्टमीटर", "Voltmeter"],
+        ["ओहममीटर", "Ohmmeter"],
+        ["थर्मामीटर", "Thermometer"]
+      ],
+      "answer_index": 1
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o6",
+      "bloom": "apply",
+      "assertion": [
+        "श्रृंखला परिपथ में प्रत्येक प्रतिरोधक से समान धारा बहती है।",
+        "In a series circuit, the current through each resistor is the same."
+      ],
+      "reason": [
+        "एक ही चार्ज समान समय में सभी प्रतिरोधकों से गुजरता है।",
+        "The same charge passes through each resistor in a given time."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o9",
+      "bloom": "apply",
+      "assertion": [
+        "आपूर्ति वोल्टेज घटाकर उपकरण की शक्ति (power) कम की जा सकती है।",
+        "Power consumed by an appliance can be reduced by lowering the supply voltage."
+      ],
+      "reason": [
+        "शक्ति P = V² / R, इसलिए V घटाने से P घटता है।",
+        "Power P = V² / R, so decreasing V reduces P."
+      ],
+      "answer_index": 0
+    },
+    {
+      "type": "hots",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "एक छात्र ने देखा कि एक लैंप में 0.5 C आवेश 2 s में प्रवाहित हुआ। यदि उस आवेश पर किया गया कार्य 30 J है, तो लैंप के बीच विभवांतर (potential difference) कितना होगा?",
+        "A student observes that a lamp receives 0.5 C of charge in 2 seconds. If the work done on the charge is 30 J, what is the potential difference across the lamp?"
+      ],
+      "answer": [
+        "V = W/Q = 30/0.5 = 60 V।",
+        "V = W/Q = 30/0.5 = 60 V."
+      ],
+      "check": {
+        "givens": [
+          { "symbol": "W", "value": 30, "unit": "J" },
+          { "symbol": "Q", "value": 0.5, "unit": "C" }
+        ],
+        "formulas": ["pd_work"],
+        "unknown": "V",
+        "answer": { "value": 60, "unit": "V" }
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o5",
+      "bloom": "analyze",
+      "q": [
+        "यदि किसी समान पदार्थ की तार की लंबाई दुगनी कर दी जाए और उसका अनुप्रस्थ काट आधा कर दिया जाए, तो उसका प्रतिरोध कैसे बदलता है? कारण समझाइए।",
+        "Explain how the resistance of a wire changes when its length is doubled and its cross‑sectional area is halved, keeping the material the same."
+      ],
+      "answer": [
+        "R = ρL/A. नई लंबाई 2L और नया काट A/2 होने पर, R' = ρ(2L)/(A/2) = 4ρL/A = 4R। इसलिए प्रतिरोध चार गुना बढ़ जाता है।",
+        "R = ρL/A. With new length 2L and area A/2, R' = ρ(2L)/(A/2) = 4ρL/A = 4R. Hence resistance becomes four times larger."
+      ]
+    }
+  ]
+}

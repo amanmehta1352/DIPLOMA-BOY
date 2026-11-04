@@ -1,0 +1,18 @@
+```json
+{
+  "pairs": [
+    ["प्रतिरोध एक माप है जो बताता है कि कोई चालक धारा के प्रवाह को कितना रोकता है। इसका मान विभवांतर और धारा के अनुपात से निर्धारित होता है और इसकी इकाई ओम है।", "Resistance quantifies how much a conductor opposes the flow of current. It is defined as the ratio of potential difference to current, and its unit is the ohm."],
+    ["किसी एक समान चालक में, प्रतिरोध उसकी लंबाई के बढ़ने पर बढ़ता है और अनुप्रस्थ काट के बढ़ने पर घटता है। यह संबंध एक सरल सूत्र द्वारा दिया जा सकता है, जो प्रतिरोधकता को भी शामिल करता है।", "For a uniform conductor, resistance increases with length and decreases with cross-sectional area. This relationship can be expressed by a simple formula that also involves resistivity."],
+    ["जब दो या अधिक प्रतिरोधक एक साथ पार्श्वक्रम में जुड़े होते हैं, तो प्रत्येक प्रतिरोधक के सिरों पर लगने वाला विभवांतर समान होता है।", "When two or more resistors are connected in parallel, the potential difference across each resistor is the same."],
+    ["श्रेणीक्रम संयोजन में एक उपकरण के खराब होने से पूरा परिपथ बाधित हो जाता है और अन्य उपकरण भी काम करना बंद कर देते हैं। इसके अलावा, सभी उपकरणों में एक ही धारा प्रवाहित होती है, जो अक्सर विभिन्न उपकरणों की जरूरतों के अनुसार नहीं होती।", "In a series combination, if one device fails, the entire circuit is disrupted and all other devices stop working. Additionally, the same current flows through all devices, which often does not meet the different requirements of various devices."],
+    ["विद्युत शक्ति को मापने की एक मानक इकाई होती है, जिसे वाट कहते हैं। यह इकाई विभवांतर और धारा के गुणनफल के रूप में परिभाषित की जाती है।", "There is a standard unit for measuring electric power, called the watt. This unit is defined as the product of potential difference and current."],
+    ["विद्युत ऊर्जा की एक व्यावसायिक इकाई है, जिसे किलोवाट-घंटा कहा जाता है। यह बताता है कि कितनी ऊर्जा एक निश्चित समय में उपभोग की जाती है।", "There is a commercial unit of electrical energy, known as the kilowatt-hour. It indicates the amount of energy consumed over a certain period of time."],
+    ["विद्युत धारा की परिभाषा समय के साथ प्रवाहित आवेश की दर से जुड़ी होती है। इसकी माप की एक मानक इकाई है।", "Electric current is related to the rate at which charge flows over time. There is a standard unit for its measurement."],
+    ["विभवांतर एक ऐसी मात्रा है जो दो बिंदुओं के बीच कार्य की आवश्यकता को मापती है जब एक इकाई आवेश को एक बिंदु से दूसरे बिंदु तक ले जाया जाता है। इसकी एक मानक इकाई है।", "Potential difference is a quantity that measures the work required to move a unit charge from one point to another. There is a standard unit for it."],
+    ["एक निश्चित तापमान पर, किसी चालक में प्रवाहित धारा और उसमें लगने वाला विभवांतर एक निश्चित संबंध का पालन करते हैं।", "At a constant temperature, the current flowing through a conductor and the potential difference across it follow a specific relationship."],
+    ["प्रतिरोधकता एक ऐसा गुण है जो बताता है कि कोई पदार्थ विद्युत धारा का प्रवाह कितना प्रतिरोध करता है। इसकी एक मानक इकाई होती है।", "Resistivity is a property that indicates how much a material resists the flow of electric current. It has a standard unit."],
+    ["एक फ्यूज़ एक सुरक्षा उपकरण है जो परिपथ को नुकसान से बचाता है। यह एक निश्चित तापमान पर पिघल जाता है और परिपथ को तोड़ देता है।", "A fuse is a safety device that protects circuits from damage. It melts at a certain temperature and breaks the circuit."],
+    ["विद्युत ऊर्जा की एक मानक व्यावसायिक इकाई है, जो बताती है कि कितनी ऊर्जा किसी उपकरण द्वारा एक घंटे में उपभोग की जाती है।", "There is a standard commercial unit of electrical energy, which indicates the amount of energy consumed by an appliance in one hour."]
+  ]
+}
+```

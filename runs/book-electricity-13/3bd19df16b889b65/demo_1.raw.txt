@@ -1,0 +1,12 @@
+```json
+{
+  "title": ["Ohm's Law", "ओह्म का नियम"],
+  "hint": ["Adjust the voltage to see the current and bulb brightness", "वोल्टेज को समायोजित करें और करंट और बल्ब की चमक देखें"],
+  "slider": ["Voltage (V)", "वोल्टेज (वी)"],
+  "min": 0,
+  "max": 12,
+  "step": 1,
+  "val": 6,
+  "script": "const I=v/4; add(new THREE.Mesh(new THREE.SphereGeometry(I/2, 32, 32), mat(0xffff00))); arrow(new Vector3(-2, 0, 0), new Vector3(2, 0, 0), 0xff0000); line(new Vector3(-4, 0, 0), new Vector3(-2, 0, 0), 0x0000ff); line(new Vector3(2, 0, 0), new Vector3(4, 0, 0), 0x0000ff); info.textContent = T('Current: ', 'करंट: ') + I + T(' A', ' ए') + T(', Voltage: ', ', वोल्टेज: ') + v + T(' V', ' वी');"
+}
+```

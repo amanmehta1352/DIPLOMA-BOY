@@ -1,0 +1,61 @@
+```json
+{
+  "hinglish": [
+    {
+      "emoji": "💡",
+      "heading": "Lesson 11: Vidhyut Tantru Bulb aur Fuse ka Karya-Siddhant",
+      "paras": [
+        "Vidhyut tantru bulb mein ek patla tantru hota hai jo vidhyut dhara ke pravaah se garm ho jata hai aur prakash utpann karta hai.",
+        "Fuse ek aisa upkaran hai jo vidhyut paripath mein adhik vidhyut dhara ke pravaah ko rokta hai aur paripath ki suraksha karta hai.",
+        "Vidhyut tantru bulb aur fuse dono vidhyut dhara ke taapik prabhaav par kary karte hain.",
+        "Vidhyut tantru bulb mein tantru ka pratirodh itna adhik hota hai ki jab vidhyut dhara pravahit hoti hai, to vah tantru garm ho jata hai aur prakash utpann karta hai.",
+        "Fuse mein ek patla taar hota hai jo adhik vidhyut dhara ke pravaah se garm ho jata hai aur pighal jata hai, jisse paripath toot jata hai."
+      ],
+      "formula": null,
+      "example": "Vidhyut tantru bulb aur fuse dono vidhyut dhara ke taapik prabhaav par kary karte hain aur vidhyut paripathon mein bahut mahatvapoorn hain."
+    },
+    {
+      "emoji": "✅",
+      "heading": "Hal Kie Gaye Udaharan",
+      "paras": [
+        "**Vidhyut Paripath mein Vidhyut Dhara ki Ganana:** Aavesh (charge) Q = 300 C, samay (time) t = 300 s → vidhyut dhara (electric current) I = 1 A hai.",
+        "**Ohm ke Niyam se Dhara Gyanat Karana:** Vibhavantr (potential difference) V = 12 V, pratirodh (resistance) R = 4 ohm → parinaami vidhyut dhara (electric current) 3 A hai.",
+        "**Parshvakram mein Tuly Pratirodh ki Ganana:** Pratirodhak (resistor) R1 = 6 ohm, pratirodhak R2 = 3 ohm → parshvakram sanyojan mein tuly pratirodh 2 ohm hai."
+      ],
+      "formula": null,
+      "example": null
+    },
+    {
+      "emoji": "🧠",
+      "heading": "Saransh (Quick Revision)",
+      "paras": [
+        "**Vidhyut Dhara:** Vidhyut dhara ki paribhasha samay ke saath pravahit aavesh ki dar se judi hoti hai. Iski maap ki ek maanak ikai hai.",
+        "**Vibhavantr:** Ekank aavesh ko ek bindu se dusre bindu tak le jaane mein kiya gaya kaam (work) vibhavantr (potential difference) kahalata hai. Iska SI maatrak volt (V) hai.",
+        "**Ohm ka Niyam:** Niyaat taap (temperature) par, chalak (conductor) se pravahit dhara usme utpann vibhavantr (V) ke samanupati hoti hai: V = I × R.",
+        "**Pratirodhakta:** Pratirodhakta ek aisa gun hai jo bataata hai ki koi padarth vidhyut dhara ka pravah kitna pratirodh karta hai. Iski ek maanak ikai hoti hai.",
+        "**Shrenikram Sanyojan:** Shrenikram (series) mein sabhi pratirodhakon se saman dhara pravahit hoti hai aur kul pratirodh Rs = R1 + R2 + R3 hota hai.",
+        "**Parshvakram Sanyojan:** Parshvakram (parallel) mein sabhi pratirodhakon par saman vibhavantr hota hai aur 1/Rp = 1/R1 + 1/R2 + 1/R3 hota hai.",
+        "**Taapik Prabhaav:** Jab kisi chalak se dhara pravahit hoti hai, to vidhyut urja ka ushma mein roopantaran hota hai. Joule ke niyam se H = I^2 × R × t.",
+        "**Fuse:** Ek fuse ek suraksha upkaran hai jo paripath ko nuksaan se bachata hai. Yeh ek nishchit taapmaan par pighal jata hai aur paripath ko tod deta hai.",
+        "**Vidhyut Shakti:** Vidhyut urja ke upyog ki dar ko vidhyut shakti (electric power) kehte hain. P = V × I, iska SI maatrak watt (W) hai.",
+        "**Vyavsayik Maatrak:** Vidhyut urja ka vyavsayik maatrak kilowatt-ghanta (kWh) ya unit hai. 1 kWh = 3.6 × 10^6 J."
+      ],
+      "formula": null,
+      "example": null
+    },
+    {
+      "emoji": "🎓",
+      "heading": "Tvariit Jaanch (Quick Check)",
+      "paras": [
+        "**Ammeter (ammeter) aur Voltmeter (voltmeter) ko Paripath mein Kaise Joda Jata Hai?** — Ammeter ko hamesha **Shrenikram** (series) mein aur voltmeter ko hamesha **Parshvakram** (parallel) mein joda jata hai.",
+        "**Chalak (conductor) ka Pratirodh Kin Karkon se Prabhavit Hota Hai?** — Pratirodh chalak ki **Lambai** (length) L ke samanupati, **Anuprasht Kaat** (cross-sectional area) A ke vyutkramanupati tatha **Taap** aur padarth ki prakriti par nirbhar karta hai.",
+        "**Gharelu Paripathon (domestic circuits) mein Parshvakram Sanyojan ka Upyog Kyon Kiya Jata Hai?** — Kyonki parshvakram (parallel) mein pratyek upkaran ko saman **Vibhavantr** (potential difference) milta hai aur ek upkaran ke kharab hone par anya kary karte rehte hain.",
+        "**Vidhyut Bulb ke Tantru (filament) ke Liye Tungsten ka Upyog Kyon Kiya Jata Hai?** — Kyonki tungsten ki **Pratirodhakta** (resistivity) aur uchch **Galnanak** hota hai, jisse yeh uchch taap par bhi nahin pighalta.",
+        "**Fuse (fuse) Taar ki Do Mukhya Visheshataen Likhiye.** — Fuse taar ka **Galnanak** (melting point) kam hota hai tatha **Pratirodh** (resistance) uchch hota hai."
+      ],
+      "formula": null,
+      "example": null
+    }
+  ]
+}
+```

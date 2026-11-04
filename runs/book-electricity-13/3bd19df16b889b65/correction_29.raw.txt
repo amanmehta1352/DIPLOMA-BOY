@@ -1,0 +1,1 @@
+{"table": {"head": [["सामग्री का प्रकार", "Resistivity and Types of Materials"], ["प्रतिरोधकता का मान (Ω m)", "Resistivity value (Ω m)"]], "rows": [[["चालक (conductor)", "Conductor"], ["1.68 × 10^-8", "1.68 × 10^-8"]], [["मिश्र धातु (alloy)", "Alloy"], ["10^-6 से 10^-5", "10^-6 to 10^-5"]], [["विद्युतरोधी (insulator)", "Insulator"], ["10^10 से 10^14", "10^10 to 10^14"]]]}}

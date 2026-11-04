@@ -1,0 +1,19 @@
+```json
+{
+  "pairs": [
+    ["चालक (conductor) का प्रतिरोध किन कारकों से प्रभावित होता है?", "What factors affect the resistance of a conductor?"],
+    ["किसी तार की लंबाई को दोगुना करने पर उसके प्रतिरोध में क्या बदलाव आता है?", "How does doubling the length of a wire affect its resistance?"],
+    ["पार्श्वक्रम में जुड़े प्रतिरोधकों के लिए, तुल्य प्रतिरोध का व्युत्क्रम व्यक्तिगत प्रतिरोधों के व्युत्क्रमों के योग के बराबर होता है।", "For resistors in parallel, the reciprocal of the equivalent resistance equals the sum of the reciprocals of the individual resistances."],
+    ["विद्युत धारा इलेक्ट्रॉनों की गति है, जो एक **चालक** से होकर गुजरती है। हम इसकी माप के लिए **एमीटर** का उपयोग करते हैं।", "Electric current is the flow of electrons, which flows through a **conductor**. We use an **ammeter** to measure it."],
+    ["विभवांतर दो बिंदुओं के बीच विद्युत विभव का अंतर है, जो विद्युत धारा के प्रवाह को नियंत्रित करता है।", "Potential difference is the difference in electric potential between two points, which controls the flow of electric current."],
+    ["एक उदाहरण के रूप में, जब आप एक बैटरी से एक बल्ब को जलाते हैं, तो बैटरी और बल्ब के बीच विभवांतर विद्युत धारा के प्रवाह को संभव बनाता है।", "For instance, when you connect a battery to a light bulb, the potential difference between the battery and the bulb enables the flow of electric current."],
+    ["दो या दो से अधिक **प्रतिरोधक** [resistor] जब श्रेणीक्रम में जुड़े होते हैं, तो उनका कुल **प्रतिरोध** [resistance] व्यक्तिगत **प्रतिरोधक** [resistor] के **प्रतिरोध** [resistance] के योग के बराबर होता है।", "When two or more **resistors** are connected in series, their total **resistance** equals the sum of the individual **resistor** resistances."],
+    ["श्रेणीक्रम संयोजन का उपयोग **विद्युत परिपथ** [electric circuit] में **विद्युत धारा** [electric current] और **विभवांतर** [potential difference] को नियंत्रित करने के लिए किया जा सकता है।", "Series combination can be used in **electric circuits** to control **electric current** and **potential difference**."],
+    ["एक घरेलू विद्युत परिपथ में, प्रतिरोधकों का पार्श्वक्रम संयोजन इस तरह से किया जा सकता है कि प्रत्येक उपकरण को उसके अनुसार विभवांतर प्राप्त हो।", "In a domestic electric circuit, resistors can be combined in parallel so that each device receives its required potential difference."],
+    ["मान लीजिए कि आपके पास दो प्रतिरोधक हैं - एक 2 ओम और दूसरा 3 ओम। यदि आप इन्हें पार्श्वक्रम में जोड़ते हैं, तो परिपथ का कुल प्रतिरोध क्या होगा?", "Suppose you have two resistors - one 2 ohm and the other 3 ohm. If you connect them in parallel, what is the total circuit resistance?"],
+    ["विद्युत धारा का तापीय प्रभाव यह है कि जब यह किसी चालक में प्रवाहित होती है, तो चालक का तापमान बढ़ जाता है।", "The heating effect of electric current is that it increases the temperature of the conductor it flows through."],
+    ["जूल का नियम कहता है कि किसी चालक में उत्पन्न होने वाली ताप ऊर्जा विद्युत धारा के वर्ग और चालक के प्रतिरोध के गुणनफल के समानुपाती होती है।", "Joule's law states that the heat energy generated in a conductor is proportional to the product of the square of the electric current and the conductor's resistance."],
+    ["विद्युत परिपथ में प्रतिरोधकों का संयोजन विद्युत धारा और विभवांतर को नियंत्रित करने में मदद करता है।", "The combination of resistors in an electric circuit helps control the electric current and potential difference."]
+  ]
+}
+```

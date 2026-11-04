@@ -1,0 +1,52 @@
+{
+  "pairs": [
+    [
+      "विद्युत धारा, विभवांतर, ओम का नियम, प्रतिरोध, प्रतिरोधक संयोजन, तापीय प्रभाव और विद्युत शक्ति का गहन अध्ययन।",
+      "Comprehensive study of electric current, potential difference, Ohm's law, resistance, resistor combinations, heating effect, and electric power."
+    ],
+    [
+      "सेल (cell) या बैटरी (battery) दो टर्मिनल के बीच विभवांतर बनाती है, जिससे आवेश प्रवाहित हो पाता है।",
+      "A cell or battery creates a potential difference between its terminals, allowing charge to flow."
+    ],
+    [
+      "ओम का नियम (Ohm's Law) – स्थिर ताप पर",
+      "V = I × R, valid at constant temperature"
+    ],
+    [
+      "अनुप्रस्थ काट (Cross‑sectional Area) के साथ व्युत्क्रमानुपाती `R ∝ 1/A`",
+      "R ∝ 1/A"
+    ],
+    [
+      "तापमान (Temperature) प्रभाव `R = R₀[1 + α(T – T₀)]`",
+      "R = R₀[1 + α(T – T₀)]"
+    ],
+    [
+      "प्रतिरोध के सूत्रों को मिलाकर, `R = ρ × l / A` प्राप्त होता है, जिससे `ρ = R × A / l` बनता है। इसका SI मात्रक ओम-मीटर (Ω m) है। 1 मीटर लंबाई और 1 मीटर^2 अनुप्रस्थ काट वाले चालक के प्रतिरोध को ही उसकी प्रतिरोधकता कहते हैं।",
+      "Combining resistance relations gives `R = ρ × l / A`, so `ρ = R × A / l`. Its SI unit is Ohm‑metre (Ω m). Resistivity is defined as the resistance of a conductor of unit length (1 m) and unit cross‑sectional area (1 m²)."
+    ],
+    [
+      "पार्श्वक्रम संयोजन के अनेक व्यावहारिक लाभ हैं। पार्श्वक्रम में प्रत्येक उपकरण के सिरों पर समान **विभवांतर (potential difference)** (जैसे भारत में 220 V) उपलब्ध रहता है और प्रत्येक उपकरण को स्वतंत्र स्विच द्वारा चालू या बंद किया जा सकता है। साथ ही, पार्श्वक्रम में जोड़ने से परिपथ का कुल **प्रतिरोध (resistance)** कम हो जाता है, जिससे स्रोत से पर्याप्त धारा प्राप्त होती है।",
+      "Parallel combination provides several practical advantages. In parallel, every appliance gets the exact same **potential difference** (such as 220 V in India) across its terminals, and each device can be independently operated with its own switch. Additionally, parallel connection reduces total **resistance**, enabling the power source to deliver adequate current."
+    ],
+    [
+      "अवयवों पर विभाजित (V1+V2+...)",
+      "Divided across components `V1+V2+...`"
+    ],
+    [
+      "इनर्ट गैस (Inert Gas) का कार्य तंतु का ऑक्सीकरण रोकना है।",
+      "Prevents oxidation of filament"
+    ],
+    [
+      "फ्यूज़ का कार्य अधिक‑धारा पर परिपथ को बाधित करना है।",
+      "Interrupts circuit on over‑current"
+    ],
+    [
+      "प्रतिरोधक (resistor) R1 = 6 ohm, प्रतिरोधक R2 = 3 ohm",
+      "Resistor R1 = 6 ohm, Resistor R2 = 3 ohm"
+    ],
+    [
+      "विद्युत ऊर्जा हमारे जीवन में बहुत महत्त्वपूर्ण भूमिका निभाती है। यह हमारे घरों में प्रकाश व्यवस्था के लिए बल्ब जलाती है, हमारे फ्रिज को चलती रखती है, और हमारे मोबाइल फोन को आवेश देती है।",
+      "Electrical energy plays a vital role in our lives. It powers the lights in our homes, keeps our refrigerators running, and charges our mobile phones."
+    ]
+  ]
+}

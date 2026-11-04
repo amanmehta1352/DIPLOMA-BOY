@@ -1,0 +1,222 @@
+{
+  "questions": [
+    {
+      "type": "assertion_reason",
+      "outcome": "o2",
+      "bloom": "understand",
+      "assertion": ["एमीटर (ammeter) धारा (current) को मापता है।", "The ammeter measures current."],
+      "reason": ["इसे परिपथ (circuit) में धारा के प्रवाह के क्रम में श्रृंखला (series) में जोड़ा जाता है।", "It is connected in series in the circuit to measure the flow of current."],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o4",
+      "bloom": "understand",
+      "assertion": ["प्रतिरोध (resistance) लंबाई (length) के साथ घटता है।", "Resistance decreases with length."],
+      "reason": ["प्रतिरोध प्रतिरोधकता (resistivity) और लंबाई के अनुपात में तथा अनुप्रस्थ काट (cross-sectional area) के व्युत्क्रमानुपाती होता है।", "Resistance is directly proportional to resistivity and length and inversely proportional to cross‑sectional area."],
+      "answer_index": 3
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o3",
+      "bloom": "remember",
+      "assertion": ["ओम का नियम कहता है V = I × R।", "Ohm's law states V = I × R."],
+      "reason": ["ग्राफ में V‑I रेखा का ढाल प्रतिरोध के बराबर होती है।", "The slope of the V‑I graph equals the resistance."],
+      "answer_index": 0
+    },
+    {
+      "type": "assertion_reason",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "assertion": ["पार्श्वक्रम (parallel) संयोजन में प्रत्येक उपकरण पर समान विभवांतर (potential difference) मिलता है।", "In a parallel combination each appliance gets the same potential difference."],
+      "reason": ["क्योंकि सभी उपकरण समान बिंदुओं से जुड़े होते हैं।", "Because all appliances are connected between the same two points."],
+      "answer_index": 0
+    },
+    {
+      "type": "case_based",
+      "outcome": "o1",
+      "bloom": "apply",
+      "case": [
+        "एक बैटरी 1800 C आवेश को 30 s में प्रदान करती है और इस आवेश को 540 J कार्य करने के लिए विभवांतर पर ले जाती है।",
+        "A battery supplies 1800 C of charge in 30 s and moves this charge through a potential difference doing 540 J of work."
+      ],
+      "q": [
+        "विद्युत धारा (current) और विभवांतर (potential difference) की मान निकालिए।",
+        "Find the electric current and the potential difference."
+      ],
+      "answer": [
+        "धारा I = 60 A, विभवांतर V = 0.3 V",
+        "Current I = 60 A, potential difference V = 0.3 V"
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "Q", "value": 1800, "unit": "C"},
+          {"symbol": "t", "value": 30, "unit": "s"},
+          {"symbol": "W", "value": 540, "unit": "J"}
+        ],
+        "formulas": ["charge", "pd_work"],
+        "unknown": "I",
+        "answer": {"value": 60, "unit": "A"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o5",
+      "bloom": "apply",
+      "case": [
+        "एक तांबे की तार की लंबाई 2 m और अनुप्रस्थ काट 0.5 mm² है। तांबे की प्रतिरोधकता 1.7×10⁻⁸ Ω·m है।",
+        "A copper wire has length 2 m and cross‑sectional area 0.5 mm². Copper resistivity is 1.7×10⁻⁸ Ω·m."
+      ],
+      "q": [
+        "तार का प्रतिरोध (resistance) निकालिए।",
+        "Calculate the resistance of the wire."
+      ],
+      "answer": [
+        "प्रतिरोध R = 0.068 Ω",
+        "Resistance R = 0.068 Ω"
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "rho", "value": 1.7e-8, "unit": "Ω·m"},
+          {"symbol": "L", "value": 2, "unit": "m"},
+          {"symbol": "A", "value": 0.5e-6, "unit": "m²"}
+        ],
+        "formulas": ["resistivity"],
+        "unknown": "R",
+        "answer": {"value": 0.068, "unit": "Ω"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o6",
+      "bloom": "apply",
+      "case": [
+        "तीन प्रतिरोधक R1=2 Ω, R2=3 Ω, R3=6 Ω को (i) श्रेणीक्रम (series) में जोड़ा गया है, और (ii) R2 और R3 को पार्श्वक्रम (parallel) में जोड़कर फिर R1 के साथ श्रेणीक्रम में जोड़ा गया है।",
+        "Three resistors R1=2 Ω, R2=3 Ω, R3=6 Ω are (i) connected in series, and (ii) R2 and R3 are connected in parallel and then this combination is connected in series with R1."
+      ],
+      "q": [
+        "दूसरे संयोजन (parallel‑then‑series) का कुल प्रतिरोध निकालिए।",
+        "Find the total resistance of the second combination."
+      ],
+      "answer": [
+        "कुल प्रतिरोध Rs = 4 Ω",
+        "Total resistance Rs = 4 Ω"
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "R1", "value": 2, "unit": "Ω"},
+          {"symbol": "R2", "value": 3, "unit": "Ω"},
+          {"symbol": "R3", "value": 6, "unit": "Ω"}
+        ],
+        "formulas": ["parallel2", "series2"],
+        "unknown": "Rs",
+        "answer": {"value": 4, "unit": "Ω"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o8",
+      "bloom": "apply",
+      "case": [
+        "एक फ्यूज़ की प्रतिरोधकता 0.02 Ω है और यह 5 A धारा को 10 s तक वहन करता है, फिर पिघल जाता है।",
+        "A fuse has resistance 0.02 Ω and carries a current of 5 A for 10 s before melting."
+      ],
+      "q": [
+        "फ्यूज़ द्वारा उत्पन्न तापीय प्रभाव (heat) की मात्रा निकालिए।",
+        "Calculate the amount of heat produced by the fuse."
+      ],
+      "answer": [
+        "ताप H = 5 J",
+        "Heat H = 5 J"
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "I", "value": 5, "unit": "A"},
+          {"symbol": "R", "value": 0.02, "unit": "Ω"},
+          {"symbol": "t", "value": 10, "unit": "s"}
+        ],
+        "formulas": ["joule_heat"],
+        "unknown": "H",
+        "answer": {"value": 5, "unit": "J"}
+      }
+    },
+    {
+      "type": "case_based",
+      "outcome": "o9",
+      "bloom": "apply",
+      "case": [
+        "एक 60 W बल्ब को 230 V आपूर्ति पर 5 घंटे तक चलाया जाता है। बिजली की दर 6 रुपये प्रति kWh है।",
+        "A 60 W bulb is operated on a 230 V supply for 5 hours. The electricity rate is Rs 6 per kWh."
+      ],
+      "q": [
+        "ऊर्जा खपत (kWh) और लागत (रुपये) निकालिए।",
+        "Find the energy consumption in kWh and the cost in rupees."
+      ],
+      "answer": [
+        "ऊर्जा E = 0.3 kWh, लागत = 1.8 रुपये",
+        "Energy E = 0.3 kWh, cost = Rs 1.8"
+      ],
+      "check": {
+        "givens": [
+          {"symbol": "P", "value": 60, "unit": "W"},
+          {"symbol": "t", "value": 5, "unit": "h"}
+        ],
+        "formulas": ["energy_pt"],
+        "unknown": "E",
+        "answer": {"value": 0.3, "unit": "kWh"}
+      }
+    },
+    {
+      "type": "hots",
+      "outcome": "o7",
+      "bloom": "evaluate",
+      "q": [
+        "घरेलू परिपथों में श्रेणीक्रम की तुलना में पार्श्वक्रम के उपयोग के क्या‑क्या लाभ हैं? अपने उत्तर में सुरक्षा और कार्यात्मक पहलुओं को शामिल करें।",
+        "What are the advantages of using parallel connections over series connections in domestic circuits? Include safety and functional aspects in your answer."
+      ],
+      "answer": [
+        "पार्श्वक्रम में प्रत्येक उपकरण को समान विभवांतर मिलता है, इसलिए एक उपकरण बंद होने पर अन्य नहीं बंद होते; यह ओवरलोड से बचाता है, फ्यूज़ आसानी से काम करता है, और पावर वितरण समान रहता है। श्रेणीक्रम में एक उपकरण बंद होने से पूरी परिपथ बंद हो जाती है, जिससे असुविधा और जोखिम बढ़ता है।",
+        "In parallel each appliance receives the full supply voltage, so if one appliance fails the others continue to operate, reducing outage risk; current divides, allowing appropriate rating of wires and fuses, and power is distributed evenly. In series a single break stops the whole circuit, causing inconvenience and safety hazards."
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": "o3",
+      "bloom": "analyze",
+      "q": [
+        "यदि किसी धातु के तंतु पर प्रयोग किया गया V‑I ग्राफ एक सीधी रेखा है जिसका ढाल 12 Ω है, तो उस तंतु का प्रतिरोध क्या है? ताप बढ़ने पर इस ग्राफ के ढाल में क्या परिवर्तन होगा और क्यों?",
+        "If the V‑I graph of a metal wire is a straight line with slope 12 Ω, what is the resistance of the wire? How will the slope change when temperature rises and why?"
+      ],
+      "answer": [
+        "धारा‑विभवांतर संबंध V = I×R में ढाल = R, इसलिए प्रतिरोध 12 Ω है। ताप बढ़ने पर धातु का प्रतिरोध बढ़ता है, इसलिए ढाल (जो प्रतिरोध है) भी बढ़ेगी।",
+        "The slope equals resistance, so R = 12 Ω. On heating, the metal’s resistance increases, so the slope of the V‑I line will increase."
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": "o1",
+      "bloom": "apply",
+      "q": [
+        "विद्युत धारा (electric current) की परिभाषा के आधार पर समझाइए कि धारा की इकाई एम्पीयर (A) क्यों है, और इलेक्ट्रॉन (electron) के प्रवाह की दिशा के विपरीत परम्परागत धारा दिशा क्यों मानी जाती है।",
+        "Based on the definition of electric current, explain why the unit of current is ampere, and why the conventional current direction is taken opposite to electron flow."
+      ],
+      "answer": [
+        "धारा को एक सेकंड में पारित आवेश Q (कूलॉम्ब) के रूप में परिभाषित किया गया है; 1 A = 1 C/s, इसलिए एम्पीयर आवेश की गति की दर को दर्शाता है। इलेक्ट्रॉन नकारात्मक चार्ज वाले होते हैं और निचले संभावित (निम्न विद्युत विभव) से उच्च संभावित की ओर चलते हैं; परम्परागत धारा को सकारात्मक चार्ज के प्रवाह के रूप में मान लिया गया था, इसलिए दिशा उलटी है।",
+        "Current is defined as the amount of charge Q (coulomb) passing a point per second; 1 A = 1 C/s, so ampere measures charge flow rate. Electrons are negative and move from lower to higher potential, but conventional current was defined before electron discovery as flow of positive charge, hence opposite direction."
+      ]
+    },
+    {
+      "type": "hots",
+      "outcome": "o5",
+      "bloom": "analyze",
+      "q": [
+        "यदि किसी पदार्थ की प्रतिरोधकता (resistivity) ताप बढ़ने पर दोगुनी हो जाती है, तो समान लंबाई और अनुप्रस्थ काट वाले तारे का प्रतिरोध कैसे बदलता है?",
+        "If the resistivity of a material doubles when temperature rises, how does the resistance of a wire of fixed length and cross‑sectional area change?"
+      ],
+      "answer": [
+        "प्रतिरोध R = ρ L/A; यदि ρ दो गुना हो जाता है और L, A अपरिवर्तित रहते हैं, तो R भी दो गुना हो जाएगा।",
+        "Since R = ρ L/A, doubling ρ while L and A stay constant doubles the resistance."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "hinglish": [
+    {
+      "emoji": "📊",
+      "heading": "paath 12: vidyut shakti tatha vyaavasaayik urja ki ganana",
+      "paras": [
+        "vidyut shakti [electric power] ka arth hai vidyut urja [energy] ki dar se khapat. yeh vidyut dhara [electric current] aur vibhavantar [potential difference] par nirbhar karti hai.",
+        "vidyut shakti ki ganana karne ke liye, hum vidyut dhara aur vibhavantar ko guna karte hain. yeh ek mahatvapurn sutra hai jo humein vidyut shakti ki ganana karne mein madad karta hai.",
+        "vyaavasaayik urja ki ganana karne ke liye, hum vidyut shakti aur samay ko guna karte hain. yeh humein vidyut urja ki khapat ki jankari deta hai."
+      ],
+      "formula": "विद्युत शक्ति [electric power] = विद्युत धारा [electric current] × विभवांतर [potential difference]",
+      "example": "ek ghar mein 100 watt ka bulb 10 ghante tak jalta hai. to iski vidyut urja ki khapat kitni hogi?"
+    },
+    {
+      "emoji": "✅",
+      "heading": "hal kiye gaye udaharan",
+      "paras": [
+        "**vidyut paripath mein vidyut dhara ki ganana:** aavesh (charge) Q = 300 C, samay (time) t = 300 s → vidyut dhara (electric current) I = 1 A hai.",
+        "**om ke niyam se dhara gyaat karna:** vibhavantar (potential difference) V = 12 V, pratirudh (resistance) R = 4 ohm → parinaami vidyut dhara (electric current) 3 A hai.",
+        "**parshvakram mein tuly pratirudh ki ganana:** pratirudh (resistor) R1 = 6 ohm, pratirudh R2 = 3 ohm → parshvakram sanyojan mein tuly pratirudh 2 ohm hai."
+      ],
+      "formula": null,
+      "example": null
+    },
+    {
+      "emoji": "🧠",
+      "heading": "saaransh (Quick Revision)",
+      "paras": [
+        "**vidyut dhara:** prati ikai samay mein pravahit vidyut aavesh (charge) ki matra ko vidyut dhara (electric current) kehte hain. iska SI maatrak ampere (A) hai.",
+        "**vibhavantar:** ekank aavesh ko ek bindu se doosre bindu tak le jaane mein kiya gaya karya (work) vibhavantar (potential difference) kahaata hai. iska SI maatrak volt (V) hai.",
+        "**om ka niyam:** niyat taap (temperature) par, chaalak (conductor) se pravahit dhara usmein utpann vibhavantar (V) ke samanupati hoti hai: V = I × R.",
+        "**pratirodhkata:** kisi padarth ka vah gunadharm jo dhara ke pravah ka virodh karta hai. iska SI maatrak ohm × m hai. yeh padarth ki prakriti aur taap par nirbhar karta hai.",
+        "**shrenikram sanyojan:** shrenikram (series) mein sabhi pratirudhkon se saman dhara pravahit hoti hai aur kul pratirudh Rs = R1 + R2 + R3 hota hai.",
+        "**parshvakram sanyojan:** parshvakram (parallel) mein sabhi pratirudhkon par saman vibhavantar hota hai aur 1/Rp = 1/R1 + 1/R2 + 1/R3 hota hai.",
+        "**taapiya prabhav:** jab kisi chaalak se dhara pravahit hoti hai, to vidyut urja ka ushma mein roopantaran hota hai. jul ke niyam se H = I^2 × R × t.",
+        "**fuse:** suraksha yukti jo paripath (circuit) ko atibhaaran aur laghupathan se bachati hai. iska galnaank kam hota hai aur ise shrenikram mein joda jata hai.",
+        "**vidyut shakti:** vidyut urja ke upbhog ki dar ko vidyut shakti (electric power) kehte hain. P = V × I, iska SI maatrak watt (W) hai.",
+        "**vyaavasaayik maatrak:** vidyut urja ka vyaavasaayik maatrak kilowatt-ghanta (kWh) ya unit hai. 1 kWh = 3.6 × 10^6 J."
+      ],
+      "formula": null,
+      "example": null
+    },
+    {
+      "emoji": "🎓",
+      "heading": "tvarit janch (Quick Check)",
+      "paras": [
+        "**ammeter (ammeter) aur voltmeter (voltmeter) ko paripath mein kaise joda jata hai?** — ammeter ko hamesha **shrenikram** (series) mein aur voltmeter ko hamesha **parshvakram** (parallel) mein joda jata hai.",
+        "**chaalak (conductor) ka pratirudh kin-kin kaarakon par nirbhar karta hai?** — pratirudh chaalak ki **lambai** (length) L ke samanupati, **anupraasth kaat** (cross-sectional area) A ke vyutkramaanupati tatha **taap** aur padarth ki prakriti par nirbhar karta hai.",
+        "**gharelu paripathon (domestic circuits) mein parshvakram sanyojan ka upyog kyon kiya jata hai?** — kyonki parshvakram (parallel) mein pratyek upkaran ko saman **vibhavantar** (potential difference) milta hai aur ek upkaran ke kharaab hone par anya karya karte rahte hain.",
+        "**vidyut bulb ke tantu (filament) ke liye tungsten ka upyog kyon kiya jata hai?** — kyonki tungsten ki **pratirodhkata** (resistivity) aur uchch **galnaank** hota hai, jisse yeh uchch taap par bhi nahi pighalta.",
+        "**fuse (fuse) taar ki do mukhya visheshtaein likhiye.** — fuse taar ka **galnaank** (melting point) kam hota hai tatha **pratirudh** (resistance) uchch hota hai."
+      ],
+      "formula": null,
+      "example": null
+    },
+    {
+      "emoji": "📐",
+      "heading": "sabhi sutra (Formula Sheet)",
+      "paras": [
+        "विद्युत धारा सूत्र: I = Q / t",
+        "विभवांतर सूत्र: V = W / Q",
+        "ओम का नियम: V = I × R",
+        "प्रतिरोधकता सूत्र: R = rho × L / A",
+        "श्रेणीक्रम संयोजन: Rs = R1 + R2 + R3",
+        "पार्श्वक्रम संयोजन: 1 / Rp = 1 / R1 + 1 / R2 + 1 / R3",
+        "जूल का तापन नियम: H = I^2 × R × t",
+        "विद्युत शक्ति सूत्र: P = V × I",
+        "विद्युत ऊर्जा सूत्र: E = P × t"
+      ],
+      "formula": null,
+      "example": null
+    }
+  ]
+}
