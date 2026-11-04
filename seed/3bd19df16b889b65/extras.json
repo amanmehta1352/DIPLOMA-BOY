@@ -144,26 +144,34 @@
   },
   {
    "title": [
-    "जूल के तापन नियम से उत्पन्न ऊष्मा की गणना",
-    "Calculation of Heat Generated using Joule's Law"
+    "तापीय प्रभाव की गणना",
+    "Calculating Heating Effect"
    ],
    "given": [
-    "धारा (current) I = 2 A, प्रतिरोध (resistance) R = 10 ohm, समय (time) t = 5 s",
-    "Current I = 2 A, Resistance R = 10 ohm, Time t = 5 s"
+    "विद्युत धारा (I) = 2 A, प्रतिरोध (R) = 10 ohm, समय (t) = 10 s",
+    "Electric current (I) = 2 A, Resistance (R) = 10 ohm, Time (t) = 10 s"
    ],
    "steps": [
     [
-     "जूल के नियम से ऊष्मा H = I^2 × R × t",
-     "By Joule's law, heat H = I^2 × R × t"
+     "तापीय प्रभाव (H) = I^2 × R × t",
+     "Heating effect (H) = I^2 × R × t"
     ],
     [
-     "H = 2^2 × 10 × 5 = 4 × 10 × 5 = 200 J",
-     "H = 2^2 × 10 × 5 = 4 × 10 × 5 = 200 J"
+     "H = (2 A)^2 × 10 ohm × 10 s",
+     "H = (2 A)^2 × 10 ohm × 10 s"
+    ],
+    [
+     "H = 4 A^2 × 10 ohm × 10 s",
+     "H = 4 A^2 × 10 ohm × 10 s"
+    ],
+    [
+     "H = 400 J",
+     "H = 400 J"
     ]
    ],
    "answer": [
-    "उत्पन्न ऊष्मा (heat) 200 J है।",
-    "The generated heat is 200 J."
+    "400",
+    "J"
    ],
    "check": {
     "givens": [
@@ -179,7 +187,7 @@
      },
      {
       "symbol": "t",
-      "value": 5,
+      "value": 10,
       "unit": "s"
      }
     ],
@@ -188,7 +196,7 @@
     ],
     "unknown": "H",
     "answer": {
-     "value": 200,
+     "value": 400,
      "unit": "J"
     }
    }

@@ -71,14 +71,51 @@ def close(a, b, tol=TOL): return abs(a - b) <= tol * max(abs(a), abs(b), 1e-12)
 def verify(check, reg=None):
     reg = reg or load()
     if not isinstance(check, dict): return None, 'no structured check'
+    picked = ''
     try:
-        exp = solve(check, reg)
+        try:
+            exp = solve(check, reg)
+        except ValueError as e1:
+            exp, picked = pick_formula(check, reg, e1)
         a = check.get('answer') or {}
         got = to_si(a.get('value'), a.get('unit'), check['unknown'], reg)
     except (ValueError, TypeError, pint.errors.PintError, sp.SympifyError) as e:
         return None, f'not verifiable: {e}'[:200]
-    if close(exp, got): return True, f'code {exp:.6g} = stated {got:.6g} {reg["symbols"][check["unknown"]]}'
+    if close(exp, got): return True, f'code {exp:.6g} = stated {got:.6g} {reg["symbols"][check["unknown"]]}' + (f' (formula chosen by code: {picked})' if picked else '')
     return False, f'code gives {exp:.6g} {reg["symbols"][check["unknown"]]}, stated answer is {got:.6g}'
+
+
+def pick_formula(check, reg, err):
+    """The writer named a formula that does not fit its own givens (e.g. "ohm" for a V-I graph slope). Code then tries every registry
+    formula whose symbols are exactly covered by the givens + unknown. Accepted only if every fitting formula gives the same value."""
+    F = reg['formulas']; unk = check.get('unknown'); have = {g.get('symbol') for g in check.get('givens') or []}
+    if unk not in reg['symbols'] or not have <= set(reg['symbols']): raise err
+    fits = []
+    for fid, f in F.items():
+        used = set(re.findall(r'[A-Za-z_][A-Za-z_0-9]*', f['expr'])) & set(reg['symbols'])
+        if unk in used and used - {unk} and used - {unk} <= have:
+            try: fits.append((fid, solve({**check, 'formulas': [fid]}, reg)))
+            except ValueError: pass
+    if not fits or any(not close(v, fits[0][1]) for _, v in fits): raise err
+    return fits[0][1], ','.join(fid for fid, _ in fits)
+
+
+SUP = str.maketrans('⁰¹²³⁴⁵⁶⁷⁸⁹⁻−', '0123456789--')
+
+
+def givens_in_text(check, text):
+    """Every given value of the code check appears in the question text (directly or as a common unit conversion),
+    so the code solved the question that was actually asked."""
+    t = str(text).replace(',', ''); nums = []
+    sci = r'(\d+(?:\.\d+)?)\s*[x×*]\s*10\s*(?:\^\s*\(?\s*([-−]?\d+)\)?|([⁻−]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+))'
+    for a, e1, e2 in re.findall(sci, t): nums.append(float(a) * 10 ** int((e1 or e2).translate(SUP)))
+    nums += [float(x) for x in re.findall(r'\d+(?:\.\d+)?', re.sub(sci, ' ', t))]     # unit powers (m²) are not numbers: \d does not match superscripts
+    if not isinstance(check, dict) or not check.get('givens'): return False
+    for g in check['givens']:
+        try: v = float(g.get('value'))
+        except (TypeError, ValueError): return False
+        if not any(close(n * k, v) for n in nums for k in (1, 60, 3600, 1000, 0.001, 0.01, 100, 1e-6)): return False
+    return True
 
 
 def option_value(text, default_unit, symbol, reg):

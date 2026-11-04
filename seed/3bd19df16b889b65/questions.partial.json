@@ -1626,5 +1626,275 @@
     }
    }
   }
+ ],
+ "2": [
+  {
+   "type": "case_based",
+   "outcome": "o6",
+   "bloom": "apply",
+   "case": [
+    "एक घर में 230 V की सप्लाई है। दो उपकरण – 60 W का बल्ब और 75 W का पंखा, दोनों को समान सॉकेट में समानांतर (पार्श्वक्रम) में जोड़ा गया है। कुल शक्ति, प्रत्येक उपकरण द्वारा खींचा गया धारा, और कुल धारा ज्ञात करें। यदि कुल धारा 0.6 A से अधिक हो तो फ्यूज़ (5 A) नहीं उड़ना चाहिए।",
+    "A house is supplied with 230 V. Two appliances – a 60 W bulb and a 75 W fan – are connected in parallel to the same socket. Determine the total power consumed, the current drawn by each appliance, and the total current supplied. Also state whether a 5 A fuse will remain intact if the total current exceeds 0.6 A."
+   ],
+   "q": [
+    "ऊपर दिए गये परिपथ में प्रत्येक उपकरण द्वारा खींची गई धारा, कुल धारा और कुल शक्ति की गणना करें तथा बताइए कि 5 A का फ्यूज़ सुरक्षित रहेगा या नहीं।",
+    "Calculate the current drawn by each appliance, the total current and the total power in the circuit and state whether a 5 A fuse will stay intact."
+   ],
+   "answer": [
+    "बल्ब की धारा I₁ = P₁/V = 60 W/230 V ≈ 0.261 A, पंखे की धारा I₂ = 75 W/230 V ≈ 0.326 A। कुल धारा Iₜ = I₁ + I₂ ≈ 0.587 A। कुल शक्ति Pₜ = 60 W + 75 W = 135 W। चूँकि Iₜ < 5 A, फ्यूज़ सुरक्षित रहेगा। समानांतर में प्रत्येक उपकरण को पूर्ण विभवांतर मिलता है और एक उपकरण के बंद होने पर दूसरा काम करता रहता है, यही घरेलू परिपथ में समानांतर का लाभ है।",
+    "Bulb current I₁ = 60 W/230 V ≈ 0.261 A, fan current I₂ = 75 W/230 V ≈ 0.326 A. Total current Iₜ = I₁ + I₂ ≈ 0.587 A. Total power Pₜ = 60 W + 75 W = 135 W. Since Iₜ < 5 A, the fuse remains intact. In parallel each appliance receives full voltage and if one fails the others continue to operate, which is the advantage of parallel connections in domestic circuits."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "V",
+      "value": 230,
+      "unit": "V"
+     },
+     {
+      "symbol": "P1",
+      "value": 60,
+      "unit": "W"
+     },
+     {
+      "symbol": "P2",
+      "value": 75,
+      "unit": "W"
+     }
+    ],
+    "formulas": [
+     "power_vi"
+    ],
+    "unknown": "I_total",
+    "answer": {
+     "value": 0.587,
+     "unit": "A"
+    }
+   },
+   "outcome_all": [
+    "o6",
+    "o7",
+    "o9"
+   ]
+  },
+  {
+   "type": "case_based",
+   "outcome": "o2",
+   "bloom": "understand",
+   "case": [
+    "भौतिक प्रयोगशाला में एक धातु तंतु (लंबाई 1.2 m, अनुप्रस्थ काट 0.5 mm²) को परिपथ में रखा गया। तंतु के दो सिरों पर वोल्टमीटर (वोल्टेज माप) और बीच में एमीटर (धारा माप) जोड़ा गया। विभिन्न धारा मानों पर वोल्टेज पढ़ा गया: (I=0.2 A, V=1.2 V), (I=0.4 A, V=2.4 V), (I=0.6 A, V=3.6 V)। प्रतिरोधकता (ρ) तांबे के लिए 1.68×10⁻⁸ Ω·m है।",
+    "In a physics lab, a metal wire (length 1.2 m, cross‑sectional area 0.5 mm²) is placed in a circuit. A voltmeter is connected across the ends and an ammeter in series. The V‑I readings are: (I=0.2 A, V=1.2 V), (I=0.4 A, V=2.4 V), (I=0.6 A, V=3.6 V). The resistivity of copper is 1.68×10⁻⁸ Ω·m."
+   ],
+   "q": [
+    "वोल्टेज‑धारा ग्राफ का ढाल निकालें और प्रतिरोध निर्धारित करें। फिर R = ρ L/A से प्रतिरोधकता की गणना करें तथा एमीटर और वोल्टमीटर के सही कनेक्शन को समझाइए।",
+    "Find the slope of the V‑I graph and determine the resistance. Then calculate the resistivity using R = ρ L/A and explain the correct connections of the ammeter and voltmeter."
+   ],
+   "answer": [
+    "ग्राफ का ढाल ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, इसलिए प्रतिरोध R = 6 Ω। अनुप्रस्थ काट A = 0.5 mm² = 0.5×10⁻⁶ m²। ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m। एमीटर को धारा के प्रवाह के क्रम में (सिर्‍स में) जोड़ा जाता है, जबकि वोल्टमीटर को मापे जाने वाले घटक के दोनों सिरों पर समानांतर (पार्श्वक्रम) में जोड़ा जाता है।",
+    "Slope = ΔV/ΔI = (3.6 V‑1.2 V)/(0.6 A‑0.2 A) = 2.4 V/0.4 A = 6 Ω, so R = 6 Ω. Area A = 0.5 mm² = 0.5×10⁻⁶ m². ρ = R·A/L = 6 Ω·0.5×10⁻⁶ m² / 1.2 m = 2.5×10⁻⁶ Ω·m. The ammeter is placed in series with the circuit so that the same current passes through it, whereas the voltmeter is connected across the component (parallel) to measure the potential difference."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "V1",
+      "value": 1.2,
+      "unit": "V"
+     },
+     {
+      "symbol": "I1",
+      "value": 0.2,
+      "unit": "A"
+     },
+     {
+      "symbol": "V2",
+      "value": 3.6,
+      "unit": "V"
+     },
+     {
+      "symbol": "I2",
+      "value": 0.6,
+      "unit": "A"
+     },
+     {
+      "symbol": "L",
+      "value": 1.2,
+      "unit": "m"
+     },
+     {
+      "symbol": "A",
+      "value": 5e-07,
+      "unit": "m^2"
+     }
+    ],
+    "formulas": [
+     "ohm",
+     "resistivity"
+    ],
+    "unknown": "R",
+    "answer": {
+     "value": 6,
+     "unit": "Ω"
+    }
+   },
+   "outcome_all": [
+    "o2",
+    "o3",
+    "o4",
+    "o5"
+   ]
+  },
+  {
+   "type": "case_based",
+   "outcome": "o1",
+   "bloom": "apply",
+   "case": [
+    "एक इलेक्ट्रिक हीटर 1500 W की शक्ति 240 V पर उपयोग किया जाता है। इसे 5 A के फ्यूज़ वाले सर्किट में जोड़ा गया। हीटर को 30 मिनट तक चलाया गया। कुल चार्ज, उत्पन्न तापीय ऊर्जा, और फ्यूज़ के काम करने का सिद्धांत बताइए।",
+    "An electric heater rated 1500 W at 240 V is connected to a circuit protected by a 5 A fuse. The heater operates for 30 minutes. Determine the total charge passed, the thermal energy produced, and explain how the fuse works."
+   ],
+   "q": [
+    "हीटर द्वारा बहनी धारा, वह 30 मिनट में पार किया गया कुल आवेश, उत्पन्न ऊर्जा (kWh में) निकालें तथा समझाइए कि फ्यूज़ क्यों पिघलता है।",
+    "Find the current drawn by the heater, the total charge transferred in 30 minutes, the energy produced in kWh, and explain why the fuse melts."
+   ],
+   "answer": [
+    "धारा I = P/V = 1500 W/240 V = 6.25 A। समय t = 30 min = 1800 s। कुल आवेश Q = I·t = 6.25 A × 1800 s = 11250 C। ऊर्जा E = P·t = 1500 W × 1800 s = 2.7×10⁶ J = 2.7 MJ = 0.75 kWh। फ्यूज़ 5 A पर डिज़ाइन किया गया है; यहाँ I = 6.25 A > 5 A, इसलिए I²R गर्मी से फ्यूज़ का धातु तंतु पिघल जाता है और परिपथ खुल जाता है।",
+    "Current I = 1500 W/240 V = 6.25 A. Time t = 30 min = 1800 s. Charge Q = I·t = 6.25 A × 1800 s = 11250 C. Energy E = P·t = 1500 W × 1800 s = 2.7×10⁶ J = 2.7 MJ = 0.75 kWh. The fuse is rated for 5 A; since I = 6.25 A > 5 A, the I²R heating melts the fuse element, opening the circuit."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "P",
+      "value": 1500,
+      "unit": "W"
+     },
+     {
+      "symbol": "V",
+      "value": 240,
+      "unit": "V"
+     },
+     {
+      "symbol": "t_min",
+      "value": 30,
+      "unit": "min"
+     }
+    ],
+    "formulas": [
+     "power_vi",
+     "charge",
+     "energy_pt"
+    ],
+    "unknown": "I",
+    "answer": {
+     "value": 6.25,
+     "unit": "A"
+    }
+   },
+   "outcome_all": [
+    "o1",
+    "o8",
+    "o9"
+   ]
+  },
+  {
+   "type": "case_based",
+   "outcome": "o4",
+   "bloom": "understand",
+   "case": [
+    "एक तांबे का तंतु जिसकी लंबाई 2 m और अनुप्रस्थ काट 1 mm² है, को 20°C पर 0.5 Ω प्रतिरोध के साथ प्रयोग में उपयोग किया गया। यदि तापमान 80°C तक बढ़ता है तो प्रतिरोध 0.55 Ω हो जाता है। प्रतिरोधकता (ρ) की गणना करें और तापमान के प्रभाव को समझाइए।",
+    "A copper wire of length 2 m and cross‑sectional area 1 mm² shows a resistance of 0.5 Ω at 20°C. When the temperature rises to 80°C, the resistance becomes 0.55 Ω. Calculate the resistivity at 20°C and explain the temperature effect on resistance."
+   ],
+   "q": [
+    "20°C पर प्रतिरोधकता ρ की गणना करें तथा बताइए कि तापमान बढ़ने से प्रतिरोध क्यों बढ़ता है।",
+    "Calculate the resistivity ρ at 20°C and state why resistance increases with temperature."
+   ],
+   "answer": [
+    "अनुप्रस्थ काट A = 1 mm² = 1×10⁻⁶ m²। ρ = R·A/L = 0.5 Ω × 1×10⁻⁶ m² / 2 m = 2.5×10⁻⁷ Ω·m। ताप बढ़ने पर धातु के परमाणु अधिक कंपन करते हैं, जिससे इलेक्ट्रॉनों का बिखराव बढ़ता है और प्रतिरोध बढ़ता है (धनात्मक तापांक)।",
+    "Area A = 1 mm² = 1×10⁻⁶ m². ρ = R·A/L = 0.5 Ω × 1×10⁻⁶ m² / 2 m = 2.5×10⁻⁷ Ω·m. As temperature rises, atomic vibrations increase, causing more scattering of electrons; thus resistance rises (positive temperature coefficient)."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "R",
+      "value": 0.5,
+      "unit": "Ω"
+     },
+     {
+      "symbol": "L",
+      "value": 2,
+      "unit": "m"
+     },
+     {
+      "symbol": "A",
+      "value": 1e-06,
+      "unit": "m^2"
+     }
+    ],
+    "formulas": [
+     "resistivity"
+    ],
+    "unknown": "rho",
+    "answer": {
+     "value": 2.5e-07,
+     "unit": "Ω·m"
+    }
+   },
+   "outcome_all": [
+    "o4",
+    "o5"
+   ]
+  },
+  {
+   "type": "case_based",
+   "outcome": "o3",
+   "bloom": "apply",
+   "case": [
+    "एक बैटरी 12 V की है। तीन प्रतिरोधक 2 Ω, 3 Ω और 5 Ω को श्रेणीक्रम (सीरीज) में जोड़ा गया। परिपथ में धारा, प्रत्येक प्रतिरोधक पर विभवांतर, और कुल प्रतिरोध निकालिए। साथ ही, यदि इन्हें समानांतर (पार्श्वक्रम) में जोड़ा जाए तो कुल प्रतिरोध कितना होगा, यह बताइए।",
+    "A 12 V battery is connected to three resistors of 2 Ω, 3 Ω and 5 Ω in series. Determine the circuit current, the potential difference across each resistor, and the total resistance. Also state the equivalent resistance if the same resistors are connected in parallel."
+   ],
+   "q": [
+    "श्रेणीक्रम में कुल प्रतिरोध, धारा, प्रत्येक प्रतिरोधक पर विभवांतर निकालें तथा समानांतर में कुल प्रतिरोध की गणना करें।",
+    "Find the total resistance, current, and voltage drop across each resistor for the series connection and compute the equivalent resistance for the parallel connection."
+   ],
+   "answer": [
+    "श्रेणीक्रम में Rs = 2 Ω + 3 Ω + 5 Ω = 10 Ω। धारा I = V/Rs = 12 V / 10 Ω = 1.2 A। V₁ = I·2 Ω = 2.4 V, V₂ = 1.2 A·3 Ω = 3.6 V, V₃ = 1.2 A·5 Ω = 6.0 V। समानांतर में 1/Rp = 1/2 + 1/3 + 1/5 = 0.5 + 0.333 + 0.2 = 1.033 Ω⁻¹, अतः Rp ≈ 0.97 Ω।",
+    "Series: Rs = 2 Ω + 3 Ω + 5 Ω = 10 Ω. Current I = 12 V / 10 Ω = 1.2 A. Voltage drops: V₁ = 1.2 A·2 Ω = 2.4 V, V₂ = 1.2 A·3 Ω = 3.6 V, V₃ = 1.2 A·5 Ω = 6.0 V. Parallel: 1/Rp = 1/2 + 1/3 + 1/5 = 0.5 + 0.333 + 0.2 = 1.033 Ω⁻¹, so Rp ≈ 0.97 Ω."
+   ],
+   "check": {
+    "givens": [
+     {
+      "symbol": "V",
+      "value": 12,
+      "unit": "V"
+     },
+     {
+      "symbol": "R1",
+      "value": 2,
+      "unit": "Ω"
+     },
+     {
+      "symbol": "R2",
+      "value": 3,
+      "unit": "Ω"
+     },
+     {
+      "symbol": "R3",
+      "value": 5,
+      "unit": "Ω"
+     }
+    ],
+    "formulas": [
+     "series3",
+     "parallel3"
+    ],
+    "unknown": "I",
+    "answer": {
+     "value": 1.2,
+     "unit": "A"
+    }
+   },
+   "outcome_all": [
+    "o3",
+    "o6"
+   ]
+  }
  ]
 }

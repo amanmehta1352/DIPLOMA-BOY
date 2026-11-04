@@ -344,7 +344,7 @@ def normalize_questions(qs):
         if isinstance(q.get('outcome'), dict): q['outcome'] = q['outcome'].get('id')
         for k in ('q', 'answer', 'assertion', 'reason', 'case'):
             if k in q: q[k] = unwrap_pair(q[k])
-        if q.get('type') == 'assertion_reason' and not pair_ok(q.get('q')) and pair_ok(q.get('assertion')) and pair_ok(q.get('reason')):
+        if q.get('type') == 'assertion_reason' and pair_ok(q.get('assertion')) and pair_ok(q.get('reason')):      # stem is always derived, so it never goes stale
             q['q'] = [f"अभिकथन (A): {q['assertion'][0]} कारण (R): {q['reason'][0]}", f"Assertion (A): {q['assertion'][1]} Reason (R): {q['reason'][1]}"]
     return qs
 
@@ -402,19 +402,24 @@ DEV = str.maketrans('०१२३४५६७८९', '0123456789')
 def term_check(prs):
     """CSTT/NCERT term lock: when the English side uses a glossary term, the Hindi side must use an allowed Hindi form and no banned form.
     Hindi and English sides must carry the same numbers."""
-    miss, banned, nums = {}, {}, 0
+    miss, banned, nums, bad = {}, {}, 0, []
     dev = re.compile(r'[\u0900-\u097F]')
     for hi, en in prs:
         if not dev.search(hi) or dev.search(en): continue      # not a real Hindi/English pair (a table row or symbol cell the model gave as two strings)
+        why = []
         for t in GLOSSARY['terms']:
             if re.search(r'(?<![a-z])' + re.escape(t['en'].lower()) + r'(?![a-z])', en.lower()) and not (t.get('loose') and len(en.split()) < 8):
-                if not any(h in hi for h in t['hi']): miss[t['en']] = miss.get(t['en'], 0) + 1
+                if not any(h in hi for h in t['hi']): miss[t['en']] = miss.get(t['en'], 0) + 1; why.append(f"'{t['en']}' must be '{t['hi'][0]}' in Hindi")
             for b in t.get('not', []):
-                if b in hi: banned[b] = banned.get(b, 0) + 1
-        a = sorted(re.findall(r'\d+(?:\.\d+)?', hi.translate(DEV))); b = sorted(re.findall(r'\d+(?:\.\d+)?', en))
-        if a != b: nums += 1
+                if b in hi: banned[b] = banned.get(b, 0) + 1; why.append(f"never write '{b}', write '{t['hi'][0]}'")
+        a, b = num_set(hi.translate(DEV)), num_set(en)        # same numbers on both sides (a number repeated in one explanation is not a mismatch)
+        if a != b: nums += 1; why.append(f'Hindi and English must carry the same numbers and formulas (Hindi has {sorted(a)}, English has {sorted(b)})')
+        if why: bad.append({'pair': [hi, en], 'why': why})
     return {'pairs': len(prs), 'missing_hindi_term': miss, 'banned_form': banned, 'number_mismatch_pairs': nums,
-            'glossary_verified': GLOSSARY['verified']}
+            'glossary_verified': GLOSSARY['verified'], 'bad_pairs': bad}
+
+
+def num_set(s): return set(re.findall(r'\d+(?:\.\d+)?', s))
 
 
 def family(provider, model):
@@ -623,7 +628,23 @@ def assemble(job):
     return ch
 
 
+def split_answer(x):
+    """A numerical answer given as [number, unit] (run 11: ["400", "J"]) is not a Hindi/English pair: code joins it to "400 J" on both sides."""
+    if pair_ok(x) and not HI.search(x[0] + x[1]) and re.fullmatch(r'-?[\d.,]+(?:\s*[x×]\s*10\^?-?\d+)?', x[0].strip()) and not re.search(r'\d', x[1]) and len(x[1].strip()) <= 8:
+        v = f'{x[0].strip()} {x[1].strip()}'; return [v, v]
+    return x
+
+
+def normalize_extras(job):
+    ex = job.get('extras.json'); ch_ = False
+    for n in ex.get('numericals') or []:
+        s = split_answer(n.get('answer'))
+        if s is not n.get('answer'): n['answer'] = s; ch_ = True
+    if ch_: job.put('extras.json', ex)
+
+
 def st_checks(job, r, P, refset):
+    normalize_extras(job)
     ch = assemble(job); row = R.chapter_row(ch, os.environ.get('BOOK_SLUG', 'class10-science'), r['chapter_no'], r['app']['chapter_id'])
     d = row['data']; c = {}
     c['notes_words'] = {k: words(d[f'notes_{k}']) for k in ('hi', 'en')}
@@ -677,7 +698,7 @@ def st_checks(job, r, P, refset):
     for i, (n, g) in enumerate(zip(allnum, got + [''] * 80)):
         cok, cwhy = NC.verify(n.get('check'))
         c['numericals'].append({'n': i + 1, 'stored': n['answer'][1], 'solver': g, 'agree': bool(num(n['answer'][1])) and num(n['answer'][1])[-1] in num(g),
-                                'code': cok, 'code_detail': cwhy})
+                                'code': cok, 'code_detail': cwhy, 'givens_in_text': NC.givens_in_text(n.get('check'), n['given'][1])})
     c['mcq_code'] = [{'q': i + 1, 'ok': ok_, 'detail': w} for i, q in enumerate(bank) if q.get('type') == 'mcq' and q.get('check')
                      for ok_, w in [NC.mcq_options_ok(q)]]
     try:
@@ -703,7 +724,10 @@ def st_checks(job, r, P, refset):
     elif ov > 0.2: probs.append(f'copyright overlap {ov:.0%}')
     probs += [f"numerical {x['n']}: code check failed: {x['code_detail']}" for x in c['numericals'] if x['code'] is False]
     probs += [f"numerical {x['n']}: not code-verified ({x['code_detail']})" for x in c['numericals'] if x['code'] is None]
-    probs += [f"numerical {x['n']}: independent solver got a different answer" for x in c['numericals'] if x['code'] is True and not x['agree']]
+    # code (sympy + pint, registry formula) beats an AI solver - but only when every given of the code check is in the question text,
+    # i.e. the code solved the question that was asked; then the AI disagreement is shown as a warning, never hidden
+    probs += [f"numerical {x['n']}: independent solver got a different answer" for x in c['numericals'] if x['code'] is True and not x['agree'] and not x['givens_in_text']]
+    code_over_ai = [x['n'] for x in c['numericals'] if x['code'] is True and not x['agree'] and x['givens_in_text']]
     probs += [f"mcq {x['q']}: {x['detail']}" for x in c['mcq_code'] if x['ok'] is not True]
     probs += band_problems(c['coverage']['bands'])
     if run_n is not None and run_n >= PATH['copyright']['max_run_words']: probs.append(f"copyright: {run_n} words in a row match a reference book: '{run_txt[:80]}'")
@@ -712,33 +736,182 @@ def st_checks(job, r, P, refset):
     if c['key_balance']['max_share'] > 0.4: probs.append(f"mcq keys bunched: {c['key_balance']['positions']}")
     if c['terms']['missing_hindi_term']: probs.append('Hindi term not the standard one for: ' + ', '.join(f'{k} ({v})' for k, v in c['terms']['missing_hindi_term'].items()))
     if c['terms']['banned_form']: probs.append('non-standard Hindi form used: ' + ', '.join(c['terms']['banned_form']))
-    c['warnings'] = ([f"{c['terms']['number_mismatch_pairs']} Hindi/English pairs carry different numbers"] if c['terms']['number_mismatch_pairs'] else []) + \
+    if c['terms']['number_mismatch_pairs']: probs.append(f"{c['terms']['number_mismatch_pairs']} Hindi/English pairs carry different numbers")
+    c['warnings'] = ([f"numerical {n}: AI solver disagreed, code-verified answer kept (all givens are in the question)" for n in code_over_ai]) + \
                     ([] if GLOSSARY['verified'] else ['Hindi glossary checked against official PYQ Hindi usage; line-by-line CSTT check pending'])
     if ok is not True: probs.append('fact check ' + ('inconclusive' if ok is None else 'failed') + f': {why}')
     if not d.get('demo_html'): probs.append('3D model missing')
+    if job.d.get('hinglish_stale'): probs.append(f"hinglish not refreshed after Hindi rewrite: sections {job.d['hinglish_stale']}")
     c['problems'] = probs
     job.put('checks.json', c); job.put('chapter_books_row.json', row); job.save()
     # one bounded correction round: the parts the checkers named are rewritten with the checker's reason, then all checks run again
-    if probs and not job.d.get('corrected') and P is not None:
-        fix_c = [x for x in ch['concepts'] if ok is not True and any(t and t.lower() in why.lower() for t in x['title'])]
-        copy_bad = (run_n is not None and run_n >= PATH['copyright']['max_run_words']) or (ov is not None and ov > 0.2) or c['terms']['banned_form'] or c['terms']['missing_hindi_term']
-        if copy_bad:      # rewrite the concepts that carry the copied words / wrong Hindi terms (top 4 by overlap), with the reason
-            sc = sorted(ch['concepts'], key=lambda x: -(C.overlap({'t': ' '.join(y for pr in pairs(x) for y in pr)}, refset) or 0))
-            hit = [x for x in ch['concepts'] if run_txt and run_txt[:40] in re.sub(r'[^a-z0-9ऀ-ॿ ]+', ' ', ' '.join(y for pr in pairs(x) for y in pr).lower())]
-            fix_c += [x for x in (hit + sc[:4]) if x not in fix_c]
-            copy_reason = (f"copied words from a reference book: '{run_txt[:90]}'; rewrite every definition in completely your own words and sentence structure. " if run_n else '') + \
-                          ('Use only standard Hindi terms: ' + '; '.join(f"{t['en']} = {t['hi'][0]}" for t in GLOSSARY['terms']) + '; never ' + ', '.join(list(c['terms']['banned_form'])) if (c['terms']['banned_form'] or c['terms']['missing_hindi_term']) else '')
-            why = (why or '') + ' ' + copy_reason
-        fix_n = [x['n'] for x in c['numericals'] if (x['code'] is not True or not x['agree']) and x['n'] <= len(ch['numericals'])]
-        if fix_c or fix_n:
-            job.d['corrected'] = {'concepts': [x['key'] for x in fix_c], 'numericals': fix_n, 'at': J.now()}; job.save()
-            if fix_c: correct_concepts(job, r, P, fix_c, why)
-            if fix_n: correct_numericals(job, r, P, fix_n, c['numericals'])
-            return st_checks(job, r, P, refset)
+    rounds = job.d.setdefault('correction_rounds', [])
+    left = getattr(P, 'max_calls', 10 ** 6) - getattr(P, 'n_calls', 0)
+    if probs and P is not None and len(rounds) < MAX_CORRECTION_ROUNDS and left >= 14:
+        return correction_round(job, r, P, refset, ch, bank, c, probs, ok, why, ov, run_n, run_txt)
     if probs:
         job.d['issues'].append({'at': J.now(), 'kind': 'checks_failed', 'detail': 'book checks: ' + '; '.join(probs)[:700]})
         return 'needs_review'
     return 'review_ready'
+
+
+def correction_round(job, r, P, refset, ch, bank, c, probs, ok, why, ov, run_n, run_txt):
+    """One bounded round: every part a checker named is rewritten with the checker's reason, then ALL checks run again (nothing is skipped)."""
+    rec = {'at': J.now(), 'problems': probs[:30]}; job.d['correction_rounds'].append(rec); job.save()
+    if True:
+        fix_c = [x for x in ch['concepts'] if ok is not True and any(t and t.lower() in (why or '').lower() for t in x['title'])]
+        if ov is not None and ov > 0.2:      # whole-chapter overlap: rewrite the 4 concepts closest to the reference
+            sc = sorted(ch['concepts'], key=lambda x: -(C.overlap({'t': ' '.join(y for pr in pairs(x) for y in pr)}, refset) or 0))
+            fix_c += [x for x in sc[:4] if x not in fix_c]
+            why = (why or '') + ' The chapter is too close to a reference book: rewrite in completely your own words and sentence structure.'
+        fix_n = [x['n'] for x in c['numericals'] if (x['code'] is not True or (not x['agree'] and not x['givens_in_text'])) and x['n'] <= len(ch['numericals'])]
+        fix_q = question_fixes(bank, c)
+        bad_pairs = pair_fixes(ch, bank, c, refset, run_n, run_txt)
+        rec.update({'concepts': [x['key'] for x in fix_c], 'numericals': fix_n, 'questions': [[i + 1, w[:70]] for i, w, _ in fix_q], 'pairs': len(bad_pairs)}); job.save()
+        if not (fix_c or fix_n or fix_q or bad_pairs):      # nothing a rewrite can fix: report, do not spend calls on a useless re-check
+            job.d['issues'].append({'at': J.now(), 'kind': 'checks_failed', 'detail': 'book checks: ' + '; '.join(probs)[:700]}); job.save()
+            return 'needs_review'
+        if fix_c: guard(job, 'concepts', lambda: correct_concepts(job, r, P, fix_c, why))
+        if fix_n: guard(job, 'numericals', lambda: correct_numericals(job, r, P, fix_n, c['numericals']))
+        if fix_q: guard(job, 'questions', lambda: correct_questions(job, r, P, fix_q))
+        if bad_pairs: guard(job, 'pairs', lambda: correct_pairs(job, r, P, bad_pairs, refset))
+        return st_checks(job, r, P, refset)
+
+
+MAX_CORRECTION_ROUNDS = 2
+
+
+def guard(job, what, fn):
+    """A correction that fails (bad reply, provider down) is logged; the checks still run again and report what is left."""
+    try: fn()
+    except Exception as e:
+        job.d['issues'].append({'at': J.now(), 'kind': 'correction_failed', 'detail': f'{what}: {type(e).__name__}: {str(e)[:200]}'}); job.save()
+
+
+def question_fixes(bank, c):
+    """(bank index, reason, wanted bloom levels or None): questions the blind solver did not answer to the key, plus enough
+    plain-recall rewrites to reach the knowledge/understanding minimum (taken only from non-competency types, so competency stays >= min)."""
+    out = []; seen = set()
+    for d_ in c['blind']['disagree']:
+        i = d_['q'] - 1
+        if i in seen: continue
+        seen.add(i); q = bank[i]
+        sol = d_.get('solver'); opt = q['options'][sol][1] if isinstance(sol, int) and q.get('options') and 0 <= sol < 4 else 'no answer'
+        out.append((i, f"an independent solver who did not see the key chose '{opt}' but the key is '{q['options'][q['answer_index']][1]}': the question is ambiguous or the key is wrong. "
+                       'Rewrite it so exactly ONE option is correct beyond any doubt, every other option is clearly wrong, and the key is that option', None))
+    n = len(bank); ku = PATH['bloom_bands']['groups']['knowledge_understanding']; lim = PATH['bloom_bands']['min']
+    have = sum(1 for q in bank if q.get('bloom') in ku); need = max(0, -(-int(lim['knowledge_understanding'] * n * 1000) // 1000) - have)
+    if need:
+        need += 1                                  # one spare so a single rejected rewrite does not leave the band short
+        G = PATH['bloom_bands']['groups']; cp = PATH['competency']
+        sim = [dict(q) for q in bank]; cand = []
+        pool = [i for i, q in enumerate(bank) if i not in seen and not q.get('check') and q.get('type') in ('mcq', 'vsa', 'fill_blank', 'true_false', 'sa', 'la', 'assertion_reason')]
+        pool.sort(key=lambda i: (bank[i].get('bloom') not in G['application'], bank[i].get('type') == 'assertion_reason'))      # apply first, then higher-order
+        for i in pool:
+            if len(cand) >= need: break
+            if sim[i].get('bloom') in ku: continue
+            old = sim[i].get('bloom'); sim[i]['bloom'] = 'understand'; b2 = bands(sim)
+            if all(b2[k] >= v + 0.5 / n for k, v in lim.items() if k != 'knowledge_understanding') and b2['competency'] >= cp['min']: cand.append(i)
+            else: sim[i]['bloom'] = old
+        for i in cand:
+            out.append((i, "rewrite it as a knowledge/understanding question (bloom 'understand'): the student explains, compares or identifies a concept of this chapter in words; no calculation", ku))
+    return out
+
+
+def correct_questions(job, r, P, fixes):
+    bank = job.get('questions.json'); outs = job.get('outcomes.json'); ids = {o['id'] for o in outs}
+    for k in range(0, len(fixes), 6):
+        part = fixes[k:k + 6]
+        qs = [{kk: v for kk, v in bank[i].items() if kk not in ('options', 'answer') or bank[i].get('type') != 'assertion_reason'} for i, _, _ in part]
+        prompt = (STYLE.format(depth=C.LEVELS[r['app']['level_id']]['depth']) + f"Rewrite these Class 10 {r['subject']} questions ({r['chapter']}). Keep each one's type and outcome. "
+                  'Same JSON fields as given (mcq: 4 options + answer_index, no "answer"; assertion_reason: assertion, reason, answer_index 0-3 with 0: both true and R explains A, '
+                  '1: both true but R does not explain A, 2: A true R false, 3: A false R true). Every text is a pair ["Hindi", "English"].\n'
+                  + '\n'.join(f'Question {j + 1}: {json.dumps(q, ensure_ascii=False)}\nWhy: {w}' for j, (q, (_, w, _)) in enumerate(zip(qs, part)))
+                  + '\nReturn ONLY JSON: {"questions": [ ...same count, same order... ]}')
+        got = ask(job, P, 'correction', prompt, 'writer').get('questions', [])
+        got = got if isinstance(got, list) else []
+        for (i, _, want), g in zip(part, got):
+            if not isinstance(g, dict): continue
+            g = {**g, 'type': bank[i]['type'], 'outcome': bank[i]['outcome']}
+            if want: g['bloom'] = g.get('bloom') if g.get('bloom') in want else None
+            if g.get('bloom') not in PATH['bloom'] or question_problems([g], {g['type']: 1}, ids): continue
+            if g['type'] == 'assertion_reason': g['options'] = AR_OPTIONS; g['answer'] = AR_OPTIONS[g['answer_index']]
+            bank[i] = g
+    job.put('questions.json', bank); job.save()
+
+
+def pair_fixes(ch, bank, c, refset, run_n, run_txt):
+    """Every [Hindi, English] pair with a wrong Hindi term, a banned form, different numbers, or the copied word run, with its reasons."""
+    bad = {json.dumps(b_['pair'], ensure_ascii=False): list(b_['why']) for b_ in c['terms']['bad_pairs']}
+    if run_n is not None and run_n >= PATH['copyright']['max_run_words']:
+        # every pair with a copied run is found (not only the longest run of the chapter), so one round removes them all
+        ar_fixed = {json.dumps(x, ensure_ascii=False) for q in bank if q.get('type') == 'assertion_reason' for x in (q.get('options') or [])}
+        for pr in pairs({k: v for k, v in ch.items() if k not in ('hinglish', 'demo')}) + pairs(bank):
+            if json.dumps(pr, ensure_ascii=False) in ar_fixed: continue          # fixed CBSE assertion-reason wording, added by code
+            n_, t_ = longest_run(re.sub(r'<[^>]+>', ' ', pr[0] + ' ' + pr[1]), refset)
+            if n_ is not None and n_ >= PATH['copyright']['max_run_words']:
+                bad.setdefault(json.dumps(pr, ensure_ascii=False), []).append(f"{n_} words in a row are copied from a reference book ('{t_[:80]}'): say it in completely your own words and sentence structure")
+    return [{'pair': json.loads(k), 'why': v} for k, v in bad.items()]
+
+
+def pair_ok_after(old, new, refset):
+    """Code accepts a rewritten pair only if every problem is gone and nothing else broke."""
+    if not pair_ok(new): return False
+    t = term_check([new])
+    if t['bad_pairs']: return False
+    if re.findall(r'<[^>]+>', old[1]) and len(re.findall(r'<[^>]+>', new[1])) != len(re.findall(r'<[^>]+>', old[1])): return False
+    if num_set(old[1]) - num_set(new[1]): return False                       # no fact (number) of the English text may be lost
+    n, _ = longest_run(re.sub(r'<[^>]+>', ' ', new[0] + ' ' + new[1]), refset)
+    return not (n is not None and n >= PATH['copyright']['max_run_words'])
+
+
+CONTENT_FILES = ('plan.json', 'concepts.json', 'extras.json', 'teach.json', 'questions.json')
+
+
+def correct_pairs(job, r, P, bad, refset):
+    terms = '; '.join(f"{t['en']} = {t['hi'][0]}" for t in GLOSSARY['terms'])
+    fixed = {}
+    for k in range(0, len(bad), 12):
+        part = bad[k:k + 12]
+        prompt = ('Fix each [Hindi, English] text pair below. Keep the meaning, every fact, number, formula, unit, markdown (**bold**, `code`) and HTML tag. '
+                  'Change ONLY what the reason says. Hindi and English must say the same thing with the same numbers. Standard Hindi terms (CSTT/NCERT): ' + terms + '. '
+                  'Never write: ' + ', '.join(sorted({b_ for t in GLOSSARY['terms'] for b_ in t.get('not', [])})) + '.\n'
+                  + '\n'.join(f'{j + 1}. {json.dumps(x["pair"], ensure_ascii=False)}\n   reason: ' + '; '.join(x['why']) for j, x in enumerate(part))
+                  + '\nReturn ONLY JSON: {"pairs": [["Hindi", "English"], ...]} - same count, same order.')
+        try: got = ask(job, P, 'correction', prompt, 'writer').get('pairs', [])
+        except ValueError: continue
+        for x, g in zip(part, got if isinstance(got, list) else []):
+            g = unwrap_pair(g)
+            if pair_ok_after(x['pair'], g, refset): fixed[json.dumps(x['pair'], ensure_ascii=False)] = g
+    if not fixed: return
+    before = R.teach_sections(assemble(job))
+    def walk(o):
+        if pair_ok(o) and json.dumps(o, ensure_ascii=False) in fixed: o[:] = fixed[json.dumps(o, ensure_ascii=False)]; return
+        if isinstance(o, list): [walk(y) for y in o]
+        elif isinstance(o, dict): [walk(v) for kk, v in o.items() if kk not in ('svg', 'script')]
+    for f in CONTENT_FILES:
+        if job.has(f):
+            o = job.get(f); walk(o)
+            if f == 'questions.json': normalize_questions(o)          # assertion-reason stems are rebuilt from the fixed assertion / reason
+            job.put(f, o)
+    job.d.setdefault('pairs_rewritten', 0); job.d['pairs_rewritten'] += len(fixed); job.save()
+    refresh_hinglish(job, P, before)
+
+
+def refresh_hinglish(job, P, before):
+    """Hinglish is a transliteration of the Hindi teaching text: sections whose Hindi changed are transliterated again (dependent content stays valid)."""
+    if not job.has('hinglish.json'): return
+    after = R.teach_sections(assemble(job)); hg = job.get('hinglish.json')
+    idx = [i for i, (a, b_) in enumerate(zip(before, after)) if json.dumps(a, ensure_ascii=False) != json.dumps(b_, ensure_ascii=False) and i < len(hg)]
+    for k in range(0, len(idx), 6):
+        part = idx[k:k + 6]
+        got = ask(job, P, 'hinglish', p_hinglish([after[i] for i in part]), 'transliterator').get('hinglish', [])
+        if isinstance(got, list) and len(got) == len(part) and all(isinstance(x, dict) for x in got):
+            for i, g in zip(part, got): hg[i] = g
+        else:
+            job.d['issues'].append({'at': J.now(), 'kind': 'checks_failed', 'detail': f'hinglish refresh failed for sections {part}'})
+            job.d['hinglish_stale'] = sorted(set(job.d.get('hinglish_stale', [])) | set(part))
+    job.put('hinglish.json', hg); job.save()
 
 
 def correct_concepts(job, r, P, fix, reason):

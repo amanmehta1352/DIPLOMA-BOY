@@ -15,6 +15,7 @@ TOPICS = [('Electric current', 'विद्युत धारा', 'current_pd
           ('Resistors in series', 'प्रतिरोधक श्रेणीक्रम में', 'combos'), ('Resistors in parallel', 'प्रतिरोधक पार्श्वक्रम में', 'combos'),
           ('Heating effect of current', 'विद्युत धारा का तापीय प्रभाव', 'heating'), ('Electric power P = V × I', 'विद्युत शक्ति', 'power'),
           ('Joule law uses', 'जूल', 'heating'), ('Electric circuits', 'परिपथ', 'current_pd')]
+COPY_SRC = 'the potential difference between two points is the work done to move a unit charge'
 SVG = '<svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="10" x2="200" y2="10" stroke="#000"/><circle cx="50" cy="50" r="10"/><text x="60" y="60">R</text></svg>'
 
 
@@ -23,7 +24,7 @@ class Smart(Mock):
         super().__init__(**k); self.bad = bad or {}; self.n = {}
     def write(self, prompt, avoid=()):
         self.calls.append('write'); self.last_prompt = prompt
-        stage = ('outcomes' if 'Write learning outcomes' in prompt else 'questions' if 'Write the question bank' in prompt else 'plan' if 'Plan one chapter' in prompt else 'concepts' if 'note panels' in prompt else 'extras' if '5 solved numericals' in prompt
+        stage = ('pairs' if 'Fix each [Hindi, English] text pair' in prompt else 'qfix' if 'Rewrite these Class 10' in prompt else 'outcomes' if 'Write learning outcomes' in prompt else 'questions' if 'Write the question bank' in prompt else 'plan' if 'Plan one chapter' in prompt else 'concepts' if 'note panels' in prompt else 'extras' if '5 solved numericals' in prompt
                  else 'teach' if 'friendly teacher' in prompt else 'hinglish' if 'Hinglish' in prompt else 'demo')
         self.n[stage] = self.n.get(stage, 0) + 1
         if stage in self.bad and self.n[stage] <= self.bad[stage][0]:
@@ -71,6 +72,23 @@ class Smart(Mock):
     def a_hinglish(self, p):
         n = len(json.loads(p.split('\n\n', 1)[1]))
         return {'hinglish': [{'emoji': '📘', 'heading': 'Shuruaat', 'paras': ['Yeh ek line hai'], 'formula': None, 'example': None} for _ in range(n)]}
+    def a_pairs(self, p):
+        # a good fixer: banned forms -> standard term; missing standard term added; copied sentence replaced; numbers made equal (English wins)
+        prs = [json.loads(m) for m in re.findall(r'^\d+\. (\[.*\])$', p, re.M)]; out = []
+        for hi, en in prs:
+            en = en.replace(COPY_SRC, 'zephyr quokka marmalade lantern cobalt saffron meadow')
+            for t in B.GLOSSARY['terms']:
+                for b in t.get('not', []): hi = hi.replace(b, t['hi'][0])
+                if re.search(r'(?<![a-z])' + re.escape(t['en']) + r'(?![a-z])', en.lower()) and not any(h in hi for h in t['hi']): hi += ' ' + t['hi'][0]
+            hi = re.sub(r'\d+(?:\.\d+)?', '', hi) + ' ' + ' '.join(sorted(set(re.findall(r'\d+(?:\.\d+)?', en))))
+            out.append([hi.strip(), en])
+        return {'pairs': out}
+    def a_qfix(self, p):
+        qs = [json.loads(m) for m in re.findall(r'^Question \d+: (\{.*\})$', p, re.M)]; whys = re.findall(r'^Why: (.*)$', p, re.M)
+        for q, w in zip(qs, whys):
+            if 'knowledge/understanding' in w: q['bloom'] = 'understand'
+            q['q'] = ['सुधरा ' + q['q'][0], 'FIXED ' + q['q'][1]]
+        return {'questions': qs}
     def a_demo(self, p):
         return {'title': ['ओम का नियम', "Ohm's law"], 'hint': P2(), 'slider': ['वोल्टेज', 'Voltage'], 'min': 0, 'max': 12, 'step': 1, 'val': 6,
                 'script': 'const I=v/4; arrow(new THREE.Vector3(0,0,0),new THREE.Vector3(I,0,0),0xf59e0b); info.textContent=T("धारा ","Current ")+I.toFixed(2)+" A";'}
@@ -138,8 +156,20 @@ def _(d):
 @case('B4 numerical answer not confirmed by the independent solver -> needs_review, reason listed')
 def _(d):
     m = M(); m.solve_num_fn = lambda g: ['I = 5 A'] + ['3 A'] * (len(g) - 1)
-    out = B.run(CMD, m, reference_dir=FP)
-    assert out['final_state'] == 'needs_review' and 'numerical 1' in json.dumps(jd(out)['issues'])
+    out = B.run(CMD, m, reference_dir=FP); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
+    # code verified 12 V / 4 ohm = 3 A and every given is in the question: the AI solver's 5 A is shown as a warning, code wins
+    assert out['final_state'] == 'review_ready' and any('numerical 1: AI solver disagreed' in w for w in chk['warnings']), (out, chk['problems'])
+
+
+@case('B4b solver disagrees AND the code check uses numbers that are not in the question -> not trusted -> rewritten, then needs_review if it stays')
+def _(d):
+    class Off(Smart):
+        def a_extras(self, p):
+            o = super().a_extras(p); o['numericals'][0]['given'] = ['प्रश्न: धारा?', 'Q: find the current through the wire.']; return o
+    m = Off(); m.solve_num_fn = lambda g: ['I = 5 A'] + ['3 A'] * (len(g) - 1)
+    out = B.run(CMD, m, reference_dir=FP); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
+    assert out['final_state'] == 'needs_review' and any('numerical 1: independent solver got a different answer' in x for x in chk['problems']), chk['problems']
+    assert len(jd(out)['correction_rounds']) == 2 and jd(out)['correction_rounds'][0]['numericals'] == [1]
 
 
 @case('B5 broken 3D script (throws) -> rejected and rewritten; final model passes the node test')
@@ -185,7 +215,7 @@ def _(d):
         n['k'] += 1
         return (False, "In 'Ohm's law' the statement is wrong") if n['k'] == 1 else (True, '')
     m.fact = fact; out = B.run(CMD, m, reference_dir=FP); j = jd(out)
-    assert out['final_state'] == 'review_ready' and j['corrected']['concepts'] == ['c2'] and m.n['concepts'] == 5, (out, j.get('corrected'), m.n)
+    assert out['final_state'] == 'review_ready' and j['correction_rounds'][0]['concepts'] == ['c2'] and len(j['correction_rounds']) == 1 and m.n['concepts'] == 5, (out, j.get('correction_rounds'), m.n)
 
 
 @case('B8 renderer: AI text is escaped (no HTML injection), **bold** and x^2 become <strong>/<sup>')
@@ -254,7 +284,7 @@ def _(d):
             return o
     P = Wrong(); P.solve_num_fn = solver
     out = B.run(CMD, P, reference_dir=FP); j = jd(out)
-    assert out['final_state'] == 'review_ready' and j['corrected']['numericals'] == [3], (out, j.get('corrected'), j['issues'][-2:])
+    assert out['final_state'] == 'review_ready' and j['correction_rounds'][0]['numericals'] == [3], (out, j.get('correction_rounds'), j['issues'][-2:])
 
 
 @case('B18 two AIs agree on a wrong answer but code disagrees -> code wins (not shipped)')
@@ -273,7 +303,9 @@ def _(d):
         def a_extras(self, p):
             o = super().a_extras(p); o['numericals'][1].pop('check'); o['numericals'][4]['check']['formulas'] = ['magic']; return o
     P = NoCheck(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
-    assert out['final_state'] == 'needs_review' and any('numerical 2: not code-verified' in x for x in chk['problems']) and any('numerical 5: not code-verified' in x for x in chk['problems'])
+    # no check at all -> never verified (needs_review after the bounded rounds); an unknown formula id -> code picks the only registry formula that fits the givens
+    assert out['final_state'] == 'needs_review' and any('numerical 2: not code-verified' in x for x in chk['problems']), chk['problems']
+    assert chk['numericals'][4]['code'] is True and 'formula chosen by code: ohm' in chk['numericals'][4]['code_detail'], chk['numericals'][4]
 
 
 @case('B20 bank is all remember-level -> Bloom bands fail (CBSE 50/30/20) -> needs_review')
@@ -309,7 +341,8 @@ def _(d):
         seen.append(items); return [x['answer'] if i else (x['answer'] + 1) % 4 for i, x in enumerate(items)]
     P = M(); P.solve_all_fn = blind; out = B.run(CMD, P, reference_dir=FP); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
     assert out['final_state'] == 'needs_review' and any('question 1: answer-blind solver' in x for x in chk['problems']), chk['problems'][:3]
-    assert len(seen) == 2 and any(a['options'] != b['options'] for a, b in zip(seen[0], seen[1])) and all('answer_index' not in x for x in seen[0])
+    assert len(seen) in (2, 4, 6) and any(a['options'] != b['options'] for a, b in zip(seen[0], seen[1])) and all('answer_index' not in x for x in seen[0])
+    assert jd(out)['correction_rounds'][0]['questions'][0][0] == 1, jd(out)['correction_rounds'][0]
 
 
 @case('B23 Hindi term lock: English says resistance, Hindi uses रेज़िस्टेंस (banned) or no standard term -> needs_review; numbers differ -> warning')
@@ -320,6 +353,7 @@ def _(d):
     class BadHi(Smart):
         def a_extras(self, p):
             o = super().a_extras(p); o['revision'][0] = [['इसका रेज़िस्टेंस', 'Its resistance'], ['4 Ω', '4 Ω']]; return o
+        def a_pairs(self, p): return {'pairs': [json.loads(m) for m in re.findall(r'^\d+\. (\[.*\])$', p, re.M)]}      # a fixer that changes nothing
     P = BadHi(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
     assert out['final_state'] == 'needs_review' and any('non-standard Hindi form' in x for x in chk['problems']), chk['problems'][:3]
 
@@ -356,6 +390,7 @@ def _(d):
     class Copy(Smart):
         def a_concepts(self, p):
             o = super().a_concepts(p); o['concepts'][0]['paras'][0] = [W, src]; return o
+        def a_pairs(self, p): return {'pairs': [json.loads(m) for m in re.findall(r'^\d+\. (\[.*\])$', p, re.M)]}      # a fixer that changes nothing
     P = Copy(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=fp); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
     assert out['final_state'] == 'needs_review' and chk['copyright']['overlap'] < 0.2 and any('words in a row' in x for x in chk['problems']), chk['copyright']
 
@@ -369,11 +404,11 @@ def _(d):
     class CopyOnce(Smart):
         def a_concepts(self, p):
             o = super().a_concepts(p)
-            if 'copied words' not in p and 'c0' in p.split('Panels to write:')[1][:200]: o['concepts'][0]['paras'][0] = [W, src]
+            if 'c0' in p.split('Panels to write:')[1][:200]: o['concepts'][0]['paras'][0] = [W, src]
             return o
     P = CopyOnce(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=fp); j = jd(out)
-    assert out['final_state'] == 'review_ready' and 'c0' in j['corrected']['concepts'] and 'copied words' in P.last_prompt or out['final_state'] == 'review_ready', (out, j.get('corrected'), j['issues'][-1:])
-    assert j.get('corrected') and 'c0' in j['corrected']['concepts'], j.get('corrected')
+    assert out['final_state'] == 'review_ready', (out, j['issues'][-1:])
+    assert j['correction_rounds'][0]['pairs'] >= 1 and j['pairs_rewritten'] >= 1, j.get('correction_rounds')
 
 
 @case('B32 key balancing: 12 of 14 keys on option A -> rotated to 0,1,2,3 by swapping; key text unchanged; code check still passes')
@@ -489,6 +524,119 @@ def _(d):
     R_._free_chain('p', 100, [], avoid=('groq',)); R_._free_chain('p', 100, [])
     assert order == ['nvidia', 'groq'], order
     order.clear(); R_._free_chain('p', 100, [], avoid=('groq', 'nvidia', 'cloudflare', 'sambanova')); assert order == ['groq']
+
+
+@case('B41 run-11 shapes: answer ["400","J"] joined to "400 J"; V-I graph slope (writer named "ohm") verified by ohm_slope; heater "2 minutes" = 120 s found in the text')
+def _(d):
+    import numcheck as NC
+    assert B.split_answer(['400', 'J']) == ['400 J', '400 J'] and B.split_answer(['400 जूल', '400 J']) == ['400 जूल', '400 J']
+    slope = {'givens': [{'symbol': 'V1', 'value': 2, 'unit': 'V'}, {'symbol': 'I1', 'value': 0.5, 'unit': 'A'}, {'symbol': 'V2', 'value': 8, 'unit': 'V'}, {'symbol': 'I2', 'value': 2, 'unit': 'A'}],
+             'formulas': ['ohm'], 'unknown': 'R', 'answer': {'value': 4, 'unit': 'Ω'}}
+    ok, why = NC.verify(slope); assert ok is True and 'ohm_slope' in why, why
+    assert NC.verify({**slope, 'answer': {'value': 16, 'unit': 'Ω'}})[0] is False          # a wrong slope answer is still caught
+    heat = {'givens': [{'symbol': 'I', 'value': 5, 'unit': 'A'}, {'symbol': 'R', 'value': 10, 'unit': 'Ω'}, {'symbol': 't', 'value': 120, 'unit': 's'}], 'formulas': ['joule_heat'], 'unknown': 'H', 'answer': {'value': 30000, 'unit': 'J'}}
+    assert NC.verify(heat)[0] is True and NC.givens_in_text(heat, 'A heater of resistance 10 Ω carries a current of 5 A for 2 minutes.')
+    assert not NC.givens_in_text(heat, 'A heater of resistance 10 Ω carries a current of 7 A for 2 minutes.')
+    class Run11(Smart):
+        def a_extras(self, p):
+            o = super().a_extras(p); o['numericals'][3]['answer'] = ['3', 'A']; return o
+    P = Run11(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP)
+    ex = json.load(open(os.path.join(out['dir'], 'extras.json')))
+    assert out['final_state'] == 'review_ready' and ex['numericals'][3]['answer'] == ['3 A', '3 A'], (out, ex['numericals'][3]['answer'])
+
+
+@case('B42 answer-blind solver misses the key of question 1 -> that question is rewritten with the solver reason -> rewritten one reaches the key -> review_ready')
+def _(d):
+    def blind(items): return [x['answer'] if (i or 'FIXED' in x['q']) else (x['answer'] + 1) % 4 for i, x in enumerate(items)]
+    P = M(); P.solve_all_fn = blind; out = B.run(CMD, P, reference_dir=FP); j = jd(out)
+    bank = json.load(open(os.path.join(out['dir'], 'questions.json')))
+    assert out['final_state'] == 'review_ready', (out, j['issues'][-1:])
+    assert j['correction_rounds'][0]['questions'][0][0] == 1 and bank[0]['q'][1].startswith('FIXED') and 'independent solver' in j['correction_rounds'][0]['questions'][0][1]
+    assert not any(q['q'][1].startswith('FIXED') for q in bank[1:] if q['type'] in ('mcq', 'assertion_reason')), 'only the flagged question is rewritten'
+
+
+@case('B43 knowledge/understanding 34% (min 40%) -> code picks non-competency apply questions, they are rewritten at understand level -> band >= 40%, competency still >= min')
+def _(d):
+    class Apply(Smart):
+        def a_questions(self, p):
+            o = super().a_questions(p)
+            for i, q in enumerate(o['questions']):
+                if q['type'] in ('mcq', 'vsa', 'sa', 'fill_blank', 'true_false') and q['bloom'] in ('remember', 'understand') and i % 3: q['bloom'] = 'apply'
+            return o
+    P = Apply(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); j = jd(out); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
+    r0 = j['correction_rounds'][0]
+    assert any('knowledge_understanding questions' in x for x in r0['problems']), r0['problems']
+    assert out['final_state'] == 'review_ready' and chk['coverage']['bands']['knowledge_understanding'] >= 0.4 and chk['coverage']['bands']['competency'] >= 0.5, (out, chk['coverage']['bands'], chk['problems'])
+
+
+@case('B44 Hindi terms: श्रृंखला for series and चार्ज for charge -> only those pairs rewritten with the standard terms; a rewrite that drops a number is rejected by code')
+def _(d):
+    class BadTerms(Smart):
+        def a_extras(self, p):
+            o = super().a_extras(p)
+            o['revision'][1] = [['तीन प्रतिरोधक श्रृंखला में जुड़े हैं और उनमें 2 A धारा बहती है, यह एक सामान्य परिपथ का उदाहरण है', 'Three resistors are joined in series and 2 A current flows through them in this simple example'],
+                                ['चार्ज का SI मात्रक कूलॉम है और एक इलेक्ट्रॉन पर बहुत कम चार्ज होता है जो ऋणात्मक है', 'The SI unit of charge is coulomb and an electron carries a very small negative charge always']]
+            return o
+    P = BadTerms(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); j = jd(out)
+    ex = json.load(open(os.path.join(out['dir'], 'extras.json'))); txt = json.dumps(ex['revision'][1], ensure_ascii=False)
+    assert out['final_state'] == 'review_ready' and 'श्रेणी' in txt and 'चार्ज' not in txt and 'आवेश' in txt and '2' in txt, (out, txt, j['issues'][-1:])
+    old = ['3 Ω श्रेणी में', 'Three 3 Ω resistors in series']
+    assert not B.pair_ok_after(old, ['श्रेणी में प्रतिरोधक', 'Resistors in series'], None)          # the number 3 was lost -> rejected
+    assert B.pair_ok_after(old, ['3 Ω के प्रतिरोधक श्रेणी में', 'Three 3 Ω resistors in series'], None)
+
+
+@case('B45 copied 12-word run in an extras answer (not in a concept) -> found where it is and that pair rewritten -> review_ready')
+def _(d):
+    src = COPY_SRC; w = src.split(); hs = [J.hashlib.sha256(' '.join(w[i:i + 3]).encode()).hexdigest()[:16] for i in range(len(w) - 2)]
+    fp = os.path.join(d, 'fp'); os.makedirs(fp)
+    for lang in ('en', 'hi'): json.dump({'hashes': hs, 'lang': lang, 'files': ['x']}, open(os.path.join(fp, lang + '.json'), 'w'))
+    class CopyEx(Smart):
+        def a_extras(self, p):
+            o = super().a_extras(p); o['practice'][2]['a'] = [W, src]; return o
+    P = CopyEx(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=fp); j = jd(out)
+    ex = json.load(open(os.path.join(out['dir'], 'extras.json'))); chk = json.load(open(os.path.join(out['dir'], 'checks.json')))
+    assert out['final_state'] == 'review_ready' and src not in ex['practice'][2]['a'][1] and (chk['copyright']['longest_copied_run_words'] or 0) < 8, (out, chk['copyright'], j['issues'][-1:])
+
+
+@case('B46 Hindi/English number mismatch inside a teaching paragraph -> pair fixed, and the Hinglish of THAT section only is transliterated again')
+def _(d):
+    class Mis(Smart):
+        def a_teach(self, p):
+            o = super().a_teach(p)
+            if 'Start' in p.split('Lessons: ')[1][:300]: o['teach'][0]['paras'][0] = [W + ' 5 ओम', E + ' 7 ohm']
+            return o
+    P = Mis(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); j = jd(out)
+    te = json.load(open(os.path.join(out['dir'], 'teach.json')))
+    assert out['final_state'] == 'review_ready' and '7' in te[0]['paras'][0][0] and '5' not in te[0]['paras'][0][0], (out, te[0]['paras'][0][0][-20:], j['issues'][-1:])
+    assert P.n['hinglish'] == 4, P.n          # 3 normal batches (17 sections / 6) + 1 refresh for the changed section only
+
+
+@case('B47 bounded: a problem no rewrite fixes -> at most 2 correction rounds, then needs_review with the exact problem; no endless calls')
+def _(d):
+    class Stuck(Smart):
+        def a_extras(self, p):
+            o = super().a_extras(p); o['revision'][0] = [['इसका रेज़िस्टेंस', 'Its resistance'], ['4 Ω', '4 Ω']]; return o
+        def a_pairs(self, p): return {'pairs': [json.loads(m) for m in re.findall(r'^\d+\. (\[.*\])$', p, re.M)]}
+    P = Stuck(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=FP); j = jd(out)
+    assert out['final_state'] == 'needs_review' and len(j['correction_rounds']) == 2 and P.n['pairs'] == 2, (len(j['correction_rounds']), P.n)
+    assert 'non-standard Hindi form' in j['issues'][-1]['detail']
+
+
+@case('B48 two different copied runs (14 and 9 words) in two places -> BOTH pairs are rewritten in the first round (not only the longest), one round only')
+def _(d):
+    src2 = 'resistors joined end to end carry the same current always'
+    hs = []
+    for s in (COPY_SRC, src2):
+        w = s.split(); hs += [J.hashlib.sha256(' '.join(w[i:i + 3]).encode()).hexdigest()[:16] for i in range(len(w) - 2)]
+    fp = os.path.join(d, 'fp'); os.makedirs(fp)
+    for lang in ('en', 'hi'): json.dump({'hashes': hs, 'lang': lang, 'files': ['x']}, open(os.path.join(fp, lang + '.json'), 'w'))
+    class Two(Smart):
+        def a_extras(self, p):
+            o = super().a_extras(p); o['practice'][2]['a'] = [W, COPY_SRC]; o['practice'][5]['a'] = [W, src2]; return o
+        def a_pairs(self, p):
+            o = super().a_pairs(p); o['pairs'] = [[h, e.replace(src2, 'zephyr quokka lantern cobalt')] for h, e in o['pairs']]; return o
+    P = Two(); P.solve_num_fn = solver; out = B.run(CMD, P, reference_dir=fp); j = jd(out)
+    assert out['final_state'] == 'review_ready' and len(j['correction_rounds']) == 1 and j['pairs_rewritten'] >= 2, (out, j.get('correction_rounds'), j['issues'][-1:])
 
 
 @case('B27 end to end: first question batch has repeated MCQ options -> that batch is rewritten with the lint reasons')

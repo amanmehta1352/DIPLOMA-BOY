@@ -1,21 +1,21 @@
 # One-time run of the BOOK robot book.v3 (Universal Subject Path, code-verified numericals, blind solve, Hindi term lock) for Class 10 Science Electricity.
-# Writes nothing to main, DB, Supabase or Pages. Results land only under runs/book-electricity-11/ on this branch.
-name: 'book-robot-electricity-11 (one time, book.v3, path and code checks)'
+# Writes nothing to main, DB, Supabase or Pages. Results land only under runs/book-electricity-12/ on this branch.
+name: 'book-robot-electricity-12 (one time, book.v3, path and code checks)'
 
 on:
   push:
-    branches: [book-robot-electricity-11]
+    branches: [book-robot-electricity-12]
 
 permissions: {}            # nothing by default; each job asks for the minimum
 
 concurrency:
-  group: book-robot-electricity-11
+  group: book-robot-electricity-12
   cancel-in-progress: false
 
 jobs:
   generate:
     # Guard 1: only the push that CREATES the branch. Guard 2: that commit carries the run token.
-    if: github.event.created == true && contains(github.event.head_commit.message, '[book-robot-electricity-11-once]')
+    if: github.event.created == true && contains(github.event.head_commit.message, '[book-robot-electricity-12-once]')
     runs-on: ubuntu-latest          # standard runner (larger runners are billed even on public repos)
     timeout-minutes: 60
     permissions:
@@ -25,7 +25,7 @@ jobs:
         with: { persist-credentials: false }
       - name: Guard 3 - stop if a result already exists
         run: |
-          if [ -e runs/book-electricity-11 ]; then echo "result already present; refusing a second AI run"; exit 1; fi
+          if [ -e runs/book-electricity-12 ]; then echo "result already present; refusing a second AI run"; exit 1; fi
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
       - name: Book robot Electricity (owner format) + app preview screenshots
@@ -89,13 +89,13 @@ jobs:
       contents: write               # repo-wide token; the destination is limited by the script below, not by the token
     steps:
       - uses: actions/checkout@v4
-        with: { ref: book-robot-electricity-11 }
+        with: { ref: book-robot-electricity-12 }
       - uses: actions/download-artifact@v4
-        with: { name: electricity-result, path: runs/book-electricity-11 }
-      - name: Commit result to this branch only, under runs/book-electricity-11/
+        with: { name: electricity-result, path: runs/book-electricity-12 }
+      - name: Commit result to this branch only, under runs/book-electricity-12/
         run: |
-          git add runs/book-electricity-11
-          if git diff --cached --name-only | grep -v '^runs/book-electricity-11/'; then echo "unexpected path; abort"; exit 1; fi
+          git add runs/book-electricity-12
+          if git diff --cached --name-only | grep -v '^runs/book-electricity-12/'; then echo "unexpected path; abort"; exit 1; fi
           git config user.name "chapter-job-run"; git config user.email "chapter-job-run@users.noreply.github.com"
-          git commit -m "Book robot Electricity 11 result [skip ci]"
-          git push origin HEAD:refs/heads/book-robot-electricity-11    # explicit ref, no force
+          git commit -m "Book robot Electricity 12 result [skip ci]"
+          git push origin HEAD:refs/heads/book-robot-electricity-12    # explicit ref, no force

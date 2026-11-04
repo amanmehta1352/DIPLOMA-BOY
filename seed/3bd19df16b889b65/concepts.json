@@ -294,135 +294,76 @@
   "key": "c4",
   "emoji": "📐",
   "title": [
-   "ओम का नियम और V-I ग्राफ",
-   "Ohm's Law and V-I Graph"
+   "ओम का नियम और V‑I ग्राफ",
+   "Ohm's Law and V‑I Graph"
   ],
   "paras": [
    [
-    "जर्मन भौतिकविद् जॉर्ज साइमन ओम ने परिपथ में प्रवाहित धारा और विभवांतर के बीच संबंध स्थापित किया। **ओम का नियम (Ohm's law)** यह बताता है कि स्थिर **ताप (temperature)** पर किसी धातु के तार में प्रवाहित होने वाली **विद्युत धारा (electric current)** `I`, उस तार के सिरों के बीच उत्पन्न **विभवांतर (potential difference)** `V` के समानुपाती होती है।",
-    "German physicist Georg Simon Ohm established the relationship between current and potential difference. According to Ohm's law, at a constant temperature, the electric current `I` flowing through a metallic wire is directly proportional to the potential difference `V` across its ends."
+    "ओम का नियम कहता है कि जब किसी चालक का तापमान स्थिर रहता है, तो उसके माध्यम से बहने वाली धारा (I) और उसके सिरों के बीच विभवांतर (V) के बीच सीधा अनुपात होता है। इसे गणितीय रूप से V = I × R के रूप में लिखा जाता है, जहाँ R प्रतिरोध (resistance) है।",
+    "Ohm's law states that, at a constant temperature, the current (I) flowing through a conductor is directly proportional to the potential difference (V) across its ends. It is expressed as V = I × R, where R is the resistance."
    ],
    [
-    "गणितीय रूप में, `V ∝ I` या `V = I × R` लिखा जाता है। यहाँ `R` एक नियतांक है जिसे दिए गए तार का **प्रतिरोध (resistance)** कहते हैं। इसका अर्थ यह है कि यदि विभवांतर दोगुना कर दिया जाए, तो परिपथ में धारा भी दोगुनी हो जाती है।",
-    "Mathematically, `V ∝ I` or `V = I × R`. Here `R` is a constant for the given wire called its resistance. This means if the potential difference is doubled, the current in the circuit also doubles."
+    "यदि हम विभिन्न धारा मानों के लिये विभवांतर को मापें और उसे धारा के विरुद्ध ग्राफ में अंकित करें, तो प्राप्त रेखा मूल बिंदु से होकर सीधी होगी। इस रेखा का ढाल (slope) V/I के बराबर होता है, अर्थात् वही प्रतिरोध R।",
+    "If we measure the potential difference for several current values and plot V against I, the resulting line passes through the origin and is straight. Its slope, V/I, equals the resistance R."
    ],
    [
-    "जब विभवांतर `V` (Y-अक्ष पर) और **विद्युत धारा (electric current)** `I` (X-अक्ष पर) के बीच ग्राफ खींचा जाता है, तो मूल बिंदु से गुजरने वाली एक सीधी रेखा प्राप्त होती है। यह सीधी रेखा यह दर्शाती है कि विभवांतर धारा के समानुपाती है।",
-    "When a graph is plotted between potential difference `V` (on Y-axis) and electric current `I` (on X-axis), a straight line passing through the origin is obtained. This straight line proves that potential difference is proportional to current."
+    "वास्तविक परिपथों में प्रतिरोध का मान अक्सर बदलता रहता है क्योंकि तापमान बदलता है। इसलिए ओम का नियम केवल उस स्थिति में लागू होता है जब तापमान स्थिर हो।",
+    "In real circuits the resistance often varies because the temperature changes. Hence Ohm's law is valid only when the temperature remains constant."
    ],
    [
-    "**V-I ग्राफ** की ढाल (slope) **प्रतिरोध (resistance)** `R` का मान देती है (ढाल = `ΔV / ΔI = R`)। ग्राफ की ढाल जितनी अधिक तीव्र होगी, चालक का प्रतिरोध उतना ही अधिक होगा।",
-    "The slope of the V-I graph gives the value of resistance `R` (slope = `ΔV / ΔI = R`). Steeper slope indicates higher resistance of the conductor."
+    "उदाहरण के लिये, यदि V‑I ग्राफ का ढाल 5 Ω है, तो उस परिपथ का प्रतिरोध 5 Ω होगा और किसी भी बिंदु पर V = I × 5 लागू होगा।",
+    "For example, if the slope of a V‑I graph is 5 Ω, the circuit’s resistance is 5 Ω and at any point V = I × 5 holds true."
    ]
   ],
   "kv": [
    [
-    [
-     "ओम का नियम (Ohm's law)",
-     "V ∝ I (स्थिर ताप पर / at constant temperature)"
-    ]
+    "ओम का नियम (Ohm's Law)",
+    "V = I × R, valid at constant temperature"
    ],
    [
-    [
-     "समीकरण (Formula)",
-     "V = I × R"
-    ]
+    "प्रतिरोध (Resistance) की इकाई",
+    "Ohm (Ω)"
    ],
    [
-    [
-     "प्रतिरोध (Resistance) सूत्र",
-     "R = V / I"
-    ]
+    "धारा (Current) की इकाई",
+    "Ampere (A)"
    ],
    [
-    [
-     "V-I ग्राफ का रूप (Graph shape)",
-     "मूल बिंदु से गुजरने वाली सीधी रेखा (Straight line through origin)"
-    ]
+    "विभवांतर (Potential Difference) की इकाई",
+    "Volt (V)"
    ],
    [
-    [
-     "V-I ग्राफ की ढाल (Slope)",
-     "प्रतिरोध R के बराबर (Equals resistance R)"
-    ]
+    "V‑I ग्राफ का ढाल",
+    "R = ΔV / ΔI"
    ]
   ],
-  "table": {
-   "head": [
-    [
-     "गुणधर्म (Property)",
-     "ओमीय चालक (Ohmic Conductor)",
-     "अन-ओमीय चालक (Non-ohmic Conductor)"
-    ]
-   ],
-   "rows": [
-    [
-     [
-      "ओम के नियम का पालन (Follows Ohm's law)",
-      "हाँ, पूर्णतः पालन करता है (Yes, obeys V ∝ I)",
-      "नहीं करता है (No)"
-     ]
-    ],
-    [
-     [
-      "V-I ग्राफ (V-I Graph)",
-      "सीधी रेखा (Straight line)",
-      "वक्र रेखा (Curved line)"
-     ]
-    ],
-    [
-     [
-      "उदाहरण (Examples)",
-      "तांबे का तार, निकेल तार (Copper wire)",
-      "LED, डायोड, टॉर्च का बल्ब (LED, Diode)"
-     ]
-    ]
-   ]
-  },
+  "table": null,
   "formula": {
    "expr": "V = I × R",
    "units": [
     [
-     [
-      "V",
-      "विभवांतर (Potential Difference)"
-     ],
-     [
-      "वोल्ट (Volt, V)",
-      "Volt (V)"
-     ]
+     "वोल्टेज (V)",
+     "volt (V)"
     ],
     [
-     [
-      "I",
-      "विद्युत धारा (Electric Current)"
-     ],
-     [
-      "एम्पियर (Ampere, A)",
-      "Ampere (A)"
-     ]
+     "धारा (I)",
+     "ampere (A)"
     ],
     [
-     [
-      "R",
-      "प्रतिरोध (Resistance)"
-     ],
-     [
-      "ओम (Ohm, Ω)",
-      "Ohm (Ω)"
-     ]
+     "प्रतिरोध (R)",
+     "ohm (Ω)"
     ]
    ]
   },
   "tip": [
-   "यदि ग्राफ में धारा I को Y-अक्ष और विभवांतर V को X-अक्ष पर लिया जाए, तो ग्राफ की ढाल R नहीं बल्कि 1/R होगी।",
-   "If current I is placed on the Y-axis and potential difference V on the X-axis, the slope of the graph will equal 1/R, not R."
+   "स्लोप निकालते समय इकाइयों को समान रखें; अक्सर छात्र धारा को एमीटर में पढ़ते समय मिली‑ऐम्पियर (mA) को सीधे एंपियर (A) मान लेते हैं, जिससे प्रतिरोध का मान गलत निकलता है।",
+   "When calculating the slope, keep the units consistent; many students directly use milli‑amperes (mA) from an ammeter as amperes (A), leading to an incorrect resistance."
   ],
   "diagram": {
-   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"40\" y1=\"160\" x2=\"300\" y2=\"160\" stroke=\"#333\" stroke-width=\"2\"/><line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"20\" stroke=\"#333\" stroke-width=\"2\"/><polygon points=\"300,160 292,156 292,164\" fill=\"#333\"/><polygon points=\"40,20 36,28 44,28\" fill=\"#333\"/><line x1=\"40\" y1=\"160\" x2=\"270\" y2=\"30\" stroke=\"#e53e3e\" stroke-width=\"3\"/><line x1=\"160\" y1=\"92\" x2=\"220\" y2=\"92\" stroke=\"#000\" stroke-dasharray=\"4\"/><line x1=\"220\" y1=\"92\" x2=\"220\" y2=\"58\" stroke=\"#000\" stroke-dasharray=\"4\"/><text x=\"180\" y=\"110\" font-size=\"12\" font-family=\"sans-serif\" fill=\"#000\">ΔI</text><text x=\"228\" y=\"80\" font-size=\"12\" font-family=\"sans-serif\" fill=\"#000\">ΔV</text><text x=\"130\" y=\"45\" font-size=\"13\" font-weight=\"bold\" font-family=\"sans-serif\" fill=\"#e53e3e\">Slope = R = ΔV / ΔI</text><text x=\"280\" y=\"180\" font-size=\"12\" font-family=\"sans-serif\" fill=\"#000\">I (Current)</text><text x=\"10\" y=\"20\" font-size=\"12\" font-family=\"sans-serif\" fill=\"#000\">V (Volt)</text><circle cx=\"40\" cy=\"160\" r=\"3\" fill=\"#000\"/><text x=\"25\" y=\"175\" font-size=\"12\" font-family=\"sans-serif\">0</text></svg>",
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"black\" />\n    </marker>\n  </defs>\n  <line x1=\"40\" y1=\"160\" x2=\"300\" y2=\"160\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"30\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"40\" y1=\"160\" x2=\"300\" y2=\"30\" stroke=\"black\" stroke-width=\"2\" marker-end=\"url(#arrow)\" />\n  <text x=\"160\" y=\"180\" font-size=\"14\" text-anchor=\"middle\">Current (I) [A]</text>\n  <text x=\"20\" y=\"95\" font-size=\"14\" text-anchor=\"middle\" transform=\"rotate(-90 20,95)\">Potential Difference (V) [V]</text>\n  <text x=\"170\" y=\"20\" font-size=\"16\" text-anchor=\"middle\" font-weight=\"bold\">V‑I Graph (Linear)</text>\n</svg>",
    "caption": [
-    "ओम के नियम का V-I ग्राफ (सीधी रेखा ढाल = प्रतिरोध R)",
-    "V-I graph of Ohm's Law (Straight line slope = Resistance R)"
+    "V‑I ग्राफ जहाँ धारा (I) क्षैतिज तथा विभवांतर (V) ऊर्ध्वाधर है; सीधी रेखा का ढाल प्रतिरोध दर्शाता है।",
+    "A V‑I graph with current (I) on the horizontal axis and potential difference (V) on the vertical axis; the straight line’s slope represents resistance."
    ]
   },
   "scope_ids": [
@@ -438,109 +379,118 @@
   ],
   "paras": [
    [
-    "चालक का **प्रतिरोध (resistance)** `R` उसकी वह संपत्ति है जिसके कारण वह अपने में प्रवाहित होने वाले **आवेश (charge)** या **विद्युत धारा (electric current)** के प्रवाह का विरोध करता है। इसका SI मात्रक ओम (Ohm, Ω) है।",
-    "Resistance `R` of a conductor is the property by which it opposes the flow of electric current through it. Its SI unit is Ohm (Ω)."
+    "प्रतिरोध वह माप है जो किसी चालक में धारा (I) के प्रवाह को रोकता है। इसे प्रतिरोध (R) = विभवांतर (V) / धारा (I) के रूप में परिभाषित किया जाता है और इसकी इकाई ओम (Ω) है।",
+    "Resistance quantifies how much a conductor opposes the flow of current (I). It is defined as R = V / I and its unit is the ohm (Ω)."
    ],
    [
-    "किसी **चालक (conductor)** का प्रतिरोध उसकी **लंबाई (length)** `l` के अनुक्रमानुपाती होता है (`R ∝ l`)। लंबाई बढ़ाने पर **इलेक्ट्रॉन (electron)** की टक्करें बढ़ जाती हैं, जिससे प्रतिरोध बढ़ जाता है।",
-    "The resistance of a conductor is directly proportional to its length (`R ∝ l`). Increasing length increases electron collisions, thus increasing resistance."
+    "एक समान चालक में प्रतिरोध लंबाई (l) के साथ सीधे अनुपात में और अनुप्रस्थ काट (A) के साथ व्युत्क्रमानुपाती होता है। यह संबंध R = ρ × l / A द्वारा दर्शाया जाता है, जहाँ ρ प्रतिरोधकता (resistivity) है।",
+    "For a uniform conductor, resistance is directly proportional to its length (l) and inversely proportional to its cross‑sectional area (A). This relationship is expressed as R = ρ × l / A, where ρ is the resistivity."
    ],
    [
-    "प्रतिरोध चालक के **अनुप्रस्थ काट (cross-sectional area)** `A` के व्युत्क्रमानुपाती होता है (`R ∝ 1/A`)। मोटा तार इलेक्ट्रॉनों को प्रवाहित होने के लिए अधिक स्थान देता है, इसलिए इसका प्रतिरोध पतले तार की तुलना में कम होता है।",
-    "Resistance is inversely proportional to cross-sectional area (`R ∝ 1/A`). A thick wire offers less resistance compared to a thin wire because it provides a wider path for electrons."
+    "तापमान में परिवर्तन भी प्रतिरोध को बदलता है। अधिकांश धातु चालक में प्रतिरोध तापमान के साथ बढ़ता है और इसे R = R₀[1 + α(T – T₀)] से व्यक्त किया जाता है, जहाँ α तापांक गुणांक (temperature coefficient) है।",
+    "Temperature changes also modify resistance. In most metallic conductors, resistance increases with temperature and is given by R = R₀[1 + α(T – T₀)], where α is the temperature coefficient."
    ],
    [
-    "प्रतिरोध पदार्थ की प्रकृति और उसके **ताप (temperature)** पर भी निर्भर करता है। शुद्ध धातुओं का ताप बढ़ाने पर उनका प्रतिरोध बढ़ जाता है।",
-    "Resistance also depends on the nature of the material and its temperature. Increasing temperature increases the resistance of pure metals."
+    "उदाहरण के लिये, यदि दो समान तांबे के तारों की लंबाई एक‑दूसरे से दो गुना है, तो लंबा तार दो गुना प्रतिरोध देगा; यदि उसका अनुप्रस्थ काट आधा है, तो प्रतिरोध दो गुना बढ़ जाएगा।",
+    "For example, if two identical copper wires differ in length by a factor of two, the longer wire will have twice the resistance; if its cross‑sectional area is halved, the resistance also doubles."
    ]
   ],
   "kv": [
    [
-    [
-     "प्रतिरोध (Resistance) SI मात्रक",
-     "ओम (Ohm, Ω)"
-    ]
+    "प्रतिरोध (Resistance) की परिभाषा",
+    "R = V / I, measured in ohm (Ω)"
    ],
    [
-    [
-     "1 ओम की परिभाषा (1 Ohm definition)",
-     "1 Ω = 1 Volt / 1 Ampere"
-    ]
+    "प्रतिरोधकता (Resistivity) की इकाई",
+    "ohm‑meter (Ω·m)"
    ],
    [
-    [
-     "लंबाई का प्रभाव (Length effect)",
-     "R ∝ l (लंबाई बढ़ने पर प्रतिरोध बढ़ता है)"
-    ]
+    "लंबाई (Length) के साथ अनुपात",
+    "R ∝ l"
    ],
    [
-    [
-     "क्षेत्रफल का प्रभाव (Area effect)",
-     "R ∝ 1/A (अनुप्रस्थ काट बढ़ने पर प्रतिरोध घटता है)"
-    ]
+    "अनुप्रस्थ काट (Cross‑sectional Area) के साथ व्युत्क्रमानुपाती",
+    "R ∝ 1/A"
    ],
    [
-    [
-     "ताप का प्रभाव (Temperature effect)",
-     "ताप बढ़ने पर धातुओं का प्रतिरोध बढ़ता है"
-    ]
+    "तापमान (Temperature) प्रभाव",
+    "R = R₀[1 + α(T – T₀)]"
    ]
   ],
-  "table": null,
-  "formula": {
-   "expr": "R = ρ × l / A",
-   "units": [
+  "table": {
+   "head": [
+    [
+     "कारक",
+     "Factor"
+    ],
+    [
+     "प्रतिरोध पर प्रभाव",
+     "Effect on Resistance"
+    ]
+   ],
+   "rows": [
     [
      [
-      "R",
-      "प्रतिरोध (Resistance)"
+      "लंबाई (l)",
+      "Length (l)"
      ],
      [
-      "ओम (Ohm, Ω)",
-      "Ohm (Ω)"
+      "सीधा अनुपात, बढ़ेगी",
+      "Directly proportional, increases"
      ]
     ],
     [
      [
-      "ρ",
-      "प्रतिरोधकता (Resistivity)"
+      "अनुप्रस्थ काट (A)",
+      "Cross‑sectional Area (A)"
      ],
      [
-      "ओम-मीटर (Ohm-meter, Ω m)",
-      "Ohm-meter (Ω m)"
+      "व्युत्क्रमानुपाती, घटेगी",
+      "Inversely proportional, decreases"
      ]
     ],
     [
      [
-      "l",
-      "लंबाई (Length)"
+      "तापमान (T)",
+      "Temperature (T)"
      ],
      [
-      "मीटर (Meter, m)",
-      "Meter (m)"
-     ]
-    ],
-    [
-     [
-      "A",
-      "अनुप्रस्थ काट (Area)"
-     ],
-     [
-      "मीटर^2 (m^2)",
-      "Square meter (m^2)"
+      "अधिक ताप पर बढ़ेगा (धातु), घटेगा (सेमीकंडक्टर)",
+      "Increases with temperature for metals, decreases for semiconductors"
      ]
     ]
    ]
   },
+  "formula": {
+   "expr": "R = ρ × l / A",
+   "units": [
+    [
+     "प्रतिरोध (R)",
+     "ohm (Ω)"
+    ],
+    [
+     "प्रतिरोधकता (ρ)",
+     "ohm‑meter (Ω·m)"
+    ],
+    [
+     "लंबाई (l)",
+     "meter (m)"
+    ],
+    [
+     "अनुप्रस्थ काट (A)",
+     "square meter (m²)"
+    ]
+   ]
+  },
   "tip": [
-   "जब किसी तार को खींचकर उसकी लंबाई दोगुनी की जाती है, तो उसका क्षेत्रफल आधा हो जाता है, जिससे नया प्रतिरोध 4 गुना हो जाता है (R' = 4R)।",
-   "When a wire is stretched to double its length, its area reduces to half, making the new resistance 4 times the original (R' = 4R)."
+   "ध्यान रखें कि प्रतिरोधकता (ρ) केवल पदार्थ की विशेषता है; इसे लम्बाई या काट से नहीं बदलना चाहिए। अक्सर छात्र ρ को बदलते हुए R की गणना करते हैं, जो गलत है।",
+   "Remember that resistivity (ρ) is a material property and should not be altered with length or area. Students often mistakenly vary ρ while calculating R, leading to errors."
   ],
   "diagram": {
-   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"30\" width=\"240\" height=\"30\" fill=\"#cbd5e0\" stroke=\"#4a5568\" stroke-width=\"2\"/><ellipse cx=\"40\" cy=\"45\" rx=\"8\" ry=\"15\" fill=\"#a0aec0\" stroke=\"#4a5568\" stroke-width=\"2\"/><ellipse cx=\"280\" cy=\"45\" rx=\"8\" ry=\"15\" fill=\"#cbd5e0\" stroke=\"#4a5568\" stroke-width=\"2\"/><text x=\"130\" y=\"50\" font-size=\"12\" font-family=\"sans-serif\" font-weight=\"bold\">Thin &amp; Long: High R</text><line x1=\"40\" y1=\"70\" x2=\"280\" y2=\"70\" stroke=\"#000\" stroke-width=\"1\"/><text x=\"150\" y=\"83\" font-size=\"11\" font-family=\"sans-serif\">Length (l)</text><rect x=\"40\" y=\"110\" width=\"120\" height=\"50\" fill=\"#cbd5e0\" stroke=\"#4a5568\" stroke-width=\"2\"/><ellipse cx=\"40\" cy=\"135\" rx=\"12\" ry=\"25\" fill=\"#a0aec0\" stroke=\"#4a5568\" stroke-width=\"2\"/><ellipse cx=\"160\" cy=\"135\" rx=\"12\" ry=\"25\" fill=\"#cbd5e0\" stroke=\"#4a5568\" stroke-width=\"2\"/><text x=\"55\" y=\"140\" font-size=\"12\" font-family=\"sans-serif\" font-weight=\"bold\">Thick &amp; Short: Low R</text><text x=\"180\" y=\"140\" font-size=\"11\" font-family=\"sans-serif\">Area (A) ↑  R ↓</text></svg>",
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <rect x=\"80\" y=\"80\" width=\"180\" height=\"40\" fill=\"#e0e0e0\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"80\" y1=\"120\" x2=\"80\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"260\" y1=\"120\" x2=\"260\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" />\n  <text x=\"70\" y=\"165\" font-size=\"12\" text-anchor=\"middle\">l (लंबाई)</text>\n  <text x=\"270\" y=\"165\" font-size=\"12\" text-anchor=\"middle\">l (लंबाई)</text>\n  <text x=\"170\" y=\"75\" font-size=\"12\" text-anchor=\"middle\">A (अनुप्रस्थ काट)</text>\n  <text x=\"170\" y=\"135\" font-size=\"12\" text-anchor=\"middle\" fill=\"blue\">ρ (प्रतिरोधकता)</text>\n  <text x=\"170\" y=\"190\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\">प्रतिरोधक (Resistor)</text>\n</svg>",
    "caption": [
-    "तार की लंबाई और अनुप्रस्थ काट का प्रतिरोध पर प्रभाव",
-    "Effect of wire length and cross-sectional area on resistance"
+    "एक समान प्रतिरोधक में लंबाई (l) और अनुप्रस्थ काट (A) को दर्शाया गया है; R = ρ l/A के अनुसार प्रतिरोध बदलता है।",
+    "A uniform resistor showing its length (l) and cross‑sectional area (A); resistance varies according to R = ρ l/A."
    ]
   },
   "scope_ids": [
@@ -1124,58 +1074,46 @@
   ],
   "paras": [
    [
-    "जब किसी **चालक** (conductor) से **विद्युत धारा** (electric current) प्रवाहित होती है, तो चालक के **प्रतिरोध** (resistance) के कारण विद्युत **ऊर्जा** (energy) ऊष्मा ऊर्जा में बदल जाती है। इसे विद्युत धारा का **तापीय प्रभाव** (heating effect) कहते हैं।",
-    "When an **electric current** flows through a **conductor**, electrical **energy** is converted into heat energy due to the **resistance** of the conductor. This is known as the **heating effect** of electric current."
+    "जब धारा (I) किसी प्रतिरोधक (R) से गुजरती है, तो विद्युत ऊर्जा का कुछ भाग तापीय ऊर्जा (H) में बदल जाता है। यह परिवर्तन जूल के नियम द्वारा वर्णित है।",
+    "When a current (I) passes through a resistor (R), part of the electrical energy is converted into thermal energy (H). This conversion is described by Joule’s law."
    ],
    [
-    "यदि **आवेश** (charge) Q को विभवांतर V पर समय t तक प्रवाहित किया जाए, तो किया गया **कार्य** (work) W = V × Q होता है। चूंकि Q = I × t और V = I × R (ओम का नियम), इसलिए उत्पन्न ऊष्मा H = W = V × I × t = I^2 × R × t होती है।",
-    "If a **charge** Q flows under a potential difference V for time t, the **work** done is W = V × Q. Since Q = I × t and V = I × R (Ohm's law), the heat produced H = W = V × I × t = I^2 × R × t."
+    "जूल का नियम कहता है कि उत्पन्न हुई गर्मी H = I² × R × t, जहाँ t समय (seconds) है। इसे शक्ति (P) = I²R से प्राप्त किया जाता है, क्योंकि P = ऊर्जा / समय।",
+    "Joule’s law states that the heat produced H = I² × R × t, where t is the time in seconds. It follows from the power relation P = I²R, since power is energy per unit time."
    ],
    [
-    "**जूल का तापन नियम** (Joule's law of heating) के अनुसार, किसी **प्रतिरोधक** (resistor) में उत्पन्न ऊष्मा: (i) धारा के वर्ग (I^2) के समानुपाती, (ii) प्रतिरोध (R) के समानुपाती, और (iii) समय (t) के समानुपाती होती है।",
-    "According to **Joule's law of heating**, the heat produced in a **resistor** is directly proportional to: (i) the square of current (I^2), (ii) the resistance (R), and (iii) the time (t)."
+    "गर्मि की मात्रा धारा के वर्ग, प्रतिरोध और समय के साथ बढ़ती है। इसलिए बड़े धारा वाले परिपथ या उच्च प्रतिरोध वाले तंतु अधिक गर्मी उत्पन्न करते हैं।",
+    "The amount of heat rises with the square of the current, the resistance, and the duration. Hence circuits carrying large currents or having high‑resistance elements generate more heat."
+   ],
+   [
+    "उदाहरण के लिये, यदि 2 A धारा 5 Ω प्रतिरोधक से 10 s तक बहती है, तो H = (2)² × 5 × 10 = 200 Joule गर्मी उत्पन्न होगी।",
+    "For example, if a 2 A current flows through a 5 Ω resistor for 10 s, the heat generated will be H = (2)² × 5 × 10 = 200 J."
    ]
   ],
   "kv": [
    [
-    [
-     "उत्पन्न ऊष्मा (Heat Produced)",
-     "Heat Produced"
-    ],
-    [
-     "ऊष्मा ऊर्जा का SI मात्रक जूल (J) है।",
-     "The SI unit of heat energy is Joule (J)."
-    ]
+    "तापीय प्रभाव (Heating Effect)",
+    "Conversion of electrical energy to heat"
    ],
    [
-    [
-     "धारा पर निर्भरता (Dependence on Current)",
-     "Dependence on Current"
-    ],
-    [
-     "धारा दोगुनी करने पर उत्पन्न ऊष्मा 4 गुना हो जाती है (H ∝ I^2)।",
-     "Doubling the current increases the heat produced by 4 times (H ∝ I^2)."
-    ]
+    "जूल का नियम (Joule's Law)",
+    "H = I² × R × t"
    ],
    [
-    [
-     "प्रतिरोध पर निर्भरता (Dependence on Resistance)",
-     "Dependence on Resistance"
-    ],
-    [
-     "समान धारा के लिए, अधिक प्रतिरोध में अधिक ऊष्मा उत्पन्न होती है (H ∝ R)।",
-     "For the same current, higher resistance generates more heat (H ∝ R)."
-    ]
+    "ऊर्जा (Heat) की इकाई",
+    "Joule (J)"
    ],
    [
-    [
-     "समय पर निर्भरता (Dependence on Time)",
-     "Dependence on Time"
-    ],
-    [
-     "धारा प्रवाहित होने का समय जितना अधिक होगा, उत्पन्न ऊष्मा उतनी ही अधिक होगी (H ∝ t)।",
-     "The longer the current flows, the greater the heat produced (H ∝ t)."
-    ]
+    "शक्ति (Power) की इकाई",
+    "Watt (W) = J/s"
+   ],
+   [
+    "धारा (Current) का वर्ग प्रभाव",
+    "H ∝ I²"
+   ],
+   [
+    "समय (Time) का सीधा प्रभाव",
+    "H ∝ t"
    ]
   ],
   "table": null,
@@ -1183,50 +1121,26 @@
    "expr": "H = I^2 × R × t",
    "units": [
     [
-     [
-      "H = उत्पन्न ऊष्मा (Heat produced)",
-      "H = Heat produced"
-     ],
-     [
-      "जूल (J)",
-      "Joule (J)"
-     ]
+     "तापीय ऊर्जा (H)",
+     "joule (J)"
     ],
     [
-     [
-      "I = विद्युत धारा (Electric current)",
-      "I = Electric current"
-     ],
-     [
-      "ऐम्पियर (A)",
-      "Ampere (A)"
-     ]
+     "धारा (I)",
+     "ampere (A)"
     ],
     [
-     [
-      "R = प्रतिरोध (Resistance)",
-      "R = Resistance"
-     ],
-     [
-      "ओम (Ω)",
-      "Ohm (Ω)"
-     ]
+     "प्रतिरोध (R)",
+     "ohm (Ω)"
     ],
     [
-     [
-      "t = समय (Time)",
-      "t = Time"
-     ],
-     [
-      "सेकंड (s)",
-      "Second (s)"
-     ]
+     "समय (t)",
+     "second (s)"
     ]
    ]
   },
   "tip": [
-   "यह ध्यान रखें कि यदि उपकरणों को **पार्श्वक्रम** (parallel) में जोड़ा जाए जहां V समान रहता है, तो H = (V^2 / R) × t का उपयोग करें, जहाँ ऊष्मा प्रतिरोध के व्युत्क्रमानुपाती होती है।",
-   "Remember that if appliances are connected in **parallel** where V is constant, use H = (V^2 / R) × t, where heat is inversely proportional to resistance."
+   "जूल के नियम में धारा को वर्ग करने की आवश्यकता को अक्सर भूल जाते हैं; यदि I को सीधे गुणा किया जाये तो गर्मी का मान बहुत कम निकलता है।",
+   "Students often forget to square the current in Joule’s law; multiplying I directly leads to a much smaller heat value."
   ],
   "diagram": null,
   "scope_ids": [
@@ -1242,71 +1156,55 @@
   ],
   "paras": [
    [
-    "विद्युत धारा के **तापीय प्रभाव** (heating effect) का उपयोग कई घरेलू उपकरणों में किया जाता है, जैसे कि विद्युत हीटर, आयरन, विद्युत बल्ब और **फ्यूज़** (fuse)। ये उपकरण उच्च **प्रतिरोधकता** (resistivity) और उच्च गलनांक वाले पदार्थों से बनाए जाते हैं।",
-    "The **heating effect** of electric current is used in many household appliances like electric heaters, irons, electric bulbs, and **fuses**. These devices are made of materials with high **resistivity** and high melting point."
+    "विद्युत बल्ब में टंगस्टन तंतु (filament) को धारा प्रवाहित करने पर जूल के नियम के कारण गर्मी उत्पन्न होती है, जिससे तंतु चमकीला सफेद प्रकाश देता है। तंतु को नष्ट होने से बचाने के लिये बल्ब के अंदर नाइट्रोजन या आर्गन जैसे निष्क्रिय गैसें रखी जाती हैं।",
+    "In an electric bulb, the tungsten filament heats up due to Joule heating when current flows, causing it to emit bright white light. Inert gases such as nitrogen or argon are sealed inside the bulb to prevent the filament from oxidising."
    ],
    [
-    "विद्युत बल्ब में **तंतु** (filament) के रूप में टंगस्टन (tungsten) का उपयोग किया जाता है क्योंकि इसका गलनांक अत्यधिक उच्च (3380 °C) होता है। जब तंतु अत्यधिक गर्म होता है, तो वह चमकने लगता है और प्रकाश उत्सर्जित करता है। बल्ब के अंदर नाइट्रोजन और आर्गन जैसी अक्रिय गैसें भरी जाती हैं ताकि तंतु का उपचयन न हो।",
-    "Tungsten is used as the **filament** in electric bulbs because of its extremely high melting point (3380 °C). When the filament gets very hot, it glows and emits light. Inert gases like nitrogen and argon are filled inside the bulb to prevent oxidation of the filament."
+    "फ्यूज़ एक पतली धातु की तार (आमतौर पर एल्युमीनियम या तांबा) होती है, जिसकी प्रतिरोधी क्षमता बहुत कम होती है। जब परिपथ में धारा उसकी रेटेड मान (जैसे 5 A) से अधिक हो जाती है, तो I²R के कारण तेज़ी से बहुत अधिक गर्मी उत्पन्न होती है और तार पिघल कर परिपथ को तोड़ देती है।",
+    "A fuse is a thin metal wire (usually aluminium or copper) with a low resistance. When the current in a circuit exceeds its rated value (e.g., 5 A), rapid heating due to I²R causes the wire to melt, thereby breaking the circuit."
    ],
    [
-    "**फ्यूज़** (fuse) एक सुरक्षा युक्ति है जो **परिपथ** (circuit) और उपकरणों को अत्यधिक **धारा** (current) से बचाती है। यह निम्न गलनांक वाले मिश्रधातु (जैसे सीसा और टिन) के तार से बना होता है। इसे परिपथ में **श्रेणीक्रम** (series) में जोड़ा जाता है। जब परिपथ में सुरक्षित सीमा से अधिक धारा बहती है, तो फ्यूज़ तार पिघलकर टूट जाता है और परिपथ भंग हो जाता है।",
-    "A **fuse** is a safety device that protects the **circuit** and appliances from excessive **current**. It consists of a wire made of a low melting point alloy (e.g., lead and tin). It is connected in **series** in the circuit. When current exceeds the safe limit, the fuse wire melts and breaks the circuit."
+    "फ्यूज़ का रेटिंग एमीटर (ammeter) द्वारा मापी गई अधिकतम धारा दर्शाता है, इसलिए इसे स्थापित करने से पहले परिपथ की अधिकतम धारा ज्ञात कर लेनी चाहिए।",
+    "The fuse rating indicates the maximum current measured by an ammeter, so the circuit’s maximum current must be known before installing the fuse."
+   ],
+   [
+    "बल्ब और फ्यूज़ दोनों ही तापीय प्रभाव पर निर्भर होते हैं, परन्तु बल्ब प्रकाश उत्पन्न करने के लिये नियंत्रित गर्मी का उपयोग करता है, जबकि फ्यूज़ सुरक्षा हेतु अत्यधिक गर्मी का उपयोग करता है।",
+    "Both bulbs and fuses rely on the heating effect, but a bulb uses controlled heating to produce light, whereas a fuse uses excessive heating for safety protection."
    ]
   ],
   "kv": [
    [
-    [
-     "टंगस्टन तंतु (Tungsten Filament)",
-     "Tungsten Filament"
-    ],
-    [
-     "उच्च गलनांक (3380 °C) और उच्च प्रतिरोध के कारण प्रकाश देने हेतु प्रयुक्त।",
-     "Used for emitting light due to high melting point (3380 °C) and high resistance."
-    ]
+    "तंतु (Filament) सामग्री",
+    "Tungsten, high melting point"
    ],
    [
-    [
-     "अक्रिय गैसें (Inert Gases)",
-     "Inert Gases"
-    ],
-    [
-     "आर्गन और नाइट्रोजन बल्ब के तंतु की आयु बढ़ाती हैं।",
-     "Argon and Nitrogen prolong the lifespan of the bulb filament."
-    ]
+    "इनर्ट गैस (Inert Gas) का कार्य",
+    "Prevents oxidation of filament"
    ],
    [
-    [
-     "फ्यूज़ की रेटिंग (Fuse Rating)",
-     "Fuse Rating"
-    ],
-    [
-     "फ्यूज़ तार को 1 A, 2 A, 3 A, 5 A, 10 A आदि की धारा दर (rating) दी जाती है।",
-     "Fuse wires are rated as 1 A, 2 A, 3 A, 5 A, 10 A, etc."
-    ]
+    "फ्यूज़ की रेटिंग",
+    "Maximum safe current (A)"
    ],
    [
-    [
-     "फ्यूज़ का संयोजन (Fuse Connection)",
-     "Fuse Connection"
-    ],
-    [
-     "इसे सदैव विद्युन्मय तार (live wire) के साथ श्रेणीक्रम में जोड़ा जाता है।",
-     "It is always connected in series with the live wire."
-    ]
+    "फ्यूज़ का कार्य",
+    "Interrupts circuit on over‑current"
+   ],
+   [
+    "बल्ब की ऊर्जा रूपांतरण",
+    "Electrical → Thermal → Light"
    ]
   ],
   "table": null,
   "formula": null,
   "tip": [
-   "कभी भी फ्यूज़ तार के स्थान पर तांबे का मोटा सामान्य तार न लगाएं, क्योंकि इसका गलनांक उच्च होता है और यह परिपथ की सुरक्षा नहीं कर पाएगा।",
-   "Never replace a fuse wire with a thick ordinary copper wire, as it has a high melting point and will fail to protect the circuit."
+   "फ्यूज़ चुनते समय केवल वोल्टेज नहीं, बल्कि परिपथ में संभावित अधिकतम धारा को भी देखना आवश्यक है; गलत रेटिंग से फ्यूज़ बार‑बार पिघल सकता है या बहुत देर से पिघलेगा।",
+   "When selecting a fuse, consider not only the voltage but also the possible maximum current in the circuit; an incorrect rating may cause frequent blowing or delayed operation."
   ],
   "diagram": {
-   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"10\" y=\"10\" width=\"155\" height=\"180\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\" stroke-width=\"2\"/><text x=\"87\" y=\"30\" font-size=\"12\" font-weight=\"bold\" text-anchor=\"middle\" fill=\"#1e293b\">Electric Bulb</text><path d=\"M 62 140 Q 62 100 87 75 Q 112 100 112 140 Z\" fill=\"#fef08a\" opacity=\"0.5\" stroke=\"#eab308\" stroke-width=\"1.5\"/><rect x=\"72\" y=\"140\" width=\"30\" height=\"20\" rx=\"2\" fill=\"#94a3b8\"/><path d=\"M 77 115 L 82 85 L 92 85 L 97 115\" fill=\"none\" stroke=\"#475569\" stroke-width=\"1.5\"/><path d=\"M 82 85 Q 87 78 92 85\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><text x=\"87\" y=\"70\" font-size=\"10\" text-anchor=\"middle\" fill=\"#dc2626\">Tungsten Filament</text><text x=\"87\" y=\"110\" font-size=\"9\" text-anchor=\"middle\" fill=\"#475569\">Ar + N2 Gas</text><rect x=\"175\" y=\"10\" width=\"155\" height=\"180\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\" stroke-width=\"2\"/><text x=\"252\" y=\"30\" font-size=\"12\" font-weight=\"bold\" text-anchor=\"middle\" fill=\"#1e293b\">Electric Fuse</text><rect x=\"202\" y=\"80\" width=\"100\" height=\"40\" rx=\"4\" fill=\"#e2e8f0\" stroke=\"#64748b\" stroke-width=\"2\"/><rect x=\"192\" y=\"85\" width=\"15\" height=\"30\" rx=\"2\" fill=\"#94a3b8\"/><rect x=\"297\" y=\"85\" width=\"15\" height=\"30\" rx=\"2\" fill=\"#94a3b8\"/><line x1=\"207\" y1=\"100\" x2=\"297\" y2=\"100\" stroke=\"#ef4444\" stroke-width=\"2\" stroke-dasharray=\"4,2\"/><text x=\"252\" y=\"70\" font-size=\"10\" text-anchor=\"middle\" fill=\"#ef4444\">Fuse Wire (Low M.P.)</text><text x=\"252\" y=\"145\" font-size=\"9\" font-weight=\"bold\" text-anchor=\"middle\" fill=\"#0f172a\">Glass/Porcelain Casing</text></svg>",
+   "svg": "<svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <!-- Bulb -->\n  <circle cx=\"80\" cy=\"80\" r=\"30\" fill=\"#ffd966\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"80\" y1=\"150\" x2=\"60\" y2=\"170\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"80\" y1=\"150\" x2=\"100\" y2=\"170\" stroke=\"black\" stroke-width=\"2\" />\n  <text x=\"80\" y=\"70\" font-size=\"12\" text-anchor=\"middle\">Filament</text>\n  <text x=\"80\" y=\"190\" font-size=\"12\" text-anchor=\"middle\">Bulb</text>\n  <!-- Fuse -->\n  <rect x=\"200\" y=\"120\" width=\"80\" height=\"20\" fill=\"#c0c0c0\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"180\" y1=\"130\" x2=\"200\" y2=\"130\" stroke=\"black\" stroke-width=\"2\" />\n  <line x1=\"280\" y1=\"130\" x2=\"300\" y2=\"130\" stroke=\"black\" stroke-width=\"2\" />\n  <text x=\"240\" y=\"115\" font-size=\"12\" text-anchor=\"middle\">Fuse</text>\n  <text x=\"240\" y=\"150\" font-size=\"12\" text-anchor=\"middle\">Rated 5 A</text>\n</svg>",
    "caption": [
-    "विद्युत बल्ब की संरचना एवं विद्युत फ्यूज़ की बनावट",
-    "Structure of an Electric Bulb and Electric Fuse Wire"
+    "बाएँ में बल्ब का तंतु और दाएँ में फ्यूज़ का चित्र; दोनों ही तापीय प्रभाव पर कार्य करते हैं।",
+    "Left shows a bulb filament, right shows a fuse; both operate based on the heating effect."
    ]
   },
   "scope_ids": [
