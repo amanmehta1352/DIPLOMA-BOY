@@ -825,6 +825,18 @@ def _(d):
 
 
 
+@case('B58 app format: one [hi, en] given stays one language per side; teach formula line is kept; missing English tip is dropped (never Hindi in English)')
+def _(d):
+    import book_render as R
+    ch = {'numericals': [{'title': ['शीर्षक', 'Title'], 'given': ['Q = 3 C (हि)', 'Q = 3 C'], 'steps': [], 'answer': ['1 A', '1 A']}],
+          'teach': [{'heading': ['पाठ', 'Lesson'], 'paras': [['अ', 'a']], 'formula': 'I = Q/t'}],
+          'concepts': [{'title': ['क', 'c'], 'paras': [], 'tip': ['केवल हिंदी']}]}
+    hi, en = R.app_data(ch, 0), R.app_data(ch, 1)
+    assert hi['solved'][0]['question'] == 'शीर्षक — Q = 3 C (हि)' and en['solved'][0]['question'] == 'Title — Q = 3 C', (hi['solved'], en['solved'])
+    assert hi['teach'][0]['explain'].endswith('I = Q/t') and en['teach'][0]['explain'] == 'a\nI = Q/t'
+    assert hi['mistakes'] == ['केवल हिंदी'] and en['mistakes'] == []
+
+
 if __name__ == '__main__':
     for n, ok, why in results: print(('PASS ' if ok else 'FAIL ') + n + ('' if ok else '  -> ' + why))
     print(f'{sum(ok for _, ok, _ in results)}/{len(results)} passed')

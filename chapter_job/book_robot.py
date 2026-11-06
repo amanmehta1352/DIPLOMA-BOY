@@ -694,7 +694,7 @@ def normalize_extras(job):
 
 def st_checks(job, r, P, refset):
     normalize_extras(job)
-    ch = assemble(job); row = R.chapter_row(ch, os.environ.get('BOOK_SLUG', 'class10-science'), r['chapter_no'], r['app']['chapter_id'])
+    ch = assemble(job); ch['bank'] = job.get('questions.json') if job.has('questions.json') else []; job.put('chapter_app_format.json', R.app_format(ch, 'DB|class_9_10|' + str(r['app']['chapter_id']), {'robot': 'book.v2', 'job_id': job.d['job_id']})); row = R.chapter_row(ch, os.environ.get('BOOK_SLUG', 'class10-science'), r['chapter_no'], r['app']['chapter_id'])
     d = row['data']; c = {}
     c['notes_words'] = {k: words(d[f'notes_{k}']) for k in ('hi', 'en')}
     c['teach_words'] = {k: words(d['teach'][k]) for k in ('hindi', 'english')}

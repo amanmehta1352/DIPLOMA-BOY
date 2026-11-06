@@ -1,0 +1,220 @@
+[
+ {
+  "emoji": "🚀",
+  "heading": "prastavna: vidyut urja ka jeevan mein mahatva",
+  "paras": [
+   "vidyut urja hamare jeevan mein bahut mahatvapurn bhumika nibhati hai. yeh hamare gharo mein prakash vyavastha ke liye bulb jalati hai, hamare fridge ko chalti rakhti hai, aur hamare mobile phone ko aavesh deti hai.",
+   "vidyut urja ke bina hamara jeevan bahut mushkil ho jayega. hamein vidyut urja ke mahatva ko samajhna chahiye aur iska sahi tareeke se upyog karna chahiye.",
+   "vidyut urja ke bare mein jaanne ke liye hamein vidyut dhara aur vidyut aavesh ke bare mein jaanna hoga. vidyut dhara prati second kisi cross-section se guzarne wale aavesh ki matra hai, aur vidyut aavesh padarth ka woh gun hai jisse vah vidyut bal anubhav karta hai."
+  ],
+  "formula": null,
+  "example": "vidyut urja ko samajhne ke liye ek udaharan lete hain. jab aap apne mobile phone ko aaveshit karte hain, to vidyut urja aapke phone mein jati hai aur ise chalane ke liye upyog ki jati hai."
+ },
+ {
+  "emoji": "⚡",
+  "heading": "paath 1: vidyut aavesh aur vidyut dhara",
+  "paras": [
+   "vidyut aavesh padarth ka woh gun hai jisse vah vidyut bal anubhav karta hai. yeh do prakaar ka hota hai - dhanatmak aur rinatmak. jab do vastuayein ek dusre ke sampark mein aati hain, to ve electrons ko ek dusre mein sthanantarit kar sakti hain.",
+   "vidyut dhara prati second kisi cross-section se guzarne wale aavesh ki matra hai, jo ek **chalak** se hokar guzarti hai. ham iski maap ke liye **ammeter** ka upyog karte hain.",
+   "vidyut dhara ki ikai ampere hai. vidyut dhara ko Q/t se vyakt kiya ja sakta hai, jahan Q aavesh hai aur t samay hai."
+  ],
+  "formula": "I = Q/t",
+  "example": "ek udaharan lete hain. jab aap ek bulb ko jalate hain, to vidyut dhara bulb se hokar guzarti hai aur ise jalane ke liye upyog ki jati hai."
+ },
+ {
+  "emoji": "🔋",
+  "heading": "paath 2: vidyut vibhav aur vibhavantar",
+  "paras": [
+   "vidyut vibhav ek bindu par prati ikai dhanaavesh ko anant doori se us bindu tak laane mein kiya gaya karya hai. do binduon ke beech ka vibhavantar **voltmeter** se mapa jata hai; voltmeter ko un do binduon ke samantar joda jata hai.",
+   "vibhavantar do binduon ke beech vidyut vibhav ka antar hai, jo vidyut dhara ke pravah ko niyantrit karta hai.",
+   "vibhavantar ki ikai volt hai. vibhavantar ko V = W/q se vyakt kiya ja sakta hai, jahan V vibhavantar hai, W karya hai, aur q aavesh hai."
+  ],
+  "formula": "V = W/q",
+  "example": "ek udaharan ke roop mein, jab aap ek battery se ek bulb ko jalate hain, to battery aur bulb ke beech vibhavantar vidyut dhara ke pravah ko sambhav banata hai."
+ },
+ {
+  "emoji": "🔌",
+  "heading": "Path 3: Paripath Pratik, Ammeter aur Voltmeter",
+  "paras": [
+   "Paripath pratik vidyut paripath ko darshane ke liye upyog kiye jate hain. Ve vidyut dhar ke pravah ko samajhne mein madad karte hain.",
+   "Ammeter vidyut dhar ko mapne ke liye upyog kiya jata hai. Yeh paripath mein shrnikram mein joda jata hai.",
+   "Voltmeter vibhavantar ko mapne ke liye upyog kiya jata hai. Yeh paripath mein parshvkram mein joda jata hai."
+  ],
+  "formula": null,
+  "example": "Ek udaharan leta hai. Jab aap ek paripath mein ammeter aur voltmeter ka upyog karte hain, to aap vidyut dhar aur vibhavantar ko map sakte hain aur vidyut paripath ko samajh sakte hain."
+ },
+ {
+  "emoji": "📐",
+  "heading": "Path 4: Ohm ka Niyam aur V-I Rekha Chitra Vishleshan",
+  "paras": [
+   "Ohm ka niyam ek moolbhoot siddhant hai jo kisi conductor mein vidyut dhar aur vibhavantar ke beech sambandh ko darshata hai.",
+   "Is niyam ke anusaar, yadi kisi conductor ka pratirodh niyat rahta hai, to vidyut dhar vibhavantar ke seedhe anupat mein hoti hai.",
+   "Ohm ka niyam ek voltmeter aur ammeter ka upyog karke prayogshala mein satyapit kiya ja sakta hai.",
+   "V-I rekha chitra vishleshan se humein kisi conductor ke pratirodh ke man ki ganana karne mein madad milti hai.",
+   "Is prakaar, Ohm ka niyam aur V-I rekha chitra vishleshan humein vidyut dhar aur vibhavantar ke beech sambandh ko samajhne mein madad karte hain."
+  ],
+  "formula": "V = I × R",
+  "example": "Ek udaharan ke roop mein, yadi aap ek vidyut bulb ko 5 volt ke vibhavantar par 2 ampere ka vidyut dhar pravahit karte hain, to bulb ka pratirodh 2.5 ohm hoga."
+ },
+ {
+  "emoji": "🧱",
+  "heading": "Path 5: Conductor ka Pratirodh aur uske Prabhavit Karne Wale Kak",
+  "paras": [
+   "Kisi conductor ka pratirodh uski lambai, anuprasth kaat, aur taap par nirbhar karta hai.",
+   "Ek conductor ki lambai badhane se uska pratirodh badh jata hai, jabki anuprasth kaat badhane se pratirodh kam ho jata hai.",
+   "Taap mein parivartan se bhi conductor ka pratirodh prabhavit hota hai. Adhikansh conductor ka pratirodh taap badhne par badh jata hai.",
+   "In kakon ko samajhne se humein vibhinn vidyut paripath mein pratirodh ki ganana karne mein madad milti hai.",
+   "Is prakaar, conductor ka pratirodh aur uske prabhavit karne wale kakon ka gyan humein vidyut pranali ko design aur vishleshan karne mein madad karta hai."
+  ],
+  "formula": null,
+  "example": "Ek udaharan ke roop mein, yadi aap ek taar ko garm karte hain, to uska pratirodh badh jayega aur vidyut dhar kam ho jayegi."
+ },
+ {
+  "emoji": "🧪",
+  "heading": "Paath 6: Padaarthon ki pratirodhkta (chaalak, mishradhaatu aur vidyutrodi)",
+  "paras": [
+   "Pratyek padaarthon ki ek vishisht pratirodhkta hoti hai, jo uske pratirodh ko nirdhaarit karti hai.",
+   "Chaalak jaise taamba aur chaandi ki pratirodhkta kam hoti hai, jabki vidyutrodi jaise plastic aur lakdi ki pratirodhkta uchch hoti hai.",
+   "Mishradhaatu jaise peetal aur loha ki pratirodhkta unke ghatak padaarthon par nirbhar karti hai.",
+   "In padaarthon ki pratirodhkta ko samajhne se humein vibhinn vidyut paripath mein pratirodh ki ganana karne mein madad milti hai.",
+   "Is prakaar, padaarthon ki pratirodhkta ka gyaan humein vidyut pranaali ko design aur vishleshan karne mein madad karta hai."
+  ],
+  "formula": "ρ = R × A / L",
+  "example": "Ek udaaharan ke roop mein, yadi aap ek taar ko banaane ke liye taamba ka upyog karte hain, to uski pratirodhkta kam hogi aur vidyut dhaara adhik hogi."
+ },
+ {
+  "emoji": "🔗",
+  "heading": "paath 7: pratirodhakon ka shrenikram sanyojan",
+  "paras": [
+   "do ya do se adhik **pratirodhak** [resistor] jab shrenikram mein jude hote hain, to unka kul **pratirodh** [resistance] vyaktigat **pratirodhak** [resistor] ke **pratirodh** [resistance] ke yog ke barabar hota hai.",
+   "shrenikram sanyojan mein, **vidyut dhara** [electric current] sabhi **pratirodhak** [resistor] mein saman hoti hai, lekin **vibhavantar** [potential difference] alag-alag **pratirodhak** [resistor] mein vibhinn ho sakta hai.",
+   "**Vidyut paripath** [electric circuit] mein shreni-kram sanyojan ki madad se **vidyut dhara** [electric current] aur **vibhavantar** [potential difference] ko kaabu mein rakha jaata hai.",
+   "is prakar, **pratirodhak** [resistor] ka shrenikram sanyojan humein **vidyut pranali** [electric system] ko design aur vishleshan karne mein madad karta hai.",
+   "shrenikram sanyojan ke gunon ko samajhne se humein **vidyut paripath** [electric circuit] mein **pratirodh** [resistance] aur **vidyut dhara** [electric current] ki ganana karne mein madad milti hai."
+  ],
+  "formula": "R_total = R1 + R2 + ... + Rn",
+  "example": "ek udaharan ke roop mein, yadi aap do **pratirodhak** [resistor] 2 ohm aur 3 ohm ko shrenikram mein jodte hain, to unka kul **pratirodh** [resistance] 5 ohm hoga."
+ },
+ {
+  "emoji": "🔀",
+  "heading": "paath 8: pratirodhakon ka parshvkrama sanyojan",
+  "paras": [
+   "parshvakram sanyojan mein do ya adhik pratirodhakon ke sire ek hi do binduon ke beech jode jaate hain, isliye dhara ko behne ke liye kai alag-alag raaste milte hain.",
+   "is sanyojan mein har pratirodhak par vibhavantar saman rehta hai, jabki kul dhara shakhaon mein bant jaati hai: I = I1 + I2 + .... ek shakha toot jaye to bhi baaki shakhaon mein dhara behti rehti hai.",
+   "parshvakram mein kul pratirodh sabse chhote akele pratirodh se bhi kam hota hai.",
+   "gharelu paripath mein upkaran parshvakram mein jode jaate hain, taaki har upkaran ko poora mukhya vibhavantar (lagbhag 220 V) mile aur vah apni zaroorat ki dhara le sake.",
+   "is prakar, pratirodhakon ka parshvkrama sanyojan vidyut paripathon mein bahut upyogi hota hai."
+  ],
+  "formula": "1/R = 1/R1 + 1/R2 + ...",
+  "example": "maan lijiye ki aapke paas do pratirodhak hain - ek 2 ohm aur dusra 3 ohm. yadi aap inhen parshvkrama mein jodte hain, to paripath ka kul pratirodh kya hoga?"
+ },
+ {
+  "emoji": "🏠",
+  "heading": "Paath 9: Gharelu vidyut paripath: shrenikram banaam parshvakram",
+  "paras": [
+   "Gharelu vidyut paripath mein vidyut upkarnon ko jodne ke liye do prakaar ke sanjogon ka upyog kiya ja sakta hai - shrenikram aur parshvakram.",
+   "Shrenikram sanjog mein, sabhi upkaran ek ke baad ek jude hote hain aur vidyut dhaara ek hi maarg se guzarti hai.",
+   "Parshvakram sanjog mein, upkaran samaantaar mein jude hote hain aur vidyut dhaara alag-alag maargon se guzarti hai.",
+   "Shrenikram mein ek upkaran band ya kharab ho jaye to poora paripath toot jaata hai, aur vibhavantar sabhi upkarnon mein bant jaata hai; isliye gharon ke liye yeh theek nahin hai.",
+   "Parshvakram mein har upkaran ko saman vibhavantar milta hai aur har upkaran ko alag se chalu ya band kiya ja sakta hai; isiliye gharelu paripath parshvakram mein banaye jaate hain."
+  ],
+  "formula": null,
+  "example": "Ghar mein upkaran parshvakram mein judte hain, jabki fuse aur mukhya switch mukhya line par shrenikram mein lagte hain."
+ },
+ {
+  "emoji": "🔥",
+  "heading": "paath 10: vidyut dhara ka taapik prabhav aur jul ka niyam",
+  "paras": [
+   "vidyut dhara ka taapik prabhav yeh hai ki jab yeh kisi chalak mein pravahit hoti hai, to chalak ka taapman badh jata hai.",
+   "yeh taapik prabhav vidyut urja ke roopantaran ke karan hota hai, jismein vidyut urja taap urja mein parivartit ho jati hai.",
+   "jul ka niyam kehta hai ki kisi chalak mein utpann hone wali taap urja vidyut dhara ke varg aur chalak ke pratirodh ke gunank ke samanupati hoti hai.",
+   "jul ka niyam ko is tarah samjhaaya ja sakta hai: taap urja ki matra vidyut dhara ke varg aur pratirodh tatha samay ke gunank ke barabar hoti hai, jaisa ki H = I^2Rt sutra mein dikhaya gaya hai.",
+   "vidyut dhara ka taapik prabhav aur jul ka niyam vidyut paripathon ke design aur sanchalan mein bahut mahatvapurn hain."
+  ],
+  "formula": "H = I^2Rt",
+  "example": "ek vidyut heater ke maamle mein, yadi yeh 5 A ki vidyut dhara ko 20 ohm ke pratirodh ke sath 10 minute tak chalaya jata hai, to yeh kitni taap urja paida karega?"
+ },
+ {
+  "emoji": "💡",
+  "heading": "Lesson 11: Vidyut Tantu Bulb aur Fuse ka Karya-Siddhant",
+  "paras": [
+   "Tantu bulb ke andar ek patla taar yaani tantu (filament) hota hai; isse vidyut dhara guzarne par yeh garam hokar chamakne lagta hai.",
+   "Fuse ek aisa upkaran hai jo vidyut paripath mein adhik vidyut dhara ke pravaah ko rokta hai aur paripath ki suraksha karta hai.",
+   "Vidyut tantu bulb aur fuse dono vidyut dhara ke taapik prabhaav par kary karte hain.",
+   "Bulb ke tantu (filament) ka pratirodh adhik hota hai, isliye usse guzarne wali dhara use bahut garam kar deti hai aur woh chamakne lagta hai.",
+   "Fuse mein ek patla taar hota hai jo adhik vidyut dhara ke pravaah se garm ho jata hai aur pighal jata hai, jisse paripath toot jata hai."
+  ],
+  "formula": null,
+  "example": "Vidyut tantu bulb aur fuse dono vidyut dhara ke taapik prabhaav par kary karte hain aur vidyut paripathon mein bahut mahatvapoorn hain."
+ },
+ {
+  "emoji": "📊",
+  "heading": "paath 12: vidyut shakti tatha vyaavasaayik urja ki ganana",
+  "paras": [
+   "vidyut shakti [electric power] ka arth hai vidyut urja [energy] ki dar se khapat. yeh vidyut dhara [electric current] aur vibhavantar [potential difference] par nirbhar karti hai.",
+   "vidyut shakti ki ganana karne ke liye, hum vidyut dhara aur vibhavantar ko guna karte hain. yeh ek mahatvapurn sutra hai jo humein vidyut shakti ki ganana karne mein madad karta hai.",
+   "vyaavasaayik urja ki ganana karne ke liye, hum vidyut shakti aur samay ko guna karte hain. yeh humein vidyut urja ki khapat ki jankari deta hai."
+  ],
+  "formula": "विद्युत शक्ति [electric power] = विद्युत धारा [electric current] × विभवांतर [potential difference]",
+  "example": "ek ghar mein 100 watt ka bulb 10 ghante tak jalta hai. to iski vidyut urja ki khapat kitni hogi?"
+ },
+ {
+  "emoji": "✅",
+  "heading": "Hal Kie Gaye Udaharan",
+  "paras": [
+   "**Vidyut Paripath mein Vidyut Dhara ki Ganana:** Aavesh (charge) Q = 300 C, samay (time) t = 300 s → vidyut dhara (electric current) I = 1 A hai.",
+   "**Ohm ke Niyam se Dhara Gyanat Karana:** Vibhavantar (potential difference) V = 12 V, pratirodh (resistance) R = 4 ohm → parinaami vidyut dhara (electric current) 3 A hai.",
+   "**Parshvakram mein Tuly Pratirodh ki Ganana:** Pratirodhak (resistor) R1 = 6 ohm, pratirodhak R2 = 3 ohm → parshvakram sanyojan mein tuly pratirodh 2 ohm hai."
+  ],
+  "formula": null,
+  "example": null
+ },
+ {
+  "emoji": "🧠",
+  "heading": "Saransh (Quick Revision)",
+  "paras": [
+   "**Vidyut Dhara:** Kisi chalak ke anuprasht kaat se har second paar hone wala aavesh: I = Q/t. Iska SI maatrak ampere (A) hai; 1 A = 1 C/s.",
+   "**Vibhavantar:** Do binduon ke beech ka vibhavantar (potential difference) woh kaarya (work) hai jo prati coulomb aavesh ko dono binduon ke beech khiskaane mein lagta hai: V = W/Q. Iska SI maatrak volt (V) hai.",
+   "**Ohm ka Niyam:** Yadi taap (temperature) na badle, to chalak (conductor) mein V aur I ek hi anupaat mein saath-saath ghatte-badhte hain: V = I × R.",
+   "**Pratirodhakta:** Pratirodhakta ek aisa gun hai jo bataata hai ki koi padarth vidyut dhara ke pravah ka kitna virodh karta hai; yeh padarth ki prakriti aur taap par nirbhar karti hai. Iski SI ikai ohm-meter (Ω·m) hai.",
+   "**Shrenikram Sanyojan:** Shrenikram (series) mein sabhi pratirodhakon se saman dhara pravahit hoti hai aur kul pratirodh Rs = R1 + R2 + R3 hota hai.",
+   "**Parshvakram Sanyojan:** Parshvakram (parallel) mein sabhi pratirodhakon par saman vibhavantar hota hai aur 1/Rp = 1/R1 + 1/R2 + 1/R3 hota hai.",
+   "**Taapik Prabhaav:** Jab kisi chalak se dhara pravahit hoti hai, to vidyut urja ka ushma mein roopantaran hota hai. Joule ke niyam se H = I^2 × R × t.",
+   "**Fuse:** Ek fuse ek suraksha upkaran hai jo paripath ko nuksaan se bachata hai. Yeh fuse rating se adhik dhara par garam hokar pighal jata hai aur paripath ko tod deta hai.",
+   "**Vidyut Shakti:** Vidyut urja ke upyog ki dar ko vidyut shakti (electric power) kehte hain. P = V × I, iska SI maatrak watt (W) hai.",
+   "**Vyavsayik Maatrak:** Bijli kilowatt-ghanta (kWh) ke hisaab se bikti hai, jise unit bhi kehte hain. 1 kWh = 3.6 × 10^6 J."
+  ],
+  "formula": null,
+  "example": null
+ },
+ {
+  "emoji": "🎓",
+  "heading": "Tvariit Jaanch (Quick Check)",
+  "paras": [
+   "**Ammeter (ammeter) aur Voltmeter (voltmeter) ko Paripath mein Kaise Joda Jata Hai?** — Ammeter ko hamesha **Shrenikram** (series) mein aur voltmeter ko hamesha **Parshvakram** (parallel) mein joda jata hai.",
+   "**Chalak (conductor) ka Pratirodh Kin Karkon se Prabhavit Hota Hai?** — Pratirodh chalak ki **Lambai** (length) L ke samanupati, **Anuprasht Kaat** (cross-sectional area) A ke vyutkramanupati tatha **Taap** aur padarth ki prakriti par nirbhar karta hai.",
+   "**Gharelu Paripathon (domestic circuits) mein Upkaran Parshvakram mein hi Kyon Jode Jaate Hain?** — Kyonki parshvakram (parallel) mein pratyek upkaran ko saman **Vibhavantar** (potential difference) milta hai aur ek upkaran ke kharab hone par anya kary karte rehte hain.",
+   "**Vidyut Bulb ke Tantu (filament) ke Liye Tungsten ka Upyog Kyon Kiya Jata Hai?** — Kyonki tungsten ka **Galnanak** (melting point) bahut uchch (lagbhag 3422 °C) hota hai, isliye yeh uchch taap par bhi nahin pighalta; iski **Pratirodhakta** (resistivity) tanbe se adhik hone ke kaaran yeh tez garam hokar chamakta hai.",
+   "**Fuse (fuse) Taar ki Do Mukhya Visheshataen Likhiye.** — Fuse taar ka **Galnanak** (melting point) kam hota hai tatha **Pratirodh** (resistance) uchch hota hai."
+  ],
+  "formula": null,
+  "example": null
+ },
+ {
+  "emoji": "📐",
+  "heading": "sabhi sutra (Formula Sheet)",
+  "paras": [
+   "विद्युत धारा सूत्र: I = Q / t",
+   "विभवांतर सूत्र: V = W / Q",
+   "ओम का नियम: V = I × R",
+   "प्रतिरोधकता सूत्र: R = rho × L / A",
+   "श्रेणीक्रम संयोजन: Rs = R1 + R2 + R3",
+   "पार्श्वक्रम संयोजन: 1 / Rp = 1 / R1 + 1 / R2 + 1 / R3",
+   "जूल का तापन नियम: H = I^2 × R × t",
+   "विद्युत शक्ति सूत्र: P = V × I",
+   "विद्युत ऊर्जा सूत्र: E = P × t"
+  ],
+  "formula": null,
+  "example": null
+ }
+]

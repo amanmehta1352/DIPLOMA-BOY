@@ -227,3 +227,59 @@ def chapter_row(ch, book_slug, ch_no, topic_id):
             'demo_html': demo_html(ch['demo']) if ch.get('demo') else None}
     return {'book_slug': book_slug, 'ch_no': ch_no, 'topic_id': topic_id, 'title_hi': ch['titles'][0], 'title_en': ch['titles'][1],
             'short_hi': short_title(ch)[0], 'short_en': short_title(ch)[1], 'data': data, 'status': 'draft'}
+
+
+# ---- App format (level-book reader): data = {notes, formulas, solved, practice, revision, mistakes, teach} + en ----
+def _p(x, i):
+    """Pair [hi, en] -> string for language i (0 hi, 1 en); plain string -> itself. ** markdown removed."""
+    if isinstance(x, (list, tuple)):
+        x = x[i] if len(x) > i else ''   # missing language -> empty (dropped), never the other language
+    return re.sub(r'\*\*', '', str(x or '')).strip()
+
+
+def app_data(ch, i):
+    notes = []
+    for c in ch.get('concepts') or []:
+        n = {'title': _p(c['title'], i), 'points': [_p(p, i) for p in c.get('paras') or [] if _p(p, i)]}
+        tb = c.get('table')
+        if tb and tb.get('head'):
+            n['table'] = [[_p(h, i) for h in tb['head']]] + [[_p(cell, i) for cell in row] for row in tb.get('rows', [])]
+        notes.append(n)
+    formulas = [{'title': _p(f['t'], i), 'formula': _p(f['f'], 0), 'units': _p(f.get('u'), i), 'note': _p(f.get('s'), i)}
+                for f in ch.get('formulas') or []]
+    solved = []
+    for x in ch.get('numericals') or []:
+        given = x.get('given') or []
+        if isinstance(given, (list, tuple)) and len(given) == 2 and all(isinstance(z, str) for z in given):
+            given = [given]   # one [hi, en] pair, not two givens (else Hindi got the English text appended)
+        g = '; '.join(_p(z, i) for z in given) if isinstance(given, (list, tuple)) else _p(given, i)
+        q = _p(x['title'], i) + (f' — {g}' if g else '')
+        solved.append({'question': q, 'steps': [_p(s, i) for s in x.get('steps') or []], 'answer': _p(x.get('answer'), i)})
+    practice = []
+    for q in ch.get('bank') or []:
+        if q.get('type') != 'mcq' or not q.get('options'):
+            continue
+        practice.append({'q': _p(q['q'], i), 'options': [_p(o, i) for o in q['options']], 'answer': q['answer_index'],
+                         'explanation': _p(q.get('answer'), i)})
+    def _rev(r):
+        if isinstance(r, (list, tuple)) and len(r) == 2 and all(isinstance(z, (list, tuple)) for z in r):
+            return f'{_p(r[0], i)}: {_p(r[1], i)}'
+        return _p(r, i)
+    revision = [r for r in (_rev(r) for r in ch.get('revision') or []) if r]
+    mistakes = [m for m in (_p(c['tip'], i) for c in ch.get('concepts') or [] if c.get('tip')) if m]
+    teach = []
+    for t in ch.get('teach') or []:
+        explain = '\n'.join(_p(p, i) for p in t.get('paras') or [])
+        if t.get('formula'): explain += '\n' + _p(t['formula'], i)   # formula line was dropped before
+        item = {'heading': _p(t['heading'], i), 'explain': explain}
+        ex = t.get('example')
+        if ex: item['example'] = (_p(ex.get('label'), i) + ': ' if ex.get('label') else '') + _p(ex.get('text'), i)
+        teach.append(item)
+    return {'notes': notes, 'formulas': formulas, 'solved': solved, 'practice': practice,
+            'revision': revision, 'mistakes': mistakes, 'teach': teach}
+
+
+def app_format(ch, book_id, source):
+    """Wrapper the app's review path reads: {data, status}. data = Hindi, data.en = English (same shape)."""
+    data = app_data(ch, 0); data['id'] = book_id; data['en'] = app_data(ch, 1); data['source'] = source
+    return {'data': data, 'status': 'draft'}
