@@ -1,0 +1,515 @@
+{
+ "state": "needs_review",
+ "problems": [
+  "question 8: answer-blind solver did not reach the key",
+  "question 9: answer-blind solver did not reach the key",
+  "question 22: answer-blind solver did not reach the key"
+ ],
+ "warnings": [
+  "numerical 4: AI solver disagreed, code-verified answer kept (all givens are in the question)",
+  "numerical 10: AI solver disagreed, code-verified answer kept (all givens are in the question)",
+  "Hindi glossary checked against official PYQ Hindi usage; line-by-line CSTT check pending"
+ ],
+ "blind": {
+  "n": 18,
+  "passes": [
+   {
+    "provider": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "answered": 18
+   },
+   {
+    "provider": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "answered": 18
+   }
+  ],
+  "disagree": [
+   {
+    "q": 8,
+    "pass": 1,
+    "key": 2,
+    "solver": 1
+   },
+   {
+    "q": 22,
+    "pass": 1,
+    "key": 3,
+    "solver": 1
+   },
+   {
+    "q": 8,
+    "pass": 2,
+    "key": 2,
+    "solver": 3
+   },
+   {
+    "q": 9,
+    "pass": 2,
+    "key": 0,
+    "solver": 2
+   }
+  ],
+  "same_provider_as_writer": []
+ },
+ "numericals": [
+  {
+   "n": 1,
+   "stored": "The electric current I is 1 A.",
+   "solver": "1 A",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 1 = stated 1 ampere",
+   "givens_in_text": true
+  },
+  {
+   "n": 2,
+   "stored": "The resulting electric current is 3 A.",
+   "solver": "3 A",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 3 = stated 3 ampere",
+   "givens_in_text": true
+  },
+  {
+   "n": 3,
+   "stored": "The equivalent resistance in parallel combination is 2 ohm.",
+   "solver": "2 ohm",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 2 = stated 2 ohm",
+   "givens_in_text": true
+  },
+  {
+   "n": 4,
+   "stored": "400 J",
+   "solver": "4000 J",
+   "agree": false,
+   "code": true,
+   "code_detail": "code 400 = stated 400 joule",
+   "givens_in_text": true
+  },
+  {
+   "n": 5,
+   "stored": "The total electrical energy consumed is 360000 J.",
+   "solver": "360000 J",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 360000 = stated 360000 joule",
+   "givens_in_text": true
+  },
+  {
+   "n": 6,
+   "stored": "3 A",
+   "solver": "3 A",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 3 = stated 3 ampere",
+   "givens_in_text": true
+  },
+  {
+   "n": 7,
+   "stored": "4 Ω",
+   "solver": "4 Ω",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 4 = stated 4 ohm (formula chosen by code: ohm_slope)",
+   "givens_in_text": true
+  },
+  {
+   "n": 8,
+   "stored": "0.0336 Ω",
+   "solver": "0.0336 Ω",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 0.0336 = stated 0.0336 ohm",
+   "givens_in_text": true
+  },
+  {
+   "n": 9,
+   "stored": "1 Ω",
+   "solver": "1 Ω",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 1 = stated 1 ohm",
+   "givens_in_text": true
+  },
+  {
+   "n": 10,
+   "stored": "30000 J",
+   "solver": "300000 J",
+   "agree": false,
+   "code": true,
+   "code_detail": "code 30000 = stated 30000 joule",
+   "givens_in_text": true
+  },
+  {
+   "n": 11,
+   "stored": "0.3 kWh",
+   "solver": "0.3 kWh",
+   "agree": true,
+   "code": true,
+   "code_detail": "code 1.08e+06 = stated 1.08e+06 joule",
+   "givens_in_text": true
+  }
+ ],
+ "fact_check_notes": {
+  "correct": true,
+  "reason": ""
+ },
+ "app_fact_check": [
+  {
+   "lang": "en",
+   "section": "notes",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "en",
+   "section": "formulas_solved",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "en",
+   "section": "practice",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "en",
+   "section": "revision_mistakes",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "en",
+   "section": "teach",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "hi",
+   "section": "notes",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "hi",
+   "section": "formulas_solved",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "hi",
+   "section": "practice",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "hi",
+   "section": "revision_mistakes",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  {
+   "lang": "hi",
+   "section": "teach",
+   "correct": true,
+   "reason": "",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  }
+ ],
+ "copyright": {
+  "overlap": 0.172,
+  "threshold": 0.2,
+  "longest_copied_run_words": 7,
+  "run_text": "शाखाओं में विभाजित हो जाती है। यदि",
+  "max_run_words": 8,
+  "note": "automatic metric, not legal clearance"
+ },
+ "terms": {
+  "pairs": 880,
+  "missing_hindi_term": {},
+  "banned_form": {},
+  "number_mismatch_pairs": 0,
+  "glossary_verified": false,
+  "bad_pairs": []
+ },
+ "calls": 14,
+ "max_calls": 16,
+ "or_model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "attribution": [
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T17:05:22+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T17:05:24+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T17:05:27+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T17:05:29+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T17:07:26+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T17:07:33+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T17:07:36+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T17:07:38+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:10:22+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:10:34+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:10:38+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:10:42+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:14:13+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:14:15+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:14:17+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:14:25+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:15:48+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:16:10+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:16:12+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:16:13+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:38:21+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:38:23+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:38:46+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:38:47+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:40:29+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:40:31+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:40:36+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-04T18:40:41+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "none",
+   "model": "NOT RUN",
+   "at": "2026-11-04T18:50:16+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "none",
+   "model": "NOT RUN",
+   "at": "2026-11-04T18:50:16+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "none",
+   "model": "NOT RUN",
+   "at": "2026-11-04T18:50:16+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "none",
+   "model": "NOT RUN",
+   "at": "2026-11-04T18:50:17+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-06T02:27:05+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "blind_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-06T02:27:26+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "numerical_solver",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-06T02:28:13+00:00"
+  },
+  {
+   "stage": "checks",
+   "role": "fact_checker",
+   "provider": "openrouter",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "at": "2026-11-06T02:28:44+00:00"
+  }
+ ]
+}
