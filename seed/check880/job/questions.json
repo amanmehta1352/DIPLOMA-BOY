@@ -678,12 +678,12 @@
   "outcome": "o3",
   "bloom": "analyze",
   "q": [
-   "अभिकथन (A): किसी धातु के तार का ताप न बदले तो उसके सिरों के बीच का विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है। कारण (R): ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, स्थिर रहता है; इसीलिए धारा (current) उसी अनुपात में बदलती है जिस अनुपात में विभवांतर (potential difference) बदलता है।",
-   "Assertion (A): If the temperature of a metal wire does not change, doubling the potential difference across its ends also doubles the current in it. Reason (R): By Ohm's law, at constant temperature the value of V/I, called the resistance, stays constant; that is why the current changes in the same ratio as the potential difference."
+   "अभिकथन (A): नियत ताप पर रखे किसी धात्विक तार (metallic wire) के सिरों के बीच विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है। कारण (R): ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, स्थिर रहता है; इसीलिए धारा (current) उसी अनुपात में बदलती है जिस अनुपात में विभवांतर (potential difference) बदलता है।",
+   "Assertion (A): In a metallic wire kept at constant temperature, doubling the potential difference across its ends doubles the current through it. Reason (R): By Ohm's law, at constant temperature the value of V/I, called the resistance, stays constant; that is why the current changes in the same ratio as the potential difference."
   ],
   "assertion": [
-   "किसी धातु के तार का ताप न बदले तो उसके सिरों के बीच का विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है।",
-   "If the temperature of a metal wire does not change, doubling the potential difference across its ends also doubles the current in it."
+   "नियत ताप पर रखे किसी धात्विक तार (metallic wire) के सिरों के बीच विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है।",
+   "In a metallic wire kept at constant temperature, doubling the potential difference across its ends doubles the current through it."
   ],
   "reason": [
    "ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, स्थिर रहता है; इसीलिए धारा (current) उसी अनुपात में बदलती है जिस अनुपात में विभवांतर (potential difference) बदलता है।",

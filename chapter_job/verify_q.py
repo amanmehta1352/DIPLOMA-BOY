@@ -1,4 +1,4 @@
-"""Check 4 (owner decision 2026-11-06 08:59 IST): answer-blind solver + fact check on Q19 and Q22 ONLY, max 1 retry, free OpenRouter checker.
+"""Check 5 (owner "Do it" 2026-11-06 09:14 IST; check 4 format: combined fact text failed): answer-blind solver + fact check on Q19 and Q22 ONLY, max 1 retry, free OpenRouter checker.
 Nothing is written or rewritten; no DB. usage: verify_q.py <job_dir> <out_dir>"""
 import hashlib, json, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
@@ -19,13 +19,18 @@ def blind(P, qs, seed):
 
 
 def fact(P, qs):
-    txt = [{'assertion': q['assertion'][1], 'reason': q['reason'][1], 'keyed_answer': q['answer'][1],
-            'task': 'Assertion-Reason question: is the keyed answer scientifically correct for this assertion and reason?'} for q in qs]
-    try:
-        ok, why, prov, model = P.fact_check_app({'questions': txt})
-    except Exception as e:
-        ok, why = None, f'error: {type(e).__name__}: {str(e)[:200]}'
-    return {'correct': ok, 'reason': why}
+    """One call per item, one plain statement each (a combined multi-item text confused the checker in check 4)."""
+    out = []
+    for n, q in zip(QN, qs):
+        txt = ('Class 10 Science exam item (Assertion-Reason). Assertion (A): ' + q['assertion'][1] + ' Reason (R): ' + q['reason'][1] +
+               ' The answer key marks: "' + q['answer'][1] + '" Answer {"correct": true} only if every claim above is scientifically correct for Class 10 and the answer key is the right choice; '
+               'otherwise {"correct": false, "reason": "..."}.')
+        try:
+            ok, why, prov, model = P.fact_check_app({'item': txt})
+        except Exception as e:
+            ok, why = None, f'error: {type(e).__name__}: {str(e)[:200]}'
+        out.append({'q': n, 'correct': ok, 'reason': why})
+    return out
 
 
 def main(src, out):
@@ -39,11 +44,11 @@ def main(src, out):
         res = []
         for s in seeds: res += blind(P, qs, s)
         f = fact(P, qs)
-        run = {'attempt': attempt, 'blind': res, 'fact': f, 'blind_ok': all(x['ok'] for x in res), 'calls_so_far': P.n_calls}
-        runs.append(run); print(attempt, 'blind', [(x['q'], x['seed'], x['key'], x['solver']) for x in res], 'fact', f['correct'], (f['reason'] or '')[:300], flush=True)
-        if run['blind_ok'] and f['correct'] is True: break
+        run = {'attempt': attempt, 'blind': res, 'fact': f, 'blind_ok': all(x['ok'] for x in res), 'fact_ok': all(x['correct'] is True for x in f), 'calls_so_far': P.n_calls}
+        runs.append(run); print(attempt, 'blind', [(x['q'], x['seed'], x['key'], x['solver']) for x in res], 'fact', [(x['q'], x['correct']) for x in f], [(x['reason'] or '')[:250] for x in f if x['correct'] is not True], flush=True)
+        if run['blind_ok'] and run['fact_ok']: break
     last = runs[-1]
-    result = {'runs': runs, 'passed': last['blind_ok'] and last['fact']['correct'] is True, 'model': P.or_model, 'calls': P.n_calls, 'max_calls': P.max_calls}
+    result = {'runs': runs, 'passed': last['blind_ok'] and last['fact_ok'], 'model': P.or_model, 'calls': P.n_calls, 'max_calls': P.max_calls}
     json.dump(result, open(os.path.join(out, 'verify_q_result.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('PASSED' if result['passed'] else 'NOT PASSED', 'calls', P.n_calls)
 
