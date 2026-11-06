@@ -1,0 +1,14 @@
+en notes True 
+en formulas_solved True 
+en practice True 
+en revision_mistakes True 
+en teach True 
+hi notes True 
+hi formulas_solved True 
+hi practice True 
+hi revision_mistakes True 
+hi teach True 
+PROBLEMS 2
+ - question 19: answer-blind solver did not reach the key
+ - question 22: answer-blind solver did not reach the key
+calls 14
