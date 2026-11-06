@@ -678,16 +678,16 @@
   "outcome": "o3",
   "bloom": "analyze",
   "q": [
-   "अभिकथन (A): किसी धातु के तार का ताप न बदले तो उसके सिरों के बीच का विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है। कारण (R): ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, बदलता नहीं है।",
-   "Assertion (A): If the temperature of a metal wire does not change, doubling the potential difference across its ends also doubles the current in it. Reason (R): By Ohm's law, at constant temperature the value of V/I, called the resistance, stays the same."
+   "अभिकथन (A): किसी धातु के तार का ताप न बदले तो उसके सिरों के बीच का विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है। कारण (R): ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, स्थिर रहता है; इसीलिए धारा (current) उसी अनुपात में बदलती है जिस अनुपात में विभवांतर (potential difference) बदलता है।",
+   "Assertion (A): If the temperature of a metal wire does not change, doubling the potential difference across its ends also doubles the current in it. Reason (R): By Ohm's law, at constant temperature the value of V/I, called the resistance, stays constant; that is why the current changes in the same ratio as the potential difference."
   ],
   "assertion": [
    "किसी धातु के तार का ताप न बदले तो उसके सिरों के बीच का विभवांतर (potential difference) दोगुना करने पर उसमें बहने वाली धारा (current) भी दोगुनी हो जाती है।",
    "If the temperature of a metal wire does not change, doubling the potential difference across its ends also doubles the current in it."
   ],
   "reason": [
-   "ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, बदलता नहीं है।",
-   "By Ohm's law, at constant temperature the value of V/I, called the resistance, stays the same."
+   "ओम के नियम (Ohm's law) के अनुसार नियत ताप पर V/I का मान, जिसे प्रतिरोध (resistance) कहते हैं, स्थिर रहता है; इसीलिए धारा (current) उसी अनुपात में बदलती है जिस अनुपात में विभवांतर (potential difference) बदलता है।",
+   "By Ohm's law, at constant temperature the value of V/I, called the resistance, stays constant; that is why the current changes in the same ratio as the potential difference."
   ],
   "answer_index": 0,
   "answer": [
@@ -744,17 +744,17 @@
   "outcome": "o4",
   "bloom": "understand",
   "assertion": [
-   "तापमान बढ़ने से धात्विक चालक का प्रतिरोध हमेशा घटता है।",
-   "Increasing temperature always decreases the resistance of a metallic conductor."
+   "किसी तांबे के तार (copper wire) को गर्म करने पर उसका प्रतिरोध (resistance) घट जाता है।",
+   "The resistance of a copper wire becomes smaller when the wire is heated."
   ],
   "reason": [
-   "धातुओं की प्रतिरोधकता तापमान के साथ बढ़ती है।",
-   "Resistivity of metals increases with temperature."
+   "धातुओं की प्रतिरोधकता (resistivity) ताप बढ़ने के साथ बढ़ती है।",
+   "The resistivity of a metal increases as its temperature rises."
   ],
   "answer_index": 3,
   "q": [
-   "अभिकथन (A): तापमान बढ़ने से धात्विक चालक का प्रतिरोध हमेशा घटता है। कारण (R): धातुओं की प्रतिरोधकता तापमान के साथ बढ़ती है।",
-   "Assertion (A): Increasing temperature always decreases the resistance of a metallic conductor. Reason (R): Resistivity of metals increases with temperature."
+   "अभिकथन (A): किसी तांबे के तार (copper wire) को गर्म करने पर उसका प्रतिरोध (resistance) घट जाता है। कारण (R): धातुओं की प्रतिरोधकता (resistivity) ताप बढ़ने के साथ बढ़ती है।",
+   "Assertion (A): The resistance of a copper wire becomes smaller when the wire is heated. Reason (R): The resistivity of a metal increases as its temperature rises."
   ],
   "answer": [
    "A गलत है, पर R सही है।",
