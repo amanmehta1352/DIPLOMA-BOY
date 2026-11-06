@@ -1,0 +1,104 @@
+{
+ "runs": [
+  {
+   "attempt": "initial",
+   "blind": [
+    {
+     "q": 19,
+     "seed": 1,
+     "key": 0,
+     "solver": 0,
+     "ok": true
+    },
+    {
+     "q": 22,
+     "seed": 1,
+     "key": 3,
+     "solver": 2,
+     "ok": false
+    },
+    {
+     "q": 19,
+     "seed": 2,
+     "key": 0,
+     "solver": 0,
+     "ok": true
+    },
+    {
+     "q": 22,
+     "seed": 2,
+     "key": 3,
+     "solver": 3,
+     "ok": true
+    }
+   ],
+   "fact": [
+    {
+     "q": 19,
+     "correct": true,
+     "reason": ""
+    },
+    {
+     "q": 22,
+     "correct": true,
+     "reason": ""
+    }
+   ],
+   "blind_ok": false,
+   "fact_ok": true,
+   "calls_so_far": 4
+  },
+  {
+   "attempt": "retry",
+   "blind": [
+    {
+     "q": 19,
+     "seed": 3,
+     "key": 0,
+     "solver": 0,
+     "ok": true
+    },
+    {
+     "q": 22,
+     "seed": 3,
+     "key": 3,
+     "solver": 3,
+     "ok": true
+    },
+    {
+     "q": 19,
+     "seed": 4,
+     "key": 0,
+     "solver": 0,
+     "ok": true
+    },
+    {
+     "q": 22,
+     "seed": 4,
+     "key": 3,
+     "solver": 3,
+     "ok": true
+    }
+   ],
+   "fact": [
+    {
+     "q": 19,
+     "correct": true,
+     "reason": ""
+    },
+    {
+     "q": 22,
+     "correct": true,
+     "reason": ""
+    }
+   ],
+   "blind_ok": true,
+   "fact_ok": true,
+   "calls_so_far": 8
+  }
+ ],
+ "passed": true,
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "calls": 8,
+ "max_calls": 8
+}
