@@ -1,0 +1,274 @@
+{
+ "results": [
+  {
+   "n": 15,
+   "type": "true_false",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 16,
+   "type": "true_false",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 17,
+   "type": "fill_blank",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 18,
+   "type": "fill_blank",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 19,
+   "type": "assertion_reason",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 20,
+   "type": "hots",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 21,
+   "type": "hots",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 22,
+   "type": "assertion_reason",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 23,
+   "type": "assertion_reason",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 24,
+   "type": "assertion_reason",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 25,
+   "type": "hots",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 26,
+   "type": "hots",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 27,
+   "type": "case_based",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 28,
+   "type": "case_based",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 29,
+   "type": "case_based",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 30,
+   "type": "case_based",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 31,
+   "type": "case_based",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 38,
+   "type": "vsa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 39,
+   "type": "vsa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 40,
+   "type": "vsa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 41,
+   "type": "vsa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 42,
+   "type": "vsa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 43,
+   "type": "vsa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 44,
+   "type": "vsa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 45,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 46,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 47,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 48,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 49,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 50,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 51,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 52,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 53,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 54,
+   "type": "sa",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 55,
+   "type": "la",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 56,
+   "type": "la",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 57,
+   "type": "la",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  },
+  {
+   "n": 58,
+   "type": "la",
+   "correct": null,
+   "reason": "error: ProviderUnavailable: openrouter: quota (nvidia/nemotron-3-ultra-550b-a55b:free HTTP 429)"
+  }
+ ],
+ "not_true": [
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  38,
+  39,
+  40,
+  41,
+  42,
+  43,
+  44,
+  45,
+  46,
+  47,
+  48,
+  49,
+  50,
+  51,
+  52,
+  53,
+  54,
+  55,
+  56,
+  57,
+  58
+ ],
+ "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+ "calls": 38
+}
