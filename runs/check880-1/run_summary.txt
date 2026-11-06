@@ -1,0 +1,16 @@
+en notes True 
+en formulas_solved True 
+en practice True 
+en revision_mistakes True 
+en teach False Lesson 12 states 'विद्युत शक्ति [electric power] = विद्युत धारा [electric current] × विभवांतर [potential difference]' which implies P = I × V. However, the text
+hi notes True 
+hi formulas_solved True 
+hi practice True 
+hi revision_mistakes True 
+hi teach False In Lesson 10, the numerical example for Joule's law states time as '10 minutes' but the formula H = I²Rt requires time in seconds for the answer to be in Joules
+PROBLEMS 4
+ - question 8: answer-blind solver did not reach the key
+ - fact check failed: In the 'Resistivity and Types of Materials' section, the resistivity of glass is stated as '10 10 to 10 14 Ω m'. The superscripts are missing; the correct range is 10¹⁰ to 10¹⁴ Ω m. The text as written (10 10) reads as ten ten, which is numerically incorrect and misleading.
+ - app fact check en/teach: failed: Lesson 12 states 'विद्युत शक्ति [electric power] = विद्युत धारा [electric current] × विभवांतर [potential difference]' which implies P = I × V. However, the text immediately preceding this formula states 'To calculate commercial energy, we multiply the electric power 
+ - app fact check hi/teach: failed: In Lesson 10, the numerical example for Joule's law states time as '10 minutes' but the formula H = I²Rt requires time in seconds for the answer to be in Joules (SI unit). Using minutes directly yields an incorrect numerical value. Additionally, the statement 'Alloy 
+calls 14
