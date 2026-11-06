@@ -304,47 +304,47 @@
   "outcome": "o5",
   "bloom": "apply",
   "q": [
-   "एक **चालक (conductor)** का **प्रतिरोध (resistance)** R = ρL/A द्वारा दिया जाता है, जहाँ ρ = 1.68 × 10^-8 Ω·m, **लंबाई (length)** L = 10 m और **अनुप्रस्थ काट (cross-sectional area)** A = 1 × 10^-4 m² हो। **प्रतिरोध (resistance)** R की गणना करें।",
-   "The **resistance** R of a **conductor** is given by R = ρL/A, where ρ = 1.68 × 10^-8 Ω·m, **length** L = 10 m and **cross-sectional area** A = 1 × 10^-4 m². Calculate the **resistance** R."
+   "एक **चालक (conductor)** का **प्रतिरोध (resistance)** R = ρL/A से निकलता है। यदि ρ = 1.6 × 10^-8 Ω·m, **लंबाई (length)** L = 50 m और **अनुप्रस्थ काट (cross-sectional area)** A = 2 × 10^-6 m² हो, तो **प्रतिरोध (resistance)** R ज्ञात करें।",
+   "The **resistance** R of a **conductor** is found from R = ρL/A. If ρ = 1.6 × 10^-8 Ω·m, **length** L = 50 m and **cross-sectional area** A = 2 × 10^-6 m², find the **resistance** R."
   ],
   "options": [
    [
-    "1.68 × 10^-1 Ω",
-    "1.68 × 10^-1 Ω"
+    "0.04 Ω",
+    "0.04 Ω"
    ],
    [
-    "1.68 × 10^-2 Ω",
-    "1.68 × 10^-2 Ω"
+    "0.4 Ω",
+    "0.4 Ω"
    ],
    [
-    "1.68 × 10^-3 Ω",
-    "1.68 × 10^-3 Ω"
+    "4 Ω",
+    "4 Ω"
    ],
    [
-    "1.68 Ω",
-    "1.68 Ω"
+    "40 Ω",
+    "40 Ω"
    ]
   ],
-  "answer_index": 2,
+  "answer_index": 1,
   "answer": [
-   "1.68 × 10^-3 Ω",
-   "1.68 × 10^-3 Ω"
+   "0.4 Ω",
+   "0.4 Ω"
   ],
   "check": {
    "givens": [
     {
      "symbol": "rho",
-     "value": 1.68e-08,
+     "value": 1.6e-08,
      "unit": "ohm m"
     },
     {
      "symbol": "L",
-     "value": 10,
+     "value": 50,
      "unit": "m"
     },
     {
      "symbol": "A",
-     "value": 0.0001,
+     "value": 2e-06,
      "unit": "m^2"
     }
    ],
@@ -353,7 +353,7 @@
    ],
    "unknown": "R",
    "answer": {
-    "value": 0.00168,
+    "value": 0.4,
     "unit": "Ω"
    }
   }
@@ -363,8 +363,8 @@
   "outcome": "o6",
   "bloom": "understand",
   "q": [
-   "क्या प्रतिरोधकों का **श्रेणीक्रम (series)** संयोजन उनके कुल प्रतिरोध को बढ़ाता है?",
-   "Does the **series** combination of resistors increase their total resistance?"
+   "श्रेणीक्रम (series) में जुड़े प्रतिरोधकों का कुल प्रतिरोध कितना होता है?",
+   "What is the total resistance of resistors connected in **series**?"
   ],
   "options": [
    [

@@ -401,18 +401,18 @@
     "explanation": "रंग (color)"
    },
    {
-    "q": "एक चालक (conductor) का प्रतिरोध (resistance) R = ρL/A द्वारा दिया जाता है, जहाँ ρ = 1.68 × 10^-8 Ω·m, लंबाई (length) L = 10 m और अनुप्रस्थ काट (cross-sectional area) A = 1 × 10^-4 m² हो। प्रतिरोध (resistance) R की गणना करें।",
+    "q": "एक चालक (conductor) का प्रतिरोध (resistance) R = ρL/A से निकलता है। यदि ρ = 1.6 × 10^-8 Ω·m, लंबाई (length) L = 50 m और अनुप्रस्थ काट (cross-sectional area) A = 2 × 10^-6 m² हो, तो प्रतिरोध (resistance) R ज्ञात करें।",
     "options": [
-     "1.68 × 10^-1 Ω",
-     "1.68 × 10^-2 Ω",
-     "1.68 × 10^-3 Ω",
-     "1.68 Ω"
+     "0.04 Ω",
+     "0.4 Ω",
+     "4 Ω",
+     "40 Ω"
     ],
-    "answer": 2,
-    "explanation": "1.68 × 10^-3 Ω"
+    "answer": 1,
+    "explanation": "0.4 Ω"
    },
    {
-    "q": "क्या प्रतिरोधकों का श्रेणीक्रम (series) संयोजन उनके कुल प्रतिरोध को बढ़ाता है?",
+    "q": "श्रेणीक्रम (series) में जुड़े प्रतिरोधकों का कुल प्रतिरोध कितना होता है?",
     "options": [
      "परिपथ का कुल प्रतिरोध (resistance) सभी प्रतिरोधकों के योग के बराबर होता है।",
      "प्रत्येक प्रतिरोधक के सिरों का विभवांतर (potential difference) हमेशा समान रहता है।",
@@ -974,18 +974,18 @@
      "explanation": "Color"
     },
     {
-     "q": "The resistance R of a conductor is given by R = ρL/A, where ρ = 1.68 × 10^-8 Ω·m, length L = 10 m and cross-sectional area A = 1 × 10^-4 m². Calculate the resistance R.",
+     "q": "The resistance R of a conductor is found from R = ρL/A. If ρ = 1.6 × 10^-8 Ω·m, length L = 50 m and cross-sectional area A = 2 × 10^-6 m², find the resistance R.",
      "options": [
-      "1.68 × 10^-1 Ω",
-      "1.68 × 10^-2 Ω",
-      "1.68 × 10^-3 Ω",
-      "1.68 Ω"
+      "0.04 Ω",
+      "0.4 Ω",
+      "4 Ω",
+      "40 Ω"
      ],
-     "answer": 2,
-     "explanation": "1.68 × 10^-3 Ω"
+     "answer": 1,
+     "explanation": "0.4 Ω"
     },
     {
-     "q": "Does the series combination of resistors increase their total resistance?",
+     "q": "What is the total resistance of resistors connected in series?",
      "options": [
       "The total resistance of the circuit is equal to the sum of all individual resistors.",
       "The potential difference across each resistor is always the same.",
