@@ -632,7 +632,7 @@ function fitFormulas(root){
     if(el.scrollWidth > el.clientWidth + 2) el.classList.add('fwrap');
   });
 }
-document.addEventListener('click', e => { if(e.target.closest && e.target.closest('.lang-toggle, .lang-switcher')) setTimeout(() => { fitFormulas(document); if(document.body.dataset.tabActive === '3d' && curCh !== 1 && e.target.closest('.lang-toggle')) switchTab('3d'); }, 60); });
+document.addEventListener('click', e => { if(e.target.closest && e.target.closest('.lang-toggle, .lang-switcher')) setTimeout(() => { fitFormulas(document); if(document.body.dataset.tabActive === '3d' && curCh !== 1 && e.target.closest('.lang-toggle')) switchTab('3d'); if(document.body.dataset.tabActive === 'diagram' && DEMO_ROW && DEMO_ROW.data && DEMO_ROW.data.demo && e.target.closest('.lang-toggle')) switchTab('diagram'); }, 60); });
 window.addEventListener('resize', () => { clearTimeout(window._fitT); window._fitT = setTimeout(() => fitFormulas(document), 150); });
 /* Solution steps: keep label + content as two flex items so sub/superscripts don't split apart */
 function wrapSolSteps(root){
@@ -883,10 +883,17 @@ function applyFormulaFilter(filter){
   try { pageScroller().scrollTo({top:0, behavior:'smooth'}); } catch (e) { window.scrollTo({top:0, behavior:'smooth'}); }
 }
 document.addEventListener('click', e => { const chip = e.target.closest('#formulaChips .filter-chip'); if (chip) applyFormulaFilter(chip.dataset.filter); });
+let DEMO_ROW = null;   /* approved row of the open chapter; its data.demo ({title:[hi,en], html}) is the 3D / slider model shown under the diagrams */
+function demoPanel(){
+  const dm = DEMO_ROW && DEMO_ROW.data && DEMO_ROW.data.demo; if (!dm || !dm.html) return '';
+  const src = String(dm.html).replace('__LANG__', currentLang === 'en' ? 'en' : currentLang === 'both' ? 'both' : 'hi').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  const t = Array.isArray(dm.title) ? (currentLang === 'en' ? dm.title[1] : dm.title[0]) : dm.title;
+  return `<div class="panel orange"><div class="panel-header">🧊 ${esc(t || L('3D मॉडल','3D model'))}</div><div class="panel-body"><iframe data-demo sandbox="allow-scripts" loading="lazy" style="width:100%;height:420px;border:0;border-radius:12px" srcdoc="${src}"></iframe></div></div>`;
+}
 function diagramTab(atoms){
-  const d = byType(atoms, 'svg');
+  const d = byType(atoms, 'svg'), demo = demoPanel();
   return `<div class="notes-theme"><div class="notes-paper">${d.map(a => `<div class="panel orange"><div class="panel-header">🖼️ ${esc(a.title || '')}</div><div class="panel-body"><div class="lb-fig">${svgImg(a.body.svg)}</div>${a.body.caption ? `<div class="lb-cap">${esc(a.body.caption)}</div>` : ''}</div></div>`).join('')
-    || `<p>${L('इस अध्याय का चित्र अभी तैयार नहीं है।','No diagram for this chapter yet.')}</p>`}</div></div>`;
+    + demo || `<p>${L('इस अध्याय का चित्र अभी तैयार नहीं है।','No diagram for this chapter yet.')}</p>`}</div></div>`;
 }
 
 /* ---- review mode: the owner's preview of robot drafts. Opens only with ?review=<code>; students never see drafts ---- */
@@ -1005,7 +1012,8 @@ async function switchTab(tab){
   let atoms, rv = REVIEW && tab !== 'diagram', ap = null;
   try {
     if (rv) atoms = await draftFor(curCh);
-    else { ap = tab !== 'diagram' ? await approvedFor(curCh) : null; atoms = ap ? ap : await atomsFor(curCh); }
+    else { ap = tab !== 'diagram' ? await approvedFor(curCh) : null; atoms = ap ? ap : await atomsFor(curCh);
+      DEMO_ROW = null; if (tab === 'diagram') { try { DEMO_ROW = await approvedFor(curCh); } catch (e) { DEMO_ROW = null; } } }
     if (rv && !atoms) throw new Error('no draft');
   } catch (e) {
     if (seq === loadSeq)
