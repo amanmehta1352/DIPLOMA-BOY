@@ -1,0 +1,73 @@
+# One-time VERIFY-ONLY run (owner approval 2026-11-06 09:35 IST): fact check + answer-blind solver on the Electricity 880 app draft.
+# No AI writes content here. Writes nothing to main, DB, Supabase or Pages. Result lands only under runs/check880-6/ on this branch.
+name: 'electricity-880-check-6 (one time, verify only, 38 non-MCQ items, one pass)'
+
+on:
+  push:
+    branches: [electricity-880-check-6]
+
+permissions: {}
+
+concurrency:
+  group: electricity-880-check-6
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.event.created == true && contains(github.event.head_commit.message, '[electricity-880-check-6-once]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - name: Guard - stop if a result already exists
+        run: |
+          if [ -e runs/check880-6 ]; then echo "result already present; refusing a second AI run"; exit 1; fi
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Verify draft (OpenRouter free checker only)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: nvidia/nemotron-3-ultra-550b-a55b:free
+          FREE_TIER_CONFIRMED: ''
+          ROUTE_DIR: robots/route
+          PROVIDER_TIME_BUDGET_S: '2000'
+          PROVIDER_MAX_CALLS: '60'
+        run: |
+          pip install -q sympy==1.14.0 pint==0.26.2
+          mkdir -p out
+          python3 chapter_job/verify_items.py seed/check880b out > out/run_summary.txt 2>&1 || echo "verify exited non-zero" >> out/run_summary.txt
+      - name: Refuse to publish if the secret value is in the output
+        env:
+          S1: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, sys
+          v = os.environ.get('S1', '')
+          bad = [str(p) for p in pathlib.Path('out').rglob('*') if p.is_file() and len(v) >= 8 and v in p.read_text(errors='ignore')]
+          if bad: print('secret found; not publishing'); sys.exit(1)
+          print('no secret values in output')
+          PY
+      - uses: actions/upload-artifact@v4
+        with: { name: check880-result, path: out/, retention-days: 1 }
+
+  publish:
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: electricity-880-check-6 }
+      - uses: actions/download-artifact@v4
+        with: { name: check880-result, path: runs/check880-6 }
+      - name: Commit result to this branch only, under runs/check880-6/
+        run: |
+          git add runs/check880-6
+          if git diff --cached --name-only | grep -v '^runs/check880-6/'; then echo "unexpected path; abort"; exit 1; fi
+          git config user.name "chapter-job-run"; git config user.email "chapter-job-run@users.noreply.github.com"
+          git commit -m "Electricity 880 check 6 result [skip ci]"
+          git push origin HEAD:refs/heads/electricity-880-check-6
