@@ -403,13 +403,13 @@
    {
     "q": "एक चालक (conductor) का प्रतिरोध (resistance) R = ρL/A द्वारा दिया जाता है, जहाँ ρ = 1.68 × 10^-8 Ω·m, लंबाई (length) L = 10 m और अनुप्रस्थ काट (cross-sectional area) A = 1 × 10^-4 m² हो। प्रतिरोध (resistance) R की गणना करें।",
     "options": [
-     "0.168 Ω",
-     "0.0168 Ω",
-     "0.00168 Ω",
+     "1.68 × 10^-1 Ω",
+     "1.68 × 10^-2 Ω",
+     "1.68 × 10^-3 Ω",
      "1.68 Ω"
     ],
     "answer": 2,
-    "explanation": "0.00168 Ω"
+    "explanation": "1.68 × 10^-3 Ω"
    },
    {
     "q": "क्या प्रतिरोधकों का श्रेणीक्रम (series) संयोजन उनके कुल प्रतिरोध को बढ़ाता है?",
@@ -517,8 +517,8 @@
    },
    {
     "heading": "पाठ 2: विद्युत विभव और विभवांतर",
-    "explain": "विद्युत विभव किसी बिंदु पर इकाई धनावेश को अनंत दूरी से वहाँ तक लाने में किया गया कार्य है। दो बिंदुओं के बीच का विभवांतर वोल्टमीटर से मापा जाता है; वोल्टमीटर को उन दो बिंदुओं के समानांतर जोड़ा जाता है।\nविभवांतर दो बिंदुओं के बीच विद्युत विभव का अंतर है, जो विद्युत धारा के प्रवाह को नियंत्रित करता है।\nविभवांतर की इकाई वोल्ट है। विभवांतर को V = W/q से व्यक्त किया जा सकता है, जहां V विभवांतर है, W कार्य है, और q आवेश है।\nV = W/q",
-    "example": "समझो ऐसे: एक उदाहरण के रूप में, जब आप एक बैटरी से एक बल्ब को जलाते हैं, तो बैटरी और बल्ब के बीच विभवांतर विद्युत धारा के प्रवाह को संभव बनाता है।"
+    "explain": "विद्युत विभव किसी बिंदु पर इकाई धनावेश को अनंत दूरी से वहाँ तक लाने में किया गया कार्य है। दो बिंदुओं के बीच का विभवांतर वोल्टमीटर से मापा जाता है; वोल्टमीटर को उन दो बिंदुओं के समानांतर जोड़ा जाता है।\nविभवांतर दो बिंदुओं के बीच विद्युत विभव का अंतर है; यही अंतर चालक में आवेश को बहने के लिए प्रेरित करता है।\nविभवांतर की इकाई वोल्ट है। विभवांतर को V = W/q से व्यक्त किया जा सकता है, जहां V विभवांतर है, W कार्य है, और q आवेश है।\nV = W/q",
+    "example": "समझो ऐसे: एक उदाहरण के रूप में, बैटरी अपने दोनों सिरों के बीच विभवांतर बनाए रखती है; इसी से बल्ब के तंतु के आर-पार विभवांतर मिलता है और धारा बहती है।"
    },
    {
     "heading": "पाठ 3: परिपथ प्रतीक, एमीटर और वोल्टमीटर",
@@ -527,22 +527,22 @@
    },
    {
     "heading": "पाठ 4: ओम का नियम और V-I रेखाचित्र विश्लेषण",
-    "explain": "ओम का नियम [Ohm's law] एक मूलभूत सिद्धांत है जो किसी चालक [conductor] में विद्युत धारा [electric current] और विभवांतर [potential difference] के बीच संबंध को दर्शाता है।\nइस नियम के अनुसार, यदि किसी चालक [conductor] का प्रतिरोध [resistance] नियत रहता है, तो विद्युत धारा [electric current] विभवांतर [potential difference] के सीधे अनुपात में होती है।\nओम का नियम एक वोल्टमीटर [voltmeter] और एमीटर [ammeter] का उपयोग करके प्रयोगशाला में सत्यापित किया जा सकता है।\nV-I रेखाचित्र विश्लेषण [V-I graph analysis] से हमें किसी चालक [conductor] के प्रतिरोध [resistance] के मान की गणना करने में मदद मिलती है।\nइस प्रकार, ओम का नियम और V-I रेखाचित्र विश्लेषण हमें विद्युत धारा [electric current] और विभवांतर [potential difference] के बीच संबंध को समझने में मदद करते हैं।\nV = I × R",
+    "explain": "ओम का नियम [Ohm's law] एक मूलभूत सिद्धांत है जो किसी चालक [conductor] में विद्युत धारा [electric current] और विभवांतर [potential difference] के बीच संबंध को दर्शाता है।\nइस नियम के अनुसार, यदि ताप [temperature] नियत रहे, तो किसी चालक [conductor] में विद्युत धारा [electric current] उसके सिरों के बीच के विभवांतर [potential difference] के अनुक्रमानुपाती होती है।\nओम का नियम एक वोल्टमीटर [voltmeter] और एमीटर [ammeter] का उपयोग करके प्रयोगशाला में सत्यापित किया जा सकता है।\nV-I रेखाचित्र विश्लेषण [V-I graph analysis] से हमें किसी चालक [conductor] के प्रतिरोध [resistance] के मान की गणना करने में मदद मिलती है।\nइस प्रकार, ओम का नियम और V-I रेखाचित्र विश्लेषण हमें विद्युत धारा [electric current] और विभवांतर [potential difference] के बीच संबंध को समझने में मदद करते हैं।\nV = I × R",
     "example": "समझो ऐसे: एक उदाहरण के रूप में, यदि आप एक विद्युत बल्ब [electric bulb] को 5 वोल्ट के विभवांतर [potential difference] पर 2 एम्पियर का विद्युत धारा [electric current] प्रवाहित करते हैं, तो बल्ब का प्रतिरोध [resistance] 2.5 ओम होगा।"
    },
    {
     "heading": "पाठ 5: चालक का प्रतिरोध और उसके प्रभावित करने वाले कारक",
-    "explain": "किसी चालक [conductor] का प्रतिरोध [resistance] उसकी लंबाई [length], अनुप्रस्थ काट [cross-sectional area], और ताप [temperature] पर निर्भर करता है।\nएक चालक [conductor] की लंबाई [length] बढ़ाने से उसका प्रतिरोध [resistance] बढ़ जाता है, जबकि अनुप्रस्थ काट [cross-sectional area] बढ़ाने से प्रतिरोध [resistance] कम हो जाता है।\nताप [temperature] में परिवर्तन से भी चालक [conductor] का प्रतिरोध [resistance] प्रभावित होता है। अधिकांश चालक [conductor] का प्रतिरोध [resistance] ताप बढ़ने पर बढ़ जाता है।\nइन कारकों को समझने से हमें विभिन्न विद्युत परिपथ [electric circuit] में प्रतिरोध [resistance] की गणना करने में मदद मिलती है।\nइस प्रकार, चालक [conductor] का प्रतिरोध [resistance] और उसके प्रभावित करने वाले कारकों का ज्ञान हमें विद्युत प्रणाली [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।",
-    "example": "याद रखो: एक उदाहरण के रूप में, यदि आप एक तार [wire] को गर्म करते हैं, तो उसका प्रतिरोध [resistance] बढ़ जाएगा और विद्युत धारा [electric current] कम हो जाएगी।"
+    "explain": "किसी चालक [conductor] का प्रतिरोध [resistance] उसके पदार्थ [material], लंबाई [length], अनुप्रस्थ काट [cross-sectional area] और ताप [temperature] पर निर्भर करता है।\nएक चालक [conductor] की लंबाई [length] बढ़ाने से उसका प्रतिरोध [resistance] बढ़ जाता है, जबकि अनुप्रस्थ काट [cross-sectional area] बढ़ाने से प्रतिरोध [resistance] कम हो जाता है।\nताप [temperature] में परिवर्तन से भी चालक [conductor] का प्रतिरोध [resistance] प्रभावित होता है। अधिकांश चालक [conductor] का प्रतिरोध [resistance] ताप बढ़ने पर बढ़ जाता है।\nइन कारकों को समझने से हमें विभिन्न विद्युत परिपथ [electric circuit] में प्रतिरोध [resistance] की गणना करने में मदद मिलती है।\nइस प्रकार, चालक [conductor] का प्रतिरोध [resistance] और उसके प्रभावित करने वाले कारकों का ज्ञान हमें विद्युत प्रणाली [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।",
+    "example": "याद रखो: एक उदाहरण के रूप में, यदि आप एक तार [wire] को गर्म करते हैं, तो उसका प्रतिरोध [resistance] बढ़ जाएगा, और समान विभवांतर पर उसमें विद्युत धारा [electric current] कम हो जाएगी।"
    },
    {
     "heading": "पाठ 6: पदार्थों की प्रतिरोधकता (चालक, मिश्रधातु और विद्युतरोधी)",
-    "explain": "प्रत्येक पदार्थ [material] की एक विशिष्ट प्रतिरोधकता [resistivity] होती है, जो उसके प्रतिरोध [resistance] को निर्धारित करती है।\nचालक [conductor] जैसे तांबा और चाँदी की प्रतिरोधकता [resistivity] कम होती है, जबकि विद्युतरोधी [insulator] जैसे प्लास्टिक और लकड़ी की प्रतिरोधकता [resistivity] उच्च होती है।\nमिश्रधातु [alloy] जैसे पीतल और लोहा की प्रतिरोधकता [resistivity] उनके घटक पदार्थ [material] पर निर्भर करती है।\nइन पदार्थ [material] की प्रतिरोधकता [resistivity] को समझने से हमें विभिन्न विद्युत परिपथ [electric circuit] में प्रतिरोध [resistance] की गणना करने में मदद मिलती है।\nइस प्रकार, पदार्थ [material] की प्रतिरोधकता [resistivity] का ज्ञान हमें विद्युत प्रणाली [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।\nρ = R × A / L",
-    "example": "समझो ऐसे: एक उदाहरण के रूप में, यदि आप एक तार [wire] को बनाने के लिए तांबा का उपयोग करते हैं, तो उसकी प्रतिरोधकता [resistivity] कम होगी और विद्युत धारा [electric current] अधिक होगी।"
+    "explain": "प्रत्येक पदार्थ [material] की एक विशिष्ट प्रतिरोधकता [resistivity] होती है; तार का प्रतिरोध [resistance] इसी प्रतिरोधकता और तार की लंबाई तथा अनुप्रस्थ काट से तय होता है।\nचालक [conductor] जैसे तांबा और चाँदी की प्रतिरोधकता [resistivity] कम होती है, जबकि विद्युतरोधी [insulator] जैसे प्लास्टिक और लकड़ी की प्रतिरोधकता [resistivity] उच्च होती है।\nमिश्रधातु [alloy] जैसे नाइक्रोम और मैंगनिन की प्रतिरोधकता [resistivity] उनकी घटक धातुओं से प्रायः अधिक होती है, और गर्म होने पर ये आसानी से ऑक्सीकृत नहीं होतीं; इसलिए इन्हें हीटर जैसे तापन उपकरणों में लगाया जाता है।\nइन पदार्थ [material] की प्रतिरोधकता [resistivity] को समझने से हमें विभिन्न विद्युत परिपथ [electric circuit] में प्रतिरोध [resistance] की गणना करने में मदद मिलती है।\nइस प्रकार, पदार्थ [material] की प्रतिरोधकता [resistivity] का ज्ञान हमें विद्युत प्रणाली [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।\nρ = R × A / L",
+    "example": "समझो ऐसे: एक उदाहरण के रूप में, समान लंबाई और मोटाई के तांबे और नाइक्रोम के तारों में तांबे के तार का प्रतिरोध [resistance] बहुत कम होगा, इसलिए समान विभवांतर पर उसमें विद्युत धारा [electric current] अधिक बहेगी।"
    },
    {
     "heading": "पाठ 7: प्रतिरोधकों का श्रेणीक्रम संयोजन",
-    "explain": "दो या दो से अधिक प्रतिरोधक [resistor] जब श्रेणीक्रम में जुड़े होते हैं, तो उनका कुल प्रतिरोध [resistance] व्यक्तिगत प्रतिरोधक [resistor] के प्रतिरोध [resistance] के योग के बराबर होता है।\nश्रेणीक्रम संयोजन में, विद्युत धारा [electric current] सभी प्रतिरोधक [resistor] में समान होती है, लेकिन विभवांतर [potential difference] अलग-अलग प्रतिरोधक [resistor] में विभिन्न हो सकता है।\nविद्युत परिपथ [electric circuit] में श्रेणीक्रम संयोजन की मदद से विद्युत धारा [electric current] और विभवांतर [potential difference] को काबू में रखा जाता है।\nइस प्रकार, प्रतिरोधक [resistor] का श्रेणीक्रम संयोजन हमें विद्युत प्रणाली [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।\nश्रेणीक्रम संयोजन के गुणों को समझने से हमें विद्युत परिपथ [electric circuit] में प्रतिरोध [resistance] और विद्युत धारा [electric current] की गणना करने में मदद मिलती है।\nR_total = R1 + R2 + ... + Rn",
+    "explain": "दो या दो से अधिक प्रतिरोधक [resistor] जब श्रेणीक्रम में जुड़े होते हैं, तो उनका कुल प्रतिरोध [resistance] व्यक्तिगत प्रतिरोधक [resistor] के प्रतिरोध [resistance] के योग के बराबर होता है।\nश्रेणीक्रम संयोजन में, विद्युत धारा [electric current] सभी प्रतिरोधक [resistor] में समान होती है, लेकिन विभवांतर [potential difference] अलग-अलग प्रतिरोधक [resistor] में विभिन्न हो सकता है।\nश्रेणीक्रम में प्रतिरोधक [resistor] जोड़ने से कुल प्रतिरोध [resistance] बढ़ता है, इसलिए समान विभवांतर पर परिपथ की विद्युत धारा [electric current] घट जाती है; कुल विभवांतर सभी प्रतिरोधकों में बँट जाता है।\nइस प्रकार, प्रतिरोधक [resistor] का श्रेणीक्रम संयोजन हमें विद्युत प्रणाली [electric system] को डिज़ाइन और विश्लेषण करने में मदद करता है।\nश्रेणीक्रम संयोजन के गुणों को समझने से हमें विद्युत परिपथ [electric circuit] में प्रतिरोध [resistance] और विद्युत धारा [electric current] की गणना करने में मदद मिलती है।\nR_total = R1 + R2 + ... + Rn",
     "example": "याद रखो: एक उदाहरण के रूप में, यदि आप दो प्रतिरोधक [resistor] 2 ओम और 3 ओम को श्रेणीक्रम में जोड़ते हैं, तो उनका कुल प्रतिरोध [resistance] 5 ओम होगा।"
    },
    {
@@ -557,8 +557,8 @@
    },
    {
     "heading": "पाठ 10: विद्युत धारा का तापीय प्रभाव और जूल का नियम",
-    "explain": "विद्युत धारा का तापीय प्रभाव यह है कि जब यह किसी चालक में प्रवाहित होती है, तो चालक का तापमान बढ़ जाता है।\nयह तापीय प्रभाव विद्युत ऊर्जा के रूपांतरण के कारण होता है, जिसमें विद्युत ऊर्जा ताप ऊर्जा में परिवर्तित हो जाती है।\nजूल का नियम कहता है कि किसी चालक में उत्पन्न होने वाली ताप ऊर्जा विद्युत धारा के वर्ग और चालक के प्रतिरोध के गुणनफल के समानुपाती होती है।\nजूल का नियम को इस तरह समझाया जा सकता है: ताप ऊर्जा की मात्रा विद्युत धारा के वर्ग और प्रतिरोध तथा समय के गुणनफल के बराबर होती है, जैसा कि H = I^2Rt सूत्र में दिखाया गया है।\nविद्युत धारा का तापीय प्रभाव और जूल का नियम विद्युत परिपथों के डिजाइन और संचालन में बहुत महत्वपूर्ण हैं।\nH = I^2Rt",
-    "example": "समझो ऐसे: एक विद्युत हीटर के मामले में, यदि यह 5 ए की विद्युत धारा को 20 ओम के प्रतिरोध के साथ 10 मिनट तक चलाया जाता है, तो यह कितनी ताप ऊर्जा पैदा करेगा?"
+    "explain": "विद्युत धारा का तापीय प्रभाव यह है कि जब यह किसी चालक में प्रवाहित होती है, तो चालक का तापमान बढ़ जाता है।\nयह तापीय प्रभाव विद्युत ऊर्जा के रूपांतरण के कारण होता है, जिसमें विद्युत ऊर्जा ताप ऊर्जा में परिवर्तित हो जाती है।\nजूल का नियम कहता है कि किसी चालक में उत्पन्न ऊष्मा धारा के वर्ग, चालक के प्रतिरोध और धारा बहने के समय, तीनों के समानुपाती होती है।\nजूल का नियम को इस तरह समझाया जा सकता है: ताप ऊर्जा की मात्रा विद्युत धारा के वर्ग और प्रतिरोध तथा समय के गुणनफल के बराबर होती है, जैसा कि H = I^2Rt सूत्र में दिखाया गया है।\nविद्युत धारा का तापीय प्रभाव और जूल का नियम विद्युत परिपथों के डिजाइन और संचालन में बहुत महत्वपूर्ण हैं।\nH = I^2Rt",
+    "example": "समझो ऐसे: एक विद्युत हीटर में 20 ओम के प्रतिरोध से 5 A धारा 10 मिनट तक बहती है। पहले समय को सेकंड में बदलें: t = 10 × 60 = 600 s। तब H = I²Rt = 5² × 20 × 600 = 3 × 10^5 J।"
    },
    {
     "heading": "पाठ 11: विद्युत तंतु बल्ब और फ्यूज़ का कार्य-सिद्धान्त",
@@ -567,8 +567,8 @@
    },
    {
     "heading": "पाठ 12: विद्युत शक्ति तथा व्यावसायिक ऊर्जा की गणना",
-    "explain": "विद्युत शक्ति [electric power] का अर्थ है विद्युत ऊर्जा [energy] की दर से खपत। यह विद्युत धारा [electric current] और विभवांतर [potential difference] पर निर्भर करती है।\nविद्युत शक्ति की गणना करने के लिए, हम विद्युत धारा और विभवांतर को गुणा करते हैं। यह एक महत्वपूर्ण सूत्र है जो हमें विद्युत शक्ति की गणना करने में मदद करता है।\nव्यावसायिक ऊर्जा की गणना करने के लिए, हम विद्युत शक्ति और समय को गुणा करते हैं। यह हमें विद्युत ऊर्जा की खपत की जानकारी देता है।\nविद्युत शक्ति [electric power] = विद्युत धारा [electric current] × विभवांतर [potential difference]",
-    "example": "समझो ऐसे: एक घर में 100 वाट का बल्ब 10 घंटे तक जलता है। तो इसकी विद्युत ऊर्जा की खपत कितनी होगी?"
+    "explain": "विद्युत शक्ति [electric power] वह दर है जिससे विद्युत ऊर्जा [energy] की खपत होती है। इसका SI मात्रक वाट (W) है।\nविद्युत शक्ति निकालने के लिए विभवांतर और धारा को गुणा करते हैं: P = V × I। इसे P = I²R या P = V²/R भी लिखा जा सकता है।\nखर्च हुई विद्युत ऊर्जा = शक्ति × समय (E = P × t)। बिजली का बिल व्यावसायिक मात्रक किलोवाट-घंटा (kWh) में आता है: 1 kWh = 1 यूनिट = 3.6 × 10^6 J।\nP = V × I",
+    "example": "समझो ऐसे: एक घर में 100 W का बल्ब 10 घंटे जलता है। ऊर्जा = 0.1 kW × 10 h = 1 kWh, यानी 1 यूनिट।"
    }
   ],
   "id": "DB|class_9_10|880",
@@ -976,13 +976,13 @@
     {
      "q": "The resistance R of a conductor is given by R = ρL/A, where ρ = 1.68 × 10^-8 Ω·m, length L = 10 m and cross-sectional area A = 1 × 10^-4 m². Calculate the resistance R.",
      "options": [
-      "0.168 Ω",
-      "0.0168 Ω",
-      "0.00168 Ω",
+      "1.68 × 10^-1 Ω",
+      "1.68 × 10^-2 Ω",
+      "1.68 × 10^-3 Ω",
       "1.68 Ω"
      ],
      "answer": 2,
-     "explanation": "0.00168 Ω"
+     "explanation": "1.68 × 10^-3 Ω"
     },
     {
      "q": "Does the series combination of resistors increase their total resistance?",
@@ -1090,8 +1090,8 @@
     },
     {
      "heading": "Lesson 2: Electric Potential and Potential Difference",
-     "explain": "Potential at a location equals the work needed to bring one unit of positive charge there from infinity. The potential difference between two points is measured with a voltmeter connected in parallel across those two points.\nPotential difference is the difference in electric potential between two points, which controls the flow of electric current.\nThe unit of potential difference is volt. Potential difference can be expressed as V = W/q, where V is the potential difference, W is the work, and q is the charge.\nV = W/q",
-     "example": "Think of it like this: For instance, when you connect a battery to a light bulb, the potential difference between the battery and the bulb enables the flow of electric current."
+     "explain": "Potential at a location equals the work needed to bring one unit of positive charge there from infinity. The potential difference between two points is measured with a voltmeter connected in parallel across those two points.\nPotential difference is the difference in electric potential between two points; this difference is what drives charge to flow through a conductor.\nThe unit of potential difference is volt. Potential difference can be expressed as V = W/q, where V is the potential difference, W is the work, and q is the charge.\nV = W/q",
+     "example": "Think of it like this: For instance, a battery keeps a potential difference between its two terminals; this puts a potential difference across the bulb's filament, so current flows."
     },
     {
      "heading": "Lesson 3: Circuit Symbols, Ammeter, and Voltmeter",
@@ -1100,22 +1100,22 @@
     },
     {
      "heading": "Lesson 4: Ohm's Law and V-I Graph Analysis",
-     "explain": "Ohm's law is a fundamental principle that describes the relationship between electric current and potential difference in a conductor.\nAccording to this law, if the resistance of a conductor remains constant, then the electric current is directly proportional to the potential difference.\nOhm's law can be verified in a laboratory using a voltmeter and an ammeter.\nV-I graph analysis helps us to calculate the value of resistance of a conductor.\nOhm's law and V-I graph analysis help us to understand the relationship between electric current and potential difference.\nV = I × R",
+     "explain": "Ohm's law is a fundamental principle that describes the relationship between electric current and potential difference in a conductor.\nThis law says that while the temperature does not change, doubling the potential difference across a conductor doubles the electric current through it: the two rise in the same ratio.\nOhm's law can be verified in a laboratory using a voltmeter and an ammeter.\nV-I graph analysis helps us to calculate the value of resistance of a conductor.\nOhm's law and V-I graph analysis help us to understand the relationship between electric current and potential difference.\nV = I × R",
      "example": "Think of it like this: For example, if you pass 2 amperes of electric current through an electric bulb at a potential difference of 5 volts, the resistance of the bulb will be 2.5 ohms."
     },
     {
      "heading": "Lesson 5: Conductor Resistance and Factors Affecting It",
-     "explain": "The resistance of a conductor depends on its length, cross-sectional area, and temperature.\nIncreasing the length of a conductor increases its resistance, while increasing the cross-sectional area decreases the resistance.\nA change in temperature also affects the resistance of a conductor. The resistance of most conductors increases with an increase in temperature.\nUnderstanding these factors helps us to calculate resistance in various electric circuits.\nThus, knowledge of conductor resistance and the factors affecting it helps us to design and analyze electric systems.",
-     "example": "Remember: For example, if you heat a wire, its resistance will increase and the electric current will decrease."
+     "explain": "The resistance of a conductor depends on its material, length, cross-sectional area and temperature.\nIncreasing the length of a conductor increases its resistance, while increasing the cross-sectional area decreases the resistance.\nA change in temperature also affects the resistance of a conductor. The resistance of most conductors increases with an increase in temperature.\nUnderstanding these factors helps us to calculate resistance in various electric circuits.\nThus, knowledge of conductor resistance and the factors affecting it helps us to design and analyze electric systems.",
+     "example": "Remember: For example, if you heat a wire, its resistance will increase, so at the same voltage the electric current through it will decrease."
     },
     {
      "heading": "Lesson 6: Resistivity of Materials (Conductors, Alloys, and Insulators)",
-     "explain": "Each material has a specific resistivity that determines its resistance.\nConductors like copper and silver have low resistivity, while insulators like plastic and wood have high resistivity.\nThe resistivity of alloys like brass and iron depends on their constituent materials.\nUnderstanding the resistivity of these materials helps us to calculate resistance in various electric circuits.\nThus, knowledge of material resistivity helps us to design and analyze electric systems.\nρ = R × A / L",
-     "example": "Think of it like this: For example, if you use copper to make a wire, its resistivity will be low and the electric current will be high."
+     "explain": "Every material has its own resistivity; the resistance of a wire is set by this resistivity together with the wire's length and cross-sectional area.\nConductors like copper and silver have low resistivity, while insulators like plastic and wood have high resistivity.\nAlloys such as nichrome and manganin usually have a higher resistivity than the metals they are made from, and they do not oxidise easily when hot; so they are used in heating devices such as heaters.\nUnderstanding the resistivity of these materials helps us to calculate resistance in various electric circuits.\nThus, knowledge of material resistivity helps us to design and analyze electric systems.\nρ = R × A / L",
+     "example": "Think of it like this: For example, of two wires of the same length and thickness, one copper and one nichrome, the copper wire has far less resistance, so at the same voltage more electric current flows in it."
     },
     {
      "heading": "Lesson 7: Series Combination of Resistors",
-     "explain": "When two or more resistors are connected in series, their total resistance equals the sum of the individual resistor resistances.\nIn a series combination, the electric current is the same in all resistors, but the potential difference can be different across different resistors.\nA series combination in electric circuits helps keep the electric current and the potential difference in check.\nThus, series combination of resistors helps us to design and analyze electric systems.\nUnderstanding the properties of series combination helps us to calculate resistance and electric current in electric circuits.\nR_total = R1 + R2 + ... + Rn",
+     "explain": "When two or more resistors are connected in series, their total resistance equals the sum of the individual resistor resistances.\nIn a series combination, the electric current is the same in all resistors, but the potential difference can be different across different resistors.\nAdding resistors in series raises the total resistance, so at the same voltage the circuit current goes down; the total potential difference is shared among the resistors.\nThus, series combination of resistors helps us to design and analyze electric systems.\nUnderstanding the properties of series combination helps us to calculate resistance and electric current in electric circuits.\nR_total = R1 + R2 + ... + Rn",
      "example": "Remember: For example, if you connect two resistors of 2 ohms and 3 ohms in series, their total resistance will be 5 ohms."
     },
     {
@@ -1130,8 +1130,8 @@
     },
     {
      "heading": "Lesson 10: Heating Effect of Current and Joule's Law",
-     "explain": "The heating effect of electric current is that it increases the temperature of the conductor it flows through.\nThis heating effect occurs due to the conversion of electric energy into heat energy.\nJoule's law states that the heat energy generated in a conductor is proportional to the product of the square of the electric current and the conductor's resistance.\nJoule's law can be expressed as: H = I^2Rt, where H is the heat energy, I is the electric current, R is the resistance, and t is the time.\nThe heating effect of electric current and Joule's law are very important in the design and operation of electric circuits.\nH = I^2Rt",
-     "example": "Think of it like this: Suppose you are using an electric heater with a current of 5 A and a resistance of 20 ohm. If you run it for 10 minutes, how much heat energy will it produce?"
+     "explain": "The heating effect of electric current is that it increases the temperature of the conductor it flows through.\nThis heating effect occurs due to the conversion of electric energy into heat energy.\nBy Joule's law, the heat a conductor gives out grows with the square of the current, with its resistance, and with how long the current keeps flowing.\nJoule's law can be expressed as: H = I^2Rt, where H is the heat energy, I is the electric current, R is the resistance, and t is the time.\nThe heating effect of electric current and Joule's law are very important in the design and operation of electric circuits.\nH = I^2Rt",
+     "example": "Think of it like this: In an electric heater, a current of 5 A flows through a 20 ohm resistance for 10 minutes. First change the time to seconds: t = 10 × 60 = 600 s. Then H = I²Rt = 5² × 20 × 600 = 3 × 10^5 J."
     },
     {
      "heading": "Lesson 11: Working Principles of Filament Bulb and Fuse",
@@ -1140,8 +1140,8 @@
     },
     {
      "heading": "Lesson 12: Electric Power and Commercial Energy Calculation",
-     "explain": "Electric power refers to the rate of consumption of electric energy. It depends on the electric current and potential difference.\nTo calculate electric power, we multiply the electric current and potential difference. This is an important formula that helps us calculate electric power.\nTo calculate commercial energy, we multiply the electric power and time. This gives us the information about the consumption of electric energy.\nविद्युत शक्ति [electric power] = विद्युत धारा [electric current] × विभवांतर [potential difference]",
-     "example": "Think of it like this: A 100 watt bulb is lit for 10 hours in a house. What will be its electric energy consumption?"
+     "explain": "Electric power tells how quickly a device uses up electric energy. Its SI unit is the watt (W).\nTo find electric power, multiply the potential difference by the current: P = V × I. It can also be written as P = I²R or P = V²/R.\nElectrical energy used = power × time (E = P × t). Electricity bills use the commercial unit, the kilowatt-hour (kWh): 1 kWh = 1 unit = 3.6 × 10^6 J.\nP = V × I",
+     "example": "Think of it like this: A 100 W bulb glows for 10 hours in a house. Energy = 0.1 kW × 10 h = 1 kWh, that is, 1 unit."
     }
    ]
   },

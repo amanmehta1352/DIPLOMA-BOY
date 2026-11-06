@@ -837,6 +837,13 @@ def _(d):
     assert hi['mistakes'] == ['केवल हिंदी'] and en['mistakes'] == []
 
 
+@case('B59 fact-check text keeps exponents: rendered 10^10 reaches the checker as 10^10, not "10 10"')
+def _(d):
+    import book_render as R
+    html = R.md('glass about 10^10 to 10^14 Ω m') if hasattr(R, 'md') else 'glass about 10<sup>10</sup> to 10<sup>14</sup> Ω m'
+    assert '<sup>' in html and B.fact_text(html).split() == 'glass about 10^10 to 10^14 Ω m'.split(), B.fact_text(html)
+
+
 if __name__ == '__main__':
     for n, ok, why in results: print(('PASS ' if ok else 'FAIL ') + n + ('' if ok else '  -> ' + why))
     print(f'{sum(ok for _, ok, _ in results)}/{len(results)} passed')

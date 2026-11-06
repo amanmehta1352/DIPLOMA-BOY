@@ -692,6 +692,11 @@ def normalize_extras(job):
     if ch_: job.put('extras.json', ex)
 
 
+def fact_text(html):
+    """Notes HTML -> plain text for the fact checker; exponents kept as ^n (10<sup>10</sup> was read as '10 10' and flagged wrong)."""
+    return re.sub(r'<[^>]+>', ' ', re.sub(r'<sup>\s*(.*?)\s*</sup>', r'^\1', html))
+
+
 def st_checks(job, r, P, refset):
     normalize_extras(job)
     ch = assemble(job); ch['bank'] = job.get('questions.json') if job.has('questions.json') else []; job.put('chapter_app_format.json', R.app_format(ch, 'DB|class_9_10|' + str(r['app']['chapter_id']), {'robot': 'book.v2', 'job_id': job.d['job_id']})); row = R.chapter_row(ch, os.environ.get('BOOK_SLUG', 'class10-science'), r['chapter_no'], r['app']['chapter_id'])
@@ -751,7 +756,7 @@ def st_checks(job, r, P, refset):
     c['mcq_code'] = [{'q': i + 1, 'ok': ok_, 'detail': w} for i, q in enumerate(bank) if q.get('type') == 'mcq' and q.get('check')
                      for ok_, w in [NC.mcq_options_ok(q)]]
     try:
-        ok, why, prov, model = P.fact_check_app({'notes': re.sub(r'<[^>]+>', ' ', d['notes_en'])[:20000]})
+        ok, why, prov, model = P.fact_check_app({'notes': fact_text(d['notes_en'])[:20000]})
     finally:
         job.log_calls(P)
     job.attribute('checks', 'fact_checker', prov, model); c['fact_check'] = {'correct': ok, 'reason': why}

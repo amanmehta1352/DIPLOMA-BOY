@@ -257,7 +257,7 @@ class Real:
             j = parse_json(raw)
         except ValueError:
             return None, 'inconclusive: checker reply not parseable: ' + (raw or '')[:300].replace('\n', ' '), prov, model
-        return bool(j.get('correct')) is True, str(j.get('reason', ''))[:400], prov, model
+        return bool(j.get('correct')) is True, str(j.get('reason', ''))[:1500], prov, model
 
     def solve_numericals(self, givens):
         """Independent solver (OpenRouter free model, a different company from the writer): final answer with unit per problem."""
@@ -347,7 +347,7 @@ class Real:
         except ValueError:
             # checker answered, but not in the requested shape: INCONCLUSIVE (None), never a pass; the raw text is kept in the reason
             return None, 'inconclusive: checker reply not parseable: ' + (raw or '')[:300].replace('\n', ' '), prov, model
-        return bool(j.get('correct')) is True, str(j.get('reason', ''))[:400], prov, model
+        return bool(j.get('correct')) is True, str(j.get('reason', ''))[:1500], prov, model
 
     def solve(self, q):
         opts = '\n'.join(f'{i}) {o}' for i, o in enumerate(q['options']))
