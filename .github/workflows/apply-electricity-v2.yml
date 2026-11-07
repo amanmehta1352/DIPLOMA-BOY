@@ -1,5 +1,5 @@
 name: Apply Electricity v2 content
-# Runs only on the electricity-v2 branch. Saves the live version first, then writes content/electricity_880/v2.json into draft 72.
+# Runs only on the electricity-v2 branch. Writes content/electricity_880/v2.json into draft 72 via draft_replace_with_version (saves the live version first).
 on:
   push:
     branches: [electricity-v2]
