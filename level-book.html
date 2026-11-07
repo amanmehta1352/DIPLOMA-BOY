@@ -927,7 +927,7 @@ function dTeachTitles(d){
 }
 function dBook(r){
   const d = r.data || {}, no = noOf(cur()), sec = [], body = [];
-  arr(d.notes).forEach(n => { sec.push(n.title); body.push(pbHead(`${no}.${sec.length}`, n.title) + `<ul class="lb-pts pb-pts">${arr(n.points).map(x => `<li>${nl(x)}</li>`).join('')}</ul>` + tbl(n.table)); });
+  arr(d.notes).forEach(n => { sec.push(n.title); body.push(pbHead(`${no}.${sec.length}`, n.title) + dFig(n) + `<ul class="lb-pts pb-pts">${arr(n.points).map(x => `<li>${nl(x)}</li>`).join('')}</ul>` + tbl(n.table)); });
   if (arr(d.formulas).length) { sec.push(L('मुख्य सूत्र','Key formulas')); body.push(pbHead(`${no}.${sec.length}`, L('मुख्य सूत्र','Key formulas'))
     + arr(d.formulas).map(x => `<div class="pb-f"><b>${esc(x.title)}</b><div class="formula-box">${fx(x.formula)}</div>${x.units ? `<div class="pb-u">${L('इकाई','Unit')}: ${nl(x.units)}</div>` : ''}</div>`).join('')); }
   if (arr(d.solved).length) { sec.push(L('हल किए उदाहरण','Worked examples')); body.push(pbHead(`${no}.${sec.length}`, L('हल किए उदाहरण','Worked examples'))
@@ -940,9 +940,10 @@ function dBook(r){
 function dSolved(x, i, teach){
   return `<div class="teach-sec"><div class="teach-sec-h">🧮 ${L(`चलो हल करें ${i + 1}`, `Let us solve ${i + 1}`)}</div>${nbCard(L(`सवाल ${i + 1}`, `Question ${i + 1}`), x.question, x.steps, x.answer)}</div>`;
 }
+const dFig = x => x && x.fig ? `<div class="lb-fig">${svgImg(x.fig)}</div>` : '';   /* optional figure of a note or teach item (inline SVG text) */
 function dNotes(r){
   const d = r.data || {}, c = cur(), p = [];
-  arr(d.notes).forEach(n => p.push(`<div class="panel blue"><div class="panel-header">📑 ${esc(n.title)}</div><div class="panel-body">${pts(n.points)}${tbl(n.table)}</div></div>`));
+  arr(d.notes).forEach(n => p.push(`<div class="panel blue"><div class="panel-header">📑 ${esc(n.title)}</div><div class="panel-body">${dFig(n)}${pts(n.points)}${tbl(n.table)}</div></div>`));
   if (arr(d.formulas).length) p.push(`<div class="panel purple"><div class="panel-header">∑ ${L('सूत्र एक नज़र में','Formulas at a glance')}</div><div class="panel-body">${arr(d.formulas).map(x => `<div class="pb-fl"><span>${esc(x.title)}</span><div class="formula-box">${fx(x.formula)}</div></div>`).join('')}</div></div>`);
   if (arr(d.mistakes).length) p.push(`<div class="panel red"><div class="panel-header">⚠️ ${L('आम गलतियाँ','Common mistakes')}</div><div class="panel-body">${pts(d.mistakes)}</div></div>`);
   if (arr(d.revision).length) p.push(`<div class="panel purple"><div class="panel-header">🔁 ${L('जल्दी दोहराओ','Quick revision')}</div><div class="panel-body">${pts(d.revision)}</div></div>`);
@@ -951,7 +952,7 @@ function dNotes(r){
 function dTeach(r){
   const d = r.data || {}, c = cur(), s = [];
   teachLang = currentLang === 'en' ? 'english' : currentLang === 'both' ? 'bilingual' : 'hindi';
-  arr(d.teach).forEach(t => s.push(`<div class="teach-sec"><div class="teach-sec-h">🎓 ${esc(t.heading)}</div><div class="teach-text"><p>${nl(t.explain)}</p>${t.example ? `<div class="teach-ex">${nl(t.example)}</div>` : ''}</div></div>`));
+  arr(d.teach).forEach(t => s.push(`<div class="teach-sec"><div class="teach-sec-h">🎓 ${esc(t.heading)}</div>${dFig(t)}<div class="teach-text"><p>${nl(t.explain)}</p>${t.example ? `<div class="teach-ex">${nl(t.example)}</div>` : ''}</div></div>`));
   arr(d.solved).forEach((x, i) => s.push(dSolved(x, i, true)));
   const m = mcqHtml(arr(d.practice).slice(0, 3)); if (m) s.push(`<div class="teach-sec"><div class="teach-sec-h">✅ ${L('अब तुम बताओ','Your turn')}</div><div class="teach-text">${m}</div></div>`);
   const langs = [['hindi','हिंदी'],['english','English'],['bilingual','Bilingual'],['hinglish','Hinglish']];
