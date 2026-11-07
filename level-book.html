@@ -418,6 +418,10 @@ body[data-tab-active="teach"] .lang-toggle{display:none!important}
   body[data-lang="both"] .book-wrap .hi + .en::before{content:" / ";opacity:.6;}
   .book-flash{outline:2px solid var(--accent);outline-offset:3px;border-radius:10px;transition:outline-color .4s;}
   @media (max-width:420px){ .book-actions{grid-template-columns:repeat(2,1fr);} }
+  .d-en{margin-top:10px;padding-top:8px;border-top:1px dashed rgba(100,116,139,.35);color:#475569;font-style:italic}
+  .d-en-h{font-weight:500;opacity:.8}
+  .pb-text p{margin:0 0 10px;line-height:1.85;text-align:justify}
+  .pb-box{background:#fffbeb;border:1px solid #f59e0b;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:15px}
 </style>
 <style>
   /* level-book only: check questions, coming-soon chips, diagram figure */
@@ -852,7 +856,9 @@ let teachLang = 'hindi';
 function setTeachLang(l, btn){
   teachLang = l;
   document.querySelectorAll('.lang-switcher .lang-btn').forEach(b => b.classList.toggle('active', b === btn));
-  const pend = document.getElementById('teachPending'); if (pend) pend.style.display = l === 'hindi' ? 'none' : 'block';
+  const tb = document.getElementById('dTeachBody'), pend = document.getElementById('teachPending');
+  if (tb && TEACH_ROW) { tb.innerHTML = dTeachBody(TEACH_ROW.data, l); if (pend) pend.style.display = teachAvail(TEACH_ROW.data || {}, l) ? 'none' : 'block'; }
+  else if (pend) pend.style.display = l === 'hindi' ? 'none' : 'block';
 }
 function teachTab(atoms){
   const c = cur(), s = [];
@@ -867,8 +873,10 @@ function teachTab(atoms){
     + `<div class="lang-pending" id="teachPending" style="display:${teachLang === 'hindi' ? 'none' : 'block'}">${H('इस अध्याय का पाठ अभी सिर्फ़ हिंदी में है।', 'English version of this chapter is coming. The content below is shown in Hindi.')}</div>`;
   return `<div class="teach-theme">${sw}<div class="teach-title">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))} — ${L('क्लास में आपका स्वागत है!','welcome to the class!')}</div>${s.join('') || `<div class="teach-text"><p>${L('इस अध्याय में अभी सामग्री नहीं।','No content in this chapter yet.')}</p></div>`}</div>`;
 }
-function formulaCards(list){
-  return `<div class="cards-list" id="formulaCards">${list.map((x, i) => `<div class="fcard cat-basic"><div class="top-row"><span class="cat-chip basic">● ${esc(LEVEL_NAME)}</span><span class="counter">${i + 1} / ${list.length}</span></div><div class="fcard-title">${esc(x.title || '')}</div><div class="formula-box-demo">${fx(x.formula)}</div>${x.sub ? `<div class="fcard-sub" style="margin-top:4px">${x.sub}</div>` : ''}</div>`).join('')
+function formulaCards(list, cats){
+  const cc = x => cats && cats[x.cat] ? cats[x.cat] : null;
+  const chips = cats ? `<div class="filter-wrap"><div class="filter-chips" id="formulaChips"><button class="filter-chip active" data-filter="all">${L('सभी','All')} (${list.length})</button>${Object.keys(cats).map(k => `<button class="filter-chip" data-filter="${esc(k)}">${esc(L(cats[k].label[0], cats[k].label[1]))} (${list.filter(x => x.cat === k).length})</button>`).join('')}</div></div>` : '';
+  return chips + `<div class="cards-list" id="formulaCards">${list.map((x, i) => { const c = cc(x); return `<div class="fcard cat-basic" data-cat="${esc(x.cat || '')}"${c ? ` style="border-left-color:${esc(c.color)}"` : ''}><div class="top-row"><span class="cat-chip basic"${c ? ` style="color:${esc(c.color)};background:${esc(c.color)}22"` : ''}>● ${esc(c ? L(c.label[0], c.label[1]) : LEVEL_NAME)}</span><span class="counter">${i + 1} / ${list.length}</span></div><div class="fcard-title">${esc(x.title || '')}</div><div class="formula-box-demo">${fx(x.formula)}</div>${x.sub ? `<div class="fcard-sub" style="margin-top:4px">${x.sub}</div>` : ''}</div>`; }).join('')
     || `<div class="pending-card">${L('इस अध्याय में अभी कोई सूत्र नहीं।','No formula in this chapter yet.')}</div>`}</div>`;
 }
 function formulaTab(atoms){
@@ -926,8 +934,10 @@ function dTeachTitles(d){
   return [...arr(d.teach).map(t => t.heading), ...arr(d.solved).map((x, i) => L(`चलो हल करें ${i + 1}`, `Let us solve ${i + 1}`)), ...(arr(d.practice).length ? [L('अब तुम बताओ','Your turn')] : [])];
 }
 function dBook(r){
-  const d = r.data || {}, no = noOf(cur()), sec = [], body = [];
-  arr(d.notes).forEach(n => { sec.push(n.title); body.push(pbHead(`${no}.${sec.length}`, n.title) + dFig(n) + `<ul class="lb-pts pb-pts">${arr(n.points).map(x => `<li>${nl(x)}</li>`).join('')}</ul>` + tbl(n.table)); });
+  const d = dView(r.data), no = noOf(cur()), sec = [], body = [];
+  if (arr(d.book).length) arr(d.book).forEach(b => { sec.push(b.title); body.push(pbHead(`${no}.${sec.length}`, b.title) + dFig(b)
+    + `<div class="pb-text">${arr(b.paras).map(x => `<p>${nl(x)}</p>`).join('')}</div>` + (b.box ? `<div class="pb-box">${nl(b.box)}</div>` : '')); });
+  else arr(d.notes).forEach(n => { sec.push(n.title); body.push(pbHead(`${no}.${sec.length}`, n.title) + dFig(n) + `<ul class="lb-pts pb-pts">${arr(n.points).map(x => `<li>${nl(x)}</li>`).join('')}</ul>` + tbl(n.table)); });
   if (arr(d.formulas).length) { sec.push(L('मुख्य सूत्र','Key formulas')); body.push(pbHead(`${no}.${sec.length}`, L('मुख्य सूत्र','Key formulas'))
     + arr(d.formulas).map(x => `<div class="pb-f"><b>${esc(x.title)}</b><div class="formula-box">${fx(x.formula)}</div>${x.units ? `<div class="pb-u">${L('इकाई','Unit')}: ${nl(x.units)}</div>` : ''}</div>`).join('')); }
   if (arr(d.solved).length) { sec.push(L('हल किए उदाहरण','Worked examples')); body.push(pbHead(`${no}.${sec.length}`, L('हल किए उदाहरण','Worked examples'))
@@ -941,28 +951,44 @@ function dSolved(x, i, teach){
   return `<div class="teach-sec"><div class="teach-sec-h">🧮 ${L(`चलो हल करें ${i + 1}`, `Let us solve ${i + 1}`)}</div>${nbCard(L(`सवाल ${i + 1}`, `Question ${i + 1}`), x.question, x.steps, x.answer)}</div>`;
 }
 const dFig = x => x && x.fig ? `<div class="lb-fig">${svgImg(x.fig)}</div>` : '';   /* optional figure of a note or teach item (inline SVG text) */
+/* language view of approved data: with EN on, every list that data.en also has is taken from data.en; otherwise the data as it is */
+const dView = d => { d = d || {}; if (currentLang !== 'en' || !d.en) return d; const o = Object.assign({}, d); Object.keys(d.en).forEach(k => { if (arr(d.en[k]).length) o[k] = d.en[k]; }); return o; };
+const dEnAt = (d, k, i) => currentLang === 'both' && d && d.en ? arr(d.en[k])[i] : null;   /* the English twin of item i, only in the both-languages view */
+const PANEL_COLORS = ['blue','green','orange','purple','red'];
 function dNotes(r){
-  const d = r.data || {}, c = cur(), p = [];
-  arr(d.notes).forEach(n => p.push(`<div class="panel blue"><div class="panel-header">📑 ${esc(n.title)}</div><div class="panel-body">${dFig(n)}${pts(n.points)}${tbl(n.table)}</div></div>`));
+  const raw = r.data || {}, d = dView(raw), c = cur(), p = [];
+  arr(d.notes).forEach((n, i) => { const e = dEnAt(raw, 'notes', i);
+    p.push(`<div class="panel ${PANEL_COLORS.includes(n.color) ? n.color : 'blue'}"><div class="panel-header">${esc(n.icon || '📑')} ${esc(n.title)}${e ? ` <span class="d-en-h">· ${esc(e.title)}</span>` : ''}</div><div class="panel-body">${dFig(n)}${pts(n.points)}${tbl(n.table)}${e ? `<div class="d-en">${pts(e.points)}</div>` : ''}</div></div>`); });
   if (arr(d.formulas).length) p.push(`<div class="panel purple"><div class="panel-header">∑ ${L('सूत्र एक नज़र में','Formulas at a glance')}</div><div class="panel-body">${arr(d.formulas).map(x => `<div class="pb-fl"><span>${esc(x.title)}</span><div class="formula-box">${fx(x.formula)}</div></div>`).join('')}</div></div>`);
   if (arr(d.mistakes).length) p.push(`<div class="panel red"><div class="panel-header">⚠️ ${L('आम गलतियाँ','Common mistakes')}</div><div class="panel-body">${pts(d.mistakes)}</div></div>`);
   if (arr(d.revision).length) p.push(`<div class="panel purple"><div class="panel-header">🔁 ${L('जल्दी दोहराओ','Quick revision')}</div><div class="panel-body">${pts(d.revision)}</div></div>`);
   return reviewBanner(r) + `<div class="notes-theme"><div class="notes-paper">${PENDING()}<div style="text-align:center;font-weight:800;font-size:20px;color:#1d4ed8;margin:4px 0 12px">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))}</div>${p.join('')}</div></div>`;
 }
+let TEACH_ROW = null;   /* approved row shown in Teach, so the language pills can redraw it */
+const teachAvail = (d, l) => l === 'hindi' || (l === 'hinglish' ? arr((d.hinglish || {}).teach).length > 0 : arr((d.en || {}).teach).length > 0);
+function dTeachBody(d, l){
+  d = d || {}; const en = d.en || {}, s = [], ok = teachAvail(d, l);
+  const sec = (t, cls) => `<div class="teach-sec${cls || ''}"><div class="teach-sec-h">🎓 ${esc(t.heading)}</div>${cls ? '' : dFig(t)}<div class="teach-text"><p>${nl(t.explain)}</p>${t.example ? `<div class="teach-ex">${nl(t.example)}</div>` : ''}</div></div>`;
+  const list = !ok ? d.teach : l === 'english' ? en.teach : l === 'hinglish' ? d.hinglish.teach : d.teach;
+  arr(list).forEach((t, i) => { s.push(sec(t)); if (ok && l === 'bilingual' && arr(en.teach)[i]) s.push(sec(en.teach[i], ' teach-en-follow')); });
+  const useEn = ok && l === 'english';
+  arr(useEn && arr(en.solved).length ? en.solved : d.solved).forEach((x, i) => s.push(dSolved(x, i, true)));
+  const m = mcqHtml(arr(useEn && arr(en.practice).length ? en.practice : d.practice).slice(0, 3)); if (m) s.push(`<div class="teach-sec"><div class="teach-sec-h">✅ ${L('अब तुम बताओ','Your turn')}</div><div class="teach-text">${m}</div></div>`);
+  return s.join('');
+}
 function dTeach(r){
-  const d = r.data || {}, c = cur(), s = [];
+  const d = r.data || {}, c = cur(); TEACH_ROW = r;
   teachLang = currentLang === 'en' ? 'english' : currentLang === 'both' ? 'bilingual' : 'hindi';
-  arr(d.teach).forEach(t => s.push(`<div class="teach-sec"><div class="teach-sec-h">🎓 ${esc(t.heading)}</div>${dFig(t)}<div class="teach-text"><p>${nl(t.explain)}</p>${t.example ? `<div class="teach-ex">${nl(t.example)}</div>` : ''}</div></div>`));
-  arr(d.solved).forEach((x, i) => s.push(dSolved(x, i, true)));
-  const m = mcqHtml(arr(d.practice).slice(0, 3)); if (m) s.push(`<div class="teach-sec"><div class="teach-sec-h">✅ ${L('अब तुम बताओ','Your turn')}</div><div class="teach-text">${m}</div></div>`);
+  const s = [`<div id="dTeachBody">${dTeachBody(d, teachLang)}</div>`];
   const langs = [['hindi','हिंदी'],['english','English'],['bilingual','Bilingual'],['hinglish','Hinglish']];
   const sw = `<div class="lang-switcher">${langs.map(l => `<button class="lang-btn${l[0] === teachLang ? ' active' : ''}" onclick="setTeachLang('${l[0]}', this)">${l[1]}</button>`).join('')}</div>`
-    + `<div class="lang-pending" id="teachPending" style="display:${teachLang === 'hindi' ? 'none' : 'block'}">${H('इस अध्याय का पाठ अभी सिर्फ़ हिंदी में है।', 'English version of this chapter is coming. The content below is shown in Hindi.')}</div>`;
+    + `<div class="lang-pending" id="teachPending" style="display:${teachAvail(d, teachLang) ? 'none' : 'block'}">${H('इस अध्याय का पाठ अभी सिर्फ़ हिंदी में है।', 'English version of this chapter is coming. The content below is shown in Hindi.')}</div>`;
   return reviewBanner(r) + `<div class="teach-theme">${sw}<div class="teach-title">${noOf(c)}. ${esc(noNum(L(c.hi, c.en)))} — ${L('क्लास में आपका स्वागत है!','welcome to the class!')}</div>${s.join('')}</div>`;
 }
 function dFormula(r){
-  return reviewBanner(r) + PENDING() + formulaCards(arr((r.data || {}).formulas).map(x => ({title: x.title, formula: x.formula,
-    sub: [x.units ? `${L('इकाई','Unit')}: ${nl(x.units)}` : '', x.note ? nl(x.note) : ''].filter(Boolean).join('<br>')})));
+  const d = dView(r.data);
+  return reviewBanner(r) + PENDING() + formulaCards(arr(d.formulas).map(x => ({title: x.title, formula: x.formula, cat: x.cat,
+    sub: [x.units ? `${L('इकाई','Unit')}: ${nl(x.units)}` : '', x.note ? nl(x.note) : ''].filter(Boolean).join('<br>')})), (r.data || {}).formula_cats || null);
 }
 /* one solved question as a notebook card: question, steps revealed one at a time (✍️), circled final answer */
 function nbCard(label, question, steps, answer){
