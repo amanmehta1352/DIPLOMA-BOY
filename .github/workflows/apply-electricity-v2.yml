@@ -1,9 +1,9 @@
 name: Apply Electricity v2 content
-# Runs only on the electricity-v2 branch. Writes content/electricity_880/v3.json into draft 72 via draft_replace_with_version (saves the live version first).
+# Runs only on the electricity-v2 branch. Writes content/electricity_880/v4.json into draft 72 via draft_replace_with_version (saves the live version first).
 on:
   push:
     branches: [electricity-v2]
-    paths: ['content/electricity_880/v3.json', '.github/workflows/apply-electricity-v2.yml']
+    paths: ['content/electricity_880/v4.json', '.github/workflows/apply-electricity-v2.yml']
 permissions:
   contents: read
 jobs:
@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: >-
-          python3 robots/apply/apply_draft.py --id 72 --file content/electricity_880/v3.json --note "2026-11-07 v3 audit fixes - full steps for 37 solved, 12 practice explanations, exam tips + quick check, Hinglish teach; longest copied run 6 words"
+          python3 robots/apply/apply_draft.py --id 72 --file content/electricity_880/v4.json --note "2026-11-07 v4 - prose book (11 sections hi+en), panel colours, formula categories; longest copied run 7 words"
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
