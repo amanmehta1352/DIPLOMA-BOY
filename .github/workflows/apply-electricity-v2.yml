@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 robots/apply/apply_draft.py --id 72 --file content/electricity_880/v3.json --note "2026-11-07 v3 audit fixes: full steps for 37 solved, 12 practice explanations, exam tips + quick check, Hinglish teach; longest copied run 6 words"
+      - run: >-
+          python3 robots/apply/apply_draft.py --id 72 --file content/electricity_880/v3.json --note "2026-11-07 v3 audit fixes - full steps for 37 solved, 12 practice explanations, exam tips + quick check, Hinglish teach; longest copied run 6 words"
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
