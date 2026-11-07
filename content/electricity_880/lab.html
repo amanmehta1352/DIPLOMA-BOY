@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="hi" data-l="__LANG__">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electricity lab</title>
+<style>
+  :root{--bg:#f4f6fa;--card:#fff;--ink:#16202f;--mute:#5f6b80;--line:#dde3ec;--b:#2563eb;--o:#e8730c;--g:#15803d;--r:#dc2626;--soft:#eef3fd}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,"Noto Sans Devanagari",sans-serif}
+  .wrap{max-width:460px;margin:0 auto;padding:6px 8px 12px}
+  .top{display:flex;justify-content:space-between;align-items:center}
+  .tag{font-size:12px;color:var(--mute)}
+  .lang{background:#fff;border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:13px;color:var(--ink)}
+  .chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+  .chips button{flex:none;border:1px solid var(--line);background:#fff;border-radius:16px;padding:5px 11px;font-size:13px;color:var(--mute)}
+  .chips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .fig-no{font-size:12px;color:var(--b);font-weight:700;letter-spacing:.04em;margin-top:8px}
+  h2{font-size:21px;margin:2px 0 4px}
+  .hook{background:var(--soft);border-radius:12px;padding:10px 12px;margin:8px 0;font-weight:600}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin:10px 0}
+  .card svg{width:100%;height:auto;display:block}
+  .cap{font-size:13px;color:var(--mute);margin-top:6px;text-align:center}
+  .idea{margin:8px 0;padding-left:16px} .idea li{margin:3px 0}
+  .row{display:flex;align-items:center;gap:10px;margin:7px 0}
+  .row label{width:112px;font-size:14px;color:var(--mute)}
+  .row input{flex:1;accent-color:var(--b)} .row b{min-width:70px;text-align:right;font-size:15px}
+  .seg{display:flex;gap:6px;margin:6px 0;flex-wrap:wrap}
+  .seg button{flex:1;min-width:80px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px;font-size:14px;color:var(--ink)}
+  .seg button.on{border-color:var(--b);color:var(--b);background:var(--soft);font-weight:600}
+  .out{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+  .out div{background:var(--bg);border-radius:10px;padding:7px 4px;text-align:center}
+  .out small{display:block;font-size:11px;color:var(--mute)} .out b{font-size:16px}
+  .box{border-radius:12px;padding:10px 12px;margin:8px 0;font-size:15px}
+  .why{background:#eaf1ff;border-left:4px solid var(--b)}
+  .trap{background:#fff1e4;border-left:4px solid var(--o)}
+  .good{background:#e8f6ee;border-left:4px solid var(--g)}
+  .q{font-weight:700;margin:14px 0 4px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:6px 0;font-size:15px;color:var(--ink)}
+  .opt.right{border-color:var(--g);background:#e8f6ee} .opt.wrong{border-color:var(--r);background:#fdeaea}
+  .meth{display:flex;gap:6px;margin-top:8px} .meth button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px;font-size:14px}
+  .meth button.on{border-color:var(--g);color:var(--g);font-weight:600}
+  .steps div{padding:4px 0;border-bottom:1px dashed var(--line)} .steps div:last-child{border:0;font-weight:700}
+  .nav{position:fixed;left:0;right:0;bottom:0;background:#ffffffee;border-top:1px solid var(--line);padding:10px 14px;backdrop-filter:blur(6px)}
+  .nav .in{max-width:460px;margin:0 auto;display:flex;gap:10px}
+  .nav button{flex:1;border:0;border-radius:12px;padding:12px;font-size:16px;font-weight:600}
+  .bk{background:#e7ebf2;color:var(--ink)} .nx{background:var(--ink);color:#fff}
+  .note{font-size:12px;color:var(--mute);margin-top:16px}
+  text{font-family:system-ui,"Noto Sans Devanagari",sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="tag" id="tag"></span><button class="lang" id="lang"></button></div>
+  <div class="chips" id="chips"></div>
+  <div id="sec"></div>
+  
+</div>
+
+
+<script>
+const _l=document.documentElement.dataset.l;let L=_l==="en"?"en":"hi",S=0;
+const $=id=>document.getElementById(id);
+const t=(hi,en)=>L==="hi"?hi:en;
+const NS="http://www.w3.org/2000/svg";
+const B="#2563eb",O="#e8730c",G="#15803d",R="#dc2626",K="#16202f",M="#5f6b80";
+
+/* ---------- small SVG drawing helpers ---------- */
+const ln=(x1,y1,x2,y2,c=K,w=2.5,ex="")=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${ex}/>`;
+const tx=(x,y,s,c=K,sz=13,a="middle",wt=500)=>`<text x="${x}" y="${y}" fill="${c}" font-size="${sz}" text-anchor="${a}" font-weight="${wt}">${s}</text>`;
+const resH=(x,y,w=44,c=K)=>{let d=`M${x},${y} l6,0`;const n=6,st=(w-12)/n;for(let i=0;i<n;i++)d+=` l${st/2},${i%2?6:-6} l${st/2},${i%2?-6:6}`;d+=` l6,0`;return `<path d="${d}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`;};
+const cellH=(x,y,c=K)=>ln(x,y-12,x,y+12,c,2.5)+ln(x+8,y-6,x+8,y+6,c,5);
+const meter=(x,y,l,c)=>`<circle cx="${x}" cy="${y}" r="14" fill="#fff" stroke="${c}" stroke-width="2.5"/>`+tx(x,y+5,l,c,14,"middle",700);
+const bulb=(x,y,glow=0,c=K)=>`<circle cx="${x}" cy="${y}" r="${12+glow*16}" fill="#ffcc4d" opacity="${(glow*0.6).toFixed(2)}"/><circle cx="${x}" cy="${y}" r="12" fill="#fff" stroke="${c}" stroke-width="2.5"/>${ln(x-8,y-8,x+8,y+8,c,2)}${ln(x-8,y+8,x+8,y-8,c,2)}`;
+const arrow=(x,y,ang,c)=>`<path d="M-7,-5 L7,0 L-7,5 Z" fill="${c}" transform="translate(${x},${y}) rotate(${ang})"/>`;
+const svg=(h,inner,w=340)=>`<svg viewBox="0 0 ${w} ${h}" role="img">${inner}</svg>`;
+
+/* ---------- interactive pieces: return {html, mount()} ---------- */
+function slider(id,lab,min,max,step,val,unit){return `<div class="row"><label>${lab}</label><input id="${id}" type="range" min="${min}" max="${max}" step="${step}" value="${val}"><b id="${id}v"></b></div>`;}
+function seg(id,opts,on=0){return `<div class="seg" id="${id}">`+opts.map((o,k)=>`<button data-k="${k}" class="${k===on?"on":""}">${o}</button>`).join("")+`</div>`;}
+function segOn(id,fn){const g=$(id);g.querySelectorAll("button").forEach(b=>b.onclick=()=>{g.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");fn(+b.dataset.k);});}
+const st={}; // remembers interactive state per section
+
+const EMB={d1:"<!DOCTYPE html>\n<html lang=\"hi\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Demo 1: विद्युत धारा सिम्युलेटर<\/title>\n<style>\n  :root{--bg:#0f1420;--card:#182033;--ink:#eef2fb;--mute:#9aa6c2;--e:#4da3ff;--cur:#ff9a3d;--ok:#3ecf8e;--bad:#ff6b6b;--line:#2a3550}\n  *{box-sizing:border-box}\n  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,\"Noto Sans Devanagari\",sans-serif}\n  .wrap{max-width:460px;margin:0 auto;padding:14px 14px 90px}\n  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}\n  .tag{font-size:12px;color:var(--mute)}\n  .lang{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:20px;padding:5px 12px;font-size:13px}\n  .dots{display:flex;gap:6px;margin:6px 0 12px}\n  .dots i{flex:1;height:4px;border-radius:4px;background:var(--line)}\n  .dots i.on{background:var(--cur)}\n  h2{font-size:20px;margin:4px 0 6px}\n  p{margin:6px 0;color:#d5dcec}\n  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin:10px 0}\n  svg{width:100%;height:auto;display:block}\n  .row{display:flex;align-items:center;gap:10px;margin:8px 0}\n  .row label{width:118px;font-size:14px;color:var(--mute)}\n  .row input{flex:1;accent-color:var(--cur)}\n  .row b{width:62px;text-align:right}\n  .meter{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}\n  .meter div{background:#111829;border-radius:10px;padding:8px;text-align:center}\n  .meter small{display:block;color:var(--mute);font-size:12px}\n  .meter b{font-size:18px}\n  .opt{display:block;width:100%;text-align:left;background:#111829;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:11px 12px;margin:7px 0;font-size:15px}\n  .opt.right{border-color:var(--ok);background:#12301f}\n  .opt.wrong{border-color:var(--bad);background:#341619}\n  .box{border-radius:12px;padding:10px 12px;margin:8px 0;font-size:15px}\n  .why{background:#13243d;border-left:4px solid var(--e)}\n  .trap{background:#3a2412;border-left:4px solid var(--cur)}\n  .hidden{display:none}\n  .toggle{display:flex;gap:6px;margin-top:8px}\n  .toggle button{flex:1;background:#111829;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px;font-size:14px}\n  .toggle button.on{border-color:var(--cur);color:var(--cur)}\n  .nav{position:fixed;left:0;right:0;bottom:0;background:#0b0f19ee;border-top:1px solid var(--line);padding:10px 14px}\n  .nav .in{max-width:460px;margin:0 auto;display:flex;gap:10px}\n  .nav button{flex:1;border:0;border-radius:12px;padding:12px;font-size:16px;font-weight:600}\n  .back{background:#1d2740;color:var(--ink)} .next{background:var(--cur);color:#1b1205}\n  .note{font-size:12px;color:var(--mute);margin-top:14px}\n<\/style>\n<\/head>\n<body>\n<div class=\"wrap\">\n  <div class=\"top\">\n    <span class=\"tag\" data-t=\"tag\"><\/span>\n    <button class=\"lang\" id=\"lang\">English<\/button>\n  <\/div>\n  <div class=\"dots\" id=\"dots\"><\/div>\n\n  <h2 id=\"h\"><\/h2>\n  <p id=\"p\"><\/p>\n\n  <div class=\"card\">\n    <svg viewBox=\"0 0 360 220\" id=\"sim\" role=\"img\" aria-label=\"circuit\">\n      <rect x=\"30\" y=\"40\" width=\"300\" height=\"140\" rx=\"18\" fill=\"none\" stroke=\"#5b6a8f\" stroke-width=\"10\"/>\n      <!-- battery on left -->\n      <g id=\"batt\">\n        <rect x=\"14\" y=\"88\" width=\"32\" height=\"44\" rx=\"5\" fill=\"#0f1420\" stroke=\"#5b6a8f\" stroke-width=\"2\"/>\n        <line x1=\"22\" y1=\"102\" x2=\"38\" y2=\"102\" stroke=\"#ff6b6b\" stroke-width=\"4\"/>\n        <line x1=\"30\" y1=\"94\" x2=\"30\" y2=\"110\" stroke=\"#ff6b6b\" stroke-width=\"4\"/>\n        <line x1=\"22\" y1=\"120\" x2=\"38\" y2=\"120\" stroke=\"#9aa6c2\" stroke-width=\"4\"/>\n        <text x=\"54\" y=\"100\" fill=\"#ff6b6b\" font-size=\"13\">+<\/text>\n        <text x=\"54\" y=\"128\" fill=\"#9aa6c2\" font-size=\"15\">−<\/text>\n      <\/g>\n      <!-- bulb on top -->\n      <circle id=\"glow\" cx=\"180\" cy=\"40\" r=\"34\" fill=\"#ffd166\" opacity=\"0\"/>\n      <circle cx=\"180\" cy=\"40\" r=\"16\" fill=\"#0f1420\" stroke=\"#ffd166\" stroke-width=\"3\"/>\n      <path d=\"M172 40 q4 -8 8 0 q4 8 8 0\" fill=\"none\" stroke=\"#ffd166\" stroke-width=\"2\"/>\n      <!-- ammeter on bottom -->\n      <circle cx=\"180\" cy=\"180\" r=\"17\" fill=\"#0f1420\" stroke=\"#4da3ff\" stroke-width=\"3\"/>\n      <text x=\"180\" y=\"186\" fill=\"#4da3ff\" font-size=\"15\" text-anchor=\"middle\" font-weight=\"700\">A<\/text>\n      <g id=\"dotsG\"><\/g>\n      <g id=\"arrows\"><\/g>\n      <text id=\"lbl\" x=\"180\" y=\"118\" fill=\"#9aa6c2\" font-size=\"13\" text-anchor=\"middle\"><\/text>\n    <\/svg>\n\n    <div id=\"controls\">\n      <div class=\"row\"><label data-t=\"lv\"><\/label><input id=\"v\" type=\"range\" min=\"0\" max=\"12\" step=\"1\" value=\"0\"><b id=\"vv\"><\/b><\/div>\n      <div class=\"row\"><label data-t=\"lr\"><\/label><input id=\"r\" type=\"range\" min=\"2\" max=\"24\" step=\"2\" value=\"6\"><b id=\"rv\"><\/b><\/div>\n      <div class=\"meter\">\n        <div><small data-t=\"mi\"><\/small><b id=\"mi\"><\/b><\/div>\n        <div><small data-t=\"mp\"><\/small><b id=\"mp\"><\/b><\/div>\n        <div><small data-t=\"mf\"><\/small><b>I = V/R<\/b><\/div>\n      <\/div>\n      <div class=\"toggle\" id=\"tg\">\n        <button id=\"tE\" class=\"on\" data-t=\"te\"><\/button>\n        <button id=\"tC\" data-t=\"tc\"><\/button>\n      <\/div>\n    <\/div>\n  <\/div>\n\n  <div id=\"extra\"><\/div>\n  <p class=\"note\" data-t=\"note\"><\/p>\n<\/div>\n\n<div class=\"nav\"><div class=\"in\">\n  <button class=\"back\" id=\"bk\"><\/button>\n  <button class=\"next\" id=\"nx\"><\/button>\n<\/div><\/div>\n\n<script>\nconst T={\n hi:{tag:\"डेमो 1 · विद्युत · कक्षा 10\",lv:\"वोल्टेज (V)\",lr:\"प्रतिरोध (R)\",mi:\"धारा I\",mp:\"बल्ब की शक्ति\",mf:\"सूत्र\",te:\"इलेक्ट्रॉन का बहाव\",tc:\"परंपरागत धारा\",back:\"पीछे\",next:\"आगे\",done:\"पूरा\",note:\"यह डेमो DeepSeek के idea 'Current Flow Simulator' पर आधारित है। Physics जाँच कर सुधारा गया है।\",\n  s:[\n   {h:\"स्विच दबाते ही बल्ब तुरंत जलता है। पर इलेक्ट्रॉन तो बहुत धीरे चलते हैं। ऐसा कैसे?\",p:\"पहले अंदाज़ा लगाइए, फिर आगे देखिए।\",q:{o:[\"इलेक्ट्रॉन प्रकाश की गति से दौड़ते हैं\",\"तार में इलेक्ट्रॉन पहले से भरे हैं, सब एक साथ खिसकने लगते हैं\",\"बैटरी से बल्ब तक पहुँचने वाला पहला इलेक्ट्रॉन ही बल्ब जलाता है\"],a:1,w:\"तार में मुक्त इलेक्ट्रॉन हर जगह पहले से मौजूद हैं। बैटरी जुड़ते ही पूरे तार में विद्युत क्षेत्र लगभग तुरंत बन जाता है, इसलिए हर जगह के इलेक्ट्रॉन एक साथ खिसकने लगते हैं। इलेक्ट्रॉन खुद मिलीमीटर प्रति सेकंड के क्रम की धीमी गति से चलते हैं।\"}},\n   {h:\"बिना बैटरी: इलेक्ट्रॉन इधर-उधर घूमते हैं\",p:\"वोल्टेज 0 है। इलेक्ट्रॉन हिलते तो हैं, पर किसी एक दिशा में नहीं जाते। इसलिए नेट धारा शून्य है और बल्ब बंद है।\",lock:0},\n   {h:\"वोल्टेज बढ़ाइए: बहाव शुरू\",p:\"V स्लाइडर बढ़ाइए। इलेक्ट्रॉन एक दिशा में खिसकने लगते हैं, ammeter धारा दिखाता है, और बल्ब चमकता है। R बढ़ाएँगे तो धारा घटेगी।\"},\n   {h:\"किस दिशा में? दो अलग तीर\",p:\"इलेक्ट्रॉन बैटरी के − से + की ओर बहते हैं। परंपरागत धारा को उल्टी दिशा, + से − की ओर, माना जाता है। दोनों बटन दबाकर देखिए।\",showToggle:1},\n   {h:\"याद रखने वाली बात\",p:\"\",box:1},\n   {h:\"अब आपकी बारी\",p:\"\",mcq:{q:\"6 V की बैटरी से 3 Ω का प्रतिरोध जुड़ा है। धारा कितनी होगी?\",o:[\"18 A\",\"2 A\",\"0.5 A\",\"3 A\"],a:1,w:\"I = V/R = 6/3 = 2 A\",tr:\"18 A वाला विकल्प V और R को गुणा करने से आता है। ओम का नियम भाग देता है: I = V ÷ R।\",alt:\"दूसरा तरीका (अनुपात): 3 Ω में 3 V पर 1 A बहता है। 6 V यानी दुगुना वोल्टेज, तो धारा भी दुगुनी = 2 A।\"}}\n  ],\n  why:\"<b>क्यों:<\/b> धारा = प्रति सेकंड किसी बिंदु से गुज़रा आवेश (I = Q/t)। इलेक्ट्रॉन धीरे चलते हैं, पर उनकी संख्या बहुत बड़ी है।\",\n  trap:\"<b>आम गलती:<\/b> 'इलेक्ट्रॉन + से − की ओर बहते हैं।' नहीं, इलेक्ट्रॉन − से + की ओर बहते हैं। + से − वाली दिशा परंपरागत धारा की है।\",\n  ok:\"सही!\",no:\"फिर से सोचिए।\",alt:\"दूसरा तरीका\"},\n en:{tag:\"Demo 1 · Electricity · Class 10\",lv:\"Voltage (V)\",lr:\"Resistance (R)\",mi:\"Current I\",mp:\"Bulb power\",mf:\"Formula\",te:\"Electron flow\",tc:\"Conventional current\",back:\"Back\",next:\"Next\",done:\"Done\",note:\"This demo is based on DeepSeek's idea 'Current Flow Simulator'. Its physics was checked and corrected.\",\n  s:[\n   {h:\"Press the switch and the bulb lights at once. But electrons move very slowly. How?\",p:\"Guess first, then look further.\",q:{o:[\"Electrons race at the speed of light\",\"Free electrons already fill the wire and all start drifting together\",\"The first electron that reaches the bulb from the battery lights it\"],a:1,w:\"Free electrons are already everywhere in the wire. When the battery is connected, the electric field sets up through the whole wire almost at once, so electrons everywhere start drifting together. The electrons themselves drift slowly, of the order of a millimetre per second.\"}},\n   {h:\"No battery: electrons wander at random\",p:\"Voltage is 0. Electrons jiggle but do not move in one direction, so net current is zero and the bulb is off.\",lock:0},\n   {h:\"Raise the voltage: the drift begins\",p:\"Move the V slider. Electrons start drifting one way, the ammeter shows current, the bulb glows. Raise R and the current falls.\"},\n   {h:\"Which direction? Two different arrows\",p:\"Electrons flow from the battery's − to +. Conventional current is taken the opposite way, from + to −. Tap both buttons.\",showToggle:1},\n   {h:\"Remember this\",p:\"\",box:1},\n   {h:\"Your turn\",p:\"\",mcq:{q:\"A 3 Ω resistor is connected to a 6 V battery. What is the current?\",o:[\"18 A\",\"2 A\",\"0.5 A\",\"3 A\"],a:1,w:\"I = V/R = 6/3 = 2 A\",tr:\"18 A comes from multiplying V and R. Ohm's law divides: I = V ÷ R.\",alt:\"Second method (ratio): through 3 Ω, 3 V drives 1 A. 6 V is double the voltage, so current doubles = 2 A.\"}}\n  ],\n  why:\"<b>Why:<\/b> current = charge passing a point per second (I = Q/t). Electrons are slow, but there are a huge number of them.\",\n  trap:\"<b>Common mistake:<\/b> 'Electrons flow from + to −.' No, electrons flow from − to +. The + to − direction is conventional current.\",\n  ok:\"Correct!\",no:\"Think again.\",alt:\"Second method\"}\n};\nlet L=\"hi\",S=0,mode=\"e\";\nconst $=id=>document.getElementById(id);\nconst V=$(\"v\"),R=$(\"r\");\n// path around the loop: rectangle x30..330, y40..180\nconst P={x0:30,y0:40,x1:330,y1:180};\nconst per=2*((P.x1-P.x0)+(P.y1-P.y0));\nfunction pt(s){s=((s%per)+per)%per;const w=P.x1-P.x0,h=P.y1-P.y0;\n if(s<w)return[P.x0+s,P.y0];s-=w;if(s<h)return[P.x1,P.y0+s];s-=h;if(s<w)return[P.x1-s,P.y1];s-=w;return[P.x0,P.y1-s];}\nconst N=34,el=[];\nfor(let i=0;i<N;i++){const c=document.createElementNS(\"http://www.w3.org/2000/svg\",\"circle\");c.setAttribute(\"r\",\"3.4\");c.setAttribute(\"fill\",\"#4da3ff\");$(\"dotsG\").appendChild(c);el.push({c,s:i*per/N,j:Math.random()*6});}\nfunction I(){const v=+V.value,r=+R.value;return v/r;}\nfunction draw(){const i=I(),v=+V.value,r=+R.value;\n $(\"vv\").textContent=v+\" V\";$(\"rv\").textContent=r+\" Ω\";\n $(\"mi\").textContent=i.toFixed(2)+\" A\";$(\"mp\").textContent=(v*v/r).toFixed(1)+\" W\";\n $(\"glow\").setAttribute(\"opacity\",Math.min(0.85,(v*v/r)/24).toFixed(2));\n const ar=$(\"arrows\");ar.innerHTML=\"\";\n if(i>0&&S>=3){const col=mode===\"e\"?\"#4da3ff\":\"#ff9a3d\";\n   // electrons: battery − (bottom-left) → around → + ; we move dots clockwise from bottom-left upward? choose: electrons leave − (lower terminal) going down-left corner → bottom → right → top → back to +\n   const dirE=-1; const dir=mode===\"e\"?dirE:-dirE;\n   [[100,40],[330,110],[260,180],[30,150]].forEach(([x,y],k)=>{\n     let ang=[0,90,180,270][k]; if(dir<0)ang+=180;\n     const g=document.createElementNS(\"http://www.w3.org/2000/svg\",\"path\");\n     g.setAttribute(\"d\",\"M-9,-7 L9,0 L-9,7 Z\");g.setAttribute(\"fill\",col);\n     g.setAttribute(\"transform\",`translate(${x},${y}) rotate(${ang})`);ar.appendChild(g);});\n   $(\"lbl\").textContent=mode===\"e\"?T[L].te+\": − → +\":T[L].tc+\": + → −\";\n } else $(\"lbl\").textContent=\"\";\n}\nlet last=performance.now();\nfunction tick(t){const dt=(t-last)/1000;last=t;const i=I();\n el.forEach(o=>{o.s+= -i*14*dt; o.j+=dt*9; const [x,y]=pt(o.s);\n  o.c.setAttribute(\"cx\",(x+Math.sin(o.j)*3).toFixed(1));o.c.setAttribute(\"cy\",(y+Math.cos(o.j*1.3)*3).toFixed(1));});\n requestAnimationFrame(tick);}\nrequestAnimationFrame(tick);\n\nfunction render(){const t=T[L],s=t.s[S];\n document.documentElement.lang=L;\n document.querySelectorAll(\"[data-t]\").forEach(n=>n.textContent=t[n.dataset.t]);\n $(\"lang\").textContent=L===\"hi\"?\"English\":\"हिंदी\";\n $(\"dots\").innerHTML=t.s.map((_,k)=>`<i class=\"${k<=S?\"on\":\"\"}\"><\/i>`).join(\"\");\n $(\"h\").textContent=s.h;$(\"p\").textContent=s.p;\n $(\"bk\").textContent=t.back;$(\"nx\").textContent=S===t.s.length-1?t.done:t.next;$(\"bk\").style.visibility=S?\"visible\":\"hidden\";\n $(\"controls\").style.display=S===0?\"none\":\"block\";\n V.disabled=S===1;R.disabled=S===1; if(S===1)V.value=0; if(S===2&&+V.value===0)V.value=6;\n $(\"tg\").style.display=s.showToggle?\"flex\":\"none\";\n const ex=$(\"extra\");ex.innerHTML=\"\";\n if(s.q)quiz(ex,s.q.o,s.q.a,`<div class=\"box why\">${s.q.w}<\/div>`);\n if(s.box)ex.innerHTML=`<div class=\"box why\">${t.why}<\/div><div class=\"box trap\">${t.trap}<\/div>`;\n if(s.mcq){const m=s.mcq;ex.innerHTML=`<p><b>${m.q}<\/b><\/p>`;\n   quiz(ex,m.o,m.a,`<div class=\"box why\"><b>${m.w}<\/b><\/div><div class=\"box why\"><b>${t.alt}:<\/b> ${m.alt}<\/div><div class=\"box trap\">${m.tr}<\/div>`);}\n draw();}\nfunction quiz(ex,opts,ans,reveal){const holder=document.createElement(\"div\");\n opts.forEach((o,k)=>{const b=document.createElement(\"button\");b.className=\"opt\";b.textContent=o;\n  b.onclick=()=>{holder.querySelectorAll(\".opt\").forEach((x,j)=>{x.disabled=true;if(j===ans)x.classList.add(\"right\");});\n   if(k!==ans)b.classList.add(\"wrong\");\n   const r=document.createElement(\"div\");r.innerHTML=`<div class=\"box ${k===ans?\"why\":\"trap\"}\"><b>${k===ans?T[L].ok:T[L].no}<\/b><\/div>`+reveal;holder.appendChild(r);};\n  holder.appendChild(b);});ex.appendChild(holder);}\nV.oninput=R.oninput=draw;\n$(\"tE\").onclick=()=>{mode=\"e\";$(\"tE\").classList.add(\"on\");$(\"tC\").classList.remove(\"on\");draw();};\n$(\"tC\").onclick=()=>{mode=\"c\";$(\"tC\").classList.add(\"on\");$(\"tE\").classList.remove(\"on\");draw();};\n$(\"lang\").onclick=()=>{L=L===\"hi\"?\"en\":\"hi\";render();};\n$(\"nx\").onclick=()=>{if(S<T[L].s.length-1){S++;render();scrollTo(0,0);}};\n$(\"bk\").onclick=()=>{if(S>0){S--;render();scrollTo(0,0);}};\nrender();\n<\/script>\n<\/body>\n<\/html>\n",old:"<!DOCTYPE html><html lang=\"hi\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><style>*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;background:#0f172a;color:#e2e8f0;font-family:Inter,\"Noto Sans Devanagari\",sans-serif;overflow:hidden}#app{height:100%;display:flex;flex-direction:column}#title{padding:8px 12px;font-size:14px;font-weight:700;color:#5eead4}#stage{flex:1;position:relative;min-height:0}#stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}#info{padding:6px 12px;font-size:13px;color:#fde68a;min-height:36px}.ctrl{padding:6px 12px 12px;display:flex;align-items:center;gap:10px}.ctrl label{font-size:13px;min-width:90px}input[type=range]{flex:1;height:40px;accent-color:#5eead4}#val{min-width:64px;text-align:right;color:#5eead4;font-weight:700}body[data-lang=hi] .en,body[data-lang=en] .hi{display:none}body[data-lang=both] .en::before{content:\" / \"}<\/style><\/head><body data-lang=\"__LANG__\"><div id=\"app\"><div id=\"title\"><span class=\"hi\">ओह्म का नियम<\/span><span class=\"en\">Ohm's Law<\/span><\/div><div id=\"stage\"><\/div><div id=\"info\"><span class=\"hi\">वोल्टेज बदलने के लिए स्लाइडर चलाएँ<\/span><span class=\"en\">Move the slider to change the voltage<\/span><\/div><div class=\"ctrl\"><label><span class=\"hi\">वोल्टेज (V)<\/span><span class=\"en\">Voltage (V)<\/span><\/label><input id=\"s\" type=\"range\" min=\"0\" max=\"12\" step=\"1\" value=\"6\"><div id=\"val\"><\/div><\/div><\/div><script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"><\/script><script>const stage=document.getElementById(\"stage\");const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));stage.appendChild(renderer.domElement);const scene=new THREE.Scene();scene.background=new THREE.Color(0x0f172a);const camera=new THREE.PerspectiveCamera(50,1,0.1,200);camera.position.set(0,6,12);camera.lookAt(0,1,0);scene.add(new THREE.AmbientLight(0xffffff,0.8));const sun=new THREE.DirectionalLight(0xffffff,0.6);sun.position.set(4,8,6);scene.add(sun);function mat(c){return new THREE.MeshStandardMaterial({color:c,roughness:0.5});}function line(a,b,c){const g=new THREE.BufferGeometry().setFromPoints([a,b]);return new THREE.Line(g,new THREE.LineBasicMaterial({color:c}));}function arrow(from,to,c){const d=new THREE.Vector3().subVectors(to,from);const len=d.length();const g=new THREE.Group();const shaft=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,Math.max(len-0.3,0.01),12),mat(c));const head=new THREE.Mesh(new THREE.ConeGeometry(0.14,0.3,12),mat(c));shaft.position.y=(len-0.3)/2;head.position.y=len-0.15;g.add(shaft,head);g.position.copy(from);g.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());scene.add(g);objs.push(g);return g;}function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;const k=Math.max(1,1.25/camera.aspect);camera.position.set(0,6*k,12*k);camera.lookAt(0,1,0);camera.updateProjectionMatrix();}window.addEventListener(\"resize\",resize);resize();const objs=[];function clear(){while(objs.length){const o=objs.pop();scene.remove(o);}}function add(o){scene.add(o);objs.push(o);return o;}const LANG=document.body.dataset.lang||\"hi\";function T(h,e){return LANG===\"en\"?e:h;}const info=document.getElementById(\"info\");const s=document.getElementById(\"s\");const valEl=document.getElementById(\"val\");function update(v){clear();const R=4; const I=v/R; const left=new THREE.Vector3(-4,0,0); const right=new THREE.Vector3(4,0,0); add(line(left,new THREE.Vector3(-1,0,0),0xaaaaaa)); add(line(new THREE.Vector3(1,0,0),right,0xaaaaaa)); const res=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,2,16),mat(0x888888)); res.rotation.z=Math.PI/2; res.position.set(0,0,0); add(res); const arrowStart=new THREE.Vector3(1,0,0); const arrowEnd=new THREE.Vector3(1+I*0.5,0,0); arrow(arrowStart,arrowEnd,0xff0000); const bulbPos=new THREE.Vector3(3,0,0); const bulbColor=I>0?0xffff00:0x222222; const bulb=new THREE.Mesh(new THREE.SphereGeometry(0.6,16,16),mat(bulbColor)); bulb.position.copy(bulbPos); add(bulb); info.textContent=T(\"वोल्टेज = \"+v+\" V, धारा = \"+I.toFixed(2)+\" A\",\"Voltage = \"+v+\" V, Current = \"+I.toFixed(2)+\" A\");}s.addEventListener(\"input\",()=>{valEl.textContent=s.value;update(parseFloat(s.value));});valEl.textContent=s.value;update(parseFloat(s.value));(function loop(){requestAnimationFrame(loop);renderer.render(scene,camera);})();<\/script><\/body><\/html>"};
+const SECTIONS=[
+{h:()=>t("धारा सिम्युलेटर","Current simulator"),emb:"d1"},
+/* F2: symbols */
+{h:()=>t("परिपथ के चिन्ह","Circuit symbols"),
+ hook:()=>t("बिजली मिस्त्री दीवार के अंदर की वायरिंग कागज़ पर कैसे दिखाता है?","How does an electrician show the wiring inside a wall on paper?"),
+ idea:()=>[t("हर उपकरण का एक तय चिन्ह होता है, ताकि हर कोई परिपथ एक जैसा पढ़ सके।","Each device has a fixed symbol so everyone reads a circuit the same way."),t("सेल की लंबी रेखा + सिरा है, छोटी मोटी रेखा − सिरा।","In a cell the long line is +, the short thick line is −.")],
+ fig:()=>{const items=[
+   [cellH(30,30),t("सेल","Cell")],[cellH(22,30)+cellH(42,30)+ln(30,30,42,30,K,1.5,'stroke-dasharray="2 3"'),t("बैटरी","Battery")],
+   [ln(10,30,26,30)+`<circle cx="28" cy="30" r="2.5" fill="${K}"/>`+ln(28,30,46,18)+`<circle cx="48" cy="30" r="2.5" fill="${K}"/>`+ln(48,30,64,30),t("स्विच (खुला)","Switch (open)")],
+   [ln(10,30,26,30)+`<circle cx="28" cy="30" r="2.5" fill="${K}"/>`+ln(28,30,48,30)+`<circle cx="48" cy="30" r="2.5" fill="${K}"/>`+ln(48,30,64,30),t("स्विच (बंद)","Switch (closed)")],
+   [bulb(37,30),t("बल्ब","Bulb")],[resH(15,30,44),t("प्रतिरोधक","Resistor")],
+   [resH(15,30,44)+ln(18,44,58,16,B,2)+arrow(56,17.5,-35,B),t("परिवर्ती प्रतिरोध","Rheostat")],
+   [meter(37,30,"A",B),t("ऐमीटर","Ammeter")],[meter(37,30,"V",O),t("वोल्टमीटर","Voltmeter")]];
+   let s="";items.forEach(([g,l],i)=>{const cx=(i%3)*112+4,cy=Math.floor(i/3)*84+4;
+     s+=`<rect x="${cx}" y="${cy}" width="104" height="76" rx="12" fill="#f7f9fc" stroke="#e3e8f0"/><g transform="translate(${cx+15},${cy+2})">${g}</g>`+tx(cx+52,cy+66,l,M,12);});
+   return {html:svg(256,s),cap:t("सभी चिन्ह एक साथ: इन्हीं से हर परिपथ बनता है।","All symbols together: every circuit is built from these.")};},
+ why:()=>t("<b>क्यों:</b> चित्र में असली तार के मोड़ नहीं, सिर्फ़ जुड़ाव मायने रखता है।","<b>Why:</b> in a diagram only the connections matter, not the real bends of the wire."),
+ trap:()=>t("<b>आम गलती:</b> सेल के + और − उल्टे पहचानना। लंबी पतली रेखा = +।","<b>Common mistake:</b> reading the cell's + and − the wrong way. Long thin line = +."),
+ mcq:{q:()=>t("खुले स्विच वाले परिपथ में बल्ब का क्या होगा?","In a circuit with an open switch, what happens to the bulb?"),
+  o:()=>[t("तेज़ जलेगा","Glows brighter"),t("नहीं जलेगा, क्योंकि रास्ता टूटा है","Does not glow, the path is broken"),t("आधा जलेगा","Glows at half"),t("फ्यूज़ उड़ जाएगा","The fuse blows")],a:1,
+  A:()=>[t("खुला स्विच = परिपथ में खाली जगह।","Open switch = a gap in the circuit."),t("आवेश के लिए पूरा बंद रास्ता नहीं।","No complete closed path for charge."),t("धारा = 0, बल्ब बंद।","Current = 0, bulb off.")],
+  tr:()=>t("'आधा जलेगा' सोचना गलत है: रास्ता टूटते ही धारा पूरी तरह रुक जाती है।","Thinking 'half glow' is wrong: once the path breaks, current stops completely.")}},
+
+/* F3: ammeter in series, voltmeter parallel */
+{h:()=>t("ऐमीटर और वोल्टमीटर कहाँ लगें","Where the ammeter and voltmeter go"),
+ hook:()=>t("बल्ब से कितनी धारा जा रही है, ये नापने के लिए मीटर कहाँ जोड़ें?","To measure the current through a bulb, where do you connect the meter?"),
+ idea:()=>[t("ऐमीटर श्रेणी (series) में: धारा उसके अंदर से होकर जाए।","Ammeter in series: the current must pass through it."),t("वोल्टमीटर समानांतर (parallel) में: उपकरण के दोनों सिरों के आर-पार।","Voltmeter in parallel: across the two ends of the device.")],
+ fig:()=>{const k=st.f3??0;
+   const wire=(c=K)=>ln(30,40,310,40,c)+ln(310,40,310,150,c)+ln(310,150,30,150,c)+ln(30,40,30,80,c)+ln(30,110,30,150,c);
+   let s=wire()+cellH(26,95)+tx(14,85,"+",K,13)+tx(14,120,"−",K,15)+tx(48,99,"6 V",M,12,"start");
+   if(k===0){s+=`<rect x="140" y="28" width="60" height="24" fill="#fff"/>`+bulb(170,40)+`<rect x="150" y="138" width="40" height="24" fill="#fff"/>`+meter(170,150,"A",B)
+       +ln(130,40,130,92,O)+ln(210,40,210,92,O)+ln(130,92,155,92,O)+ln(185,92,210,92,O)+meter(170,92,"V",O)
+       +tx(170,190,t("ऐमीटर पढ़ता है 0.5 A · वोल्टमीटर पढ़ता है 6 V","Ammeter reads 0.5 A · Voltmeter reads 6 V"),G,13,"middle",700);}
+   else {s+=`<rect x="140" y="28" width="60" height="24" fill="#fff"/>`+bulb(170,40)+`<rect x="235" y="138" width="40" height="24" fill="#fff"/>`+meter(255,150,"V",R)
+       +ln(130,40,130,92,R,2,'stroke-dasharray="5 4"')+ln(210,40,210,92,R,2,'stroke-dasharray="5 4"')+ln(130,92,155,92,R,2,'stroke-dasharray="5 4"')+ln(185,92,210,92,R,2,'stroke-dasharray="5 4"')+meter(170,92,"A",R)
+       +tx(170,190,t("गलत: बल्ब नहीं जलेगा, ऐमीटर में बड़ी धारा से नुकसान","Wrong: bulb stays off, ammeter can be damaged"),R,13,"middle",700);}
+   return {html:svg(204,s)+seg("f3s",[t("सही जोड़","Correct"),t("मीटर उल्टे जोड़े","Meters swapped")],k),cap:t("बटन दबाकर सही और गलत जोड़ की तुलना कीजिए।","Tap to compare correct and wrong connections."),
+     mount:()=>segOn("f3s",v=>{st.f3=v;render();})};},
+ why:()=>t("<b>क्यों:</b> ऐमीटर का प्रतिरोध बहुत कम होता है, वोल्टमीटर का बहुत ज़्यादा। इसलिए दोनों की जगह अलग है।","<b>Why:</b> an ammeter has very low resistance, a voltmeter very high. That is why their places differ."),
+ trap:()=>t("<b>आम गलती:</b> वोल्टमीटर को श्रेणी में जोड़ना। उसका बड़ा प्रतिरोध धारा को लगभग रोक देता है।","<b>Common mistake:</b> putting the voltmeter in series. Its high resistance almost stops the current."),
+ mcq:{q:()=>t("वोल्टमीटर का प्रतिरोध कैसा होना चाहिए?","What should a voltmeter's resistance be?"),
+  o:()=>[t("बहुत कम","Very low"),t("बहुत अधिक","Very high"),t("शून्य","Zero"),t("बल्ब के बराबर","Equal to the bulb")],a:1,
+  A:()=>[t("वोल्टमीटर समानांतर में लगता है।","The voltmeter sits in parallel."),t("उसमें धारा जाएगी तो उपकरण की धारा बदलेगी।","Current through it would change the device's current."),t("इसलिए प्रतिरोध बहुत अधिक, ताकि लगभग कोई धारा न ले।","So very high resistance, so it takes almost no current.")],
+  tr:()=>t("'बहुत कम' ऐमीटर का गुण है, वोल्टमीटर का नहीं। दोनों को आपस में न मिलाएँ।","'Very low' is the ammeter's property, not the voltmeter's.")}},
+
+/* F4: Ohm's law graph */
+{h:()=>t("ओम का नियम: V-I ग्राफ","Ohm's law: the V-I graph"),
+ hook:()=>t("एक ही वोल्टेज पर कोई तार ज़्यादा धारा क्यों देता है, कोई कम?","At the same voltage, why does one wire pass more current than another?"),
+ idea:()=>[t("तापमान स्थिर हो तो V = IR: धारा, वोल्टेज के अनुक्रमानुपाती है।","At fixed temperature V = IR: current is proportional to voltage."),t("V-I ग्राफ मूल बिंदु से सीधी रेखा। ढलान (V/I) = R।","The V-I graph is a straight line through the origin. Slope (V/I) = R.")],
+ fig:()=>{const Rv=st.f4??4;const X=(i)=>40+i*200,Y=(v)=>170-v*12;
+   let s=ln(40,170,310,170,K,2)+ln(40,170,40,20,K,2)+tx(318,166,"I (A)",B,13,"end",700)+tx(32,22,"V (V)",O,13,"end",700);
+   for(let v=0;v<=12;v+=4)s+=tx(32,Y(v)+4,v,M,11,"end")+ln(40,Y(v),310,Y(v),"#eef1f6",1);
+   for(let i=0;i<=1;i+=0.25)s+=tx(X(i),186,i,M,11);
+   const iMax=Math.min(1.25,12/Rv);s+=ln(X(0),Y(0),X(iMax),Y(iMax*Rv),B,3.5);
+   [0.25,0.5,0.75,1].forEach(i=>{if(i*Rv<=12)s+=`<circle cx="${X(i)}" cy="${Y(i*Rv)}" r="4.5" fill="${O}"/>`;});
+   s+=tx(X(iMax)-4,Y(iMax*Rv)-10,"R = "+Rv+" Ω",B,14,"end",700);
+   return {html:svg(198,s)+slider("f4r",t("प्रतिरोध R","Resistance R"),2,16,2,Rv),cap:t("R बढ़ाइए: रेखा खड़ी होती है, यानी उतने ही V पर कम I।","Raise R: the line gets steeper, so less I at the same V."),
+     mount:()=>{$("f4rv").textContent=Rv+" Ω";$("f4r").oninput=e=>{st.f4=+e.target.value;render();};}};},
+ why:()=>t("<b>क्यों:</b> रेखा का हर बिंदु एक जोड़ी (I, V) है, और हर बिंदु पर V/I एक ही रहता है। वही R है।","<b>Why:</b> each point is a pair (I, V), and V/I is the same at every point. That is R."),
+ trap:()=>t("<b>आम गलती:</b> ढलान को 1/R समझना। यहाँ V ऊपर (y-अक्ष) है, इसलिए ढलान = R। अगर I ऊपर हो, तब ढलान = 1/R।","<b>Common mistake:</b> reading the slope as 1/R. Here V is on the y-axis, so slope = R. If I were on the y-axis, slope would be 1/R."),
+ mcq:{q:()=>t("ग्राफ की रेखा (0.5 A, 4 V) से गुज़रती है। R कितना है?","The line passes through (0.5 A, 4 V). What is R?"),o:()=>["2 Ω","8 Ω","0.125 Ω","4.5 Ω"],a:1,
+  A:()=>["R = V / I","R = 4 / 0.5","R = 8 Ω"],B:()=>[t("0.5 A पर 4 V","4 V at 0.5 A"),t("1 A यानी दुगुनी धारा → दुगुना V = 8 V","1 A means double current → double V = 8 V"),t("1 A पर 8 V, तो R = 8 Ω","8 V per 1 A, so R = 8 Ω")],
+  tr:()=>t("2 Ω, V × I से आता है; 0.125 Ω, I ÷ V से। सही है V ÷ I।","2 Ω comes from V × I; 0.125 Ω from I ÷ V. The right one is V ÷ I.")}},
+
+/* F5: resistivity */
+{h:()=>t("प्रतिरोध किन बातों पर निर्भर है","What resistance depends on"),
+ hook:()=>t("हीटर में पतला लंबा तार क्यों, और घर की वायरिंग में मोटा तांबा क्यों?","Why does a heater use thin long wire, and house wiring thick copper?"),
+ idea:()=>[t("R = ρ L / A: लंबाई L बढ़े तो R बढ़े, मोटाई (क्षेत्रफल A) बढ़े तो R घटे।","R = ρL/A: longer L raises R, thicker (larger area A) lowers R."),t("ρ (प्रतिरोधकता) पदार्थ पर निर्भर है: तांबा कम, नाइक्रोम बहुत ज़्यादा।","ρ (resistivity) depends on the material: copper low, nichrome very high.")],
+ fig:()=>{const s0=st.f5||{L:2,d:0.5,m:0};const rho=[1.7e-8,1.1e-6][s0.m];const A=Math.PI*Math.pow(s0.d*1e-3/2,2);const Rr=rho*s0.L/A;
+   const len=40+s0.L*24,th=4+s0.d*22,col=s0.m?O:B;
+   let s=`<rect x="20" y="${70-th/2}" width="${len}" height="${th}" rx="${th/2}" fill="${col}" opacity=".85"/>`
+    +ln(20,110,20+len,110,M,1.5)+ln(20,104,20,116,M,1.5)+ln(20+len,104,20+len,116,M,1.5)+tx(20+len/2,128,"L = "+s0.L+" m",M,12)
+    +tx(30+len,74,"d = "+s0.d+" mm",M,12,"start");
+   const Rs=Rr>=1?Rr.toFixed(2):Rr.toFixed(3);
+   s+=`<rect x="70" y="146" width="200" height="38" rx="10" fill="#f4f6fa"/>`+tx(170,171,"R = "+Rs+" Ω",col,18,"middle",700);
+   return {html:svg(196,s)+seg("f5m",[t("तांबा","Copper"),t("नाइक्रोम","Nichrome")],s0.m)+slider("f5l",t("लंबाई L","Length L"),1,10,1,s0.L)+slider("f5d",t("मोटाई d","Thickness d"),0.2,1,0.1,s0.d),
+     cap:t("लंबाई, मोटाई और पदार्थ बदलकर R पर असर देखिए।","Change length, thickness and material to see R change."),
+     mount:()=>{$("f5lv").textContent=s0.L+" m";$("f5dv").textContent=s0.d+" mm";
+       segOn("f5m",v=>{st.f5={...s0,m:v};render();});
+       $("f5l").oninput=e=>{st.f5={...s0,L:+e.target.value};render();};$("f5d").oninput=e=>{st.f5={...s0,d:+(+e.target.value).toFixed(1)};render();};}};},
+ why:()=>t("<b>क्यों:</b> लंबे तार में इलेक्ट्रॉनों को ज़्यादा टक्करें मिलती हैं; मोटे तार में चलने के रास्ते ज़्यादा होते हैं।","<b>Why:</b> a longer wire gives electrons more collisions; a thicker wire gives them more paths."),
+ trap:()=>t("<b>आम गलती:</b> 'मोटे तार में इलेक्ट्रॉन तेज़ चलते हैं।' नहीं: मोटे तार में ज़्यादा इलेक्ट्रॉन साथ चलते हैं, इसलिए धारा ज़्यादा।","<b>Common mistake:</b> 'electrons move faster in a thick wire.' No: more electrons move together, so the current is larger."),
+ mcq:{q:()=>t("एक तार को खींचकर दुगुना लंबा कर दिया (आयतन वही)। R कितना होगा?","A wire is stretched to double its length (same volume). What happens to R?"),o:()=>[t("वही","Same"),t("2 गुना","2 times"),t("4 गुना","4 times"),t("आधा","Half")],a:2,
+  A:()=>["R = ρL/A",t("L → 2L, आयतन वही इसलिए A → A/2","L → 2L; same volume so A → A/2"),t("R → ρ(2L)/(A/2) = 4R","R → ρ(2L)/(A/2) = 4R")],B:()=>[t("सिर्फ़ लंबाई से: 2 गुना","From length alone: ×2"),t("पतला होने से: और 2 गुना","From thinning: another ×2"),t("कुल 2 × 2 = 4 गुना","Total 2 × 2 = 4 times")],
+  tr:()=>t("'2 गुना' चुनना आम है: लंबाई देखी, पर पतला होना भूल गए।","Choosing '2 times' is common: you saw the length but forgot the thinning.")}},
+
+/* F6: series vs parallel */
+{h:()=>t("श्रेणी बनाम समानांतर","Series vs parallel"),
+ hook:()=>t("घर के बल्ब एक के बाद एक (श्रेणी) क्यों नहीं जोड़े जाते?","Why are home bulbs not joined one after another (in series)?"),
+ idea:()=>[t("श्रेणी: एक ही रास्ता, सबमें धारा बराबर। R = R₁ + R₂ + ...","Series: one path, same current in all. R = R₁ + R₂ + ..."),t("समानांतर: हर बल्ब को पूरा वोल्टेज। 1/R = 1/R₁ + 1/R₂ + ...","Parallel: each bulb gets the full voltage. 1/R = 1/R₁ + 1/R₂ + ...")],
+ fig:()=>{const n=st.f6??2,V=6,Rb=12;
+   const Is=V/(n*Rb),Ps=Is*Is*Rb,Pp=V*V/Rb,Ip=n*V/Rb;const gs=Math.min(1,Ps/3),gp=Math.min(1,Pp/3);
+   let s=tx(80,16,t("श्रेणी","Series"),K,14,"middle",700)+tx(255,16,t("समानांतर","Parallel"),K,14,"middle",700);
+   // series left
+   s+=ln(15,30,145,30)+ln(145,30,145,150)+ln(145,150,15,150)+ln(15,30,15,78)+ln(15,102,15,150)+cellH(11,90);
+   for(let i=0;i<n;i++){const y=30;const x=40+i*(90/(n>1?n-1:1))*(n>1?1:0)+(n===1?40:0);s+=`<rect x="${x-14}" y="${y-14}" width="28" height="28" fill="#fff"/>`+bulb(x,y,gs);}
+   s+=tx(80,172,"I = "+Is.toFixed(2)+" A",B,13,"middle",700)+tx(80,190,t("हर बल्ब ","each ")+Ps.toFixed(2)+" W",O,13,"middle",700);
+   // parallel right
+   const top=30,bot=150;s+=ln(190,top,320,top)+ln(320,top,320,bot)+ln(320,bot,190,bot)+ln(190,top,190,78)+ln(190,102,190,bot)+cellH(186,90);
+   for(let i=0;i<n;i++){const x=225+i*(85/(n>1?n-1:1))*(n>1?1:0)+(n===1?40:0);s+=ln(x,top,x,bot,K,2)+`<rect x="${x-14}" y="76" width="28" height="28" fill="#fff"/>`+bulb(x,90,gp);}
+   s+=tx(255,172,"I = "+Ip.toFixed(2)+" A",B,13,"middle",700)+tx(255,190,t("हर बल्ब ","each ")+Pp.toFixed(2)+" W",O,13,"middle",700);
+   return {html:svg(198,s)+seg("f6n",[t("1 बल्ब","1 bulb"),t("2 बल्ब","2 bulbs"),t("3 बल्ब","3 bulbs")],n-1),
+     cap:t("6 V बैटरी, हर बल्ब 12 Ω। बल्ब जोड़ते जाइए और चमक देखिए।","6 V battery, each bulb 12 Ω. Add bulbs and watch the brightness."),mount:()=>segOn("f6n",v=>{st.f6=v+1;render();})};},
+ why:()=>t("<b>क्यों:</b> समानांतर में हर बल्ब पूरे 6 V से जुड़ा है, इसलिए एक बल्ब जोड़ने से दूसरे पर फ़र्क नहीं पड़ता। एक बल्ब फ्यूज़ हो तो बाकी जलते रहते हैं।","<b>Why:</b> in parallel each bulb sits across the full 6 V, so adding one does not affect the others. If one fuses, the rest stay on."),
+ trap:()=>t("<b>आम गलती:</b> 'प्रतिरोध जोड़ने से कुल धारा हमेशा घटती है।' समानांतर में जोड़ने पर कुल प्रतिरोध घटता है और कुल धारा बढ़ती है।","<b>Common mistake:</b> 'adding a resistor always lowers the current.' In parallel, total resistance falls and total current rises."),
+ mcq:{q:()=>t("4 Ω और 4 Ω समानांतर में 6 V से जुड़े हैं। कुल धारा?","4 Ω and 4 Ω in parallel across 6 V. Total current?"),o:()=>["0.75 A","1.5 A","3 A","12 A"],a:2,
+  A:()=>["1/R = 1/4 + 1/4 = 1/2","R = 2 Ω","I = 6 / 2 = 3 A"],B:()=>[t("हर शाखा पर पूरे 6 V","Each branch has the full 6 V"),t("हर शाखा: 6 / 4 = 1.5 A","Each branch: 6 / 4 = 1.5 A"),t("कुल: 1.5 + 1.5 = 3 A","Total: 1.5 + 1.5 = 3 A")],
+  tr:()=>t("0.75 A श्रेणी वाला उत्तर है (8 Ω)। 1.5 A सिर्फ़ एक शाखा की धारा है।","0.75 A is the series answer (8 Ω). 1.5 A is only one branch.")}},
+
+/* F7: heating */
+{h:()=>t("धारा का तापीय प्रभाव","Heating effect of current"),
+ hook:()=>t("हीटर का तार लाल हो जाता है, पर उससे जुड़ी तार ठंडी क्यों रहती है?","The heater coil glows red, so why does its cord stay cool?"),
+ idea:()=>[t("ऊष्मा H = I²Rt = VIt = (V²/R)t। सभी सही हैं, जो मान दिए हों वही लगाइए।","Heat H = I²Rt = VIt = (V²/R)t. All are correct; use the one that fits the data."),t("एक ही धारा में, जहाँ R बड़ा वहाँ गर्मी ज़्यादा।","With the same current, more heat where R is larger.")],
+ fig:()=>{const P=st.f7??1000,Vv=230,I=P/Vv,Rc=Vv*Vv/P,Rcord=0.1,Hc=I*I*Rc,Hw=I*I*Rcord;const glow=Math.min(1,P/2000);
+   let coil="M120,90";for(let i=0;i<5;i++)coil+=` q5,-28 10,0 q5,28 10,0`;
+   let s=`<rect x="100" y="54" width="140" height="72" rx="14" fill="#fff7ef" stroke="#f3d9bf"/>`
+     +`<path d="${coil}" fill="none" stroke="#ff7a1a" stroke-width="${3+glow*3}" opacity="${0.5+glow*0.5}"/>`
+     +ln(20,90,120,90,M,4)+ln(220,90,320,90,M,4)+tx(60,80,t("तार","cord"),M,12)+tx(170,46,t("हीटर कुंडली","heater coil"),O,12,"middle",700);
+   s+=`<rect x="12" y="140" width="150" height="52" rx="10" fill="#f4f6fa"/>`+tx(87,160,t("कुंडली: R = ","coil: R = ")+Rc.toFixed(1)+" Ω",K,12)+tx(87,180,Hc.toFixed(0)+t(" J हर सेकंड"," J each second"),O,13,"middle",700);
+   s+=`<rect x="178" y="140" width="150" height="52" rx="10" fill="#f4f6fa"/>`+tx(253,160,t("तार: R = 0.1 Ω","cord: R = 0.1 Ω"),K,12)+tx(253,180,Hw.toFixed(1)+t(" J हर सेकंड"," J each second"),B,13,"middle",700);
+   return {html:svg(200,s)+slider("f7p",t("हीटर की शक्ति","Heater power"),500,2000,250,P),cap:t("230 V पर, धारा I = "+I.toFixed(2)+" A, दोनों में बराबर।","At 230 V the current I = "+I.toFixed(2)+" A is the same in both."),
+     mount:()=>{$("f7pv").textContent=P+" W";$("f7p").oninput=e=>{st.f7=+e.target.value;render();};}};},
+ why:()=>t("<b>क्यों:</b> कुंडली और तार श्रेणी में हैं, तो धारा बराबर है। H = I²Rt में R बड़ा होने से कुंडली सैकड़ों गुना ज़्यादा गर्म होती है।","<b>Why:</b> coil and cord are in series, so the current is equal. In H = I²Rt the much larger R makes the coil hundreds of times hotter."),
+ trap:()=>t("<b>आम गलती:</b> धारा दुगुनी करने पर ऊष्मा दुगुनी मानना। H ∝ I², इसलिए 4 गुना।","<b>Common mistake:</b> thinking doubling the current doubles the heat. H ∝ I², so it becomes 4 times."),
+ mcq:{q:()=>t("उसी प्रतिरोध में, उतने ही समय, धारा दुगुनी की। ऊष्मा?","Same resistor, same time, current doubled. Heat?"),o:()=>[t("वही","Same"),t("2 गुना","2 times"),t("4 गुना","4 times"),t("आधी","Half")],a:2,
+  A:()=>["H = I²Rt","H' = (2I)²Rt = 4I²Rt",t("H' = 4H","H' = 4H")],B:()=>[t("I से 2I: अनुपात 2","I to 2I: ratio 2"),t("H, I के वर्ग से बदलता है","H changes with the square of I"),t("2² = 4 गुना","2² = 4 times")],
+  tr:()=>t("'2 गुना' चुनना, I² के वर्ग को भूलने से आता है।","'2 times' comes from forgetting the square in I².")}},
+
+/* F8: power and bill */
+{h:()=>t("विद्युत शक्ति और बिजली का बिल","Electric power and the electricity bill"),
+ hook:()=>t("गर्मियों में बिजली का बिल अचानक क्यों बढ़ जाता है?","Why does the electricity bill jump in summer?"),
+ idea:()=>[t("शक्ति P = VI (वॉट)। ऊर्जा E = P × t।","Power P = VI (watt). Energy E = P × t."),t("बिल की 1 यूनिट = 1 kWh = 1000 W का उपकरण 1 घंटा।","One bill unit = 1 kWh = a 1000 W device for 1 hour.")],
+ fig:()=>{const on=st.f8||[1,1,0,0],rate=7;const apps=[["💡","LED",10,6],["🌀",t("पंखा","Fan"),75,10],["❄️","AC",1500,6],["🔥",t("गीज़र","Geyser"),2000,1]];
+   let units=0;let s="";apps.forEach((a,i)=>{const x=8+i*83;const u=on[i]?a[2]*a[3]/1000:0;units+=u;
+     s+=`<g data-i="${i}" style="cursor:pointer"><rect x="${x}" y="8" width="76" height="96" rx="12" fill="${on[i]?"#eaf1ff":"#f7f9fc"}" stroke="${on[i]?B:"#e3e8f0"}" stroke-width="2"/>`
+       +tx(x+38,40,a[0],K,22)+tx(x+38,62,a[1],K,12,"middle",700)+tx(x+38,78,a[2]+" W",M,11)+tx(x+38,94,a[3]+t(" घं/दिन"," h/day"),M,11)+`</g>`;});
+   const month=units*30,bill=month*rate;
+   s+=`<rect x="8" y="118" width="324" height="74" rx="12" fill="#f4f6fa"/>`+tx(90,145,units.toFixed(2)+t(" यूनिट/दिन"," units/day"),B,14,"middle",700)
+     +tx(250,145,month.toFixed(0)+t(" यूनिट/माह"," units/month"),B,14,"middle",700)+tx(170,178,t("अनुमानित बिल ≈ ₹","Estimated bill ≈ ₹")+bill.toFixed(0)+t(" (₹7/यूनिट)"," (₹7/unit)"),O,16,"middle",700);
+   return {html:svg(200,s),cap:t("उपकरणों पर टैप करके चालू/बंद कीजिए। दर उदाहरण के लिए ₹7 मानी है।","Tap appliances to switch them on or off. Rate taken as ₹7 for the example."),
+     mount:()=>document.querySelectorAll("#sec svg g[data-i]").forEach(g=>g.onclick=()=>{const a=[...on];a[+g.dataset.i]^=1;st.f8=a;render();})};},
+ why:()=>t("<b>क्यों:</b> बिल शक्ति और समय दोनों से बनता है। 1500 W का AC 6 घंटे = 9 यूनिट रोज़, जबकि 10 W की LED सिर्फ़ 0.06।","<b>Why:</b> the bill depends on power and time. A 1500 W AC for 6 h = 9 units a day; a 10 W LED only 0.06."),
+ trap:()=>t("<b>आम गलती:</b> W को kW में बदलना भूलना। 1500 W × 6 h = 9000 Wh = 9 kWh, 9000 यूनिट नहीं।","<b>Common mistake:</b> forgetting W → kW. 1500 W × 6 h = 9000 Wh = 9 kWh, not 9000 units."),
+ mcq:{q:()=>t("1500 W का AC रोज़ 6 घंटे, 30 दिन। ₹7/यूनिट पर बिल?","A 1500 W AC runs 6 h a day for 30 days. Bill at ₹7/unit?"),o:()=>["₹63","₹270","₹1,890","₹18,90,000"],a:2,
+  A:()=>["E = P × t = 1.5 kW × 6 h = 9 kWh",t("30 दिन: 9 × 30 = 270 यूनिट","30 days: 9 × 30 = 270 units"),"₹ = 270 × 7 = ₹1,890"],B:()=>[t("1 kW 1 घंटा = 1 यूनिट","1 kW for 1 h = 1 unit"),t("1.5 kW × 180 घंटे (6 × 30) = 270 यूनिट","1.5 kW × 180 h (6 × 30) = 270 units"),"270 × ₹7 = ₹1,890"],
+  tr:()=>t("₹18,90,000 W को kW में न बदलने से आता है। ₹63 सिर्फ़ एक दिन का बिल है।","₹18,90,000 comes from not converting W to kW. ₹63 is just one day.")}},
+
+/* F9: domestic wiring */
+{h:()=>t("घरेलू वायरिंग और सुरक्षा","Domestic wiring and safety"),
+ hook:()=>t("गीज़र, AC और प्रेस साथ चलाते ही MCB क्यों गिर जाता है?","Why does the MCB trip when the geyser, AC and iron run together?"),
+ idea:()=>[t("लाइव (लाल/भूरा), न्यूट्रल (काला/नीला), अर्थ (हरा)। स्विच और फ्यूज़/MCB हमेशा लाइव तार में।","Live (red/brown), neutral (black/blue), earth (green). Switch and fuse/MCB always in the live wire."),t("सारे उपकरण समानांतर में जुड़ते हैं; कुल धारा = सबकी धाराओं का जोड़।","All appliances are in parallel; total current = sum of their currents.")],
+ fig:()=>{const on=st.f9||[1,0,0],lim=16;const apps=[["🔥",t("गीज़र","Geyser"),2000],["❄️","AC",1500],["👕",t("प्रेस","Iron"),1000]];
+   let Itot=0;apps.forEach((a,i)=>{if(on[i])Itot+=a[2]/230;});const trip=Itot>lim;
+   let s=ln(20,40,320,40,trip?"#c9ced8":R,4)+ln(20,150,320,150,K,4)+ln(20,176,320,176,G,3,'stroke-dasharray="6 4"')
+     +tx(110,24,t("लाइव 230 V","Live 230 V"),R,12,"start",700)+tx(18,168,t("न्यूट्रल","Neutral"),K,12,"start",700)+tx(18,194,t("अर्थ","Earth"),G,12,"start",700);
+   s+=`<rect x="44" y="28" width="52" height="24" rx="6" fill="${trip?"#fdeaea":"#fff"}" stroke="${trip?R:K}" stroke-width="2"/>`+tx(70,45,trip?"MCB ✕":"MCB",trip?R:K,12,"middle",700);
+   apps.forEach((a,i)=>{const x=150+i*62;s+=ln(x,40,x,76,on[i]?R:"#c9ced8",2.5)+ln(x,118,x,150,on[i]?K:"#c9ced8",2.5)+ln(x+14,118,x+14,176,G,1.5,'stroke-dasharray="3 3"')
+     +`<g data-i="${i}" style="cursor:pointer"><rect x="${x-26}" y="76" width="52" height="42" rx="10" fill="${on[i]?"#fff1e4":"#f7f9fc"}" stroke="${on[i]?O:"#e3e8f0"}" stroke-width="2"/>${tx(x,96,a[0],K,16)}${tx(x,112,a[2]+" W",M,10)}</g>`;});
+   s+=`<rect x="20" y="206" width="300" height="34" rx="10" fill="${trip?"#fdeaea":"#e8f6ee"}"/>`+tx(170,228,t("कुल धारा ","Total current ")+Itot.toFixed(1)+" A "+(trip?t("> 16 A: MCB गिरा","> 16 A: MCB tripped"):t("≤ 16 A: ठीक","≤ 16 A: OK")),trip?R:G,14,"middle",700);
+   return {html:svg(246,s),cap:t("उपकरणों पर टैप कीजिए। लाइन की सीमा 16 A मानी है।","Tap appliances. The line limit is taken as 16 A."),
+     mount:()=>document.querySelectorAll("#sec svg g[data-i]").forEach(g=>g.onclick=()=>{const a=[...on];a[+g.dataset.i]^=1;st.f9=a;render();})};},
+ why:()=>t("<b>क्यों:</b> MCB लाइव तार में है, इसलिए गिरते ही पूरा परिपथ बिजली से कट जाता है। अर्थ तार धातु के खोल से रिसी धारा को ज़मीन में भेजकर झटके से बचाता है।","<b>Why:</b> the MCB is in the live wire, so when it trips the whole circuit is cut off. The earth wire sends leaked current from a metal body into the ground and prevents a shock."),
+ trap:()=>t("<b>आम गलती:</b> स्विच या फ्यूज़ को न्यूट्रल में लगाना। तब स्विच बंद होने पर भी उपकरण में 230 V रहता है, जो खतरनाक है।","<b>Common mistake:</b> putting the switch or fuse in the neutral. Then the appliance stays at 230 V even when switched off, which is dangerous."),
+ mcq:{q:()=>t("230 V पर गीज़र 2000 W, AC 1500 W, प्रेस 1000 W साथ चलें। कुल धारा?","At 230 V a 2000 W geyser, 1500 W AC and 1000 W iron run together. Total current?"),o:()=>["4.5 A","8.7 A","19.6 A","1035 A"],a:2,
+  A:()=>["I₁ = 2000/230 = 8.70 A","I₂ = 1500/230 = 6.52 A; I₃ = 1000/230 = 4.35 A",t("कुल = 8.70 + 6.52 + 4.35 = 19.6 A","Total = 8.70 + 6.52 + 4.35 = 19.6 A")],B:()=>[t("कुल शक्ति = 2000 + 1500 + 1000 = 4500 W","Total power = 2000 + 1500 + 1000 = 4500 W"),"I = P / V = 4500 / 230","I = 19.6 A"],
+  tr:()=>t("8.7 A सिर्फ़ गीज़र की धारा है। 4.5 A, 4500 को 1000 से भाग देने की गलती है।","8.7 A is only the geyser. 4.5 A comes from dividing 4500 by 1000.")}}
+,{h:()=>t("ओम का नियम: 3D मॉडल","Ohm's law: 3D model"),emb:"old"}
+];
+
+function mcq(m,box){const holder=document.createElement("div");holder.innerHTML=`<div class="q">${t("अब आपकी बारी: ","Your turn: ")}${m.q()}</div>`;
+ const opts=m.o();opts.forEach((o,k)=>{const b=document.createElement("button");b.className="opt";b.textContent=o;
+  b.onclick=()=>{holder.querySelectorAll(".opt").forEach((x,j)=>{x.disabled=true;if(j===m.a)x.classList.add("right");});if(k!==m.a)b.classList.add("wrong");
+   const r=document.createElement("div");
+   const tabs=m.B?`<div class="meth"><button class="on" data-m="A">${t("तरीका A: सूत्र","Method A: formula")}</button><button data-m="B">${t("तरीका B: अनुपात/तर्क","Method B: ratio/logic")}</button></div>`:"";
+   r.innerHTML=`<div class="box ${k===m.a?"good":"trap"}"><b>${k===m.a?t("सही!","Correct!"):t("फिर से सोचिए।","Think again.")}</b></div>${tabs}<div class="box why steps" id="stp"></div><div class="box trap">${m.tr()}</div>`;
+   holder.appendChild(r);const show=w=>{r.querySelector("#stp").innerHTML=(w==="B"?m.B():m.A()).map(x=>`<div>${x}</div>`).join("");};show("A");
+   r.querySelectorAll(".meth button").forEach(bt=>bt.onclick=()=>{r.querySelectorAll(".meth button").forEach(x=>x.classList.remove("on"));bt.classList.add("on");show(bt.dataset.m);});};
+  holder.appendChild(b);});box.appendChild(holder);}
+
+function render(){const s=SECTIONS[S];document.documentElement.lang=L;
+ $("tag").textContent=t("विद्युत लैब · चित्र चुनें","Electricity lab · pick a figure");$("lang").textContent=L==="hi"?"English":"हिंदी";
+ $("chips").innerHTML=SECTIONS.map((x,k)=>`<button data-k="${k}" class="${k===S?"on":""}">${k+1}. ${x.h()}</button>`).join("");
+ $("chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{S=+b.dataset.k;render();});
+ const sec=$("sec");
+ if(s.emb){sec.innerHTML=`<div class="card" style="padding:0;overflow:hidden"><iframe id="emb" style="width:100%;height:330px;border:0;display:block"></iframe></div>`;
+   let src=EMB[s.emb]; if(s.emb==="old")src=src.replace("__LANG__",L); else if(L==="en")src=src.replace('let L="hi"','let L="en"');
+   $("emb").srcdoc=src;}
+ else{const f=s.fig();sec.innerHTML=`<div class="card">${f.html}<div class="cap">${f.cap}</div></div>`;if(f.mount)f.mount();}
+ const c=$("chips").querySelector(".on");if(c)c.scrollIntoView({inline:"center",block:"nearest"});}
+$("lang").onclick=()=>{L=L==="hi"?"en":"hi";render();};
+render();
+</script>
+</body>
+</html>
