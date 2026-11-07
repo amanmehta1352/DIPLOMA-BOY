@@ -1,10 +1,10 @@
 {
  "model_used": "deepseek/deepseek-chat",
  "usage": {
-  "prompt_tokens": 1450,
-  "completion_tokens": 1542,
-  "total_tokens": 2992,
-  "cost": 0.00183638,
+  "prompt_tokens": 1656,
+  "completion_tokens": 2919,
+  "total_tokens": 4575,
+  "cost": 0.00312783,
   "is_byok": false,
   "prompt_tokens_details": {
    "cached_tokens": 0,
@@ -13,9 +13,9 @@
    "video_tokens": 0
   },
   "cost_details": {
-   "upstream_inference_cost": 0.00183638,
-   "upstream_inference_prompt_cost": 0.000464,
-   "upstream_inference_completions_cost": 0.00137238
+   "upstream_inference_cost": 0.00312783,
+   "upstream_inference_prompt_cost": 0.00052992,
+   "upstream_inference_completions_cost": 0.00259791
   },
   "completion_tokens_details": {
    "reasoning_tokens": 0,
