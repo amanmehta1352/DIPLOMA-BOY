@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="hi" data-l="__LANG__">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balancing lab</title>
+<style>
+  :root{--ink:#16202f;--mute:#5f6b80;--line:#dde3ec;--b:#2563eb;--g:#15803d;--r:#dc2626;--o:#e8730c}
+  *{box-sizing:border-box}
+  body{margin:0;background:#f4f6fa;color:var(--ink);font:15px/1.5 system-ui,"Noto Sans Devanagari",sans-serif}
+  .wrap{max-width:460px;margin:0 auto;padding:8px}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .top b{font-size:15px}
+  .lang{background:#fff;border:1px solid var(--line);border-radius:16px;padding:3px 10px;font-size:12px}
+  .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+  .chips button{flex:none;border:1px solid var(--line);background:#fff;border-radius:14px;padding:4px 10px;font-size:12px;color:var(--mute)}
+  .chips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chips button.done{border-color:var(--g);color:var(--g)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin:6px 0}
+  .eq{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;font-size:17px;font-weight:700}
+  .sp{display:flex;flex-direction:column;align-items:center;gap:2px}
+  .ctl{display:flex;align-items:center;gap:3px}
+  .ctl button{width:24px;height:24px;border-radius:7px;border:1px solid var(--line);background:#f8fafc;font-size:15px;line-height:1}
+  .ctl span{min-width:16px;text-align:center;color:var(--b);font-size:16px}
+  .op{font-size:18px;color:var(--mute);padding:0 2px}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+  th,td{border:1px solid var(--line);padding:4px;text-align:center}
+  th{background:#eff6ff;color:var(--b)}
+  .ok{color:var(--g);font-weight:700}.no{color:var(--r);font-weight:700}
+  .msg{text-align:center;font-weight:700;margin-top:6px}
+  .type{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .type button{flex:1;min-width:120px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px;font-size:13px}
+  .type button.right{border-color:var(--g);background:#e8f6ee}.type button.wrong{border-color:var(--r);background:#fdeaea}
+  .hint{font-size:12px;color:var(--mute);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><b id="ttl"></b><button class="lang" id="lang"></button></div>
+  <div class="chips" id="chips"></div>
+  <div class="card"><div class="eq" id="eq"></div><table id="tbl"></table><div class="msg" id="msg"></div></div>
+  <div class="card" id="typeCard"><div class="hint" id="tq"></div><div class="type" id="types"></div><div class="msg" id="tmsg"></div></div>
+</div>
+<script>
+const _l=document.documentElement.dataset.l; let L=_l==="en"?"en":"hi";
+const t=(h,e)=>L==="hi"?h:e;
+const SUB={"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+function atoms(f){f=f.replace(/[₀-₉]/g,c=>SUB[c]);const st=[{}];let i=0;
+  const add=(o,e,n)=>o[e]=(o[e]||0)+n;
+  while(i<f.length){const c=f[i];
+    if(c==="("){st.push({});i++;}
+    else if(c===")"){i++;let m=f.slice(i).match(/^\d*/)[0];i+=m.length;const top=st.pop();for(const e in top)add(st[st.length-1],e,top[e]*(+m||1));}
+    else{const m=f.slice(i).match(/^([A-Z][a-z]?)(\d*)/);add(st[st.length-1],m[1],+m[2]||1);i+=m[0].length;}}
+  return st[0];}
+const TYPES=[["संयोजन","Combination"],["वियोजन","Decomposition"],["विस्थापन","Displacement"],["द्विविस्थापन","Double displacement"]];
+const EQS=[
+ {l:["Mg","O₂"],r:["MgO"],a:[2,1,2],ty:0},
+ {l:["H₂","O₂"],r:["H₂O"],a:[2,1,2],ty:0},
+ {l:["Fe","H₂O"],r:["Fe₃O₄","H₂"],a:[3,4,1,4],ty:-1},
+ {l:["KClO₃"],r:["KCl","O₂"],a:[2,2,3],ty:1},
+ {l:["N₂","H₂"],r:["NH₃"],a:[1,3,2],ty:0},
+ {l:["Pb(NO₃)₂"],r:["PbO","NO₂","O₂"],a:[2,2,4,1],ty:1},
+ {l:["BaCl₂","Al₂(SO₄)₃"],r:["BaSO₄","AlCl₃"],a:[3,1,3,2],ty:3},
+ {l:["C₃H₈","O₂"],r:["CO₂","H₂O"],a:[1,5,3,4],ty:-1},
+];
+let S=0; const coef=EQS.map(e=>e.l.concat(e.r).map(()=>1)); const solved=EQS.map(()=>false); const typed=EQS.map(()=>null);
+function count(e,c){const L_={},R_={};e.l.forEach((f,i)=>{const a=atoms(f);for(const k in a)L_[k]=(L_[k]||0)+a[k]*c[i];});
+  e.r.forEach((f,j)=>{const a=atoms(f);for(const k in a)R_[k]=(R_[k]||0)+a[k]*c[e.l.length+j];});return [L_,R_];}
+function render(){const e=EQS[S],c=coef[S];document.documentElement.lang=L;
+  document.getElementById("ttl").textContent=t("⚖️ समीकरण संतुलन लैब","⚖️ Equation balancing lab");
+  document.getElementById("lang").textContent=L==="hi"?"English":"हिंदी";
+  document.getElementById("chips").innerHTML=EQS.map((x,k)=>`<button data-k="${k}" class="${k===S?"on":""} ${solved[k]?"done":""}">${solved[k]?"✓ ":""}${k+1}</button>`).join("");
+  document.querySelectorAll("#chips button").forEach(b=>b.onclick=()=>{S=+b.dataset.k;render();});
+  const sp=(f,i)=>`<div class="sp"><div class="ctl"><button data-i="${i}" data-d="-1">−</button><span>${c[i]}</span><button data-i="${i}" data-d="1">+</button></div><div>${c[i]>1?c[i]:""}${f}</div></div>`;
+  let h=e.l.map((f,i)=>sp(f,i)).join('<span class="op">+</span>')+'<span class="op">→</span>'+e.r.map((f,j)=>sp(f,e.l.length+j)).join('<span class="op">+</span>');
+  document.getElementById("eq").innerHTML=h;
+  document.querySelectorAll("#eq button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;c[i]=Math.max(1,Math.min(9,c[i]+(+b.dataset.d)));render();});
+  const [A,B]=count(e,c);const els=Object.keys(A);let all=true;
+  let tb=`<tr><th>${t("परमाणु","Atom")}</th><th>${t("बाएँ","Left")}</th><th>${t("दाएँ","Right")}</th><th></th></tr>`;
+  els.forEach(k=>{const ok=A[k]===B[k];if(!ok)all=false;tb+=`<tr><td><b>${k}</b></td><td>${A[k]}</td><td>${B[k]||0}</td><td class="${ok?"ok":"no"}">${ok?"✓":"✗"}</td></tr>`;});
+  document.getElementById("tbl").innerHTML=tb;
+  const g=c.reduce((a,b)=>{const f=(x,y)=>y?f(y,x%y):x;return f(a,b);});
+  if(all&&g>1)all=false;
+  solved[S]=solved[S]||all;
+  document.getElementById("msg").innerHTML=all?`<span class="ok">${t("संतुलित! शाबाश 🎉","Balanced! Well done 🎉")}</span>`:(g>1&&Object.keys(A).every(k=>A[k]===B[k]))?`<span class="no">${t("बराबर है, पर गुणांक सबसे छोटे रखो","Equal, but use the smallest coefficients")}</span>`:`<span class="hint">${t("+ / − से गुणांक बदलो, सूत्र नहीं","Change coefficients with + / −, never the formula")}</span>`;
+  const tc=document.getElementById("typeCard");
+  if(e.ty<0){tc.style.display="none";return;} tc.style.display="block";
+  document.getElementById("tq").textContent=t("यह किस प्रकार की अभिक्रिया है?","What type of reaction is this?");
+  document.getElementById("types").innerHTML=TYPES.map((x,k)=>`<button data-k="${k}" class="${typed[S]===null?"":k===e.ty?"right":k===typed[S]?"wrong":""}">${t(x[0],x[1])}</button>`).join("");
+  document.querySelectorAll("#types button").forEach(b=>b.onclick=()=>{typed[S]=+b.dataset.k;render();});
+  document.getElementById("tmsg").innerHTML=typed[S]===null?"":typed[S]===e.ty?`<span class="ok">${t("सही!","Correct!")}</span>`:`<span class="no">${t("फिर सोचो: कितने अभिकारक, कितने उत्पाद?","Think again: how many reactants, how many products?")}</span>`;
+}
+document.getElementById("lang").onclick=()=>{L=L==="hi"?"en":"hi";render();};
+render();
+</script>
+</body>
+</html>

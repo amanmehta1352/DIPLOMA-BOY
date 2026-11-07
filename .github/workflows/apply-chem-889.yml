@@ -1,0 +1,19 @@
+name: Apply Chemistry ch 1 content
+# Runs only on the electricity-v2 branch. Inserts content/chem_889/data_889.json as the class 9-10 chapter 889 draft (draft_save never overwrites an approved row).
+on:
+  push:
+    branches: [electricity-v2]
+    paths: ['content/chem_889/data_889.json', '.github/workflows/apply-chem-889.yml']
+permissions:
+  contents: read
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: >-
+          python3 robots/apply/apply_draft.py --level class_9_10 --chapter 889 --status approved
+          --file content/chem_889/data_889.json
+          --note "2026-11-07 owner order - class 10 chemistry ch 1; 58 equations balance-checked by code; copyright longest run 7 words, overlap 8.9 percent"
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
