@@ -1,16 +1,14 @@
-## Review of your round 1 (not accepted yet)
-Problems:
-1. Every mode lists F1-F9. That makes all modes the same. The owner's rule is one distinct purpose per mode with no repetition. Re-assign: each figure lives in exactly ONE primary mode; other modes may only point to it.
-2. "Embedded videos" — the app has no video assets. Remove them; use animated SVG or step reveals instead.
-3. Your missing-items list only repeated my examples. I need YOUR exhaustive inventory.
-4. Physics check: traffic signal lamps are wired in parallel, not series. F9 domestic wiring is not part of the CBSE Class 10 "Electricity" chapter; keep it as an optional "real-life" extension in Lab only, marked "beyond syllabus".
-5. Nothing is concrete enough to build.
+## Review of round 2 (better, still not complete)
+Physics/maths errors you must fix:
+1. Case-based: 1 kW + 100 W + 500 W = 1.6 kW x 4 h = 6.4 kWh per DAY. Monthly (30 days) = 192 kWh, at Rs 6 = Rs 1,152, not Rs 384. Current = 1600/230 = 6.96 A, which is BELOW 10 A, so the fuse does NOT blow. Also a 500 W fan is unrealistic (use 75 W).
+2. "Using P = VI for resistive loads only" is not a mistake; P = VI holds for any device. Give real mistakes.
+3. Memory hook "more voltage, more power" is misleading (for a fixed appliance P = V²/R, so doubling V gives 4x power; for different appliances on the same supply, the lower-R one has more power). Write a correct hook.
+4. Teach Beat 1: the real reason a bulb is brighter in parallel is that each bulb gets the full supply voltage (so more current through it). Say that.
+5. F16-F21 are named in the mode map but never defined.
 
-## Round 2 task — be concrete
-A. Final MODE MAP: a table (mode | single purpose | what the student does | primary figures | time to finish). Book, Notes, Teach, Formula, Lab, Practice.
-B. NEW FIGURES: propose at least 6 new figures F10+ that the chapter still needs (e.g. charge flow through a cross-section to define 1 ampere; water-tank or other analogy for potential difference — say its limits; resistivity bar chart for conductors/alloys/insulators; filament bulb and fuse wire; P-V-I-R "wheel"; Ohm's law lab circuit with rheostat and observation table; equivalent resistance step-collapse animation for a mixed circuit). For each: exact layout on 360 px, labels with units, max 3 colours, interaction, and which syllabus point (S1-S8) it serves.
-C. TEACH SCRIPT for ONE topic (S4+S5 series and parallel) as it would actually run: 8-12 numbered beats. Each beat = what appears, the predict-question shown BEFORE reveal (with the 3-4 choices), the reveal line, and the figure state. Real numbers.
-D. NOTEBOOK PAGE spec for S7 (power): exactly what one notebook page contains — headings, colour code, a memory hook in Hindi and English, one boxed "exam line" (the exact sentence a student should write in the board exam, your own words), a 3-line formula strip, two common mistakes.
-E. NUMERICAL TYPES: list every distinct numerical type a CBSE Class 10 board paper asks from this chapter (e.g. "find R of combination then current", "compare two bulbs' power", "stretched wire", "cost of energy"), with one original example question for each and its final answer.
-F. CBSE QUESTION FORMATS: for each of MCQ, assertion-reason, case-based (with 4 sub-questions), 2-mark, 3-mark and 5-mark, write one original question with answer.
-Keep everything in your own words. Correct physics only.
+## Round 3 task — completeness
+A. Define F16-F21 exactly as before (layout on 360 px, labels with units, max 3 colours, interaction, syllabus point). Include at least: a mixed series-parallel "collapse step by step" figure; two bulbs (60 W and 100 W) first in parallel then in series showing that in SERIES the 60 W bulb is brighter; a "kWh meter reading" figure; an "observation table builds into a V-I graph" lab figure.
+B. Full Teach script for S4+S5 with 10 beats (predict -> reveal), real numbers (6 V battery, 2 ohm and 4 ohm), including one beat where the student computes equivalent resistance, one where they find current in each branch, one with the 60 W / 100 W surprise.
+C. NUMERICAL TYPES: complete list, at least 12 distinct types for this chapter (include: charge from current and time; number of electrons from charge; work from V and Q; resistance from resistivity; resistivity from data; stretched/folded wire; series; parallel; mixed; maximum and minimum resistance from n resistors; power of appliance and current/fuse choice; bulbs in series vs parallel brightness; heat by Joule's law; energy cost in kWh; resistance of a bulb from its rating). For EACH: one original question, both Method A (formula) and Method B (ratio/logic) solution steps, final answer. Check every number twice.
+D. Correct notebook page for S7 with your fixes.
+E. Finally, a self-check: list any syllabus point S1-S8 or exam skill (drawing circuit diagrams, reading V-I graph, activity questions, units/SI definitions) still NOT covered by the design. If none, say "COVERAGE COMPLETE" and explain why.
