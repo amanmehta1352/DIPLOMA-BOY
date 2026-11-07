@@ -5,7 +5,7 @@ Written in our own words; physics and numbers re-checked in check.py."""
 
 NOTES = [
  dict(fig="F10_ampere",
-  title=("1. विद्युत आवेश और विद्युत धारा", "1. Electric charge and electric current"),
+  title=("विद्युत आवेश और विद्युत धारा", "Electric charge and electric current"),
   points=[
    ("📌 परिभाषा (exam line): किसी चालक के अनुप्रस्थ काट से प्रति सेकंड प्रवाहित होने वाले आवेश को विद्युत धारा कहते हैं। I = Q/t",
     "📌 Definition (exam line): the charge flowing through a cross-section of a conductor per second is called electric current. I = Q/t"),
@@ -26,7 +26,7 @@ NOTES = [
          [("समय","Time"),("t","t"),("सेकंड (s)","second (s)")]]),
 
  dict(fig="F1_current",
-  title=("2. विद्युत विभव और विभवांतर", "2. Electric potential and potential difference"),
+  title=("विद्युत विभव और विभवांतर", "Electric potential and potential difference"),
   points=[
    ("📌 परिभाषा (exam line): परिपथ में दो बिंदुओं के बीच एकांक धनावेश को पहुँचाने में जितना कार्य करना पड़े, वही उन बिंदुओं का विभवांतर है। V = W/Q",
     "📌 Definition (exam line): the work done to move a unit positive charge from one point of a circuit to another is the potential difference between those points. V = W/Q"),
@@ -41,7 +41,7 @@ NOTES = [
   ]),
 
  dict(fig="F2_symbols",
-  title=("3. परिपथ आरेख, एमीटर और वोल्टमीटर", "3. Circuit diagrams, ammeter and voltmeter"),
+  title=("परिपथ आरेख, एमीटर और वोल्टमीटर", "Circuit diagrams, ammeter and voltmeter"),
   points=[
    ("परिपथ आरेख में हर उपकरण का तय प्रतीक होता है। सेल की लंबी पतली रेखा + सिरा और छोटी मोटी रेखा − सिरा है।",
     "In a circuit diagram every device has a fixed symbol. In a cell the long thin line is + and the short thick line is −."),
@@ -59,7 +59,7 @@ NOTES = [
          [("वोल्टमीटर","Voltmeter"),("विभवांतर (V)","potential difference (V)"),("पार्श्वक्रम","in parallel"),("बहुत अधिक","very high")]]),
 
  dict(fig="F4_vi",
-  title=("4. ओम का नियम और V-I ग्राफ", "4. Ohm's law and the V-I graph"),
+  title=("ओम का नियम और V-I ग्राफ", "Ohm's law and the V-I graph"),
   points=[
    ("📌 ओम का नियम (exam line): ताप स्थिर रहने पर किसी चालक से प्रवाहित धारा उसके सिरों के विभवांतर के अनुक्रमानुपाती होती है। V ∝ I, यानी V = IR",
     "📌 Ohm's law (exam line): if the temperature stays fixed, the current in a conductor grows in step with the voltage applied across its two ends. V ∝ I, so V = IR"),
@@ -74,7 +74,7 @@ NOTES = [
   ]),
 
  dict(fig="F5_resistivity",
-  title=("5. प्रतिरोध किन बातों पर निर्भर है", "5. What resistance depends on"),
+  title=("प्रतिरोध किन बातों पर निर्भर है", "What resistance depends on"),
   points=[
    ("चालक का प्रतिरोध (i) लंबाई के अनुक्रमानुपाती, (ii) अनुप्रस्थ काट के क्षेत्रफल के व्युत्क्रमानुपाती, और (iii) पदार्थ की प्रकृति तथा ताप पर निर्भर होता है।",
     "The resistance of a conductor is (i) proportional to its length, (ii) inversely proportional to its area of cross-section, and (iii) depends on the material and the temperature."),
@@ -89,7 +89,7 @@ NOTES = [
   ]),
 
  dict(fig="F12_resistivity_chart",
-  title=("6. प्रतिरोधकता: चालक, मिश्रधातु, विद्युतरोधी", "6. Resistivity: conductors, alloys, insulators"),
+  title=("प्रतिरोधकता: चालक, मिश्रधातु, विद्युतरोधी", "Resistivity: conductors, alloys, insulators"),
   points=[
    ("धातुओं की प्रतिरोधकता बहुत कम (10^(-8) Ω m के आसपास) होती है, इसलिए वे अच्छे चालक हैं। ताँबा और एल्युमिनियम बिजली के तारों में लगते हैं।",
     "Metals have very low resistivity (around 10^(-8) Ω m), so they are good conductors. Copper and aluminium are used in electric wires."),
@@ -108,7 +108,7 @@ NOTES = [
          [("काँच","Glass"),("10^10 से 10^14","10^10 to 10^14"),("विद्युतरोधी","insulator")]]),
 
  dict(fig="S_series_V",
-  title=("7. प्रतिरोधकों का श्रेणीक्रम संयोजन", "7. Resistors in series"),
+  title=("प्रतिरोधकों का श्रेणीक्रम संयोजन", "Resistors in series"),
   points=[
    ("📌 श्रेणीक्रम: प्रतिरोधक एक के बाद एक जुड़े हों, धारा के लिए एक ही रास्ता।",
     "📌 Series: resistors joined end to end, giving one path for the current."),
@@ -123,7 +123,7 @@ NOTES = [
   ]),
 
  dict(fig="P_total",
-  title=("8. प्रतिरोधकों का पार्श्वक्रम संयोजन और दैनिक उपयोग", "8. Resistors in parallel and daily use"),
+  title=("प्रतिरोधकों का पार्श्वक्रम संयोजन और दैनिक उपयोग", "Resistors in parallel and daily use"),
   points=[
    ("📌 पार्श्वक्रम: सभी प्रतिरोधक एक ही दो बिंदुओं के बीच जुड़े हों, धारा के लिए कई रास्ते।",
     "📌 Parallel: all resistors joined between the same two points, giving several paths for the current."),
@@ -145,7 +145,7 @@ NOTES = [
          [("एक उपकरण टूटे तो","If one fails"),("सब बंद","all stop"),("बाकी चलें","others work")]]),
 
  dict(fig="M_mixed2",
-  title=("9. मिश्रित परिपथ: कदम-दर-कदम हल", "9. Mixed circuits: solve step by step"),
+  title=("मिश्रित परिपथ: कदम-दर-कदम हल", "Mixed circuits: solve step by step"),
   points=[
    ("नियम: पहले सबसे अंदर का पार्श्वक्रम भाग छोटा करो, फिर श्रेणीक्रम में जोड़ो, फिर I = V/R लगाओ।",
     "Rule: first collapse the innermost parallel part, then add in series, then use I = V/R."),
@@ -158,7 +158,7 @@ NOTES = [
   ]),
 
  dict(fig="F7_heating",
-  title=("10. विद्युत धारा का तापीय प्रभाव (जूल का नियम)", "10. Heating effect of current (Joule's law)"),
+  title=("विद्युत धारा का तापीय प्रभाव (जूल का नियम)", "Heating effect of current (Joule's law)"),
   points=[
    ("📌 जूल का तापन नियम (exam line): किसी प्रतिरोधक में उत्पन्न ऊष्मा (i) धारा के वर्ग, (ii) प्रतिरोध और (iii) धारा बहने के समय के अनुक्रमानुपाती होती है। H = I²Rt",
     "📌 Joule's law of heating (exam line): the heat produced in a resistor is proportional to (i) the square of the current, (ii) the resistance and (iii) the time for which the current flows. H = I²Rt"),
@@ -171,7 +171,7 @@ NOTES = [
   ]),
 
  dict(fig="F13_fuse_filament",
-  title=("11. तापीय प्रभाव के उपयोग: बल्ब, हीटर, फ्यूज़", "11. Uses of the heating effect: bulb, heater, fuse"),
+  title=("तापीय प्रभाव के उपयोग: बल्ब, हीटर, फ्यूज़", "Uses of the heating effect: bulb, heater, fuse"),
   points=[
    ("हीटर, प्रेस, टोस्टर, गीज़र: मिश्रधातु का तत्व गर्म होता है।",
     "Heater, iron, toaster, geyser: an alloy element heats up."),
@@ -184,7 +184,7 @@ NOTES = [
   ]),
 
  dict(fig="F14_power_wheel",
-  title=("12. विद्युत शक्ति: P, V, I, R का संबंध", "12. Electric power: how P, V, I and R are linked"),
+  title=("विद्युत शक्ति: P, V, I, R का संबंध", "Electric power: how P, V, I and R are linked"),
   points=[
    ("📌 परिभाषा (exam line): विद्युत ऊर्जा के उपभोग की दर को विद्युत शक्ति कहते हैं। P = W/t = VI",
     "📌 Definition (exam line): the rate at which electrical energy is used is called electric power. P = W/t = VI"),
@@ -201,7 +201,7 @@ NOTES = [
   ]),
 
  dict(fig="F8_bill",
-  title=("13. विद्युत ऊर्जा का व्यावसायिक मात्रक (kWh) और बिल", "13. Commercial unit of energy (kWh) and the bill"),
+  title=("विद्युत ऊर्जा का व्यावसायिक मात्रक (kWh) और बिल", "Commercial unit of energy (kWh) and the bill"),
   points=[
    ("ऊर्जा E = P × t। P वाट और t सेकंड में हों तो E जूल में।",
     "Energy E = P × t. With P in watts and t in seconds, E is in joules."),
@@ -216,7 +216,7 @@ NOTES = [
   ]),
 
  dict(fig="F9_wiring",
-  title=("14. (अतिरिक्त, पाठ्यक्रम से बाहर) घरेलू वायरिंग और सुरक्षा", "14. (Extra, beyond syllabus) Home wiring and safety"),
+  title=("(अतिरिक्त, पाठ्यक्रम से बाहर) घरेलू वायरिंग और सुरक्षा", "(Extra, beyond syllabus) Home wiring and safety"),
   points=[
    ("यह भाग वास्तविक जीवन के लिए है, इस अध्याय की परीक्षा के पाठ्यक्रम में नहीं।",
     "This part is for real life; it is not in this chapter's exam syllabus."),
@@ -229,7 +229,7 @@ NOTES = [
   ]),
 
  dict(fig=None,
-  title=("15. सभी SI परिभाषाएँ एक जगह (परीक्षा के लिए)", "15. All SI definitions in one place (for the exam)"),
+  title=("सभी SI परिभाषाएँ एक जगह (परीक्षा के लिए)", "All SI definitions in one place (for the exam)"),
   points=[
    ("1 कूलॉम: 1 ऐम्पियर धारा द्वारा 1 सेकंड में प्रवाहित आवेश।", "1 coulomb: the charge carried by a current of 1 ampere in 1 second."),
    ("1 ऐम्पियर: 1 सेकंड में 1 कूलॉम आवेश का प्रवाह।", "1 ampere: a flow of 1 coulomb of charge in 1 second."),
@@ -244,7 +244,7 @@ NOTES = [
          [("ऊष्मा","Heat"),("H = I²Rt","H = I²Rt"),("J","J")],[("शक्ति","Power"),("P = VI","P = VI"),("W","W")]]),
 
  dict(fig=None,
-  title=("16. सवालों के प्रकार और हल करने की चाल", "16. Question types and how to attack them"),
+  title=("सवालों के प्रकार और हल करने की चाल", "Question types and how to attack them"),
   points=[
    ("यह तालिका बताती है कि बोर्ड परीक्षा में इस अध्याय से कौन-कौन से numerical आते हैं और हर एक का सबसे तेज़ रास्ता क्या है।",
     "This table lists the numerical types this chapter gives in the board exam and the quickest route for each."),
