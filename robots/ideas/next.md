@@ -1,25 +1,16 @@
-## Context
-Chapter: Electricity, CBSE Class 10 Science.
-Official syllabus points for this chapter (CBSE 2025-26, Unit IV "Effects of Current"):
-S1 Electric current and potential difference. S2 Ohm's law. S3 Resistance, resistivity, factors on which the resistance of a conductor depends. S4 Series combination of resistors. S5 Parallel combination of resistors and its applications in daily life. S6 Heating effect of electric current and its applications in daily life. S7 Electric power; interrelation between P, V, I and R. S8 Commercial unit of electrical energy (kWh).
+## Review of your round 1 (not accepted yet)
+Problems:
+1. Every mode lists F1-F9. That makes all modes the same. The owner's rule is one distinct purpose per mode with no repetition. Re-assign: each figure lives in exactly ONE primary mode; other modes may only point to it.
+2. "Embedded videos" — the app has no video assets. Remove them; use animated SVG or step reveals instead.
+3. Your missing-items list only repeated my examples. I need YOUR exhaustive inventory.
+4. Physics check: traffic signal lamps are wired in parallel, not series. F9 domestic wiring is not part of the CBSE Class 10 "Electricity" chapter; keep it as an optional "real-life" extension in Lab only, marked "beyond syllabus".
+5. Nothing is concrete enough to build.
 
-The app already has these modes for each chapter (bottom tabs):
-- Book (E-book / ई-बुक): the chapter as a printed textbook.
-- Notes (Notebook / नोटबुक): today 20 panels — introduction, one panel per topic, 5 solved numericals, quick revision, practice questions. Plain text panels, a few tables, 6 diagrams.
-- Teach (टीचिंग मोड): today a long block of text (Hindi, English, Hinglish, bilingual versions) with no figures, no step-by-step reveal. Students find it boring.
-- Formula: 9 formulas in 4 groups (basic circuit; Ohm's law and resistivity; combinations; heating and power).
-- 3D: one interactive "Ohm's law model" with a slider.
-
-The owner has APPROVED this new style (built as demos): every topic gets its own clean interactive figure (max 3 colours, big labels), a real-life hook question, a 2-line core idea, a "why" box, a "common mistake" box, and an MCQ whose wrong options come from real student mistakes, solved by Method A (formula) and Method B (ratio/logic). Approved figures so far:
-F1 electron drift vs conventional current with V and R sliders; F2 circuit symbol chart; F3 ammeter in series / voltmeter in parallel, correct vs wrong toggle; F4 V-I graph with R slider; F5 wire with length, thickness and material sliders showing R = ρL/A; F6 series vs parallel with 1-3 bulbs showing brightness, I and P; F7 heater coil vs cord (same current, very different heat); F8 tap appliances to build a monthly bill (kWh); F9 home wiring with live/neutral/earth and MCB tripping above 16 A.
-
-## Your task (round 1)
-1. Redesign EACH mode out of the box so that each has ONE clear, different purpose and none repeats another. For each mode give: its purpose in one line; the screen-by-screen experience; which figures (F1-F9 or NEW ones you propose, numbered F10, F11 ...) it uses; and what the student does (tap, drag, predict, write).
-   - Book: how to make an e-book feel better than a printed textbook on a phone.
-   - Notes/Notebook: how to make notes a student actually revises from (think: handwritten-notebook feel, colour codes, memory hooks, one-page summaries).
-   - Teach: a teacher-led lesson with step-by-step reveal; how long, what order, where the student is asked to predict before seeing.
-   - Formula: beyond a list — e.g. formula map, when-to-use, unit traps, derive one from another.
-   - 3D / Lab: which simulations or virtual experiments (for example the NCERT-type activity of verifying Ohm's law) should exist.
-2. Give a COVERAGE TABLE: rows S1-S8, columns Book / Notes / Teach / Formula / 3D-Lab / Practice, each cell saying what content item covers that point (or "missing").
-3. List every content item that is still missing for full syllabus coverage (for example: definitions of 1 volt, 1 ampere, 1 ohm; resistivity values table; why alloys are used in heating elements; why tungsten in bulbs; fuse working and rating; P = I²R = V²/R; numericals of each type; activity-based questions; assertion-reason and case-based questions as in CBSE papers). Be exhaustive.
-4. Note: F9 (home wiring and MCB) may belong to a different chapter in the current syllabus. Say where you would place it.
+## Round 2 task — be concrete
+A. Final MODE MAP: a table (mode | single purpose | what the student does | primary figures | time to finish). Book, Notes, Teach, Formula, Lab, Practice.
+B. NEW FIGURES: propose at least 6 new figures F10+ that the chapter still needs (e.g. charge flow through a cross-section to define 1 ampere; water-tank or other analogy for potential difference — say its limits; resistivity bar chart for conductors/alloys/insulators; filament bulb and fuse wire; P-V-I-R "wheel"; Ohm's law lab circuit with rheostat and observation table; equivalent resistance step-collapse animation for a mixed circuit). For each: exact layout on 360 px, labels with units, max 3 colours, interaction, and which syllabus point (S1-S8) it serves.
+C. TEACH SCRIPT for ONE topic (S4+S5 series and parallel) as it would actually run: 8-12 numbered beats. Each beat = what appears, the predict-question shown BEFORE reveal (with the 3-4 choices), the reveal line, and the figure state. Real numbers.
+D. NOTEBOOK PAGE spec for S7 (power): exactly what one notebook page contains — headings, colour code, a memory hook in Hindi and English, one boxed "exam line" (the exact sentence a student should write in the board exam, your own words), a 3-line formula strip, two common mistakes.
+E. NUMERICAL TYPES: list every distinct numerical type a CBSE Class 10 board paper asks from this chapter (e.g. "find R of combination then current", "compare two bulbs' power", "stretched wire", "cost of energy"), with one original example question for each and its final answer.
+F. CBSE QUESTION FORMATS: for each of MCQ, assertion-reason, case-based (with 4 sub-questions), 2-mark, 3-mark and 5-mark, write one original question with answer.
+Keep everything in your own words. Correct physics only.
