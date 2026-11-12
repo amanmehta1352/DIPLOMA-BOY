@@ -275,6 +275,9 @@ for q, (src, stages) in C.items():
             r = {'qual': q, 'stage': st, 'slug': slug(en), 'sort': i + 1, 'en': en, 'hi': hi, 'kind': kind, 'source': src}
             assert r['slug'] not in seen, (q, st, en); seen.add(r['slug'])
             m = t[3] if len(t) > 3 else None
+            # audit 2026-11-12: 'maths' and 'general-science' content is competitive-exam material (percentage, GS facts),
+            # not the board / university syllabus of these subjects, so such subjects stay locked until real content exists
+            if m and (m == 's:maths' or m.startswith('s:general-science')): m = None
             if m:
                 if m.startswith('ch:'): r['chapters'] = [int(x) for x in m[3:].split(',')]
                 else:

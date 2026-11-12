@@ -644,7 +644,7 @@ function quizTotals(){ return Object.values(DB.quiz).reduce((a,q)=>({c:a.c+q.c,t
    owner's Physics book for the levels it was written for. Chapters with no content yet show 🔒. */
 let BOOKS=[];            // [{id,kind:'book'|'atoms',level,title,emoji,color,owned,chapters:[{n,no,topic,t,sh,atoms}]}]
 let SERVER_OK=true, QUAL=null;
-const BOOK_STYLE={'physics-baseline':{title:{hi:'भौतिकी',en:'Physics'},emoji:'⚛️',color:'#10b981'}};
+const BOOK_STYLE={'physics-baseline':{title:{hi:'भौतिकी (मूल किताब)',en:'Physics (core book)'},emoji:'⚛️',color:'#10b981'}};
 const PHYS_LEVELS=['govt_technical','govt_basic'];   // the Physics book is RRB JE / SSC JE / NTPC level
 const SUBJ_EMOJI={'maths':'🧮','reasoning':'🧩','general-science':'🔬','general-awareness':'🌏','civil-engineering':'🏗️','mechanical-engineering':'⚙️',
   'electrical-engineering':'⚡','accountancy':'📒','business-studies':'💼','economics-com':'📈','maths-com':'➗','advanced-accountancy':'📊','business-law':'⚖️',
@@ -736,7 +736,7 @@ function buildState(){
   STATE.forgetting=gl;
   STATE.weakTopics=Object.entries(DB.quiz).filter(([k,v])=>v.t>=3&&v.c/v.t<.6).map(([k,v])=>{ const x=allChapters().find(y=>y.key===k); return x?{name:x.c.t,acc:Math.round(v.c/v.t*100)}:null; }).filter(Boolean);
   const nu=nextUnread(), due=gl.filter(g=>g.urgent).length;
-  STATE.mission=nu?{x:nu,title:{hi:`${nu.b.title.hi} · अध्याय ${nu.c.no}: ${noNum(nu.c.sh.hi||nu.c.t.hi)} पढ़ें`+(due?' + 1 भूत पकड़ें':''),en:`${nu.b.title.en} · Chapter ${nu.c.no}: ${noNum(nu.c.sh.en||nu.c.t.en)}`+(due?' + catch 1 ghost':'')},
+  STATE.mission=nu?{x:nu,title:{hi:`${nu.b.title.hi} · अध्याय ${nu.c.no}${noNum(nu.c.sh.hi||nu.c.t.hi)===nu.b.title.hi?'':': '+noNum(nu.c.sh.hi||nu.c.t.hi)} पढ़ें`+(due?' + 1 भूत पकड़ें':''),en:`Read ${nu.b.title.en} · Chapter ${nu.c.no}${noNum(nu.c.sh.en||nu.c.t.en)===nu.b.title.en?'':': '+noNum(nu.c.sh.en||nu.c.t.en)}`+(due?' + catch 1 ghost':'')},
       sub:{hi:'फ़ोकस टाइमर के साथ 25 मिनट, फिर अगला अध्याय।',en:'25 minutes with the focus timer, then the next chapter.'},time:M(25),xpReward:25+(due?20:0)}
     :(due?{x:null,title:{hi:`${due} भूत पकड़ें (दोहराव)`,en:`Catch ${due} ghosts (revision)`},sub:{hi:'सारे अध्याय पढ़ लिए। अब दोहराने का समय।',en:'All chapters read. Time to revise.'},time:M(15),xpReward:20*due}:null);
   return STATE;
@@ -849,14 +849,14 @@ function renderLibrary(){
     grid.innerHTML=`<div class="empty-note" style="grid-column:1/-1">${T('पहले बताइए आप क्या पढ़ते हैं। फिर यहाँ सिर्फ़ उसी स्तर की किताबें दिखेंगी।','First tell us what you study. Then only that level\'s books appear here.')}<br><br><button class="btn primary" onclick="openQual()">🎓 ${L('अपनी पढ़ाई चुनें','Choose your level')}</button></div>`;
     list.innerHTML=''; document.getElementById('bookCount').innerHTML=''; document.getElementById('continueCard').style.display='none'; renderQuote(); return;
   }
-  if(!books.some(b=>b.id===LIB.sel)) LIB.sel=(DB.lastBook&&books.some(b=>b.id===DB.lastBook.b))?DB.lastBook.b:(books[0]||{}).id;
+  if(!books.some(b=>b.id===LIB.sel)) LIB.sel=(DB.lastBook&&books.some(b=>b.id===DB.lastBook.b))?DB.lastBook.b:(books.find(b=>b.kind!=='soon')||books[0]||{}).id;
   // setup mode: filter by exam, then group Technical / Non-technical (subjects with no content yet are shown locked)
   const tagsAll=[]; books.forEach(b=>(b.forTags||[]).forEach(t=>{ if(!tagsAll.some(x=>x.en===t.en)) tagsAll.push(t); }));
   if(LIB.exam&&!tagsAll.some(t=>t.en===LIB.exam)) LIB.exam=null;
   const stq=DB.setup&&DB.setup.qual?setupQual(DB.setup.qual):null, stages=[...new Set(books.filter(b=>b.course).map(b=>b.stage))];
   if(!stages.includes(LIB.stage)) LIB.stage=stages.includes(String((DB.setup||{}).stage))?String(DB.setup.stage):stages[0];
   const shown=(LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books).filter(b=>!b.course||b.stage===LIB.stage);
-  if(LIB.sel&&!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown[0]||{}).id;
+  if(!LIB.sel||!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown.find(b=>b.kind!=='soon')||shown[0]||{}).id;   // open a book that has chapters, not a locked one
   const isTech=b=>!!(b.subject&&TECH_SUBJECTS.includes(b.subject.slug));
   const icon=b=>{ const ready=b.chapters.filter(avail).length, soon=b.kind==='soon';
     return `<div class="app-icon${b.id===LIB.sel?' sel':''}${soon?' soon':''}" data-book="${esc(b.id)}" role="button" tabindex="0">
@@ -1161,7 +1161,7 @@ function renderDashboard(){
     <div class="stat-row reveal">
       <div class="stat-card fire"><div class="v">🔥 ${s.streak}</div><div class="l">${L('लगातार दिन','Streak')}</div></div>
       <div class="stat-card star"><div class="v">⭐ ${s.xp}</div><div class="l">${L('अंक','XP')}</div></div>
-      <div class="stat-card book"><div class="v">📚 ${BOOKS.filter(b=>b.owned).length}</div><div class="l">${L('किताबें','Books')}</div></div>
+      <div class="stat-card book"><div class="v">📚 ${BOOKS.filter(b=>b.owned&&b.kind!=='soon').length}</div><div class="l">${L('किताबें','Books')}</div></div>
     </div>`;
 
   bindFocusControls(v);
@@ -1290,13 +1290,17 @@ function renderFormulas(){
   const lvHit=f=>!q||[f.title,f.formula,f.explanation,f.ch_hi,f.ch_en].some(x=>LOWER(x||'').includes(q));
   const groups={}; (FORMULAS_LV||[]).filter(lvHit).forEach(f=>{ (groups[f.chapter]||(groups[f.chapter]=[])).push(f); });
   const bookOf=id=>BOOKS.find(b=>b.kind==='atoms'&&b.chapters.some(c=>c.n===id));
-  const html2=Object.entries(groups).map(([chid,list])=>{ const f0=list[0], bk=bookOf(+chid);
+  const rk={}, st=String((DB.setup||{}).stage||''), tech=b=>!!(b.subject&&TECH_SUBJECTS.includes(b.subject.slug));
+  BOOKS.forEach((b,i)=>b.chapters.forEach(c=>{ const r=(b.course&&b.stage===st?0:tech(b)?1:b.course?2:3)*1e4+i; if(b.kind==='atoms'&&!(c.n in rk&&rk[c.n]<=r)) rk[c.n]=r; }));
+  const ord=Object.entries(groups).sort((a,b)=>(rk[a[0]]??9e9)-(rk[b[0]]??9e9)), cut=ord.findIndex(([id])=>(rk[id]??9e9)>=3e4);
+  const part=(a)=>a.map(([chid,list])=>{ const f0=list[0], bk=bookOf(+chid);
     return `<div class="sec-title" style="margin-top:6px"><h2>${T(esc(f0.ch_hi),esc(f0.ch_en))}</h2><div class="count-pill">${esc(L(f0.subject_hi,f0.subject_en))}</div></div>
       ${list.map(f=>`<div class="card"><div class="head"><h3>${esc(f.title||'')}</h3><span class="tag accent">${esc(L(qualLabel().hi,qualLabel().en))}</span></div>
         <div class="board-formula" style="font-size:17px;font-family:inherit">${esc(f.formula)}</div>
         ${f.explanation?`<div class="sub" style="margin:6px 0 0">💡 ${esc(f.explanation)}</div>`:''}
         ${bk?`<button class="btn small" style="margin-top:10px" onclick="openBook('${esc(bk.id)}',${+chid},'notes')">📖 ${L('अध्याय खोलें','Open chapter')}</button>`:''}</div>`).join('')}`; }).join('');
-  box.innerHTML=(html+html2)||`<div class="empty-note">${q?T('कुछ नहीं मिला','Nothing found'):DB.level?T('इस स्तर पर अभी कोई सूत्र नहीं','No formulas at this level yet'):T('पहले अपनी पढ़ाई चुनें','Choose your level first')}</div>`;
+  const html2=cut<0?part(ord):part(ord.slice(0,cut)), html3=cut<0?'':part(ord.slice(cut));
+  box.innerHTML=(html2+html+html3)||`<div class="empty-note">${q?T('कुछ नहीं मिला','Nothing found'):DB.level?T('इस स्तर पर अभी कोई सूत्र नहीं','No formulas at this level yet'):T('पहले अपनी पढ़ाई चुनें','Choose your level first')}</div>`;
 }
 document.getElementById('formulaSearch').addEventListener('input',e=>{ formulaQ=e.target.value; renderFormulas(); });
 
@@ -1489,7 +1493,8 @@ function targetName(q,t){ const x=(q.exams||[]).find(e=>e.target===t)||{}; if(x.
   const f=((SETUP_CFG||{}).families||{})[t]; if(!f) return {hi:t,en:t};
   const br=q.branch&&(f.subjects||[]).some(x=>x==='branch-engineering'||x==='branch-or-trade')?BRANCH_NAME[q.branch]:null;   // a JE paper is taken in the student's own branch
   const n=br?{hi:`${f.hi} (${br.hi})`,en:`${f.en} (${br.en})`}:{hi:f.hi,en:f.en}, si=STATE_WISE.includes(t)&&stateInfo(curState());
-  if(si) return {hi:`${n.hi.replace(/\s*\([^)]*आदि\)/,'')} · ${si.hi}`,en:`${n.en.replace(/\s*\([^)]*etc\.\)/,'')} · ${si.en}`};
+  const withSt=(x,st)=>/\)$/.test(x)?x.replace(/\)$/,`, ${st})`):`${x} (${st})`;
+  if(si) return {hi:withSt(n.hi.replace(/\s*\([^)]*आदि\)/,''),si.hi),en:withSt(n.en.replace(/\s*\([^)]*etc\.\)/,''),si.en)};
   return FAMILY_STATE[t]&&FAMILY_STATE[t]===curState()?{hi:'📍 '+n.hi,en:'📍 '+n.en}:n; }
 function setupLabel(s){ const q=setupQual(s.qual); if(!q) return null;
   const st=s.status==='passed'?{hi:' (पास)',en:' (passed)'}:(s.stage&&q.stages?{hi:` · ${q.stages.label_hi} ${s.stage}`,en:` · ${q.stages.label_en} ${s.stage}`}:{hi:'',en:''});
@@ -1558,7 +1563,14 @@ async function loadBooksSetup(){
     out.filter(b=>b.only).forEach(b=>b.chapters.forEach(c=>{ const nk=chKey(b.id,c.n), ok=chKey('s:'+b.level+':'+b.subject.slug,c.n);
       if(DB.chapters[ok]&&!DB.chapters[nk]) DB.chapters[nk]=DB.chapters[ok]; }));
     if(JSON.stringify(DB.setup)!==stamp) return;
-    BOOKS=[...courseBooks(q,syl,cats[q&&q.level]||[]),...out]; SERVER_OK=true;
+    const cb=courseBooks(q,syl,cats[q&&q.level]||[]), cur=String(s.stage||'');
+    // an exam shelf whose chapters are all inside a course book of this semester is the same book twice: keep the course book, give it the exam's tag
+    const rest=out.filter(b=>{ if(b.kind!=='atoms') return true; const ids=b.chapters.map(c=>c.n);
+      const hosts=cb.filter(h=>h.kind==='atoms'&&h.level===b.level&&(h.stage===cur||h.stage==='all')&&ids.every(id=>h.only.includes(id))); if(!hosts.length) return true;
+      hosts.forEach(h=>{ (b.forTags||[]).forEach(t=>{ if(!h.forTags.some(x=>x.en===t.en)) h.forTags.push(t); });
+        b.chapters.forEach(c=>{ const ok=chKey(b.id,c.n), nk=chKey(h.id,c.n); if(DB.chapters[ok]&&!DB.chapters[nk]) DB.chapters[nk]=DB.chapters[ok]; }); });
+      return false; });
+    BOOKS=[...cb,...rest]; SERVER_OK=true;
   }catch(e){ SERVER_OK=false; }
 }
 /* my course: every subject of the syllabus, stage-wise; a subject opens only when its chapters exist, otherwise it is locked */
@@ -1654,7 +1666,7 @@ function renderSetup(){
     const goals=[...(W.course&&(q.course||[]).length?[L('मेरा कोर्स','My course')]:[]),...[...W.exams].map(t=>{ const n=targetName(q,t); return L(n.hi,n.en); })];
     h=`<h3 class="su-q">✅ ${L('आपका सेटअप','Your setup')}</h3>
       <div class="su-sum"><div><small>${L('पढ़ाई','Course')}</small><b>${esc(L(lab.hi,lab.en))}</b></div>
-      <div><small>${L('पढ़ना है','Studying for')}</small><b>${goals.map(esc).join(' · ')}</b></div>
+      <div><small>${L('पढ़ना है','Studying for')}</small><b>${goals.map(g=>'• '+esc(g)).join('<br>')}</b></div>
       ${W.state?`<div><small>${L('राज्य','State')}</small><b>${esc(L(stateInfo(W.state).hi,stateInfo(W.state).en))}</b></div>`:''}
       <div><small>${L('भाषा','Language')}</small><b>${W.lang==='en'?'English':'हिंदी'}</b></div></div>
       <p class="su-help">${L('ऐप में अब सिर्फ़ इन्हीं से जुड़ी किताबें, सूत्र और मिशन दिखेंगे। Settings → "मेरी पढ़ाई बदलें" से कभी भी बदल सकते हैं।','The app will now show only books, formulas and missions for these. Change any time in Settings.')}</p>`; }
