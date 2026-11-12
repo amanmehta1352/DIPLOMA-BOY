@@ -1,0 +1,23 @@
+name: SSC JE Mechanical drafts loader
+# Validates content/sscje-mechanical and upserts it into mtb.chapter_drafts as status 'draft' (never approves).
+on:
+  push:
+    branches: [sscje-mech-content]
+    paths: ['content/sscje-mechanical/**', 'tools/load_sscje.py', 'tools/check_sscje.py', '.github/workflows/sscje-mech-load.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Validate
+        run: python3 tools/check_sscje.py
+      - name: Upsert drafts
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python3 tools/load_sscje.py
