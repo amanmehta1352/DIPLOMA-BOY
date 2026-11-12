@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0f111a">
+<title>Diploma Boy</title>
+<meta name="description" content="Diploma Boy: Physics book, formulas, focus timer and an honest study tracker.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#030308;--card:#14141f;--text:#fff;--text2:rgba(255,255,255,.72);--muted:rgba(255,255,255,.45);--dim:rgba(255,255,255,.22);
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);
+  --accent:#00e5cc;--accent2:#00c4ff;--purple:#b26bff;--pink:#ff3d8b;
+  --orange:#ff8a3d;--yellow:#ffd23d;--green:#3dff9f;--red:#ff3d5a;
+  --font-body:'Inter','Noto Sans Devanagari',-apple-system,sans-serif;
+  --font-serif:'Playfair Display',serif;
+  --spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.22,1,.36,1);
+}
+html[data-theme="cafefocus"]{--bg:#0f111a;--accent:#f7b733;--accent2:#fc4a1a;--purple:#ffd700;--aurora1:#f7b733;--aurora2:#fc4a1a;--aurora3:#333b50;--text:#fdfbf7;--text2:rgba(253,251,247,.7);--muted:rgba(253,251,247,.4);--line:rgba(247,183,51,.15);--line2:rgba(247,183,51,.25)}
+html[data-theme="cosmic"]{--bg:#030308;--accent:#00e5cc;--accent2:#00c4ff;--purple:#b26bff;--aurora1:#00e5cc;--aurora2:#b26bff;--aurora3:#ff3d8b}
+html[data-theme="cyberpunk"]{--bg:#0a0014;--accent:#ff00e5;--accent2:#00ffff;--purple:#ffd700;--aurora1:#ff00e5;--aurora2:#00ffff;--aurora3:#ffd700}
+html[data-theme="vaporwave"]{--bg:#1a0033;--accent:#ff71ce;--accent2:#01cdfe;--purple:#05ffa1;--aurora1:#ff71ce;--aurora2:#01cdfe;--aurora3:#b967ff}
+html[data-theme="matrix"]{--bg:#000;--accent:#00ff41;--accent2:#00cc33;--purple:#33ff33;--aurora1:#00ff41;--aurora2:#00cc33;--aurora3:#00ff88;--text:#00ff41}
+html[data-theme="sunset"]{--bg:#1a0a05;--accent:#ff6b35;--accent2:#f7931e;--purple:#ffd23f;--aurora1:#ff6b35;--aurora2:#f7931e;--aurora3:#ff3d5a}
+html[data-theme="mono"]{--bg:#0a0a0a;--accent:#fff;--accent2:#e0e0e0;--purple:#a0a0a0;--aurora1:#fff;--aurora2:#ccc;--aurora3:#888}
+html[data-theme="sakura"]{--bg:#1a0512;--accent:#ffb7c5;--accent2:#ff8ba7;--purple:#ff69b4;--aurora1:#ffb7c5;--aurora2:#ff8ba7;--aurora3:#ffc2d1}
+html[data-theme="ocean"]{--bg:#020a18;--accent:#4facfe;--accent2:#00f2fe;--purple:#667eea;--aurora1:#4facfe;--aurora2:#00f2fe;--aurora3:#667eea}
+html[data-theme="forest"]{--bg:#05120a;--accent:#a8e063;--accent2:#56ab2f;--purple:#ffd23d;--aurora1:#56ab2f;--aurora2:#a8e063;--aurora3:#2b5876}
+
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.5;transition:background .8s,color .8s}
+.hidden{display:none!important}
+
+/* BILINGUAL: every label is rendered as hi-part + en-part; mode decides what shows */
+.en-part{display:none}
+body.lang-en .en-part{display:inline}
+body.lang-en .hi-part{display:none}
+body.lang-hi *{letter-spacing:normal!important}   /* Devanagari breaks apart with letter-spacing */
+body.lang-both .en-part{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
+
+#cosmos{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:auroraFloat 22s ease-in-out infinite;mix-blend-mode:screen}
+.aurora.a1{width:400px;height:400px;background:radial-gradient(circle,var(--aurora1) 0%,transparent 70%);top:-120px;left:-120px}
+.aurora.a2{width:500px;height:500px;background:radial-gradient(circle,var(--aurora2) 0%,transparent 70%);bottom:-160px;right:-160px;animation-delay:-8s}
+.aurora.a3{width:350px;height:350px;background:radial-gradient(circle,var(--aurora3) 0%,transparent 70%);top:40%;left:50%;transform:translate(-50%,-50%);opacity:.18;animation-delay:-15s}
+@keyframes auroraFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-40px) scale(1.15)}66%{transform:translate(-40px,60px) scale(.9)}}
+.particle{position:absolute;width:2px;height:2px;background:rgba(255,255,255,.6);border-radius:50%;animation:particleFloat linear infinite}
+@keyframes particleFloat{0%{transform:translateY(100vh);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-100px) translateX(50px);opacity:0}}
+
+#app{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;overflow:hidden}
+.view{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 0 100px;display:none;scrollbar-width:none}
+.view.active{display:block}
+.view::-webkit-scrollbar{display:none}
+
+.wave-overlay{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;background:radial-gradient(circle,var(--accent) 0%,var(--purple) 50%,transparent 70%);mix-blend-mode:screen}
+.wave-overlay.fire{animation:waveExpand .8s ease-out}
+@keyframes waveExpand{0%{opacity:.8;transform:scale(0)}100%{opacity:0;transform:scale(3)}}
+@keyframes viewIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+.ios-status{height:40px;padding:0 20px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;position:sticky;top:0;z-index:30;background:rgba(0,0,0,.4);backdrop-filter:blur(20px);border-bottom:.5px solid var(--line)}
+.safe-top{padding-top:calc(16px + env(safe-area-inset-top))}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+
+.micro-reward{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-20px);opacity:0;background:rgba(10,10,18,.95);border:1px solid var(--accent);padding:10px 16px;border-radius:100px;font-size:12px;font-weight:700;z-index:400;transition:all .3s;pointer-events:none;white-space:nowrap}
+.micro-reward.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* SETTINGS */
+.settings-btn{position:fixed;top:calc(50px + env(safe-area-inset-top));right:16px;z-index:60;width:44px;height:44px;border-radius:14px;background:rgba(20,20,30,.9);backdrop-filter:blur(30px);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .4s var(--spring)}
+.settings-btn svg{stroke:var(--text)}
+.settings-btn:active{transform:scale(.9)}
+.settings-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.85);backdrop-filter:blur(20px);overflow-y:auto}
+.settings-modal.active{display:flex;animation:viewIn .3s var(--ease)}
+.settings-panel{max-width:380px;width:100%;background:rgba(20,20,32,.98);border-radius:24px;border:1px solid var(--line2);padding:20px;max-height:90vh;overflow-y:auto;scrollbar-width:none}
+.settings-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.settings-header h2{font-size:20px;font-weight:800}
+.settings-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:none;color:var(--text);font-size:16px;cursor:pointer}
+.settings-group{margin-bottom:22px}
+.settings-group-title{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;font-weight:800;margin-bottom:12px}
+.theme-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.theme-opt{flex-shrink:0;width:60px;padding:8px 6px;background:rgba(255,255,255,.04);border:1.5px solid var(--line2);border-radius:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--text)}
+.theme-opt.on{border-color:var(--accent);transform:scale(1.05)}
+.theme-opt .dot{width:32px;height:32px;border-radius:50%}
+.theme-opt .lbl{font-size:9px;font-weight:800;color:var(--text2)}
+.theme-opt[data-t="cafefocus"] .dot{background:linear-gradient(135deg,#f7b733,#fc4a1a)}
+.theme-opt[data-t="cosmic"] .dot{background:linear-gradient(135deg,#00e5cc,#b26bff)}
+.theme-opt[data-t="cyberpunk"] .dot{background:linear-gradient(135deg,#ff00e5,#00ffff)}
+.theme-opt[data-t="vaporwave"] .dot{background:linear-gradient(135deg,#ff71ce,#01cdfe)}
+.theme-opt[data-t="matrix"] .dot{background:linear-gradient(135deg,#00ff41,#003300)}
+.theme-opt[data-t="sunset"] .dot{background:linear-gradient(135deg,#ff6b35,#ffd23f)}
+.theme-opt[data-t="mono"] .dot{background:linear-gradient(135deg,#fff,#444)}
+.theme-opt[data-t="sakura"] .dot{background:linear-gradient(135deg,#ffb7c5,#ff69b4)}
+.theme-opt[data-t="ocean"] .dot{background:linear-gradient(135deg,#4facfe,#00f2fe)}
+.theme-opt[data-t="forest"] .dot{background:linear-gradient(135deg,#a8e063,#56ab2f)}
+.lang-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.lang-opt{padding:10px 6px;background:rgba(255,255,255,.04);border:1.5px solid var(--line2);border-radius:12px;color:var(--text);font-size:11px;font-weight:700;cursor:pointer}
+.lang-opt.on{background:rgba(255,255,255,.12);border-color:var(--accent);color:var(--accent)}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:600}
+.toggle-switch{position:relative;width:44px;height:26px;background:rgba(255,255,255,.1);border-radius:13px;cursor:pointer}
+.toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .3s var(--spring)}
+.toggle-switch.on{background:var(--accent)}
+.toggle-switch.on::after{transform:translateX(18px)}
+
+/* HEADERS */
+.lib-header,.page-head{padding:12px 22px 20px}
+.eyebrow{font-size:10px;color:var(--accent);letter-spacing:.2em;font-weight:700;text-transform:uppercase;margin-bottom:5px}
+.page-title{font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1.05;background:linear-gradient(135deg,#fff 40%,var(--accent) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+body.lang-both .page-title .en-part{-webkit-text-fill-color:var(--muted);font-size:16px}
+.subtitle{font-size:12.5px;color:var(--muted)}
+body.lang-both .subtitle .en-part{display:block}
+.add-book-btn{padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.05);border:1px dashed var(--accent);color:var(--accent);font-size:12px;font-weight:800;cursor:pointer;margin-top:10px}
+.search-wrap{padding:0 22px 18px}
+.search-bar{display:flex;align-items:center;gap:10px;padding:11px 14px;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:12px}
+.search-bar input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:14px;font-family:inherit}
+.search-bar input::placeholder{color:var(--muted)}
+.sec-title{padding:0 22px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sec-title h2{font-size:18px;font-weight:700}
+.count-pill{font-size:10px;color:var(--muted);font-weight:600;padding:3px 9px;background:rgba(255,255,255,.05);border-radius:20px}
+
+/* LIBRARY */
+.quote-card{margin:0 22px 20px;padding:20px 18px;background:linear-gradient(135deg,rgba(178,107,255,.15),rgba(0,229,204,.1));border:1px solid rgba(178,107,255,.25);border-radius:20px}
+.quote-card .q-tag{font-size:9.5px;color:var(--purple);letter-spacing:.15em;font-weight:800;text-transform:uppercase;margin-bottom:8px}
+.quote-card .q-text{font-family:var(--font-serif);font-size:16px;line-height:1.5;font-style:italic;margin-bottom:8px}
+.quote-card .q-author{font-size:11px;color:var(--muted);font-weight:600}
+.continue-card{margin:0 22px 24px;padding:16px;background:rgba(20,20,30,.7);border:1px solid var(--line2);border-radius:20px;display:flex;gap:14px;align-items:center;cursor:pointer}
+.continue-card:active{transform:scale(.97)}
+.continue-icon{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:24px}
+.continue-info{flex:1}
+.continue-info .lbl{font-size:9.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;font-weight:800;margin-bottom:3px}
+.continue-info .title{font-size:15px;font-weight:700;margin-bottom:6px}
+.continue-info .prog{height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.continue-info .prog>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--purple))}
+.continue-arrow{font-size:20px;color:var(--accent)}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 14px;padding:0 22px}
+@media(min-width:480px){.app-grid{grid-template-columns:repeat(5,1fr)}}
+.app-icon{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
+.app-icon:active{transform:scale(.85)}
+.app-icon .visual-wrap{position:relative;width:100%;aspect-ratio:1;max-width:68px}
+.app-icon .visual{width:100%;height:100%;border-radius:22.5%;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 12px 32px rgba(0,0,0,.6)}
+.app-icon .badge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--pink);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.app-icon .label{font-size:10.5px;font-weight:600;text-align:center;max-width:68px}
+.empty-note{padding:30px 22px;color:var(--muted);text-align:center;font-size:13px}
+
+/* DASHBOARD */
+.dash-header{padding:12px 22px 20px}
+.dash-header .greeting{font-size:10.5px;color:var(--accent);letter-spacing:.2em;font-weight:700;text-transform:uppercase;margin-bottom:5px}
+.dash-header .name{font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1;background:linear-gradient(135deg,#fff 40%,var(--accent) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.dash-header .sub-greeting{font-size:12px;color:var(--muted);margin-top:6px}
+.card{margin:0 22px 18px;padding:18px;background:rgba(20,20,30,.75);border:1px solid var(--line);border-radius:22px}
+.card h3{font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px}
+.card .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tag{font-size:9.5px;padding:3px 8px;border-radius:100px;font-weight:800;border:1px solid currentColor;background:rgba(255,255,255,.05)}
+.tag.red{color:var(--red)}.tag.yellow{color:var(--yellow)}.tag.green{color:var(--green)}.tag.purple{color:var(--purple)}.tag.accent{color:var(--accent)}.tag.orange{color:var(--orange)}
+.sub{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:12px}
+.sub b{color:var(--accent)}
+.btn{display:flex;width:100%;padding:11px;border-radius:10px;border:1px solid var(--line2);background:rgba(255,255,255,.06);color:var(--text);font-size:13px;font-weight:800;cursor:pointer;justify-content:center;align-items:center;min-height:42px}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--purple));color:#000;border:none}
+.btn.danger{border-color:var(--red);background:rgba(255,61,90,.18)}
+.btn.small{width:auto;min-height:32px;padding:6px 12px;font-size:11px;border-radius:100px}
+.error-card{margin:0 22px 18px;padding:16px;background:rgba(255,61,90,.15);border:1px solid var(--red);border-radius:16px;display:flex;gap:12px;font-size:12px;color:#ffccd3;font-weight:600}
+.reality-card{margin:0 22px 18px;padding:22px 20px;background:linear-gradient(160deg,rgba(35,20,25,.9),rgba(25,15,20,.85));border:1.5px solid rgba(255,61,90,.5);border-radius:24px}
+.reality-tag{font-size:10px;color:var(--red);letter-spacing:.2em;font-weight:900;text-transform:uppercase;margin-bottom:10px}
+.reality-headline{font-size:19px;font-weight:800;line-height:1.3;margin-bottom:10px;color:#fff}
+.warn{color:var(--red);border-bottom:2px dashed var(--red)}
+.reality-sub{font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.reality-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.rc-item{padding:10px 8px;background:rgba(0,0,0,.4);border:1px solid rgba(255,61,90,.2);border-radius:10px;text-align:center}
+.rc-item .v{font-size:18px;font-weight:900;color:var(--red)}
+.rc-item .l{font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:700}
+.sunset-card{margin:0 22px 18px;padding:18px;background:rgba(20,20,30,.75);border:1px solid rgba(61,255,159,.3);border-radius:22px}
+.sunset-stats{display:flex;gap:8px}
+.sunset-box{flex:1;background:rgba(0,0,0,.3);padding:10px;border-radius:10px;text-align:center}
+.sunset-box .v{font-size:18px;font-weight:900;color:var(--green)}
+.sunset-box .l{font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:700}
+.bar{height:8px;background:rgba(0,0,0,.35);border-radius:4px;overflow:hidden;margin-top:4px}
+.bar>i{display:block;height:100%;border-radius:4px;transition:width 1s var(--ease)}
+.bar>i.waste{background:linear-gradient(90deg,var(--red),var(--orange))}
+.bar>i.study{background:linear-gradient(90deg,var(--green),var(--accent))}
+.bar>i.mix{background:linear-gradient(90deg,var(--yellow),var(--orange))}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;gap:8px}
+.item{padding:10px 12px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:8px;border-left:3px solid var(--orange)}
+.item:last-child{margin-bottom:0}
+.item.red{border-left-color:var(--red)}
+.item .pct{font-size:14px;font-weight:900;color:var(--orange)}
+.item.red .pct{color:var(--red)}
+.verdict{margin-top:12px;padding:11px 12px;background:rgba(255,61,90,.08);border-left:3px solid var(--red);border-radius:6px;font-size:12px;color:var(--text2);line-height:1.5}
+.verdict b{color:var(--red)}
+.lag-comp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.lag-side{padding:14px 10px;border-radius:12px;text-align:center}
+.lag-side.you{background:rgba(178,107,255,.12);border:1px solid rgba(178,107,255,.4)}
+.lag-side.top{background:rgba(61,255,159,.08);border:1px solid rgba(61,255,159,.3)}
+.lag-side .lb{font-size:10px;font-weight:800;text-transform:uppercase;margin-bottom:6px}
+.lag-side .v{font-size:26px;font-weight:900}
+.mood-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.mood-day{display:flex;flex-direction:column;align-items:center;gap:5px}
+.mood-dot{width:100%;aspect-ratio:1;max-width:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid var(--line2);background:rgba(255,255,255,.03)}
+.mood-dot.great{border-color:var(--green)}.mood-dot.good{border-color:var(--accent)}.mood-dot.okay{border-color:var(--yellow)}.mood-dot.bad{border-color:var(--red)}.mood-dot.zero{opacity:.4}
+.mood-day .d-label{font-size:9px;color:var(--dim);font-weight:700}
+.readiness{text-align:center}
+.readiness .score{font-size:72px;font-weight:900;line-height:1;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.career-path{position:relative;height:70px;margin-bottom:8px}
+.career-line{position:absolute;top:32px;left:0;right:0;height:4px;background:rgba(255,255,255,.08);border-radius:2px}
+.career-progress{position:absolute;top:32px;left:0;height:4px;background:linear-gradient(90deg,var(--yellow),var(--orange));border-radius:2px;transition:width 1.2s var(--ease)}
+.career-nodes{position:relative;height:100%;display:flex;justify-content:space-between}
+.career-node{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;z-index:1}
+.career-dot{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:9px}
+.career-node.unlocked .career-dot{background:var(--yellow);border-color:transparent;color:#000}
+.career-label{font-size:9px;color:var(--dim);font-weight:700}
+.career-node.unlocked .career-label{color:var(--yellow)}
+.legend{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
+.legend div{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2);font-weight:600}
+.legend i{width:6px;height:6px;border-radius:50%}
+.radar-chart{display:flex;justify-content:center}
+.radar-chart svg{max-width:100%;height:auto}
+.focus-circle{width:140px;height:140px;position:relative;margin:0 auto 14px}
+.focus-circle svg{width:100%;height:100%;transform:rotate(-90deg)}
+.focus-time{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;font-variant-numeric:tabular-nums}
+.btn-row{display:flex;gap:8px}
+.btn-row .btn{flex:1}
+.mission-title{font-size:17px;font-weight:800;margin-bottom:6px}
+.mission-meta{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.mission-meta .mm{font-size:10.5px;color:var(--muted);padding:4px 8px;background:rgba(0,0,0,.3);border-radius:6px}
+.mission-xp{font-size:10.5px;font-weight:800;color:var(--yellow);padding:3px 9px;background:rgba(255,210,61,.15);border-radius:100px}
+.rank-big{font-size:38px;font-weight:900;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.rank-bar{position:relative;height:8px;background:rgba(255,255,255,.06);border-radius:4px;margin:22px 0 8px}
+.rank-bar>i{position:absolute;top:0;left:0;height:100%;background:var(--accent);border-radius:4px}
+.rank-bar>b{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
+.rank-tip{margin-top:12px;padding:10px 12px;background:rgba(0,229,204,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:11.5px;color:var(--text2)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 22px;margin-bottom:18px}
+.stat-card{padding:14px 12px;background:rgba(20,20,30,.65);border:1px solid var(--line);border-radius:16px;text-align:center}
+.stat-card .v{font-size:24px;font-weight:900;line-height:1;margin-bottom:4px}
+.stat-card .l{font-size:9.5px;color:var(--muted);text-transform:uppercase;font-weight:700}
+.stat-card.fire .v{color:var(--orange)}.stat-card.star .v{color:var(--yellow)}.stat-card.book .v{color:var(--accent)}
+.buddy{display:flex;align-items:center;gap:10px;padding:8px 10px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--accent));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#000}
+.buddy .bi-info{flex:1;min-width:0}
+.buddy .nm{font-size:12.5px;font-weight:700}
+.buddy .st{font-size:10px;color:var(--muted)}
+
+/* FOCUS PAGE */
+.focus-hero{text-align:center;margin:20px 0 30px}
+.focus-hero h1{font-size:32px;font-weight:900;margin-bottom:10px}
+.focus-hero p{font-size:14px;color:var(--muted);padding:0 10px}
+.focus-big{width:240px;height:240px;margin:0 auto 30px;position:relative}
+.focus-big svg{width:100%;height:100%;transform:rotate(-90deg)}
+.focus-big .focus-time{font-size:54px}
+.focus-page-btn{display:flex;width:100%;max-width:300px;margin:0 auto 14px;padding:16px;border-radius:100px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-size:16px;font-weight:800;border:none;justify-content:center;cursor:pointer}
+.focus-stats{text-align:center;font-size:12px;color:var(--muted)}
+
+/* GHOST */
+.ghost-header{text-align:center;padding:20px 22px 24px}
+.ghost-header h1{font-size:28px;font-weight:900;margin-bottom:8px}
+.ghost-header p{font-size:13px;color:var(--muted)}
+.ghost-item{display:flex;align-items:center;gap:14px;padding:16px;margin:0 22px 12px;background:rgba(255,255,255,.03);border-radius:18px;border:1px dashed var(--line2)}
+.ghost-icon{font-size:30px}
+.ghost-info{flex:1}
+.ghost-info h3{font-size:15px;font-weight:800}
+.ghost-info p{font-size:12px;color:var(--muted)}
+.ghost-empty{text-align:center;color:var(--green);padding:50px 22px}
+.ghost-empty h2{font-size:20px;margin-bottom:8px}
+
+/* MIRROR */
+.mirror-header{text-align:center;padding:20px 22px 24px}
+.mirror-header h1{font-size:28px;font-weight:900;margin-bottom:8px}
+.mirror-header p{font-size:13px;color:var(--muted)}
+.mirror-stats{display:flex;justify-content:space-around;padding:16px;margin:0 22px 16px;background:rgba(255,255,255,.03);border-radius:18px}
+.mirror-stats .val{font-size:24px;font-weight:900;color:var(--accent);text-align:center}
+.mirror-stats .lbl{font-size:10px;color:var(--muted);text-align:center}
+
+/* QUIZ */
+.modal-overlay{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.85);backdrop-filter:blur(10px)}
+.modal-overlay.active{display:flex;animation:viewIn .3s ease}
+.quiz-box{background:var(--card);border:1px solid var(--line2);border-radius:20px;padding:24px;max-width:340px;width:100%}
+.quiz-box h3{font-size:18px;margin-bottom:12px}
+.quiz-box .q-text{font-size:15px;color:var(--text2);margin-bottom:16px;line-height:1.5}
+.quiz-opt{display:block;width:100%;text-align:left;padding:12px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;margin-bottom:8px;font-size:14px;color:var(--text);cursor:pointer;font-family:inherit}
+.quiz-opt:disabled{cursor:default}
+.quiz-opt.correct{background:rgba(61,255,159,.15);border-color:var(--green);color:var(--green)}
+.quiz-opt.wrong{background:rgba(255,61,90,.15);border-color:var(--red);color:var(--red)}
+
+/* BOTTOM NAV */
+.bottom-nav-wrap{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:0 12px calc(14px + env(safe-area-inset-bottom));pointer-events:none;display:flex;justify-content:center}
+.bottom-nav{pointer-events:auto;display:flex;align-items:center;gap:2px;padding:4px;background:rgba(10,10,18,.92);backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,.1);border-radius:100px;max-width:380px;width:100%;position:relative;overflow:hidden}
+.nav-highlight{position:absolute;top:4px;bottom:4px;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border:1px solid var(--line2);border-radius:100px;transition:all .4s var(--spring);z-index:0}
+.nav-item{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 2px;border-radius:100px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.45);position:relative;z-index:1;font-family:inherit}
+.nav-item svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-item .n-lbl{font-size:8.5px;font-weight:800;margin-top:2px;white-space:nowrap}
+.nav-item.on{color:var(--accent)}
+
+/* FOUNDATION (book reader) */
+#foundation-layer{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;background:#0a1f14}
+#foundation-layer.active{display:flex;animation:viewIn .35s var(--ease)}
+.foundation-topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(13,36,25,.95);border-bottom:1px solid rgba(168,213,186,.2);flex-shrink:0;gap:8px}
+.back-to-lib{padding:7px 12px;border-radius:100px;background:rgba(168,213,186,.12);border:1px solid rgba(168,213,186,.3);color:#a8d5ba;font-size:11.5px;font-weight:700;font-family:'Kalam',cursive;cursor:pointer}
+.mode-toggle{display:flex;gap:3px;padding:2px;background:rgba(0,0,0,.3);border-radius:100px}
+.mode-toggle button{padding:5px 10px;border-radius:100px;background:none;border:none;color:#e8e4d0;font-size:10.5px;font-weight:700;font-family:'Kalam',cursive;cursor:pointer}
+.mode-toggle button.on{background:#f4d35e;color:#0d2419}
+.foundation-content{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:80px}
+.board-frame{max-width:640px;margin:0 auto 20px;padding:18px 16px 22px;background:linear-gradient(135deg,#0a1f14,#163325);border:8px solid #6b4423;border-radius:10px;color:#e8e4d0;font-family:'Kalam',cursive;margin-left:8px;margin-right:8px}
+.board-title{font-size:22px;color:#f5f0d4;margin:4px 0 2px;line-height:1.2}
+.board-dur{font-size:11.5px;color:#8fb89c;margin-bottom:12px}
+.bx-hi{font-size:14.5px;color:#e8e4d0;line-height:1.7;margin:8px 0}
+.board-sec-h{display:inline-block;font-size:14px;color:#a8d5ba;font-weight:700;border-bottom:1.5px solid #a8d5ba;margin:14px 0 8px}
+.board-formula{text-align:center;padding:14px 10px;background:rgba(244,211,94,.06);border:1px solid rgba(244,211,94,.25);border-radius:8px;margin:10px 0;color:#f4d35e;font-size:22px;font-weight:700}
+.reader-wrap{padding:8px;background:#e2e8f0;min-height:100%}
+.reader-container{max-width:680px;margin:0 auto;background:#fff;border-radius:10px;border:2px solid #cbd5e1;padding:16px;color:#1e293b}
+.sheet-title{font-size:20px;font-weight:800;color:#3b82f6;text-transform:uppercase;text-align:center;padding-bottom:8px;margin-bottom:14px;border-bottom:3px double #3b82f6}
+.panel{border:1.5px solid #cbd5e1;border-radius:8px;margin-bottom:12px}
+.panel-header{padding:8px 12px;font-weight:700;font-size:14px;background:#f8fafc;border-bottom:1.5px solid #cbd5e1}
+.panel-body{padding:12px;font-size:14px;line-height:1.6}
+.formula-box{background:#eff6ff;border:2px solid #3b82f6;padding:12px;margin:12px 0;border-radius:6px;text-align:center;font-size:18px;color:#3b82f6;font-weight:700;font-family:'Courier New',monospace}
+.reader-indicator{text-align:center;padding:12px 0;font-size:12px;color:#64748b;font-weight:600}
+.reader-nav{position:fixed;bottom:14px;left:12px;right:12px;display:flex;gap:8px;justify-content:center;z-index:150;pointer-events:none}
+.reader-nav button{pointer-events:auto;padding:10px 16px;border-radius:100px;background:#fff;border:2px solid #3b82f6;color:#3b82f6;font-size:14px;font-weight:700;cursor:pointer;min-width:52px}
+.reader-nav button:disabled{opacity:.35}
+/* Level picker + library selection */
+.su-dots{display:flex;gap:5px;margin:-6px 0 14px}.su-dot{flex:1;height:4px;border-radius:4px;background:var(--line2)}.su-dot.on{background:var(--accent)}
+.su-q{font-size:16px;font-weight:800;margin:0 0 4px;color:var(--text)}.su-help{font-size:12.5px;color:var(--muted);margin:0 0 12px;line-height:1.5}
+.su-chips{display:flex;flex-wrap:wrap;gap:8px}.su-chip{min-width:48px;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-weight:800;cursor:pointer}.su-chip.on{border-color:var(--accent);background:rgba(255,255,255,.12)}
+.su-sub{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:2px}.su-note{font-size:12.5px;color:var(--muted);padding:10px 12px;border:1px dashed var(--line2);border-radius:12px;margin:6px 0}
+.su-sum{display:grid;gap:10px;margin:8px 0 12px}.su-sum div{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--line2)}.su-sum small{display:block;font-size:11px;color:var(--muted)}.su-sum b{font-size:14px}
+.qual-item span{min-width:0}
+.shelf-h{grid-column:1/-1;font-size:12px;font-weight:800;color:var(--accent);padding:10px 2px 0;border-top:1px solid var(--line2);margin-top:4px}.shelf-h:first-child{border-top:0;margin-top:0;padding-top:0}
+.qual-group{margin-bottom:18px}
+.qual-group h3{font-size:12px;color:var(--accent);font-weight:800;margin:0 0 8px;letter-spacing:.04em}
+.qual-item{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 12px;margin-bottom:6px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:14px;font-weight:700;text-align:left;cursor:pointer}
+.qual-item.on{border-color:var(--accent);background:rgba(255,255,255,.1)}
+.qual-item small{font-size:11px;color:var(--muted);font-weight:600;white-space:nowrap}
+.lvl-chip{display:inline-flex;align-items:center;gap:6px;margin:10px 0 0;padding:6px 12px;border-radius:100px;border:1px solid var(--accent);color:var(--accent);background:rgba(255,255,255,.04);font-size:12px;font-weight:800;cursor:pointer}
+.app-icon.sel .visual{outline:3px solid var(--accent);outline-offset:3px}
+</style>
+</head>
+<body data-theme="cafefocus" class="lang-hi">
+
+<div id="cosmos"><div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div></div>
+<div class="wave-overlay" id="waveOverlay"></div>
+<div class="micro-reward" id="microReward"></div>
+
+<button class="settings-btn" id="settingsBtn" aria-label="Settings">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+</button>
+
+<div class="settings-modal" id="settingsModal">
+  <div class="settings-panel">
+    <div class="settings-header"><h2>⚙️ <span class="hi-part">सेटिंग्स</span><span class="en-part">Settings</span></h2><button class="settings-close" id="settingsClose">✕</button></div>
+    <div class="settings-group">
+      <div class="settings-group-title">🎓 <span class="hi-part">मेरी पढ़ाई</span><span class="en-part">My level</span></div>
+      <div class="toggle-row"><span id="qualNow"></span><button class="btn small" id="qualOpenBtn"><span class="hi-part">बदलें</span><span class="en-part">Change</span></button></div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">🌐 <span class="hi-part">भाषा</span><span class="en-part">Language</span></div>
+      <div class="lang-row">
+        <button class="lang-opt on" data-lang="hi">हिंदी</button>
+        <button class="lang-opt" data-lang="en">English</button>
+      </div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">🎨 <span class="hi-part">थीम (10)</span><span class="en-part">Theme (10)</span></div>
+      <div class="theme-scroll">
+        <button class="theme-opt on" data-t="cafefocus"><div class="dot"></div><div class="lbl"><span class="hi-part">कैफ़े</span><span class="en-part">Cafe</span></div></button>
+        <button class="theme-opt" data-t="cosmic"><div class="dot"></div><div class="lbl"><span class="hi-part">कॉस्मिक</span><span class="en-part">Cosmic</span></div></button>
+        <button class="theme-opt" data-t="cyberpunk"><div class="dot"></div><div class="lbl"><span class="hi-part">साइबर</span><span class="en-part">Cyber</span></div></button>
+        <button class="theme-opt" data-t="vaporwave"><div class="dot"></div><div class="lbl"><span class="hi-part">वेपर</span><span class="en-part">Vapor</span></div></button>
+        <button class="theme-opt" data-t="matrix"><div class="dot"></div><div class="lbl"><span class="hi-part">मैट्रिक्स</span><span class="en-part">Matrix</span></div></button>
+        <button class="theme-opt" data-t="sunset"><div class="dot"></div><div class="lbl"><span class="hi-part">सूर्यास्त</span><span class="en-part">Sunset</span></div></button>
+        <button class="theme-opt" data-t="mono"><div class="dot"></div><div class="lbl"><span class="hi-part">सादा</span><span class="en-part">Mono</span></div></button>
+        <button class="theme-opt" data-t="sakura"><div class="dot"></div><div class="lbl"><span class="hi-part">सकुरा</span><span class="en-part">Sakura</span></div></button>
+        <button class="theme-opt" data-t="ocean"><div class="dot"></div><div class="lbl"><span class="hi-part">सागर</span><span class="en-part">Ocean</span></div></button>
+        <button class="theme-opt" data-t="forest"><div class="dot"></div><div class="lbl"><span class="hi-part">जंगल</span><span class="en-part">Forest</span></div></button>
+      </div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">🔔 <span class="hi-part">पसंद</span><span class="en-part">Preferences</span></div>
+      <div class="toggle-row"><span>🔊 <span class="hi-part">आवाज़</span><span class="en-part">Sound</span></span><div class="toggle-switch on" data-toggle="sound"></div></div>
+      <div class="toggle-row"><span>🎊 <span class="hi-part">रंगीन पटाखे</span><span class="en-part">Confetti</span></span><div class="toggle-switch on" data-toggle="confetti"></div></div>
+      <div class="toggle-row"><span>📳 <span class="hi-part">कंपन</span><span class="en-part">Haptic</span></span><div class="toggle-switch on" data-toggle="haptic"></div></div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">👤 <span class="hi-part">प्रोफ़ाइल</span><span class="en-part">Profile</span></div>
+      <div class="toggle-row"><label for="profName"><span class="hi-part">नाम</span><span class="en-part">Name</span></label><input id="profName" type="text" maxlength="30" autocomplete="given-name" style="width:55%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:inherit"></div>
+      <div class="toggle-row"><label for="profExam"><span class="hi-part">परीक्षा की तारीख़</span><span class="en-part">Exam date</span></label><input id="profExam" type="date" style="width:55%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:inherit"></div>
+      <div style="font-size:11.5px;color:var(--muted);padding:6px 2px 0"><span class="hi-part">नाम सिर्फ़ इसी फ़ोन पर रहता है, बैकअप में भी नहीं जाता।</span><span class="en-part">Your name stays on this phone only, even with backup on.</span></div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">☁️ <span class="hi-part">बैकअप</span><span class="en-part">Backup</span></div>
+      <div id="backupBox"></div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">📄 <span class="hi-part">जानकारी</span><span class="en-part">About</span></div>
+      <div class="toggle-row"><a href="privacy.html" style="color:inherit"><span class="hi-part">गोपनीयता नीति</span><span class="en-part">Privacy Policy</span></a><span>›</span></div>
+      <div class="toggle-row"><a href="terms.html" style="color:inherit"><span class="hi-part">शर्तें</span><span class="en-part">Terms</span></a><span>›</span></div>
+      <div class="toggle-row"><a href="delete-data.html" style="color:inherit"><span class="hi-part">मेरा डेटा हटाएँ</span><span class="en-part">Delete my data</span></a><span>›</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="settings-modal" id="qualModal">
+  <div class="settings-panel" style="max-width:420px">
+    <div class="settings-header"><h2>🎓 <span class="hi-part">आप क्या पढ़ते हैं?</span><span class="en-part">What do you study?</span></h2><button class="settings-close" id="qualClose" aria-label="Close">✕</button></div>
+    <div style="font-size:12.5px;color:var(--muted);margin:-8px 0 14px;line-height:1.5"><span class="hi-part">जो चुनेंगे, ऐप सिर्फ़ उसी स्तर की पढ़ाई दिखाएगा। बाद में Settings से बदल सकते हैं।</span><span class="en-part">The app shows only the content for what you pick. You can change it later in Settings.</span></div>
+    <div class="search-bar" style="margin-bottom:14px"><span>🔍</span><input type="text" id="qualSearch" autocomplete="off"></div>
+    <div id="qualList"></div>
+    <button class="btn" id="qualRestore" style="margin-top:6px">📲 <span class="hi-part">पुराने phone से हिसाब लाएँ</span><span class="en-part">Restore from an old phone</span></button>
+  </div>
+</div>
+
+<div class="settings-modal" id="setupModal">
+  <div class="settings-panel" style="max-width:420px">
+    <div class="settings-header"><h2>🎓 <span class="hi-part">अपना सेटअप</span><span class="en-part">Your setup</span></h2><button class="settings-close" id="setupClose" aria-label="Close">✕</button></div>
+    <div id="setupBody"></div>
+  </div>
+</div>
+<div id="app">
+  <!-- LIBRARY -->
+  <div id="library-view" class="view">
+    <div class="ios-status"><span></span><span></span></div>
+    <div class="lib-header safe-top">
+      <div class="eyebrow"><span class="hi-part">मेरी लाइब्रेरी</span><span class="en-part">COSMIC LIBRARY</span></div>
+      <div class="page-title"><span class="hi-part">आपकी दुनिया</span><span class="en-part">Your Space</span></div>
+      <div class="subtitle"><span class="hi-part">हर पन्ना एक नई दुनिया</span><span class="en-part">Every page, a new world</span></div>
+      <button class="add-book-btn" id="addBookBtn"><span class="hi-part">⇄ पढ़ाई बदलें</span><span class="en-part">⇄ Change level</span></button>
+    </div>
+    <div class="search-wrap"><div class="search-bar"><span>🔍</span><input type="text" id="searchInput" placeholder="किताब या अध्याय खोजें..."></div></div>
+    <div class="quote-card" id="quoteCard"></div>
+    <div class="continue-card" id="continueCard">
+      <div class="continue-icon">📖</div>
+      <div class="continue-info"><div class="lbl">LIVE · Continue</div><div class="title" id="continueTitle"></div><div class="prog"><i style="width:0%"></i></div></div>
+      <div class="continue-arrow">→</div>
+    </div>
+    <div class="sec-title"><h2><span class="hi-part">आपकी किताबें</span><span class="en-part">Your Books</span></h2><div class="count-pill" id="bookCount"></div></div>
+    <div class="app-grid" id="appGrid"></div>
+    <div id="chapterList" style="padding:26px 0 130px"></div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard-view" class="view active"></div>
+
+  <!-- FOCUS PAGE -->
+  <div id="focus-view" class="view">
+    <div class="ios-status"><span></span><span></span></div>
+    <div class="focus-hero safe-top">
+      <h1><span class="hi-part">गहरी पढ़ाई।</span><span class="en-part">Deep Work.</span></h1>
+      <p><span class="hi-part">बाहर की दुनिया को भूल जाओ। सिर्फ 25 मिनट खुद पर और अपनी पढ़ाई पर खर्च करो।</span><span class="en-part">Forget the outside world. Spend 25 minutes only on yourself and your studies.</span></p>
+    </div>
+    <div class="focus-big">
+      <svg viewBox="0 0 240 240">
+        <defs><linearGradient id="fzGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--purple)"/><stop offset="100%" stop-color="var(--pink)"/></linearGradient></defs>
+        <circle cx="120" cy="120" r="110" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="12"/>
+        <circle data-fcirc cx="120" cy="120" r="110" fill="none" stroke="url(#fzGrad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="691.15" stroke-dashoffset="0" style="transition:stroke-dashoffset .5s"/>
+      </svg>
+      <div class="focus-time" data-ftime>25:00</div>
+    </div>
+    <button class="focus-page-btn" data-fbtn>▶ Start</button>
+    <button class="btn" style="max-width:300px;margin:0 auto;display:flex" data-freset>↺ <span class="hi-part">रीसेट</span><span class="en-part">Reset</span></button>
+    <div class="focus-stats" style="margin-top:20px" id="focusStats"></div>
+  </div>
+
+  <!-- GHOST -->
+  <div id="ghost-view" class="view">
+    <div class="ios-status"><span></span><span></span></div>
+    <div class="ghost-header safe-top">
+      <h1><span class="hi-part">भूत</span><span class="en-part">Ghosts</span></h1>
+      <p><span class="hi-part">ये वो टॉपिक्स हैं जिन्हें आप भूल रहे हैं। इन्हें जल्द पकड़ो!</span><span class="en-part">Topics you are forgetting. Catch them before they vanish!</span></p>
+    </div>
+    <div id="ghostList"></div>
+  </div>
+
+  <!-- MIRROR -->
+  <div id="mirror-view" class="view">
+    <div class="ios-status"><span></span><span></span></div>
+    <div class="mirror-header safe-top">
+      <h1><span class="hi-part">आईना</span><span class="en-part">Mirror</span></h1>
+      <p><span class="hi-part">यहाँ झूठ नहीं है। जो आपने किया है, वही दिखेगा।</span><span class="en-part">No lies here. You see exactly what you did.</span></p>
+    </div>
+    <div class="mirror-stats">
+      <div><div class="val" id="mirrorStudy">0m</div><div class="lbl"><span class="hi-part">पढ़ाई का समय</span><span class="en-part">Study Time</span></div></div>
+      <div><div class="val" id="mirrorWaste" style="color:var(--red)">0m</div><div class="lbl"><span class="hi-part">खाली गया समय</span><span class="en-part">Wasted Time</span></div></div>
+    </div>
+    <div id="mirrorList"></div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div id="formulas-view" class="view">
+    <div class="ios-status"><span></span><span></span></div>
+    <div class="page-head safe-top"><div class="eyebrow"><span class="hi-part">सूत्र भंडार</span><span class="en-part">FORMULA VAULT</span></div><div class="page-title"><span class="hi-part">सूत्र</span><span class="en-part">Formulas</span></div></div>
+    <div class="search-wrap"><div class="search-bar"><span>🔍</span><input type="text" id="formulaSearch" placeholder="सूत्र खोजें..."></div></div>
+    <div id="formulaBox" style="padding:0 0 120px"></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav-wrap" id="bottomNavWrap">
+  <nav class="bottom-nav" id="bottomNav">
+    <div class="nav-highlight" id="navHighlight"></div>
+    <button class="nav-item" data-view="library"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span class="n-lbl"><span class="hi-part">लाइब्रेरी</span><span class="en-part">Library</span></span></button>
+    <button class="nav-item on" data-view="dashboard"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="n-lbl"><span class="hi-part">मुख्य</span><span class="en-part">Base</span></span></button>
+    <button class="nav-item" data-view="focus"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span class="n-lbl"><span class="hi-part">फ़ोकस</span><span class="en-part">Focus</span></span></button>
+    <button class="nav-item" data-view="ghost"><svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8v10l2-2 2 2 2-2 2 2 2-2 2 2V10a8 8 0 0 0-8-8z"/></svg><span class="n-lbl"><span class="hi-part">भूत</span><span class="en-part">Ghost</span></span></button>
+    <button class="nav-item" data-view="mirror"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="10" r="2"/></svg><span class="n-lbl"><span class="hi-part">आईना</span><span class="en-part">Mirror</span></span></button>
+    <button class="nav-item" data-view="formulas"><svg viewBox="0 0 24 24"><path d="M18 4H6l6 8-6 8h12"/></svg><span class="n-lbl"><span class="hi-part">सूत्र</span><span class="en-part">Formula</span></span></button>
+  </nav>
+</div>
+
+<!-- QUIZ MODAL -->
+<div class="modal-overlay" id="quizModal">
+  <div class="quiz-box">
+    <h3 id="quizTitle">Quick Check</h3>
+    <div class="q-text" id="quizQuestion"></div>
+    <div id="quizOptions"></div>
+    <button class="btn" id="quizClose" style="margin-top:12px"><span class="hi-part">बंद करें</span><span class="en-part">Close</span></button>
+  </div>
+</div>
+
+<!-- BOOK READER -->
+<div id="foundation-layer">
+  <div class="foundation-topbar">
+    <button class="back-to-lib" id="backToLib">‹ <span class="hi-part">लाइब्रेरी</span><span class="en-part">Library</span></button>
+    <div class="mode-toggle"><button id="modeLecture" class="on">🎓 <span class="hi-part">क्लास</span><span class="en-part">Lecture</span></button><button id="modeReader">📖 <span class="hi-part">पढ़ें</span><span class="en-part">Reader</span></button></div>
+  </div>
+  <div class="foundation-content" id="foundationContent">
+    <div id="lecture-view"></div>
+    <div id="reader-view" class="reader-wrap hidden"></div>
+  </div>
+  <div class="reader-nav hidden" id="readerNav"><button id="rPrev">‹</button><button id="rNext">›</button></div>
+</div>
+
+<script>
+// ═══ HELPERS ═══
+const T = (hi, en) => `<span class="hi-part">${hi}</span><span class="en-part">${en}</span>`;
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+const LOWER = s => String(s).toLowerCase();
+
+// ═══ SETTINGS ═══
+const Settings = {
+  theme:'cafefocus', lang:'hi', sound:true, confetti:true, haptic:true,
+  load(){ try { Object.assign(this, JSON.parse(localStorage.getItem('cosmic_settings')||'{}')); } catch(e){} },
+  save(){ try { localStorage.setItem('cosmic_settings', JSON.stringify({theme:this.theme,lang:this.lang,sound:this.sound,confetti:this.confetti,haptic:this.haptic})); } catch(e){} }
+};
+Settings.load();
+if(Settings.lang!=='en') Settings.lang='hi';   // app interface: Hindi or English, one at a time
+function applySettings(){
+  document.documentElement.setAttribute('data-theme', Settings.theme);
+  document.body.setAttribute('data-theme', Settings.theme);
+  document.body.classList.remove('lang-hi','lang-en','lang-both');
+  document.body.classList.add('lang-' + Settings.lang);
+  document.documentElement.lang = Settings.lang === 'en' ? 'en' : 'hi';
+  document.querySelectorAll('.theme-opt').forEach(b => b.classList.toggle('on', b.dataset.t === Settings.theme));
+  document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('on', b.dataset.lang === Settings.lang));
+  document.querySelectorAll('[data-toggle]').forEach(t => t.classList.toggle('on', !!Settings[t.dataset.toggle]));
+  Sound.enabled = Settings.sound;
+  const hi=Settings.lang!=='en', ph={searchInput:hi?'किताब या अध्याय खोजें...':'Search books or chapters...',formulaSearch:hi?'सूत्र खोजें...':'Search formulas...'};
+  for(const id in ph){ const el=document.getElementById(id); if(el) el.placeholder=ph[id]; }
+}
+
+// ═══ SOUND / FX ═══
+const Sound = {
+  ctx:null, enabled:true,
+  play(freq,dur,vol=0.06){
+    if(!this.enabled) return;
+    try{
+      this.ctx = this.ctx || new (window.AudioContext||window.webkitAudioContext)();
+      const o=this.ctx.createOscillator(), g=this.ctx.createGain();
+      o.frequency.value=freq; g.gain.setValueAtTime(vol,this.ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,this.ctx.currentTime+dur);
+      o.connect(g); g.connect(this.ctx.destination); o.start(); o.stop(this.ctx.currentTime+dur);
+    }catch(e){}
+  },
+  click(){ this.play(800,0.05,0.04); },
+  tap(){ this.play(1200,0.03,0.03); },
+  success(){ this.play(523,0.1); setTimeout(()=>this.play(659,0.1),80); setTimeout(()=>this.play(784,0.2),160); },
+  chime(){ this.play(880,0.15,0.05); setTimeout(()=>this.play(1109,0.25,0.05),100); }
+};
+function fireConfetti(count=60){
+  if(!Settings.confetti) return;
+  const colors=['#00e5cc','#b26bff','#ff3d8b','#ffd23d','#ff8a3d','#3dff9f'];
+  for(let i=0;i<count;i++){
+    const c=document.createElement('div');
+    c.style.cssText=`position:fixed;width:8px;height:8px;z-index:9999;pointer-events:none;left:${Math.random()*100}vw;top:-20px;background:${colors[i%colors.length]};border-radius:${Math.random()>.5?'50%':'2px'};animation:confettiFall ${2+Math.random()*2}s linear forwards;animation-delay:${Math.random()*.5}s`;
+    document.body.appendChild(c); setTimeout(()=>c.remove(),4500);
+  }
+}
+const cs=document.createElement('style');
+cs.textContent='@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}';
+document.head.appendChild(cs);
+function triggerWave(){ const w=document.getElementById('waveOverlay'); w.classList.remove('fire'); void w.offsetWidth; w.classList.add('fire'); }
+function haptic(ms=8){ if(Settings.haptic && navigator.vibrate){ try{navigator.vibrate(ms);}catch(e){} } }
+let rewardTimer=null;
+function showReward(html){
+  const el=document.getElementById('microReward');
+  el.innerHTML=html; el.classList.add('show'); Sound.success();
+  clearTimeout(rewardTimer); rewardTimer=setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+// ═══ DATA ═══
+// Diploma Boy: everything below is real. Books and formulas come from the server (Supabase, schema mtb);
+// time, reading and quiz history are measured on this phone. Nothing is invented.
+const SB={url:'https://wobmtlcpszcntczkebtt.supabase.co', key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'}; // publishable key
+async function sbGet(path){ const r=await fetch(SB.url+'/rest/v1/'+path,{headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Accept-Profile':'mtb'}}); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
+
+const QUOTES=[
+  {text:'सपने वो नहीं जो सोते हुए आएं, सपने वो हैं जो सोने न दें।',en:'Dreams are not what you see in sleep, but what keeps you from sleeping.',author:'APJ Abdul Kalam',authorHi:'ए.पी.जे. अब्दुल कलाम'},
+  {text:'सफलता का रहस्य निरंतरता है।',en:'The secret of success is consistency.',author:'Robin Sharma',authorHi:'रॉबिन शर्मा'},
+  {text:'जो आज कर सकते हो, उसे कल पर मत छोड़ो।',en:'Do not postpone what you can do today.',author:'Chanakya',authorHi:'चाणक्य'},
+  {text:'असफलता सफलता की सीढ़ी है।',en:'Failure is the ladder to success.',author:'Unknown',authorHi:'अज्ञात'}
+];
+const L=(hi,en)=>Settings.lang==='en'?en:hi;   // app interface: one language at a time
+const M=n=>L(`${n} मिनट`,`${n} min`), Mm=n=>L(`${n} मि.`,`${n}m`);
+function getDailyQuote(){ return QUOTES[Math.floor(Date.now()/86400000)%QUOTES.length]; }
+
+/* ---- saved on this phone ---- */
+const DKEY='diploma_boy_v4';
+const DB={name:'',examDate:null,days:{},chapters:{},quiz:{},promise:null,lastBook:null,owned:{},opens:{},level:'',exam:'',qlabel:null};
+function ymd(d){ d=d||new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function addDays(n){ const d=new Date(); d.setDate(d.getDate()+n); return ymd(d); }
+function dayRec(k){ k=k||ymd(); return DB.days[k]||(DB.days[k]={t:{},fs:0,qc:0,qt:0}); }
+const SECTIONS=['dashboard','library','book','focus','formulas','ghost','mirror','idle'];
+const STUDY=['book','focus'];
+function mins(sec){ return Math.round((sec||0)/60); }
+function dayStudyMin(k){ const d=DB.days[k]; if(!d) return 0; return mins(STUDY.reduce((a,s)=>a+(d.t[s]||0),0)); }
+function dayIdleMin(k){ const d=DB.days[k]; return d?mins(d.t.idle):0; }
+function dayTotalMin(k){ const d=DB.days[k]; return d?mins(Object.values(d.t).reduce((a,b)=>a+b,0)):0; }
+function streakDays(){ let n=0; for(let i=0;i<400;i++){ if(dayStudyMin(addDays(-i))>0) n++; else if(i>0) break; } return n; }
+function lastStudyDay(){ const ks=Object.keys(DB.days).filter(k=>dayStudyMin(k)>0).sort(); return ks.length?ks[ks.length-1]:null; }
+function daysSince(k){ if(!k) return null; return Math.round((new Date(ymd()+'T00:00:00')-new Date(k+'T00:00:00'))/86400000); }
+function xpTotal(){ return Object.keys(DB.days).reduce((a,k)=>a+dayStudyMin(k)+20*(DB.days[k].qc||0),0); }
+function quizTotals(){ return Object.values(DB.quiz).reduce((a,q)=>({c:a.c+q.c,t:a.t+q.t}),{c:0,t:0}); }
+
+/* ---- level (what the student studies) and books from the server ----
+   The student picks a qualification; every screen then shows ONLY that level's content.
+   Books = the subjects that have content at that level (server: mtb.get_level_catalog), plus the
+   owner's Physics book for the levels it was written for. Chapters with no content yet show 🔒. */
+let BOOKS=[];            // [{id,kind:'book'|'atoms',level,title,emoji,color,owned,chapters:[{n,no,topic,t,sh,atoms}]}]
+let SERVER_OK=true, QUAL=null;
+const BOOK_STYLE={'physics-baseline':{title:{hi:'भौतिकी',en:'Physics'},emoji:'⚛️',color:'#10b981'}};
+const PHYS_LEVELS=['govt_technical','govt_basic'];   // the Physics book is RRB JE / SSC JE / NTPC level
+const SUBJ_EMOJI={'maths':'🧮','reasoning':'🧩','general-science':'🔬','general-awareness':'🌏','civil-engineering':'🏗️','mechanical-engineering':'⚙️',
+  'electrical-engineering':'⚡','accountancy':'📒','business-studies':'💼','economics-com':'📈','maths-com':'➗','advanced-accountancy':'📊','business-law':'⚖️',
+  'cost-accounting':'🧾','history':'🏛️','political-science':'🗳️','geography-arts':'🗺️','sociology':'👥','psychology':'🧠','advanced-history':'📜',
+  'advanced-polity':'🏛️','advanced-geography':'🌐','legal-reasoning':'⚖️','legal-aptitude':'📜','english-law':'🔤','quant-law':'🔢'};
+const BOOK_COLORS=['#f59e0b','#8b5cf6','#06b6d4','#ef4444','#22c55e','#ec4899','#3b82f6','#14b8a6'];
+const QGROUPS=[
+  {id:'school',hi:'स्कूल और डिप्लोमा',en:'School & Diploma',icon:'📚',levels:['class_6_8','class_9_10','class_11_12_sci','class_11_12_com','class_11_12_arts'],extra:['diploma-polytechnic']},
+  {id:'jobs',hi:'सरकारी नौकरी',en:'Government jobs',icon:'🎯',levels:['govt_technical','govt_basic','banking','govt_defence','state_psc','upsc_civil']},
+  {id:'entrance',hi:'प्रवेश परीक्षा',en:'Entrance exams',icon:'🏥',levels:['medical','engineering']},
+  {id:'higher',hi:'उच्च शिक्षा',en:'Higher studies',icon:'🎓',levels:['graduation_sci','graduation_com','graduation_arts','advanced_research','law_management']}];
+async function loadQualifications(){ if(QUAL) return QUAL; try{ QUAL=await sbGet('rpc/get_qualifications'); }catch(e){ QUAL=null; } return QUAL; }
+function levelName(id){ const l=QUAL&&QUAL.levels.find(x=>x.id===id); return l?{hi:l.hi,en:l.en}:{hi:id||'',en:id||''}; }
+function qualLabel(){ return DB.qlabel||levelName(DB.level); }
+const avail=c=>c.atoms==null||c.atoms>0;
+async function loadBooks(){
+  const lv=DB.level; if(!lv){ BOOKS=[]; SERVER_OK=true; return; }
+  try{
+    const jobs=[sbGet('rpc/get_level_catalog?p_level='+encodeURIComponent(lv))];
+    if(PHYS_LEVELS.includes(lv)) jobs.push(sbGet('rpc/get_chapter_books?p_meta_only=true'));
+    const [cat,rows]=await Promise.all(jobs), out=[];
+    if(rows){ const by={}; rows.forEach(r=>{ (by[r.book_slug]||(by[r.book_slug]=[])).push(r); });
+      Object.entries(by).forEach(([id,list])=>{ const st=BOOK_STYLE[id]||{title:{hi:id,en:id},emoji:'📘',color:'#3b82f6'};
+        out.push({id,kind:'book',level:lv,title:st.title,emoji:st.emoji,color:st.color,owned:true,
+          chapters:list.sort((a,b)=>a.ch_no-b.ch_no).map(r=>({n:r.ch_no,no:r.ch_no,topic:r.topic_id,t:{hi:r.title_hi,en:r.title_en},sh:{hi:r.short_hi,en:r.short_en}}))}); }); }
+    (cat||[]).forEach((sj,i)=>out.push({id:'s:'+lv+':'+sj.slug,kind:'atoms',level:lv,subject:sj,title:{hi:sj.hi,en:sj.en},emoji:SUBJ_EMOJI[sj.slug]||'📘',
+      color:BOOK_COLORS[i%BOOK_COLORS.length],owned:true,
+      chapters:(sj.chapters||[]).map((c,j)=>({n:c.id,no:j+1,topic:c.id,t:{hi:c.hi,en:c.en},sh:{hi:c.hi,en:c.en},atoms:c.n}))}));
+    if(DB.level!==lv) return;          // the student switched level while this was loading
+    BOOKS=out; SERVER_OK=true;
+  }catch(e){ SERVER_OK=false; }
+}
+const chKey=(b,n)=>b+':'+n;
+const noNum=t=>String(t||'').replace(/^\s*\d+\.\s*/,'');
+function allChapters(){ return BOOKS.filter(b=>b.owned).flatMap(b=>b.chapters.filter(avail).map(c=>({b,c,key:chKey(b.id,c.n)}))); }
+function readChapters(){ return allChapters().filter(x=>(DB.chapters[x.key]||{}).read); }
+function coverage(){ const all=allChapters(); return all.length?Math.round(readChapters().length/all.length*100):0; }
+function openedPct(){ const all=allChapters(); return all.length?Math.round(all.filter(x=>DB.chapters[x.key]).length/all.length*100):0; }
+function nextUnread(){ return allChapters().find(x=>!(DB.chapters[x.key]||{}).read)||null; }
+function chName(x){ return {hi:x.c.t.hi,en:x.c.t.en}; }
+
+/* ---- forgetting curve for chapters you have read (estimate) ----
+   retention ≈ e^(−days since last revision ÷ strength); strength grows with every correct revision. */
+function ghostList(){
+  return readChapters().map(x=>{ const r=DB.chapters[x.key]; const s=2*Math.pow(1+(r.rev||0),1.6);
+    const d=Math.max(0,(Date.now()-(r.lastRev||r.last||Date.now()))/86400000);
+    const ret=Math.round(100*Math.exp(-d/s)); const nextIn=Math.max(0,s*Math.log(100/50)-d);   // when it drops to 50%
+    const next=nextIn<1/24?{hi:'अभी',en:'now'}:nextIn<1?{hi:`${Math.ceil(nextIn*24)} घंटे`,en:`${Math.ceil(nextIn*24)} hours`}:{hi:`${Math.ceil(nextIn)} दिन`,en:`${Math.ceil(nextIn)} days`};
+    return {id:x.key,x,name:x.c.t,retention:ret,nextReview:next,urgent:ret<50}; }).sort((a,b)=>a.retention-b.retention);
+}
+
+/* ---- live STATE for the screens, rebuilt from DB every render ---- */
+const STATE={focus:{duration:25*60,remaining:25*60,running:false,end:null}};
+function buildState(){
+  const k=ymd(), d=dayRec(k), q=quizTotals(), cov=coverage();
+  const sd=lastStudyDay();
+  STATE.user={name:DB.name};
+  STATE.examDate=DB.examDate?new Date(DB.examDate+'T00:00:00'):null;
+  STATE.studyTime=dayStudyMin(k); STATE.wasteTime=dayIdleMin(k); STATE.hasStudiedToday=STATE.studyTime>0;
+  STATE.streak=streakDays(); STATE.xp=xpTotal();
+  STATE.reality={daysWithoutStudy:sd?daysSince(sd):null,lastStudied:sd?(daysSince(sd)===1?{hi:'कल',en:'yesterday'}:{hi:`${daysSince(sd)} दिन पहले`,en:`${daysSince(sd)} days ago`}):null,
+    appOpens:DB.opens[k]||0,idle:dayIdleMin(k),week:[...Array(7)].reduce((a,_,i)=>a+dayStudyMin(addDays(-i)),0)};
+  const t=d.t;
+  STATE.timeTracking=[
+    {name:{hi:'मुख्य पेज',en:'Dashboard'},time:mins(t.dashboard),icon:'◉',type:'mix'},
+    {name:{hi:'लाइब्रेरी',en:'Library'},time:mins(t.library),icon:'📚',type:'mix'},
+    {name:{hi:'असली पढ़ाई (किताब)',en:'Actual study (book)'},time:mins(t.book),icon:'📖',type:'study'},
+    {name:{hi:'फ़ोकस मोड',en:'Focus Mode'},time:mins(t.focus),icon:'⚡',type:'study'},
+    {name:{hi:'सूत्र',en:'Formulas'},time:mins(t.formulas),icon:'ƒ',type:'mix'},
+    {name:{hi:'भूत + आईना',en:'Ghost + Mirror'},time:mins((t.ghost||0)+(t.mirror||0)),icon:'👻',type:'mix'},
+    {name:{hi:'खाली (कुछ नहीं किया)',en:'Idle (no activity)'},time:mins(t.idle),icon:'😐',type:'waste'}];
+  STATE.weekMood=[...Array(7)].map((_,i)=>{ const dd=new Date(); dd.setDate(dd.getDate()-6+i); const m=dayStudyMin(ymd(dd));
+    return {day:['र','सो','मं','बु','गु','शु','श'][dd.getDay()],dayEn:'SMTWTFS'[dd.getDay()],min:m,status:m>=60?'great':m>=30?'good':m>=10?'okay':m>0?'bad':'zero'}; });
+  const acc=q.t>=5?Math.round(q.c/q.t*100):null;
+  STATE.readiness={score:acc==null?Math.round(cov*.5):Math.round(cov*.5+acc*.5),target:75,cov,acc};
+  STATE.career={progress:cov,nodes:[{label:L('शुरू','Start'),pct:0,icon:'🎓'},{label:'20%',pct:20,icon:'📚'},{label:'40%',pct:40,icon:'🎯'},{label:'60%',pct:60,icon:'⚡'},{label:'80%',pct:80,icon:'🔥'},{label:'100%',pct:100,icon:'🏆'}]};
+  const fs7=[...Array(7)].reduce((a,_,i)=>a+((DB.days[addDays(-i)]||{}).fs||0),0);
+  const gl=ghostList(), revDone=readChapters().reduce((a,x)=>a+((DB.chapters[x.key]||{}).rev||0),0);
+  STATE.radar=[
+    {label:L('समझ','Concept'),value:cov,color:'#f7b733'},{label:L('अभ्यास','Practice'),value:Math.min(100,q.t*5),color:'#ffd23d'},{label:L('फ़ोकस','Focus'),value:Math.min(100,Math.round(fs7/14*100)),color:'#ff8a3d'},
+    {label:L('सटीकता','Accuracy'),value:acc==null?0:acc,color:'#3dff9f'},{label:L('कवरेज','Coverage'),value:openedPct(),color:'#b26bff'},{label:L('दोहराव','Revision'),value:gl.length?Math.min(100,Math.round(revDone/gl.length*50)):0,color:'#ff3d5c'}];
+  STATE.focus.sessionsToday=d.fs||0;
+  STATE.forgetting=gl;
+  STATE.weakTopics=Object.entries(DB.quiz).filter(([k,v])=>v.t>=3&&v.c/v.t<.6).map(([k,v])=>{ const x=allChapters().find(y=>y.key===k); return x?{name:x.c.t,acc:Math.round(v.c/v.t*100)}:null; }).filter(Boolean);
+  const nu=nextUnread(), due=gl.filter(g=>g.urgent).length;
+  STATE.mission=nu?{x:nu,title:{hi:`${nu.b.title.hi} · अध्याय ${nu.c.no}: ${noNum(nu.c.sh.hi||nu.c.t.hi)} पढ़ें`+(due?' + 1 भूत पकड़ें':''),en:`${nu.b.title.en} · Chapter ${nu.c.no}: ${noNum(nu.c.sh.en||nu.c.t.en)}`+(due?' + catch 1 ghost':'')},
+      sub:{hi:'फ़ोकस टाइमर के साथ 25 मिनट, फिर अगला अध्याय।',en:'25 minutes with the focus timer, then the next chapter.'},time:M(25),xpReward:25+(due?20:0)}
+    :(due?{x:null,title:{hi:`${due} भूत पकड़ें (दोहराव)`,en:`Catch ${due} ghosts (revision)`},sub:{hi:'सारे अध्याय पढ़ लिए। अब दोहराने का समय।',en:'All chapters read. Time to revise.'},time:M(15),xpReward:20*due}:null);
+  return STATE;
+}
+function saveState(){ try{ localStorage.setItem(DKEY,JSON.stringify(DB)); }catch(e){} BK.dirty=true; }
+function loadState(){ try{ const o=JSON.parse(localStorage.getItem(DKEY)||'null'); if(o) Object.assign(DB,o); }catch(e){} }
+
+/* ---- real time tracking: every 5 s, the visible section gets the seconds; 90 s without a touch = idle ---- */
+let lastTouch=Date.now();
+['pointerdown','keydown','scroll','touchstart','input'].forEach(ev=>window.addEventListener(ev,()=>{ lastTouch=Date.now(); },{passive:true,capture:true}));
+function bookFrame(){ return document.querySelector('#foundationContent iframe'); }
+function trackTick(){
+  if(document.visibilityState!=='visible') return;
+  const k=ymd(), d=dayRec(k), inBook=document.getElementById('foundation-layer').classList.contains('active');
+  let sec=STATE.focus.running?'focus':inBook?'book':currentView;
+  if(!STATE.focus.running && Date.now()-lastTouch>90000) sec='idle';
+  if(!SECTIONS.includes(sec)) sec='dashboard';
+  d.t[sec]=(d.t[sec]||0)+5;
+  if(sec==='book'){ const f=bookFrame(); let n=bookState.ch; try{ if(f&&f.contentWindow&&f.contentWindow.__curCh) n=+f.contentWindow.__curCh()||n; }catch(e){}
+    const key=chKey(bookState.bookId,n), r=DB.chapters[key]||(DB.chapters[key]={secs:0,first:Date.now()}); r.secs+=5; r.last=Date.now();
+    if(!r.read && r.secs>=120){ r.read=true; r.lastRev=Date.now(); const bk=BOOKS.find(x=>x.id===bookState.bookId), cc=bk&&bk.chapters.find(x=>x.n===n), no=cc?cc.no:n;
+      showReward(T(`📖 अध्याय ${no} पढ़ा गया · भूत में जुड़ा`,`📖 Chapter ${no} read · added to Ghost`)); }
+    if(DB.lastBook==null||DB.lastBook.ch!==n){ DB.lastBook={b:bookState.bookId,ch:n}; } }
+  if(Math.round(d.t[sec])%30===0) saveState();
+}
+setInterval(trackTick,5000);
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') saveState(); else lastTouch=Date.now(); });
+function updateStatusBars(){ const now=new Date(), t=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0'), on=navigator.onLine;
+  document.querySelectorAll('.ios-status').forEach(s=>{ const a=s.children; if(a[0]) a[0].textContent=t; if(a[1]) a[1].textContent=on?L('● ऑनलाइन','● Online'):L('○ ऑफ़लाइन','○ Offline'); }); }
+setInterval(updateStatusBars,20000); window.addEventListener('online',updateStatusBars); window.addEventListener('offline',updateStatusBars);
+
+// ═══ NAV ═══
+let currentView='dashboard';
+function updateNavHighlight(){
+  const nav=document.getElementById('bottomNav'), h=document.getElementById('navHighlight');
+  const a=nav.querySelector('.nav-item.on'); if(!a) return;
+  const nr=nav.getBoundingClientRect(), br=a.getBoundingClientRect();
+  h.style.left=(br.left-nr.left)+'px'; h.style.width=br.width+'px';
+}
+function switchView(name){
+  if(name===currentView && document.getElementById(name+'-view').classList.contains('active')) return;
+  Sound.click(); triggerWave(); haptic(8);
+  currentView=name;
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(name+'-view').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('on', b.dataset.view===name));
+  closeBookLayer();
+  document.getElementById('bottomNavWrap').classList.remove('hidden');
+  if(name==='dashboard') renderDashboard();
+  if(name==='library') renderLibrary();
+  if(name==='focus') renderFocusPage();
+  if(name==='ghost') renderGhost();
+  if(name==='mirror') renderMirror();
+  if(name==='formulas') renderFormulas();
+  updateNavHighlight(); updateStatusBars();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.nav-item').forEach(btn=>btn.addEventListener('click',()=>switchView(btn.dataset.view)));
+window.addEventListener('resize',updateNavHighlight);
+
+function setupReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  },{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+// ═══ SETTINGS HANDLERS ═══
+const settingsModal=document.getElementById('settingsModal');
+document.getElementById('settingsBtn').addEventListener('click',()=>{ fillProfile(); settingsModal.classList.add('active'); Sound.chime(); });
+document.getElementById('settingsClose').addEventListener('click',()=>{ settingsModal.classList.remove('active'); Sound.tap(); if(!DB.level) openQual(); });
+settingsModal.addEventListener('click',e=>{ if(e.target===settingsModal){ settingsModal.classList.remove('active'); if(!DB.level) openQual(); } });
+document.querySelectorAll('.theme-opt').forEach(b=>b.addEventListener('click',()=>{ Settings.theme=b.dataset.t; applySettings(); Settings.save(); Sound.chime(); }));
+document.querySelectorAll('.lang-opt').forEach(b=>b.addEventListener('click',()=>{ Settings.lang=b.dataset.lang; applySettings(); Settings.save(); Sound.tap(); rerenderAll(); }));
+document.querySelectorAll('[data-toggle]').forEach(t=>t.addEventListener('click',()=>{ Settings[t.dataset.toggle]=!Settings[t.dataset.toggle]; applySettings(); Settings.save(); Sound.tap(); }));
+function fillProfile(){ const n=document.getElementById('profName'), d=document.getElementById('profExam'); if(n) n.value=DB.name||''; if(d){ d.value=DB.examDate||''; d.min=ymd(); }
+  const qn=document.getElementById('qualNow'); if(qn) qn.textContent=DB.level?L(qualLabel().hi,qualLabel().en):L('अभी चुना नहीं','Not chosen yet');  renderBackup(); }
+document.getElementById('profName').addEventListener('change',e=>{ DB.name=e.target.value.trim().slice(0,30); saveState(); rerenderAll(); });
+document.getElementById('profExam').addEventListener('change',e=>{ DB.examDate=e.target.value||null; saveState(); rerenderAll(); });
+
+function rerenderAll(){
+  if(currentView==='dashboard') renderDashboard();
+  if(currentView==='library') renderLibrary();
+  if(currentView==='focus') renderFocusPage();
+  if(currentView==='ghost') renderGhost();
+  if(currentView==='mirror') renderMirror();
+  if(currentView==='formulas') renderFormulas();
+  if(document.getElementById('foundation-layer').classList.contains('active')) renderFoundation();
+  applySettings(); updateStatusBars();
+}
+
+// ═══ LIBRARY (only the chosen level: subjects → chapters) ═══
+const LIB={sel:null};
+function chapterStatus(b,c){
+  const r=DB.chapters[chKey(b.id,c.n)]||null;
+  if(!avail(c)) return {st:'soon',col:'var(--line2)',tag:L('🔒 जल्द','🔒 Soon')};
+  if(r&&r.read) return {st:'read',col:'var(--green)',tag:L('✓ पढ़ा','✓ Read')};
+  if(r) return {st:'open',col:'var(--orange)',tag:M(mins(r.secs))};
+  if(c.atoms!=null&&c.atoms<4) return {st:'part',col:'var(--yellow)',tag:L('🟡 अधूरा','🟡 Partial')};
+  return {st:'new',col:'var(--accent)',tag:L('नया','New')};
+}
+function chapterRow(b,c){ const k=chapterStatus(b,c), soon=k.st==='soon';
+  return `<div class="item row" ${soon?'aria-disabled="true"':`data-ch="${c.n}" data-b="${esc(b.id)}" role="button" tabindex="0"`} style="cursor:${soon?'default':'pointer'};min-height:56px;border-left-color:${k.col};font-size:13px;${soon?'opacity:.55':''}">
+    <span style="display:flex;gap:12px;align-items:center"><b style="font-size:18px;min-width:24px;color:${k.col}">${c.no}</b><span><b>${T(esc(noNum(c.t.hi)),esc(noNum(c.t.en)))}</b></span></span>
+    <span class="pct" style="font-size:12px;color:${k.col};white-space:nowrap">${k.tag}</span></div>`; }
+function renderLibrary(){
+  const q=LOWER(document.getElementById('searchInput').value.trim()), books=BOOKS.filter(b=>b.owned);
+  const grid=document.getElementById('appGrid'), list=document.getElementById('chapterList');
+  if(!DB.level){
+    grid.innerHTML=`<div class="empty-note" style="grid-column:1/-1">${T('पहले बताइए आप क्या पढ़ते हैं। फिर यहाँ सिर्फ़ उसी स्तर की किताबें दिखेंगी।','First tell us what you study. Then only that level\'s books appear here.')}<br><br><button class="btn primary" onclick="openQual()">🎓 ${L('अपनी पढ़ाई चुनें','Choose your level')}</button></div>`;
+    list.innerHTML=''; document.getElementById('bookCount').innerHTML=''; document.getElementById('continueCard').style.display='none'; renderQuote(); return;
+  }
+  if(!books.some(b=>b.id===LIB.sel)) LIB.sel=(DB.lastBook&&books.some(b=>b.id===DB.lastBook.b))?DB.lastBook.b:(books[0]||{}).id;
+  let shelf=null;
+  grid.innerHTML = books.map(b=>{ const ready=b.chapters.filter(avail).length;
+    const sh=b.forTags?b.forTags.map(t=>L(t.hi,t.en)).join(' + '):null, head=(sh&&sh!==shelf)?`<div class="shelf-h">${esc(sh)}</div>`:''; shelf=sh;
+    return head+`<div class="app-icon${b.id===LIB.sel?' sel':''}" data-book="${esc(b.id)}" role="button" tabindex="0">
+      <div class="visual-wrap"><div class="visual" style="background:linear-gradient(135deg,${b.color},#2563eb)">${b.emoji}</div><div class="badge">${ready}</div></div>
+      <span class="label">${T(esc(b.title.hi),esc(b.title.en))}</span>
+    </div>`; }).join('') || `<div class="empty-note" style="grid-column:1/-1">${SERVER_OK?T('इस स्तर पर अभी कोई किताब नहीं','No books at this level yet'):T('सर्वर से किताबें नहीं आ सकीं। इंटरनेट जाँचें।','Could not load books from the server. Check your internet.')}</div>`;
+  grid.querySelectorAll('.app-icon').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.sel=el.dataset.book; document.getElementById('searchInput').value=''; renderLibrary();
+    const t=document.getElementById('chapterList'); if(t&&t.scrollIntoView) t.scrollIntoView({behavior:'smooth',block:'start'}); }));
+  document.getElementById('bookCount').innerHTML = `${esc(L(qualLabel().hi,qualLabel().en))} · ${books.length} ${L('विषय','subjects')}`;
+  renderQuote();
+  const lb=DB.lastBook, b=lb&&books.find(x=>x.id===lb.b), c=b&&b.chapters.find(x=>x.n===lb.ch), cc=document.getElementById('continueCard');
+  const nx=nextUnread();
+  if(c){ document.getElementById('continueTitle').innerHTML=`${L(esc(b.title.hi),esc(b.title.en))} · ${L('अध्याय','Ch')} ${c.no}`; }
+  else if(nx){ document.getElementById('continueTitle').innerHTML=`${L(esc(nx.b.title.hi),esc(nx.b.title.en))} · ${L('अध्याय','Ch')} ${nx.c.no}`; }
+  cc.style.display=(c||nx)?'':'none';
+  cc.querySelector('.prog>i').style.width=coverage()+'%';
+  cc.querySelector('.lbl').textContent=c?L('जारी रखें','Continue'):L('शुरू करें','Start');
+  let html='';
+  if(q){
+    const hits=books.flatMap(bk=>bk.chapters.filter(ch=>LOWER(ch.t.hi).includes(q)||LOWER(ch.t.en).includes(q)).map(ch=>({bk,ch})));
+    html=`<div class="sec-title"><h2>🔍 ${L('खोज','Search')}</h2><div class="count-pill">${hits.length}</div></div><div style="padding:0 22px">${hits.map(h=>chapterRow(h.bk,h.ch)).join('')||`<div class="empty-note">${T('कुछ नहीं मिला','Nothing found')}</div>`}</div>`;
+  } else { const bk=books.find(x=>x.id===LIB.sel);
+    if(bk){ const ready=bk.chapters.filter(avail), done=ready.filter(ch=>(DB.chapters[chKey(bk.id,ch.n)]||{}).read).length, soon=bk.chapters.length-ready.length;
+      html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
+        <div style="padding:0 22px">${bk.chapters.map(ch=>chapterRow(bk,ch)).join('')}</div>`; } }
+  list.innerHTML=html;
+  list.querySelectorAll('[data-ch]').forEach(el=>{ const go=()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch); };
+    el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
+}
+function renderQuote(){ const qc=document.getElementById('quoteCard'), qt=getDailyQuote();
+  qc.innerHTML=`<div class="q-tag">${L('आज का विचार','Quote of the Day')}</div><div class="q-text">${L(esc(qt.text),esc(qt.en))}</div><div class="q-author">— <b>${esc(L(qt.authorHi,qt.author))}</b></div>`; }
+document.getElementById('searchInput').addEventListener('input',renderLibrary);
+document.getElementById('addBookBtn').addEventListener('click',()=>{ Sound.tap(); openQual(); });
+document.getElementById('continueCard').addEventListener('click',()=>{ Sound.tap(); const lb=DB.lastBook;
+  if(lb&&BOOKS.some(b=>b.id===lb.b&&b.chapters.some(c=>c.n===lb.ch&&avail(c)))) openBook(lb.b,lb.ch); else { const nx=nextUnread(); if(nx) openBook(nx.b.id,nx.c.n); } });
+
+// ═══ QUALIFICATION PICKER ═══
+function qualItems(){
+  if(!QUAL) return [];
+  const exams=QUAL.exams||[], items=[];
+  QGROUPS.forEach(g=>{ const its=[];
+    g.levels.forEach(lv=>{ const lvl=QUAL.levels.find(x=>x.id===lv); if(!lvl||!lvl.chapters) return;
+      const ex=exams.filter(e=>e.level===lv&&!(g.extra||[]).includes(e.slug)&&e.slug!=='diploma-polytechnic'), fams={};
+      ex.forEach(e=>{ const k=e.family||e.slug; if(!fams[k]) fams[k]={key:'exam:'+k,level:lv,hi:e.family_hi||e.hi,en:e.family_en||e.en,chapters:lvl.chapters}; });
+      const fl=Object.values(fams);
+      if(fl.length) its.push(...fl); else its.push({key:'level:'+lv,level:lv,hi:lvl.hi,en:lvl.en,chapters:lvl.chapters}); });
+    (g.extra||[]).forEach(slug=>{ const e=exams.find(x=>x.slug===slug), lvl=e&&QUAL.levels.find(x=>x.id===e.level);
+      if(e&&lvl&&lvl.chapters) its.push({key:'exam:'+(e.family||e.slug),level:e.level,hi:e.family_hi||e.hi,en:e.family_en||e.en,chapters:lvl.chapters}); });
+    if(its.length) items.push({g,its}); });
+  return items;
+}
+async function openQual(){
+  const m=document.getElementById('qualModal'); m.classList.add('active');
+  document.getElementById('qualClose').style.visibility=DB.level?'visible':'hidden';
+  const box=document.getElementById('qualList'); box.innerHTML=`<div class="empty-note">${T('सूची लाई जा रही है…','Loading…')}</div>`;
+  document.getElementById('qualSearch').placeholder=L('खोजें: कक्षा 10, SSC JE, NEET…','Search: Class 10, SSC JE, NEET…');
+  await loadQualifications(); renderQual();
+}
+function renderQual(){
+  const box=document.getElementById('qualList'), q=LOWER(document.getElementById('qualSearch').value.trim());
+  if(!QUAL){ box.innerHTML=`<div class="empty-note">${T('सर्वर से सूची नहीं आ सकी। इंटरनेट जाँचकर फिर खोलें।','Could not load the list. Check your internet and open again.')}</div>`; return; }
+  const groups=qualItems().map(({g,its})=>({g,its:its.filter(it=>!q||LOWER(it.hi).includes(q)||LOWER(it.en).includes(q))})).filter(x=>x.its.length);
+  box.innerHTML=groups.map(({g,its})=>`<div class="qual-group"><h3>${g.icon} ${L(g.hi,g.en)}</h3>
+    ${its.map(it=>`<button class="qual-item${DB.exam===it.key?' on':''}" data-q="${esc(it.key)}"><span>${esc(L(it.hi,it.en))}</span><small>${L(`${it.chapters} अध्याय`,`${it.chapters} chapters`)}</small></button>`).join('')}</div>`).join('')
+    || `<div class="empty-note">${T('कुछ नहीं मिला','Nothing found')}</div>`;
+  box.querySelectorAll('[data-q]').forEach(b=>b.addEventListener('click',()=>pickQual(b.dataset.q)));
+}
+async function pickQual(key){
+  const it=qualItems().flatMap(x=>x.its).find(x=>x.key===key); if(!it) return;
+  const changed=DB.level!==it.level;
+  DB.level=it.level; DB.exam=key; DB.qlabel={hi:it.hi,en:it.en}; saveState(); Sound.success();
+  document.getElementById('qualModal').classList.remove('active');
+  if(changed){ BOOKS=[]; FORMULAS=null; LIB.sel=null; }
+  rerenderAll(); await loadBooks(); rerenderAll(); fillProfile();
+  showReward(T(`🎓 ${esc(it.hi)}: अब सिर्फ़ इसी की पढ़ाई दिखेगी`,`🎓 ${esc(it.en)}: showing only this level now`));
+}
+document.getElementById('qualClose').addEventListener('click',()=>{ if(DB.level) document.getElementById('qualModal').classList.remove('active'); });
+document.getElementById('qualSearch').addEventListener('input',renderQual);
+document.getElementById('qualOpenBtn').addEventListener('click',()=>{ settingsModal.classList.remove('active'); openQual(); });
+document.getElementById('qualRestore').addEventListener('click',()=>{ document.getElementById('qualModal').classList.remove('active'); fillProfile(); BK.restoreOpen=true; BK.pending=null; renderBackup();
+  settingsModal.classList.add('active'); const bb=document.getElementById('backupBox'); if(bb&&bb.scrollIntoView) bb.scrollIntoView({block:'center'}); });
+
+// ═══ FOCUS TIMER (shared by Dashboard card + Focus page) ═══
+let focusInterval=null;
+const focusC=r=>2*Math.PI*r;
+function focusLeftSec(){ const f=STATE.focus; return f.running&&f.end?Math.max(0,Math.round((f.end-Date.now())/1000)):f.remaining; }
+function updateFocusUI(){
+  const f=STATE.focus, rem=focusLeftSec();
+  const txt=`${Math.floor(rem/60)}:${String(rem%60).padStart(2,'0')}`;
+  document.querySelectorAll('[data-ftime]').forEach(el=>el.textContent=txt);
+  document.querySelectorAll('[data-fcirc]').forEach(c=>{
+    const r=parseFloat(c.getAttribute('r')), C=focusC(r);
+    c.setAttribute('stroke-dasharray',C); c.style.strokeDashoffset=C*(1-rem/f.duration);
+  });
+  document.querySelectorAll('[data-fbtn]').forEach(b=>b.textContent=f.running?L('⏸ रोकें','⏸ Pause'):L('▶ शुरू करें','▶ Start'));
+  const fs=document.getElementById('focusStats');
+  if(fs) fs.innerHTML=T(`आज ${dayRec().fs||0} सेशन पूरे · ${mins((dayRec().t||{}).focus)} मिनट`,`${dayRec().fs||0} sessions completed today · ${mins((dayRec().t||{}).focus)} min`);
+}
+function focusFinish(){
+  const f=STATE.focus; clearInterval(focusInterval); f.running=false; f.end=null; f.remaining=f.duration;
+  const d=dayRec(); d.fs=(d.fs||0)+1; try{ localStorage.removeItem(DKEY+'_focus'); }catch(e){}
+  Sound.chime(); fireConfetti(80); saveState();
+  showReward(T('🎉 25 मिनट फ़ोकस पूरा! +25 अंक','🎉 25 min focus complete! +25 XP'));
+  if(currentView==='dashboard') renderDashboard();
+}
+function focusRun(){ clearInterval(focusInterval); focusInterval=setInterval(()=>{ if(focusLeftSec()<=0) focusFinish(); updateFocusUI(); },1000); }
+function toggleFocus(){
+  const f=STATE.focus;
+  if(f.running){ f.remaining=focusLeftSec(); f.running=false; f.end=null; clearInterval(focusInterval); Sound.tap(); try{ localStorage.removeItem(DKEY+'_focus'); }catch(e){} }
+  else{ f.running=true; f.end=Date.now()+f.remaining*1000; Sound.success(); fireConfetti(20); try{ localStorage.setItem(DKEY+'_focus',String(f.end)); }catch(e){} focusRun(); }
+  updateFocusUI(); saveState();
+}
+function resetFocus(){
+  clearInterval(focusInterval); STATE.focus.running=false; STATE.focus.end=null; STATE.focus.remaining=STATE.focus.duration;
+  try{ localStorage.removeItem(DKEY+'_focus'); }catch(e){}
+  updateFocusUI(); Sound.tap();
+}
+function bindFocusControls(root){
+  root.querySelectorAll('[data-fbtn]').forEach(b=>b.addEventListener('click',toggleFocus));
+  root.querySelectorAll('[data-freset]').forEach(b=>b.addEventListener('click',resetFocus));
+}
+let focusPageBound=false;
+function renderFocusPage(){
+  if(!focusPageBound){ bindFocusControls(document.getElementById('focus-view')); focusPageBound=true; }
+  updateFocusUI();
+}
+
+// ═══ RADAR ═══
+function buildRadarChart(data){
+  const cx=140,cy=140,maxR=100,n=data.length,step=Math.PI*2/n,start=-Math.PI/2;
+  let grid='';
+  for(let r=20;r<=maxR;r+=20){
+    const pts=[];for(let i=0;i<n;i++){const a=start+step*i;pts.push(`${cx+r*Math.cos(a)},${cy+r*Math.sin(a)}`);}
+    grid+=`<polygon points="${pts.join(' ')}" fill="none" stroke="rgba(255,255,255,.06)"/>`;
+  }
+  let axes='',dataPts=[],dots='',labels='';
+  data.forEach((d,i)=>{
+    const a=start+step*i, rr=(Math.max(d.value,3)/100)*maxR;
+    axes+=`<line x1="${cx}" y1="${cy}" x2="${cx+maxR*Math.cos(a)}" y2="${cy+maxR*Math.sin(a)}" stroke="rgba(255,255,255,.08)"/>`;
+    dataPts.push(`${cx+rr*Math.cos(a)},${cy+rr*Math.sin(a)}`);
+    dots+=`<circle cx="${cx+rr*Math.cos(a)}" cy="${cy+rr*Math.sin(a)}" r="4" fill="${d.color}"/>`;
+    const lr=maxR+22;
+    labels+=`<text x="${cx+lr*Math.cos(a)}" y="${cy+lr*Math.sin(a)}" fill="rgba(255,255,255,.6)" font-size="9" font-weight="700" text-anchor="middle" dominant-baseline="middle">${d.label}</text>`;
+  });
+  return `<svg viewBox="0 0 280 280" width="260" height="260">${grid}${axes}
+    <polygon points="${dataPts.join(' ')}" fill="rgba(0,229,204,.2)" stroke="var(--accent)" stroke-width="2"/>${dots}${labels}</svg>`;
+}
+
+// ═══ DASHBOARD ═══
+function renderDashboard(){
+  const v=document.getElementById('dashboard-view'), s=buildState();
+  const daysToExam=s.examDate?Math.max(0,Math.round((s.examDate-new Date(ymd()+'T00:00:00'))/86400000)):null;
+  const h=new Date().getHours();
+  const greet=h<12?L('सुप्रभात','Good morning'):h<17?L('नमस्ते','Good afternoon'):L('शुभ संध्या','Good evening');
+  const total=s.timeTracking.reduce((a,b)=>a+b.time,0);
+  const maxT=Math.max(1,...s.timeTracking.map(t=>t.time));
+  const C=focusC(64), focusPct=focusLeftSec()/s.focus.duration;
+  const r=s.reality, cov=s.readiness.cov, nu=nextUnread();
+
+  let priority='';
+  if(!DB.level) priority+=`<div class="card reveal" style="border-color:var(--accent)"><div class="head"><h3 style="color:var(--accent)">🎓 ${L('आप क्या पढ़ते हैं?','What do you study?')}</h3></div>
+      <div class="sub">${L('कक्षा 6 से PhD तक: अपना स्तर चुनें, फिर ऐप सिर्फ़ उसी की पढ़ाई दिखाएगा।','From Class 6 to PhD: pick your level and the app shows only that.')}</div>
+      <button class="btn primary" onclick="openQual()">🎓 ${L('अपनी पढ़ाई चुनें','Choose your level')}</button></div>`;
+  if(!SERVER_OK) priority+=`<div class="error-card reveal"><div>⚠️</div><div><b>${L('सूचना:','System Alert:')}</b> ${T('सर्वर से कनेक्शन नहीं हुआ। किताबें और सवाल इंटरनेट आने पर दिखेंगे।','Could not reach the server. Books and questions will appear when you are online.')}</div></div>`;
+  if(r.daysWithoutStudy!=null && r.daysWithoutStudy>=2 && !s.hasStudiedToday){
+    priority+=`<div class="reality-card reveal">
+      <div class="reality-tag">⚠ ${L('सच्चाई','REALITY CHECK')}</div>
+      <div class="reality-headline">${T(`आप <span class="warn">${r.daysWithoutStudy} दिन</span> से पढ़े नहीं।`,`You have not studied for <span class="warn">${r.daysWithoutStudy} days</span>.`)}</div>
+      <div class="reality-sub">${T(`पिछली बार पढ़ाई: <b>${r.lastStudied.hi}</b> · पिछले 7 दिन में कुल <b>${r.week} मिनट</b>।`,`Last study: <b>${r.lastStudied.en}</b> · <b>${r.week} min</b> in the last 7 days.`)}</div>
+      <div class="reality-grid">
+        <div class="rc-item"><div class="v">${r.appOpens}</div><div class="l">${L('ऐप खोला','App Opens')}</div></div>
+        <div class="rc-item"><div class="v">${Mm(r.idle)}</div><div class="l">${L('खाली','Idle')}</div></div>
+        <div class="rc-item"><div class="v">${Mm(s.studyTime)}</div><div class="l">${L('पढ़ाई','Study')}</div></div>
+      </div>
+      <button class="btn danger" onclick="startMission()">⚡ ${L('अभी 25 मिनट पढ़ो','Study 25 min now')}</button>
+    </div>`;
+  } else if(s.hasStudiedToday){
+    priority+=`<div class="sunset-card reveal"><div class="head"><h3 style="color:var(--green)">🌅 ${T('आज की मेहनत','Today\'s effort')}</h3></div>
+      <div class="sub">${T(`आज आपने <b>${s.studyTime} मिनट</b> पढ़ाई की।${s.studyTime>=60?' अब आराम करें!':''}`,`You studied <b>${s.studyTime} min</b> today.${s.studyTime>=60?' Now rest!':''}`)}</div>
+      <div class="sunset-stats"><div class="sunset-box"><div class="v">${s.focus.sessionsToday}</div><div class="l">${L('सेशन','Sessions')}</div></div><div class="sunset-box"><div class="v">${Mm(s.studyTime)}</div><div class="l">${L('पढ़ाई','Study')}</div></div><div class="sunset-box"><div class="v">${s.studyTime+20*(dayRec().qc||0)}</div><div class="l">${L('अंक','XP')}</div></div></div></div>`;
+  } else if(r.daysWithoutStudy==null){
+    priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--accent)">👋 ${T('शुरुआत','Getting started')}</h3></div>
+      <div class="sub">${T('यहाँ हर आँकड़ा आपकी असली पढ़ाई से बनेगा। पहला अध्याय खोलें, 2 मिनट पढ़ते ही वह "पढ़ा गया" में जुड़ जाएगा।','Every number here comes from your real study. Open the first chapter; after 2 minutes of reading it counts as read.')}</div>
+</div>`;
+  }
+  const ms=s.mission;
+  if(ms) priority+=`<div class="card reveal">
+      <div class="head"><div class="mission-xp">+${ms.xpReward} ${L('अंक','XP')}</div></div>
+      <div class="eyebrow">🎯 ${L('आज का मिशन','Today\'s Mission')}</div>
+      <div class="mission-title">${T(esc(ms.title.hi),esc(ms.title.en))}</div>
+      <div class="sub">${T(esc(ms.sub.hi),esc(ms.sub.en))}</div>
+      <div class="mission-meta"><span class="mm">⏱ ${ms.time}</span><span class="mm">📚 ${T(`${readChapters().length}/${allChapters().length} अध्याय पढ़े`,`${readChapters().length}/${allChapters().length} chapters read`)}</span></div>
+      <button class="btn primary" onclick="startMission()">🚀 ${L('मिशन शुरू करें','Start Mission')}</button>
+    </div>`;
+  const left=allChapters().length-readChapters().length;
+  if(daysToExam!=null && left>0){
+    const perDay=Math.max(1,Math.ceil(left/Math.max(1,daysToExam)));
+    priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--yellow)">📈 ${L('स्मार्ट प्लान','Smart Catch-up')}</h3></div>
+      <div class="sub">${T(`परीक्षा में <b>${daysToExam} दिन</b> बचे, <b>${left} अध्याय</b> बाकी। रोज़ <b>${perDay} अध्याय</b> पढ़ें।`,`<b>${daysToExam} days</b> to the exam, <b>${left} chapters</b> left. Read <b>${perDay} chapter(s)</b> a day.`)}</div>
+      <button class="btn" onclick="startMission()">${L('अगला अध्याय पढ़ें →','Read the next chapter →')}</button></div>`;
+  } else if(daysToExam==null){
+    priority+=`<div class="card reveal"><div class="head"><h3 style="color:var(--yellow)">📈 ${L('स्मार्ट प्लान','Smart Catch-up')}</h3></div>
+      <div class="sub">${T('परीक्षा की तारीख़ डालें, फिर रोज़ का प्लान यहाँ बनेगा।','Add your exam date and a daily plan will appear here.')}</div>
+      <button class="btn" onclick="document.getElementById('settingsBtn').click()">${L('तारीख़ डालें →','Add exam date →')}</button></div>`;
+  }
+  const pr=DB.promise, tomorrow=addDays(1), todayP=pr&&pr.date===ymd()?pr.min:null, tomP=pr&&pr.date===tomorrow?pr.min:null;
+  priority+=`<div class="card reveal" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><b style="font-size:13px">${todayP!=null?T(`आज का वादा: ${todayP} मिनट · अभी ${s.studyTime} मिनट ${s.studyTime>=todayP?'✓':''}`,`Today's promise: ${todayP} min · ${s.studyTime} min so far ${s.studyTime>=todayP?'✓':''}`):tomP!=null?T(`कल का वादा: ${tomP} मिनट पढ़ना`,`Tomorrow's promise: ${tomP} min study`):T('कल के लिए वादा करें','Make a promise for tomorrow')}</b><button class="btn small" onclick="makePromise()">${L('नया वादा','New promise')}</button></div>`;
+
+  const wasted=s.timeTracking.filter(t=>t.type!=='study').reduce((a,t)=>a+t.time,0);
+  const verdict=total===0?T('आज अभी तक ऐप में कोई समय दर्ज नहीं हुआ।','No time recorded in the app today yet.')
+    :wasted>s.studyTime?T(`आज <b>${wasted} मिनट</b> ऐप घूमने या खाली बैठने में गए, पढ़ाई <b>${s.studyTime} मिनट</b>। फ़ोकस मोड चालू करें।`,`<b>${wasted} min</b> went to browsing or idle today, study <b>${s.studyTime} min</b>. Start Focus Mode.`)
+    :T(`बढ़िया! आज का ज़्यादातर समय पढ़ाई में गया (<b>${s.studyTime} मिनट</b>)।`,`Great! Most of today went to study (<b>${s.studyTime} min</b>).`);
+
+  v.innerHTML=`
+    <div class="ios-status"><span></span><span></span></div>
+    <div class="dash-header safe-top">
+      <div class="greeting">${L('मिशन कंट्रोल','MISSION CONTROL')}</div>
+      <div class="name">${s.user.name?esc(s.user.name):L('आपकी तैयारी','Your prep')}</div>
+      <div class="sub-greeting">${greet}${DB.level?' · '+esc(L(qualLabel().hi,qualLabel().en)):''} · ${daysToExam!=null?L(`परीक्षा में ${daysToExam} दिन`,`${daysToExam} days to exam`):L('परीक्षा तारीख़ सेट नहीं','Exam date not set')}</div>
+    </div>
+    ${priority}
+
+    <div class="card reveal" onclick="switchView('mirror')" style="cursor:pointer">
+      <div class="head"><h3>📊 ${T('आपका समय कहाँ गया?','Where did your time go?')}</h3><span class="tag yellow">${L('आईना →','MIRROR →')}</span></div>
+      <div class="sub">${T(`आज का कुल: <b>${total} मिनट</b> — असली पढ़ाई <b>${s.studyTime} मिनट</b>`,`Today's total: <b>${total} min</b> — real study <b>${s.studyTime} min</b>`)}</div>
+      ${s.timeTracking.map(t=>`<div style="margin-bottom:10px"><div class="row"><span><b>${t.icon}</b> ${T(esc(t.name.hi),esc(t.name.en))}</span><span>${M(t.time)}</span></div><div class="bar"><i class="${t.type}" style="width:${(t.time/maxT)*100}%"></i></div></div>`).join('')}
+      <div class="verdict">${verdict}</div>
+    </div>
+
+    ${s.weakTopics.length?`<div class="card reveal" style="border-color:rgba(255,61,90,.3)">
+      <div class="head"><h3 style="color:var(--red)">📉 ${T('कमज़ोर अध्याय','Weak chapters')}</h3></div>
+      ${s.weakTopics.map(w=>`<div class="item red row"><span><b>${T(esc(w.name.hi),esc(w.name.en))}</b></span><span class="pct">${w.acc}%</span></div>`).join('')}
+    </div>`:''}
+
+    <div class="card reveal">
+      <div class="head"><h3>🎭 ${T('आपका हफ्ता','Your week')}</h3><span class="tag accent">${L('पढ़ाई का हिसाब','STUDY LOG')}</span></div>
+      <div class="mood-grid">${s.weekMood.map(d=>`<div class="mood-day"><div class="mood-dot ${d.status}" title="${d.min} min">${({great:'😊',good:'🙂',okay:'😐',bad:'😔',zero:'💤'})[d.status]}</div><div class="d-label">${Settings.lang==='en'?d.dayEn:d.day}</div></div>`).join('')}</div>
+      <div class="sub" style="margin:10px 0 0">${T('😊 60+ मिनट · 🙂 30+ · 😐 10+ · 😔 थोड़ा · 💤 कुछ नहीं','😊 60+ min · 🙂 30+ · 😐 10+ · 😔 a little · 💤 none')}</div>
+    </div>
+
+    <div class="card reveal readiness">
+      <div class="tag accent" style="display:inline-block;margin-bottom:10px">${L('परीक्षा की तैयारी','EXAM READINESS')}</div>
+      <div class="score">${s.readiness.score}%</div>
+      <div style="font-size:14px;font-weight:700;margin:4px 0">${T('तैयारी स्तर','Preparation level')}</div>
+      <div class="sub" style="margin:8px 0">${T(`पढ़े अध्याय <b>${cov}%</b> · क्विज़ सटीकता <b>${s.readiness.acc==null?'—':s.readiness.acc+'%'}</b>`,`Chapters read <b>${cov}%</b> · Quiz accuracy <b>${s.readiness.acc==null?'—':s.readiness.acc+'%'}</b>`)}</div>
+      <div class="bar"><i style="width:${s.readiness.score}%;background:var(--accent)"></i></div>
+      <div class="row" style="margin-top:8px"><span>${L('लक्ष्य','Target')}: <b>${s.readiness.target}%</b></span><span>${Math.max(0,s.readiness.target-s.readiness.score)}% ${L('बाकी','gap')}</span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="head"><h3>🎓 ${L('करियर पथ','Career Path')}</h3><span class="tag yellow">${s.career.progress}% ${L('पूरा','DONE')}</span></div>
+      <div class="career-path">
+        <div class="career-line"></div>
+        <div class="career-progress" style="width:${s.career.progress}%"></div>
+        <div class="career-nodes">${s.career.nodes.map(n=>{const ok=n.pct<=s.career.progress;return `<div class="career-node ${ok?'unlocked':''}"><div class="career-dot">${ok?'✓':n.icon}</div><div class="career-label">${n.label}</div></div>`;}).join('')}</div>
+      </div>
+      <div class="verdict" style="border-color:var(--yellow);background:rgba(255,210,61,.08)">🏆 ${(()=>{ const nx=s.career.nodes.find(n=>n.pct>s.career.progress); const all=allChapters().length;
+        return nx?T(`अगला पड़ाव: <b>${nx.label}</b> · ${Math.max(1,Math.ceil((nx.pct-s.career.progress)/100*all))} अध्याय बाकी`,`Next milestone: <b>${nx.label}</b> · ${Math.max(1,Math.ceil((nx.pct-s.career.progress)/100*all))} chapter(s) to go`):T('पूरी किताब पढ़ ली! अब भूत वाले पेज पर दोहराएँ।','Whole book read! Now revise in Ghost.'); })()}</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="head"><h3>📊 ${L('तैयारी रडार','Prep Radar')}</h3><span class="tag accent">${L('लाइव','LIVE')}</span></div>
+      <div class="radar-chart">${buildRadarChart(s.radar)}</div>
+      <div class="legend">${s.radar.map(r=>`<div><i style="background:${r.color}"></i>${r.label} ${r.value}%</div>`).join('')}</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="head"><h3>⚡ ${L('फ़ोकस टाइमर','Focus Timer')}</h3><span class="tag purple">${L(`आज ${s.focus.sessionsToday}`,`${s.focus.sessionsToday} today`)}</span></div>
+      <div class="focus-circle">
+        <svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="64" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/>
+          <circle data-fcirc cx="70" cy="70" r="64" fill="none" stroke="var(--purple)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-focusPct)}"/></svg>
+        <div class="focus-time" data-ftime style="font-size:24px">25:00</div>
+      </div>
+      <div class="btn-row"><button class="btn primary" data-fbtn></button><button class="btn" data-freset>↺</button></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="head"><h3>🧽 ${T('भूलने का ग्राफ़','Forgetting curve')}</h3><span class="tag orange">${L('भूत →','GHOST →')}</span></div>
+      <div class="sub">${s.forgetting.length?T('पढ़े हुए अध्याय, सबसे कम याद वाले ऊपर (अनुमान) — अभी दोहराएँ','Chapters you read, least remembered first (estimate) — revise now'):''}</div>
+      ${s.forgetting.slice(0,3).map(f=>`<div class="item ${f.urgent?'red':''} row" style="cursor:pointer" onclick="switchView('ghost')"><span><b>${T(esc(f.name.hi),esc(f.name.en))}</b><br><small style="color:var(--muted)">${L('दोहराव','Review')}: ${L(f.nextReview.hi,f.nextReview.en)}</small></span><span class="pct">${f.retention}%</span></div>`).join('') || `<div class="sub">${T('अभी कोई अध्याय पढ़ा नहीं गया। पढ़े हुए अध्याय यहाँ दिखेंगे।','No chapter read yet. Chapters you read will appear here.')}</div>`}
+    </div>
+
+
+
+    <div class="stat-row reveal">
+      <div class="stat-card fire"><div class="v">🔥 ${s.streak}</div><div class="l">${L('लगातार दिन','Streak')}</div></div>
+      <div class="stat-card star"><div class="v">⭐ ${s.xp}</div><div class="l">${L('अंक','XP')}</div></div>
+      <div class="stat-card book"><div class="v">📚 ${BOOKS.filter(b=>b.owned).length}</div><div class="l">${L('किताबें','Books')}</div></div>
+    </div>`;
+
+  bindFocusControls(v);
+  setupReveal(); updateFocusUI(); updateStatusBars();
+}
+function makePromise(){ const opts=[25,45,60,90], cur=DB.promise&&DB.promise.date===addDays(1)?DB.promise.min:null;
+  const next=opts[(opts.indexOf(cur)+1)%opts.length]; DB.promise={date:addDays(1),min:next}; saveState();
+  showReward(T(`वादा सेव हुआ: कल ${next} मिनट`,`Promise saved: ${next} min tomorrow`)); renderDashboard(); }
+function startMission(){
+  Sound.success(); fireConfetti(40);
+  const ms=buildState().mission;
+  if(ms&&ms.x){ if(!STATE.focus.running) toggleFocus(); openBook(ms.x.b.id,ms.x.c.n); showReward(T('🎯 मिशन शुरू! फ़ोकस टाइमर चालू','🎯 Mission started! Focus timer on')); return; }
+  if(ms){ switchView('ghost'); return; }
+  const fb=BOOKS.find(x=>x.owned); if(fb){ openBook(fb.id,1); }
+}
+
+// ═══ GHOST + QUIZ ═══
+// The check is built only from the Physics book's own formulas (server: get_book_formulas).
+// The old question bank (PYQ / practice / mock) stays saved on the server and is never read by this app.
+function renderGhost(){
+  const list=document.getElementById('ghostList'), gl=buildState().forgetting;
+  if(!gl.length){
+    list.innerHTML=`<div class="ghost-empty"><h2>🎉 ${T('कोई भूत नहीं!','No ghosts!')}</h2><p>${readChapters().length?T('आपने सारे पढ़े हुए अध्याय याद रखे हैं।','You remember every chapter you read.'):T('पहले किताब से कोई अध्याय पढ़ें। पढ़े हुए अध्याय यहाँ आते हैं।','Read a chapter from the book first. Chapters you read come here.')}</p></div>`;
+    return;
+  }
+  list.innerHTML=gl.map(f=>`
+    <div class="ghost-item">
+      <div class="ghost-icon">👻</div>
+      <div class="ghost-info"><h3>${T(esc(f.name.hi),esc(f.name.en))}</h3><p>${f.retention}% ${T('बचा है (अनुमान)','retained (estimate)')} · ${T(f.nextReview.hi,f.nextReview.en)}</p></div>
+      <button class="btn small" onclick="openQuiz('${f.id}')">${L('पकड़ो','Catch')}</button>
+    </div>`).join('');
+}
+async function questionFor(x){
+  if(x.b.kind==='atoms'){ const atoms=await chapterAtoms(x.c.n); const qs=atoms.filter(a=>a.type==='mcq').flatMap(a=>((a.body||{}).questions||[]))
+      .filter(q=>Array.isArray(q.options)&&q.options.length>1&&q.answer!=null); if(!qs.length) return null; const q=qs[Math.floor(Math.random()*qs.length)];
+    return {qHi:q.q,qEn:q.q,options:q.options,answer:q.answer,expHi:q.explanation||'',expEn:q.explanation||''}; }
+  await loadFormulas(); if(!FORMULAS) return null;
+  const book=FORMULAS.find(o=>o.b&&o.b.id===x.b.id); if(!book) return null;
+  const all=book.rows.flatMap(ch=>(ch.formulas||[]).map(f=>({...f,ch:ch.ch_no}))).filter(f=>f.f&&f.t);
+  const mine=all.filter(f=>f.ch===x.c.n); if(!mine.length) return null;
+  const pick=mine[Math.floor(Math.random()*mine.length)];
+  const pool=[...new Set(all.filter(f=>f.f!==pick.f).sort((a,b)=>(b.cat===pick.cat)-(a.cat===pick.cat)||Math.random()-.5).slice(0,8).map(f=>f.f))]
+    .sort(()=>Math.random()-.5).slice(0,3);
+  if(pool.length<2) return null;
+  const options=[...pool,pick.f].sort(()=>Math.random()-.5);
+  return {qHi:`“${pick.t[0]}” — ${'सही सूत्र / मान चुनें'}`,qEn:`“${pick.t[1]||pick.t[0]}” — pick the correct formula / value`,options,answer:options.indexOf(pick.f),
+    expHi:(pick.u||[])[0]||'',expEn:(pick.u||[])[1]||(pick.u||[])[0]||''};
+}
+let quizItem=null;
+async function openQuiz(id){
+  const g=buildState().forgetting.find(f=>f.id===id); if(!g) return;
+  document.getElementById('quizTitle').innerHTML=T('👻 भूत पकड़ो','👻 Catch the ghost');
+  document.getElementById('quizQuestion').innerHTML=T('सवाल लाया जा रहा है…','Fetching a question…');
+  document.getElementById('quizOptions').innerHTML='';
+  document.getElementById('quizModal').classList.add('active');
+  const q=await questionFor(g.x);
+  if(!q){ quizItem=null; document.getElementById('quizQuestion').innerHTML=T('इस अध्याय का सवाल अभी नहीं आ सका। अध्याय दोबारा पढ़कर दोहराएँ।','No question available right now. Revise by reading the chapter again.');
+    document.getElementById('quizOptions').innerHTML=`<button class="quiz-opt" onclick="document.getElementById('quizModal').classList.remove('active');openBook('${g.x.b.id}',${g.x.c.n})">📖 ${L('अध्याय खोलें','Open chapter')}</button>`; return; }
+  quizItem={id,g,q};
+  document.getElementById('quizQuestion').innerHTML=T(esc(q.qHi),esc(q.qEn));
+  document.getElementById('quizOptions').innerHTML=q.options.map((o,i)=>`<button class="quiz-opt" data-i="${i}">${esc(o)}</button>`).join('');
+  document.querySelectorAll('#quizOptions .quiz-opt').forEach(b=>b.addEventListener('click',()=>answerQuiz(+b.dataset.i)));
+}
+function answerQuiz(i){
+  if(!quizItem) return;
+  const btns=[...document.querySelectorAll('#quizOptions .quiz-opt')];
+  btns.forEach(b=>b.disabled=true);
+  const ans=quizItem.q.answer, key=quizItem.id, d=dayRec(), qz=DB.quiz[key]||(DB.quiz[key]={c:0,t:0});
+  qz.t++; d.qt=(d.qt||0)+1;
+  const exp=quizItem.q.expHi?`<div style="font-size:12.5px;color:var(--text2);margin-top:8px">💡 ${T(esc(quizItem.q.expHi),esc(quizItem.q.expEn))}</div>`:'';
+  if(i===ans){
+    btns[i].classList.add('correct'); Sound.success(); fireConfetti(30);
+    qz.c++; d.qc=(d.qc||0)+1; const r=DB.chapters[key]; if(r){ r.rev=(r.rev||0)+1; r.lastRev=Date.now(); }
+    saveState(); document.getElementById('quizOptions').insertAdjacentHTML('beforeend',exp);
+    setTimeout(()=>{
+      document.getElementById('quizModal').classList.remove('active');
+      renderGhost(); showReward(T('✅ भूत पकड़ा! +20 अंक','✅ Ghost caught! +20 XP'));
+    },1400);
+  } else {
+    btns[i].classList.add('wrong'); if(btns[ans]) btns[ans].classList.add('correct'); Sound.tap(); saveState();
+    document.getElementById('quizOptions').insertAdjacentHTML('beforeend',exp);
+  }
+}
+document.getElementById('quizClose').addEventListener('click',()=>{ document.getElementById('quizModal').classList.remove('active'); if(currentView==='ghost') renderGhost(); });
+
+// ═══ MIRROR ═══
+function renderMirror(){
+  const s=buildState(), total=s.studyTime+s.wasteTime||1;
+  document.getElementById('mirrorStudy').textContent=Mm(s.studyTime);
+  document.getElementById('mirrorWaste').textContent=Mm(s.wasteTime);
+  const days=[...Array(7)].map((_,i)=>{ const k=addDays(-6+i); return {k,m:dayStudyMin(k),w:dayIdleMin(k),tot:dayTotalMin(k)}; }), mx=Math.max(1,...days.map(x=>x.m));
+  document.getElementById('mirrorList').innerHTML=`
+    <div class="card">
+      <div class="head"><h3>📊 ${T('समय का पूरा हिसाब','Detailed app usage')}</h3></div>
+      <div class="sub">${T('आज का असली टाइम ट्रैक (इसी फ़ोन पर मापा गया)','Today’s real time track (measured on this phone)')}</div>
+      <div style="margin-bottom:10px"><div class="row"><span>${T('असली पढ़ाई (किताब + फ़ोकस मोड)','Real study (book + Focus Mode)')}</span><span>${M(s.studyTime)}</span></div><div class="bar"><i class="study" style="width:${(s.studyTime/total)*100}%"></i></div></div>
+      <div><div class="row"><span>${T('खाली समय (90 सेकंड से ज़्यादा कुछ नहीं छुआ)','Idle time (no touch for 90+ s)')}</span><span>${M(s.wasteTime)}</span></div><div class="bar"><i class="waste" style="width:${(s.wasteTime/total)*100}%"></i></div></div>
+    </div>
+    <div class="card" style="border-color:rgba(178,107,255,.3)">
+      <div class="head"><h3>📅 ${T('पिछले 7 दिन','Last 7 days')}</h3></div>
+      ${days.map(x=>`<div style="margin-bottom:8px"><div class="row"><span>${x.k.slice(8)}/${x.k.slice(5,7)}</span><span>${L(`${x.m} मि. पढ़ाई · ${x.w} मि. खाली`,`${x.m}m study · ${x.w}m idle`)}</span></div><div class="bar"><i class="study" style="width:${(x.m/mx)*100}%"></i></div></div>`).join('')}
+      <div class="verdict">${(()=>{ const w=days.reduce((a,x)=>a+x.m,0), act=days.filter(x=>x.m>0).length; return T(`इस हफ़्ते <b>${w} मिनट</b> पढ़ाई, <b>${act}/7 दिन</b> पढ़े।`,`<b>${w} min</b> of study this week, on <b>${act}/7 days</b>.`); })()}</div>
+    </div>`;
+}
+
+// ═══ FORMULAS (server: mtb.get_book_formulas) ═══
+let FORMULAS=null, formulaQ='';
+let FORMULAS_LV=null;
+async function loadFormulas(){ if(FORMULAS||!BOOKS.length) return; const out=[], lv=DB.level;
+  for(const b of BOOKS.filter(x=>x.kind==='book')){ try{ const rows=await sbGet('rpc/get_book_formulas?p_book='+encodeURIComponent(b.id)); out.push({b,rows}); }catch(e){} }
+  let lvRows=[]; try{ lvRows=await sbGet('rpc/get_level_formulas?p_level='+encodeURIComponent(lv)); }catch(e){}
+  if(DB.level!==lv) return;
+  FORMULAS=out; FORMULAS_LV=lvRows; if(currentView==='formulas') renderFormulas(); }
+function renderFormulas(){
+  const box=document.getElementById('formulaBox'); if(!box) return;
+  if(!DB.level){ box.innerHTML=`<div class="empty-note">${T('पहले अपनी पढ़ाई चुनें','Choose your level first')}<br><br><button class="btn primary" onclick="openQual()">🎓 ${L('अपनी पढ़ाई चुनें','Choose your level')}</button></div>`; return; }
+  if(!FORMULAS){ box.innerHTML=`<div class="empty-note">${T('सूत्र लाए जा रहे हैं…','Loading formulas…')}</div>`; loadFormulas(); return; }
+  const q=LOWER(formulaQ.trim()), hit=f=>!q||[f.f,f.fe,...(f.t||[]),...(f.s||[]),...(f.u||[])].some(x=>LOWER(x||'').includes(q));
+  const html=FORMULAS.map(({b,rows})=>rows.map(ch=>{ const list=(ch.formulas||[]).filter(hit); if(!list.length) return '';
+    return `<div class="sec-title" style="margin-top:6px"><h2>${T(esc(ch.title_hi),esc(ch.title_en))}</h2><div class="count-pill">${list.length}</div></div>
+      ${list.map(f=>`<div class="card"><div class="head"><h3>${T(esc((f.t||[])[0]||''),esc((f.t||[])[1]||''))}</h3><span class="tag accent">${L(esc(b.title.hi),esc(b.title.en))} · ${ch.ch_no}</span></div>
+        <div class="board-formula" style="font-size:18px;font-family:inherit">${T(esc(f.f||''),esc(f.fe||f.f||''))}</div>
+        ${f.s?`<div class="sub" style="margin:6px 0">${T(esc(f.s[0]||''),esc(f.s[1]||''))}</div>`:''}
+        ${f.u?`<div class="sub" style="margin:0">💡 ${T(esc(f.u[0]||''),esc(f.u[1]||''))}</div>`:''}
+        <button class="btn small" style="margin-top:10px" onclick="openBook('${b.id}',${ch.ch_no},'formula')">📖 ${L('किताब में देखें','Open in book')}</button></div>`).join('')}`; }).join('')).join('');
+  const lvHit=f=>!q||[f.title,f.formula,f.explanation,f.ch_hi,f.ch_en].some(x=>LOWER(x||'').includes(q));
+  const groups={}; (FORMULAS_LV||[]).filter(lvHit).forEach(f=>{ (groups[f.chapter]||(groups[f.chapter]=[])).push(f); });
+  const bookOf=id=>BOOKS.find(b=>b.kind==='atoms'&&b.chapters.some(c=>c.n===id));
+  const html2=Object.entries(groups).map(([chid,list])=>{ const f0=list[0], bk=bookOf(+chid);
+    return `<div class="sec-title" style="margin-top:6px"><h2>${T(esc(f0.ch_hi),esc(f0.ch_en))}</h2><div class="count-pill">${esc(L(f0.subject_hi,f0.subject_en))}</div></div>
+      ${list.map(f=>`<div class="card"><div class="head"><h3>${esc(f.title||'')}</h3><span class="tag accent">${esc(L(qualLabel().hi,qualLabel().en))}</span></div>
+        <div class="board-formula" style="font-size:17px;font-family:inherit">${esc(f.formula)}</div>
+        ${f.explanation?`<div class="sub" style="margin:6px 0 0">💡 ${esc(f.explanation)}</div>`:''}
+        ${bk?`<button class="btn small" style="margin-top:10px" onclick="openBook('${esc(bk.id)}',${+chid},'notes')">📖 ${L('अध्याय खोलें','Open chapter')}</button>`:''}</div>`).join('')}`; }).join('');
+  box.innerHTML=(html+html2)||`<div class="empty-note">${q?T('कुछ नहीं मिला','Nothing found'):DB.level?T('इस स्तर पर अभी कोई सूत्र नहीं','No formulas at this level yet'):T('पहले अपनी पढ़ाई चुनें','Choose your level first')}</div>`;
+}
+document.getElementById('formulaSearch').addEventListener('input',e=>{ formulaQ=e.target.value; renderFormulas(); });
+
+// ═══ BOOK READER (book.html keeps the original Physics book format; data comes from the server) ═══
+let bookState={bookId:null,mode:'lecture',ch:1};
+function openBook(id,ch,tab){
+  const b=BOOKS.find(x=>x.id===id); if(!b||!b.owned) return;
+  if(ch!=null){ const cc=b.chapters.find(x=>x.n===ch); if(!cc||!avail(cc)) return; }
+  if(ch==null&&b.kind==='atoms'){ const f=b.chapters.find(avail); if(!f) return; ch=f.n; }
+  bookState={bookId:id,mode:tab==='notes'?'reader':'lecture',ch:ch||((DB.lastBook&&DB.lastBook.b===id)?DB.lastBook.ch:1),tab:tab||null};
+  DB.lastBook={b:id,ch:bookState.ch}; saveState();
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('foundation-layer').classList.add('active');
+  document.getElementById('bottomNavWrap').classList.add('hidden');
+  renderFoundation(true);
+  haptic(10);
+  try{ history.pushState({book:1},''); }catch(e){}
+}
+function readerTab(){ return bookState.tab||(bookState.mode==='lecture'?'teach':'notes'); }
+function renderFoundation(reload){
+  const b=BOOKS.find(x=>x.id===bookState.bookId); if(!b) return;
+  document.getElementById('modeLecture').classList.toggle('on',bookState.mode==='lecture');
+  document.getElementById('modeReader').classList.toggle('on',bookState.mode==='reader');
+  document.getElementById('lecture-view').classList.add('hidden'); document.getElementById('reader-view').classList.add('hidden'); document.getElementById('readerNav').classList.add('hidden');
+  const host=document.getElementById('foundationContent'); let f=bookFrame();
+  if(reload||!f){
+    if(f) f.remove();
+    f=document.createElement('iframe'); f.title=b.title.en; f.setAttribute('allow','fullscreen');
+    f.style.cssText='display:block;width:100%;height:100%;border:0;background:#0f172a';
+    f.src=b.kind==='atoms'
+      ? 'level-book.html?'+new URLSearchParams({l:b.level,s:b.subject.slug,ch:bookState.ch,tab:readerTab(),ui:Settings.lang==='en'?'en':'hi',ln:L(qualLabel().hi,qualLabel().en),...(b.only?{only:b.only.join(',')}:{})})   // every level's chapters, drawn like the Physics book
+      : 'book.html?'+new URLSearchParams({b:b.id,ch:bookState.ch,tab:readerTab()});   // study content keeps the book's own language buttons
+    f.addEventListener('load',()=>{ try{ ['pointerdown','scroll','touchstart','keydown'].forEach(ev=>f.contentWindow.addEventListener(ev,()=>{ lastTouch=Date.now(); },{passive:true,capture:true})); }catch(e){} });
+    host.appendChild(f); host.style.paddingBottom='0'; host.style.overflow='hidden';
+  } else {
+    try{ const w=f.contentWindow; if(w.switchTab) w.switchTab(readerTab()); }catch(e){}
+  }
+  bookState.tab=null;
+  const cn=b.chapters.find(x=>x.n===bookState.ch);
+  document.getElementById('continueTitle').innerHTML=`${L(esc(b.title.hi),esc(b.title.en))} · ${L('अध्याय','Ch')} ${cn?cn.no:bookState.ch}`;
+}
+function closeBookLayer(){ const L=document.getElementById('foundation-layer'); if(!L.classList.contains('active')) return;
+  L.classList.remove('active'); const f=bookFrame(); if(f) f.remove(); document.getElementById('readerNav').classList.add('hidden'); saveState(); }
+
+/* ---- atom chapters (concept, formula, example, check questions, diagram) for the chosen level ---- */
+const ATOMS={};
+async function chapterAtoms(ch){ const k=DB.level+':'+ch; if(ATOMS[k]) return ATOMS[k];
+  const rows=await sbGet(`rpc/get_chapter_atoms?p_chapter=${+ch}&p_level=${encodeURIComponent(DB.level)}`); ATOMS[k]=Array.isArray(rows)?rows:[]; return ATOMS[k]; }
+window.__levelQuiz=(ch,ok)=>{   // check questions answered inside level-book.html
+  const key=chKey(bookState.bookId,ch), qz=DB.quiz[key]||(DB.quiz[key]={c:0,t:0}), d=dayRec(); qz.t++; d.qt=(d.qt||0)+1;
+  if(ok){ qz.c++; d.qc=(d.qc||0)+1; Sound.success(); const r=DB.chapters[key]; if(r&&r.read){ r.rev=(r.rev||0)+1; r.lastRev=Date.now(); } } else Sound.tap();
+  saveState(); };
+document.getElementById('modeLecture').addEventListener('click',()=>{ bookState.mode='lecture'; Sound.tap(); renderFoundation(); });
+document.getElementById('modeReader').addEventListener('click',()=>{ bookState.mode='reader'; Sound.tap(); renderFoundation(); });
+document.getElementById('rPrev').addEventListener('click',()=>{});
+document.getElementById('rNext').addEventListener('click',()=>{});
+document.getElementById('backToLib').addEventListener('click',()=>{
+  Sound.tap(); closeBookLayer();
+  document.getElementById('bottomNavWrap').classList.remove('hidden');
+  try{ if(history.state&&history.state.book) history.back(); }catch(e){}
+  currentView=''; switchView('library');
+});
+window.addEventListener('popstate',()=>{ if(document.getElementById('foundation-layer').classList.contains('active')){ closeBookLayer(); document.getElementById('bottomNavWrap').classList.remove('hidden'); currentView=''; switchView('library'); } });
+
+
+// ═══ CLOUD BACKUP (opt-in). A secret code on this phone; the server keeps only a hash of it.
+//     Server: mtb.progress_save / mtb.progress_load. The name never leaves the phone.
+const BK={dirty:false,busy:false,pending:null,restoreOpen:false,eraseAsk:false,msg:''};
+const BKEY=DKEY+'_backup';
+function bkGet(){ try{ return JSON.parse(localStorage.getItem(BKEY)||'null'); }catch(e){ return null; } }
+function bkSet(o){ try{ o?localStorage.setItem(BKEY,JSON.stringify(o)):localStorage.removeItem(BKEY); }catch(e){} }
+function bkNewCode(){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', b=new Uint8Array(20); crypto.getRandomValues(b);
+  return [...b].map(x=>A[x%32]).join('').replace(/(.{4})(?!$)/g,'$1-'); }
+function bkClean(c){ return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
+async function sbRpc(fn,body,keepalive){ const r=await fetch(SB.url+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:!!keepalive,
+    headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Profile':'mtb','Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>null); if(!r.ok) throw new Error((j&&j.message)||('HTTP '+r.status)); return j; }
+function bkPayload(){ const o=JSON.parse(JSON.stringify(DB)); delete o.name; o._v=4; return o; }
+function bkWhen(iso){ if(!iso) return L('कभी नहीं','never'); const m=Math.round((Date.now()-new Date(iso))/60000);
+  return m<1?L('अभी','just now'):m<60?L(`${m} मिनट पहले`,`${m} min ago`):m<1440?L(`${Math.round(m/60)} घंटे पहले`,`${Math.round(m/60)} h ago`):new Date(iso).toLocaleDateString(); }
+async function backupNow(silent,keepalive){
+  const b=bkGet(); if(!b||BK.busy||!navigator.onLine) return;
+  BK.busy=true; BK.dirty=false;
+  try{ const t=await sbRpc('progress_save',{p_code:b.code,p_data:bkPayload()},keepalive); b.last=t; bkSet(b); if(!silent){ BK.msg=''; showReward(T('☁️ बैकअप हो गया','☁️ Backed up')); } }
+  catch(e){ BK.dirty=true; if(!silent) BK.msg=L('बैकअप नहीं हुआ। इंटरनेट जाँचें।','Backup failed. Check your internet.'); }
+  BK.busy=false; renderBackup();
+}
+setInterval(()=>{ if(BK.dirty) backupNow(true); },5*60*1000);
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden'&&BK.dirty&&bkGet()) backupNow(true,true); });
+window.addEventListener('online',()=>{ if(BK.dirty) backupNow(true); });
+function renderBackup(){
+  const box=document.getElementById('backupBox'); if(!box) return; const b=bkGet();
+  const note=t=>`<div style="font-size:12px;color:var(--muted);padding:4px 2px 10px;line-height:1.5">${t}</div>`;
+  const btn=(a,t,cls)=>`<button class="btn ${cls||''}" data-bk="${a}" style="margin-bottom:8px">${t}</button>`;
+  let h='';
+  if(b){
+    h+=`<div class="toggle-row" style="flex-direction:column;align-items:stretch;gap:6px"><span style="font-size:11px;color:var(--muted)">${L('आपका बैकअप code (इसे कहीं लिखकर रखें)','Your backup code (write it down somewhere)')}</span>
+      <b id="bkCode" style="font-family:ui-monospace,monospace;font-size:16px;letter-spacing:1px!important;word-break:break-all;color:var(--accent)">${esc(b.code)}</b></div>`;
+    h+=note(L(`आख़िरी बैकअप: <b>${bkWhen(b.last)}</b>। बदलाव होने पर हर 5 मिनट में अपने-आप बैकअप होता है।`,`Last backup: <b>${bkWhen(b.last)}</b>. Changes are backed up automatically every 5 minutes.`));
+    h+=btn('copy',L('📋 code कॉपी करें','📋 Copy code'))+btn('now',BK.busy?L('बैकअप हो रहा है…','Backing up…'):L('☁️ अभी बैकअप लें','☁️ Back up now'),'primary');
+    h+=btn('off',L('बैकअप बंद करें (server की copy मिटाएँ)','Turn off backup (clear the server copy)'));
+  } else {
+    h+=note(L('बैकअप बंद है। चालू करने पर आपकी पढ़ाई का हिसाब (पढ़े अध्याय, समय, quiz) एक गुप्त code के साथ server पर सेव होगा, ताकि phone बदलने पर वापस मिल सके। नाम नहीं जाता।',
+      'Backup is off. When on, your study record (chapters read, time, quiz) is saved on the server under a secret code, so you can get it back on a new phone. Your name is not sent.'));
+    h+=btn('on',L('☁️ बैकअप चालू करें','☁️ Turn on backup'),'primary');
+  }
+  if(BK.restoreOpen){
+    h+=`<div class="toggle-row" style="flex-direction:column;align-items:stretch;gap:8px"><label for="bkInput" style="font-size:12px">${L('पुराने phone का बैकअप code डालें','Enter the backup code from your old phone')}</label>
+      <input id="bkInput" autocomplete="off" autocapitalize="characters" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" style="min-height:44px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font:16px ui-monospace,monospace">
+      ${BK.pending?`<div style="font-size:12.5px;color:var(--yellow)">${L(`बैकअप मिला (${bkWhen(BK.pending.updated_at)})। इस phone का अभी का हिसाब इससे बदल जाएगा।`,`Backup found (${bkWhen(BK.pending.updated_at)}). The current record on this phone will be replaced.`)}</div>`+btn('apply',L('✓ हाँ, बैकअप लगाएँ','✓ Yes, restore it'),'primary'):btn('find',L('🔍 बैकअप खोजें','🔍 Find backup'),'primary')}
+    </div>`;
+  } else h+=btn('restore',L('📲 पुराने phone से हिसाब लाएँ','📲 Restore from an old phone'));
+  h+=BK.eraseAsk?btn('erase2',L('⚠️ पक्का? इस phone का सारा हिसाब मिट जाएगा','⚠️ Sure? All progress on this phone will be erased'),'danger'):btn('erase',L('🗑 इस phone की प्रगति मिटाएँ','🗑 Erase progress on this phone'));
+  if(BK.msg) h+=note(`<span style="color:var(--red)">${BK.msg}</span>`);
+  box.innerHTML=h;
+  box.querySelectorAll('[data-bk]').forEach(el=>el.addEventListener('click',()=>bkAction(el.dataset.bk)));
+}
+async function bkAction(a){
+  Sound.tap(); BK.msg='';
+  if(a==='on'){ bkSet({code:bkNewCode(),last:null}); BK.dirty=true; renderBackup(); return backupNow(false); }
+  if(a==='now') return backupNow(false);
+  if(a==='copy'){ const c=(bkGet()||{}).code; try{ await navigator.clipboard.writeText(c); showReward(T('📋 code कॉपी हुआ','📋 Code copied')); }
+    catch(e){ const r=document.createRange(), el=document.getElementById('bkCode'); r.selectNodeContents(el); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); } return; }
+  if(a==='off'){ const b=bkGet(); if(b){ try{ await sbRpc('progress_save',{p_code:b.code,p_data:{}}); }catch(e){ BK.msg=L('server की copy नहीं मिट सकी, इंटरनेट जाँचकर फिर कोशिश करें।','Could not clear the server copy; check your internet and try again.'); renderBackup(); return; } }
+    bkSet(null); BK.dirty=false; renderBackup(); showReward(T('बैकअप बंद, server की copy मिट गई','Backup off, server copy cleared')); return; }
+  if(a==='restore'){ BK.restoreOpen=true; BK.pending=null; renderBackup(); const i=document.getElementById('bkInput'); if(i) i.focus(); return; }
+  if(a==='find'){ const c=bkClean(document.getElementById('bkInput').value);
+    if(c.length<20){ BK.msg=L('code पूरा नहीं है (20 अक्षर)।','The code is incomplete (20 characters).'); renderBackup(); return; }
+    try{ const r=await sbRpc('progress_load',{p_code:c}); if(!r||!r.data||!Object.keys(r.data).length){ BK.msg=L('इस code का कोई बैकअप नहीं मिला।','No backup found for this code.'); }
+      else { BK.pending={code:c.replace(/(.{4})(?!$)/g,'$1-'),...r}; } }
+    catch(e){ BK.msg=L('बैकअप नहीं खुल सका। इंटरनेट जाँचें।','Could not load the backup. Check your internet.'); }
+    renderBackup(); if(BK.pending===null){ const i=document.getElementById('bkInput'); if(i) i.value=c; } return; }
+  if(a==='apply'&&BK.pending){ const name=DB.name, d=BK.pending.data; delete d._v;
+    for(const k of Object.keys(DB)) delete DB[k]; Object.assign(DB,{name:'',examDate:null,days:{},chapters:{},quiz:{},promise:null,lastBook:null,owned:{},opens:{},level:'',exam:'',qlabel:null},d,{name}); FORMULAS=null;
+    bkSet({code:BK.pending.code,last:BK.pending.updated_at}); BK.pending=null; BK.restoreOpen=false; saveState(); BK.dirty=false;
+    await loadQualifications(); await loadBooks(); rerenderAll(); renderBackup(); fillProfile(); fireConfetti(60); showReward(T('✅ आपका हिसाब वापस आ गया','✅ Your progress is back')); return; }
+  if(a==='erase'){ BK.eraseAsk=true; renderBackup(); return; }
+  if(a==='erase2'){ for(const k of Object.keys(DB)) delete DB[k]; Object.assign(DB,{name:'',examDate:null,days:{},chapters:{},quiz:{},promise:null,lastBook:null,owned:{},opens:{},level:'',exam:'',qlabel:null});
+    BK.eraseAsk=false; saveState(); BK.dirty=false; FORMULAS=null; fillProfile(); await loadBooks(); rerenderAll(); renderBackup(); showReward(T('इस phone की प्रगति मिट गई','Progress on this phone erased')); return; }
+}
+
+// ═══ INIT ═══
+loadState();
+DB.opens[ymd()]=(DB.opens[ymd()]||0)+1; saveState();
+applySettings();
+(function particles(){
+  const c=document.getElementById('cosmos'), colors=['#00e5cc','#b26bff','#ff3d8b','#ffd23d'];
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div'); p.className='particle';
+    p.style.left=Math.random()*100+'%'; p.style.animationDuration=(15+Math.random()*20)+'s';
+    p.style.animationDelay=Math.random()*15+'s'; p.style.background=colors[i%4];
+    c.appendChild(p);
+  }
+})();
+(function resumeFocus(){ try{ const e=+localStorage.getItem(DKEY+'_focus'); if(e){ const f=STATE.focus; if(e>Date.now()){ f.running=true; f.end=e; focusRun(); } else { focusFinish(); } } }catch(e){} })();
+renderDashboard();
+renderLibrary();
+renderFocusPage();
+updateStatusBars();
+setTimeout(updateNavHighlight,100);
+window.addEventListener('load',()=>setTimeout(updateNavHighlight,100));
+
+// ═══ STUDENT SETUP (first run) — added 2026-11 ═══
+// One choice where there is one truth (language, qualification, studying/passed, class/semester);
+// many choices where a student really has many goals (target exams).
+// After setup every screen shows ONLY: "my course" + the subjects of the chosen exams. Nothing else.
+// Data: mtb.get_setup_config() (qualifications, eligible exams, exam subjects, syllabus units).
+// The old level picker and all other features stay as they were; old users keep their choice until they redo setup.
+let SETUP_CFG=null;
+const BRANCH_NAME={mechanical:{hi:'मैकेनिकल',en:'Mechanical'},civil:{hi:'सिविल',en:'Civil'},electrical:{hi:'इलेक्ट्रिकल',en:'Electrical'},electronics:{hi:'इलेक्ट्रॉनिक्स',en:'Electronics'},computer:{hi:'कंप्यूटर / आईटी',en:'Computer / IT'}};
+const BRANCH_SUBJ={mechanical:'mechanical-engineering',civil:'civil-engineering',electrical:'electrical-engineering'};
+/* exams without a section table: which parts of a subject the exam really asks */
+const TARGET_UNITS={'jee-main':{'general-science':['physics','chemistry']},'jee-advanced':{'general-science':['physics','chemistry']},'neet-ug':{'general-science':['physics','chemistry','biology']}};
+const BRANCH_SUBJECTS=['mechanical-engineering','civil-engineering','electrical-engineering'];
+const SUBJ_ORDER=['branch','mechanical-engineering','civil-engineering','electrical-engineering','reasoning','maths','general-science','general-awareness','computer-basics','environment'];
+const CATS=[{id:'school',hi:'स्कूल (कक्षा 6–12)',en:'School (Class 6–12)',icon:'🏫'},{id:'diploma',hi:'डिप्लोमा (पॉलिटेक्निक)',en:'Diploma (Polytechnic)',icon:'🛠️'},
+  {id:'graduation',hi:'स्नातक (B.Tech, B.Sc, B.Com, B.A.)',en:'Graduation (B.Tech, B.Sc, B.Com, B.A.)',icon:'🎓'},{id:'postgrad',hi:'स्नातकोत्तर / शोध',en:'Postgraduate / Research',icon:'🔬'}];
+async function loadSetupCfg(){ if(SETUP_CFG) return SETUP_CFG; try{ SETUP_CFG=await sbGet('rpc/get_setup_config'); }catch(e){ SETUP_CFG=null; } return SETUP_CFG; }
+function setupQual(slug){ return ((SETUP_CFG||{}).quals||[]).find(q=>q.slug===slug)||null; }
+function targetName(q,t){ const x=(q.exams||[]).find(e=>e.target===t)||{}; if(x.hi) return {hi:x.hi,en:x.en};
+  const f=((SETUP_CFG||{}).families||{})[t]; if(!f) return {hi:t,en:t};
+  const br=q.branch&&(f.subjects||[]).includes('branch-engineering')?BRANCH_NAME[q.branch]:null;   // a JE paper is taken in the student's own branch
+  return br?{hi:`${f.hi} (${br.hi})`,en:`${f.en} (${br.en})`}:{hi:f.hi,en:f.en}; }
+function setupLabel(s){ const q=setupQual(s.qual); if(!q) return null;
+  const st=s.status==='passed'?{hi:' (पास)',en:' (passed)'}:(s.stage&&q.stages?{hi:` · ${q.stages.label_hi} ${s.stage}`,en:` · ${q.stages.label_en} ${s.stage}`}:{hi:'',en:''});
+  return {hi:q.hi+st.hi,en:q.en+st.en}; }
+
+/* what to show: [{level, subj, units|null, tags:[{hi,en}]}] in display order */
+function setupPlan(s){
+  const q=setupQual(s.qual); if(!q) return [];
+  const raw=[];
+  if(s.course) (q.course||[]).forEach(c=>raw.push({level:q.level,subj:c.subject,units:c.units||null,tag:{hi:'मेरा कोर्स',en:'My course'},rank:0}));
+  (s.exams||[]).forEach((t,i)=>{ const name=targetName(q,t);
+    if(t.startsWith('level:')){ raw.push({level:t.slice(6),subj:'*',units:null,tag:name,rank:1+i,branch:q.branch}); return; }
+    const f=(SETUP_CFG.families||{})[t]; if(!f) return;
+    const subs=f.subjects&&f.subjects.length?f.subjects:['*'];
+    subs.forEach(sj=>{ const slug=sj==='branch-engineering'?BRANCH_SUBJ[q.branch]:sj; if(!slug) return;
+      raw.push({level:f.level,subj:slug,units:null,tag:name,rank:1+i,branch:q.branch,tu:TARGET_UNITS[t]||null}); }); });
+  const out=[], by={};
+  raw.forEach(r=>{ const k=r.level+'|'+r.subj;
+    if(by[k]){ const o=by[k]; if(!o.tags.some(t=>t.en===r.tag.en)) o.tags.push(r.tag);
+      o.units=(o.units===null||r.units===null)?null:[...new Set([...o.units,...r.units])]; return; }
+    by[k]={level:r.level,subj:r.subj,units:r.units,tags:[r.tag],rank:r.rank,branch:r.branch,tu:r.tu}; out.push(by[k]); });
+  const ord=x=>{ const i=SUBJ_ORDER.indexOf(x.subj); return i<0?50:i; };
+  return out.sort((a,b)=>a.rank-b.rank||ord(a)-ord(b));   // my course first, then exam by exam in the order picked
+}
+
+async function loadBooksSetup(){
+  const s=DB.setup, stamp=JSON.stringify(s);
+  await loadSetupCfg(); if(!SETUP_CFG){ SERVER_OK=false; return; }
+  const plan=setupPlan(s), levels=[...new Set(plan.map(p=>p.level))];
+  const needPhys=plan.some(p=>PHYS_LEVELS.includes(p.level)&&p.subj==='general-science'&&(p.units===null||p.units.includes('physics')));
+  try{
+    const cats={}; await Promise.all(levels.map(async lv=>{ cats[lv]=await sbGet('rpc/get_level_catalog?p_level='+encodeURIComponent(lv)); }));
+    const rows=needPhys?await sbGet('rpc/get_chapter_books?p_meta_only=true'):null;
+    const out=[], seen=new Set(), phys=[]; let ci=0;
+    const tagTxt=tags=>tags.map(t=>t.hi).join(' + '), tagTxtEn=tags=>tags.map(t=>t.en).join(' + ');
+    const push=(lv,sj,units,tags)=>{ if(seen.has(lv+'|'+sj.slug)) return; seen.add(lv+'|'+sj.slug);
+      if(sj.slug==='general-science'&&PHYS_LEVELS.includes(lv)&&(units===null||units.includes('physics'))) phys.splice(0).forEach(b=>{ b.forTags=tags; out.push(b); });   // the Physics book belongs with science
+      const ul=((SETUP_CFG.units||{})[sj.slug])||null, chs=sj.chapters||[];
+      const mk=(id,title,list,only)=>{ if(!list.length) return;
+        out.push({id,kind:'atoms',level:lv,subject:sj,only,forTags:tags,title,emoji:SUBJ_EMOJI[sj.slug]||'📘',color:BOOK_COLORS[(ci++)%BOOK_COLORS.length],owned:true,
+          chapters:list.map((c,j)=>({n:c.id,no:j+1,topic:c.id,t:{hi:c.hi,en:c.en},sh:{hi:c.hi,en:c.en},atoms:c.n}))}); };
+      if(!ul){ mk('s:'+lv+':'+sj.slug,{hi:sj.hi,en:sj.en},chs,null); return; }
+      const used=new Set();
+      ul.forEach(u=>{ if(units&&!units.includes(u.slug)) return;
+        const list=(u.ch||[]).map(id=>chs.find(c=>c.id===id)).filter(Boolean); list.forEach(c=>used.add(c.id));
+        const title=sj.slug==='mechanical-engineering'?{hi:u.hi,en:u.en}:{hi:`${sj.hi} · ${u.hi}`,en:`${sj.en} · ${u.en}`};
+        mk('s:'+lv+':'+sj.slug+'~'+u.slug,title,list,list.map(c=>c.id)); });
+      if(!units){ const rest=chs.filter(c=>!used.has(c.id)); mk('s:'+lv+':'+sj.slug+'~other',{hi:`${sj.hi} · अन्य`,en:`${sj.en} · Other`},rest,rest.map(c=>c.id)); } };
+    if(rows){ const by={}; rows.forEach(r=>{ (by[r.book_slug]||(by[r.book_slug]=[])).push(r); });
+      Object.entries(by).forEach(([id,list])=>{ const st=BOOK_STYLE[id]||{title:{hi:id,en:id},emoji:'📘',color:'#3b82f6'};
+        phys.push({id,kind:'book',level:levels.find(l=>PHYS_LEVELS.includes(l)),title:st.title,emoji:st.emoji,color:st.color,owned:true,
+          chapters:list.sort((a,b)=>a.ch_no-b.ch_no).map(r=>({n:r.ch_no,no:r.ch_no,topic:r.topic_id,t:{hi:r.title_hi,en:r.title_en},sh:{hi:r.short_hi,en:r.short_en}}))}); }); }
+    plan.forEach(p=>{ const cat=cats[p.level]||[];
+      if(p.subj==='*') cat.filter(sj=>!BRANCH_SUBJECTS.includes(sj.slug)||sj.slug===BRANCH_SUBJ[p.branch]).forEach(sj=>push(p.level,sj,(p.tu&&p.tu[sj.slug])||null,p.tags));
+      else { const sj=cat.find(x=>x.slug===p.subj); if(sj) push(p.level,sj,p.units,p.tags); } });
+    // keep reading progress made under the old one-book-per-subject ids
+    out.filter(b=>b.only).forEach(b=>b.chapters.forEach(c=>{ const nk=chKey(b.id,c.n), ok=chKey('s:'+b.level+':'+b.subject.slug,c.n);
+      if(DB.chapters[ok]&&!DB.chapters[nk]) DB.chapters[nk]=DB.chapters[ok]; }));
+    if(JSON.stringify(DB.setup)!==stamp) return;
+    BOOKS=out; SERVER_OK=true;
+  }catch(e){ SERVER_OK=false; }
+}
+const loadBooksLegacy=loadBooks;
+loadBooks=async function(){ return DB.setup&&DB.setup.qual?loadBooksSetup():loadBooksLegacy(); };
+
+// formulas: only from the chapters on the student's shelves (all levels of the plan)
+const loadFormulasLegacy=loadFormulas;
+loadFormulas=async function(){
+  if(!(DB.setup&&DB.setup.qual)) return loadFormulasLegacy();
+  if(FORMULAS||!BOOKS.length) return; const stamp=JSON.stringify(DB.setup), out=[];
+  for(const b of BOOKS.filter(x=>x.kind==='book')){ try{ out.push({b,rows:await sbGet('rpc/get_book_formulas?p_book='+encodeURIComponent(b.id))}); }catch(e){} }
+  const mine=new Set(BOOKS.filter(b=>b.kind==='atoms').flatMap(b=>b.chapters.map(c=>c.n))), levels=[...new Set(BOOKS.filter(b=>b.kind==='atoms').map(b=>b.level))];
+  let lvRows=[]; for(const lv of levels){ try{ lvRows=lvRows.concat((await sbGet('rpc/get_level_formulas?p_level='+encodeURIComponent(lv))).filter(f=>mine.has(+f.chapter))); }catch(e){} }
+  for(const lv of levels){ try{ lvRows=lvRows.concat((await sbGet('rpc/get_level_book_formulas?p_level='+encodeURIComponent(lv))).filter(f=>mine.has(+f.chapter))); }catch(e){} }
+  const dedup={}; lvRows.forEach(f=>{ dedup[f.chapter+'|'+f.title+'|'+f.formula]=f; });
+  if(JSON.stringify(DB.setup)!==stamp) return;
+  FORMULAS=out; FORMULAS_LV=Object.values(dedup); if(currentView==='formulas') renderFormulas(); };
+
+// a chapter's own level (a plan can mix levels, e.g. B.Tech course + banking exam)
+const chapterAtomsLegacy=chapterAtoms;
+chapterAtoms=async function(ch){ const b=BOOKS.find(x=>x.kind==='atoms'&&x.chapters.some(c=>c.n===+ch));
+  if(!b||b.level===DB.level) return chapterAtomsLegacy(ch);
+  const k=b.level+':'+ch; if(ATOMS[k]) return ATOMS[k];
+  const rows=await sbGet(`rpc/get_chapter_atoms?p_chapter=${+ch}&p_level=${encodeURIComponent(b.level)}`); ATOMS[k]=Array.isArray(rows)?rows:[]; return ATOMS[k]; };
+
+// ---------- the wizard ----------
+const W={step:0};
+function setupSteps(){ const q=setupQual(W.qual), st=['lang','name','cat','qual'];
+  if(q&&(q.passed_ok||q.stages)) st.push('status');
+  st.push('goals','done'); return st; }
+function openSetup(prefill){
+  const s=DB.setup||{}; Object.assign(W,{step:0,lang:Settings.lang,name:DB.name||'',cat:null,qual:s.qual||null,status:s.status||'studying',stage:s.stage||null,
+    exams:new Set(s.exams||[]),course:s.course!==false,prefill:!!prefill});
+  if(W.qual){ const q=setupQual(W.qual); if(q) W.cat=q.cat; }
+  document.getElementById('setupModal').classList.add('active');
+  document.getElementById('setupBody').innerHTML=`<div class="empty-note">${L('लोड हो रहा है…','Loading…')}</div>`;
+  loadSetupCfg().then(renderSetup);
+}
+function setupGo(d){ const st=setupSteps(); W.step=Math.max(0,Math.min(st.length-1,W.step+d)); renderSetup(); }
+function setupCanNext(){ const k=setupSteps()[W.step], q=setupQual(W.qual);
+  if(k==='cat') return !!W.cat; if(k==='qual') return !!q&&q.cat===W.cat;
+  if(k==='status') return W.status==='passed'||!q.stages||!!W.stage;
+  if(k==='goals') return (W.course&&(q.course||[]).length>0)||W.exams.size>0;
+  return true; }
+function opt(on,html,attrs){ return `<button class="qual-item${on?' on':''}" ${attrs}><span>${html}</span><small>${on?'✓':''}</small></button>`; }
+function renderSetup(){
+  const box=document.getElementById('setupBody'), cfg=SETUP_CFG;
+  if(!cfg){ box.innerHTML=`<div class="empty-note">${L('सर्वर से सूची नहीं आ सकी। इंटरनेट जाँचकर फिर खोलें।','Could not load the list. Check your internet and try again.')}</div>`; return; }
+  const st=setupSteps(), k=st[W.step], q=setupQual(W.qual);
+  const dots=st.slice(0,-1).map((_,i)=>`<span class="su-dot${i<=W.step?' on':''}"></span>`).join('');
+  let h='';
+  if(k==='lang') h=`<h3 class="su-q">${L('ऐप किस भाषा में चलाएँ?','Which language for the app?')}</h3><p class="su-help">${L('एक चुनें। बाद में Settings से बदल सकते हैं।','Pick one. You can change it later in Settings.')}</p>
+    ${opt(W.lang==='hi','हिंदी','data-lang="hi"')}${opt(W.lang==='en','English','data-lang="en"')}`;
+  if(k==='name') h=`<h3 class="su-q">${L('आपका नाम','Your name')}</h3><p class="su-help">${L('यह सिर्फ़ इस फ़ोन में रहता है। खाली भी छोड़ सकते हैं।','It stays on this phone only. You may leave it empty.')}</p>
+    <div class="search-bar"><span>👤</span><input type="text" id="suName" maxlength="40" autocomplete="name" value="${esc(W.name)}" placeholder="${L('नाम','Name')}"></div>
+    <button class="btn" style="margin-top:14px" id="suRestore">📲 ${L('पुराने phone से हिसाब लाएँ','Restore from an old phone')}</button>`;
+  if(k==='cat') h=`<h3 class="su-q">${L('आप अभी क्या हैं?','Where are you now?')}</h3><p class="su-help">${L('एक चुनें।','Pick one.')}</p>
+    ${CATS.map(c=>opt(W.cat===c.id,`${c.icon} ${esc(L(c.hi,c.en))}`,`data-cat="${c.id}"`)).join('')}`;
+  if(k==='qual') h=`<h3 class="su-q">${L('आपकी पूरी पढ़ाई','Your exact course')}</h3><p class="su-help">${L('एक चुनें। ब्रांच इसी नाम में है।','Pick one. The branch is part of the name.')}</p>
+    ${cfg.quals.filter(x=>x.cat===W.cat).map(x=>opt(W.qual===x.slug,esc(L(x.hi,x.en)),`data-qual="${x.slug}"`)).join('')}`;
+  if(k==='status'){ h=`<h3 class="su-q">${esc(L(q.hi,q.en))}</h3>`;
+    if(q.passed_ok) h+=`<p class="su-help">${L('एक चुनें।','Pick one.')}</p>${opt(W.status==='studying',L('📖 अभी पढ़ रहा/रही हूँ','📖 Still studying'),'data-status="studying"')}${opt(W.status==='passed',L('✅ पास कर चुका/चुकी हूँ','✅ Already passed'),'data-status="passed"')}`;
+    if(q.stages&&W.status!=='passed') h+=`<h3 class="su-q" style="margin-top:16px">${L(`कौन-सा ${q.stages.label_hi}?`,`Which ${q.stages.label_en}?`)}</h3>
+      <div class="su-chips">${q.stages.list.map(x=>`<button class="su-chip${W.stage===x?' on':''}" data-stage="${x}">${esc(x)}</button>`).join('')}</div>`; }
+  if(k==='goals'){ const ex=(q.exams||[]).filter(e=>e.status==='any'||W.status==='passed'), hasCourse=(q.course||[]).length>0;
+    h=`<h3 class="su-q">${L('आपको क्या-क्या पढ़ना है?','What do you want to study?')}</h3><p class="su-help">${L('जितने चाहें उतने चुनें। सिर्फ़ वही exam दिखे हैं जिनके लिए आपकी पढ़ाई योग्य है।','Pick as many as you like. Only exams your course makes you eligible for are listed.')}</p>`;
+    if(hasCourse) h+=opt(W.course,`📘 ${L('मेरा कोर्स','My course')} <small class="su-sub">${esc(L(q.hi,q.en))}</small>`,'data-course="1"');
+    else h+=`<div class="su-note">${L('इस पढ़ाई के कोर्स की सामग्री अभी तैयार हो रही है।','Course content for this is being prepared.')}</div>`;
+    h+=ex.length?`<div class="qual-group" style="margin-top:12px"><h3>🎯 ${L('लक्ष्य परीक्षाएँ','Target exams')}</h3>${ex.map(e=>{ const n=targetName(q,e.target); return opt(W.exams.has(e.target),esc(L(n.hi,n.en)),`data-exam="${esc(e.target)}"`); }).join('')}</div>`
+      :`<div class="su-note">${L('इस स्तर के लिए अभी कोई प्रतियोगी परीक्षा नहीं जोड़ी गई है।','No competitive exam is listed for this level yet.')}</div>`; }
+  if(k==='done'){ const lab=setupLabel({qual:W.qual,status:W.status,stage:W.stage});
+    const goals=[...(W.course&&(q.course||[]).length?[L('मेरा कोर्स','My course')]:[]),...[...W.exams].map(t=>{ const n=targetName(q,t); return L(n.hi,n.en); })];
+    h=`<h3 class="su-q">✅ ${L('आपका सेटअप','Your setup')}</h3>
+      <div class="su-sum"><div><small>${L('पढ़ाई','Course')}</small><b>${esc(L(lab.hi,lab.en))}</b></div>
+      <div><small>${L('पढ़ना है','Studying for')}</small><b>${goals.map(esc).join(' · ')}</b></div>
+      <div><small>${L('भाषा','Language')}</small><b>${W.lang==='en'?'English':'हिंदी'}</b></div></div>
+      <p class="su-help">${L('ऐप में अब सिर्फ़ इन्हीं से जुड़ी किताबें, सूत्र और मिशन दिखेंगे। Settings → "मेरी पढ़ाई बदलें" से कभी भी बदल सकते हैं।','The app will now show only books, formulas and missions for these. Change any time in Settings.')}</p>`; }
+  const last=k==='done';
+  box.innerHTML=`<div class="su-dots">${dots}</div>${h}
+    <div class="btn-row" style="margin-top:16px">${W.step>0?`<button class="btn" id="suBack">← ${L('पीछे','Back')}</button>`:''}
+    <button class="btn primary" id="suNext" ${setupCanNext()?'':'disabled style="opacity:.45"'}>${last?L('🚀 शुरू करें','🚀 Start'):L('आगे →','Next →')}</button></div>
+    ${W.prefill&&!DB.setup?`<button class="btn" style="margin-top:8px" id="suLater">${L('अभी नहीं, बाद में','Not now')}</button>`:''}`;
+  box.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{ W.lang=b.dataset.lang; Settings.lang=W.lang; applySettings(); Settings.save(); rerenderAll(); renderSetup(); });
+  box.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{ if(W.cat!==b.dataset.cat){ W.qual=null; W.exams=new Set(); W.stage=null; } W.cat=b.dataset.cat; renderSetup(); });
+  box.querySelectorAll('[data-qual]').forEach(b=>b.onclick=()=>{ if(W.qual!==b.dataset.qual){ W.exams=new Set(); W.stage=null; W.status='studying'; W.course=true; } W.qual=b.dataset.qual; renderSetup(); });
+  box.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{ W.status=b.dataset.status; if(W.status==='passed'){ W.stage=null; W.course=false; } else W.course=true; renderSetup(); });
+  box.querySelectorAll('[data-stage]').forEach(b=>b.onclick=()=>{ W.stage=b.dataset.stage; renderSetup(); });
+  box.querySelectorAll('[data-course]').forEach(b=>b.onclick=()=>{ W.course=!W.course; renderSetup(); });
+  box.querySelectorAll('[data-exam]').forEach(b=>b.onclick=()=>{ const t=b.dataset.exam; W.exams.has(t)?W.exams.delete(t):W.exams.add(t); renderSetup(); });
+  const nm=document.getElementById('suName'); if(nm) nm.oninput=()=>{ W.name=nm.value; };
+  const rs=document.getElementById('suRestore'); if(rs) rs.onclick=()=>{ document.getElementById('setupModal').classList.remove('active'); document.getElementById('qualRestore').click(); };
+  const bk=document.getElementById('suBack'); if(bk) bk.onclick=()=>{ Sound.tap(); setupGo(-1); };
+  const lt=document.getElementById('suLater'); if(lt) lt.onclick=()=>{ DB.setupLater=true; saveState(); document.getElementById('setupModal').classList.remove('active'); };
+  document.getElementById('suNext').onclick=()=>{ if(!setupCanNext()) return; Sound.tap(); if(last) finishSetup(); else setupGo(1); };
+  document.getElementById('setupClose').style.visibility=(DB.setup||DB.level)?'visible':'hidden';
+}
+async function finishSetup(){
+  const q=setupQual(W.qual); if(!q) return;
+  const exams=[...W.exams].filter(t=>(q.exams||[]).some(e=>e.target===t&&(e.status==='any'||W.status==='passed')));
+  DB.name=(W.name||'').trim().slice(0,40)||DB.name;
+  DB.setup={v:1,qual:q.slug,status:W.status,stage:W.status==='passed'?null:W.stage,course:!!(W.course&&(q.course||[]).length),exams,at:Date.now()};
+  DB.level=q.level; DB.exam='setup:'+q.slug; DB.qlabel=setupLabel(DB.setup); delete DB.setupLater;
+  saveState(); Sound.success();
+  document.getElementById('setupModal').classList.remove('active');
+  BOOKS=[]; FORMULAS=null; LIB.sel=null; rerenderAll(); await loadBooks(); rerenderAll(); fillProfile();
+  showReward(T(`🎓 ${esc(DB.qlabel.hi)}: अब सिर्फ़ आपकी पढ़ाई दिखेगी`,`🎓 ${esc(DB.qlabel.en)}: showing only your studies now`));
+}
+document.getElementById('setupClose').addEventListener('click',()=>{ if(DB.setup||DB.level) document.getElementById('setupModal').classList.remove('active'); });
+openQual=function(){ openSetup(); };   // every "choose / change your studies" button now opens the setup
+
+(async()=>{ await loadQualifications(); await loadBooks(); renderDashboard(); renderLibrary(); if(currentView==='formulas') renderFormulas(); if(!DB.setup&&!DB.setupLater) openSetup(!!DB.level); })();
+if('serviceWorker' in navigator && location.protocol==='https:') window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+
+</script>
+</body>
+</html>
