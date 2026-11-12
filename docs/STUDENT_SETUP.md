@@ -29,3 +29,17 @@ progress made under the old one-book-per-subject ids is carried to the new subje
 - Library: exam filter chips (All / My course / each exam), then Technical and Non-technical groups. A subject the app has no
   content for yet is shown locked. Inside a subject: Book · Notes · Class · Formulas, then its chapters (opens the reader on that tab).
 - One shelf per subject even when several exams use it; the first goal decides its depth.
+
+## v3 (2026-11-12): course syllabus, state, more exams (review build `next.html`)
+- `mtb.course_subjects` (migration 0171) holds every subject of every course, stage-wise (semester / year / class), names only.
+  Source file: `content/course-syllabus/syllabus.json` (built by `tools/build_course_syllabus.py`, loaded by the
+  `course-syllabus-load` workflow). A subject opens only when it is mapped to existing chapters (`chapters`) or to a
+  subject/units; everything else shows locked 🔒. To open a subject later: add its chapters, put the ids in the
+  builder line (`ch:<id>,<id>`), push — the workflow loads it.
+- Library: "📘 मेरा कोर्स" group first, with stage chips; then exam shelves (technical / non-technical).
+  A chapter on two shelves counts once in progress; "continue" prefers the student's own semester.
+- Setup asks the state (optional). State-wise exams carry the state name; the state's own PSC is marked 📍;
+  "Other State PSC" is hidden when the state's own PSC is listed. Stored as `DB.setup.state`.
+- Migration 0172 adds exam families: RPF Constable, RPF SI, SSC Selection Post, State SSC, DSSSB, Other State PSC,
+  State teacher recruitment, Agriculture Officer (with eligibility rows). Backup: `mtb.bk_0172_qualification_exams`.
+- Merit-only recruitments (India Post GDS, railway/PSU apprentices) are not listed: they have no written exam.
