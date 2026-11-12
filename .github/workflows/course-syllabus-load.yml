@@ -1,0 +1,23 @@
+name: Course syllabus loader
+# Upserts course subject names (stage-wise) into mtb.course_subjects. Names only; no chapter content.
+on:
+  push:
+    branches: [course-syllabus, main]
+    paths: ['content/course-syllabus/**', 'tools/load_course_syllabus.py', '.github/workflows/course-syllabus-load.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Rebuild check
+        run: cp content/course-syllabus/syllabus.json /tmp/a.json && python3 tools/build_course_syllabus.py && cmp /tmp/a.json content/course-syllabus/syllabus.json
+      - name: Upsert
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python3 tools/load_course_syllabus.py
