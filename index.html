@@ -328,6 +328,8 @@ body.lang-both .subtitle .en-part{display:block}
 .lib-filter{grid-column:1/-1;display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}.lib-filter::-webkit-scrollbar{display:none}
 .lib-chip{flex:0 0 auto;min-height:36px;padding:6px 12px;border-radius:18px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:12px;font-weight:800;cursor:pointer}.lib-chip.on{border-color:var(--accent);color:var(--accent);background:rgba(255,255,255,.1)}
 .lib-group{grid-column:1/-1;font-size:14px;font-weight:900;color:var(--text);padding:12px 2px 2px}.lib-group small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.su-state{display:flex;flex-direction:column;gap:6px;margin:4px 0 6px;font-size:13px;font-weight:800}.su-state select{min-height:44px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.06);color:var(--text);font:inherit;font-size:14px;padding:0 10px}.su-state option{color:#111}
+.settings-btn.away{opacity:0;pointer-events:none;transform:scale(.8)}
 .lib-modes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 22px 14px}.lib-mode{min-height:64px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:12px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}.lib-mode b{font-size:20px}.lib-mode.on{border-color:var(--accent);background:rgba(255,255,255,.12)}
 .su-cat{font-size:13px;font-weight:900;color:var(--text);margin:14px 0 6px}.su-sub2{font-size:11.5px;font-weight:800;color:var(--accent);margin:10px 0 6px}
 .app-icon.soon{opacity:.55}
@@ -677,11 +679,17 @@ async function loadBooks(){
 }
 const chKey=(b,n)=>b+':'+n;
 const noNum=t=>String(t||'').replace(/^\s*\d+\.\s*/,'');
-function allChapters(){ return BOOKS.filter(b=>b.owned).flatMap(b=>b.chapters.filter(avail).map(c=>({b,c,key:chKey(b.id,c.n)}))); }
+function allChapters(){ const seen=new Map(), out=[];   // a chapter on two shelves (my course + an exam) counts once; the shelf with more progress wins
+  BOOKS.filter(b=>b.owned).forEach(b=>b.chapters.filter(avail).forEach(c=>{ const key=chKey(b.id,c.n), tk=b.kind==='atoms'?b.level+'#'+c.topic:null;
+    if(tk&&seen.has(tk)){ const o=seen.get(tk), a=DB.chapters[o.key]||{}, d=DB.chapters[key];
+      if(d&&((d.read&&!a.read)||!DB.chapters[o.key])) o.key=key; return; }
+    const x={b,c,key}; if(tk) seen.set(tk,x); out.push(x); }));
+  return out; }
 function readChapters(){ return allChapters().filter(x=>(DB.chapters[x.key]||{}).read); }
 function coverage(){ const all=allChapters(); return all.length?Math.round(readChapters().length/all.length*100):0; }
 function openedPct(){ const all=allChapters(); return all.length?Math.round(all.filter(x=>DB.chapters[x.key]).length/all.length*100):0; }
-function nextUnread(){ return allChapters().find(x=>!(DB.chapters[x.key]||{}).read)||null; }
+function nextUnread(){ const all=allChapters().filter(x=>!(DB.chapters[x.key]||{}).read), st=DB.setup&&DB.setup.stage!=null?String(DB.setup.stage):null;
+  return (st&&all.find(x=>x.b.course&&x.b.stage===st))||all.find(x=>!x.b.course)||all[0]||null; }   // your own semester first
 function chName(x){ return {hi:x.c.t.hi,en:x.c.t.en}; }
 
 /* ---- forgetting curve for chapters you have read (estimate) ----
@@ -768,7 +776,7 @@ function updateNavHighlight(){
   const nr=nav.getBoundingClientRect(), br=a.getBoundingClientRect();
   h.style.left=(br.left-nr.left)+'px'; h.style.width=br.width+'px';
 }
-function switchView(name){
+function switchView(name){ { const sb=document.getElementById('settingsBtn'); if(sb) sb.classList.remove('away'); }
   if(name===currentView && document.getElementById(name+'-view').classList.contains('active')) return;
   Sound.click(); triggerWave(); haptic(8);
   currentView=name;
@@ -845,7 +853,9 @@ function renderLibrary(){
   // setup mode: filter by exam, then group Technical / Non-technical (subjects with no content yet are shown locked)
   const tagsAll=[]; books.forEach(b=>(b.forTags||[]).forEach(t=>{ if(!tagsAll.some(x=>x.en===t.en)) tagsAll.push(t); }));
   if(LIB.exam&&!tagsAll.some(t=>t.en===LIB.exam)) LIB.exam=null;
-  const shown=LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books;
+  const stq=DB.setup&&DB.setup.qual?setupQual(DB.setup.qual):null, stages=[...new Set(books.filter(b=>b.course).map(b=>b.stage))];
+  if(!stages.includes(LIB.stage)) LIB.stage=stages.includes(String((DB.setup||{}).stage))?String(DB.setup.stage):stages[0];
+  const shown=(LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books).filter(b=>!b.course||b.stage===LIB.stage);
   if(LIB.sel&&!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown[0]||{}).id;
   const isTech=b=>!!(b.subject&&TECH_SUBJECTS.includes(b.subject.slug));
   const icon=b=>{ const ready=b.chapters.filter(avail).length, soon=b.kind==='soon';
@@ -856,15 +866,21 @@ function renderLibrary(){
   let gridHtml='';
   if(DB.setup&&DB.setup.qual&&books.length){
     if(tagsAll.length>1) gridHtml+=`<div class="lib-filter">${[{hi:'सभी',en:'All',k:''},...tagsAll.map(t=>({...t,k:t.en}))].map(t=>`<button class="lib-chip${(LIB.exam||'')===t.k?' on':''}" data-exf="${esc(t.k)}">${esc(L(t.hi,t.en))}</button>`).join('')}</div>`;
-    const tech=shown.filter(isTech), non=shown.filter(b=>!isTech(b));
+    const mine=shown.filter(b=>b.course), rest=shown.filter(b=>!b.course);
+    if(mine.length){ const stl=stq&&stq.stages?L(stq.stages.label_hi,stq.stages.label_en):'', open=mine.filter(b=>b.kind!=='soon').length;
+      gridHtml+=`<div class="lib-group">📘 ${L('मेरा कोर्स','My course')}${stl&&LIB.stage!=='all'?` · ${stl} ${esc(LIB.stage)}`:''} <span style="color:var(--muted);font-weight:700">(${mine.length} ${L('विषय','subjects')} · ${open} ${L('खुले','open')} · 🔒 ${mine.length-open})</span><small>${L('सिलेबस के सभी विषय। 🔒 वाले विषयों की सामग्री तैयार हो रही है।','Every subject of the syllabus. 🔒 subjects are being prepared.')}</small></div>`;
+      if(stages.length>1) gridHtml+=`<div class="lib-filter">${stages.map(x=>`<button class="lib-chip${LIB.stage===x?' on':''}" data-stg="${esc(x)}">${esc(stl)} ${esc(x)}</button>`).join('')}</div>`;
+      gridHtml+=mine.map(icon).join(''); }
+    const tech=rest.filter(isTech), non=rest.filter(b=>!isTech(b));
     if(tech.length) gridHtml+=`<div class="lib-group">🛠️ ${L('तकनीकी (आपकी ब्रांच / ट्रेड)','Technical (your branch / trade)')}<small>${L('हर विषय में: किताब · नोट्स · क्लास · सूत्र','Each subject: Book · Notes · Class · Formulas')}</small></div>`+tech.map(icon).join('');
-    if(non.length) gridHtml+=(tech.length?`<div class="lib-group">📚 ${L('गैर-तकनीकी (सामान्य विषय)','Non-technical (general subjects)')}</div>`:'')+non.map(icon).join('');
+    if(non.length) gridHtml+=(tech.length||mine.length?`<div class="lib-group">📚 ${L('गैर-तकनीकी (सामान्य विषय)','Non-technical (general subjects)')}</div>`:'')+non.map(icon).join('');
   } else gridHtml=books.map(icon).join('');
   grid.innerHTML = gridHtml || `<div class="empty-note" style="grid-column:1/-1">${SERVER_OK?T('इस स्तर पर अभी कोई किताब नहीं','No books at this level yet'):T('सर्वर से किताबें नहीं आ सकीं। इंटरनेट जाँचें।','Could not load books from the server. Check your internet.')}</div>`;
+  grid.querySelectorAll('[data-stg]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.stage=el.dataset.stg; LIB.sel=null; renderLibrary(); }));
   grid.querySelectorAll('[data-exf]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.exam=el.dataset.exf||null; LIB.sel=null; renderLibrary(); }));
   grid.querySelectorAll('.app-icon').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.sel=el.dataset.book; document.getElementById('searchInput').value=''; renderLibrary();
     const t=document.getElementById('chapterList'); if(t&&t.scrollIntoView) t.scrollIntoView({behavior:'smooth',block:'start'}); }));
-  document.getElementById('bookCount').innerHTML = `${esc(L(qualLabel().hi,qualLabel().en))} · ${books.length} ${L('विषय','subjects')}`;
+  document.getElementById('bookCount').innerHTML = `${esc(L(qualLabel().hi,qualLabel().en))} · ${books.filter(b=>!b.course||b.stage===LIB.stage).length} ${L('विषय','subjects')}`;
   renderQuote();
   const lb=DB.lastBook, b=lb&&books.find(x=>x.id===lb.b), c=b&&b.chapters.find(x=>x.n===lb.ch), cc=document.getElementById('continueCard');
   const nx=nextUnread();
@@ -1452,6 +1468,14 @@ window.addEventListener('load',()=>setTimeout(updateNavHighlight,100));
 let SETUP_CFG=null;
 const BRANCH_NAME={mechanical:{hi:'मैकेनिकल',en:'Mechanical'},civil:{hi:'सिविल',en:'Civil'},electrical:{hi:'इलेक्ट्रिकल',en:'Electrical'},electronics:{hi:'इलेक्ट्रॉनिक्स',en:'Electronics'},computer:{hi:'कंप्यूटर / आईटी',en:'Computer / IT'}};
 const BRANCH_SUBJ={mechanical:'mechanical-engineering',civil:'civil-engineering',electrical:'electrical-engineering',electronics:'electronics-engineering',computer:'computer-engineering'};
+const STATES=[{c:'AN',hi:'अंडमान-निकोबार',en:'Andaman & Nicobar'},{c:'AP',hi:'आंध्र प्रदेश',en:'Andhra Pradesh'},{c:'AR',hi:'अरुणाचल प्रदेश',en:'Arunachal Pradesh'},{c:'AS',hi:'असम',en:'Assam'},{c:'BR',hi:'बिहार',en:'Bihar'},{c:'CH',hi:'चंडीगढ़',en:'Chandigarh'},{c:'CG',hi:'छत्तीसगढ़',en:'Chhattisgarh'},{c:'DN',hi:'दादरा-नगर हवेली और दमन-दीव',en:'Dadra & Nagar Haveli and Daman & Diu'},{c:'DL',hi:'दिल्ली',en:'Delhi'},{c:'GA',hi:'गोवा',en:'Goa'},{c:'GJ',hi:'गुजरात',en:'Gujarat'},{c:'HR',hi:'हरियाणा',en:'Haryana'},{c:'HP',hi:'हिमाचल प्रदेश',en:'Himachal Pradesh'},{c:'JK',hi:'जम्मू-कश्मीर',en:'Jammu & Kashmir'},{c:'JH',hi:'झारखंड',en:'Jharkhand'},{c:'KA',hi:'कर्नाटक',en:'Karnataka'},{c:'KL',hi:'केरल',en:'Kerala'},{c:'LA',hi:'लद्दाख',en:'Ladakh'},{c:'LD',hi:'लक्षद्वीप',en:'Lakshadweep'},{c:'MP',hi:'मध्य प्रदेश',en:'Madhya Pradesh'},{c:'MH',hi:'महाराष्ट्र',en:'Maharashtra'},{c:'MN',hi:'मणिपुर',en:'Manipur'},{c:'ML',hi:'मेघालय',en:'Meghalaya'},{c:'MZ',hi:'मिज़ोरम',en:'Mizoram'},{c:'NL',hi:'नागालैंड',en:'Nagaland'},{c:'OD',hi:'ओडिशा',en:'Odisha'},{c:'PY',hi:'पुडुचेरी',en:'Puducherry'},{c:'PB',hi:'पंजाब',en:'Punjab'},{c:'RJ',hi:'राजस्थान',en:'Rajasthan'},{c:'SK',hi:'सिक्किम',en:'Sikkim'},{c:'TN',hi:'तमिलनाडु',en:'Tamil Nadu'},{c:'TS',hi:'तेलंगाना',en:'Telangana'},{c:'TR',hi:'त्रिपुरा',en:'Tripura'},{c:'UP',hi:'उत्तर प्रदेश',en:'Uttar Pradesh'},{c:'UK',hi:'उत्तराखंड',en:'Uttarakhand'},{c:'WB',hi:'पश्चिम बंगाल',en:'West Bengal'}];
+/* a state's own commission: marked 📍 for that state's students (others may still apply, so nothing is hidden) */
+const FAMILY_STATE={bpsc:'BR',uppsc:'UP',mppsc:'MP','rpsc-ras':'RJ'};
+/* exams held separately by every state: the picked state is shown in the name */
+const STATE_WISE=['state-je','state-ae','state-ssc','state-psc','state-tet','state-teacher','state-cet','police-constable','police-si','polytechnic-entrance'];
+function curState(){ const m=document.getElementById('setupModal'); return (m&&m.classList.contains('active'))?W.state:((DB.setup||{}).state||null); }
+function stateInfo(c){ return STATES.find(x=>x.c===c)||null; }
+function examForState(t,st){ return !(t==='state-psc'&&st&&Object.values(FAMILY_STATE).includes(st)); }   // 'other state PSC' is not needed when the state's own PSC is listed
 const TECH_SUBJECTS=['mechanical-engineering','civil-engineering','electrical-engineering','electronics-engineering','computer-engineering','trade-theory'];
 /* exams without a section table: which parts of a subject the exam really asks */
 const TARGET_UNITS={'jee-main':{'general-science':['physics','chemistry']},'jee-advanced':{'general-science':['physics','chemistry']},'neet-ug':{'general-science':['physics','chemistry','biology']}};
@@ -1464,7 +1488,9 @@ function setupQual(slug){ return ((SETUP_CFG||{}).quals||[]).find(q=>q.slug===sl
 function targetName(q,t){ const x=(q.exams||[]).find(e=>e.target===t)||{}; if(x.hi) return {hi:x.hi,en:x.en};
   const f=((SETUP_CFG||{}).families||{})[t]; if(!f) return {hi:t,en:t};
   const br=q.branch&&(f.subjects||[]).some(x=>x==='branch-engineering'||x==='branch-or-trade')?BRANCH_NAME[q.branch]:null;   // a JE paper is taken in the student's own branch
-  return br?{hi:`${f.hi} (${br.hi})`,en:`${f.en} (${br.en})`}:{hi:f.hi,en:f.en}; }
+  const n=br?{hi:`${f.hi} (${br.hi})`,en:`${f.en} (${br.en})`}:{hi:f.hi,en:f.en}, si=STATE_WISE.includes(t)&&stateInfo(curState());
+  if(si) return {hi:`${n.hi.replace(/\s*\([^)]*आदि\)/,'')} · ${si.hi}`,en:`${n.en.replace(/\s*\([^)]*etc\.\)/,'')} · ${si.en}`};
+  return FAMILY_STATE[t]&&FAMILY_STATE[t]===curState()?{hi:'📍 '+n.hi,en:'📍 '+n.en}:n; }
 function setupLabel(s){ const q=setupQual(s.qual); if(!q) return null;
   const st=s.status==='passed'?{hi:' (पास)',en:' (passed)'}:(s.stage&&q.stages?{hi:` · ${q.stages.label_hi} ${s.stage}`,en:` · ${q.stages.label_en} ${s.stage}`}:{hi:'',en:''});
   return {hi:q.hi+st.hi,en:q.en+st.en}; }
@@ -1493,7 +1519,11 @@ function setupPlan(s){
 async function loadBooksSetup(){
   const s=DB.setup, stamp=JSON.stringify(s);
   await loadSetupCfg(); if(!SETUP_CFG){ SERVER_OK=false; return; }
-  const plan=setupPlan(s), levels=[...new Set(plan.map(p=>p.level))];
+  const q=setupQual(s.qual);
+  let syl=[]; if(s.course&&q){ try{ syl=await sbGet('rpc/get_course_syllabus?p_qual='+encodeURIComponent(q.slug))||[]; }catch(e){ syl=[]; } }
+  let plan=setupPlan(s);
+  if(syl.length) plan=plan.map(p=>({...p,tags:p.tags.filter(t=>t.en!=='My course')})).filter(p=>p.tags.length);   // the syllabus books replace the old course shelves
+  const levels=[...new Set([...plan.map(p=>p.level),...(syl.length?[q.level]:[])])];
   const needPhys=plan.some(p=>PHYS_LEVELS.includes(p.level)&&p.subj==='general-science'&&(p.units===null||p.units.includes('physics')));
   try{
     const cats={}; await Promise.all(levels.map(async lv=>{ cats[lv]=await sbGet('rpc/get_level_catalog?p_level='+encodeURIComponent(lv)); }));
@@ -1528,8 +1558,23 @@ async function loadBooksSetup(){
     out.filter(b=>b.only).forEach(b=>b.chapters.forEach(c=>{ const nk=chKey(b.id,c.n), ok=chKey('s:'+b.level+':'+b.subject.slug,c.n);
       if(DB.chapters[ok]&&!DB.chapters[nk]) DB.chapters[nk]=DB.chapters[ok]; }));
     if(JSON.stringify(DB.setup)!==stamp) return;
-    BOOKS=out; SERVER_OK=true;
+    BOOKS=[...courseBooks(q,syl,cats[q&&q.level]||[]),...out]; SERVER_OK=true;
   }catch(e){ SERVER_OK=false; }
+}
+/* my course: every subject of the syllabus, stage-wise; a subject opens only when its chapters exist, otherwise it is locked */
+function courseBooks(q,syl,cat){
+  if(!q||!syl||!syl.length) return [];
+  const units=SETUP_CFG.units||{}, tag={hi:'मेरा कोर्स',en:'My course'};
+  return syl.map((r,i)=>{ const base={id:'c:'+q.slug+':'+r.stage+':'+r.slug,level:q.level,course:true,stage:r.stage,lab:r.kind,forTags:[tag],owned:true,
+      title:{hi:r.hi,en:r.en},emoji:r.kind==='lab'?'🧪':r.kind==='project'?'🗂️':'📘',color:BOOK_COLORS[i%BOOK_COLORS.length]};
+    let sj=null, list=[];
+    if(r.chapters&&r.chapters.length){ sj=cat.find(x=>(x.chapters||[]).some(c=>r.chapters.includes(c.id)));
+      if(sj) list=r.chapters.map(id=>(sj.chapters||[]).find(c=>c.id===id)).filter(Boolean); }
+    else if(r.subject){ sj=cat.find(x=>x.slug===r.subject);
+      if(sj){ const ul=units[sj.slug]; list=(r.units&&r.units.length&&ul)?ul.filter(u=>r.units.includes(u.slug)).flatMap(u=>(u.ch||[]).map(id=>(sj.chapters||[]).find(c=>c.id===id))).filter(Boolean):(sj.chapters||[]); } }
+    if(sj&&list.length) return {...base,kind:'atoms',subject:sj,only:list.map(c=>c.id),
+      chapters:list.map((c,j)=>({n:c.id,no:j+1,topic:c.id,t:{hi:c.hi,en:c.en},sh:{hi:c.hi,en:c.en},atoms:c.n}))};
+    return {...base,kind:'soon',subject:{slug:r.subject||r.slug,hi:r.hi,en:r.en},emoji:r.kind==='lab'?'🧪':r.kind==='project'?'🗂️':'🔒',color:'#475569',chapters:[]}; });
 }
 const loadBooksLegacy=loadBooks;
 loadBooks=async function(){ return DB.setup&&DB.setup.qual?loadBooksSetup():loadBooksLegacy(); };
@@ -1561,7 +1606,7 @@ function setupSteps(){ const q=setupQual(W.qual), st=['lang','name','cat','qual'
   st.push('goals','done'); return st; }
 function openSetup(prefill){
   const s=DB.setup||{}; Object.assign(W,{step:0,lang:Settings.lang,name:DB.name||'',cat:null,qual:s.qual||null,status:s.status||'studying',stage:s.stage||null,
-    exams:new Set(s.exams||[]),course:s.course!==false,prefill:!!prefill});
+    exams:new Set(s.exams||[]),course:s.course!==false,state:s.state||null,prefill:!!prefill});
   if(W.qual){ const q=setupQual(W.qual); if(q) W.cat=q.cat; }
   document.getElementById('setupModal').classList.add('active');
   document.getElementById('setupBody').innerHTML=`<div class="empty-note">${L('लोड हो रहा है…','Loading…')}</div>`;
@@ -1593,8 +1638,9 @@ function renderSetup(){
     if(q.passed_ok) h+=`<p class="su-help">${L('एक चुनें।','Pick one.')}</p>${opt(W.status==='studying',L('📖 अभी पढ़ रहा/रही हूँ','📖 Still studying'),'data-status="studying"')}${opt(W.status==='passed',L('✅ पास कर चुका/चुकी हूँ','✅ Already passed'),'data-status="passed"')}`;
     if(q.stages&&W.status!=='passed') h+=`<h3 class="su-q" style="margin-top:16px">${L(`कौन-सा ${q.stages.label_hi}?`,`Which ${q.stages.label_en}?`)}</h3>
       <div class="su-chips">${q.stages.list.map(x=>`<button class="su-chip${W.stage===x?' on':''}" data-stage="${x}">${esc(x)}</button>`).join('')}</div>`; }
-  if(k==='goals'){ const ex=(q.exams||[]).filter(e=>e.status==='any'||W.status==='passed'), hasCourse=(q.course||[]).length>0;
-    h=`<h3 class="su-q">${L('आपको क्या-क्या पढ़ना है?','What do you want to study?')}</h3><p class="su-help">${L('जितने चाहें उतने चुनें। सिर्फ़ वही exam दिखे हैं जिनके लिए आपकी पढ़ाई योग्य है।','Pick as many as you like. Only exams your course makes you eligible for are listed.')}</p>`;
+  if(k==='goals'){ const ex=(q.exams||[]).filter(e=>(e.status==='any'||W.status==='passed')&&examForState(e.target,W.state)), hasCourse=(q.course||[]).length>0;
+    h=`<h3 class="su-q">${L('आपको क्या-क्या पढ़ना है?','What do you want to study?')}</h3><p class="su-help">${L('जितने चाहें उतने चुनें। सिर्फ़ वही exam दिखे हैं जिनके लिए आपकी पढ़ाई योग्य है।','Pick as many as you like. Only exams your course makes you eligible for are listed.')}</p>
+      <label class="su-state"><span>📍 ${L('आपका राज्य (ऐच्छिक)','Your state (optional)')}</span><select id="suState"><option value="">${L('— सभी राज्य —','— All states —')}</option>${STATES.map(x=>`<option value="${x.c}"${W.state===x.c?' selected':''}>${esc(L(x.hi,x.en))}</option>`).join('')}</select></label>`;
     if(hasCourse) h+=opt(W.course,`📘 ${L('मेरा कोर्स','My course')} <small class="su-sub">${esc(L(q.hi,q.en))}</small>`,'data-course="1"');
     else h+=`<div class="su-note">${L('इस पढ़ाई के कोर्स की सामग्री अभी तैयार हो रही है।','Course content for this is being prepared.')}</div>`;
     const fam=t=>(cfg.families||{})[t]||{}, catOf=t=>(cfg.cats||[]).find(c=>c.slug===fam(t).cat)||{slug:'other',hi:'अन्य',en:'Other',tech:false};
@@ -1609,6 +1655,7 @@ function renderSetup(){
     h=`<h3 class="su-q">✅ ${L('आपका सेटअप','Your setup')}</h3>
       <div class="su-sum"><div><small>${L('पढ़ाई','Course')}</small><b>${esc(L(lab.hi,lab.en))}</b></div>
       <div><small>${L('पढ़ना है','Studying for')}</small><b>${goals.map(esc).join(' · ')}</b></div>
+      ${W.state?`<div><small>${L('राज्य','State')}</small><b>${esc(L(stateInfo(W.state).hi,stateInfo(W.state).en))}</b></div>`:''}
       <div><small>${L('भाषा','Language')}</small><b>${W.lang==='en'?'English':'हिंदी'}</b></div></div>
       <p class="su-help">${L('ऐप में अब सिर्फ़ इन्हीं से जुड़ी किताबें, सूत्र और मिशन दिखेंगे। Settings → "मेरी पढ़ाई बदलें" से कभी भी बदल सकते हैं।','The app will now show only books, formulas and missions for these. Change any time in Settings.')}</p>`; }
   const last=k==='done';
@@ -1623,6 +1670,7 @@ function renderSetup(){
   box.querySelectorAll('[data-stage]').forEach(b=>b.onclick=()=>{ W.stage=b.dataset.stage; renderSetup(); });
   box.querySelectorAll('[data-course]').forEach(b=>b.onclick=()=>{ W.course=!W.course; renderSetup(); });
   box.querySelectorAll('[data-exam]').forEach(b=>b.onclick=()=>{ const t=b.dataset.exam; W.exams.has(t)?W.exams.delete(t):W.exams.add(t); renderSetup(); });
+  const ss=document.getElementById('suState'); if(ss) ss.onchange=()=>{ W.state=ss.value||null; [...W.exams].forEach(t=>{ if(!examForState(t,W.state)) W.exams.delete(t); }); renderSetup(); };
   const nm=document.getElementById('suName'); if(nm) nm.oninput=()=>{ W.name=nm.value; };
   const rs=document.getElementById('suRestore'); if(rs) rs.onclick=()=>{ document.getElementById('setupModal').classList.remove('active'); document.getElementById('qualRestore').click(); };
   const bk=document.getElementById('suBack'); if(bk) bk.onclick=()=>{ Sound.tap(); setupGo(-1); };
@@ -1632,9 +1680,9 @@ function renderSetup(){
 }
 async function finishSetup(){
   const q=setupQual(W.qual); if(!q) return;
-  const exams=[...W.exams].filter(t=>(q.exams||[]).some(e=>e.target===t&&(e.status==='any'||W.status==='passed')));
+  const exams=[...W.exams].filter(t=>examForState(t,W.state)&&(q.exams||[]).some(e=>e.target===t&&(e.status==='any'||W.status==='passed')));
   DB.name=(W.name||'').trim().slice(0,40)||DB.name;
-  DB.setup={v:1,qual:q.slug,status:W.status,stage:W.status==='passed'?null:W.stage,course:!!(W.course&&(q.course||[]).length),exams,at:Date.now()};
+  DB.setup={v:1,qual:q.slug,status:W.status,stage:W.status==='passed'?null:W.stage,course:!!(W.course&&(q.course||[]).length),exams,...(W.state?{state:W.state}:{}),at:Date.now()};
   DB.level=q.level; DB.exam='setup:'+q.slug; DB.qlabel=setupLabel(DB.setup); delete DB.setupLater;
   saveState(); Sound.success();
   document.getElementById('setupModal').classList.remove('active');
@@ -1643,7 +1691,8 @@ async function finishSetup(){
 }
 document.getElementById('setupClose').addEventListener('click',()=>{ if(DB.setup||DB.level) document.getElementById('setupModal').classList.remove('active'); });
 const openQualLegacy=openQual;   // the old level picker stays available (used by tests and support)
-openQual=function(){ openSetup(); };   // every "choose / change your studies" button now opens the setup
+openQual=function(){ openSetup(); };
+document.querySelectorAll('.view').forEach(v=>v.addEventListener('scroll',()=>{ const b=document.getElementById('settingsBtn'); if(b) b.classList.toggle('away',v.scrollTop>140); },{passive:true}));   // every "choose / change your studies" button now opens the setup
 
 (async()=>{ await loadQualifications(); await loadBooks(); renderDashboard(); renderLibrary(); if(currentView==='formulas') renderFormulas(); if(!DB.setup&&!DB.setupLater) openSetup(!!DB.level); })();
 if('serviceWorker' in navigator && location.protocol==='https:') window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));

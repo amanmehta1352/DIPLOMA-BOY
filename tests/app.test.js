@@ -252,7 +252,10 @@ const check = (name, v) => (v ? ok : bad).push(name);
     await ps2.click('.nav-item[data-view=library]'); await ps2.waitForTimeout(1500);
     const lib = await ps2.innerText('#appGrid');
     check('library grouped technical / non-technical', lib.includes('तकनीकी (आपकी ब्रांच') && lib.includes('गैर-तकनीकी'));
-    check('mechanical shown subject-wise, no civil / electrical', /थर्मल इंजीनियरिंग/.test(lib) && !/सिविल|इलेक्ट्रिकल/.test(lib));
+    // the course syllabus itself has a basic-electrical lab, so check the exam shelves' subjects, not the text
+    const shelfSubj = await ps2.evaluate(() => BOOKS.filter(b => !b.course && b.subject).map(b => b.subject.slug));
+    check('mechanical shown subject-wise, no civil / electrical', /थर्मल इंजीनियरिंग/.test(lib) && !shelfSubj.some(x => x === 'civil-engineering' || x === 'electrical-engineering'));
+    check('my course: semester 3 subjects shown, locked ones marked', lib.includes('मेरा कोर्स') && /सेमेस्टर 3/.test(lib) && await ps2.isVisible('[data-stg="6"]'));
     await ps2.click('[data-exf="RRB Group D"]'); await ps2.waitForTimeout(600);
     check('exam filter shows only that exam\'s subjects', !(await ps2.innerText('#appGrid')).includes('थर्मल इंजीनियरिंग'));
     await ps2.click('[data-exf=""]'); await ps2.waitForTimeout(400); await ps2.locator('.app-icon', { hasText: 'थर्मल' }).first().click(); await ps2.waitForTimeout(600);
