@@ -325,6 +325,12 @@ body.lang-both .subtitle .en-part{display:block}
 .su-sub{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:2px}.su-note{font-size:12.5px;color:var(--muted);padding:10px 12px;border:1px dashed var(--line2);border-radius:12px;margin:6px 0}
 .su-sum{display:grid;gap:10px;margin:8px 0 12px}.su-sum div{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--line2)}.su-sum small{display:block;font-size:11px;color:var(--muted)}.su-sum b{font-size:14px}
 .qual-item span{min-width:0}
+.lib-filter{grid-column:1/-1;display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}.lib-filter::-webkit-scrollbar{display:none}
+.lib-chip{flex:0 0 auto;min-height:36px;padding:6px 12px;border-radius:18px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:12px;font-weight:800;cursor:pointer}.lib-chip.on{border-color:var(--accent);color:var(--accent);background:rgba(255,255,255,.1)}
+.lib-group{grid-column:1/-1;font-size:14px;font-weight:900;color:var(--text);padding:12px 2px 2px}.lib-group small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.lib-modes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 22px 14px}.lib-mode{min-height:64px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:12px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}.lib-mode b{font-size:20px}.lib-mode.on{border-color:var(--accent);background:rgba(255,255,255,.12)}
+.su-cat{font-size:13px;font-weight:900;color:var(--text);margin:14px 0 6px}.su-sub2{font-size:11.5px;font-weight:800;color:var(--accent);margin:10px 0 6px}
+.app-icon.soon{opacity:.55}
 .shelf-h{grid-column:1/-1;font-size:12px;font-weight:800;color:var(--accent);padding:10px 2px 0;border-top:1px solid var(--line2);margin-top:4px}.shelf-h:first-child{border-top:0;margin-top:0;padding-top:0}
 .qual-group{margin-bottom:18px}
 .qual-group h3{font-size:12px;color:var(--accent);font-weight:800;margin:0 0 8px;letter-spacing:.04em}
@@ -836,13 +842,26 @@ function renderLibrary(){
     list.innerHTML=''; document.getElementById('bookCount').innerHTML=''; document.getElementById('continueCard').style.display='none'; renderQuote(); return;
   }
   if(!books.some(b=>b.id===LIB.sel)) LIB.sel=(DB.lastBook&&books.some(b=>b.id===DB.lastBook.b))?DB.lastBook.b:(books[0]||{}).id;
-  let shelf=null;
-  grid.innerHTML = books.map(b=>{ const ready=b.chapters.filter(avail).length;
-    const sh=b.forTags?b.forTags.map(t=>L(t.hi,t.en)).join(' + '):null, head=(sh&&sh!==shelf)?`<div class="shelf-h">${esc(sh)}</div>`:''; shelf=sh;
-    return head+`<div class="app-icon${b.id===LIB.sel?' sel':''}" data-book="${esc(b.id)}" role="button" tabindex="0">
-      <div class="visual-wrap"><div class="visual" style="background:linear-gradient(135deg,${b.color},#2563eb)">${b.emoji}</div><div class="badge">${ready}</div></div>
+  // setup mode: filter by exam, then group Technical / Non-technical (subjects with no content yet are shown locked)
+  const tagsAll=[]; books.forEach(b=>(b.forTags||[]).forEach(t=>{ if(!tagsAll.some(x=>x.en===t.en)) tagsAll.push(t); }));
+  if(LIB.exam&&!tagsAll.some(t=>t.en===LIB.exam)) LIB.exam=null;
+  const shown=LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books;
+  if(LIB.sel&&!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown[0]||{}).id;
+  const isTech=b=>!!(b.subject&&TECH_SUBJECTS.includes(b.subject.slug));
+  const icon=b=>{ const ready=b.chapters.filter(avail).length, soon=b.kind==='soon';
+    return `<div class="app-icon${b.id===LIB.sel?' sel':''}${soon?' soon':''}" data-book="${esc(b.id)}" role="button" tabindex="0">
+      <div class="visual-wrap"><div class="visual" style="background:linear-gradient(135deg,${b.color},#2563eb)">${b.emoji}</div><div class="badge">${soon?'🔒':ready}</div></div>
       <span class="label">${T(esc(b.title.hi),esc(b.title.en))}</span>
-    </div>`; }).join('') || `<div class="empty-note" style="grid-column:1/-1">${SERVER_OK?T('इस स्तर पर अभी कोई किताब नहीं','No books at this level yet'):T('सर्वर से किताबें नहीं आ सकीं। इंटरनेट जाँचें।','Could not load books from the server. Check your internet.')}</div>`;
+    </div>`; };
+  let gridHtml='';
+  if(DB.setup&&DB.setup.qual&&books.length){
+    if(tagsAll.length>1) gridHtml+=`<div class="lib-filter">${[{hi:'सभी',en:'All',k:''},...tagsAll.map(t=>({...t,k:t.en}))].map(t=>`<button class="lib-chip${(LIB.exam||'')===t.k?' on':''}" data-exf="${esc(t.k)}">${esc(L(t.hi,t.en))}</button>`).join('')}</div>`;
+    const tech=shown.filter(isTech), non=shown.filter(b=>!isTech(b));
+    if(tech.length) gridHtml+=`<div class="lib-group">🛠️ ${L('तकनीकी (आपकी ब्रांच / ट्रेड)','Technical (your branch / trade)')}<small>${L('हर विषय में: किताब · नोट्स · क्लास · सूत्र','Each subject: Book · Notes · Class · Formulas')}</small></div>`+tech.map(icon).join('');
+    if(non.length) gridHtml+=(tech.length?`<div class="lib-group">📚 ${L('गैर-तकनीकी (सामान्य विषय)','Non-technical (general subjects)')}</div>`:'')+non.map(icon).join('');
+  } else gridHtml=books.map(icon).join('');
+  grid.innerHTML = gridHtml || `<div class="empty-note" style="grid-column:1/-1">${SERVER_OK?T('इस स्तर पर अभी कोई किताब नहीं','No books at this level yet'):T('सर्वर से किताबें नहीं आ सकीं। इंटरनेट जाँचें।','Could not load books from the server. Check your internet.')}</div>`;
+  grid.querySelectorAll('[data-exf]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.exam=el.dataset.exf||null; LIB.sel=null; renderLibrary(); }));
   grid.querySelectorAll('.app-icon').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.sel=el.dataset.book; document.getElementById('searchInput').value=''; renderLibrary();
     const t=document.getElementById('chapterList'); if(t&&t.scrollIntoView) t.scrollIntoView({behavior:'smooth',block:'start'}); }));
   document.getElementById('bookCount').innerHTML = `${esc(L(qualLabel().hi,qualLabel().en))} · ${books.length} ${L('विषय','subjects')}`;
@@ -860,10 +879,12 @@ function renderLibrary(){
     html=`<div class="sec-title"><h2>🔍 ${L('खोज','Search')}</h2><div class="count-pill">${hits.length}</div></div><div style="padding:0 22px">${hits.map(h=>chapterRow(h.bk,h.ch)).join('')||`<div class="empty-note">${T('कुछ नहीं मिला','Nothing found')}</div>`}</div>`;
   } else { const bk=books.find(x=>x.id===LIB.sel);
     if(bk){ const ready=bk.chapters.filter(avail), done=ready.filter(ch=>(DB.chapters[chKey(bk.id,ch.n)]||{}).read).length, soon=bk.chapters.length-ready.length;
+      const modes=(DB.setup&&DB.setup.qual&&bk.kind!=='soon')?`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${(LIB.mode||'book')===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`:'';
       html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
-        <div style="padding:0 22px">${bk.chapters.map(ch=>chapterRow(bk,ch)).join('')}</div>`; } }
+        ${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note">🔒 ${L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं। तैयार होते ही यहीं दिखेंगे।','Book, notes and formulas for this subject are being prepared. They will appear here.')}</div>`:bk.chapters.map(ch=>chapterRow(bk,ch)).join('')}</div>`; } }
   list.innerHTML=html;
-  list.querySelectorAll('[data-ch]').forEach(el=>{ const go=()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch); };
+  list.querySelectorAll('[data-mode]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.mode=el.dataset.mode; renderLibrary(); }));
+  list.querySelectorAll('[data-ch]').forEach(el=>{ const go=()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch,(DB.setup&&DB.setup.qual)?(LIB.mode||'book'):undefined); };
     el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
 }
 function renderQuote(){ const qc=document.getElementById('quoteCard'), qt=getDailyQuote();
@@ -1430,18 +1451,19 @@ window.addEventListener('load',()=>setTimeout(updateNavHighlight,100));
 // The old level picker and all other features stay as they were; old users keep their choice until they redo setup.
 let SETUP_CFG=null;
 const BRANCH_NAME={mechanical:{hi:'मैकेनिकल',en:'Mechanical'},civil:{hi:'सिविल',en:'Civil'},electrical:{hi:'इलेक्ट्रिकल',en:'Electrical'},electronics:{hi:'इलेक्ट्रॉनिक्स',en:'Electronics'},computer:{hi:'कंप्यूटर / आईटी',en:'Computer / IT'}};
-const BRANCH_SUBJ={mechanical:'mechanical-engineering',civil:'civil-engineering',electrical:'electrical-engineering'};
+const BRANCH_SUBJ={mechanical:'mechanical-engineering',civil:'civil-engineering',electrical:'electrical-engineering',electronics:'electronics-engineering',computer:'computer-engineering'};
+const TECH_SUBJECTS=['mechanical-engineering','civil-engineering','electrical-engineering','electronics-engineering','computer-engineering','trade-theory'];
 /* exams without a section table: which parts of a subject the exam really asks */
 const TARGET_UNITS={'jee-main':{'general-science':['physics','chemistry']},'jee-advanced':{'general-science':['physics','chemistry']},'neet-ug':{'general-science':['physics','chemistry','biology']}};
-const BRANCH_SUBJECTS=['mechanical-engineering','civil-engineering','electrical-engineering'];
+const BRANCH_SUBJECTS=['mechanical-engineering','civil-engineering','electrical-engineering','electronics-engineering','computer-engineering'];
 const SUBJ_ORDER=['branch','mechanical-engineering','civil-engineering','electrical-engineering','reasoning','maths','general-science','general-awareness','computer-basics','environment'];
-const CATS=[{id:'school',hi:'स्कूल (कक्षा 6–12)',en:'School (Class 6–12)',icon:'🏫'},{id:'diploma',hi:'डिप्लोमा (पॉलिटेक्निक)',en:'Diploma (Polytechnic)',icon:'🛠️'},
-  {id:'graduation',hi:'स्नातक (B.Tech, B.Sc, B.Com, B.A.)',en:'Graduation (B.Tech, B.Sc, B.Com, B.A.)',icon:'🎓'},{id:'postgrad',hi:'स्नातकोत्तर / शोध',en:'Postgraduate / Research',icon:'🔬'}];
+const CATS=[{id:'school',hi:'स्कूल (कक्षा 6–12, 10वीं/12वीं पास)',en:'School (Class 6–12, 10th/12th pass)',icon:'🏫'},{id:'iti',hi:'आईटीआई (ट्रेड)',en:'ITI (trade)',icon:'🔧'},{id:'diploma',hi:'डिप्लोमा (पॉलिटेक्निक, फ़ार्मेसी, नर्सिंग, डी.एल.एड.)',en:'Diploma (Polytechnic, Pharmacy, Nursing, D.El.Ed.)',icon:'🛠️'},
+  {id:'graduation',hi:'स्नातक (B.Tech, B.Sc, B.Com, B.A., B.Ed, LLB, MBBS…)',en:'Graduation (B.Tech, B.Sc, B.Com, B.A., B.Ed, LLB, MBBS…)',icon:'🎓'},{id:'postgrad',hi:'स्नातकोत्तर / शोध (M.Sc, MBA, MCA, PhD…)',en:'Postgraduate / Research (M.Sc, MBA, MCA, PhD…)',icon:'🔬'}];
 async function loadSetupCfg(){ if(SETUP_CFG) return SETUP_CFG; try{ SETUP_CFG=await sbGet('rpc/get_setup_config'); }catch(e){ SETUP_CFG=null; } return SETUP_CFG; }
 function setupQual(slug){ return ((SETUP_CFG||{}).quals||[]).find(q=>q.slug===slug)||null; }
 function targetName(q,t){ const x=(q.exams||[]).find(e=>e.target===t)||{}; if(x.hi) return {hi:x.hi,en:x.en};
   const f=((SETUP_CFG||{}).families||{})[t]; if(!f) return {hi:t,en:t};
-  const br=q.branch&&(f.subjects||[]).includes('branch-engineering')?BRANCH_NAME[q.branch]:null;   // a JE paper is taken in the student's own branch
+  const br=q.branch&&(f.subjects||[]).some(x=>x==='branch-engineering'||x==='branch-or-trade')?BRANCH_NAME[q.branch]:null;   // a JE paper is taken in the student's own branch
   return br?{hi:`${f.hi} (${br.hi})`,en:`${f.en} (${br.en})`}:{hi:f.hi,en:f.en}; }
 function setupLabel(s){ const q=setupQual(s.qual); if(!q) return null;
   const st=s.status==='passed'?{hi:' (पास)',en:' (passed)'}:(s.stage&&q.stages?{hi:` · ${q.stages.label_hi} ${s.stage}`,en:` · ${q.stages.label_en} ${s.stage}`}:{hi:'',en:''});
@@ -1456,10 +1478,11 @@ function setupPlan(s){
     if(t.startsWith('level:')){ raw.push({level:t.slice(6),subj:'*',units:null,tag:name,rank:1+i,branch:q.branch}); return; }
     const f=(SETUP_CFG.families||{})[t]; if(!f) return;
     const subs=f.subjects&&f.subjects.length?f.subjects:['*'];
-    subs.forEach(sj=>{ const slug=sj==='branch-engineering'?BRANCH_SUBJ[q.branch]:sj; if(!slug) return;
-      raw.push({level:f.level,subj:slug,units:null,tag:name,rank:1+i,branch:q.branch,tu:TARGET_UNITS[t]||null}); }); });
+    subs.forEach(tok=>{ let [sj,u]=String(tok).split(':');
+      const slug=sj==='branch-engineering'?BRANCH_SUBJ[q.branch]:sj==='branch-or-trade'?(q.cat==='iti'?'trade-theory':BRANCH_SUBJ[q.branch]):sj; if(!slug) return;
+      raw.push({level:f.level,subj:slug,units:u?u.split('+'):null,tag:name,rank:1+i,branch:q.branch,tu:TARGET_UNITS[t]||null,cat:f.cat}); }); });
   const out=[], by={};
-  raw.forEach(r=>{ const k=r.level+'|'+r.subj;
+  raw.forEach(r=>{ const k=r.subj==='*'?'*'+r.level:r.subj;   // one shelf per subject; the first goal decides its depth
     if(by[k]){ const o=by[k]; if(!o.tags.some(t=>t.en===r.tag.en)) o.tags.push(r.tag);
       o.units=(o.units===null||r.units===null)?null:[...new Set([...o.units,...r.units])]; return; }
     by[k]={level:r.level,subj:r.subj,units:r.units,tags:[r.tag],rank:r.rank,branch:r.branch,tu:r.tu}; out.push(by[k]); });
@@ -1494,7 +1517,11 @@ async function loadBooksSetup(){
       Object.entries(by).forEach(([id,list])=>{ const st=BOOK_STYLE[id]||{title:{hi:id,en:id},emoji:'📘',color:'#3b82f6'};
         phys.push({id,kind:'book',level:levels.find(l=>PHYS_LEVELS.includes(l)),title:st.title,emoji:st.emoji,color:st.color,owned:true,
           chapters:list.sort((a,b)=>a.ch_no-b.ch_no).map(r=>({n:r.ch_no,no:r.ch_no,topic:r.topic_id,t:{hi:r.title_hi,en:r.title_en},sh:{hi:r.short_hi,en:r.short_en}}))}); }); }
+    const soon=(slug,lv,tags)=>{ if(seen.has(lv+'|'+slug)||out.some(b=>b.subject&&b.subject.slug===slug)) return; seen.add(lv+'|'+slug);
+      const nm=((SETUP_CFG.subjects||{})[slug])||{hi:slug,en:slug};
+      out.push({id:'soon:'+slug,kind:'soon',level:lv,subject:{slug,hi:nm.hi,en:nm.en},forTags:tags,title:{hi:nm.hi,en:nm.en},emoji:SUBJ_EMOJI[slug]||'🔒',color:'#475569',owned:true,chapters:[]}); };
     plan.forEach(p=>{ const cat=cats[p.level]||[];
+      if(p.subj!=='*'&&!cat.some(x=>x.slug===p.subj)){ soon(p.subj,p.level,p.tags); return; }
       if(p.subj==='*') cat.filter(sj=>!BRANCH_SUBJECTS.includes(sj.slug)||sj.slug===BRANCH_SUBJ[p.branch]).forEach(sj=>push(p.level,sj,(p.tu&&p.tu[sj.slug])||null,p.tags));
       else { const sj=cat.find(x=>x.slug===p.subj); if(sj) push(p.level,sj,p.units,p.tags); } });
     // keep reading progress made under the old one-book-per-subject ids
@@ -1570,7 +1597,12 @@ function renderSetup(){
     h=`<h3 class="su-q">${L('आपको क्या-क्या पढ़ना है?','What do you want to study?')}</h3><p class="su-help">${L('जितने चाहें उतने चुनें। सिर्फ़ वही exam दिखे हैं जिनके लिए आपकी पढ़ाई योग्य है।','Pick as many as you like. Only exams your course makes you eligible for are listed.')}</p>`;
     if(hasCourse) h+=opt(W.course,`📘 ${L('मेरा कोर्स','My course')} <small class="su-sub">${esc(L(q.hi,q.en))}</small>`,'data-course="1"');
     else h+=`<div class="su-note">${L('इस पढ़ाई के कोर्स की सामग्री अभी तैयार हो रही है।','Course content for this is being prepared.')}</div>`;
-    h+=ex.length?`<div class="qual-group" style="margin-top:12px"><h3>🎯 ${L('लक्ष्य परीक्षाएँ','Target exams')}</h3>${ex.map(e=>{ const n=targetName(q,e.target); return opt(W.exams.has(e.target),esc(L(n.hi,n.en)),`data-exam="${esc(e.target)}"`); }).join('')}</div>`
+    const fam=t=>(cfg.families||{})[t]||{}, catOf=t=>(cfg.cats||[]).find(c=>c.slug===fam(t).cat)||{slug:'other',hi:'अन्य',en:'Other',tech:false};
+    const grp=tech=>{ const list=ex.filter(e=>!!catOf(e.target).tech===tech); if(!list.length) return '';
+      const cats=(cfg.cats||[]).concat([{slug:'other',hi:'अन्य',en:'Other'}]).filter(c=>list.some(e=>catOf(e.target).slug===c.slug));
+      return `<div class="su-cat">${tech?'🛠️ '+L('तकनीकी परीक्षाएँ','Technical exams'):'📚 '+L('गैर-तकनीकी परीक्षाएँ','Non-technical exams')}</div>`
+        +cats.map(c=>`<div class="su-sub2">${esc(L(c.hi,c.en))}</div>`+list.filter(e=>catOf(e.target).slug===c.slug).map(e=>{ const n=targetName(q,e.target); return opt(W.exams.has(e.target),esc(L(n.hi,n.en)),`data-exam="${esc(e.target)}"`); }).join('')).join(''); };
+    h+=ex.length?`<div class="qual-group" style="margin-top:12px"><h3>🎯 ${L('लक्ष्य परीक्षाएँ (कई चुन सकते हैं)','Target exams (pick many)')}</h3>${grp(true)}${grp(false)}</div>`
       :`<div class="su-note">${L('इस स्तर के लिए अभी कोई प्रतियोगी परीक्षा नहीं जोड़ी गई है।','No competitive exam is listed for this level yet.')}</div>`; }
   if(k==='done'){ const lab=setupLabel({qual:W.qual,status:W.status,stage:W.stage});
     const goals=[...(W.course&&(q.course||[]).length?[L('मेरा कोर्स','My course')]:[]),...[...W.exams].map(t=>{ const n=targetName(q,t); return L(n.hi,n.en); })];
