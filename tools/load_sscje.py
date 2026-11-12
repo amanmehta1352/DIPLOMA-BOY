@@ -28,16 +28,8 @@ for f in sorted(glob.glob('content/sscje-mechanical/ch-*.json')):
                  'checks': {'held': 'original content written by Claude; owner review required before approval',
                             'validator': 'tools/check_sscje.py passed', 'copyright_covered': False}})
 
-# refuse to touch anything already approved
-ids = ','.join(str(r['chapter_id']) for r in rows)
-st, body = req('GET', f'/rest/v1/chapter_drafts?select=chapter_id,status&level_id=eq.{LEVEL}&chapter_id=in.({ids})',
-               extra={'Prefer': ''})
-approved = {x['chapter_id'] for x in json.loads(body) if x['status'] != 'draft'}
-if approved:
-    print('skipping non-draft rows (not touched):', sorted(approved))
-rows = [r for r in rows if r['chapter_id'] not in approved]
-
+# mtb.draft_save upserts as status 'draft' and never overwrites an approved row.
 for r in rows:
-    st, _ = req('POST', '/rest/v1/chapter_drafts?on_conflict=level_id,chapter_id', [r])
-    print('upsert', r['chapter_id'], st)
+    st, body = req('POST', '/rest/v1/rpc/draft_save', {'p': r}, extra={'Prefer': '', 'x-actor': 'sscje-mech-loader'})
+    print('draft_save', r['chapter_id'], st, body)
 print('done', len(rows))
