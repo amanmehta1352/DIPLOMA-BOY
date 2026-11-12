@@ -328,6 +328,11 @@ body.lang-both .subtitle .en-part{display:block}
 .lib-filter{grid-column:1/-1;display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}.lib-filter::-webkit-scrollbar{display:none}
 .lib-chip{flex:0 0 auto;min-height:36px;padding:6px 12px;border-radius:18px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:12px;font-weight:800;cursor:pointer}.lib-chip.on{border-color:var(--accent);color:var(--accent);background:rgba(255,255,255,.1)}
 .lib-group{grid-column:1/-1;font-size:14px;font-weight:900;color:var(--text);padding:12px 2px 2px}.lib-group small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.lib-sub{grid-column:1/-1;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;padding:6px 2px 0}
+.lib-sec{font-size:12px;font-weight:900;color:var(--accent);padding:14px 2px 6px;border-bottom:1px solid var(--line2);margin-bottom:6px}
+.syl{margin:14px 22px 6px}.syl>summary{cursor:pointer;font-size:13px;font-weight:900;padding:10px 0;color:var(--text)}
+.syl-unit{border:1px solid var(--line2);border-radius:12px;padding:10px 12px;margin:8px 0;background:rgba(255,255,255,.03)}
+.syl-unit b{display:block;font-size:13px}.syl-unit ul{margin:6px 0 0;padding-left:18px;font-size:12px;color:var(--muted);line-height:1.6}
 .su-state{display:flex;flex-direction:column;gap:6px;margin:4px 0 6px;font-size:13px;font-weight:800}.su-state select{min-height:44px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.06);color:var(--text);font:inherit;font-size:14px;padding:0 10px}.su-state option{color:#111}
 .settings-btn.away{opacity:0;pointer-events:none;transform:scale(.8)}
 .lib-modes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 22px 14px}.lib-mode{min-height:64px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:12px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}.lib-mode b{font-size:20px}.lib-mode.on{border-color:var(--accent);background:rgba(255,255,255,.12)}
@@ -870,7 +875,10 @@ function renderLibrary(){
     if(mine.length){ const stl=stq&&stq.stages?L(stq.stages.label_hi,stq.stages.label_en):'', open=mine.filter(b=>b.kind!=='soon').length;
       gridHtml+=`<div class="lib-group">📘 ${L('मेरा कोर्स','My course')}${stl&&LIB.stage!=='all'?` · ${stl} ${esc(LIB.stage)}`:''} <span style="color:var(--muted);font-weight:700">(${mine.length} ${L('विषय','subjects')} · ${open} ${L('खुले','open')} · 🔒 ${mine.length-open})</span><small>${L('सिलेबस के सभी विषय। 🔒 वाले विषयों की सामग्री तैयार हो रही है।','Every subject of the syllabus. 🔒 subjects are being prepared.')}</small></div>`;
       if(stages.length>1) gridHtml+=`<div class="lib-filter">${stages.map(x=>`<button class="lib-chip${LIB.stage===x?' on':''}" data-stg="${esc(x)}">${esc(stl)} ${esc(x)}</button>`).join('')}</div>`;
-      gridHtml+=mine.map(icon).join(''); }
+      // inside a semester: theory first, then electives, labs, projects (each under its own small heading)
+      const KG=[['theory','📘 सैद्धांतिक विषय','📘 Theory subjects'],['elective','🎯 ऐच्छिक (एक चुनें)','🎯 Electives (pick one)'],['lab','🧪 लैब / प्रायोगिक','🧪 Labs / practicals'],['project','🗂️ प्रोजेक्ट / इंटर्नशिप','🗂️ Projects / internship']];
+      const grp=KG.map(([k,hi,en])=>[hi,en,mine.filter(b=>(b.lab||'theory')===k||(k==='theory'&&!KG.some(x=>x[0]===b.lab)))]).filter(g=>g[2].length);
+      gridHtml+=grp.length>1?grp.map(([hi,en,l])=>`<div class="lib-sub">${L(hi,en)}</div>`+l.map(icon).join('')).join(''):mine.map(icon).join(''); }
     const tech=rest.filter(isTech), non=rest.filter(b=>!isTech(b));
     if(tech.length) gridHtml+=`<div class="lib-group">🛠️ ${L('तकनीकी (आपकी ब्रांच / ट्रेड)','Technical (your branch / trade)')}<small>${L('हर विषय में: किताब · नोट्स · क्लास · सूत्र','Each subject: Book · Notes · Class · Formulas')}</small></div>`+tech.map(icon).join('');
     if(non.length) gridHtml+=(tech.length||mine.length?`<div class="lib-group">📚 ${L('गैर-तकनीकी (सामान्य विषय)','Non-technical (general subjects)')}</div>`:'')+non.map(icon).join('');
@@ -897,12 +905,22 @@ function renderLibrary(){
     if(bk){ const ready=bk.chapters.filter(avail), done=ready.filter(ch=>(DB.chapters[chKey(bk.id,ch.n)]||{}).read).length, soon=bk.chapters.length-ready.length;
       const modes=(DB.setup&&DB.setup.qual&&bk.kind!=='soon')?`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${(LIB.mode||'book')===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`:'';
       html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
-        ${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note">🔒 ${L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं। तैयार होते ही यहीं दिखेंगे।','Book, notes and formulas for this subject are being prepared. They will appear here.')}</div>`:bk.chapters.map(ch=>chapterRow(bk,ch)).join('')}</div>`; } }
+        ${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note">🔒 ${bk.lab==='lab'||bk.lab==='project'?L('यह प्रायोगिक / प्रोजेक्ट कार्य है: कॉलेज में किया जाता है।','This is practical / project work, done in college.'):L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं। तैयार होते ही यहीं दिखेंगे। नीचे पूरा सिलेबस देखें।','Book, notes and formulas for this subject are being prepared. They will appear here. See the full syllabus below.')}</div>`:bk.chapters.map((ch,i)=>(ch.sec&&(!i||(bk.chapters[i-1].sec||{}).en!==ch.sec.en)?`<div class="lib-sec">${T(esc(ch.sec.hi),esc(ch.sec.en))}</div>`:'')+chapterRow(bk,ch)).join('')}</div>
+        <div id="sylBox"></div>`; } }
   list.innerHTML=html;
+  { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk) renderOutline(bk); }
   list.querySelectorAll('[data-mode]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.mode=el.dataset.mode; renderLibrary(); }));
   list.querySelectorAll('[data-ch]').forEach(el=>{ const go=()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch,(DB.setup&&DB.setup.qual)?(LIB.mode||'book'):undefined); };
     el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
 }
+/* the subject's full syllabus (units → topics) from content/course-syllabus/outline.json, loaded once, on demand */
+let OUTLINE=null, OUTLINE_P=null;
+function loadOutline(){ return OUTLINE?Promise.resolve(OUTLINE):(OUTLINE_P||(OUTLINE_P=fetch('content/course-syllabus/outline.json').then(r=>r.ok?r.json():{}).then(j=>(OUTLINE=j)).catch(()=>{ OUTLINE_P=null; return {}; }))); }
+function renderOutline(bk){ const key=bk.outline||(bk.subject&&bk.subject.slug?'x:'+bk.subject.slug:null); if(!key) return;
+  loadOutline().then(o=>{ const units=o&&o[key], box=document.getElementById('sylBox'); if(!units||!box||LIB.sel!==bk.id) return;
+    const n=units.reduce((a,u)=>a+u.topics.length,0);
+    box.innerHTML=`<details class="syl"${bk.kind==='soon'?' open':''}><summary>📋 ${L('पूरा सिलेबस','Full syllabus')} · ${units.length} ${L('यूनिट','units')} · ${n} ${L('टॉपिक','topics')}</summary>
+      ${units.map((u,i)=>`<div class="syl-unit"><b>${i+1}. ${T(esc(u.hi),esc(u.en))}</b><ul>${u.topics.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div>`).join('')}</details>`; }); }
 function renderQuote(){ const qc=document.getElementById('quoteCard'), qt=getDailyQuote();
   qc.innerHTML=`<div class="q-tag">${L('आज का विचार','Quote of the Day')}</div><div class="q-text">${L(esc(qt.text),esc(qt.en))}</div><div class="q-author">— <b>${esc(L(qt.authorHi,qt.author))}</b></div>`; }
 document.getElementById('searchInput').addEventListener('input',renderLibrary);
@@ -1456,10 +1474,9 @@ applySettings();
   }
 })();
 (function resumeFocus(){ try{ const e=+localStorage.getItem(DKEY+'_focus'); if(e){ const f=STATE.focus; if(e>Date.now()){ f.running=true; f.end=e; focusRun(); } else { focusFinish(); } } }catch(e){} })();
-renderDashboard();
-renderLibrary();
-renderFocusPage();
-updateStatusBars();
+// first paint after the whole script has run: the setup code (SETUP_CFG, TECH_SUBJECTS …) is declared further down, and a student
+// who finished setup reaches it from renderLibrary — calling it here directly crashed the app on every reopen (fix 2026-11-12)
+queueMicrotask(()=>{ renderDashboard(); renderLibrary(); renderFocusPage(); updateStatusBars(); });
 setTimeout(updateNavHighlight,100);
 window.addEventListener('load',()=>setTimeout(updateNavHighlight,100));
 
@@ -1542,6 +1559,16 @@ async function loadBooksSetup(){
         out.push({id,kind:'atoms',level:lv,subject:sj,only,forTags:tags,title,emoji:SUBJ_EMOJI[sj.slug]||'📘',color:BOOK_COLORS[(ci++)%BOOK_COLORS.length],owned:true,
           chapters:list.map((c,j)=>({n:c.id,no:j+1,topic:c.id,t:{hi:c.hi,en:c.en},sh:{hi:c.hi,en:c.en},atoms:c.n}))}); };
       if(!ul){ mk('s:'+lv+':'+sj.slug,{hi:sj.hi,en:sj.en},chs,null); return; }
+      // a broad subject (General Awareness) stays ONE book; its sub-subjects are headed sections inside it, in syllabus order
+      if(ul.every(u=>u.mode==='section')){ const list=[], used=new Set();
+        ul.forEach(u=>{ if(units&&!units.includes(u.slug)) return;
+          (u.ch||[]).map(id=>chs.find(c=>c.id===id)).filter(c=>c&&!used.has(c.id)).forEach(c=>{ used.add(c.id); list.push({...c,sec:{hi:u.hi,en:u.en}}); }); });
+        if(!units) chs.filter(c=>!used.has(c.id)).forEach(c=>list.push({...c,sec:{hi:'अन्य',en:'Other'}}));
+        const before=out.length, id='s:'+lv+':'+sj.slug; mk(id,{hi:sj.hi,en:sj.en},list,units?list.map(c=>c.id):null);
+        if(out.length>before) out[out.length-1].chapters.forEach((c,j)=>{ c.sec=list[j].sec;
+          // progress made when each section was its own book ('…~physics') moves to the one book
+          const nk=chKey(id,c.n); if(!DB.chapters[nk]) ul.some(u=>{ const ok=chKey(id+'~'+u.slug,c.n); if(DB.chapters[ok]){ DB.chapters[nk]=DB.chapters[ok]; return true; } return false; }); });
+        return; }
       const used=new Set();
       ul.forEach(u=>{ if(units&&!units.includes(u.slug)) return;
         const list=(u.ch||[]).map(id=>chs.find(c=>c.id===id)).filter(Boolean); list.forEach(c=>used.add(c.id));
@@ -1576,17 +1603,20 @@ async function loadBooksSetup(){
 /* my course: every subject of the syllabus, stage-wise; a subject opens only when its chapters exist, otherwise it is locked */
 function courseBooks(q,syl,cat){
   if(!q||!syl||!syl.length) return [];
-  const units=SETUP_CFG.units||{}, tag={hi:'मेरा कोर्स',en:'My course'};
-  return syl.map((r,i)=>{ const base={id:'c:'+q.slug+':'+r.stage+':'+r.slug,level:q.level,course:true,stage:r.stage,lab:r.kind,forTags:[tag],owned:true,
-      title:{hi:r.hi,en:r.en},emoji:r.kind==='lab'?'🧪':r.kind==='project'?'🗂️':'📘',color:BOOK_COLORS[i%BOOK_COLORS.length]};
+  const units=SETUP_CFG.units||{}, tag={hi:'मेरा कोर्स',en:'My course'}, EMO={lab:'🧪',project:'🗂️',elective:'🎯'};
+  // a subject moved to another semester keeps the progress made under its old id (same course, same chapter)
+  const pre='c:'+q.slug+':', old={}; Object.keys(DB.chapters||{}).forEach(k=>{ if(k.startsWith(pre)){ const n=k.slice(k.lastIndexOf(':')+1); if(!old[n]||DB.chapters[k].read) old[n]=k; } });
+  return syl.map((r,i)=>{ const base={id:'c:'+q.slug+':'+r.stage+':'+r.slug,level:q.level,course:true,stage:r.stage,lab:r.kind,outline:r.outline||null,forTags:[tag],owned:true,
+      title:{hi:r.hi,en:r.en},emoji:EMO[r.kind]||'📘',color:BOOK_COLORS[i%BOOK_COLORS.length]};
     let sj=null, list=[];
     if(r.chapters&&r.chapters.length){ sj=cat.find(x=>(x.chapters||[]).some(c=>r.chapters.includes(c.id)));
       if(sj) list=r.chapters.map(id=>(sj.chapters||[]).find(c=>c.id===id)).filter(Boolean); }
     else if(r.subject){ sj=cat.find(x=>x.slug===r.subject);
       if(sj){ const ul=units[sj.slug]; list=(r.units&&r.units.length&&ul)?ul.filter(u=>r.units.includes(u.slug)).flatMap(u=>(u.ch||[]).map(id=>(sj.chapters||[]).find(c=>c.id===id))).filter(Boolean):(sj.chapters||[]); } }
-    if(sj&&list.length) return {...base,kind:'atoms',subject:sj,only:list.map(c=>c.id),
-      chapters:list.map((c,j)=>({n:c.id,no:j+1,topic:c.id,t:{hi:c.hi,en:c.en},sh:{hi:c.hi,en:c.en},atoms:c.n}))};
-    return {...base,kind:'soon',subject:{slug:r.subject||r.slug,hi:r.hi,en:r.en},emoji:r.kind==='lab'?'🧪':r.kind==='project'?'🗂️':'🔒',color:'#475569',chapters:[]}; });
+    if(sj&&list.length){ list.forEach(c=>{ const nk=chKey(base.id,c.id); if(!DB.chapters[nk]&&old[c.id]&&old[c.id]!==nk) DB.chapters[nk]=DB.chapters[old[c.id]]; });
+      return {...base,kind:'atoms',subject:sj,only:list.map(c=>c.id),
+      chapters:list.map((c,j)=>({n:c.id,no:j+1,topic:c.id,t:{hi:c.hi,en:c.en},sh:{hi:c.hi,en:c.en},atoms:c.n}))}; }
+    return {...base,kind:'soon',subject:{slug:r.subject||r.slug,hi:r.hi,en:r.en},emoji:EMO[r.kind]||'🔒',color:'#475569',chapters:[]}; });
 }
 const loadBooksLegacy=loadBooks;
 loadBooks=async function(){ return DB.setup&&DB.setup.qual?loadBooksSetup():loadBooksLegacy(); };

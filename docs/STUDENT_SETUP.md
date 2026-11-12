@@ -43,3 +43,25 @@ progress made under the old one-book-per-subject ids is carried to the new subje
 - Migration 0172 adds exam families: RPF Constable, RPF SI, SSC Selection Post, State SSC, DSSSB, Other State PSC,
   State teacher recruitment, Agriculture Officer (with eligibility rows). Backup: `mtb.bk_0172_qualification_exams`.
 - Merit-only recruitments (India Post GDS, railway/PSU apprentices) are not listed: they have no written exam.
+
+## v4 (2026-11-12): syllabus hierarchy, topic outlines, semester 6 fixes
+Hierarchy everywhere: **course → stage (semester / year / class) → group → subject → unit (chapter) → topic**.
+- Groups inside a stage: 📘 theory · 🎯 elective (pick one) · 🧪 lab / practical · 🗂️ project / internship. The library shows
+  each group under its own small heading instead of one mixed grid.
+- Source: `tools/syllabus/courses.mjs` (courses, stages, subjects, chapter mapping) and `tools/syllabus/outlines/*.mjs`
+  (units + topics of every subject; 487 outlines, ~2,200 units). `node tools/build_course_syllabus.mjs` writes
+  `content/course-syllabus/syllabus.json` (→ `mtb.course_subjects`) and `content/course-syllabus/outline.json` (read by the app).
+  The builder refuses: a chapter id in two subjects of one course, a theory/elective subject without an outline, an unused
+  outline, a course subject mapped to competitive maths / GS content.
+- Every subject (open or 🔒) shows **📋 Full syllabus**: its units and topics. Content work now only fills chapters; to open a
+  subject add its chapter ids in `courses.mjs` (`'ch:…'`), rebuild, push.
+- Semester 6 (and the whole diploma) fixed: civil (12 chapters) and electrical (6 chapters) content was never mapped, so every
+  civil / electrical subject was locked; mechanical chapters 436 and 438 were shown in two semesters; mechanical semester 6 had
+  no open subject (Industrial Engineering & Management moved 5 → 6, its usual place); sem-6 electives added for every branch.
+  Progress made under a subject's old id (old semester) is carried to the new one.
+- Broad subjects are **one book with sections** (`mtb.subject_units.mode = 'section'`, migration 0173): General Awareness =
+  History & Culture · Geography · Polity · Economy · Science & Technology · Static GK · Current Affairs; General Science =
+  Physics · Chemistry · Biology · Environment (was 4 separate books). Progress from the old per-section books is carried over.
+- Loader: `course_syllabus_sync` replaces a whole course (removed rows kept in `mtb.bk_0173_course_subjects`); the old loader
+  only upserted, so renamed / moved subjects stayed as duplicates.
+- Fix: a student who had finished setup got a crash on every reopen (first paint read `SETUP_CFG` before it was declared).
