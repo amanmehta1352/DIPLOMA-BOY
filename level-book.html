@@ -945,7 +945,7 @@ function dBook(r){
   if (arr(d.practice).length) { sec.push(L('अभ्यास','Exercise')); body.push(pbHead(`${no}.${sec.length}`, L(`अभ्यास (${arr(d.practice).length} सवाल)`, `Exercise (${arr(d.practice).length} questions)`)) + `<div class="pb-exercise">${mcqHtml(d.practice)}</div>`); }
   const k = x => arr(d[x]).length;
   return reviewBanner(r) + bookShell(L(`📑 ${k('notes')} विषय · ∑ ${k('formulas')} सूत्र · 🧮 ${k('solved')} उदाहरण · ✅ ${k('practice')} अभ्यास`, `📑 ${k('notes')} topics · ∑ ${k('formulas')} formulas · 🧮 ${k('solved')} examples · ✅ ${k('practice')} exercise`),
-    sec, dTeachTitles(d), body.join(''), H('📚 ड्राफ्ट वाले अध्याय', '📚 Chapters with a draft'));
+    sec, dTeachTitles(d), body.join(''), (REVIEW ? H('📚 ड्राफ्ट वाले अध्याय', '📚 Chapters with a draft') : H('📚 सभी अध्याय', '📚 All chapters')));
 }
 function dSolved(x, i, teach){
   return `<div class="teach-sec"><div class="teach-sec-h">🧮 ${L(`चलो हल करें ${i + 1}`, `Let us solve ${i + 1}`)}</div>${nbCard(L(`सवाल ${i + 1}`, `Question ${i + 1}`), x.question, x.steps, x.answer)}</div>`;
