@@ -1061,6 +1061,7 @@ document.querySelectorAll('.lang-toggle .lang-btn').forEach(b => b.classList.tog
     const cat = await get('rpc/get_level_catalog?p_level=' + encodeURIComponent(LEVEL));
     SUBJECT = (cat || []).find(s => s.slug === SUBJ); if (!SUBJECT) throw new Error('subject');
     CHAPTERS = (SUBJECT.chapters || []).map(c => ({id:c.id, hi:c.hi, en:c.en, n:c.n}));
+    { const ONLY = (Q.get('only') || '').split(',').map(Number).filter(Boolean); if (ONLY.length) CHAPTERS = CHAPTERS.filter(c => ONLY.includes(c.id)).sort((a, b) => ONLY.indexOf(a.id) - ONLY.indexOf(b.id)); }   /* one syllabus subject of a bigger subject */
     if (REVIEW) {   /* review mode: only chapters that have a robot draft can be opened */
       const have = new Set((await post('draft_review_list', {p_code:REVIEW})).filter(x => x.level_id === LEVEL).map(x => x.chapter_id));
       CHAPTERS.forEach(c => { c.n = have.has(c.id) ? 1 : 0; });
