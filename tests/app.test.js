@@ -20,7 +20,11 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await p.waitForTimeout(3500);
 
   // First run: the level picker opens; nothing level-specific is shown before a choice
-  check('first run asks for the level', await p.isVisible('#qualModal.active'));
+  // First run: the student setup opens (one course, many exams); the old level picker is still reachable
+  check('first run opens the student setup', await p.isVisible('#setupModal.active'));
+  check('setup knows the full course names', await p.evaluate(() => !!setupQual('diploma-mechanical') && setupQual('diploma-mechanical').hi.includes('मैकेनिकल') && SETUP_CFG.quals.length >= 40));
+  await p.evaluate(() => { document.getElementById('setupModal').classList.remove('active'); openQualLegacy(); }); await p.waitForTimeout(1500);
+  check('old level picker still opens', await p.isVisible('#qualModal.active'));
   const qItems = await p.$$eval('.qual-item', e => e.map(x => x.dataset.q));
   check('picker lists all school, job, entrance and higher levels', qItems.length >= 28 && qItems.includes('exam:class-10') && qItems.includes('exam:neet-ug') && qItems.includes('level:advanced_research'));
   check('Diploma (Polytechnic) is a choice', qItems.includes('exam:diploma-polytechnic'));
@@ -134,7 +138,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await p.click('#settingsClose'); await p.waitForTimeout(300);
 
   // ---- Level filter: Class 10 sees only Class 9-10 content (no Physics book, no engineering, no PhD) ----
-  await p.click('#settingsBtn'); await p.waitForTimeout(300); await p.click('#qualOpenBtn'); await p.waitForTimeout(800);
+  await p.click('#settingsBtn'); await p.waitForTimeout(300); await p.click('#settingsClose'); await p.evaluate(() => openQualLegacy()); await p.waitForTimeout(800);
   check('picker can be closed once a level exists', await p.isVisible('#qualClose'));
   await p.click('.qual-item[data-q="exam:class-10"]'); await p.waitForTimeout(3500);
   await p.click('.nav-item[data-view=library]'); await p.waitForTimeout(800);
@@ -191,7 +195,7 @@ const check = (name, v) => (v ? ok : bad).push(name);
   await p.click('.nav-item[data-view=formulas]'); await p.waitForTimeout(3000);
   check('Class 10 formulas: only this level (74), no Physics book formulas', (await p.$$eval('#formulaBox .card', e => e.length)) === 74 && !/dyne/.test(await p.innerText('#formulaBox')));
   // PhD level: only its own 3 chapters
-  await p.evaluate(() => openQual()); await p.waitForTimeout(800);
+  await p.evaluate(() => openQualLegacy()); await p.waitForTimeout(800);
   await p.click('.qual-item[data-q="level:advanced_research"]'); await p.waitForTimeout(3500);
   check('PhD: only advanced_research content (3 ready chapters)', await p.evaluate(() => BOOKS.length > 0 && BOOKS.every(b => b.level === 'advanced_research') && allChapters().length === 3));
   await p.click('.nav-item[data-view=library]'); await p.waitForTimeout(600);
@@ -236,6 +240,26 @@ const check = (name, v) => (v ? ok : bad).push(name);
     check('approved robot book opens for students (notes from the book)', firstNote.length > 0 && txt.includes(firstNote));
     check('approved robot book: no page errors', berr.length === 0);
     await pb.close(); }
+  // ---- Student setup: Diploma in Mechanical + SSC JE + RRB Group D -> grouped, filtered library ----
+  { const c2 = await b.newContext({ viewport: { width: 390, height: 844 } }); const ps2 = await c2.newPage(); const serr2 = []; ps2.on('pageerror', e => serr2.push(e.message));
+    await ps2.goto(URL); await ps2.waitForTimeout(3500);
+    const nx = async () => { await ps2.click('#suNext'); await ps2.waitForTimeout(300); };
+    await nx(); await nx(); await ps2.click('[data-cat=diploma]'); await nx(); await ps2.click('[data-qual=diploma-mechanical]'); await nx();
+    await ps2.click('[data-stage="3"]'); await nx();
+    check('setup lists technical and non-technical exams', (await ps2.innerText('#setupBody')).includes('तकनीकी परीक्षाएँ') && await ps2.isVisible('[data-exam="ssc-je"]') && await ps2.isVisible('[data-exam="rrb-group-d"]'));
+    check('setup does not offer exams a mechanical diploma cannot take', !(await ps2.$('[data-exam="neet-ug"]')) && !(await ps2.$('[data-exam="ibps-po"]')));
+    await ps2.click('[data-exam="ssc-je"]'); await ps2.click('[data-exam="rrb-group-d"]'); await nx(); await nx(); await ps2.waitForTimeout(5000);
+    await ps2.click('.nav-item[data-view=library]'); await ps2.waitForTimeout(1500);
+    const lib = await ps2.innerText('#appGrid');
+    check('library grouped technical / non-technical', lib.includes('तकनीकी (आपकी ब्रांच') && lib.includes('गैर-तकनीकी'));
+    check('mechanical shown subject-wise, no civil / electrical', /थर्मल इंजीनियरिंग/.test(lib) && !/सिविल|इलेक्ट्रिकल/.test(lib));
+    await ps2.click('[data-exf="RRB Group D"]'); await ps2.waitForTimeout(600);
+    check('exam filter shows only that exam\'s subjects', !(await ps2.innerText('#appGrid')).includes('थर्मल इंजीनियरिंग'));
+    await ps2.click('[data-exf=""]'); await ps2.waitForTimeout(400); await ps2.locator('.app-icon', { hasText: 'थर्मल' }).first().click(); await ps2.waitForTimeout(600);
+    check('subject offers Book / Notes / Class / Formulas', (await ps2.$$eval('.lib-mode', e => e.length)) === 4);
+    await ps2.screenshot({ path: path.join(SHOTS, 'v5-setup-library.png') });
+    check('setup flow: no page errors', serr2.length === 0);
+    await c2.close(); }
   await b.close(); srv.close();
   console.log('PASS', ok.length, ok.join(' | '));
   if (bad.length) { console.log('FAIL', bad.length, bad.join(' | ')); if (errs.length) console.log('errors:', errs); process.exit(1); }
