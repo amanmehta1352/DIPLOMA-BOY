@@ -849,14 +849,14 @@ function renderLibrary(){
     grid.innerHTML=`<div class="empty-note" style="grid-column:1/-1">${T('पहले बताइए आप क्या पढ़ते हैं। फिर यहाँ सिर्फ़ उसी स्तर की किताबें दिखेंगी।','First tell us what you study. Then only that level\'s books appear here.')}<br><br><button class="btn primary" onclick="openQual()">🎓 ${L('अपनी पढ़ाई चुनें','Choose your level')}</button></div>`;
     list.innerHTML=''; document.getElementById('bookCount').innerHTML=''; document.getElementById('continueCard').style.display='none'; renderQuote(); return;
   }
-  if(!books.some(b=>b.id===LIB.sel)) LIB.sel=(DB.lastBook&&books.some(b=>b.id===DB.lastBook.b))?DB.lastBook.b:(books[0]||{}).id;
+  if(!books.some(b=>b.id===LIB.sel)) LIB.sel=(DB.lastBook&&books.some(b=>b.id===DB.lastBook.b))?DB.lastBook.b:(books.find(b=>b.kind!=='soon')||books[0]||{}).id;
   // setup mode: filter by exam, then group Technical / Non-technical (subjects with no content yet are shown locked)
   const tagsAll=[]; books.forEach(b=>(b.forTags||[]).forEach(t=>{ if(!tagsAll.some(x=>x.en===t.en)) tagsAll.push(t); }));
   if(LIB.exam&&!tagsAll.some(t=>t.en===LIB.exam)) LIB.exam=null;
   const stq=DB.setup&&DB.setup.qual?setupQual(DB.setup.qual):null, stages=[...new Set(books.filter(b=>b.course).map(b=>b.stage))];
   if(!stages.includes(LIB.stage)) LIB.stage=stages.includes(String((DB.setup||{}).stage))?String(DB.setup.stage):stages[0];
   const shown=(LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books).filter(b=>!b.course||b.stage===LIB.stage);
-  if(LIB.sel&&!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown[0]||{}).id;
+  if(!LIB.sel||!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown.find(b=>b.kind!=='soon')||shown[0]||{}).id;   // open a book that has chapters, not a locked one
   const isTech=b=>!!(b.subject&&TECH_SUBJECTS.includes(b.subject.slug));
   const icon=b=>{ const ready=b.chapters.filter(avail).length, soon=b.kind==='soon';
     return `<div class="app-icon${b.id===LIB.sel?' sel':''}${soon?' soon':''}" data-book="${esc(b.id)}" role="button" tabindex="0">
