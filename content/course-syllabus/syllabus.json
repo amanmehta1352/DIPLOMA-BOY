@@ -130,11 +130,7 @@
 "en": "Environmental Science",
 "hi": "पर्यावरण विज्ञान",
 "kind": "theory",
-"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary",
-"subject": "general-science",
-"units": [
-"environment"
-]
+"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary"
 },
 {
 "qual": "diploma-mechanical",
@@ -573,11 +569,7 @@
 "en": "Environmental Science",
 "hi": "पर्यावरण विज्ञान",
 "kind": "theory",
-"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary",
-"subject": "general-science",
-"units": [
-"environment"
-]
+"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary"
 },
 {
 "qual": "diploma-automobile",
@@ -954,11 +946,7 @@
 "en": "Environmental Science",
 "hi": "पर्यावरण विज्ञान",
 "kind": "theory",
-"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary",
-"subject": "general-science",
-"units": [
-"environment"
-]
+"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary"
 },
 {
 "qual": "diploma-civil",
@@ -1328,11 +1316,7 @@
 "en": "Environmental Science",
 "hi": "पर्यावरण विज्ञान",
 "kind": "theory",
-"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary",
-"subject": "general-science",
-"units": [
-"environment"
-]
+"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary"
 },
 {
 "qual": "diploma-electrical",
@@ -1682,11 +1666,7 @@
 "en": "Environmental Science",
 "hi": "पर्यावरण विज्ञान",
 "kind": "theory",
-"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary",
-"subject": "general-science",
-"units": [
-"environment"
-]
+"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary"
 },
 {
 "qual": "diploma-electronics",
@@ -2026,11 +2006,7 @@
 "en": "Environmental Science",
 "hi": "पर्यावरण विज्ञान",
 "kind": "theory",
-"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary",
-"subject": "general-science",
-"units": [
-"environment"
-]
+"source": "AICTE model curriculum for diploma (2019/2022 revision) and NEP-aligned state schemes; state boards vary"
 },
 {
 "qual": "diploma-computer",
@@ -2887,8 +2863,7 @@
 "en": "Mathematics",
 "hi": "गणित",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "maths"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-6",
@@ -2898,8 +2873,7 @@
 "en": "Science",
 "hi": "विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-6",
@@ -2959,8 +2933,7 @@
 "en": "Mathematics",
 "hi": "गणित",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "maths"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-7",
@@ -2970,8 +2943,7 @@
 "en": "Science",
 "hi": "विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-7",
@@ -3031,8 +3003,7 @@
 "en": "Mathematics",
 "hi": "गणित",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "maths"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-8",
@@ -3042,8 +3013,7 @@
 "en": "Science",
 "hi": "विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-8",
@@ -3103,8 +3073,7 @@
 "en": "Mathematics",
 "hi": "गणित",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "maths"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-9",
@@ -3114,8 +3083,7 @@
 "en": "Science",
 "hi": "विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-9",
@@ -3175,8 +3143,7 @@
 "en": "Mathematics",
 "hi": "गणित",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "maths"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-10",
@@ -3186,8 +3153,7 @@
 "en": "Science",
 "hi": "विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-10",
@@ -3247,11 +3213,7 @@
 "en": "Physics",
 "hi": "भौतिकी",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"physics"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcm",
@@ -3261,11 +3223,7 @@
 "en": "Chemistry",
 "hi": "रसायन विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"chemistry"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcm",
@@ -3275,8 +3233,7 @@
 "en": "Mathematics",
 "hi": "गणित",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "maths"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcm",
@@ -3316,11 +3273,7 @@
 "en": "Physics",
 "hi": "भौतिकी",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"physics"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcm",
@@ -3330,11 +3283,7 @@
 "en": "Chemistry",
 "hi": "रसायन विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"chemistry"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcm",
@@ -3344,8 +3293,7 @@
 "en": "Mathematics",
 "hi": "गणित",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "maths"
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcm",
@@ -3385,11 +3333,7 @@
 "en": "Physics",
 "hi": "भौतिकी",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"physics"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcb",
@@ -3399,11 +3343,7 @@
 "en": "Chemistry",
 "hi": "रसायन विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"chemistry"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcb",
@@ -3413,11 +3353,7 @@
 "en": "Biology",
 "hi": "जीव विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"biology"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcb",
@@ -3457,11 +3393,7 @@
 "en": "Physics",
 "hi": "भौतिकी",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"physics"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcb",
@@ -3471,11 +3403,7 @@
 "en": "Chemistry",
 "hi": "रसायन विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"chemistry"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcb",
@@ -3485,11 +3413,7 @@
 "en": "Biology",
 "hi": "जीव विज्ञान",
 "kind": "theory",
-"source": "NCERT / CBSE scheme of studies; state boards similar",
-"subject": "general-science",
-"units": [
-"biology"
-]
+"source": "NCERT / CBSE scheme of studies; state boards similar"
 },
 {
 "qual": "class-11-12-pcb",
@@ -5277,11 +5201,7 @@
 "en": "Physics: Mechanics, Electricity & Magnetism",
 "hi": "भौतिकी: यांत्रिकी, विद्युत एवं चुंबकत्व",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"physics"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5291,11 +5211,7 @@
 "en": "Chemistry: Inorganic & Organic Basics",
 "hi": "रसायन: अकार्बनिक एवं कार्बनिक मूल",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"chemistry"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5315,11 +5231,7 @@
 "en": "Botany & Zoology: Diversity of Life (ZBC)",
 "hi": "वनस्पति एवं प्राणी विज्ञान: जीवन की विविधता (ZBC)",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"biology"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5329,11 +5241,7 @@
 "en": "Environmental Studies",
 "hi": "पर्यावरण अध्ययन",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"environment"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5353,11 +5261,7 @@
 "en": "Physics: Thermal Physics, Waves & Optics",
 "hi": "भौतिकी: ऊष्मीय भौतिकी, तरंगें एवं प्रकाशिकी",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"physics"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5367,11 +5271,7 @@
 "en": "Chemistry: Physical Chemistry & Organic Reactions",
 "hi": "रसायन: भौतिक रसायन एवं कार्बनिक अभिक्रियाएँ",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"chemistry"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5391,11 +5291,7 @@
 "en": "Botany & Zoology: Physiology & Genetics (ZBC)",
 "hi": "वनस्पति एवं प्राणी विज्ञान: शरीर क्रिया एवं आनुवंशिकी (ZBC)",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"biology"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5415,11 +5311,7 @@
 "en": "Physics: Modern Physics, Electronics & Quantum Mechanics",
 "hi": "भौतिकी: आधुनिक भौतिकी, इलेक्ट्रॉनिक्स एवं क्वांटम यांत्रिकी",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"physics"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5429,11 +5321,7 @@
 "en": "Chemistry: Spectroscopy, Coordination & Industrial Chemistry",
 "hi": "रसायन: स्पेक्ट्रोस्कोपी, उपसहसंयोजन एवं औद्योगिक रसायन",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"chemistry"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -5453,11 +5341,7 @@
 "en": "Botany & Zoology: Ecology, Evolution & Biotechnology (ZBC)",
 "hi": "वनस्पति एवं प्राणी विज्ञान: पारिस्थितिकी, विकास एवं जैव प्रौद्योगिकी (ZBC)",
 "kind": "theory",
-"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination",
-"subject": "general-science",
-"units": [
-"biology"
-]
+"source": "UGC model curriculum (NEP-2020 framework); papers vary by university and combination"
 },
 {
 "qual": "bsc",
@@ -7366,11 +7250,7 @@
 "en": "Fundamentals of Genetics",
 "hi": "आनुवंशिकी के मूल सिद्धांत",
 "kind": "theory",
-"source": "ICAR Fifth Deans Committee syllabus (B.Sc. Hons. Agriculture)",
-"subject": "general-science",
-"units": [
-"biology"
-]
+"source": "ICAR Fifth Deans Committee syllabus (B.Sc. Hons. Agriculture)"
 },
 {
 "qual": "bsc-agriculture",
