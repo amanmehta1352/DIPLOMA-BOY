@@ -293,6 +293,23 @@ def rpc(name, args=None):
     return json.loads(b) if b else None
 
 
+def add_owner_note(prompt, note):
+    """Pure: the owner's 'changes' note from the Review screen goes at the end of the prompt, as the most important rule."""
+    note = str(note or '').strip()
+    if not note: return prompt
+    return prompt + ('\n\nमालिक (owner) ने पिछला draft देखकर ये बदलाव माँगे हैं। इन्हें सबसे ज़रूरी नियम मानो:\n'
+                     + note[:1500] + '\n')
+
+
+def owner_notes():
+    """(level, chapter) -> owner's note for drafts sent back with 'changes'. Empty if the server function is not there yet."""
+    try:
+        return {(r['level_id'], r['chapter_id']): r.get('note') or '' for r in (rpc('draft_owner_notes') or [])}
+    except Exception as e:
+        print('owner notes not read:', hide(e)[:120], flush=True)
+        return {}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--count', type=int, default=3)
@@ -307,9 +324,10 @@ def main():
     chapters = json.load(open(os.path.join(HERE, 'chapters.json'), encoding='utf-8'))
     levels = {l['id']: l for l in json.load(open(os.path.join(HERE, 'levels.json'), encoding='utf-8'))}
     tpl = open(os.path.join(HERE, 'prompt.txt'), encoding='utf-8').read()
-    done = {}
+    done, notes = {}, {}
     if SB_KEY:
         done = {(r['level_id'], r['chapter_id']): r for r in rpc('draft_status')}
+        notes = owner_notes()
     # queue: not done yet, or rejected fewer than 3 times; levels in priority order
     order = {l: i for i, l in enumerate(LEVEL_ORDER)}
     queue = [c for c in chapters if (not a.level or c['l'] == a.level)
@@ -329,8 +347,11 @@ def main():
         for k, v in {'{l}': c['l'], '{c}': str(c['c']), '{lhi}': L['hi'], '{len}': L['en'], '{depth}': L['depth'],
                      '{s}': c['s'], '{se}': c['se'], '{h}': c['h'], '{e}': c['e']}.items():
             prompt = prompt.replace(k, v)
+        note = notes.get((c['l'], c['c']), '')
+        prompt = add_owner_note(prompt, note)
         for attempt in range(2):
           status, checks, model, data = 'rejected', {}, None, None
+          if note: checks['owner_note_used'] = note[:1500]
           try:
               txt, model = write_text(prompt)
               data = tidy_explanations(shuffle_options(parse_json(txt), want))

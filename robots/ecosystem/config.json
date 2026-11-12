@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "note": "auto_approve=true (1 Nov 2026, owner gave full authority): a Writer draft is published only if every structure check passes, the chapter is in Hindi, and a second AI from a different company (OpenRouter) agrees on all 10 practice answers. Any failure stays as a draft for the review queue. Set false to stop all automatic publishing.",
-  "auto_approve": true,
-  "auto_approve_max_per_run": 5
+  "note": "auto_approve=false (12 Nov 2026, owner's quality gate): robots never publish. Every Writer chapter and Solver item waits as a draft until the owner approves it in Control Room -> Review. The database enforces the same rule (migration 0173: auto_approve_draft and solution_auto_approve always return 'held'). History: 1 Nov 2026 the owner had allowed automatic publishing.",
+  "auto_approve": false,
+  "auto_approve_max_per_run": 0
 }
