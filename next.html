@@ -677,7 +677,12 @@ async function loadBooks(){
 }
 const chKey=(b,n)=>b+':'+n;
 const noNum=t=>String(t||'').replace(/^\s*\d+\.\s*/,'');
-function allChapters(){ return BOOKS.filter(b=>b.owned).flatMap(b=>b.chapters.filter(avail).map(c=>({b,c,key:chKey(b.id,c.n)}))); }
+function allChapters(){ const seen=new Map(), out=[];   // a chapter on two shelves (my course + an exam) counts once; the shelf with more progress wins
+  BOOKS.filter(b=>b.owned).forEach(b=>b.chapters.filter(avail).forEach(c=>{ const key=chKey(b.id,c.n), tk=b.kind==='atoms'?b.level+'#'+c.topic:null;
+    if(tk&&seen.has(tk)){ const o=seen.get(tk), a=DB.chapters[o.key]||{}, d=DB.chapters[key];
+      if(d&&((d.read&&!a.read)||!DB.chapters[o.key])) o.key=key; return; }
+    const x={b,c,key}; if(tk) seen.set(tk,x); out.push(x); }));
+  return out; }
 function readChapters(){ return allChapters().filter(x=>(DB.chapters[x.key]||{}).read); }
 function coverage(){ const all=allChapters(); return all.length?Math.round(readChapters().length/all.length*100):0; }
 function openedPct(){ const all=allChapters(); return all.length?Math.round(all.filter(x=>DB.chapters[x.key]).length/all.length*100):0; }
@@ -845,7 +850,9 @@ function renderLibrary(){
   // setup mode: filter by exam, then group Technical / Non-technical (subjects with no content yet are shown locked)
   const tagsAll=[]; books.forEach(b=>(b.forTags||[]).forEach(t=>{ if(!tagsAll.some(x=>x.en===t.en)) tagsAll.push(t); }));
   if(LIB.exam&&!tagsAll.some(t=>t.en===LIB.exam)) LIB.exam=null;
-  const shown=LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books;
+  const stq=DB.setup&&DB.setup.qual?setupQual(DB.setup.qual):null, stages=[...new Set(books.filter(b=>b.course).map(b=>b.stage))];
+  if(!stages.includes(LIB.stage)) LIB.stage=stages.includes(String((DB.setup||{}).stage))?String(DB.setup.stage):stages[0];
+  const shown=(LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books).filter(b=>!b.course||b.stage===LIB.stage);
   if(LIB.sel&&!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown[0]||{}).id;
   const isTech=b=>!!(b.subject&&TECH_SUBJECTS.includes(b.subject.slug));
   const icon=b=>{ const ready=b.chapters.filter(avail).length, soon=b.kind==='soon';
@@ -856,11 +863,17 @@ function renderLibrary(){
   let gridHtml='';
   if(DB.setup&&DB.setup.qual&&books.length){
     if(tagsAll.length>1) gridHtml+=`<div class="lib-filter">${[{hi:'सभी',en:'All',k:''},...tagsAll.map(t=>({...t,k:t.en}))].map(t=>`<button class="lib-chip${(LIB.exam||'')===t.k?' on':''}" data-exf="${esc(t.k)}">${esc(L(t.hi,t.en))}</button>`).join('')}</div>`;
-    const tech=shown.filter(isTech), non=shown.filter(b=>!isTech(b));
+    const mine=shown.filter(b=>b.course), rest=shown.filter(b=>!b.course);
+    if(mine.length){ const stl=stq&&stq.stages?L(stq.stages.label_hi,stq.stages.label_en):'', open=mine.filter(b=>b.kind!=='soon').length;
+      gridHtml+=`<div class="lib-group">📘 ${L('मेरा कोर्स','My course')}${stl&&LIB.stage!=='all'?` · ${stl} ${esc(LIB.stage)}`:''} <span style="color:var(--muted);font-weight:700">(${mine.length} ${L('विषय','subjects')} · ${open} ${L('खुले','open')} · 🔒 ${mine.length-open})</span><small>${L('सिलेबस के सभी विषय। 🔒 वाले विषयों की सामग्री तैयार हो रही है।','Every subject of the syllabus. 🔒 subjects are being prepared.')}</small></div>`;
+      if(stages.length>1) gridHtml+=`<div class="lib-filter">${stages.map(x=>`<button class="lib-chip${LIB.stage===x?' on':''}" data-stg="${esc(x)}">${esc(stl)} ${esc(x)}</button>`).join('')}</div>`;
+      gridHtml+=mine.map(icon).join(''); }
+    const tech=rest.filter(isTech), non=rest.filter(b=>!isTech(b));
     if(tech.length) gridHtml+=`<div class="lib-group">🛠️ ${L('तकनीकी (आपकी ब्रांच / ट्रेड)','Technical (your branch / trade)')}<small>${L('हर विषय में: किताब · नोट्स · क्लास · सूत्र','Each subject: Book · Notes · Class · Formulas')}</small></div>`+tech.map(icon).join('');
-    if(non.length) gridHtml+=(tech.length?`<div class="lib-group">📚 ${L('गैर-तकनीकी (सामान्य विषय)','Non-technical (general subjects)')}</div>`:'')+non.map(icon).join('');
+    if(non.length) gridHtml+=(tech.length||mine.length?`<div class="lib-group">📚 ${L('गैर-तकनीकी (सामान्य विषय)','Non-technical (general subjects)')}</div>`:'')+non.map(icon).join('');
   } else gridHtml=books.map(icon).join('');
   grid.innerHTML = gridHtml || `<div class="empty-note" style="grid-column:1/-1">${SERVER_OK?T('इस स्तर पर अभी कोई किताब नहीं','No books at this level yet'):T('सर्वर से किताबें नहीं आ सकीं। इंटरनेट जाँचें।','Could not load books from the server. Check your internet.')}</div>`;
+  grid.querySelectorAll('[data-stg]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.stage=el.dataset.stg; LIB.sel=null; renderLibrary(); }));
   grid.querySelectorAll('[data-exf]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.exam=el.dataset.exf||null; LIB.sel=null; renderLibrary(); }));
   grid.querySelectorAll('.app-icon').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.sel=el.dataset.book; document.getElementById('searchInput').value=''; renderLibrary();
     const t=document.getElementById('chapterList'); if(t&&t.scrollIntoView) t.scrollIntoView({behavior:'smooth',block:'start'}); }));
@@ -1493,7 +1506,11 @@ function setupPlan(s){
 async function loadBooksSetup(){
   const s=DB.setup, stamp=JSON.stringify(s);
   await loadSetupCfg(); if(!SETUP_CFG){ SERVER_OK=false; return; }
-  const plan=setupPlan(s), levels=[...new Set(plan.map(p=>p.level))];
+  const q=setupQual(s.qual);
+  let syl=[]; if(s.course&&q){ try{ syl=await sbGet('rpc/get_course_syllabus?p_qual='+encodeURIComponent(q.slug))||[]; }catch(e){ syl=[]; } }
+  let plan=setupPlan(s);
+  if(syl.length) plan=plan.map(p=>({...p,tags:p.tags.filter(t=>t.en!=='My course')})).filter(p=>p.tags.length);   // the syllabus books replace the old course shelves
+  const levels=[...new Set([...plan.map(p=>p.level),...(syl.length?[q.level]:[])])];
   const needPhys=plan.some(p=>PHYS_LEVELS.includes(p.level)&&p.subj==='general-science'&&(p.units===null||p.units.includes('physics')));
   try{
     const cats={}; await Promise.all(levels.map(async lv=>{ cats[lv]=await sbGet('rpc/get_level_catalog?p_level='+encodeURIComponent(lv)); }));
@@ -1528,8 +1545,23 @@ async function loadBooksSetup(){
     out.filter(b=>b.only).forEach(b=>b.chapters.forEach(c=>{ const nk=chKey(b.id,c.n), ok=chKey('s:'+b.level+':'+b.subject.slug,c.n);
       if(DB.chapters[ok]&&!DB.chapters[nk]) DB.chapters[nk]=DB.chapters[ok]; }));
     if(JSON.stringify(DB.setup)!==stamp) return;
-    BOOKS=out; SERVER_OK=true;
+    BOOKS=[...courseBooks(q,syl,cats[q&&q.level]||[]),...out]; SERVER_OK=true;
   }catch(e){ SERVER_OK=false; }
+}
+/* my course: every subject of the syllabus, stage-wise; a subject opens only when its chapters exist, otherwise it is locked */
+function courseBooks(q,syl,cat){
+  if(!q||!syl||!syl.length) return [];
+  const units=SETUP_CFG.units||{}, tag={hi:'मेरा कोर्स',en:'My course'};
+  return syl.map((r,i)=>{ const base={id:'c:'+q.slug+':'+r.stage+':'+r.slug,level:q.level,course:true,stage:r.stage,lab:r.kind,forTags:[tag],owned:true,
+      title:{hi:r.hi,en:r.en},emoji:r.kind==='lab'?'🧪':r.kind==='project'?'🗂️':'📘',color:BOOK_COLORS[i%BOOK_COLORS.length]};
+    let sj=null, list=[];
+    if(r.chapters&&r.chapters.length){ sj=cat.find(x=>(x.chapters||[]).some(c=>r.chapters.includes(c.id)));
+      if(sj) list=r.chapters.map(id=>(sj.chapters||[]).find(c=>c.id===id)).filter(Boolean); }
+    else if(r.subject){ sj=cat.find(x=>x.slug===r.subject);
+      if(sj){ const ul=units[sj.slug]; list=(r.units&&r.units.length&&ul)?ul.filter(u=>r.units.includes(u.slug)).flatMap(u=>(u.ch||[]).map(id=>(sj.chapters||[]).find(c=>c.id===id))).filter(Boolean):(sj.chapters||[]); } }
+    if(sj&&list.length) return {...base,kind:'atoms',subject:sj,only:list.map(c=>c.id),
+      chapters:list.map((c,j)=>({n:c.id,no:j+1,topic:c.id,t:{hi:c.hi,en:c.en},sh:{hi:c.hi,en:c.en},atoms:c.n}))};
+    return {...base,kind:'soon',subject:{slug:r.subject||r.slug,hi:r.hi,en:r.en},emoji:r.kind==='lab'?'🧪':r.kind==='project'?'🗂️':'🔒',color:'#475569',chapters:[]}; });
 }
 const loadBooksLegacy=loadBooks;
 loadBooks=async function(){ return DB.setup&&DB.setup.qual?loadBooksSetup():loadBooksLegacy(); };
