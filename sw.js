@@ -2,9 +2,9 @@
    App shell: network first, cached copy when offline.
    Question data (Supabase REST GET): network first, last good copy when offline.
    Bump VERSION on every release so old caches are dropped. */
-const VERSION = 'db-v23';
+const VERSION = 'db-v24';
 const SHELL = 'shell-' + VERSION, DATA = 'data-' + VERSION;
-const SHELL_FILES = ['./', './index.html', './book.html', './level-book.html', './edition.html', './solve.html', './manifest.webmanifest', './privacy.html', './terms.html', './delete-data.html',
+const SHELL_FILES = ['./', './index.html', './book.html', './level-book.html', './edition.html', './book-reader.html', './tools/book/render.js', './tools/book/styles.js', './solve.html', './manifest.webmanifest', './privacy.html', './terms.html', './delete-data.html',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-512-maskable.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {

@@ -76,7 +76,7 @@ window.REV = (() => {
       return `<button class="card rv-row" data-open="${esc(key(s))}"><div class="row"><div><b>${esc(n.h || ('chapter ' + s.chapter_id))}</b><small>${esc(s.level_id)} · #${esc(s.chapter_id)}</small></div>
       <span class="cnt">${s.draft ? `<span class="pill warn">${esc(s.draft)} जाँच</span>` : ''}${s.auto ? ` <span class="pill warn">${esc(s.auto)} auto</span>` : ''}</span></div></button>`; }).join('') : '<p class="empty">कोई हल जाँच के लिए नहीं</p>'}`;
     return `<div class="card"><div class="row"><div><b>✅ Review · आपकी मंज़ूरी</b><small>Robot सिर्फ़ draft लिखते हैं। छात्र वही पढ़ते हैं जिसे आप ✅ करें।</small></div></div></div>
-      <div class="seg" role="tablist">${FILTERS.map(([k, lab]) => `<button role="tab" data-filter="${k}" class="${k === R.filter ? 'on' : ''}" aria-selected="${k === R.filter}">${esc(lab)} <b>${counts[k]}</b></button>`).join('')}</div>
+      <div class="seg" role="tablist">${FILTERS.map(([k, lab]) => `<button role="tab" data-filter="${k}" class="${k === R.filter ? 'on' : ''}" aria-selected="${k === R.filter}">${esc(lab)} <b>${counts[k]}</b></button>`).join('')}${window.BOOKS ? '<button role="tab" data-filter="books" aria-selected="false">📚 किताब</button>' : ''}</div>
       ${R.filter === 'auto' && counts.auto ? '<div class="stale">ये chapters पहले robot ने खुद live किए थे। हर एक खोलकर ✅ रखो या ⏸ हटाओ।</div>' : ''}
       ${rows.length ? rows.map(rowHtml).join('') : '<p class="empty">इस सूची में कुछ नहीं</p>'}${sol}`;
   }
@@ -159,6 +159,10 @@ window.REV = (() => {
         <label class="field" style="margin-top:10px"><span>Code</span><input type="password" id="rvCode" autocomplete="current-password"></label>
         <button class="btn" id="rvLogin">खोलो</button></div>`;
       $('rvLogin').onclick = async () => { store.set($('rvCode').value.trim()); R.msg = null; root.innerHTML = '<p class="empty">लोड हो रहा है…</p>'; await loadNames(); await loadList(); if (R.err) R.msg = ['bad', R.err]; draw(root); };
+      return;
+    }
+    if (R.filter === 'books' && window.BOOKS && !R.open) {   // chapter cores (control/books.js, migration 0176)
+      window.BOOKS.render(root, { rpc, code: () => store.get(), back: () => { R.filter = 'wait'; draw(root); } });
       return;
     }
     if (!R.list) { root.innerHTML = '<p class="empty">लोड हो रहा है…</p>'; return; }

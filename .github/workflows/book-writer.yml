@@ -1,0 +1,64 @@
+name: Book Core Writer
+# Writes chapter cores (book.core.v1) from robots/book/queue.json, checks them, saves them as DRAFTS.
+# Students see a core only after the owner approves it in Control Room -> Review -> किताब. Manual start only for now.
+run-name: Book cores · ${{ inputs.only || 'queue' }}
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'How many cores this run'
+        default: '1'
+      only:
+        description: 'Only these core ids, comma separated (rewrites a draft, never an approved core)'
+        default: ''
+      dry_run:
+        description: 'Dry run (write nothing to the server)'
+        type: boolean
+        default: true
+permissions:
+  contents: read
+  issues: write
+concurrency: book-writer
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Self-test
+        run: python robots/book/selftest.py
+      - name: Write
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          SAMBANOVA_API_KEY: ${{ secrets.SAMBANOVA_API_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          IN_COUNT: ${{ inputs.count || '1' }}
+          IN_ONLY: ${{ inputs.only }}
+          IN_DRY: ${{ inputs.dry_run }}
+        run: |
+          # inputs come through env, never pasted into the script (no shell injection)
+          case "$IN_COUNT" in ""|*[!0-9]*) echo "count must be a number"; exit 1;; esac
+          case "$IN_ONLY" in *[!a-z0-9/,-]*) echo "only must be core ids"; exit 1;; esac
+          A=(--count "$IN_COUNT")
+          [ -n "$IN_ONLY" ] && A+=(--only "$IN_ONLY")
+          [ "$IN_DRY" = "true" ] && A+=(--dry-run)
+          python robots/book/core_writer.py "${A[@]}"
+      - name: Keep dry-run cores
+        if: always() && inputs.dry_run
+        uses: actions/upload-artifact@v4
+        with: { name: book-cores, path: book-out, if-no-files-found: ignore }
+      - name: Report
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f book-writer-report.md ] || echo "Book core writer failed before writing a report." > book-writer-report.md
+          gh issue create -R "$GITHUB_REPOSITORY" -t "Book core writer report $(date -u +%F_%H%M)" -F book-writer-report.md || true
