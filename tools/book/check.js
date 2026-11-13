@@ -78,9 +78,12 @@ export function checkCore(core) {
 
 if (globalThis.process?.argv?.[1]?.endsWith('check.js')) {
   const fs = await import('node:fs');
-  const file = process.argv[2];
-  if (!file) { console.error('usage: node tools/book/check.js <core.json>'); process.exit(2); }
-  const r = checkCore(JSON.parse(fs.readFileSync(file, 'utf8')));
+  const args = process.argv.slice(2), asJson = args.includes('--json'), file = args.find(a => a !== '--json');
+  if (!file) { console.error('usage: node tools/book/check.js [--json] <core.json>'); process.exit(2); }
+  let r;
+  try { r = checkCore(JSON.parse(fs.readFileSync(file, 'utf8'))); }
+  catch (e) { r = { errs: ['chapter: could not be checked: ' + e.message], warn: [], stats: {} }; }
+  if (asJson) { console.log(JSON.stringify(r)); process.exit(r.errs.length ? 1 : 0); }   // for robots/book/core_writer.py
   r.warn.forEach(w => console.log('WARN ', w));
   r.errs.forEach(e => console.log('ERROR', e));
   console.log(JSON.stringify(r.stats));

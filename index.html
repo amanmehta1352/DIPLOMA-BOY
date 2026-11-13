@@ -330,6 +330,7 @@ body.lang-both .subtitle .en-part{display:block}
 .lib-group{grid-column:1/-1;font-size:14px;font-weight:900;color:var(--text);padding:12px 2px 2px}.lib-group small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
 .lib-sub{grid-column:1/-1;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;padding:6px 2px 0}
 .lib-sec{font-size:12px;font-weight:900;color:var(--accent);padding:14px 2px 6px;border-bottom:1px solid var(--line2);margin-bottom:6px}
+.core-link{display:flex;align-items:center;gap:10px;margin:12px 22px 0;padding:12px 14px;min-height:44px;border-radius:14px;border:1px solid var(--accent,#00e5cc);color:var(--text);text-decoration:none;font-weight:800;font-size:14px}.core-link small{display:block;font-weight:600;opacity:.75}
 .syl{margin:14px 22px 6px}.syl>summary{cursor:pointer;font-size:13px;font-weight:900;padding:10px 0;color:var(--text)}
 .syl-unit{border:1px solid var(--line2);border-radius:12px;padding:10px 12px;margin:8px 0;background:rgba(255,255,255,.03)}
 .syl-unit b{display:block;font-size:13px}.syl-unit ul{margin:6px 0 0;padding-left:18px;font-size:12px;color:var(--muted);line-height:1.6}
@@ -906,9 +907,9 @@ function renderLibrary(){
       const modes=(DB.setup&&DB.setup.qual&&bk.kind!=='soon')?`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${(LIB.mode||'book')===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`:'';
       html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
         ${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note">🔒 ${bk.lab==='lab'||bk.lab==='project'?L('यह प्रायोगिक / प्रोजेक्ट कार्य है: कॉलेज में किया जाता है।','This is practical / project work, done in college.'):L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं। तैयार होते ही यहीं दिखेंगे। नीचे पूरा सिलेबस देखें।','Book, notes and formulas for this subject are being prepared. They will appear here. See the full syllabus below.')}</div>`:bk.chapters.map((ch,i)=>(ch.sec&&(!i||(bk.chapters[i-1].sec||{}).en!==ch.sec.en)?`<div class="lib-sec">${T(esc(ch.sec.hi),esc(ch.sec.en))}</div>`:'')+chapterRow(bk,ch)).join('')}</div>
-        <div id="sylBox"></div>`; } }
+        <div id="coreBox"></div><div id="sylBox"></div>`; } }
   list.innerHTML=html;
-  { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk) renderOutline(bk); }
+  { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk){ renderOutline(bk); renderCoreLink(bk); } }
   list.querySelectorAll('[data-mode]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.mode=el.dataset.mode; renderLibrary(); }));
   list.querySelectorAll('[data-ch]').forEach(el=>{ const go=()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch,(DB.setup&&DB.setup.qual)?(LIB.mode||'book'):undefined); };
     el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
@@ -921,6 +922,14 @@ function renderOutline(bk){ const key=bk.outline||(bk.subject&&bk.subject.slug?'
     const n=units.reduce((a,u)=>a+u.topics.length,0);
     box.innerHTML=`<details class="syl"${bk.kind==='soon'?' open':''}><summary>📋 ${L('पूरा सिलेबस','Full syllabus')} · ${units.length} ${L('यूनिट','units')} · ${n} ${L('टॉपिक','topics')}</summary>
       ${units.map((u,i)=>`<div class="syl-unit"><b>${i+1}. ${T(esc(u.hi),esc(u.en))}</b><ul>${u.topics.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div>`).join('')}</details>`; }); }
+/* approved chapter cores of this subject (migration 0176) → link to book-reader.html, where the student picks a book style.
+   Shown only when at least one core is approved, so no one lands on an empty page. One request per subject per visit. */
+const CORES={};
+function renderCoreLink(bk){ const qq=DB.setup&&DB.setup.qual&&setupQual(DB.setup.qual), sj=bk.subject&&bk.subject.slug; if(!qq||!qq.slug||!sj) return;
+  const k=qq.slug+'|'+sj;
+  (CORES[k]||(CORES[k]=sbGet('rpc/list_chapter_cores?p_qual='+encodeURIComponent(qq.slug)+'&p_subject='+encodeURIComponent(sj)).catch(()=>{ delete CORES[k]; return []; })))
+    .then(list=>{ const box=document.getElementById('coreBox'); if(!box||LIB.sel!==bk.id||!Array.isArray(list)||!list.length) return;
+      box.innerHTML=`<a class="core-link" href="book-reader.html?q=${encodeURIComponent(qq.slug)}&s=${encodeURIComponent(sj)}"><span style="font-size:22px">📚</span><span>${L('नई किताब: अपनी पसंद की शैली में पढ़ें','New book: read in the style you like')}<small>${list.length} ${L('अध्याय तैयार','chapters ready')}</small></span></a>`; }); }
 function renderQuote(){ const qc=document.getElementById('quoteCard'), qt=getDailyQuote();
   qc.innerHTML=`<div class="q-tag">${L('आज का विचार','Quote of the Day')}</div><div class="q-text">${L(esc(qt.text),esc(qt.en))}</div><div class="q-author">— <b>${esc(L(qt.authorHi,qt.author))}</b></div>`; }
 document.getElementById('searchInput').addEventListener('input',renderLibrary);

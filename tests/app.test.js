@@ -258,8 +258,14 @@ const check = (name, v) => (v ? ok : bad).push(name);
     check('my course: semester 3 subjects shown, locked ones marked', lib.includes('मेरा कोर्स') && /सेमेस्टर 3/.test(lib) && await ps2.isVisible('[data-stg="6"]'));
     await ps2.click('[data-exf="RRB Group D"]'); await ps2.waitForTimeout(600);
     check('exam filter shows only that exam\'s subjects', !(await ps2.innerText('#appGrid')).includes('थर्मल इंजीनियरिंग'));
-    await ps2.click('[data-exf=""]'); await ps2.waitForTimeout(400); await ps2.locator('.app-icon', { hasText: 'थर्मल' }).first().click(); await ps2.waitForTimeout(600);
+    // approved chapter cores (book styles) for this subject → a link to book-reader.html; mocked, since none is approved yet
+    let coreAsk = '';
+    await ps2.route('**/rest/v1/rpc/list_chapter_cores*', r => { coreAsk = r.request().url(); return r.fulfill({ contentType: 'application/json', body: JSON.stringify([{ core_id: 'diploma-mechanical/thermal-engineering/x', subject: 'thermal-engineering', no: 1, hi: 'क', en: 'x' }]) }); });
+    await ps2.click('[data-exf=""]'); await ps2.waitForTimeout(400); await ps2.locator('.app-icon', { hasText: 'थर्मल' }).first().click(); await ps2.waitForTimeout(800);
     check('subject offers Book / Notes / Class / Formulas', (await ps2.$$eval('.lib-mode', e => e.length)) === 4);
+    const coreHref = await ps2.$eval('.core-link', a => a.getAttribute('href')).catch(() => '');
+    check('approved book-style chapters: link to the reader for this course and subject', /^book-reader\.html\?q=diploma-mechanical&s=[a-z0-9-]+$/.test(coreHref) && coreAsk.includes('p_qual=diploma-mechanical'));
+    await ps2.unroute('**/rest/v1/rpc/list_chapter_cores*');
     await ps2.screenshot({ path: path.join(SHOTS, 'v5-setup-library.png') });
     check('setup flow: no page errors', serr2.length === 0);
     // reopening the app after setup used to crash at the first paint (SETUP_CFG read before it was declared)

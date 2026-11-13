@@ -95,4 +95,12 @@ App shell गहरा (मौजूदा aurora brand), पर **पढ़न�
 - ✅ Pilot कोर server पर **draft** (`tools/book/upload.js` से; md5 local फ़ाइल से मिलाया)।
 - ✅ Owner review: Control Room → Review → **📚 किताब** (`control/books.js`): पन्ना वैसा ही जैसा छात्र देखेगा, शैली बदलकर; जाँच वहीं browser में दोबारा चलती है; गलती हो तो ✅ बटन नहीं।
 - ✅ छात्र का Reader: [`book-reader.html`](../book-reader.html)`?q=class-10&s=science` — अध्याय + शैली चुनें, पसंद याद रहती है; सिर्फ़ approved core दिखता है।
-- ⏳ बाकी: pilot कोर आप approve करें; Writer robot से इसी format में कोर लिखवाना (`core_owner_notes` तैयार); Library/app की स्क्रीन से `book-reader.html` का link; Playwright जाँच।
+- ✅ Book Core Writer robot: [`robots/book/core_writer.py`](../robots/book/core_writer.py) + prompt [`prompts/book-core.v1.md`](../prompts/book-core.v1.md) + सूची [`robots/book/queue.json`](../robots/book/queue.json)।
+  - लिखता: free AI (Writer robot वाले ही providers)।
+  - जाँच: `check.js`, दूसरी AI (MCQ + आंकिक बिना उत्तर देखे), हिंदी, copyright। फेल होने पर code की गलतियाँ लेकर एक बार फिर लिखता है।
+  - फिर भी फेल: server पर कुछ नहीं जाता। पास: सिर्फ़ draft।
+  - आप "बदलाव माँगो" दबाएँ तो आपकी टिप्पणी prompt में जाती है। Approved core को robot छू नहीं सकता।
+  - चलाना: GitHub Actions → "Book Core Writer" (अभी सिर्फ़ हाथ से; पहले dry run)। Offline जाँच: `python robots/book/selftest.py` (Tests workflow में भी)।
+- ✅ Migration 0177 `core_status()` (service-only): robot देखता है कौन-सा core पहले से है। जब तक यह नहीं लगी, robot सिर्फ़ `--only` वाले core लिखता है।
+- ✅ App की Library: विषय खोलने पर, अगर उसका कोई core approved है, तो "📚 नई किताब: अपनी पसंद की शैली में पढ़ें" link (`book-reader.html?q=&s=`)। कोई approved नहीं तो link नहीं दिखता। Playwright जाँच `tests/app.test.js` में (नकली server जवाब से)।
+- ⏳ बाकी: pilot कोर आप approve करें; robot का पहला dry run; बाकी शैलियाँ (vistar, pariksha, chitra); आधिकारिक किताबों के सत्यापित link।
