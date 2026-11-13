@@ -339,6 +339,87 @@ body.lang-both .subtitle .en-part{display:block}
 .lib-modes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 22px 14px}.lib-mode{min-height:64px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:12px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}.lib-mode b{font-size:20px}.lib-mode.on{border-color:var(--accent);background:rgba(255,255,255,.12)}
 .su-cat{font-size:13px;font-weight:900;color:var(--text);margin:14px 0 6px}.su-sub2{font-size:11.5px;font-weight:800;color:var(--accent);margin:10px 0 6px}
 .app-icon.soon{opacity:.55}
+/* EDITIONS: the books of one subject (app book + owner-made books, each in a teaching style) */
+.ed-head{margin:0 22px 8px;font-size:13px;font-weight:900}.ed-head small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.ed-shelf{display:flex;gap:10px;overflow-x:auto;padding:2px 22px 12px;scrollbar-width:none;scroll-snap-type:x mandatory}.ed-shelf::-webkit-scrollbar{display:none}
+.ed-card{--ec:#3b82f6;position:relative;flex:0 0 200px;scroll-snap-align:start;display:flex;gap:10px;align-items:flex-start;text-align:left;padding:12px;border-radius:16px;border:1px solid var(--line2);background:linear-gradient(160deg,color-mix(in srgb,var(--ec) 22%,transparent),rgba(255,255,255,.03));color:var(--text);font:inherit;cursor:pointer;transition:transform .2s var(--ease),border-color .2s}
+.ed-card:hover{transform:translateY(-2px)}.ed-card.on{border-color:var(--ec);box-shadow:0 0 0 1px var(--ec) inset,0 10px 26px rgba(0,0,0,.35)}
+.ed-card .ed-e{font-size:24px;line-height:1;flex:none;width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--ec) 30%,rgba(0,0,0,.3))}
+.ed-card .ed-t{min-width:0}.ed-card b{display:block;font-size:13px;line-height:1.3}.ed-card small{display:block;font-size:11px;color:var(--muted);margin-top:3px;line-height:1.35}
+.ed-card.ed-add{border-style:dashed;background:rgba(255,255,255,.02)}.ed-card.ed-add .ed-e{background:rgba(255,255,255,.08);color:var(--accent)}
+.ed-card:has(.ed-own){padding-top:26px}
+.ed-own{position:absolute;top:6px;right:6px;display:flex;gap:4px;align-items:center}.ed-own i{font-style:normal}
+.ed-st{font-size:9.5px;font-weight:900;padding:1px 6px;border-radius:8px;border:1px solid currentColor}.ed-st.draft{color:var(--yellow)}.ed-st.published{color:var(--green)}
+.ed-pen{font-size:13px;padding:2px 4px;border-radius:6px;background:rgba(0,0,0,.35);cursor:pointer}
+.ed-about{margin:0 22px 12px;font-size:12.5px;color:var(--text2);line-height:1.5}
+.ed-badge{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:900;padding:1px 6px;border-radius:8px;background:rgba(10,10,18,.92);border:1px solid var(--line2);white-space:nowrap}
+.ed-styles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.ed-style{--ec:#3b82f6;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--text);font:inherit;cursor:pointer}
+.ed-style span{font-size:22px}.ed-style b{font-size:13px}.ed-style small{font-size:11px;color:var(--muted);line-height:1.35}
+.ed-style.on{border-color:var(--ec);background:color-mix(in srgb,var(--ec) 20%,transparent)}
+.ed-fld{display:block;margin:8px 0}.ed-fld span{display:block;font-size:11.5px;font-weight:800;color:var(--muted);margin-bottom:4px}
+.ed-fld input{width:100%;min-height:42px;padding:8px 10px;border-radius:10px;border:1px solid var(--line2);background:rgba(255,255,255,.06);color:inherit;font:inherit}
+
+/* ═══ TABLET (768+) ═══ */
+@media(min-width:768px){
+  .app-grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:22px 16px}
+  .app-icon .visual-wrap{max-width:76px}.app-icon .label{max-width:96px;font-size:11.5px}
+  .ed-card{flex-basis:220px}
+}
+/* ═══ DESKTOP / LAPTOP (1024+): left sidebar instead of the bottom bar, library as two panes ═══ */
+@media(min-width:1024px){
+  html,body{font-size:15.5px}
+  .ios-status{display:none}
+  .safe-top{padding-top:28px}
+  #app{left:244px}
+  .view{padding-bottom:48px;scrollbar-width:thin}
+  .view::-webkit-scrollbar{display:block;width:10px}.view::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:10px}
+  .bottom-nav-wrap{top:0;right:auto;width:244px;padding:18px 0 18px 18px;align-items:stretch}
+  .bottom-nav-wrap.hidden{display:none!important}
+  .bottom-nav{flex-direction:column;align-items:stretch;justify-content:flex-start;gap:4px;max-width:none;height:100%;border-radius:24px;padding:20px 12px;background:rgba(12,12,22,.82)}
+  .bottom-nav::before{content:'🎓  Diploma Boy';display:block;font-size:17px;font-weight:900;letter-spacing:-.02em;padding:4px 12px 20px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+  .nav-highlight{display:none}
+  .nav-item{flex:none;flex-direction:row;justify-content:flex-start;gap:14px;padding:12px 14px;border-radius:14px;color:rgba(255,255,255,.6);transition:background .2s,color .2s}
+  .nav-item:hover{background:rgba(255,255,255,.06);color:var(--text)}
+  .nav-item.on{background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));box-shadow:0 0 0 1px var(--line2) inset}
+  .nav-item svg{width:20px;height:20px}
+  .nav-item .n-lbl{font-size:14px;margin-top:0;font-weight:700}
+  body.lang-both .nav-item .en-part{display:inline;margin:0 0 0 6px;font-size:11px}
+  .settings-btn{top:auto;bottom:38px;left:40px;right:auto}
+  .settings-panel{max-width:460px}
+
+  /* library: browse on the left, the chosen subject (books → chapters → syllabus) on the right */
+  #library-view.active{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(420px,500px);grid-auto-rows:min-content;column-gap:8px;align-content:start;padding:0 18px 48px 10px}
+  #library-view>*{grid-column:1/3}
+  #library-view>.quote-card{grid-column:1;margin-right:6px}
+  #library-view>.continue-card{grid-column:2;margin-left:6px;margin-bottom:20px}
+  #library-view>#chapterList{grid-column:3;grid-row:1/span 8;position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow-y:auto;scrollbar-width:thin;
+    margin-top:18px;padding:22px 0 26px!important;border-radius:26px;border:1px solid var(--line2);background:rgba(16,16,28,.72);backdrop-filter:blur(24px);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+  #chapterList .sec-title h2{font-size:20px}
+  #chapterList:empty{display:none}
+  .lib-header .page-title{font-size:40px}
+  .app-icon{padding:10px 4px;border-radius:18px;transition:background .2s}
+  .app-icon:hover{background:rgba(255,255,255,.05)}
+  .app-icon.sel{background:rgba(255,255,255,.08);box-shadow:0 0 0 1px var(--line2) inset}
+  .app-icon:active{transform:scale(.95)}
+  .lib-group{padding-top:20px;font-size:15px}
+  .ed-shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}
+  .ed-card{flex:none}
+  .item.row:hover{background:rgba(255,255,255,.06)}
+
+  /* dashboard: cards in two columns */
+  #dashboard-view.active{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;column-gap:4px;padding:0 18px 48px 6px}
+  #dashboard-view>*{grid-column:auto;min-width:0}
+  #dashboard-view>:not(.card){grid-column:1/-1}
+  /* one-column pages get a readable centred column */
+  #focus-view,#ghost-view,#mirror-view,#formulas-view{padding-left:max(0px,calc((100% - 900px)/2));padding-right:max(0px,calc((100% - 900px)/2))}
+  .modal-overlay .quiz-box{max-width:460px}
+}
+@media(min-width:1440px){
+  #app{left:268px}.bottom-nav-wrap{width:268px}
+  #library-view.active{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(460px,560px)}
+  #dashboard-view.active{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 .shelf-h{grid-column:1/-1;font-size:12px;font-weight:800;color:var(--accent);padding:10px 2px 0;border-top:1px solid var(--line2);margin-top:4px}.shelf-h:first-child{border-top:0;margin-top:0;padding-top:0}
 .qual-group{margin-bottom:18px}
 .qual-group h3{font-size:12px;color:var(--accent);font-weight:800;margin:0 0 8px;letter-spacing:.04em}
@@ -427,6 +508,13 @@ body.lang-both .subtitle .en-part{display:block}
   <div class="settings-panel" style="max-width:420px">
     <div class="settings-header"><h2>🎓 <span class="hi-part">अपना सेटअप</span><span class="en-part">Your setup</span></h2><button class="settings-close" id="setupClose" aria-label="Close">✕</button></div>
     <div id="setupBody"></div>
+  </div>
+</div>
+
+<div class="settings-modal" id="edModal">
+  <div class="settings-panel" style="max-width:520px">
+    <div class="settings-header"><h2>📚 <span class="hi-part">नई किताब</span><span class="en-part">New book</span></h2><button class="settings-close" onclick="document.getElementById('edModal').classList.remove('active')" aria-label="Close">✕</button></div>
+    <div id="edBody"></div>
   </div>
 </div>
 <div id="app">
@@ -864,9 +952,9 @@ function renderLibrary(){
   const shown=(LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books).filter(b=>!b.course||b.stage===LIB.stage);
   if(!LIB.sel||!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown.find(b=>b.kind!=='soon')||shown[0]||{}).id;   // open a book that has chapters, not a locked one
   const isTech=b=>!!(b.subject&&TECH_SUBJECTS.includes(b.subject.slug));
-  const icon=b=>{ const ready=b.chapters.filter(avail).length, soon=b.kind==='soon';
+  const icon=b=>{ const ne=edsOf(b).length, ready=b.chapters.filter(avail).length, soon=b.kind==='soon'&&!ne;
     return `<div class="app-icon${b.id===LIB.sel?' sel':''}${soon?' soon':''}" data-book="${esc(b.id)}" role="button" tabindex="0">
-      <div class="visual-wrap"><div class="visual" style="background:linear-gradient(135deg,${b.color},#2563eb)">${b.emoji}</div><div class="badge">${soon?'🔒':ready}</div></div>
+      <div class="visual-wrap"><div class="visual" style="background:linear-gradient(135deg,${b.color},#2563eb)">${b.emoji}</div><div class="badge">${soon?'🔒':b.kind==='soon'?'📚'+ne:ready}</div>${ne?`<div class="ed-badge" title="${L('किताबें','books')}">📚${ne+1}</div>`:''}</div>
       <span class="label">${T(esc(b.title.hi),esc(b.title.en))}</span>
     </div>`; };
   let gridHtml='';
@@ -888,7 +976,7 @@ function renderLibrary(){
   grid.querySelectorAll('[data-stg]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.stage=el.dataset.stg; LIB.sel=null; renderLibrary(); }));
   grid.querySelectorAll('[data-exf]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.exam=el.dataset.exf||null; LIB.sel=null; renderLibrary(); }));
   grid.querySelectorAll('.app-icon').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.sel=el.dataset.book; document.getElementById('searchInput').value=''; renderLibrary();
-    const t=document.getElementById('chapterList'); if(t&&t.scrollIntoView) t.scrollIntoView({behavior:'smooth',block:'start'}); }));
+    const t=document.getElementById('chapterList'); if(t&&t.scrollIntoView&&innerWidth<1024) t.scrollIntoView({behavior:'smooth',block:'start'}); else if(t) t.scrollTop=0; }));
   document.getElementById('bookCount').innerHTML = `${esc(L(qualLabel().hi,qualLabel().en))} · ${books.filter(b=>!b.course||b.stage===LIB.stage).length} ${L('विषय','subjects')}`;
   renderQuote();
   const lb=DB.lastBook, b=lb&&books.find(x=>x.id===lb.b), c=b&&b.chapters.find(x=>x.n===lb.ch), cc=document.getElementById('continueCard');
@@ -902,14 +990,20 @@ function renderLibrary(){
   if(q){
     const hits=books.flatMap(bk=>bk.chapters.filter(ch=>LOWER(ch.t.hi).includes(q)||LOWER(ch.t.en).includes(q)).map(ch=>({bk,ch})));
     html=`<div class="sec-title"><h2>🔍 ${L('खोज','Search')}</h2><div class="count-pill">${hits.length}</div></div><div style="padding:0 22px">${hits.map(h=>chapterRow(h.bk,h.ch)).join('')||`<div class="empty-note">${T('कुछ नहीं मिला','Nothing found')}</div>`}</div>`;
-  } else { const bk=books.find(x=>x.id===LIB.sel);
-    if(bk){ const ready=bk.chapters.filter(avail), done=ready.filter(ch=>(DB.chapters[chKey(bk.id,ch.n)]||{}).read).length, soon=bk.chapters.length-ready.length;
+  } else { const bk0=books.find(x=>x.id===LIB.sel);
+    // a locked subject that already has books opens on its first book
+    if(bk0&&bk0.kind==='soon'&&(LIB.ed||{})[bk0.id]==null&&edsOf(bk0).length) (LIB.ed||(LIB.ed={}))[bk0.id]=edsOf(bk0)[0].id;
+    const bk=bk0, eSel=bk&&(LIB.ed||{})[bk.id], ed=eSel&&edsOf(bk).find(e=>e.id===eSel);
+    if(bk&&eSel&&!ed) LIB.ed[bk.id]=0;
+    if(ed) html=editionPanel(bk,ed);
+    else if(bk){ const ready=bk.chapters.filter(avail), done=ready.filter(ch=>(DB.chapters[chKey(bk.id,ch.n)]||{}).read).length, soon=bk.chapters.length-ready.length;
       const modes=(DB.setup&&DB.setup.qual&&bk.kind!=='soon')?`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${(LIB.mode||'book')===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`:'';
       html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
-        ${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note">🔒 ${bk.lab==='lab'||bk.lab==='project'?L('यह प्रायोगिक / प्रोजेक्ट कार्य है: कॉलेज में किया जाता है।','This is practical / project work, done in college.'):L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं। तैयार होते ही यहीं दिखेंगे। नीचे पूरा सिलेबस देखें।','Book, notes and formulas for this subject are being prepared. They will appear here. See the full syllabus below.')}</div>`:bk.chapters.map((ch,i)=>(ch.sec&&(!i||(bk.chapters[i-1].sec||{}).en!==ch.sec.en)?`<div class="lib-sec">${T(esc(ch.sec.hi),esc(ch.sec.en))}</div>`:'')+chapterRow(bk,ch)).join('')}</div>
+        ${editionShelf(bk)}${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note">🔒 ${bk.lab==='lab'||bk.lab==='project'?L('यह प्रायोगिक / प्रोजेक्ट कार्य है: कॉलेज में किया जाता है।','This is practical / project work, done in college.'):L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं। तैयार होते ही यहीं दिखेंगे। नीचे पूरा सिलेबस देखें।','Book, notes and formulas for this subject are being prepared. They will appear here. See the full syllabus below.')}</div>`:bk.chapters.map((ch,i)=>(ch.sec&&(!i||(bk.chapters[i-1].sec||{}).en!==ch.sec.en)?`<div class="lib-sec">${T(esc(ch.sec.hi),esc(ch.sec.en))}</div>`:'')+chapterRow(bk,ch)).join('')}</div>
         <div id="coreBox"></div><div id="sylBox"></div>`; } }
   list.innerHTML=html;
-  { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk){ renderOutline(bk); renderCoreLink(bk); } }
+  { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk){ renderOutline(bk); wireEditions(bk); renderCoreLink(bk); } }
+  loadEditions();
   list.querySelectorAll('[data-mode]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.mode=el.dataset.mode; renderLibrary(); }));
   list.querySelectorAll('[data-ch]').forEach(el=>{ const go=()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch,(DB.setup&&DB.setup.qual)?(LIB.mode||'book'):undefined); };
     el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
@@ -932,6 +1026,92 @@ function renderCoreLink(bk){ const qq=DB.setup&&DB.setup.qual&&setupQual(DB.setu
   (CORES[k]||(CORES[k]=sbGet('rpc/list_chapter_cores?p_qual='+encodeURIComponent(qq.slug)+'&p_subject='+encodeURIComponent(sj)).catch(()=>{ delete CORES[k]; return []; })))
     .then(list=>{ const box=document.getElementById('coreBox'); if(!box||LIB.sel!==bk.id||!Array.isArray(list)||!list.length) return;
       box.innerHTML=`<a class="core-link" href="book-reader.html?q=${encodeURIComponent(qq.slug)}&s=${encodeURIComponent(sj)}"><span style="font-size:22px">📚</span><span>${L('नई किताब: अपनी पसंद की शैली में पढ़ें','New book: read in the style you like')}<small>${list.length} ${L('अध्याय तैयार','chapters ready')}</small></span></a>`; }); }
+
+/* ═══ EDITIONS: one subject, many books. Level: subject → edition (style) → chapter.
+   Edition 0 is the app's own book; the others are original books in a teaching style (textbook / teacher / exam /
+   practice / revision / reference), written by the owner in edition.html. Server: mtb.get_book_editions (published only);
+   with the owner's review code (Control Room, same site) also drafts, plus "+ add a book" on every subject. */
+const ED_STYLES={
+  textbook :{e:'📗',c:'#2f6fdf',hi:'पाठ्यपुस्तक शैली',en:'Textbook style',dhi:'सरल भाषा: अवधारणा → उदाहरण → अभ्यास, बोर्ड की किताब जैसी बनावट',den:'Plain language: concept → example → exercise, board-book layout'},
+  teacher  :{e:'🧑‍🏫',c:'#7a4fd6',hi:'शिक्षक शैली',en:"Teacher's notes",dhi:'क्लास जैसा समझाना, ट्रिक्स, स्टेप-बाय-स्टेप',den:'Explained like a class, tricks, step by step'},
+  exam     :{e:'🎯',c:'#d9473f',hi:'परीक्षा शैली',en:'Exam focus',dhi:'MCQ, परीक्षा पैटर्न, ज़रूरी बिंदु',den:'MCQs, exam pattern, must-know points'},
+  practice :{e:'🔢',c:'#0f9d74',hi:'अभ्यास पुस्तिका',en:'Practice workbook',dhi:'हल किए प्रश्न, संख्यात्मक, अभ्यास सेट',den:'Solved questions, numericals, practice sets'},
+  revision :{e:'⚡',c:'#d48a00',hi:'झटपट रिवीजन',en:'Quick revision',dhi:'एक-पंक्ति तथ्य, सूत्र, सारांश',den:'One-line facts, formulas, summaries'},
+  reference:{e:'📚',c:'#2b7a8c',hi:'संदर्भ पुस्तक',en:'Reference book',dhi:'विस्तार और गहराई, ऊँचे स्तर के लिए',den:'In depth, for a higher level'}};
+const OWNER={code:(()=>{ try{ return localStorage.getItem('cr_owner_code')||''; }catch(e){ return ''; } })(),ok:false,checked:false};
+let EDS={}, EDS_STAMP='', EDS_BUSY=false;
+async function loadEditions(force){
+  const keys=BOOKS.filter(b=>b.owned).map(b=>b.id).slice(0,300), stamp=keys.join('|');
+  if(!keys.length||EDS_BUSY||(!force&&stamp===EDS_STAMP)) return;
+  EDS_BUSY=true;
+  try{
+    if(OWNER.code&&!OWNER.checked){ OWNER.checked=true; try{ OWNER.ok=!!(await sbRpc('owner_ok',{p_code:OWNER.code})); }catch(e){ OWNER.ok=false; } }
+    const rows=OWNER.ok?await sbRpc('edition_owner_list',{p_code:OWNER.code,p_keys:keys}):await sbRpc('get_book_editions',{p_keys:keys});
+    const m={}; (rows||[]).forEach(r=>{ if(r.status==='hidden') return; (m[r.key]||(m[r.key]=[])).push(r); }); EDS=m;
+  }catch(e){ EDS={}; }   // server without editions yet: the library works exactly as before
+  EDS_STAMP=stamp; EDS_BUSY=false; if(currentView==='library') renderLibrary();
+}
+const edsOf=bk=>(EDS[bk.id]||[]).filter(e=>OWNER.ok||(e.status||'published')==='published');
+const edReady=e=>(e.chapters||[]).filter(c=>OWNER.ok?c.blocks>0||c.status==='published':true);
+function editionShelf(bk){ const eds=edsOf(bk); if(!eds.length&&!OWNER.ok) return '';
+  const sel=(LIB.ed||{})[bk.id]||0, base=bk.kind!=='soon';
+  const card=(id,e,title,sub,extra)=>`<button class="ed-card${sel===id?' on':''}" data-edsel="${id}" style="--ec:${e.c||'#3b82f6'}"><span class="ed-e">${e.e}</span><span class="ed-t"><b>${title}</b><small>${sub}</small></span>${extra||''}</button>`;
+  let h=`<div class="ed-head">📚 ${L('इस विषय की किताबें','Books for this subject')} <small>${eds.length+1} ${L('किताबें · अपनी पसंद की शैली चुनें','books · pick the style you like')}</small></div><div class="ed-shelf">`;
+  h+=card(0,{e:'📘',c:'#3b82f6'},esc(L('ऐप की किताब','App book')),base?`${bk.chapters.length} ${L('अध्याय · किताब · नोट्स · क्लास','chapters · book · notes · class')}`:`🔒 ${L('तैयार हो रही है','being prepared')}`);
+  eds.forEach(e=>{ const st=ED_STYLES[e.style]||ED_STYLES.textbook, n=(e.chapters||[]).filter(c=>(c.status||'published')==='published').length;
+    h+=card(e.id,st,esc(L(e.hi||e.en,e.en||e.hi)),`${st.e} ${esc(L(st.hi,st.en))} · ${n} ${L('अध्याय','ch')}`,
+      OWNER.ok?`<span class="ed-own"><i class="ed-st ${e.status}">${e.status==='published'?L('प्रकाशित','live'):L('ड्राफ़्ट','draft')}</i><i class="ed-pen" data-eded="${e.id}" role="link" title="${L('डिज़ाइन करें','Design')}">✏️</i></span>`:''); });
+  if(OWNER.ok) h+=`<button class="ed-card ed-add" data-edadd="1"><span class="ed-e">＋</span><span class="ed-t"><b>${L('नई किताब जोड़ें','Add a book')}</b><small>${L('शैली चुनें, फिर अध्याय लिखें','pick a style, then write chapters')}</small></span></button>`;
+  return h+'</div>'; }
+function editionPanel(bk,e){ const st=ED_STYLES[e.style]||ED_STYLES.textbook, read=DB.edRead||{}, chs=(e.chapters||[]).filter(c=>OWNER.ok||(c.status||'published')==='published');
+  const done=chs.filter(c=>read['e'+e.id+':'+c.n]).length;
+  return `<div class="sec-title"><h2>${st.e} ${esc(L(e.hi||e.en,e.en||e.hi))}</h2><div class="count-pill">${done}/${chs.length}</div></div>
+    ${editionShelf(bk)}${(e.about_hi||e.about_en)?`<div class="ed-about">${esc(L(e.about_hi||e.about_en,e.about_en||e.about_hi))}</div>`:''}
+    <div style="padding:0 22px">${chs.map((c,i)=>{ const r=read['e'+e.id+':'+c.n], col=r?'var(--green)':st.c, dr=OWNER.ok&&c.status!=='published';
+      return `<div class="item row" data-edch="${c.n}" data-ed="${e.id}" role="button" tabindex="0" style="cursor:pointer;min-height:56px;border-left-color:${col};font-size:13px">
+        <span style="display:flex;gap:12px;align-items:center"><b style="font-size:18px;min-width:24px;color:${col}">${i+1}</b><b>${esc(L(c.hi||c.en,c.en||c.hi))}</b></span>
+        <span class="pct" style="font-size:12px;color:${col};white-space:nowrap">${dr?L('🟡 ड्राफ़्ट','🟡 Draft'):r?L('✓ पढ़ा','✓ Read'):L('पढ़ें','Read')}</span></div>`; }).join('')||`<div class="empty-note">${OWNER.ok?L('अभी कोई अध्याय नहीं। ✏️ से लिखना शुरू करें।','No chapters yet. Start writing with ✏️.'):L('अध्याय जल्द आएँगे।','Chapters coming soon.')}</div>`}</div>
+    <div id="sylBox"></div>`; }
+function wireEditions(bk){ const list=document.getElementById('chapterList');
+  list.querySelectorAll('[data-edsel]').forEach(el=>el.addEventListener('click',ev=>{ if(ev.target.closest('[data-eded]')) return; Sound.tap(); (LIB.ed||(LIB.ed={}))[bk.id]=+el.dataset.edsel; renderLibrary(); }));
+  list.querySelectorAll('[data-eded]').forEach(el=>el.addEventListener('click',ev=>{ ev.stopPropagation(); Sound.tap(); designEdition(bk,+el.dataset.eded); }));
+  list.querySelectorAll('[data-edadd]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); openAddEdition(bk); }));
+  list.querySelectorAll('[data-edch]').forEach(el=>{ const go=()=>{ Sound.tap(); openEdition(bk.id,+el.dataset.ed,+el.dataset.edch); };
+    el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); }); }
+function openEdition(bookId,eid,ch){ const b=BOOKS.find(x=>x.id===bookId); if(!b) return;
+  if(OWNER.ok){ const e=edsOf(b).find(x=>x.id===eid), c=e&&(e.chapters||[]).find(x=>x.n===ch); if(e&&(e.status!=='published'||!c||c.status!=='published')){ designEdition(b,eid,ch); return; } }
+  bookState={bookId,ed:eid,ch,mode:'reader',tab:null};
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('foundation-layer').classList.add('active');
+  document.getElementById('bottomNavWrap').classList.add('hidden');
+  renderFoundation(true); haptic(10);
+  try{ history.pushState({book:1},''); }catch(e){} }
+window.__edRead=(eid,ch)=>{ (DB.edRead||(DB.edRead={}))['e'+eid+':'+ch]=Date.now(); Sound.success(); saveState(); };
+window.__edQuiz=(eid,ch,ok)=>{ const d=dayRec(); d.qt=(d.qt||0)+1; if(ok) d.qc=(d.qc||0)+1; saveState(); };
+async function edSeed(bk){ let seed=[];
+  if(bk.outline||bk.subject){ const o=await loadOutline(), key=bk.outline||(bk.subject&&bk.subject.slug?'x:'+bk.subject.slug:null), u=o&&key&&o[key];
+    if(u&&u.length) seed=u.map(x=>({en:x.en,hi:x.hi,topics:x.topics||[]})); }
+  if(!seed.length&&bk.chapters.length) seed=bk.chapters.map(c=>({en:c.t.en,hi:c.t.hi,topics:[]}));
+  try{ localStorage.setItem('ed_seed:'+bk.id,JSON.stringify(seed)); }catch(e){} }
+async function designEdition(bk,eid,ch){ const w=window.open('','_blank');   // opened inside the tap, so no popup blocker
+  await edSeed(bk); const url='edition.html?'+new URLSearchParams({e:eid,key:bk.id,edit:'1',ui:Settings.lang==='en'?'en':'hi',...(ch?{ch}:{})});
+  if(w) w.location.href=url; else location.href=url; }
+function openAddEdition(bk){ const m=document.getElementById('edModal'), body=document.getElementById('edBody'); let style='textbook';
+  const n=edsOf(bk).length+1;
+  const draw=()=>{ const st=ED_STYLES[style];
+    body.innerHTML=`<div style="font-size:12.5px;color:var(--muted);margin:-8px 0 12px">${esc(L(bk.title.hi,bk.title.en))} · ${L('नई किताब किस शैली में होगी?','What style is the new book?')}</div>
+      <div class="ed-styles">${Object.entries(ED_STYLES).map(([k,s])=>`<button class="ed-style${k===style?' on':''}" data-sty="${k}" style="--ec:${s.c}"><span>${s.e}</span><b>${L(s.hi,s.en)}</b><small>${L(s.dhi,s.den)}</small></button>`).join('')}</div>
+      <label class="ed-fld"><span>${L('किताब का नाम (हिंदी)','Book name (Hindi)')}</span><input id="edHi" maxlength="120" value="${esc(st.hi+' · '+n)}"></label>
+      <label class="ed-fld"><span>${L('किताब का नाम (English)','Book name (English)')}</span><input id="edEn" maxlength="120" value="${esc(st.en+' · '+n)}"></label>
+      <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin:6px 0 12px">${L('किसी लेखक या प्रकाशक का नाम/लोगो न डालें। सामग्री अपनी लिखी हो — शैली अपनाएँ, पाठ नहीं।','Do not use a writer\'s or publisher\'s name or logo. Write original content — follow the style, not the text.')}</div>
+      <div id="edErr" style="color:var(--red);font-size:12.5px;margin-bottom:8px"></div>
+      <button class="btn primary" id="edMake" style="width:100%">✨ ${L('बनाएँ और लिखना शुरू करें','Create and start writing')}</button>`;
+    body.querySelectorAll('[data-sty]').forEach(b=>b.onclick=()=>{ style=b.dataset.sty; draw(); });
+    document.getElementById('edMake').onclick=async()=>{ const btn=document.getElementById('edMake'); btn.disabled=true;
+      try{ const id=await sbRpc('edition_save',{p_code:OWNER.code,p:{key:bk.id,style,hi:document.getElementById('edHi').value.trim(),en:document.getElementById('edEn').value.trim(),sort:100+n}});
+        m.classList.remove('active'); (LIB.ed||(LIB.ed={}))[bk.id]=id; await loadEditions(true); designEdition(bk,id); }
+      catch(e){ btn.disabled=false; document.getElementById('edErr').textContent=L('नहीं बन सकी: ','Could not create: ')+e.message; } }; };
+  draw(); m.classList.add('active'); }
 function renderQuote(){ const qc=document.getElementById('quoteCard'), qt=getDailyQuote();
   qc.innerHTML=`<div class="q-tag">${L('आज का विचार','Quote of the Day')}</div><div class="q-text">${L(esc(qt.text),esc(qt.en))}</div><div class="q-author">— <b>${esc(L(qt.authorHi,qt.author))}</b></div>`; }
 document.getElementById('searchInput').addEventListener('input',renderLibrary);
@@ -1359,7 +1539,9 @@ function renderFoundation(reload){
     if(f) f.remove();
     f=document.createElement('iframe'); f.title=b.title.en; f.setAttribute('allow','fullscreen');
     f.style.cssText='display:block;width:100%;height:100%;border:0;background:#0f172a';
-    f.src=b.kind==='atoms'
+    f.src=bookState.ed
+      ? 'edition.html?'+new URLSearchParams({e:bookState.ed,ch:bookState.ch,ui:Settings.lang==='en'?'en':'hi'})   // an owner-made book (edition) of this subject
+      : b.kind==='atoms'
       ? 'level-book.html?'+new URLSearchParams({l:b.level,s:b.subject.slug,ch:bookState.ch,tab:readerTab(),ui:Settings.lang==='en'?'en':'hi',ln:L(qualLabel().hi,qualLabel().en),...(b.only?{only:b.only.join(',')}:{})})   // every level's chapters, drawn like the Physics book
       : 'book.html?'+new URLSearchParams({b:b.id,ch:bookState.ch,tab:readerTab()});   // study content keeps the book's own language buttons
     f.addEventListener('load',()=>{ try{ ['pointerdown','scroll','touchstart','keydown'].forEach(ev=>f.contentWindow.addEventListener(ev,()=>{ lastTouch=Date.now(); },{passive:true,capture:true})); }catch(e){} });

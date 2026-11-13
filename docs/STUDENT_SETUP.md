@@ -65,3 +65,24 @@ Hierarchy everywhere: **course → stage (semester / year / class) → group →
 - Loader: `course_syllabus_sync` replaces a whole course (removed rows kept in `mtb.bk_0173_course_subjects`); the old loader
   only upserted, so renamed / moved subjects stayed as duplicates.
 - Fix: a student who had finished setup got a crash on every reopen (first paint read `SETUP_CFG` before it was declared).
+
+## v5 (2026-11-13): many books per subject (editions), book designer, desktop layout
+Hierarchy: course → stage → group → subject → **edition (book)** → chapter → blocks.
+- A subject can hold several books. Book 1 is always the app's own book (atoms; Book / Notes / Class / Formulas). The others
+  are **editions**: original books written in a teaching style — 📗 textbook (board-book layout) · 🧑‍🏫 teacher's notes ·
+  🎯 exam focus · 🔢 practice workbook · ⚡ quick revision · 📚 reference. No writer / publisher names or copied text:
+  an edition follows a style, never the wording or pictures of a published book.
+- Students: on a subject, **📚 Books for this subject** shows every published book as a card; picking one shows its chapters,
+  which open in the reader (`edition.html?e=<id>&ch=<n>`, Hindi / English / both). A 🔒 subject that has a published book opens
+  on it. "Done" marks are kept on the phone (`DB.edRead`).
+- Owner: with the review code in this browser (Control Room → Review saves it, key `cr_owner_code`), every subject also shows
+  drafts and **＋ Add a book** (pick a style + name). ✏️ opens the designer `edition.html?e=<id>&key=<book id>&edit=1`:
+  chapter list (first open can create every chapter from the syllabus, with its topics as headings to write under),
+  blocks (heading, paragraph, key point, formula, solved example, MCQ, table, note, image link), live preview, save (Ctrl+S),
+  publish / unpublish per chapter and per book. Students see only published chapters of a published book.
+- Server (migration 0175): `mtb.book_editions`, `mtb.edition_chapters`, `mtb.edition_versions` (every replaced or deleted
+  chapter copy is kept). Public: `get_book_editions(keys)`, `get_edition_chapter(id, ch)`. Owner (review code): `owner_ok`,
+  `edition_owner_list`, `edition_save`, `edition_chapter_get`, `edition_chapter_save`. Without 0175 the library works as before.
+- Desktop / laptop (≥1024 px): the bottom bar becomes a left sidebar; the library is two panes (browse left, chosen subject with
+  its books, chapters and syllabus in a sticky panel right); the dashboard shows cards in 2 columns (3 at ≥1440 px). Tablet
+  (≥768 px) gets a wider subject grid. Phones are unchanged.

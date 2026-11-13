@@ -1,7 +1,7 @@
 // Control Room: renders status.json (served from fixtures), phone sizes, no overflow, tap size, no console errors, app switcher.
 const { chromium } = require('playwright'); const http = require('http'); const fs = require('fs'); const path = require('path');
 const root = path.resolve(__dirname, '..'); const fx = n => fs.readFileSync(path.join(__dirname, 'fixtures', n), 'utf8');
-const srv = http.createServer((q, r) => { let f = path.join(root, q.url.split('?')[0]); if (f.endsWith('/')) f += 'index.html'; if (!f.startsWith(root) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); }
+const srv = http.createServer((q, r) => { let f = path.join(root, q.url.split('?')[0]); if (f.endsWith('/') || f.endsWith(path.sep)) f = path.join(f, 'index.html'); if (!f.startsWith(root) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); }
   r.writeHead(200, { 'content-type': f.endsWith('.json') ? 'application/json' : f.endsWith('.css') ? 'text/css' : f.endsWith('.js') ? 'text/javascript' : 'text/html' }); r.end(fs.readFileSync(f)); });
 (async () => {
   await new Promise(r => srv.listen(0, r)); const base = 'http://127.0.0.1:' + srv.address().port + '/control/';
