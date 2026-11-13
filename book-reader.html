@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<title>किताब · Diploma Boy</title>
+<style>
+:root{--bg:#0b1020;--panel:#141b33;--ink:#e8ecf6;--muted:#9aa6c4;--accent:#00e5cc;--line:#26304f}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Noto Sans Devanagari","Nirmala UI","Mangal",system-ui,sans-serif}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line)}
+.bar a{color:var(--ink);text-decoration:none;min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;font-size:20px}
+.bar a:hover{background:rgba(255,255,255,.06)}
+.bar .t{flex:1;min-width:0}.bar .t b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bar .t small{color:var(--muted)}
+.bar label{display:flex;flex-direction:column;font-size:12px;color:var(--muted);gap:2px}
+select{min-height:40px;max-width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font:inherit}
+select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sel{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){.sel{width:100%}.sel label{flex:1;min-width:0}.sel select{width:100%}}
+iframe{display:block;width:100%;border:0;background:#eef1f4;min-height:70vh}
+.empty{max-width:560px;margin:48px auto;padding:24px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-size:20px;margin-bottom:8px}
+.empty a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a href="./" aria-label="वापस">←</a>
+  <div class="t"><b id="title">किताब</b><small id="sub">लोड हो रहा है…</small></div>
+  <div class="sel">
+    <label>अध्याय<select id="ch" aria-label="अध्याय चुनें"></select></label>
+    <label>शैली<select id="st" aria-label="किताब की शैली चुनें"></select></label>
+  </div>
+</header>
+<main id="main"><p class="empty">लोड हो रहा है…</p></main>
+<script type="module">
+/* Book reader: one approved chapter core, drawn in the style the student picks (tools/book/render.js).
+   URL: ?q=<qualification slug>&s=<subject slug>&ch=<core id>&style=<saral|abhyas|…>
+   Data: mtb.get_book_shelf (styles + default), mtb.list_chapter_cores + mtb.get_chapter_core (approved only, migration 0176).
+   Local preview only (localhost): &file=<path to a core .json> draws a draft without the server. */
+import { render } from './tools/book/render.js';
+import { STYLES } from './tools/book/styles.js';
+const SB = { url: 'https://wobmtlcpszcntczkebtt.supabase.co', key: 'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R' }; // publishable key
+const P = new URLSearchParams(location.search);
+const QUAL = P.get('q') || '', SUBJ = P.get('s') || '';
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const store = { get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (_) { /* private mode */ } } };
+async function rpc(fn, args) {
+  const r = await fetch(`${SB.url}/rest/v1/rpc/${fn}`, { method: 'POST', headers: { apikey: SB.key, Authorization: 'Bearer ' + SB.key, 'Content-Profile': 'mtb', 'Accept-Profile': 'mtb', 'Content-Type': 'application/json' }, body: JSON.stringify(args) });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+const empty = (head, text) => { $('main').innerHTML = `<div class="empty"><b>${esc(head)}</b>${text}</div>`; };
+
+let chapters = [], core = null;
+const localFile = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? P.get('file') : null;
+let style = P.get('style') || store.get('book_style');
+
+function draw() {
+  if (!core) return;
+  if (!STYLES[style]) style = Object.keys(STYLES)[0];
+  $('title').textContent = `अध्याय ${core.no} · ${core.title_hi}`;
+  $('sub').textContent = `${core.subject.hi} · ${core.level_hi || ''} · ${STYLES[style].icon} ${STYLES[style].name}`;
+  document.title = `${core.title_hi} · ${STYLES[style].name}`;
+  $('st').value = style;
+  const f = document.createElement('iframe');
+  f.title = core.title_hi; f.setAttribute('sandbox', 'allow-same-origin');
+  f.onload = () => { try { f.style.height = f.contentDocument.documentElement.scrollHeight + 'px'; } catch (_) { /* keeps min-height */ } };
+  f.srcdoc = render(core, style);
+  $('main').replaceChildren(f);
+  const u = new URL(location.href); u.searchParams.set('style', style); if (!localFile) u.searchParams.set('ch', core.id); history.replaceState(null, '', u);
+}
+async function openChapter(id) {
+  $('main').innerHTML = '<p class="empty">खुल रहा है…</p>';
+  try { core = await rpc('get_chapter_core', { p_core: id }); } catch (e) { core = null; }
+  if (!core) { empty('यह अध्याय अभी जाँच में है', 'मंज़ूरी मिलते ही यहाँ दिखेगा।'); return; }
+  draw();
+}
+
+$('st').innerHTML = Object.entries(STYLES).map(([k, s]) => `<option value="${k}">${esc(s.icon + ' ' + s.name)}</option>`).join('');
+$('st').onchange = () => { style = $('st').value; store.set('book_style', style); draw(); };
+$('ch').onchange = () => openChapter($('ch').value);
+
+(async () => {
+  if (localFile) {   // developer preview of a draft core, never on the live site
+    try { core = await (await fetch(localFile)).json(); } catch (e) { empty('फ़ाइल नहीं खुली', esc(localFile)); return; }
+    $('ch').innerHTML = `<option>${esc(core.no + '. ' + core.title_hi)}</option>`;
+    style = style || 'saral'; draw(); return;
+  }
+  if (!QUAL) { empty('कोई किताब नहीं चुनी', '<a href="./">Library पर जाएँ</a>'); return; }
+  try {
+    const [shelf, list] = await Promise.all([rpc('get_book_shelf', { p_qual: QUAL, p_subject: SUBJ || null }), rpc('list_chapter_cores', { p_qual: QUAL, p_subject: SUBJ || null })]);
+    style = style || (shelf && shelf.default) || 'saral';
+    chapters = Array.isArray(list) ? list : [];
+  } catch (e) { empty('इंटरनेट से नहीं जुड़ पाया', 'थोड़ी देर बाद फिर कोशिश करें।'); return; }
+  if (!chapters.length) { $('sub').textContent = ''; empty('इस विषय के अध्याय अभी तैयार हो रहे हैं', 'जाँच पूरी होते ही यहाँ दिखेंगे।'); return; }
+  $('ch').innerHTML = chapters.map(c => `<option value="${esc(c.core_id)}">${esc(c.no + '. ' + c.hi)}</option>`).join('');
+  const want = P.get('ch'); const first = chapters.find(c => c.core_id === want) || chapters[0];
+  $('ch').value = first.core_id;
+  openChapter(first.core_id);
+})();
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
-// Deterministic checks for a book.core.v1 file. Usage: node tools/book/check.mjs <core.json>
+// Deterministic checks for a book.core.v1 file. Usage: node tools/book/check.js <core.json>
 // Exit 1 on any error. Every worked example and numeric question is recomputed from its `calc`.
-import fs from 'node:fs';
+// Works in Node and in the browser (Control Room imports checkCore); Node-only modules load inside the CLI block.
 
 export function checkCore(core) {
   const errs = [], warn = [];
@@ -76,9 +76,10 @@ export function checkCore(core) {
   return { errs, warn, stats: { sections: (core.sections || []).length, examples: nEx, figures: Object.keys(figs).length, questions: count } };
 }
 
-if (process.argv[1]?.endsWith('check.mjs')) {
+if (globalThis.process?.argv?.[1]?.endsWith('check.js')) {
+  const fs = await import('node:fs');
   const file = process.argv[2];
-  if (!file) { console.error('usage: node tools/book/check.mjs <core.json>'); process.exit(2); }
+  if (!file) { console.error('usage: node tools/book/check.js <core.json>'); process.exit(2); }
   const r = checkCore(JSON.parse(fs.readFileSync(file, 'utf8')));
   r.warn.forEach(w => console.log('WARN ', w));
   r.errs.forEach(e => console.log('ERROR', e));

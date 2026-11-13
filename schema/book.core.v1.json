@@ -73,7 +73,7 @@
         "q": { "type": "string" }, "given": { "type": "string" }, "find": { "type": "string" }, "formula": { "type": "string" },
         "steps": { "type": "array", "items": { "type": "string" } },
         "answer": { "type": "string" },
-        "calc": { "type": "string", "description": "JS arithmetic that must equal value (checked by tools/book/check.mjs)" },
+        "calc": { "type": "string", "description": "JS arithmetic that must equal value (checked by tools/book/check.js)" },
         "value": { "type": "number" }
       }
     },

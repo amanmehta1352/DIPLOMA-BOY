@@ -89,6 +89,10 @@ App shell गहरा (मौजूदा aurora brand), पर **पढ़न�
 ## 10. Pilot की स्थिति (2026-11-13)
 - ✅ Migration 0175 live: `book_styles` (5), `official_books` (खाली), `profiles.book_style`, `get_book_shelf()`।
 - ✅ कोर का ढाँचा: [`schema/book.core.v1.json`](../schema/book.core.v1.json)। पहला कोर: [`content/pilot/class-10-science-electricity.core.json`](../content/pilot/class-10-science-electricity.core.json) (6 खंड, 18 हल उदाहरण, 3 चित्र, 29 प्रश्न)।
-- ✅ जाँच: `node tools/book/check.mjs <core>` — हर उदाहरण/आंकिक का उत्तर `calc` से दोबारा गणना, MCQ उत्तर, Markdown/LaTeX, चित्र-संदर्भ।
-- ✅ शैली-परत code से: [`tools/book/styles.mjs`](../tools/book/styles.mjs) (saral, abhyas) + [`tools/book/render.mjs`](../tools/book/render.mjs) → `design/pilot/electricity-{saral,abhyas}.html`; एक ही input से हर बार हूबहू वही HTML।
-- ⏳ बाकी: owner review; `chapter_cores`/`chapter_styles` tables; Writer robot से कोर लिखवाना (अभी pilot कोर हाथ से/Claude से); app के Reader में जोड़ना।
+- ✅ जाँच: `node tools/book/check.js <core>` — हर उदाहरण/आंकिक का उत्तर `calc` से दोबारा गणना, MCQ उत्तर, Markdown/LaTeX, चित्र-संदर्भ।
+- ✅ शैली-परत code से: [`tools/book/styles.js`](../tools/book/styles.js) (saral, abhyas) + [`tools/book/render.js`](../tools/book/render.js) → `design/pilot/electricity-{saral,abhyas}.html`; एक ही input से हर बार हूबहू वही HTML।
+- ✅ Migration 0176 live: `chapter_cores` (owner gate 0173 जैसा: robot सिर्फ़ draft, versions + rollback), RPCs `core_upsert` (service) · `core_review_list/get` · `core_decide` · `core_versions_list` · `core_rollback` (review code) · `list_chapter_cores` · `get_chapter_core` (छात्र, सिर्फ़ approved)। `chapter_styles` अभी नहीं: saral/abhyas पूरी तरह code से बनती हैं।
+- ✅ Pilot कोर server पर **draft** (`tools/book/upload.js` से; md5 local फ़ाइल से मिलाया)।
+- ✅ Owner review: Control Room → Review → **📚 किताब** (`control/books.js`): पन्ना वैसा ही जैसा छात्र देखेगा, शैली बदलकर; जाँच वहीं browser में दोबारा चलती है; गलती हो तो ✅ बटन नहीं।
+- ✅ छात्र का Reader: [`book-reader.html`](../book-reader.html)`?q=class-10&s=science` — अध्याय + शैली चुनें, पसंद याद रहती है; सिर्फ़ approved core दिखता है।
+- ⏳ बाकी: pilot कोर आप approve करें; Writer robot से इसी format में कोर लिखवाना (`core_owner_notes` तैयार); Library/app की स्क्रीन से `book-reader.html` का link; Playwright जाँच।

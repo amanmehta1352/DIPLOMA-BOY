@@ -1,9 +1,8 @@
 // core (book.core.v1) + style → one offline HTML chapter. Same input → same output, byte for byte.
-// Usage: node tools/book/render.mjs <core.json> <style|all> [outDir]
-import fs from 'node:fs';
-import path from 'node:path';
-import { STYLES, ACCENT } from './styles.mjs';
-import { checkCore } from './check.mjs';
+// Usage: node tools/book/render.js <core.json> <style|all> [outDir]
+// Also imported in the browser (Control Room review, book reader): no Node modules at the top level.
+import { STYLES, ACCENT } from './styles.js';
+import { checkCore } from './check.js';
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // plain text → safe HTML, with [[top|bottom]] as a stacked fraction
@@ -154,7 +153,7 @@ export function render(core, styleCode) {
   return `<!doctype html>
 <html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(core.title_hi)} · ${esc(st.name)}</title>
-<meta name="generator" content="tools/book/render.mjs · ${esc(core.id)} · ${styleCode}">
+<meta name="generator" content="tools/book/render.js · ${esc(core.id)} · ${styleCode}">
 <style>
 ${CSS.replace('--accent:#047857', `--accent:${ACCENT[core.level_family]}`)}
 </style></head>
@@ -172,9 +171,10 @@ function answerOf(q) {
 const fmt = v => Number.isInteger(v) ? String(v) : String(+v.toPrecision(4));
 
 // ---------- CLI ----------
-if (process.argv[1]?.endsWith('render.mjs')) {
+if (globalThis.process?.argv?.[1]?.endsWith('render.js')) {
+  const fs = await import('node:fs'), path = await import('node:path');
   const [file, style = 'all', outDir = 'design/pilot'] = process.argv.slice(2);
-  if (!file) { console.error('usage: node tools/book/render.mjs <core.json> <style|all> [outDir]'); process.exit(2); }
+  if (!file) { console.error('usage: node tools/book/render.js <core.json> <style|all> [outDir]'); process.exit(2); }
   const core = JSON.parse(fs.readFileSync(file, 'utf8'));
   const r = checkCore(core);
   if (r.errs.length) { r.errs.forEach(e => console.error('ERROR', e)); process.exit(1); }
