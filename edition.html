@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Diploma Boy · Book</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Serif+Devanagari:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* One page, two jobs:
+   reader  edition.html?e=<id>&ch=<n>[&ui=hi|en]        a published chapter of an owner-made book (inside the app's reader layer)
+   editor  edition.html?e=<id>&key=<book id>&edit=1     the owner designs the book chapter by chapter (needs the review code)
+   Content is blocks: h, p, key, formula, ex, mcq, table, note, img. Original writing only, never a copy of a published book. */
+:root{
+  --bg:#0b0d16;--panel:#141826;--panel2:#1b2033;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);
+  --text:#eef1f8;--text2:#b6bdd0;--muted:#7d869e;--accent:#7c9cff;--green:#3ddc97;--yellow:#f6c453;--red:#ff6b7a;
+  --paper:#fffdf8;--ink:#1d2433;--ink2:#4a5468;--rule:#e7e1d3;--st:#2f6fdf;
+  --font:'Inter','Noto Sans Devanagari',system-ui,sans-serif;--serif:'Noto Serif Devanagari',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+a{color:var(--accent)}
+
+/* ---------- reader ---------- */
+.rd{min-height:100vh;padding:16px 12px 90px;background:radial-gradient(1200px 500px at 50% -200px,rgba(124,156,255,.16),transparent),var(--bg)}
+.rd-top{max-width:820px;margin:0 auto 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rd-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:100px;font-size:12px;font-weight:700;background:rgba(255,255,255,.07);border:1px solid var(--line2)}
+.rd-lang{margin-left:auto;display:flex;gap:2px;padding:2px;border-radius:100px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.rd-lang button{border:0;background:none;padding:5px 11px;border-radius:100px;font-size:12px;font-weight:700;color:var(--text2)}
+.rd-lang button.on{background:var(--accent);color:#0b0d16}
+.page{max-width:820px;margin:0 auto;background:var(--paper);color:var(--ink);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden}
+.page-head{padding:30px 34px 22px;border-bottom:1px solid var(--rule);background:linear-gradient(135deg,color-mix(in srgb,var(--st) 12%,#fff),#fffdf8)}
+.page-head .eyb{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--st);text-transform:uppercase}
+.page-head h1{font-family:var(--serif);font-size:30px;line-height:1.25;margin-top:6px}
+.page-head .sub{color:var(--ink2);font-size:13.5px;margin-top:6px}
+.page-body{padding:24px 34px 34px}
+.b{margin:0 0 16px}
+.b-h{font-family:var(--serif);font-size:22px;line-height:1.3;margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid color-mix(in srgb,var(--st) 35%,transparent)}
+.b-h:first-child{margin-top:0}
+.b-p{font-size:16px;line-height:1.85;color:var(--ink)}
+.b-key{padding:14px 16px;border-radius:12px;background:color-mix(in srgb,var(--st) 9%,#fff);border-left:4px solid var(--st);font-weight:600}
+.b-key::before{content:'★ ';color:var(--st)}
+.b-formula{text-align:center;padding:16px;border-radius:12px;background:#fbf6e6;border:1px dashed #d8c58a}
+.b-formula .f{font-family:'Cambria Math','Times New Roman',serif;font-size:24px;font-weight:700;color:#3d2f00;white-space:pre-wrap}
+.b-formula .w{font-size:13.5px;color:var(--ink2);margin-top:6px}
+.b-ex{border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.b-ex .q{padding:12px 16px;background:#f5f2ea;font-weight:600}
+.b-ex .q::before{content:attr(data-l);display:block;font-size:11px;font-weight:800;color:var(--st);letter-spacing:.06em;text-transform:uppercase}
+.b-ex .a{padding:12px 16px;white-space:pre-wrap}
+.b-mcq{border:1px solid var(--rule);border-radius:12px;padding:14px 16px}
+.b-mcq .q{font-weight:700;margin-bottom:10px}
+.b-mcq button{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:10px;border:1px solid var(--rule);background:#fff;color:var(--ink)}
+.b-mcq button.ok{background:#e3f8ee;border-color:#2fae74;color:#0f6b43}
+.b-mcq button.no{background:#fde8ea;border-color:#e0566a;color:#9b1c2e}
+.b-mcq .why{margin-top:8px;font-size:14px;color:var(--ink2)}
+.b-table{overflow-x:auto}
+.b-table table{border-collapse:collapse;width:100%;font-size:14.5px}
+.b-table th,.b-table td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+.b-table th{background:#f5f2ea}
+.b-note{padding:12px 16px;border-radius:12px;font-size:15px}
+.b-note.tip{background:#e9f7ef;border:1px solid #bfe6cf}.b-note.tip::before{content:'💡 '}
+.b-note.warn{background:#fff3e6;border:1px solid #f3d1a8}.b-note.warn::before{content:'⚠️ '}
+.b-note.exam{background:#eef1ff;border:1px solid #c9d2fb}.b-note.exam::before{content:'🎯 '}
+.b-img{text-align:center}.b-img img{max-width:100%;border-radius:10px;border:1px solid var(--rule)}.b-img .c{font-size:13px;color:var(--ink2);margin-top:6px}
+.b strong{color:#000}
+.both-en{display:block;color:var(--ink2);font-size:.88em;margin-top:4px}
+.rd-nav{max-width:820px;margin:16px auto 0;display:flex;gap:10px;justify-content:space-between}
+.rd-nav button{flex:1;padding:13px;border-radius:14px;border:1px solid var(--line2);background:var(--panel);font-weight:700}
+.rd-nav button:disabled{opacity:.35;cursor:default}
+.rd-done{background:linear-gradient(135deg,#3ddc97,#26b37a)!important;color:#06261a;border:0!important}
+.msg{max-width:620px;margin:60px auto;text-align:center;color:var(--text2);padding:20px}
+@media(max-width:600px){.page-head{padding:22px 18px 16px}.page-head h1{font-size:24px}.page-body{padding:18px}.b-p{font-size:15.5px}}
+
+/* ---------- editor ---------- */
+.ed{display:grid;grid-template-columns:270px minmax(0,1fr) minmax(0,1fr);height:100vh}
+.ed-side{border-right:1px solid var(--line);background:var(--panel);overflow-y:auto;padding:14px}
+.ed-main{overflow-y:auto;padding:16px 18px 120px}
+.ed-prev{overflow-y:auto;border-left:1px solid var(--line);background:#0e111c;padding:16px}
+.ed-prev .page{box-shadow:none}
+.brand{font-weight:800;font-size:13px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.ed-title{font-size:18px;font-weight:800;margin:6px 0 2px}
+.pill{display:inline-block;padding:2px 9px;border-radius:100px;font-size:11px;font-weight:800;border:1px solid currentColor}
+.pill.draft{color:var(--yellow)}.pill.published{color:var(--green)}.pill.hidden{color:var(--muted)}
+.ch-list{margin-top:14px;display:flex;flex-direction:column;gap:4px}
+.ch-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;border:1px solid transparent;background:none;text-align:left;width:100%}
+.ch-item:hover{background:rgba(255,255,255,.04)}
+.ch-item.on{background:rgba(124,156,255,.14);border-color:rgba(124,156,255,.4)}
+.ch-item .no{min-width:22px;font-weight:800;color:var(--accent)}
+.ch-item .t{flex:1;font-size:13.5px;line-height:1.35}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}.dot.draft{background:var(--yellow)}.dot.published{background:var(--green)}.dot.empty{background:var(--line2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:10px;border:1px solid var(--line2);background:var(--panel2);font-weight:700;font-size:13.5px}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#0b0d16}
+.btn.ok{background:var(--green);border-color:var(--green);color:#06261a}
+.btn.sm{padding:5px 9px;font-size:12px;border-radius:8px}
+.btn.ghost{background:none}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fld{display:block;margin:8px 0}
+.fld>span{display:block;font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.fld input,.fld textarea,.fld select{width:100%;padding:9px 11px;border-radius:10px;border:1px solid var(--line2);background:#0f1320;outline:none}
+.fld textarea{min-height:70px;resize:vertical;line-height:1.5}
+.fld input:focus,.fld textarea:focus{border-color:var(--accent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.blk{border:1px solid var(--line2);border-radius:14px;background:var(--panel);margin:12px 0;overflow:hidden}
+.blk-h{display:flex;align-items:center;gap:6px;padding:8px 10px;background:rgba(255,255,255,.03);border-bottom:1px solid var(--line)}
+.blk-h b{flex:1;font-size:13px}
+.blk-b{padding:6px 12px 10px}
+.addbar{display:flex;flex-wrap:wrap;gap:6px;padding:12px;border:1px dashed var(--line2);border-radius:14px;margin-top:14px}
+.toolbar{position:sticky;top:-16px;z-index:5;margin:-16px -18px 12px;padding:12px 18px;background:rgba(11,13,22,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.toolbar .st{font-size:12px;color:var(--muted);margin-right:auto}
+.hint{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}
+.lock{max-width:440px;margin:12vh auto;padding:26px;border-radius:18px;background:var(--panel);border:1px solid var(--line2)}
+.tabs{display:none}
+@media(max-width:1180px){.ed{grid-template-columns:240px minmax(0,1fr)}.ed-prev{display:none}.ed.pv .ed-main{display:none}.ed.pv .ed-prev{display:block}.tabs{display:inline-flex}}
+@media(max-width:760px){.ed{grid-template-columns:1fr;height:auto;min-height:100vh}.ed-side{border-right:0;border-bottom:1px solid var(--line);max-height:none}.two{grid-template-columns:1fr}.ed.pv .ed-side{display:none}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+'use strict';
+const SB={url:'https://wobmtlcpszcntczkebtt.supabase.co',key:'sb_publishable_7ZZEUDULfYaMHSeLIxfluQ_fZWSCi8R'};
+const Q=new URLSearchParams(location.search), EID=+Q.get('e')||0, KEY=Q.get('key')||'', EDIT=Q.get('edit')==='1';
+const CODE_KEY='cr_owner_code';   // same code (same site) as Control Room -> Review
+let UI=Q.get('ui')==='en'?'en':'hi', VIEW=(()=>{ try{ return localStorage.getItem('ed_view')||UI; }catch(e){ return UI; } })();
+const STYLES={
+  textbook :{e:'📗',c:'#2f6fdf',hi:'पाठ्यपुस्तक शैली',en:'Textbook style'},
+  teacher  :{e:'🧑‍🏫',c:'#7a4fd6',hi:'शिक्षक शैली',en:"Teacher's notes"},
+  exam     :{e:'🎯',c:'#d9473f',hi:'परीक्षा शैली',en:'Exam focus'},
+  practice :{e:'🔢',c:'#0f9d74',hi:'अभ्यास पुस्तिका',en:'Practice workbook'},
+  revision :{e:'⚡',c:'#d48a00',hi:'झटपट रिवीजन',en:'Quick revision'},
+  reference:{e:'📚',c:'#2b7a8c',hi:'संदर्भ पुस्तक',en:'Reference book'}};
+const BT={h:['🔠','शीर्षक','Heading'],p:['¶','पैराग्राफ़','Paragraph'],key:['★','मुख्य बिंदु','Key point'],formula:['∑','सूत्र','Formula'],
+  ex:['✍️','हल उदाहरण','Solved example'],mcq:['☑️','MCQ','MCQ'],table:['▦','तालिका','Table'],note:['💡','नोट / टिप','Note / tip'],img:['🖼️','चित्र','Image']};
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const L=(hi,en)=>UI==='en'?en:hi;
+const $=s=>document.querySelector(s), root=$('#root');
+async function rpc(fn,body){ const r=await fetch(SB.url+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Profile':'mtb','Accept-Profile':'mtb','Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>null); if(!r.ok) throw new Error((j&&j.message)||('HTTP '+r.status)); return j; }
+// **bold** and line breaks; everything else is plain text
+const rich=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+// one language, or both (Hindi first, English under it); an empty side falls back to the other
+function tx(b,f,fmt){ const hi=b[f+'_hi']!=null?b[f+'_hi']:(f?'':b.hi), en=b[f+'_en']!=null?b[f+'_en']:(f?'':b.en), F=fmt||rich;
+  const H=(hi||'').trim(), E=(en||'').trim();
+  if(VIEW==='both') return H&&E?`${F(H)}<span class="both-en">${F(E)}</span>`:F(H||E);
+  return F(VIEW==='en'?(E||H):(H||E)); }
+function tf(b,f){ const k=f?f+'_':''; return {hi:b[k+'hi']||'',en:b[k+'en']||''}; }
+function blockHtml(b,i){
+  const t=x=>tx(b,x);
+  switch(b.t){
+    case 'h': return `<h2 class="b b-h">${tx(b,'')}</h2>`;
+    case 'p': return `<div class="b b-p">${tx(b,'')}</div>`;
+    case 'key': return `<div class="b b-key">${tx(b,'')}</div>`;
+    case 'formula': return `<div class="b b-formula"><div class="f">${esc(b.f||'')}</div>${(b.hi||b.en)?`<div class="w">${tx(b,'')}</div>`:''}</div>`;
+    case 'ex': return `<div class="b b-ex"><div class="q" data-l="${esc(L('उदाहरण','Example'))}">${t('q')}</div><div class="a">${t('a')}</div></div>`;
+    case 'mcq': { const o=(b.o||[]).filter(x=>String(x).trim());
+      return `<div class="b b-mcq" data-i="${i}"><div class="q">${t('q')}</div>${o.map((x,j)=>`<button data-o="${j}">${String.fromCharCode(65+j)}. ${rich(x)}</button>`).join('')}<div class="why hidden">${t('why')}</div></div>`; }
+    case 'table': { const rows=String(b.src||'').split('\n').filter(r=>r.trim()).map(r=>r.split('|').map(c=>c.trim()));
+      if(!rows.length) return ''; return `<div class="b b-table"><table><tr>${rows[0].map(c=>`<th>${rich(c)}</th>`).join('')}</tr>${rows.slice(1).map(r=>`<tr>${r.map(c=>`<td>${rich(c)}</td>`).join('')}</tr>`).join('')}</table></div>`; }
+    case 'note': return `<div class="b b-note ${['tip','warn','exam'].includes(b.kind)?b.kind:'tip'}">${tx(b,'')}</div>`;
+    case 'img': return /^https:\/\//.test(b.src||'')?`<figure class="b b-img"><img src="${esc(b.src)}" alt="${esc(b.en||b.hi||'')}" loading="lazy">${(b.hi||b.en)?`<figcaption class="c">${tx(b,'')}</figcaption>`:''}</figure>`:'';
+  } return ''; }
+function pageHtml(ed,ch,blocks){ const st=STYLES[ed.style]||STYLES.textbook;
+  return `<article class="page" style="--st:${st.c}"><header class="page-head"><div class="eyb">${st.e} ${esc(L(ed.hi||ed.en,ed.en||ed.hi))}</div>
+    <h1>${ch.n}. ${tx(ch,'',esc)}</h1></header><div class="page-body">${(blocks||[]).map(blockHtml).join('')||`<p style="color:var(--ink2)">${L('इस अध्याय में अभी कुछ नहीं लिखा गया।','Nothing written in this chapter yet.')}</p>`}</div></article>`; }
+function wireMcq(box){ box.querySelectorAll('.b-mcq').forEach(m=>{ const blk=(CUR_BLOCKS||[])[+m.dataset.i]; if(!blk) return;
+  m.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{ if(m.dataset.done) return; m.dataset.done=1; const j=+btn.dataset.o;
+    btn.classList.add(j===+blk.a?'ok':'no'); const r=m.querySelector(`[data-o="${+blk.a}"]`); if(r) r.classList.add('ok');
+    m.querySelector('.why').classList.remove('hidden'); try{ parent.__edQuiz&&parent.__edQuiz(EID,CH,j===+blk.a); }catch(e){} }); }); }
+let CUR_BLOCKS=null, CH=+Q.get('ch')||1;
+
+/* ============ READER ============ */
+async function reader(){
+  root.innerHTML=`<div class="msg">${L('लोड हो रहा है…','Loading…')}</div>`;
+  let d=null; try{ d=await rpc('get_edition_chapter',{p_edition:EID,p_ch:CH}); }catch(e){}
+  if(!d){ root.innerHTML=`<div class="msg">${L('यह अध्याय अभी उपलब्ध नहीं है। इंटरनेट जाँचें या बाद में देखें।','This chapter is not available yet. Check your internet or try later.')}</div>`; return; }
+  CUR_BLOCKS=d.blocks||[]; const all=d.all||[], i=all.findIndex(x=>x.n===CH), st=STYLES[d.edition.style]||STYLES.textbook;
+  document.title=(d.edition.en||d.edition.hi)+' · '+(d.en||d.hi);
+  root.innerHTML=`<div class="rd"><div class="rd-top"><span class="rd-badge">${st.e} ${esc(L(st.hi,st.en))}</span><span class="rd-badge">${L('अध्याय','Chapter')} ${i+1}/${all.length}</span>
+      <div class="rd-lang">${[['hi','हिंदी'],['en','English'],['both',L('दोनों','Both')]].map(([k,t])=>`<button data-v="${k}" class="${VIEW===k?'on':''}">${t}</button>`).join('')}</div></div>
+    ${pageHtml(d.edition,d,CUR_BLOCKS)}
+    <div class="rd-nav"><button id="pv" ${i<=0?'disabled':''}>← ${L('पिछला','Previous')}</button><button id="dn" class="rd-done">✓ ${L('पढ़ लिया','Done')}</button><button id="nx" ${i>=all.length-1?'disabled':''}>${L('अगला','Next')} →</button></div></div>`;
+  root.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{ VIEW=b.dataset.v; try{ localStorage.setItem('ed_view',VIEW); }catch(e){} reader(); });
+  wireMcq(root);
+  const go=n=>{ CH=n; const u=new URL(location.href); u.searchParams.set('ch',n); history.replaceState(null,'',u); window.scrollTo(0,0); reader(); };
+  $('#pv').onclick=()=>i>0&&go(all[i-1].n); $('#nx').onclick=()=>i<all.length-1&&go(all[i+1].n);
+  $('#dn').onclick=()=>{ try{ parent.__edRead&&parent.__edRead(EID,CH); }catch(e){} if(i<all.length-1) go(all[i+1].n); else $('#dn').textContent='✓ '+L('पूरी किताब पढ़ ली','Book finished'); };
+}
+
+/* ============ EDITOR (owner) ============ */
+const ED={code:'',ed:null,chs:[],cur:null,dirty:false,msg:''};
+function codeGet(){ try{ return localStorage.getItem(CODE_KEY)||''; }catch(e){ return ''; } }
+function lockScreen(err){
+  root.innerHTML=`<div class="lock"><div class="brand">Diploma Boy · ${L('मालिक','Owner')}</div><h2 style="margin:8px 0">🔑 ${L('रिव्यू कोड डालें','Enter the review code')}</h2>
+    <p class="hint">${L('वही कोड जो Control Room → Review में लगता है। यह सिर्फ़ इसी ब्राउज़र में रहता है।','The same code as Control Room → Review. It stays in this browser only.')}</p>
+    <label class="fld"><span>${L('कोड','Code')}</span><input id="cd" type="password" autocomplete="off"></label>
+    ${err?`<p class="hint" style="color:var(--red)">${esc(err)}</p>`:''}<button class="btn pri" id="go" style="width:100%;margin-top:8px">${L('खोलें','Open')}</button></div>`;
+  $('#go').onclick=async()=>{ const c=$('#cd').value.trim(); let ok=false; try{ ok=await rpc('owner_ok',{p_code:c}); }catch(e){}
+    if(!ok) return lockScreen(L('कोड सही नहीं है (या सर्वर पर किताबों की सुविधा अभी चालू नहीं हुई)।','Wrong code (or book editions are not switched on on the server yet).'));
+    try{ localStorage.setItem(CODE_KEY,c); }catch(e){} ED.code=c; editorLoad(); }; }
+async function editor(){ ED.code=codeGet(); if(!ED.code) return lockScreen(); let ok=false; try{ ok=await rpc('owner_ok',{p_code:ED.code}); }catch(e){} if(!ok) return lockScreen(); editorLoad(); }
+async function editorLoad(){
+  root.innerHTML=`<div class="msg">${L('लोड हो रहा है…','Loading…')}</div>`;
+  const list=await rpc('edition_owner_list',{p_code:ED.code,p_keys:[KEY]}).catch(()=>[]);
+  ED.ed=(list||[]).find(x=>x.id===EID); if(!ED.ed){ root.innerHTML=`<div class="msg">${L('किताब नहीं मिली।','Book not found.')}</div>`; return; }
+  ED.chs=ED.ed.chapters||[];
+  if(!ED.chs.length) return seedScreen();
+  openCh(ED.chs.some(c=>c.n===CH)?CH:ED.chs[0].n);
+}
+// first open: make the chapter list from the syllabus (topics become headings to write under) or start blank
+function seedScreen(){ let seed=[]; try{ seed=JSON.parse(localStorage.getItem('ed_seed:'+KEY)||'[]'); }catch(e){}
+  root.innerHTML=`<div class="lock" style="max-width:560px"><div class="brand">${esc(ED.ed.hi||ED.ed.en)}</div><h2 style="margin:8px 0">📋 ${L('अध्याय कैसे बनाएँ?','How to start the chapters?')}</h2>
+    ${seed.length?`<p class="hint">${L('इस विषय के सिलेबस से','From this subject\'s syllabus')}: <b>${seed.length}</b> ${L('अध्याय','chapters')}${seed.some(s=>s.topics&&s.topics.length)?L(', हर अध्याय में टॉपिक शीर्षक बनकर आएँगे — आपको सिर्फ़ उनके नीचे लिखना है।',', each with its topics as headings — you only write under them.'):'.'}</p>
+      <div style="max-height:220px;overflow:auto;margin:10px 0;font-size:13px;color:var(--text2)">${seed.map((s,i)=>`<div>${i+1}. ${esc(L(s.hi||s.en,s.en||s.hi))}</div>`).join('')}</div>
+      <button class="btn pri" id="sd" style="width:100%">✨ ${L('सिलेबस से अध्याय बनाएँ','Create chapters from the syllabus')}</button>`:''}
+    <button class="btn" id="bl" style="width:100%;margin-top:8px">＋ ${L('खाली अध्याय से शुरू करें','Start with one blank chapter')}</button></div>`;
+  const sd=$('#sd'); if(sd) sd.onclick=async()=>{ sd.disabled=true;
+    for(let i=0;i<seed.length;i++){ const s=seed[i]; await rpc('edition_chapter_save',{p_code:ED.code,p_edition:EID,p_ch:i+1,p:{en:s.en||'',hi:s.hi||'',blocks:(s.topics||[]).map(t=>({t:'h',en:t,hi:t}))}}); }
+    editorLoad(); };
+  $('#bl').onclick=async()=>{ await rpc('edition_chapter_save',{p_code:ED.code,p_edition:EID,p_ch:1,p:{en:'Chapter 1',hi:'अध्याय 1',blocks:[]}}); editorLoad(); }; }
+async function openCh(n){
+  if(ED.dirty&&!confirm(L('बिना सेव किए बदलाव छोड़ दें?','Discard unsaved changes?'))) return;
+  const d=await rpc('edition_chapter_get',{p_code:ED.code,p_edition:EID,p_ch:n}).catch(()=>null);
+  ED.cur=d||{n,en:'',hi:'',blocks:[],status:'draft'}; ED.cur.blocks=ED.cur.blocks||[]; ED.dirty=false; CH=n;
+  const u=new URL(location.href); u.searchParams.set('ch',n); history.replaceState(null,'',u); edRender(); }
+function blankBlock(t){ return t==='mcq'?{t,q_hi:'',q_en:'',o:['','','',''],a:0,why_hi:'',why_en:''}:t==='ex'?{t,q_hi:'',q_en:'',a_hi:'',a_en:''}:t==='formula'?{t,f:'',hi:'',en:''}
+  :t==='table'?{t,src:'Column 1 | Column 2\n | '}:t==='note'?{t,kind:'tip',hi:'',en:''}:t==='img'?{t,src:'',hi:'',en:''}:{t,hi:'',en:''}; }
+function pair(i,f,lab,area){ const k=f?f+'_':'', tag=area?'textarea':'input';
+  const el=(lg,ph)=>`<label class="fld"><span>${lab} · ${lg==='hi'?'हिंदी':'English'}</span><${tag} data-b="${i}" data-f="${k+lg}" placeholder="${ph}">${area?esc(ED.cur.blocks[i][k+lg]||''):''}</${tag}></label>`;
+  return `<div class="two">${el('hi','')}${el('en','')}</div>`; }
+function blockEditor(b,i){ const [e,hi,en]=BT[b.t]||['?','?','?']; let body='';
+  if(b.t==='h') body=pair(i,'',L('शीर्षक','Heading'),false);
+  else if(['p','key'].includes(b.t)) body=pair(i,'',L('लेख','Text'),true);
+  else if(b.t==='formula') body=`<label class="fld"><span>${L('सूत्र','Formula')}</span><input data-b="${i}" data-f="f" placeholder="F = m × a"></label>`+pair(i,'',L('मतलब / चिह्न','Meaning / symbols'),true);
+  else if(b.t==='ex') body=pair(i,'q',L('प्रश्न','Question'),true)+pair(i,'a',L('हल','Solution'),true);
+  else if(b.t==='mcq') body=pair(i,'q',L('प्रश्न','Question'),true)+`<div class="two">${[0,1,2,3].map(j=>`<label class="fld"><span>${L('विकल्प','Option')} ${'ABCD'[j]} <input type="radio" name="a${i}" data-b="${i}" data-a="${j}" ${+b.a===j?'checked':''} title="${L('सही उत्तर','Correct answer')}"> ${L('सही','correct')}</span><input data-b="${i}" data-o="${j}"></label>`).join('')}</div>`+pair(i,'why',L('क्यों (व्याख्या)','Why (explanation)'),true);
+  else if(b.t==='table') body=`<label class="fld"><span>${L('हर लाइन एक पंक्ति, खाने | से अलग। पहली लाइन शीर्षक।','One line per row, cells split by |. First line is the header.')}</span><textarea data-b="${i}" data-f="src" style="font-family:monospace">${esc(b.src||'')}</textarea></label>`;
+  else if(b.t==='note') body=`<label class="fld"><span>${L('प्रकार','Kind')}</span><select data-b="${i}" data-f="kind">${[['tip','💡 '+L('टिप','Tip')],['warn','⚠️ '+L('सावधानी','Caution')],['exam','🎯 '+L('परीक्षा में','In the exam')]].map(([k,t])=>`<option value="${k}" ${b.kind===k?'selected':''}>${t}</option>`).join('')}</select></label>`+pair(i,'',L('लेख','Text'),true);
+  else if(b.t==='img') body=`<label class="fld"><span>${L('चित्र का https लिंक (अपना बनाया या मुक्त-लाइसेंस वाला)','Image https link (your own or freely licensed)')}</span><input data-b="${i}" data-f="src" placeholder="https://"></label>`+pair(i,'',L('कैप्शन','Caption'),false);
+  return `<div class="blk"><div class="blk-h"><span>${e}</span><b>${L(hi,en)}</b>
+    <button class="btn sm ghost" data-mv="${i}:-1" title="${L('ऊपर','Up')}" ${i?'':'disabled'}>↑</button><button class="btn sm ghost" data-mv="${i}:1" title="${L('नीचे','Down')}" ${i<ED.cur.blocks.length-1?'':'disabled'}>↓</button>
+    <button class="btn sm ghost" data-dup="${i}" title="${L('कॉपी','Duplicate')}">⧉</button><button class="btn sm ghost" data-del="${i}" title="${L('हटाएँ','Delete')}">🗑</button></div><div class="blk-b">${body}</div></div>`; }
+function preview(){ const box=$('#pvBox'); if(!box) return; CUR_BLOCKS=ED.cur.blocks; box.innerHTML=pageHtml(ED.ed,ED.cur,ED.cur.blocks); wireMcq(box); }
+function stamp(){ const s=$('#stt'); if(s) s.innerHTML=ED.msg||(ED.dirty?'● '+L('सेव नहीं हुआ','Not saved'):'✓ '+L('सेव है','Saved')); }
+function edRender(){
+  const e=ED.ed, st=STYLES[e.style]||STYLES.textbook, c=ED.cur;
+  root.innerHTML=`<div class="ed" id="ed">
+   <aside class="ed-side">
+     <div class="brand">✏️ ${L('किताब डिज़ाइनर','Book designer')}</div>
+     <div class="ed-title">${st.e} ${esc(e.hi||e.en)}</div>
+     <div class="row" style="margin:4px 0 10px"><span class="pill ${e.status}">${{draft:L('ड्राफ़्ट','Draft'),published:L('प्रकाशित','Published'),hidden:L('छिपी','Hidden')}[e.status]}</span><span class="hint" style="margin:0">${esc(L(st.hi,st.en))}</span></div>
+     <details><summary class="hint" style="cursor:pointer">⚙️ ${L('किताब की जानकारी','Book details')}</summary>
+       <label class="fld"><span>${L('नाम · हिंदी','Name · Hindi')}</span><input id="eHi" value="${esc(e.hi)}"></label>
+       <label class="fld"><span>${L('नाम · English','Name · English')}</span><input id="eEn" value="${esc(e.en)}"></label>
+       <label class="fld"><span>${L('शैली','Style')}</span><select id="eSt">${Object.entries(STYLES).map(([k,s])=>`<option value="${k}" ${e.style===k?'selected':''}>${s.e} ${L(s.hi,s.en)}</option>`).join('')}</select></label>
+       <label class="fld"><span>${L('परिचय (छात्र को दिखेगा)','About (shown to students)')}</span><textarea id="eAb">${esc(e.about_hi||'')}</textarea></label>
+       <label class="fld"><span>${L('क्रम (छोटा = पहले)','Order (lower = first)')}</span><input id="eSo" type="number" value="${+e.sort||100}"></label>
+       <button class="btn sm" id="eSave">💾 ${L('जानकारी सेव करें','Save details')}</button></details>
+     <div class="row" style="margin-top:10px">${e.status==='published'?`<button class="btn sm" data-es="draft">⏸ ${L('छात्रों से हटाएँ','Unpublish')}</button>`:`<button class="btn sm ok" data-es="published">🚀 ${L('किताब प्रकाशित करें','Publish book')}</button>`}
+       ${e.status!=='hidden'?`<button class="btn sm ghost" data-es="hidden">🙈 ${L('छिपाएँ','Hide')}</button>`:''}</div>
+     <p class="hint">${L('छात्रों को सिर्फ़ प्रकाशित किताब के प्रकाशित अध्याय दिखते हैं।','Students see only the published chapters of a published book.')}</p>
+     <div class="ch-list">${ED.chs.map(x=>`<button class="ch-item${x.n===c.n?' on':''}" data-ch="${x.n}"><span class="no">${x.n}</span><span class="t">${esc(L(x.hi||x.en,x.en||x.hi))}</span><span class="dot ${x.blocks?x.status:'empty'}" title="${x.status}"></span></button>`).join('')}</div>
+     <button class="btn sm" id="addCh" style="margin-top:10px;width:100%">＋ ${L('नया अध्याय','New chapter')}</button>
+     <p class="hint">🟢 ${L('प्रकाशित','published')} · 🟡 ${L('ड्राफ़्ट','draft')} · ⚪ ${L('खाली','empty')}</p>
+   </aside>
+   <main class="ed-main">
+     <div class="toolbar"><span class="st" id="stt"></span>
+       <span class="tabs"><button class="btn sm" id="pvT">👁 ${L('पूर्वावलोकन','Preview')}</button></span>
+       <button class="btn sm" id="sv">💾 ${L('सेव','Save')}</button>
+       ${c.status==='published'?`<button class="btn sm" id="unp">⏸ ${L('अध्याय हटाएँ','Unpublish')}</button>`:`<button class="btn sm ok" id="pub">🚀 ${L('अध्याय प्रकाशित करें','Publish chapter')}</button>`}</div>
+     <div class="two"><label class="fld"><span>${L('अध्याय','Chapter')} ${c.n} · ${L('नाम हिंदी','name Hindi')}</span><input id="cHi" value="${esc(c.hi)}"></label>
+       <label class="fld"><span>${L('नाम English','name English')}</span><input id="cEn" value="${esc(c.en)}"></label></div>
+     <div id="blocks">${c.blocks.map(blockEditor).join('')||`<p class="hint" style="padding:20px 0">${L('नीचे से पहला हिस्सा जोड़ें: शीर्षक, पैराग्राफ़, सूत्र, उदाहरण, MCQ…','Add the first piece below: heading, paragraph, formula, example, MCQ…')}</p>`}</div>
+     <div class="addbar"><span class="hint" style="width:100%;margin:0 0 4px">＋ ${L('जोड़ें','Add')}</span>${Object.entries(BT).map(([k,[e2,h,en]])=>`<button class="btn sm" data-add="${k}">${e2} ${L(h,en)}</button>`).join('')}</div>
+     <p class="hint">${L('**मोटा** लिखने के लिए दो तारे लगाएँ। सामग्री अपनी लिखी हो: किसी छपी किताब का पाठ या चित्र कॉपी न करें — शैली अपनाएँ, शब्द नहीं।','Wrap **bold** in two stars. Write your own words: do not copy text or pictures from a published book — follow the style, not the wording.')}</p>
+     <div class="row" style="margin-top:16px"><button class="btn sm ghost" id="delCh" style="color:var(--red)">🗑 ${L('यह अध्याय हटाएँ','Delete this chapter')}</button></div>
+   </main>
+   <section class="ed-prev"><div class="row" style="margin-bottom:10px"><span class="brand" style="margin-right:auto">👁 ${L('छात्र को ऐसा दिखेगा','What students see')}</span>
+     <span class="tabs"><button class="btn sm" id="edT">✏️ ${L('लिखें','Edit')}</button></span>
+     ${[['hi','हिं'],['en','EN'],['both','⇅']].map(([k,t])=>`<button class="btn sm${VIEW===k?' pri':''}" data-v="${k}">${t}</button>`).join('')}</div><div id="pvBox"></div></section></div>`;
+  // fill inputs (values set here so nothing in them is parsed as HTML)
+  root.querySelectorAll('#blocks input[data-f]').forEach(el=>{ el.value=c.blocks[+el.dataset.b][el.dataset.f]||''; });
+  root.querySelectorAll('#blocks input[data-o]').forEach(el=>{ el.value=(c.blocks[+el.dataset.b].o||[])[+el.dataset.o]||''; });
+  const touch=()=>{ ED.dirty=true; ED.msg=''; stamp(); preview(); };
+  root.querySelectorAll('#blocks [data-f]').forEach(el=>el.addEventListener('input',()=>{ c.blocks[+el.dataset.b][el.dataset.f]=el.value; touch(); }));
+  root.querySelectorAll('#blocks [data-o]').forEach(el=>el.addEventListener('input',()=>{ const b=c.blocks[+el.dataset.b]; (b.o=b.o||['','','',''])[+el.dataset.o]=el.value; touch(); }));
+  root.querySelectorAll('#blocks [data-a]').forEach(el=>el.addEventListener('change',()=>{ c.blocks[+el.dataset.b].a=+el.dataset.a; touch(); }));
+  $('#cHi').oninput=e2=>{ c.hi=e2.target.value; touch(); }; $('#cEn').oninput=e2=>{ c.en=e2.target.value; touch(); };
+  const rer=()=>{ const y=$('.ed-main').scrollTop; edRender(); $('.ed-main').scrollTop=y; ED.dirty=true; stamp(); };
+  root.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{ c.blocks.push(blankBlock(b.dataset.add)); rer(); const m=$('.ed-main'); m.scrollTop=m.scrollHeight; });
+  root.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ if(confirm(L('यह हिस्सा हटाएँ?','Delete this piece?'))){ c.blocks.splice(+b.dataset.del,1); rer(); } });
+  root.querySelectorAll('[data-dup]').forEach(b=>b.onclick=()=>{ const i=+b.dataset.dup; c.blocks.splice(i+1,0,JSON.parse(JSON.stringify(c.blocks[i]))); rer(); });
+  root.querySelectorAll('[data-mv]').forEach(b=>b.onclick=()=>{ const [i,d]=b.dataset.mv.split(':').map(Number), j=i+d; [c.blocks[i],c.blocks[j]]=[c.blocks[j],c.blocks[i]]; rer(); });
+  root.querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>openCh(+b.dataset.ch));
+  root.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{ VIEW=b.dataset.v; try{ localStorage.setItem('ed_view',VIEW); }catch(e2){} root.querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('pri',x===b)); preview(); });
+  const pvT=$('#pvT'), edT=$('#edT'); if(pvT) pvT.onclick=()=>$('#ed').classList.add('pv'); if(edT) edT.onclick=()=>$('#ed').classList.remove('pv');
+  const save=async(status)=>{ ED.msg='⏳ '+L('सेव हो रहा है…','Saving…'); stamp();
+    try{ await rpc('edition_chapter_save',{p_code:ED.code,p_edition:EID,p_ch:c.n,p:{en:c.en,hi:c.hi,blocks:c.blocks,...(status?{status}:{})}});
+      if(status) c.status=status; ED.dirty=false; ED.msg='';
+      const x=ED.chs.find(y=>y.n===c.n); if(x) Object.assign(x,{en:c.en,hi:c.hi,status:c.status,blocks:c.blocks.length});
+      if(status) edRender(); else stamp(); }
+    catch(err){ ED.msg='⚠️ '+L('सेव नहीं हुआ: ','Not saved: ')+esc(err.message); stamp(); } };
+  $('#sv').onclick=()=>save();
+  const pub=$('#pub'), unp=$('#unp'); if(pub) pub.onclick=()=>save('published'); if(unp) unp.onclick=()=>save('draft');
+  $('#addCh').onclick=async()=>{ if(ED.dirty) await save(); const n=Math.max(0,...ED.chs.map(x=>x.n))+1;
+    await rpc('edition_chapter_save',{p_code:ED.code,p_edition:EID,p_ch:n,p:{en:'Chapter '+n,hi:'अध्याय '+n,blocks:[]}}); ED.dirty=false; CH=n; editorLoad(); };
+  $('#delCh').onclick=async()=>{ if(!confirm(L('यह पूरा अध्याय हटाएँ? (एक कॉपी सर्वर पर सुरक्षित रहती है)','Delete this whole chapter? (a copy stays on the server)'))) return;
+    await rpc('edition_chapter_save',{p_code:ED.code,p_edition:EID,p_ch:c.n,p:{delete:true}}); ED.dirty=false; CH=1; editorLoad(); };
+  const setEd=async p=>{ await rpc('edition_save',{p_code:ED.code,p:{id:EID,...p}}); Object.assign(ED.ed,p); edRender(); };
+  root.querySelectorAll('[data-es]').forEach(b=>b.onclick=()=>setEd({status:b.dataset.es}));
+  $('#eSave').onclick=()=>setEd({hi:$('#eHi').value.trim(),en:$('#eEn').value.trim(),style:$('#eSt').value,about_hi:$('#eAb').value.trim(),about_en:ED.ed.about_en||'',sort:+$('#eSo').value||100});
+  stamp(); preview();
+}
+window.addEventListener('beforeunload',e=>{ if(ED.dirty){ e.preventDefault(); e.returnValue=''; } });
+document.addEventListener('keydown',e=>{ if(EDIT&&(e.ctrlKey||e.metaKey)&&e.key==='s'){ e.preventDefault(); const b=$('#sv'); if(b) b.click(); } });
+document.documentElement.lang=UI;
+if(!EID) root.innerHTML='<div class="msg">?</div>'; else if(EDIT) editor(); else reader();
+</script>
+</body>
+</html>

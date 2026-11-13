@@ -265,6 +265,22 @@ const check = (name, v) => (v ? ok : bad).push(name);
     // reopening the app after setup used to crash at the first paint (SETUP_CFG read before it was declared)
     await ps2.reload(); await ps2.waitForTimeout(5000);
     check('reopen after setup: no page errors, books load', serr2.length === 0 && await ps2.evaluate(() => BOOKS.length > 0 && !!SETUP_CFG));
+    // editions: a subject can hold several books (app book + owner-made books in a style); students never see the "+" or drafts
+    await ps2.click('.nav-item[data-view=library]'); await ps2.waitForTimeout(800);
+    const edUi = await ps2.evaluate(() => { const bk = BOOKS.find(b => b.course && b.kind === 'atoms'); LIB.sel = bk.id;
+      EDS = { [bk.id]: [{ id: 901, key: bk.id, style: 'exam', hi: 'परीक्षा शैली · 1', en: 'Exam focus · 1', chapters: [{ n: 1, hi: 'MCQ सेट', en: 'MCQ set' }] }] };
+      EDS_STAMP = BOOKS.filter(b => b.owned).map(b => b.id).slice(0, 300).join('|'); renderLibrary();
+      const cards = document.querySelectorAll('#chapterList .ed-card').length, add = !!document.querySelector('[data-edadd]');
+      document.querySelector('[data-edsel="901"]').click();
+      return { cards, add, rows: document.querySelectorAll('#chapterList [data-edch]').length }; });
+    check('editions: subject shows its books, student gets no add button', edUi.cards === 2 && !edUi.add && edUi.rows === 1);
+    // desktop: sidebar navigation and the library in two panes
+    await ps2.setViewportSize({ width: 1366, height: 800 }); await ps2.waitForTimeout(500);
+    const desk = await ps2.evaluate(() => { const nav = document.getElementById('bottomNav').getBoundingClientRect(), cl = document.getElementById('chapterList').getBoundingClientRect(), g = document.getElementById('appGrid').getBoundingClientRect();
+      return { navLeft: nav.left < 40 && nav.height > 500, twoPane: cl.left > g.right - 1, noHScroll: document.documentElement.scrollWidth <= innerWidth }; });
+    check('desktop: sidebar nav, library in two panes, no sideways scroll', desk.navLeft && desk.twoPane && desk.noHScroll);
+    await ps2.screenshot({ path: path.join(SHOTS, 'v6-desktop-library.png') });
+    await ps2.setViewportSize({ width: 390, height: 844 }); await ps2.waitForTimeout(300);
     // broad subjects are one book with sections, not several books; every chapter of a course sits in one semester only
     check('general awareness / general science: one book each', await ps2.evaluate(() => ['general-awareness', 'general-science'].every(s => BOOKS.filter(b => !b.course && b.subject && b.subject.slug === s).length <= 1)));
     check('my course: no chapter in two semesters', await ps2.evaluate(() => { const seen = {}; return BOOKS.filter(b => b.course && b.kind === 'atoms').every(b => b.chapters.every(c => { const k = c.n; if (seen[k] && seen[k] !== b.stage) return false; seen[k] = b.stage; return true; })); }));
