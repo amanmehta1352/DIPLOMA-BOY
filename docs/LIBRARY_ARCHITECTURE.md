@@ -85,3 +85,10 @@ App shell गहरा (मौजूदा aurora brand), पर **पढ़न�
 2. Migration: `book_styles`, `official_books`, `profiles.book_style`।
 3. एक विषय (कक्षा 10 विज्ञान या Diploma Mechanical का एक विषय) पर 2 शैलियाँ (`saral`, `abhyas`) — pilot।
 4. फिर बाकी शैलियाँ और विषय।
+
+## 10. Pilot की स्थिति (2026-11-13)
+- ✅ Migration 0175 live: `book_styles` (5), `official_books` (खाली), `profiles.book_style`, `get_book_shelf()`।
+- ✅ कोर का ढाँचा: [`schema/book.core.v1.json`](../schema/book.core.v1.json)। पहला कोर: [`content/pilot/class-10-science-electricity.core.json`](../content/pilot/class-10-science-electricity.core.json) (6 खंड, 18 हल उदाहरण, 3 चित्र, 29 प्रश्न)।
+- ✅ जाँच: `node tools/book/check.mjs <core>` — हर उदाहरण/आंकिक का उत्तर `calc` से दोबारा गणना, MCQ उत्तर, Markdown/LaTeX, चित्र-संदर्भ।
+- ✅ शैली-परत code से: [`tools/book/styles.mjs`](../tools/book/styles.mjs) (saral, abhyas) + [`tools/book/render.mjs`](../tools/book/render.mjs) → `design/pilot/electricity-{saral,abhyas}.html`; एक ही input से हर बार हूबहू वही HTML।
+- ⏳ बाकी: owner review; `chapter_cores`/`chapter_styles` tables; Writer robot से कोर लिखवाना (अभी pilot कोर हाथ से/Claude से); app के Reader में जोड़ना।
