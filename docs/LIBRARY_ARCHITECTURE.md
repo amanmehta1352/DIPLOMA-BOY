@@ -102,5 +102,10 @@ App shell गहरा (मौजूदा aurora brand), पर **पढ़न�
   - आप "बदलाव माँगो" दबाएँ तो आपकी टिप्पणी prompt में जाती है। Approved core को robot छू नहीं सकता।
   - चलाना: GitHub Actions → "Book Core Writer" (अभी सिर्फ़ हाथ से; पहले dry run)। Offline जाँच: `python robots/book/selftest.py` (Tests workflow में भी)।
 - ✅ Migration 0177 `core_status()` (service-only): robot देखता है कौन-सा core पहले से है। जब तक यह नहीं लगी, robot सिर्फ़ `--only` वाले core लिखता है।
-- ✅ App की Library: विषय खोलने पर, अगर उसका कोई core approved है, तो "📚 नई किताब: अपनी पसंद की शैली में पढ़ें" link (`book-reader.html?q=&s=`)। कोई approved नहीं तो link नहीं दिखता। Playwright जाँच `tests/app.test.js` में (नकली server जवाब से)।
+- ✅ Editions (#219) के साथ एक: छात्र के लिए एक ही रास्ता है, विषय → "इस विषय की किताबें" shelf।
+  - उस विषय के approved core हर शैली की एक किताब बनकर shelf में सबसे आगे आते हैं: 📗 सरल पाठ्यपुस्तक, 📙 अभ्यास-प्रधान, "✓ जाँची हुई किताब"।
+  - अध्याय app के अंदर `book-reader.html?…&embed=1` में खुलता है।
+  - आपकी हाथ से लिखी editions (`edition.html`) उनके बाद वैसे ही रहती हैं।
+  - Approved core नहीं तो कुछ नहीं दिखता।
+  - Playwright जाँच `tests/app.test.js` में (नकली server जवाब से)।
 - ⏳ बाकी: pilot कोर आप approve करें; robot का पहला dry run; बाकी शैलियाँ (vistar, pariksha, chitra); आधिकारिक किताबों के सत्यापित link।

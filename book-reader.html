@@ -36,7 +36,8 @@ iframe{display:block;width:100%;border:0;background:#eef1f4;min-height:70vh}
 <main id="main"><p class="empty">लोड हो रहा है…</p></main>
 <script type="module">
 /* Book reader: one approved chapter core, drawn in the style the student picks (tools/book/render.js).
-   URL: ?q=<qualification slug>&s=<subject slug>&ch=<core id>&style=<saral|abhyas|…>
+   Opened by the app's Library (index.html: subject → books shelf → "सरल पाठ्यपुस्तक" / "अभ्यास-प्रधान") with &embed=1.
+   URL: ?q=<qualification slug>&s=<subject slug>&ch=<core id>&style=<saral|abhyas|…>[&embed=1]
    Data: mtb.get_book_shelf (styles + default), mtb.list_chapter_cores + mtb.get_chapter_core (approved only, migration 0176).
    Local preview only (localhost): &file=<path to a core .json> draws a draft without the server. */
 import { render } from './tools/book/render.js';
@@ -45,6 +46,7 @@ const SB = { url: 'https://wobmtlcpszcntczkebtt.supabase.co', key: 'sb_publishab
 const P = new URLSearchParams(location.search);
 const QUAL = P.get('q') || '', SUBJ = P.get('s') || '';
 const $ = id => document.getElementById(id);
+if (P.get('embed') === '1') document.querySelector('.bar > a').remove();   // inside the app's book layer, which has its own back button
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const store = { get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (_) { /* private mode */ } } };
 async function rpc(fn, args) {

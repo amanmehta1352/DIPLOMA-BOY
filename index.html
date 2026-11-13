@@ -330,7 +330,6 @@ body.lang-both .subtitle .en-part{display:block}
 .lib-group{grid-column:1/-1;font-size:14px;font-weight:900;color:var(--text);padding:12px 2px 2px}.lib-group small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
 .lib-sub{grid-column:1/-1;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;padding:6px 2px 0}
 .lib-sec{font-size:12px;font-weight:900;color:var(--accent);padding:14px 2px 6px;border-bottom:1px solid var(--line2);margin-bottom:6px}
-.core-link{display:flex;align-items:center;gap:10px;margin:12px 22px 0;padding:12px 14px;min-height:44px;border-radius:14px;border:1px solid var(--accent,#00e5cc);color:var(--text);text-decoration:none;font-weight:800;font-size:14px}.core-link small{display:block;font-weight:600;opacity:.75}
 .syl{margin:14px 22px 6px}.syl>summary{cursor:pointer;font-size:13px;font-weight:900;padding:10px 0;color:var(--text)}
 .syl-unit{border:1px solid var(--line2);border-radius:12px;padding:10px 12px;margin:8px 0;background:rgba(255,255,255,.03)}
 .syl-unit b{display:block;font-size:13px}.syl-unit ul{margin:6px 0 0;padding-left:18px;font-size:12px;color:var(--muted);line-height:1.6}
@@ -1000,9 +999,9 @@ function renderLibrary(){
       const modes=(DB.setup&&DB.setup.qual&&bk.kind!=='soon')?`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${(LIB.mode||'book')===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`:'';
       html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
         ${editionShelf(bk)}${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note">🔒 ${bk.lab==='lab'||bk.lab==='project'?L('यह प्रायोगिक / प्रोजेक्ट कार्य है: कॉलेज में किया जाता है।','This is practical / project work, done in college.'):L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं। तैयार होते ही यहीं दिखेंगे। नीचे पूरा सिलेबस देखें।','Book, notes and formulas for this subject are being prepared. They will appear here. See the full syllabus below.')}</div>`:bk.chapters.map((ch,i)=>(ch.sec&&(!i||(bk.chapters[i-1].sec||{}).en!==ch.sec.en)?`<div class="lib-sec">${T(esc(ch.sec.hi),esc(ch.sec.en))}</div>`:'')+chapterRow(bk,ch)).join('')}</div>
-        <div id="coreBox"></div><div id="sylBox"></div>`; } }
+        <div id="sylBox"></div>`; } }
   list.innerHTML=html;
-  { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk){ renderOutline(bk); wireEditions(bk); renderCoreLink(bk); } }
+  { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk){ renderOutline(bk); wireEditions(bk); } }
   loadEditions();
   list.querySelectorAll('[data-mode]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.mode=el.dataset.mode; renderLibrary(); }));
   list.querySelectorAll('[data-ch]').forEach(el=>{ const go=()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch,(DB.setup&&DB.setup.qual)?(LIB.mode||'book'):undefined); };
@@ -1016,16 +1015,6 @@ function renderOutline(bk){ const key=bk.outline||(bk.subject&&bk.subject.slug?'
     const n=units.reduce((a,u)=>a+u.topics.length,0);
     box.innerHTML=`<details class="syl"${bk.kind==='soon'?' open':''}><summary>📋 ${L('पूरा सिलेबस','Full syllabus')} · ${units.length} ${L('यूनिट','units')} · ${n} ${L('टॉपिक','topics')}</summary>
       ${units.map((u,i)=>`<div class="syl-unit"><b>${i+1}. ${T(esc(u.hi),esc(u.en))}</b><ul>${u.topics.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div>`).join('')}</details>`; }); }
-/* approved chapter cores of this subject (migration 0176) → link to book-reader.html, where the student picks a book style.
-   Shown only when at least one core is approved, so no one lands on an empty page. One request per subject per visit. */
-const CORES={};
-function renderCoreLink(bk){ const qq=DB.setup&&DB.setup.qual&&setupQual(DB.setup.qual);
-  // cores are keyed by the course's own subject slug (course_subjects.slug, the last part of a course book id), not the level catalog's
-  const sj=bk.course?String(bk.id).split(':').pop():(bk.subject&&bk.subject.slug); if(!qq||!qq.slug||!sj) return;
-  const k=qq.slug+'|'+sj;
-  (CORES[k]||(CORES[k]=sbGet('rpc/list_chapter_cores?p_qual='+encodeURIComponent(qq.slug)+'&p_subject='+encodeURIComponent(sj)).catch(()=>{ delete CORES[k]; return []; })))
-    .then(list=>{ const box=document.getElementById('coreBox'); if(!box||LIB.sel!==bk.id||!Array.isArray(list)||!list.length) return;
-      box.innerHTML=`<a class="core-link" href="book-reader.html?q=${encodeURIComponent(qq.slug)}&s=${encodeURIComponent(sj)}"><span style="font-size:22px">📚</span><span>${L('नई किताब: अपनी पसंद की शैली में पढ़ें','New book: read in the style you like')}<small>${list.length} ${L('अध्याय तैयार','chapters ready')}</small></span></a>`; }); }
 
 /* ═══ EDITIONS: one subject, many books. Level: subject → edition (style) → chapter.
    Edition 0 is the app's own book; the others are original books in a teaching style (textbook / teacher / exam /
@@ -1038,6 +1027,24 @@ const ED_STYLES={
   practice :{e:'🔢',c:'#0f9d74',hi:'अभ्यास पुस्तिका',en:'Practice workbook',dhi:'हल किए प्रश्न, संख्यात्मक, अभ्यास सेट',den:'Solved questions, numericals, practice sets'},
   revision :{e:'⚡',c:'#d48a00',hi:'झटपट रिवीजन',en:'Quick revision',dhi:'एक-पंक्ति तथ्य, सूत्र, सारांश',den:'One-line facts, formulas, summaries'},
   reference:{e:'📚',c:'#2b7a8c',hi:'संदर्भ पुस्तक',en:'Reference book',dhi:'विस्तार और गहराई, ऊँचे स्तर के लिए',den:'In depth, for a higher level'}};
+/* Robot-written, owner-approved chapter cores (migration 0176) join the same shelf: one checked core per chapter, drawn in
+   each book style by tools/book/render.js inside book-reader.html. Keys and names match tools/book/styles.js (STYLES). */
+const CORE_STYLES={
+  saral :{e:'📗',c:'#047857',hi:'सरल पाठ्यपुस्तक',en:'Simple textbook'},
+  abhyas:{e:'📙',c:'#b45309',hi:'अभ्यास-प्रधान',en:'Practice-first'}};
+const edStyle=s=>ED_STYLES[s]||CORE_STYLES[s]||ED_STYLES.textbook;
+const edId=v=>/^\d+$/.test(String(v))?+v:String(v);   // owner editions have numeric ids, core books 'core:<style>'
+/* approved cores of the student's course → one shelf book per style on each course subject that has them */
+async function coreEditions(){ const qq=DB.setup&&DB.setup.qual&&setupQual(DB.setup.qual); if(!qq||!qq.slug) return {};
+  let cores=[]; try{ cores=await sbRpc('list_chapter_cores',{p_qual:qq.slug,p_subject:null})||[]; }catch(e){ return {}; }
+  const out={};
+  BOOKS.filter(b=>b.course&&String(b.id).startsWith('c:'+qq.slug+':')).forEach(b=>{
+    const slug=String(b.id).split(':').pop(), mine=cores.filter(c=>c.subject===slug).sort((a,c)=>a.no-c.no); if(!mine.length) return;
+    const chapters=mine.map(c=>({n:c.no,hi:c.hi,en:c.en,core:c.core_id,status:'published'}));
+    out[b.id]=Object.entries(CORE_STYLES).map(([k,s],i)=>({id:'core:'+k,kind:'core',style:k,q:qq.slug,s:slug,hi:s.hi,en:s.en,status:'published',sort:i,
+      about_hi:'जाँची हुई किताब: हर उदाहरण और उत्तर दोबारा गणना से मिलाया गया, फिर मंज़ूरी के बाद ही यहाँ आई।',
+      about_en:'A checked book: every example and answer recomputed, published only after review.',chapters})); });
+  return out; }
 const OWNER={code:(()=>{ try{ return localStorage.getItem('cr_owner_code')||''; }catch(e){ return ''; } })(),ok:false,checked:false};
 let EDS={}, EDS_STAMP='', EDS_BUSY=false;
 async function loadEditions(force){
@@ -1049,6 +1056,7 @@ async function loadEditions(force){
     const rows=OWNER.ok?await sbRpc('edition_owner_list',{p_code:OWNER.code,p_keys:keys}):await sbRpc('get_book_editions',{p_keys:keys});
     const m={}; (rows||[]).forEach(r=>{ if(r.status==='hidden') return; (m[r.key]||(m[r.key]=[])).push(r); }); EDS=m;
   }catch(e){ EDS={}; }   // server without editions yet: the library works exactly as before
+  const ce=await coreEditions(); Object.entries(ce).forEach(([k,list])=>{ EDS[k]=[...list,...(EDS[k]||[])]; });   // checked books first
   EDS_STAMP=stamp; EDS_BUSY=false; if(currentView==='library') renderLibrary();
 }
 const edsOf=bk=>(EDS[bk.id]||[]).filter(e=>OWNER.ok||(e.status||'published')==='published');
@@ -1058,12 +1066,12 @@ function editionShelf(bk){ const eds=edsOf(bk); if(!eds.length&&!OWNER.ok) retur
   const card=(id,e,title,sub,extra)=>`<button class="ed-card${sel===id?' on':''}" data-edsel="${id}" style="--ec:${e.c||'#3b82f6'}"><span class="ed-e">${e.e}</span><span class="ed-t"><b>${title}</b><small>${sub}</small></span>${extra||''}</button>`;
   let h=`<div class="ed-head">📚 ${L('इस विषय की किताबें','Books for this subject')} <small>${eds.length+1} ${L('किताबें · अपनी पसंद की शैली चुनें','books · pick the style you like')}</small></div><div class="ed-shelf">`;
   h+=card(0,{e:'📘',c:'#3b82f6'},esc(L('ऐप की किताब','App book')),base?`${bk.chapters.length} ${L('अध्याय · किताब · नोट्स · क्लास','chapters · book · notes · class')}`:`🔒 ${L('तैयार हो रही है','being prepared')}`);
-  eds.forEach(e=>{ const st=ED_STYLES[e.style]||ED_STYLES.textbook, n=(e.chapters||[]).filter(c=>(c.status||'published')==='published').length;
-    h+=card(e.id,st,esc(L(e.hi||e.en,e.en||e.hi)),`${st.e} ${esc(L(st.hi,st.en))} · ${n} ${L('अध्याय','ch')}`,
-      OWNER.ok?`<span class="ed-own"><i class="ed-st ${e.status}">${e.status==='published'?L('प्रकाशित','live'):L('ड्राफ़्ट','draft')}</i><i class="ed-pen" data-eded="${e.id}" role="link" title="${L('डिज़ाइन करें','Design')}">✏️</i></span>`:''); });
+  eds.forEach(e=>{ const st=edStyle(e.style), n=(e.chapters||[]).filter(c=>(c.status||'published')==='published').length;
+    h+=card(e.id,st,esc(L(e.hi||e.en,e.en||e.hi)),e.kind==='core'?`✓ ${L('जाँची हुई किताब','checked book')} · ${n} ${L('अध्याय','ch')}`:`${st.e} ${esc(L(st.hi,st.en))} · ${n} ${L('अध्याय','ch')}`,
+      OWNER.ok&&e.kind!=='core'?`<span class="ed-own"><i class="ed-st ${e.status}">${e.status==='published'?L('प्रकाशित','live'):L('ड्राफ़्ट','draft')}</i><i class="ed-pen" data-eded="${e.id}" role="link" title="${L('डिज़ाइन करें','Design')}">✏️</i></span>`:''); });
   if(OWNER.ok) h+=`<button class="ed-card ed-add" data-edadd="1"><span class="ed-e">＋</span><span class="ed-t"><b>${L('नई किताब जोड़ें','Add a book')}</b><small>${L('शैली चुनें, फिर अध्याय लिखें','pick a style, then write chapters')}</small></span></button>`;
   return h+'</div>'; }
-function editionPanel(bk,e){ const st=ED_STYLES[e.style]||ED_STYLES.textbook, read=DB.edRead||{}, chs=(e.chapters||[]).filter(c=>OWNER.ok||(c.status||'published')==='published');
+function editionPanel(bk,e){ const st=edStyle(e.style), read=DB.edRead||{}, chs=(e.chapters||[]).filter(c=>OWNER.ok||(c.status||'published')==='published');
   const done=chs.filter(c=>read['e'+e.id+':'+c.n]).length;
   return `<div class="sec-title"><h2>${st.e} ${esc(L(e.hi||e.en,e.en||e.hi))}</h2><div class="count-pill">${done}/${chs.length}</div></div>
     ${editionShelf(bk)}${(e.about_hi||e.about_en)?`<div class="ed-about">${esc(L(e.about_hi||e.about_en,e.about_en||e.about_hi))}</div>`:''}
@@ -1073,14 +1081,16 @@ function editionPanel(bk,e){ const st=ED_STYLES[e.style]||ED_STYLES.textbook, re
         <span class="pct" style="font-size:12px;color:${col};white-space:nowrap">${dr?L('🟡 ड्राफ़्ट','🟡 Draft'):r?L('✓ पढ़ा','✓ Read'):L('पढ़ें','Read')}</span></div>`; }).join('')||`<div class="empty-note">${OWNER.ok?L('अभी कोई अध्याय नहीं। ✏️ से लिखना शुरू करें।','No chapters yet. Start writing with ✏️.'):L('अध्याय जल्द आएँगे।','Chapters coming soon.')}</div>`}</div>
     <div id="sylBox"></div>`; }
 function wireEditions(bk){ const list=document.getElementById('chapterList');
-  list.querySelectorAll('[data-edsel]').forEach(el=>el.addEventListener('click',ev=>{ if(ev.target.closest('[data-eded]')) return; Sound.tap(); (LIB.ed||(LIB.ed={}))[bk.id]=+el.dataset.edsel; renderLibrary(); }));
+  list.querySelectorAll('[data-edsel]').forEach(el=>el.addEventListener('click',ev=>{ if(ev.target.closest('[data-eded]')) return; Sound.tap(); (LIB.ed||(LIB.ed={}))[bk.id]=edId(el.dataset.edsel); renderLibrary(); }));
   list.querySelectorAll('[data-eded]').forEach(el=>el.addEventListener('click',ev=>{ ev.stopPropagation(); Sound.tap(); designEdition(bk,+el.dataset.eded); }));
   list.querySelectorAll('[data-edadd]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); openAddEdition(bk); }));
-  list.querySelectorAll('[data-edch]').forEach(el=>{ const go=()=>{ Sound.tap(); openEdition(bk.id,+el.dataset.ed,+el.dataset.edch); };
+  list.querySelectorAll('[data-edch]').forEach(el=>{ const go=()=>{ Sound.tap(); openEdition(bk.id,edId(el.dataset.ed),+el.dataset.edch); };
     el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); }); }
 function openEdition(bookId,eid,ch){ const b=BOOKS.find(x=>x.id===bookId); if(!b) return;
-  if(OWNER.ok){ const e=edsOf(b).find(x=>x.id===eid), c=e&&(e.chapters||[]).find(x=>x.n===ch); if(e&&(e.status!=='published'||!c||c.status!=='published')){ designEdition(b,eid,ch); return; } }
-  bookState={bookId,ed:eid,ch,mode:'reader',tab:null};
+  const e=edsOf(b).find(x=>x.id===eid), c=e&&(e.chapters||[]).find(x=>x.n===ch);
+  if(OWNER.ok&&e&&e.kind!=='core'&&(e.status!=='published'||!c||c.status!=='published')){ designEdition(b,eid,ch); return; }
+  bookState={bookId,ed:eid,ch,mode:'reader',tab:null,core:e&&e.kind==='core'&&c?{q:e.q,s:e.s,id:c.core,style:e.style}:null};
+  if(bookState.core){ (DB.edRead||(DB.edRead={}))['e'+eid+':'+ch]=Date.now(); saveState(); }   // the reader draws the whole chapter at once: opening it counts as read
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('foundation-layer').classList.add('active');
   document.getElementById('bottomNavWrap').classList.add('hidden');
@@ -1539,7 +1549,9 @@ function renderFoundation(reload){
     if(f) f.remove();
     f=document.createElement('iframe'); f.title=b.title.en; f.setAttribute('allow','fullscreen');
     f.style.cssText='display:block;width:100%;height:100%;border:0;background:#0f172a';
-    f.src=bookState.ed
+    f.src=bookState.core
+      ? 'book-reader.html?'+new URLSearchParams({q:bookState.core.q,s:bookState.core.s,ch:bookState.core.id,style:bookState.core.style,embed:'1'})   // a checked chapter core in a book style
+      : bookState.ed
       ? 'edition.html?'+new URLSearchParams({e:bookState.ed,ch:bookState.ch,ui:Settings.lang==='en'?'en':'hi'})   // an owner-made book (edition) of this subject
       : b.kind==='atoms'
       ? 'level-book.html?'+new URLSearchParams({l:b.level,s:b.subject.slug,ch:bookState.ch,tab:readerTab(),ui:Settings.lang==='en'?'en':'hi',ln:L(qualLabel().hi,qualLabel().en),...(b.only?{only:b.only.join(',')}:{})})   // every level's chapters, drawn like the Physics book

@@ -258,21 +258,27 @@ const check = (name, v) => (v ? ok : bad).push(name);
     check('my course: semester 3 subjects shown, locked ones marked', lib.includes('मेरा कोर्स') && /सेमेस्टर 3/.test(lib) && await ps2.isVisible('[data-stg="6"]'));
     await ps2.click('[data-exf="RRB Group D"]'); await ps2.waitForTimeout(600);
     check('exam filter shows only that exam\'s subjects', !(await ps2.innerText('#appGrid')).includes('थर्मल इंजीनियरिंग'));
-    // approved chapter cores (book styles) for this subject → a link to book-reader.html; mocked, since none is approved yet
+    // approved chapter cores join the subject's books shelf, one book per style (mocked: none is approved yet)
+    const thSlug = await ps2.evaluate(() => { const b = BOOKS.find(x => x.course && /थर्मल/.test(x.title.hi)); return b ? String(b.id).split(':').pop() : ''; });
     let coreAsk = '';
-    await ps2.route('**/rest/v1/rpc/list_chapter_cores*', r => { coreAsk = r.request().url(); return r.fulfill({ contentType: 'application/json', body: JSON.stringify([{ core_id: 'diploma-mechanical/thermal-engineering/x', subject: 'thermal-engineering', no: 1, hi: 'क', en: 'x' }]) }); });
+    await ps2.route('**/rest/v1/rpc/list_chapter_cores*', r => { coreAsk = r.request().postData() || ''; return r.fulfill({ contentType: 'application/json', body: JSON.stringify([{ core_id: `diploma-mechanical/${thSlug}/x`, subject: thSlug, no: 1, hi: 'क', en: 'x' }]) }); });
+    await ps2.evaluate(() => loadEditions(true)); await ps2.waitForTimeout(800);
     await ps2.click('[data-exf=""]'); await ps2.waitForTimeout(400); await ps2.locator('.app-icon', { hasText: 'थर्मल' }).first().click(); await ps2.waitForTimeout(800);
     check('subject offers Book / Notes / Class / Formulas', (await ps2.$$eval('.lib-mode', e => e.length)) === 4);
-    const coreHref = await ps2.$eval('.core-link', a => a.getAttribute('href')).catch(() => '');
-    check('approved book-style chapters: link to the reader for this course and subject', /^book-reader\.html\?q=diploma-mechanical&s=[a-z0-9-]+$/.test(coreHref) && coreAsk.includes('p_qual=diploma-mechanical'));
-    await ps2.unroute('**/rest/v1/rpc/list_chapter_cores*');
-    await ps2.screenshot({ path: path.join(SHOTS, 'v5-setup-library.png') });
+    check('approved chapter cores: one shelf book per style', !!thSlug && coreAsk.includes('diploma-mechanical') && await ps2.isVisible('[data-edsel="core:saral"]') && await ps2.isVisible('[data-edsel="core:abhyas"]'));
+    await ps2.click('[data-edsel="core:abhyas"]'); await ps2.waitForTimeout(400);
+    await ps2.screenshot({ path: path.join(SHOTS, 'v5-setup-library.png') });   // the subject's shelf with the checked books and their chapter
+    await ps2.click('[data-ed="core:abhyas"][data-edch="1"]'); await ps2.waitForTimeout(600);
+    const coreSrc = await ps2.$eval('#foundationContent iframe', f => f.getAttribute('src')).catch(() => '');
+    check('core book chapter opens the book reader in that style, inside the app', coreSrc === 'book-reader.html?' + new URLSearchParams({ q: 'diploma-mechanical', s: thSlug, ch: `diploma-mechanical/${thSlug}/x`, style: 'abhyas', embed: '1' }));
+    await ps2.evaluate(() => { closeBookLayer(); LIB.ed = {}; }); await ps2.unroute('**/rest/v1/rpc/list_chapter_cores*');
     check('setup flow: no page errors', serr2.length === 0);
     // reopening the app after setup used to crash at the first paint (SETUP_CFG read before it was declared)
     await ps2.reload(); await ps2.waitForTimeout(5000);
     check('reopen after setup: no page errors, books load', serr2.length === 0 && await ps2.evaluate(() => BOOKS.length > 0 && !!SETUP_CFG));
     // editions: a subject can hold several books (app book + owner-made books in a style); students never see the "+" or drafts
     await ps2.click('.nav-item[data-view=library]'); await ps2.waitForTimeout(800);
+    await ps2.waitForSelector('#appGrid .app-icon:not(.soon)', { timeout: 10000 }).catch(() => {});   // books load from the server after a reload
     const edUi = await ps2.evaluate(() => { const shown = [...document.querySelectorAll('#appGrid .app-icon:not(.soon)')].map(e => e.dataset.book);   // a book on screen, else renderLibrary picks another
       const bk = BOOKS.find(b => shown.includes(b.id)); LIB.sel = bk.id;
       EDS = { [bk.id]: [{ id: 901, key: bk.id, style: 'exam', hi: 'परीक्षा शैली · 1', en: 'Exam focus · 1', chapters: [{ n: 1, hi: 'MCQ सेट', en: 'MCQ set' }] }] };
