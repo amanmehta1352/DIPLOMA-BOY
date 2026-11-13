@@ -262,6 +262,12 @@ const check = (name, v) => (v ? ok : bad).push(name);
     check('subject offers Book / Notes / Class / Formulas', (await ps2.$$eval('.lib-mode', e => e.length)) === 4);
     await ps2.screenshot({ path: path.join(SHOTS, 'v5-setup-library.png') });
     check('setup flow: no page errors', serr2.length === 0);
+    // reopening the app after setup used to crash at the first paint (SETUP_CFG read before it was declared)
+    await ps2.reload(); await ps2.waitForTimeout(5000);
+    check('reopen after setup: no page errors, books load', serr2.length === 0 && await ps2.evaluate(() => BOOKS.length > 0 && !!SETUP_CFG));
+    // broad subjects are one book with sections, not several books; every chapter of a course sits in one semester only
+    check('general awareness / general science: one book each', await ps2.evaluate(() => ['general-awareness', 'general-science'].every(s => BOOKS.filter(b => !b.course && b.subject && b.subject.slug === s).length <= 1)));
+    check('my course: no chapter in two semesters', await ps2.evaluate(() => { const seen = {}; return BOOKS.filter(b => b.course && b.kind === 'atoms').every(b => b.chapters.every(c => { const k = c.n; if (seen[k] && seen[k] !== b.stage) return false; seen[k] = b.stage; return true; })); }));
     await c2.close(); }
   await b.close(); srv.close();
   console.log('PASS', ok.length, ok.join(' | '));

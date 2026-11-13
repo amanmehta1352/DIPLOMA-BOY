@@ -1,0 +1,136 @@
+// Engineering: diploma first year, B.Tech first year, and subjects shared by several branches.
+// [unit English, unit Hindi, 'topic; topic; …'] in syllabus order.
+export const O = {
+'mathematics-i': [
+ ['Algebra', 'बीजगणित', 'Logarithms and their laws; Partial fractions; Permutations and combinations; Binomial theorem; Determinants and Cramer’s rule; Matrices: types, operations, inverse'],
+ ['Trigonometry', 'त्रिकोणमिति', 'Angles and measurement; Trigonometric ratios of allied and compound angles; Multiple and sub-multiple angles; Sum and product formulae; Inverse trigonometric functions'],
+ ['Functions and Limits', 'फलन और सीमा', 'Concept of function; Types of functions; Limits of algebraic and trigonometric functions; Standard limits; Continuity'],
+ ['Differential Calculus', 'अवकल गणित', 'Derivative by first principle; Rules of differentiation; Chain rule; Implicit and parametric functions; Logarithmic differentiation; Second order derivatives'],
+ ['Applications of Derivatives and Complex Numbers', 'अवकलज के अनुप्रयोग और सम्मिश्र संख्याएँ', 'Tangent and normal; Rate measure; Maxima and minima; Complex numbers: algebra, modulus, argument; Polar form and De Moivre’s theorem']],
+'mathematics-ii': [
+ ['Integral Calculus', 'समाकलन गणित', 'Integration as inverse of differentiation; Standard integrals; Integration by substitution; Integration by parts; Partial fractions in integration'],
+ ['Definite Integrals and Applications', 'निश्चित समाकल और अनुप्रयोग', 'Properties of definite integrals; Area under curves; Area between two curves; Volume of solids of revolution; Mean and RMS values'],
+ ['Coordinate Geometry', 'निर्देशांक ज्यामिति', 'Distance and section formula; Straight line forms; Angle between lines; Circle; Parabola, ellipse and hyperbola (standard forms)'],
+ ['Differential Equations', 'अवकल समीकरण', 'Order and degree; Variable separable; Homogeneous equations; Linear differential equations; Engineering applications'],
+ ['Vectors, Statistics and Probability', 'सदिश, सांख्यिकी और प्रायिकता', 'Vector algebra; Dot and cross product; Work done and moment; Measures of central tendency and dispersion; Basic probability']],
+'applied-physics-i': [
+ ['Units and Measurements', 'मात्रक और मापन', 'SI units and dimensions; Dimensional analysis; Errors in measurement; Vernier caliper and screw gauge; Significant figures'],
+ ['Force and Motion', 'बल और गति', 'Scalars and vectors; Equations of motion; Newton’s laws; Projectile and circular motion; Friction'],
+ ['Work, Power and Energy', 'कार्य, शक्ति और ऊर्जा', 'Work by constant and variable force; Kinetic and potential energy; Conservation of energy; Power; Efficiency of machines'],
+ ['Rotational Motion and Elasticity', 'घूर्णन गति और प्रत्यास्थता', 'Angular motion; Moment of inertia; Torque and angular momentum; Stress, strain and Hooke’s law; Elastic moduli'],
+ ['Properties of Fluids and Heat', 'द्रवों के गुण और ऊष्मा', 'Pressure and Pascal’s law; Surface tension and capillarity; Viscosity and Stokes’ law; Temperature scales; Modes of heat transfer and thermal expansion']],
+'applied-physics-ii': [
+ ['Wave Motion and Sound', 'तरंग गति और ध्वनि', 'Types of waves; Wave equation; Simple harmonic motion; Resonance; Acoustics of buildings and ultrasonics'],
+ ['Optics', 'प्रकाशिकी', 'Reflection and refraction; Total internal reflection; Lenses and optical instruments; Interference and diffraction basics; Optical fibre principle'],
+ ['Electrostatics', 'स्थिरवैद्युतिकी', 'Coulomb’s law; Electric field and potential; Gauss’s law; Capacitance and capacitors; Dielectrics'],
+ ['Current Electricity and Magnetism', 'धारा विद्युत और चुंबकत्व', 'Ohm’s law and resistivity; Kirchhoff’s laws; Wheatstone bridge; Magnetic effect of current; Electromagnetic induction'],
+ ['Modern Physics and Semiconductors', 'आधुनिक भौतिकी और अर्धचालक', 'Photoelectric effect; Lasers and applications; Energy bands; p-n junction diode; Nanotechnology basics']],
+'applied-chemistry': [
+ ['Atomic Structure and Chemical Bonding', 'परमाणु संरचना और रासायनिक बंधन', 'Bohr model and quantum numbers; Electronic configuration; Ionic, covalent and metallic bonds; Hybridisation; Intermolecular forces'],
+ ['Water Technology', 'जल प्रौद्योगिकी', 'Hardness of water and its estimation; Boiler problems; Water softening (lime-soda, zeolite, ion exchange); Potable water treatment; Reverse osmosis'],
+ ['Engineering Materials', 'इंजीनियरिंग सामग्री', 'Metals and alloys; Cement and its setting; Glass and ceramics; Refractories; Composite materials'],
+ ['Fuels and Lubricants', 'ईंधन और स्नेहक', 'Classification of fuels; Calorific value; Coal analysis; Petroleum and cracking; Lubricants: types and properties'],
+ ['Electrochemistry and Corrosion', 'विद्युत रसायन और संक्षारण', 'Electrolysis and Faraday’s laws; Cells and batteries; Corrosion: dry and wet; Corrosion prevention; Polymers and plastics']],
+'communication-skills-in-english': [
+ ['Communication Basics', 'संचार के मूल तत्व', 'Process of communication; Verbal and non-verbal communication; Barriers to communication; Listening skills; Communication at the workplace'],
+ ['Grammar and Usage', 'व्याकरण और प्रयोग', 'Parts of speech; Tenses; Active and passive voice; Direct and indirect speech; Common errors'],
+ ['Vocabulary and Reading', 'शब्दावली और पठन', 'Synonyms, antonyms and one-word substitution; Technical vocabulary; Reading comprehension; Note making and summarising'],
+ ['Writing Skills', 'लेखन कौशल', 'Paragraph writing; Formal letters and e-mails; Notices and memos; Report writing; Resume and cover letter'],
+ ['Speaking Skills', 'बोलने का कौशल', 'Pronunciation basics; Self-introduction; Group discussion; Interview skills; Presentation skills']],
+'introduction-to-it-systems': [
+ ['Computer Basics', 'कंप्यूटर के मूल तत्व', 'Components of a computer; Input and output devices; Memory and storage; Number systems; Hardware and software'],
+ ['Operating Systems and Files', 'ऑपरेटिंग सिस्टम और फ़ाइलें', 'Windows and Linux basics; File management; Installing software; Utility programs'],
+ ['Office Tools', 'ऑफ़िस टूल', 'Word processing; Spreadsheets and formulas; Presentations; Online documents'],
+ ['Internet and Networking', 'इंटरनेट और नेटवर्किंग', 'Types of networks; Internet services; Browsers and search; E-mail; Cloud basics'],
+ ['Cyber Safety and Programming Basics', 'साइबर सुरक्षा और प्रोग्रामिंग की शुरुआत', 'Cyber threats and safe practices; Digital payments safety; Algorithms and flowcharts; Basic HTML page']],
+'fundamentals-of-electrical-electronics-engineering': [
+ ['DC Circuits', 'DC परिपथ', 'Voltage, current, resistance; Ohm’s law; Series and parallel circuits; Kirchhoff’s laws; Power and energy'],
+ ['AC Fundamentals', 'AC के मूल सिद्धांत', 'Generation of AC; RMS and average values; Phasors; R-L-C circuits; Power factor; Three-phase supply basics'],
+ ['Magnetic Circuits and Machines', 'चुंबकीय परिपथ और मशीनें', 'Magnetic circuit terms; Electromagnetic induction; Transformer working; DC and induction motor basics'],
+ ['Electronic Components and Devices', 'इलेक्ट्रॉनिक घटक और उपकरण', 'Passive components; Semiconductor diode; Rectifiers; Zener regulator; Transistor as switch and amplifier'],
+ ['Digital Basics and Safety', 'डिजिटल मूल तत्व और सुरक्षा', 'Number systems; Logic gates; Electrical wiring and earthing; Electrical safety and shock first aid']],
+'engineering-mechanics': [
+ ['Basics and Force Systems', 'मूल तत्व और बल प्रणाली', 'Idealisations: particle, rigid body; Force and its characteristics; Resolution and composition; Law of parallelogram and triangle; Lami’s theorem'],
+ ['Moments and Equilibrium', 'आघूर्ण और संतुलन', 'Moment and Varignon’s theorem; Couple; Conditions of equilibrium; Free body diagram; Support reactions of beams'],
+ ['Friction', 'घर्षण', 'Laws of friction; Angle of friction and repose; Block on inclined plane; Ladder friction; Belt friction basics'],
+ ['Centroid and Moment of Inertia', 'केन्द्रक और जड़त्व आघूर्ण', 'Centroid of plane areas; Centre of gravity; Parallel and perpendicular axis theorem; Moment of inertia of standard sections'],
+ ['Simple Machines, Trusses and Dynamics', 'सरल मशीनें, ट्रस और गतिकी', 'Mechanical advantage, velocity ratio, efficiency; Lifting machines; Analysis of simple trusses; Kinematics and D’Alembert’s principle; Work-energy and impulse-momentum']],
+'environmental-science': [
+ ['Ecosystems', 'पारितंत्र', 'Structure and function of an ecosystem; Food chains and webs; Energy flow; Biodiversity and its conservation'],
+ ['Natural Resources', 'प्राकृतिक संसाधन', 'Forest, water and mineral resources; Energy resources: renewable and non-renewable; Sustainable use'],
+ ['Pollution', 'प्रदूषण', 'Air pollution and control; Water pollution and treatment; Noise and soil pollution; Solid and e-waste management'],
+ ['Global Issues and Laws', 'वैश्विक मुद्दे और कानून', 'Climate change and global warming; Ozone depletion; Acid rain; Environmental Protection Act; EIA basics'],
+ ['Disaster and Sustainable Development', 'आपदा और सतत विकास', 'Disaster types and management; Rainwater harvesting; Green buildings; Sustainable development goals']],
+'environmental-studies': 'environmental-science',
+'essence-of-indian-knowledge-tradition': [
+ ['Indian Knowledge System', 'भारतीय ज्ञान प्रणाली', 'Vedas and Upanishads overview; Six schools of philosophy; Knowledge transmission traditions'],
+ ['Science and Technology in India', 'भारत में विज्ञान और प्रौद्योगिकी', 'Mathematics and astronomy (Aryabhata, Brahmagupta); Metallurgy; Architecture and town planning; Ayurveda and Yoga'],
+ ['Culture and Society', 'संस्कृति और समाज', 'Indian languages and literature; Art forms; Traditional knowledge and environment; Modern relevance']],
+'entrepreneurship-start-ups': [
+ ['Entrepreneurship Basics', 'उद्यमिता के मूल तत्व', 'Concept and qualities of an entrepreneur; Types of enterprises; MSME definitions; Role in the economy'],
+ ['Idea to Business Plan', 'विचार से व्यापार योजना', 'Idea generation; Market survey; Feasibility study; Project report preparation'],
+ ['Finance and Support', 'वित्त और सहायता', 'Sources of finance; Government schemes (Startup India, MUDRA, PMEGP); Incubators; Bank loans'],
+ ['Running an Enterprise', 'उद्यम संचालन', 'Registration and licences; Costing and pricing; Marketing; Taxation (GST) basics; Intellectual property basics']],
+'engineering-physics': [
+ ['Waves and Oscillations', 'तरंगें और दोलन', 'Simple, damped and forced oscillations; Resonance; Wave equation; Ultrasonics'],
+ ['Optics', 'प्रकाशिकी', 'Interference (thin films, Newton’s rings); Diffraction (single slit, grating); Polarisation; Lasers; Optical fibres'],
+ ['Electromagnetism', 'विद्युत-चुंबकत्व', 'Gradient, divergence, curl; Gauss and Stokes theorems; Maxwell’s equations; EM wave propagation'],
+ ['Quantum Mechanics', 'क्वांटम यांत्रिकी', 'Wave-particle duality; Uncertainty principle; Schrödinger equation; Particle in a box'],
+ ['Solid State Physics', 'ठोस अवस्था भौतिकी', 'Crystal structure; Band theory; Semiconductors; Superconductivity; Nanomaterials']],
+'engineering-chemistry': [
+ ['Atomic and Molecular Structure', 'परमाणु और आणविक संरचना', 'Molecular orbital theory; Crystal field theory; Band structure of solids'],
+ ['Spectroscopy', 'स्पेक्ट्रोस्कोपी', 'UV-visible; IR; NMR basics; Applications'],
+ ['Thermodynamics and Electrochemistry', 'ऊष्मागतिकी और विद्युत रसायन', 'Free energy and equilibrium; Nernst equation; Batteries and fuel cells; Corrosion'],
+ ['Water and Polymers', 'जल और बहुलक', 'Hardness and treatment; Polymerisation; Plastics and elastomers; Conducting polymers'],
+ ['Organic Reactions and Drug Synthesis', 'कार्बनिक अभिक्रियाएँ और औषधि संश्लेषण', 'Substitution, addition, elimination; Stereochemistry basics; Synthesis of common drugs']],
+'mathematics-i-calculus-linear-algebra': [
+ ['Differential Calculus', 'अवकल गणित', 'Rolle’s and mean value theorems; Taylor and Maclaurin series; Indeterminate forms; Curvature'],
+ ['Integral Calculus', 'समाकलन गणित', 'Beta and gamma functions; Improper integrals; Area, volume and surface of revolution'],
+ ['Multivariable Calculus', 'बहुचर कलन', 'Partial derivatives; Euler’s theorem; Jacobians; Maxima and minima of two variables; Lagrange multipliers'],
+ ['Multiple Integrals', 'बहु समाकल', 'Double and triple integrals; Change of order; Change of variables'],
+ ['Linear Algebra', 'रैखिक बीजगणित', 'Rank of a matrix; Linear equations; Eigenvalues and eigenvectors; Cayley-Hamilton theorem; Diagonalisation']],
+'mathematics-ii-differential-equations-complex-variables': [
+ ['First Order ODEs', 'प्रथम कोटि अवकल समीकरण', 'Exact equations; Linear and Bernoulli equations; Applications'],
+ ['Higher Order ODEs', 'उच्च कोटि अवकल समीकरण', 'Linear equations with constant coefficients; Variation of parameters; Cauchy-Euler equations'],
+ ['Vector Calculus', 'सदिश कलन', 'Gradient, divergence, curl; Line, surface and volume integrals; Green, Gauss and Stokes theorems'],
+ ['Complex Variables', 'सम्मिश्र चर', 'Analytic functions; Cauchy-Riemann equations; Cauchy integral theorem; Residues'],
+ ['Laplace Transforms', 'लाप्लास रूपांतरण', 'Laplace transform and inverse; Properties; Solving ODEs']],
+'mathematics-iii': [
+ ['Fourier Series', 'फ़ूरियर श्रेणी', 'Euler’s formulae; Even and odd functions; Half-range series'],
+ ['Partial Differential Equations', 'आंशिक अवकल समीकरण', 'Formation; Lagrange’s method; Separation of variables; Wave and heat equations'],
+ ['Probability', 'प्रायिकता', 'Random variables; Binomial, Poisson and normal distributions; Expectation'],
+ ['Statistics', 'सांख्यिकी', 'Correlation and regression; Curve fitting; Tests of significance'],
+ ['Numerical Methods', 'संख्यात्मक विधियाँ', 'Roots of equations; Interpolation; Numerical integration; Numerical solution of ODEs']],
+'mathematics-iii-pde-probability-statistics': 'mathematics-iii',
+'basic-electrical-engineering': [
+ ['DC Circuits', 'DC परिपथ', 'Circuit elements; Kirchhoff’s laws; Mesh and nodal analysis; Superposition, Thevenin and Norton theorems'],
+ ['AC Circuits', 'AC परिपथ', 'Phasor representation; RLC series and parallel; Resonance; Power and power factor; Three-phase circuits'],
+ ['Transformers', 'ट्रांसफ़ॉर्मर', 'Construction and working; EMF equation; Equivalent circuit; Losses, efficiency and regulation'],
+ ['Electrical Machines', 'विद्युत मशीनें', 'DC machines; Three-phase induction motor; Single-phase motors; Synchronous generator basics'],
+ ['Installations', 'संस्थापन', 'Switchgear (fuse, MCB, ELCB); Wiring and earthing; Batteries; Energy consumption and tariff']],
+'programming-for-problem-solving': [
+ ['Problem Solving Basics', 'समस्या समाधान के मूल तत्व', 'Algorithms and flowcharts; From algorithm to program; Compilation and execution'],
+ ['C Fundamentals', 'C के मूल तत्व', 'Data types and variables; Operators and expressions; Input and output; Control statements and loops'],
+ ['Arrays and Strings', 'ऐरे और स्ट्रिंग', 'One and two dimensional arrays; Strings and string functions; Searching and sorting basics'],
+ ['Functions and Recursion', 'फ़ंक्शन और पुनरावर्तन', 'Functions and parameter passing; Recursion; Storage classes'],
+ ['Pointers, Structures and Files', 'पॉइंटर, स्ट्रक्चर और फ़ाइलें', 'Pointers and arrays; Dynamic memory; Structures and unions; File handling']],
+'btech-english': [
+ ['Vocabulary Building', 'शब्दावली निर्माण', 'Word formation; Synonyms and antonyms; Standard abbreviations; Technical vocabulary'],
+ ['Basic Writing Skills', 'लेखन कौशल', 'Sentence structures; Paragraph organisation; Coherence; Precis writing'],
+ ['Grammar and Common Errors', 'व्याकरण और सामान्य त्रुटियाँ', 'Subject-verb agreement; Articles and prepositions; Redundancies; Clichés'],
+ ['Nature and Style of Writing', 'लेखन की प्रकृति और शैली', 'Describing, defining, classifying; Introduction and conclusion; Report and letter writing'],
+ ['Oral Communication', 'मौखिक संचार', 'Listening comprehension; Pronunciation and intonation; Conversation; Interviews and group discussion']],
+'mathematics-calculus-algebra-pcm': 'mathematics-i-calculus-linear-algebra',
+'btech-basic-electronics': [
+ ['Semiconductor Diodes', 'अर्धचालक डायोड', 'p-n junction; Diode characteristics; Rectifiers and filters; Zener diode; Special diodes (LED, photodiode)'],
+ ['Transistors', 'ट्रांजिस्टर', 'BJT configurations and biasing; Transistor as amplifier and switch; FET and MOSFET basics'],
+ ['Operational Amplifiers', 'ऑपरेशनल एम्प्लीफ़ायर', 'Ideal op-amp; Inverting and non-inverting amplifiers; Summer, integrator, differentiator; Comparators'],
+ ['Digital Electronics', 'डिजिटल इलेक्ट्रॉनिक्स', 'Number systems; Boolean algebra; Logic gates; Combinational circuits; Flip-flops'],
+ ['Communication and Instruments', 'संचार और उपकरण', 'Modulation basics; CRO; Transducers and sensors']],
+'finite-element-analysis': [
+ ['Introduction and Variational Methods', 'परिचय और विचरणात्मक विधियाँ', 'Steps in FEM; Rayleigh-Ritz and Galerkin methods; Boundary conditions'],
+ ['One-dimensional Elements', 'एक-आयामी अवयव', 'Bar and truss elements; Shape functions; Stiffness matrix and assembly'],
+ ['Beams and Frames', 'बीम और फ़्रेम', 'Beam element; Plane frames; Loads and supports'],
+ ['Two-dimensional Elements', 'द्वि-आयामी अवयव', 'CST and quadrilateral elements; Plane stress and plane strain; Isoparametric formulation'],
+ ['Applications', 'अनुप्रयोग', 'Heat transfer problems; Dynamic analysis basics; FEM software workflow']],
+};

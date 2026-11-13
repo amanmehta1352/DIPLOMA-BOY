@@ -1,9 +1,11 @@
 name: Course syllabus loader
-# Upserts course subject names (stage-wise) into mtb.course_subjects. Names only; no chapter content.
+# Syncs course subjects (stage-wise) into mtb.course_subjects. Names, groups, outline keys and chapter mapping; no chapter content.
+# The builder (node) checks the rules (no chapter in two semesters, every theory subject has a topic outline) and must
+# reproduce the committed JSON exactly.
 on:
   push:
     branches: [course-syllabus, main]
-    paths: ['content/course-syllabus/**', 'tools/load_course_syllabus.py', '.github/workflows/course-syllabus-load.yml']
+    paths: ['content/course-syllabus/**', 'tools/syllabus/**', 'tools/build_course_syllabus.mjs', 'tools/load_course_syllabus.py', '.github/workflows/course-syllabus-load.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -13,11 +15,16 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
       - name: Rebuild check
-        run: cp content/course-syllabus/syllabus.json /tmp/a.json && python3 tools/build_course_syllabus.py && cmp /tmp/a.json content/course-syllabus/syllabus.json
-      - name: Upsert
+        run: |
+          cp content/course-syllabus/syllabus.json /tmp/a.json && cp content/course-syllabus/outline.json /tmp/b.json
+          node tools/build_course_syllabus.mjs
+          cmp /tmp/a.json content/course-syllabus/syllabus.json && cmp /tmp/b.json content/course-syllabus/outline.json
+      - name: Sync
         env:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
         run: python3 tools/load_course_syllabus.py
