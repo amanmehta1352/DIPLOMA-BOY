@@ -925,7 +925,9 @@ function renderOutline(bk){ const key=bk.outline||(bk.subject&&bk.subject.slug?'
 /* approved chapter cores of this subject (migration 0176) → link to book-reader.html, where the student picks a book style.
    Shown only when at least one core is approved, so no one lands on an empty page. One request per subject per visit. */
 const CORES={};
-function renderCoreLink(bk){ const qq=DB.setup&&DB.setup.qual&&setupQual(DB.setup.qual), sj=bk.subject&&bk.subject.slug; if(!qq||!qq.slug||!sj) return;
+function renderCoreLink(bk){ const qq=DB.setup&&DB.setup.qual&&setupQual(DB.setup.qual);
+  // cores are keyed by the course's own subject slug (course_subjects.slug, the last part of a course book id), not the level catalog's
+  const sj=bk.course?String(bk.id).split(':').pop():(bk.subject&&bk.subject.slug); if(!qq||!qq.slug||!sj) return;
   const k=qq.slug+'|'+sj;
   (CORES[k]||(CORES[k]=sbGet('rpc/list_chapter_cores?p_qual='+encodeURIComponent(qq.slug)+'&p_subject='+encodeURIComponent(sj)).catch(()=>{ delete CORES[k]; return []; })))
     .then(list=>{ const box=document.getElementById('coreBox'); if(!box||LIB.sel!==bk.id||!Array.isArray(list)||!list.length) return;
