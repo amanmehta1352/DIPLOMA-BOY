@@ -36,3 +36,12 @@ assert WW._hindi_major('वेग v = s/t, इकाई m/s, KE = (1/2) × m × 
 print('hindi maths selftest ok')
 assert not WW._hindi_major('यह the cat sat on the mat and the dog ran far away from it')   # ordinary English words still count
 print('hindi exemptions narrow selftest ok')
+assert WW.add_owner_note('P', '') == 'P' and WW.add_owner_note('P', None) == 'P'
+n = WW.add_owner_note('P', 'सूत्र की इकाई जोड़ो')
+assert n.startswith('P') and n.rstrip().endswith('सूत्र की इकाई जोड़ो') and 'मालिक' in n
+assert len(WW.add_owner_note('P', 'x' * 5000)) < 1700
+print('owner note selftest ok')
+import json as _j
+_cfg = _j.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'ecosystem', 'config.json'), encoding='utf-8'))
+assert _cfg['auto_approve'] is False, 'owner quality gate: robots must never publish (auto_approve must stay false)'
+print('owner gate selftest ok')
