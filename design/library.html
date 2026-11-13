@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library design · Diploma Boy</title>
+<style>
+:root{--bg:#0b1020;--side:#0f1629;--card:#141d33;--card2:#1a2440;--line:#26324f;--text:#e7ecf5;--muted:#a3aec4;--accent:#00e5cc;--accent-ink:#04342c;
+--paper:#fffdf8;--ink:#18212b;--ink2:#4b5866;--pline:#d4dce2;--fam:#b45309}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:16px/1.6 "Noto Sans Devanagari","Nirmala UI","Segoe UI",system-ui,sans-serif}
+a{color:inherit}button{font:inherit;color:inherit;cursor:pointer}
+.app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+.side{background:var(--side);border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;padding:4px 10px 18px}
+.brand i{width:34px;height:34px;border-radius:10px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-style:normal;font-weight:800}
+.nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;text-decoration:none;color:var(--muted);min-height:44px}
+.nav a.on,.nav a:hover{background:var(--card2);color:var(--text)}.nav a.on{box-shadow:inset 3px 0 0 var(--accent)}
+.side .foot{margin-top:auto;font-size:13px;color:var(--muted);padding:10px;border:1px solid var(--line);border-radius:12px}
+main{min-width:0}
+.top{display:flex;align-items:center;gap:14px;padding:16px 32px;border-bottom:1px solid var(--line);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);z-index:5}
+.search{flex:1;max-width:560px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 14px;min-height:44px;color:var(--muted)}
+.search input{flex:1;background:none;border:0;color:var(--text);font:inherit;min-height:42px;outline:none}
+.kbd{font-size:12px;border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--card2);display:grid;place-items:center;border:1px solid var(--line)}
+.wrap{padding:28px 32px 60px;max-width:1280px}
+.crumb{font-size:14px;color:var(--muted);margin-bottom:10px}.crumb a{text-decoration:none}.crumb a:hover{color:var(--text)}
+h1{font-size:30px;line-height:1.3;margin:0 0 6px}.lead{color:var(--muted);margin:0 0 26px;max-width:70ch}
+h2.sec{font-size:19px;margin:30px 0 14px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;text-decoration:none;display:block;transition:border-color .15s,transform .15s}
+a.card:hover,button.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .ic{font-size:26px}.card b{display:block;font-size:17px;margin:8px 0 2px}.card small{color:var(--muted);display:block}
+.bar{height:6px;background:var(--card2);border-radius:99px;margin-top:12px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.continue{display:grid;grid-template-columns:96px 1fr auto;gap:18px;align-items:center;background:linear-gradient(0deg,var(--card),var(--card));border:1px solid var(--line);border-radius:18px;padding:16px}
+.mini-book{height:120px;border-radius:8px;background:var(--paper);position:relative;overflow:hidden;border-left:8px solid var(--fam)}
+.mini-book::after{content:"";position:absolute;inset:16px 12px auto 12px;height:60px;background:repeating-linear-gradient(#d4dce2 0 2px,transparent 2px 10px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--accent)}
+.styles{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(205px,1fr))}
+.style-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
+.style-card:hover{border-color:var(--accent)}
+.style-card .pv{background:#e9edf2;padding:14px;height:170px}
+.pv .pg{background:var(--paper);height:100%;border-radius:6px;padding:10px 12px;color:var(--ink);font-size:10px;line-height:1.35;overflow:hidden;box-shadow:0 1px 0 #cfd6de}
+.pv .h{font-weight:800;font-size:12px;border-left:4px solid var(--fam);padding-left:6px;margin-bottom:6px}
+.pv .l{height:5px;background:#d4dce2;border-radius:3px;margin:4px 0}.pv .l.s{width:60%}
+.pv .bx{border:1.5px solid;border-radius:5px;padding:4px 6px;margin:6px 0;font-weight:700}
+.pv .bx.b{border-color:#3b82f6;color:#1d4ed8;background:#eff6ff}.pv .bx.y{border-color:#f59e0b;background:#fde68a;color:#0f172a}
+.pv .bx.o{border-color:#f59e0b;color:#b45309;background:#fffbeb}.pv .bx.g{border-color:#10b981;color:#047857;background:#ecfdf5}.pv .bx.r{border-color:#ef4444;color:#b91c1c;background:#fef2f2}
+.pv .big{height:70px;border:1.5px dashed #8b5cf6;border-radius:6px;display:grid;place-items:center;color:#6d28d9;font-weight:700;margin:6px 0}
+.style-card .meta{padding:14px 16px 16px}.style-card b{font-size:17px}.style-card small{color:var(--muted);display:block;margin-top:2px}
+.tag{display:inline-block;font-size:12px;border-radius:99px;padding:2px 10px;background:var(--card2);color:var(--muted);margin-top:8px}
+.tag.rec{background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
+.official{display:flex;gap:16px;align-items:center;border:1px dashed var(--line);border-radius:16px;padding:16px;margin-top:20px}
+.official small{color:var(--muted);display:block}
+/* reader */
+.reader{display:grid;grid-template-columns:210px minmax(0,1fr) 250px;gap:24px;padding:20px 24px 60px;max-width:1500px}
+.toc,.rail{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 100px);overflow:auto}
+.toc h4,.rail h4{margin:0 0 10px;font-size:14px;color:var(--muted);font-weight:600}
+.toc a{display:block;padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--muted);font-size:15px}.toc a.on,.toc a:hover{background:var(--card2);color:var(--text)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.fchip{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}.fchip:last-child{border:0}
+.rtabs{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.rtabs a{padding:8px 16px;border-radius:99px;text-decoration:none;color:var(--muted);border:1px solid var(--line);min-height:40px;display:inline-flex;align-items:center}
+.rtabs a.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+.rtabs select{margin-left:auto;background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:10px;min-height:40px;padding:0 10px;font:inherit}
+.page{background:var(--paper);color:var(--ink);border-radius:10px;padding:40px 56px 56px;font-size:17px;line-height:1.8;max-width:820px}
+.page .running{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2);border-bottom:1px solid var(--pline);padding-bottom:6px;margin-bottom:22px}
+.page h1{color:var(--ink);font-family:"Noto Serif Devanagari","Nirmala UI",serif;font-size:30px;margin:2px 0}
+.ch-head{border-left:6px solid var(--fam);padding-left:16px;margin-bottom:18px}.ch-no{color:var(--fam);font-weight:800;font-size:14px;letter-spacing:.05em}.ch-head .en{color:var(--ink2)}
+.page h2{font-family:"Noto Serif Devanagari","Nirmala UI",serif;font-size:23px;margin:34px 0 10px;border-bottom:2px solid var(--fam);padding-bottom:6px;color:var(--ink)}
+.page h2 .no{color:var(--fam);margin-right:8px}
+.page p{margin:0 0 14px}
+.box{border:2px solid;border-radius:12px;margin:18px 0;overflow:hidden}.box .bh{font-weight:700;padding:6px 14px;border-bottom:2px solid;font-size:15px}.box .bb{padding:10px 14px}.box .bb>:last-child{margin-bottom:0}
+.defn{border-color:#3b82f6}.defn .bh{background:#eff6ff;color:#1d4ed8;border-color:#3b82f6}
+.formula{border-color:#f59e0b}.formula .bh{background:#fde68a;color:#0f172a;border-color:#f59e0b}
+.example{border-color:#f59e0b}.example .bh{background:#fffbeb;color:#b45309;border-color:#f59e0b}
+.activity{border-color:#10b981}.activity .bh{background:#ecfdf5;color:#047857;border-color:#10b981}
+.why{border-color:#8b5cf6}.why .bh{background:#f5f3ff;color:#6d28d9;border-color:#8b5cf6}
+.mistakes{border-color:#ef4444}.mistakes .bh{background:#fef2f2;color:#b91c1c;border-color:#ef4444}
+.short{border-color:#14b8a6}.short .bh{background:#f0fdfa;color:#0f766e;border-color:#14b8a6}
+.eq{font:600 21px/1.6 "Cambria Math","Times New Roman",serif;text-align:center;margin:6px 0}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px;line-height:1.15}.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
+.step{margin:0 0 6px;padding-left:12px;border-left:3px solid #fde68a}
+.ans{display:inline-block;border:2px solid #b45309;border-radius:99px;padding:2px 14px;font-weight:700;color:#b45309}
+figure{margin:18px 0;text-align:center}figure svg{width:100%;max-width:440px;height:auto}figcaption{font-size:14px;color:var(--ink2)}
+[data-only]{display:none}
+table.obs{border-collapse:collapse;width:100%;font-size:15px}table.obs th,table.obs td{border:1px solid var(--pline);padding:6px;text-align:center}table.obs th{background:#f3f5f6}
+.ladder li{margin-bottom:6px}.lv{font-size:12px;font-weight:700;border-radius:99px;padding:1px 8px;margin-right:6px}.lv.e{background:#ecfdf5;color:#047857}.lv.m{background:#fffbeb;color:#b45309}.lv.h{background:#fef2f2;color:#b91c1c}
+.mobile-nav{display:none}
+.note{font-size:13px;color:var(--muted);margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+@media (max-width:1360px){.reader{grid-template-columns:210px minmax(0,1fr)}.rail{display:none}.page{padding:32px 36px 48px}}
+@media (max-width:900px){
+ .app{grid-template-columns:1fr}.side{display:none}
+ .top{padding:10px 16px}.top .kbd{display:none}.wrap{padding:18px 16px 96px}
+ h1{font-size:25px}.continue{grid-template-columns:64px 1fr}.continue .btn{grid-column:1/-1}.mini-book{height:84px}
+ .reader{grid-template-columns:1fr;padding:12px 0 96px;gap:12px}.toc{display:none}
+ .page{border-radius:0;padding:22px 16px 40px;font-size:17px}.page h1{font-size:25px}
+ .rtabs{padding:0 16px;gap:5px}.rtabs a{padding:6px 10px;font-size:15px;min-height:44px}.rtabs select{margin-left:0;width:100%;min-height:44px}
+ .mobile-nav{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--side);border-top:1px solid var(--line);z-index:10;padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+ .mobile-nav a{flex:1;display:flex;flex-direction:column;align-items:center;font-size:12px;color:var(--muted);text-decoration:none;min-height:52px;justify-content:center;border-radius:10px}.mobile-nav a.on{color:var(--accent)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+ <aside class="side" aria-label="मुख्य menu">
+  <div class="brand"><i>DB</i>Diploma Boy</div>
+  <nav class="nav">
+   <a href="#home" class="on" data-nav="home">📚 Library</a>
+   <a href="#home" data-nav="mine">🔖 मेरी किताबें</a>
+   <a href="#home" data-nav="practice">📝 Practice</a>
+   <a href="#home" data-nav="progress">📈 Progress</a>
+   <a href="#home" data-nav="more">⚙️ सेटिंग</a>
+  </nav>
+  <div class="foot">आज का लक्ष्य: 2 खंड पढ़ना<div class="bar"><i style="width:50%"></i></div></div>
+ </aside>
+ <main>
+  <header class="top">
+   <label class="search"><span aria-hidden="true">🔍</span><input placeholder="अध्याय, विषय या सूत्र खोजें…" aria-label="खोजें"><span class="kbd">/</span></label>
+   <div class="avatar" aria-label="प्रोफ़ाइल">👤</div>
+  </header>
+  <div id="view"></div>
+ </main>
+</div>
+<nav class="mobile-nav" aria-label="मुख्य menu">
+ <a href="#home" class="on">📚<span>Library</span></a><a href="#home">🔖<span>मेरी</span></a><a href="#home">📝<span>Practice</span></a><a href="#home">📈<span>Progress</span></a>
+</nav>
+
+<template id="t-home">
+ <div class="wrap">
+  <h1>नमस्ते! आज क्या पढ़ें?</h1>
+  <p class="lead">अपनी कक्षा या course चुनें, फिर विषय, फिर अपनी पसंद की किताब-शैली।</p>
+  <div class="continue">
+   <div class="mini-book" aria-hidden="true"></div>
+   <div><small style="color:var(--muted)">पढ़ना जारी रखें · कक्षा 10 · विज्ञान · 📗 सरल पाठ्यपुस्तक</small><b style="display:block;font-size:19px">अध्याय 4 · विद्युत धारा और ओम का नियम</b><div class="bar"><i style="width:40%"></i></div></div>
+   <a class="btn" href="#read/saral">आगे पढ़ें →</a>
+  </div>
+  <h2 class="sec">कक्षा / Course</h2>
+  <div class="grid">
+   <a class="card" href="#level"><span class="ic">🧪</span><b>कक्षा 10</b><small>विज्ञान · गणित · सामाजिक विज्ञान</small><div class="bar"><i style="width:62%"></i></div></a>
+   <a class="card" href="#level"><span class="ic">⚙️</span><b>Diploma Mechanical</b><small>6 सेमेस्टर · 38 विषय</small><div class="bar"><i style="width:35%"></i></div></a>
+   <a class="card" href="#level"><span class="ic">🏗️</span><b>JE Civil</b><small>RRB JE · SSC JE</small><div class="bar"><i style="width:48%"></i></div></a>
+   <a class="card" href="#level"><span class="ic">⚡</span><b>Diploma Electrical</b><small>6 सेमेस्टर · 36 विषय</small><div class="bar"><i style="width:22%"></i></div></a>
+   <a class="card" href="#level"><span class="ic">🔬</span><b>कक्षा 12 विज्ञान</b><small>भौतिकी · रसायन · जीव · गणित</small><div class="bar"><i style="width:18%"></i></div></a>
+   <a class="card" href="#level"><span class="ic">📗</span><b>कक्षा 6-8</b><small>सभी विषय</small><div class="bar"><i style="width:30%"></i></div></a>
+  </div>
+ </div>
+</template>
+
+<template id="t-level">
+ <div class="wrap">
+  <div class="crumb"><a href="#home">Library</a> › कक्षा 10</div>
+  <h1>कक्षा 10</h1><p class="lead">विषय चुनें। हर विषय में आप अपनी पसंद की शैली में पूरी किताब पढ़ सकते हैं।</p>
+  <div class="grid">
+   <a class="card" href="#subject"><span class="ic">🧪</span><b>विज्ञान</b><small>16 अध्याय · भौतिकी, रसायन, जीव</small><div class="bar"><i style="width:62%"></i></div></a>
+   <a class="card" href="#subject"><span class="ic">➗</span><b>गणित</b><small>15 अध्याय</small><div class="bar"><i style="width:40%"></i></div></a>
+   <a class="card" href="#subject"><span class="ic">🌍</span><b>सामाजिक विज्ञान</b><small>4 किताबें</small><div class="bar"><i style="width:10%"></i></div></a>
+   <a class="card" href="#subject"><span class="ic">📖</span><b>हिंदी</b><small>जल्द</small><div class="bar"><i style="width:0"></i></div></a>
+  </div>
+ </div>
+</template>
+
+<template id="t-subject">
+ <div class="wrap">
+  <div class="crumb"><a href="#home">Library</a> › <a href="#level">कक्षा 10</a> › विज्ञान</div>
+  <h1>विज्ञान · कक्षा 10</h1><p class="lead">एक ही सत्यापित सामग्री, पाँच तरह से लिखी। जैसा पढ़ना पसंद हो, वैसी किताब चुनें। बाद में किसी भी अध्याय में बदल सकते हैं।</p>
+  <div class="styles">
+   <a class="style-card" href="#read/saral"><div class="pv"><div class="pg"><div class="h">4 · विद्युत धारा</div><div class="l"></div><div class="l s"></div><div class="bx g">क्रियाकलाप 4.1</div><div class="l"></div><div class="bx b">परिभाषा</div><div class="l s"></div></div></div>
+    <div class="meta"><b>📗 सरल पाठ्यपुस्तक</b><small>छोटे खंड, रोज़ के उदाहरण, क्रियाकलाप</small><span class="tag rec">आपके level के लिए सुझाव</span></div></a>
+   <a class="style-card" href="#read/vistar"><div class="pv"><div class="pg"><div class="h">4 · विद्युत धारा</div><div class="l"></div><div class="l"></div><div class="l s"></div><div class="bx y">V = IR की व्युत्पत्ति</div><div class="l"></div><div class="l"></div><div class="l s"></div></div></div>
+    <div class="meta"><b>📘 विस्तृत व्याख्या</b><small>पूरी व्युत्पत्ति, "क्यों", side-notes</small><span class="tag">गहराई से समझने के लिए</span></div></a>
+   <a class="style-card" href="#read/abhyas"><div class="pv"><div class="pg"><div class="h">4 · विद्युत धारा</div><div class="l s"></div><div class="bx o">उदाहरण 4.1</div><div class="bx o">उदाहरण 4.2</div><div class="bx r">आसान → कठिन प्रश्न</div></div></div>
+    <div class="meta"><b>📙 अभ्यास-प्रधान</b><small>हर खंड के बाद हल + प्रश्न-सीढ़ी</small><span class="tag">board तैयारी</span></div></a>
+   <a class="style-card" href="#read/pariksha"><div class="pv"><div class="pg"><div class="h">4 · विद्युत धारा</div><div class="bx y">सूत्र-तालिका</div><div class="bx b">⚡ Shortcut</div><div class="bx r">MCQ × 20</div><div class="l s"></div></div></div>
+    <div class="meta"><b>📕 परीक्षा-केंद्रित</b><small>सूत्र-तालिका, shortcut, MCQ</small><span class="tag">प्रतियोगी परीक्षा</span></div></a>
+   <a class="style-card" href="#read/chitra"><div class="pv"><div class="pg"><div class="h">4 · विद्युत धारा</div><div class="big">बड़ा चित्र</div><div class="l s"></div><div class="big" style="height:40px">flow</div></div></div>
+    <div class="meta"><b>📒 चित्र-प्रधान</b><small>हर बात एक बड़े labelled चित्र से</small><span class="tag">देखकर समझने वालों के लिए</span></div></a>
+  </div>
+  <div class="official"><span style="font-size:28px">🏛️</span><div><b>आधिकारिक किताब पढ़नी है?</b><small>Board की अपनी मुफ़्त किताब उसकी आधिकारिक वेबसाइट पर खुलेगी (बाहरी link)। हम उसकी copy नहीं रखते।</small></div><a class="btn ghost" href="#subject" style="margin-left:auto">खोलें ↗</a></div>
+  <p class="note">Design नमूना · शैलियों के नाम किसी लेखक/प्रकाशक के नहीं, पढ़ने के तरीके के हैं (docs/LIBRARY_ARCHITECTURE.md §1)।</p>
+ </div>
+</template>
+
+<template id="t-read">
+ <div class="reader">
+  <nav class="toc" aria-label="अध्याय-सूची">
+   <div class="crumb"><a href="#subject">‹ विज्ञान · कक्षा 10</a></div>
+   <h4>अध्याय 4</h4>
+   <a href="#read" class="on" data-jump="s1">4.1 विद्युत धारा</a><a href="#read" data-jump="s2">4.2 विभवांतर</a><a href="#read" data-jump="s3">4.3 ओम का नियम</a>
+   <a href="#read" data-jump="mist">आम गलतियाँ</a><a href="#read" data-jump="ex">अभ्यास</a>
+   <h4 style="margin-top:18px">दूसरे अध्याय</h4><a href="#read">3 · धातु और अधातु</a><a href="#read">5 · विद्युत के प्रभाव</a>
+  </nav>
+  <div>
+   <div class="rtabs"><a href="#read" class="on">📖 Book</a><a href="#read">🗒️ Notes</a><a href="#read">🧑‍🏫 Teach</a><a href="#read">✳️ सूत्र</a>
+    <select id="styleSel" aria-label="किताब की शैली"><option value="saral">📗 सरल पाठ्यपुस्तक</option><option value="vistar">📘 विस्तृत व्याख्या</option><option value="abhyas">📙 अभ्यास-प्रधान</option><option value="pariksha">📕 परीक्षा-केंद्रित</option><option value="chitra">📒 चित्र-प्रधान</option></select></div>
+   <article class="page" id="page">
+    <div class="running"><span>विज्ञान · कक्षा 10 · <span id="styleName">सरल पाठ्यपुस्तक</span></span><span>अध्याय 4</span></div>
+    <header class="ch-head"><div class="ch-no">अध्याय 4</div><h1>विद्युत धारा और ओम का नियम</h1><div class="en">Electric Current and Ohm's Law</div></header>
+    <p>रात में स्विच दबाते ही बल्ब जल उठता है। तार के अंदर कुछ ऐसा बह रहा है जो दिखता नहीं, पर काम करता है। इस अध्याय में हम जानेंगे कि वह क्या है, उसे कैसे नापते हैं और वह किस नियम से चलता है।</p>
+    <div class="box short" data-only="pariksha"><div class="bh">⚡ एक नज़र में (परीक्षा के लिए)</div><div class="bb"><p>I = Q/t · V = W/Q · V = IR · R = ρL/A · 1 A = 1 C/s · 1 V = 1 J/C · Ammeter श्रेणी में, Voltmeter समानांतर में।</p></div></div>
+
+    <section id="s1"><h2><span class="no">4.1</span>विद्युत धारा (Electric Current)</h2>
+     <div class="box defn"><div class="bh">परिभाषा</div><div class="bb"><p>किसी चालक के किसी अनुप्रस्थ काट से <b>प्रति सेकंड बहने वाले आवेश</b> की मात्रा को विद्युत धारा कहते हैं।</p></div></div>
+     <div class="box formula"><div class="bh">सूत्र</div><div class="bb"><div class="eq">I = <span class="frac"><span>Q</span><span>t</span></span></div><p style="font-size:15px;color:var(--ink2)">I = धारा (ampere, A) · Q = आवेश (coulomb, C) · t = समय (second, s)। 1 A = 1 C/s</p></div></div>
+     <div class="box why" data-only="vistar"><div class="bh">गहराई से: धारा की दिशा उलटी क्यों मानी जाती है?</div><div class="bb"><p>धारा की दिशा तय करने का नियम इलेक्ट्रॉन की खोज से पहले बन गया था, और उसे धनावेश के बहाव की दिशा माना गया। धातु के तार में असल में इलेक्ट्रॉन (ऋणावेश) बहते हैं, इसलिए उनका बहाव धारा की मानी गई दिशा के उलटा होता है। गणना में दोनों एक ही परिणाम देते हैं।</p></div></div>
+     <div class="box example"><div class="bh">उदाहरण 4.1</div><div class="bb"><p><b>किसी तार में 0.5 A धारा 10 मिनट तक बहती है। कितना आवेश बहा?</b></p>
+      <p class="step">दिया है: I = 0.5 A, t = 10 min = 600 s</p><p class="step">सूत्र: Q = I × t</p><p class="step">Q = 0.5 × 600 = 300</p><span class="ans">उत्तर: 300 C</span></div></div>
+     <ol class="ladder" data-only="abhyas"><li><span class="lv e">आसान</span>2 A धारा 3 s में कितना आवेश बहाएगी?</li><li><span class="lv m">मध्यम</span>1200 C आवेश 2 min में बहे तो धारा?</li><li><span class="lv h">कठिन</span>3 A धारा 1 min तक बहे तो कितने इलेक्ट्रॉन बहे? (e = 1.6 × 10⁻¹⁹ C)</li></ol>
+    </section>
+
+    <section id="s2"><h2><span class="no">4.2</span>विभवांतर (Potential Difference)</h2>
+     <p>पानी ऊँचाई से नीचे बहता है; उसी तरह आवेश को बहाने के लिए चालक के दो सिरों के बीच "विद्युत दबाव" चाहिए। इसे विभवांतर कहते हैं, और cell या battery इसे बनाए रखती है।</p>
+     <div class="box defn"><div class="bh">परिभाषा</div><div class="bb"><p>एकांक आवेश को एक बिंदु से दूसरे बिंदु तक ले जाने में किया गया <b>कार्य</b> उन बिंदुओं के बीच का विभवांतर है: V = W/Q, इकाई volt (V); 1 V = 1 J/C।</p></div></div>
+     <div class="box example"><div class="bh">उदाहरण 4.2</div><div class="bb"><p><b>3 C आवेश को ले जाने में 12 J कार्य हुआ। विभवांतर ज्ञात करें।</b></p><p class="step">V = W/Q = 12/3</p><span class="ans">उत्तर: 4 V</span></div></div>
+    </section>
+
+    <section id="s3"><h2><span class="no">4.3</span>ओम का नियम (Ohm's Law)</h2>
+     <figure><svg viewBox="0 0 360 240" role="img"><title>ओम का नियम जाँचने का परिपथ</title>
+      <g fill="none" stroke="#18212b" stroke-width="2"><path d="M40 40 H76 M96 40 H150 M178 40 H320 V170 H232 M152 170 H40 V40"/>
+      <path d="M76 22 V58" stroke-width="3"/><path d="M90 30 V50" stroke-width="5"/>
+      <path d="M152 170 l6 -10 l10 20 l10 -20 l10 20 l10 -20 l10 20 l10 -20 l10 20 l4 -10"/>
+      <circle cx="320" cy="105" r="15" fill="#fffdf8"/><path d="M140 170 V205 H176 M206 205 H246 V170"/><circle cx="191" cy="205" r="15" fill="#fffdf8"/>
+      <circle cx="150" cy="40" r="3" fill="#18212b"/><circle cx="178" cy="40" r="3" fill="#18212b"/><path d="M150 40 L172 30"/></g>
+      <g font-size="14" fill="#18212b" font-family="sans-serif" text-anchor="middle"><text x="320" y="110">A</text><text x="191" y="210">V</text><text x="192" y="158">R</text><text x="70" y="20">+</text><text x="83" y="78">cell</text><text x="164" y="24">कुंजी K</text></g>
+      <polygon points="33,98 47,98 40,112" fill="#b45309"/>
+      <text x="54" y="109" font-size="13" fill="#b45309" font-family="sans-serif">I</text></svg>
+      <figcaption>चित्र 4.1 — Ammeter (A) श्रेणी में, Voltmeter (V) प्रतिरोध R के समानांतर</figcaption></figure>
+     <div class="box defn"><div class="bh">ओम का नियम</div><div class="bb"><p>ताप और अन्य भौतिक अवस्थाएँ समान रहें तो किसी चालक में बहने वाली धारा उसके सिरों के <b>विभवांतर के समानुपाती</b> होती है: V ∝ I, अर्थात V = IR।</p></div></div>
+     <div class="box activity" data-only="saral"><div class="bh">क्रियाकलाप 4.1</div><div class="bb"><p>चित्र 4.1 जैसा परिपथ बनाकर cells की संख्या बढ़ाते जाएँ और हर बार V तथा I लिखें।</p>
+      <table class="obs"><tr><th>V (V)</th><td>1.0</td><td>2.0</td><td>3.0</td><td>4.0</td></tr><tr><th>I (A)</th><td>0.1</td><td>0.2</td><td>0.3</td><td>0.4</td></tr><tr><th>V/I (Ω)</th><td>10</td><td>10</td><td>10</td><td>10</td></tr></table><p><b>निष्कर्ष:</b> V/I हर बार बराबर है; यही R है।</p></div></div>
+     <figure data-only="chitra vistar"><svg viewBox="0 0 320 220" role="img"><title>V–I graph: सीधी रेखा</title>
+      <g stroke="#18212b" stroke-width="1.5" fill="none"><path d="M50 180 H290 M50 180 V20"/></g><path d="M50 180 L250 40" stroke="#b45309" stroke-width="3"/>
+      <g fill="#b45309"><circle cx="100" cy="145" r="4"/><circle cx="150" cy="110" r="4"/><circle cx="200" cy="75" r="4"/><circle cx="250" cy="40" r="4"/></g>
+      <g font-size="13" fill="#18212b" font-family="sans-serif"><text x="250" y="200">I (A) →</text><text x="8" y="30">V (V)</text><text x="94" y="198">0.1</text><text x="194" y="198">0.3</text><text x="26" y="149">1.0</text><text x="26" y="79">3.0</text></g></svg>
+      <figcaption>चित्र 4.2 — V–I graph मूलबिंदु से गुज़रती सीधी रेखा; ढलान = R = 10 Ω</figcaption></figure>
+     <div class="box example"><div class="bh">उदाहरण 4.3</div><div class="bb"><p><b>44 Ω प्रतिरोध वाले heater को 220 V पर चलाया गया। धारा ज्ञात करें।</b></p><p class="step">I = V/R = 220/44</p><span class="ans">उत्तर: 5 A</span></div></div>
+    </section>
+
+    <div class="box mistakes" id="mist"><div class="bh">सावधान! आम गलतियाँ</div><div class="bb"><ul><li><b>गलत:</b> Voltmeter को श्रेणी में जोड़ना → <b>सही:</b> हमेशा समानांतर में।</li><li><b>गलत:</b> समय मिनट में रखकर Q = It लगाना → <b>सही:</b> पहले seconds में बदलें।</li></ul></div></div>
+    <section id="ex"><h2>अभ्यास</h2>
+     <ol><li>धारा का SI मात्रक क्या है?</li><li>ओम के नियम की शर्त लिखिए।</li><li>2 A धारा 3 min तक बहे तो कितना आवेश बहेगा? <i>(उत्तर: 360 C)</i></li></ol>
+     <div data-only="pariksha"><p><b>MCQ (नमूना):</b> 6 V पर 0.5 A धारा लेने वाले बल्ब का प्रतिरोध — (a) 3 Ω (b) 12 Ω (c) 0.08 Ω (d) 6 Ω · <i>उत्तर: (b) 12 Ω</i></p></div>
+    </section>
+   </article>
+  </div>
+  <aside class="rail">
+   <div class="panel"><h4>✳️ इस अध्याय के सूत्र</h4><div class="fchip"><span>I = Q/t</span><small>A</small></div><div class="fchip"><span>V = W/Q</span><small>V</small></div><div class="fchip"><span>V = IR</span><small>Ω</small></div><div class="fchip"><span>R = ρL/A</span><small>Ω</small></div></div>
+   <div class="panel"><h4>📌 याद रखें</h4><small style="color:var(--muted)">Ammeter श्रेणी में, Voltmeter समानांतर में। ओम का नियम तभी, जब ताप स्थिर हो।</small></div>
+   <div class="panel"><h4>📈 आपकी प्रगति</h4><div class="bar"><i style="width:40%"></i></div><small style="color:var(--muted)">3 में से 1 खंड पूरा</small></div>
+  </aside>
+ </div>
+</template>
+
+<script>
+'use strict';
+const NAMES = { saral: 'सरल पाठ्यपुस्तक', vistar: 'विस्तृत व्याख्या', abhyas: 'अभ्यास-प्रधान', pariksha: 'परीक्षा-केंद्रित', chitra: 'चित्र-प्रधान' };
+function applyStyle(page, st) {
+  page.querySelectorAll('[data-only]').forEach(el => { el.style.display = el.dataset.only.split(' ').includes(st) ? '' : 'none'; });
+  document.getElementById('styleName').textContent = NAMES[st];
+  document.getElementById('styleSel').value = st;
+}
+function route() {
+  const [name, arg] = (location.hash.slice(1) || 'home').split('/');
+  const t = document.getElementById('t-' + name) || document.getElementById('t-home');
+  const v = document.getElementById('view'); v.replaceChildren(t.content.cloneNode(true));
+  if (name === 'read') {
+    const st = NAMES[arg] ? arg : 'saral'; applyStyle(document.getElementById('page'), st);
+    document.getElementById('styleSel').onchange = e => { location.hash = 'read/' + e.target.value; };
+    v.querySelectorAll('[data-jump]').forEach(a => a.onclick = e => { e.preventDefault(); document.getElementById(a.dataset.jump).scrollIntoView({ behavior: 'smooth' }); });
+  }
+  window.scrollTo(0, 0);
+}
+addEventListener('hashchange', route); route();
+addEventListener('keydown', e => { if (e.key === '/' && document.activeElement.tagName !== 'INPUT') { e.preventDefault(); document.querySelector('.search input').focus(); } });
+</script>
+</body>
+</html>
