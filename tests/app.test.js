@@ -267,7 +267,8 @@ const check = (name, v) => (v ? ok : bad).push(name);
     check('reopen after setup: no page errors, books load', serr2.length === 0 && await ps2.evaluate(() => BOOKS.length > 0 && !!SETUP_CFG));
     // editions: a subject can hold several books (app book + owner-made books in a style); students never see the "+" or drafts
     await ps2.click('.nav-item[data-view=library]'); await ps2.waitForTimeout(800);
-    const edUi = await ps2.evaluate(() => { const bk = BOOKS.find(b => b.course && b.kind === 'atoms'); LIB.sel = bk.id;
+    const edUi = await ps2.evaluate(() => { const shown = [...document.querySelectorAll('#appGrid .app-icon:not(.soon)')].map(e => e.dataset.book);   // a book on screen, else renderLibrary picks another
+      const bk = BOOKS.find(b => shown.includes(b.id)); LIB.sel = bk.id;
       EDS = { [bk.id]: [{ id: 901, key: bk.id, style: 'exam', hi: 'परीक्षा शैली · 1', en: 'Exam focus · 1', chapters: [{ n: 1, hi: 'MCQ सेट', en: 'MCQ set' }] }] };
       EDS_STAMP = BOOKS.filter(b => b.owned).map(b => b.id).slice(0, 300).join('|'); renderLibrary();
       const cards = document.querySelectorAll('#chapterList .ed-card').length, add = !!document.querySelector('[data-edadd]');

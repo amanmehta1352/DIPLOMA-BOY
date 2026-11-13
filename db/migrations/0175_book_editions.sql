@@ -70,7 +70,7 @@ returns jsonb language sql stable security definer set search_path = mtb, pg_cat
                           from mtb.edition_chapters c where c.edition_id = e.id and c.status = 'published'))
          order by e.book_key, e.sort, e.id), '[]'::jsonb)
   from mtb.book_editions e
-  where e.book_key = any (coalesce(p_keys, '{}')[1:300]) and e.status = 'published';
+  where e.book_key = any ((coalesce(p_keys, '{}'::text[]))[1:300]) and e.status = 'published';
 $$;
 grant execute on function mtb.get_book_editions(text[]) to anon, authenticated;
 
@@ -102,7 +102,7 @@ begin
                                    'status', c.status, 'blocks', jsonb_array_length(c.blocks)) order by c.ch_no), '[]'::jsonb)
                            from mtb.edition_chapters c where c.edition_id = e.id))
           order by e.book_key, e.sort, e.id), '[]'::jsonb)
-          from mtb.book_editions e where e.book_key = any (coalesce(p_keys, '{}')[1:300]));
+          from mtb.book_editions e where e.book_key = any ((coalesce(p_keys, '{}'::text[]))[1:300]));
 end $$;
 grant execute on function mtb.edition_owner_list(text, text[]) to anon, authenticated;
 
