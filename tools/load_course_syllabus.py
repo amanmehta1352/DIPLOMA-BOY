@@ -1,4 +1,4 @@
-"""Sync content/course-syllabus/syllabus.json into mtb.course_subjects via rpc course_syllabus_sync (migration 0173).
+"""Sync content/course-syllabus/syllabus.json into mtb.course_subjects via rpc course_syllabus_sync (migration 0174).
 Each call carries whole courses, so a course in the file is replaced exactly: new subjects added, changed ones updated,
 subjects no longer in the file removed (kept in mtb.bk_0173_course_subjects). Courses not in the file are never touched.
 Never touches chapter content."""

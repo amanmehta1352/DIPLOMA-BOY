@@ -59,7 +59,7 @@ Hierarchy everywhere: **course → stage (semester / year / class) → group →
   civil / electrical subject was locked; mechanical chapters 436 and 438 were shown in two semesters; mechanical semester 6 had
   no open subject (Industrial Engineering & Management moved 5 → 6, its usual place); sem-6 electives added for every branch.
   Progress made under a subject's old id (old semester) is carried to the new one.
-- Broad subjects are **one book with sections** (`mtb.subject_units.mode = 'section'`, migration 0173): General Awareness =
+- Broad subjects are **one book with sections** (`mtb.subject_units.mode = 'section'`, migration 0174): General Awareness =
   History & Culture · Geography · Polity · Economy · Science & Technology · Static GK · Current Affairs; General Science =
   Physics · Chemistry · Biology · Environment (was 4 separate books). Progress from the old per-section books is carried over.
 - Loader: `course_syllabus_sync` replaces a whole course (removed rows kept in `mtb.bk_0173_course_subjects`); the old loader

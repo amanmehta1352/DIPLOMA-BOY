@@ -1,4 +1,4 @@
--- 0173 syllabus hierarchy: course → stage → group (theory / elective / lab / project) → subject → unit → topic.
+-- 0174 syllabus (applied 2026-11-12 as 0173_syllabus_hierarchy) hierarchy: course → stage → group (theory / elective / lab / project) → subject → unit → topic.
 -- 1. course_subjects: new kind 'elective'; 'outline' = key of the subject's unit/topic list in content/course-syllabus/outline.json
 -- 2. course_syllabus_sync: the loader replaces a course's rows in one call (upsert + remove rows no longer in the file).
 --    The old loader only upserted, so renamed / moved subjects stayed behind as duplicates. Removed rows are kept in a backup table.

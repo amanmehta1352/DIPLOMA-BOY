@@ -1,5 +1,5 @@
 // Competitive-exam subjects (key 'x:<mtb.subjects slug>'). Each unit is a sub-subject; the library shows a broad subject
-// such as General Awareness as ONE book with these sub-subjects as sections (see db 0173 subject_units.mode = 'section').
+// such as General Awareness as ONE book with these sub-subjects as sections (see db 0174 subject_units.mode = 'section').
 export const O = {
 'x:general-awareness': [
  ['History & Culture', 'इतिहास और संस्कृति', 'Ancient India: Harappan, Vedic, Mauryan, Gupta; Medieval India: Sultanate, Mughals, Bhakti-Sufi; Modern India: British rule, 1857, reform movements, freedom struggle; Art and culture: dances, music, painting, architecture, festivals'],
