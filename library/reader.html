@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Diploma Boy · Book</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;height:100%;background:#0a1f14;overflow:hidden}iframe{display:block;width:100%;height:100%;border:0;background:#0a1f14}
+.ld{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#a8d5ba;font:700 15px 'Kalam',cursive}</style>
+</head>
+<body>
+<!-- Book mode: opens one chapter (a fixed-layout HTML file, unchanged) and shows it page by page.
+     reader.html?f=<chapter file under library/>&t=<title> -->
+<div class="ld" id="ld">📖 किताब खुल रही है…</div>
+<iframe id="book" title="Book"></iframe>
+<script src="flip.js"></script>
+<script>
+(function(){
+  const q=new URLSearchParams(location.search), f=q.get('f')||'', t=q.get('t')||'';
+  if(!/^[a-z0-9\/._-]+\.html$/i.test(f)||f.includes('..')){ document.getElementById('ld').textContent='किताब नहीं मिली'; return; }
+  const fr=document.getElementById('book');
+  fr.addEventListener('load',()=>{
+    const d=fr.contentDocument, w=fr.contentWindow; if(!d) return;
+    const l=d.createElement('link'); l.rel='stylesheet'; l.href='https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap'; d.head.appendChild(l);
+    dbFlip(d,w,{title:t||d.title,back:'लाइब्रेरी',onBack:()=>{ try{ const b=parent.document.getElementById('backToLib'); if(b&&parent!==window){ b.click(); return; } }catch(e){} history.back(); }});
+    // taps inside the book keep the app's idle timer awake
+    ['pointerdown','touchstart','keydown'].forEach(ev=>d.addEventListener(ev,()=>{ try{ parent.postMessage({dbActive:1},'*'); }catch(e){} },{passive:true}));
+    document.getElementById('ld').remove();
+  });
+  fr.src=f;
+})();
+</script>
+</body>
+</html>
