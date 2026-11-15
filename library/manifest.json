@@ -1,0 +1,50 @@
+{
+  "c:class-10:all:science": {
+    "hi": "पेज-दर-पेज किताब",
+    "en": "Page-by-page book",
+    "chapters": [
+      {
+        "n": 5,
+        "hi": "जैव प्रक्रम",
+        "en": "Life Processes",
+        "file": "class-10/science/ch05-life-processes.html"
+      },
+      {
+        "n": 6,
+        "hi": "नियंत्रण एवं समन्वय",
+        "en": "Control and Coordination",
+        "file": "class-10/science/ch06-control-coordination.html"
+      },
+      {
+        "n": 8,
+        "hi": "आनुवंशिकता",
+        "en": "Heredity",
+        "file": "class-10/science/ch08-heredity.html"
+      },
+      {
+        "n": 9,
+        "hi": "प्रकाश – परावर्तन तथा अपवर्तन",
+        "en": "Light – Reflection and Refraction",
+        "file": "class-10/science/ch09-light.html"
+      },
+      {
+        "n": 10,
+        "hi": "मानव नेत्र तथा रंगबिरंगा संसार",
+        "en": "The Human Eye and the Colourful World",
+        "file": "class-10/science/ch10-human-eye.html"
+      },
+      {
+        "n": 11,
+        "hi": "विद्युत",
+        "en": "Electricity",
+        "file": "class-10/science/ch11-electricity.html"
+      },
+      {
+        "n": 12,
+        "hi": "विद्युत धारा के चुंबकीय प्रभाव",
+        "en": "Magnetic Effects of Electric Current",
+        "file": "class-10/science/ch12-magnetic-effects.html"
+      }
+    ]
+  }
+}
