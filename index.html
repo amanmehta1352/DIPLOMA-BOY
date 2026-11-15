@@ -295,6 +295,7 @@ body.lang-both .subtitle .en-part{display:block}
 /* FOUNDATION (book reader) */
 #foundation-layer{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;background:#0a1f14}
 #foundation-layer.active{display:flex;animation:viewIn .35s var(--ease)}
+#foundation-layer.pg .foundation-topbar{display:none}   /* book mode reader has its own bar in the app's colours */
 .foundation-topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(13,36,25,.95);border-bottom:1px solid rgba(168,213,186,.2);flex-shrink:0;gap:8px}
 .back-to-lib{padding:7px 12px;border-radius:100px;background:rgba(168,213,186,.12);border:1px solid rgba(168,213,186,.3);color:#a8d5ba;font-size:11.5px;font-weight:700;font-family:'Kalam',cursive;cursor:pointer}
 .mode-toggle{display:flex;gap:3px;padding:2px;background:rgba(0,0,0,.3);border-radius:100px}
@@ -840,6 +841,7 @@ function loadState(){ try{ const o=JSON.parse(localStorage.getItem(DKEY)||'null'
 /* ---- real time tracking: every 5 s, the visible section gets the seconds; 90 s without a touch = idle ---- */
 let lastTouch=Date.now();
 ['pointerdown','keydown','scroll','touchstart','input'].forEach(ev=>window.addEventListener(ev,()=>{ lastTouch=Date.now(); },{passive:true,capture:true}));
+window.addEventListener('message',e=>{ if(e.data&&e.data.dbActive&&e.origin===location.origin) lastTouch=Date.now(); });   // taps inside the book mode reader
 function bookFrame(){ return document.querySelector('#foundationContent iframe'); }
 function trackTick(){
   if(document.visibilityState!=='visible') return;
@@ -951,16 +953,16 @@ function renderLibrary(){
   const shown=(LIB.exam?books.filter(b=>(b.forTags||[]).some(t=>t.en===LIB.exam)):books).filter(b=>!b.course||b.stage===LIB.stage);
   if(!LIB.sel||!shown.some(b=>b.id===LIB.sel)) LIB.sel=(shown.find(b=>b.kind!=='soon')||shown[0]||{}).id;   // open a book that has chapters, not a locked one
   const isTech=b=>!!(b.subject&&TECH_SUBJECTS.includes(b.subject.slug));
-  const icon=b=>{ const ne=edsOf(b).length, ready=b.chapters.filter(avail).length, soon=b.kind==='soon'&&!ne;
+  const icon=b=>{ const ne=edsOf(b).length, pgb=pgOf(b), ready=pgb?pgb.chapters.length:b.chapters.filter(avail).length, soon=b.kind==='soon'&&!ne&&!pgb;
     return `<div class="app-icon${b.id===LIB.sel?' sel':''}${soon?' soon':''}" data-book="${esc(b.id)}" role="button" tabindex="0">
-      <div class="visual-wrap"><div class="visual" style="background:linear-gradient(135deg,${b.color},#2563eb)">${b.emoji}</div><div class="badge">${soon?'🔒':b.kind==='soon'?'📚'+ne:ready}</div>${ne?`<div class="ed-badge" title="${L('किताबें','books')}">📚${ne+1}</div>`:''}</div>
+      <div class="visual-wrap"><div class="visual" style="background:linear-gradient(135deg,${b.color},#2563eb)">${b.emoji}</div><div class="badge">${soon?'🔒':pgb?'📖'+ready:b.kind==='soon'?'📚'+ne:ready}</div>${ne?`<div class="ed-badge" title="${L('किताबें','books')}">📚${ne+1}</div>`:''}</div>
       <span class="label">${T(esc(b.title.hi),esc(b.title.en))}</span>
     </div>`; };
   let gridHtml='';
   if(DB.setup&&DB.setup.qual&&books.length){
     if(tagsAll.length>1) gridHtml+=`<div class="lib-filter">${[{hi:'सभी',en:'All',k:''},...tagsAll.map(t=>({...t,k:t.en}))].map(t=>`<button class="lib-chip${(LIB.exam||'')===t.k?' on':''}" data-exf="${esc(t.k)}">${esc(L(t.hi,t.en))}</button>`).join('')}</div>`;
     const mine=shown.filter(b=>b.course), rest=shown.filter(b=>!b.course);
-    if(mine.length){ const stl=stq&&stq.stages?L(stq.stages.label_hi,stq.stages.label_en):'', open=mine.filter(b=>b.kind!=='soon').length;
+    if(mine.length){ const stl=stq&&stq.stages?L(stq.stages.label_hi,stq.stages.label_en):'', open=mine.filter(b=>b.kind!=='soon'||pgOf(b)).length;
       gridHtml+=`<div class="lib-group">📘 ${L('मेरा कोर्स','My course')}${stl&&LIB.stage!=='all'?` · ${stl} ${esc(LIB.stage)}`:''} <span style="color:var(--muted);font-weight:700">(${mine.length} ${L('विषय','subjects')} · ${open} ${L('खुले','open')} · 🔒 ${mine.length-open})</span><small>${L('सिलेबस के सभी विषय। 🔒 वाले विषयों की सामग्री तैयार हो रही है।','Every subject of the syllabus. 🔒 subjects are being prepared.')}</small></div>`;
       if(stages.length>1) gridHtml+=`<div class="lib-filter">${stages.map(x=>`<button class="lib-chip${LIB.stage===x?' on':''}" data-stg="${esc(x)}">${esc(stl)} ${esc(x)}</button>`).join('')}</div>`;
       // inside a semester: theory first, then electives, labs, projects (each under its own small heading)
@@ -992,10 +994,10 @@ function renderLibrary(){
   } else { const bk0=books.find(x=>x.id===LIB.sel);
     // a locked subject that already has books opens on its first book
     if(bk0&&bk0.kind==='soon'&&(LIB.ed||{})[bk0.id]==null&&edsOf(bk0).length) (LIB.ed||(LIB.ed={}))[bk0.id]=edsOf(bk0)[0].id;
-    const bk=bk0, eSel=bk&&(LIB.ed||{})[bk.id], pgSel=eSel==='pg'&&pgOf(bk), ed=!pgSel&&eSel&&edsOf(bk).find(e=>e.id===eSel);
-    if(bk&&eSel&&!ed&&!pgSel) LIB.ed[bk.id]=0;
-    if(pgSel) html=pagePanel(bk,pgSel);
-    else if(ed) html=editionPanel(bk,ed);
+    const bk=bk0, eSel=bk&&(LIB.ed||{})[bk.id], ed=eSel&&edsOf(bk).find(e=>e.id===eSel);
+    if(bk&&eSel&&!ed) LIB.ed[bk.id]=0;
+    if(ed) html=editionPanel(bk,ed);
+    else if(bk&&pgOf(bk)) html=pagePanel(bk,pgOf(bk));   // a subject with a page-by-page book: the modes open on it
     else if(bk){ const ready=bk.chapters.filter(avail), done=ready.filter(ch=>(DB.chapters[chKey(bk.id,ch.n)]||{}).read).length, soon=bk.chapters.length-ready.length;
       const modes=(DB.setup&&DB.setup.qual&&bk.kind!=='soon')?`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${(LIB.mode||'book')===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`:'';
       html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
@@ -1034,14 +1036,17 @@ let EDS={}, EDS_STAMP='', EDS_BUSY=false;
 let PGB=null;
 function loadPageBooks(){ if(PGB) return; PGB={}; fetch('library/manifest.json').then(r=>r.ok?r.json():{}).then(j=>{ PGB=j||{}; if(currentView==='library') renderLibrary(); }).catch(()=>{}); }
 const pgOf=bk=>(bk&&PGB&&PGB[bk.id]&&(PGB[bk.id].chapters||[]).length)?PGB[bk.id]:null;
-function pagePanel(bk,pg){ const read=DB.edRead||{}, chs=pg.chapters, done=chs.filter(c=>read['pg:'+c.file]).length, col='#0e8a84';
-  return `<div class="sec-title"><h2>📗 ${esc(L(pg.hi,pg.en))}</h2><div class="count-pill">${done}/${chs.length}</div></div>
-    ${editionShelf(bk)}<div style="padding:0 22px">${chs.map((c,i)=>{ const r=read['pg:'+c.file], cc=r?'var(--green)':col;
+function pagePanel(bk,pg){ const read=DB.edRead||{}, chs=pg.chapters, done=chs.filter(c=>read['pg:'+c.file]).length, col='#0e8a84', mode=LIB.mode||'book';
+  const modes=`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${mode===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`;
+  const body=mode==='book'?chs.map((c,i)=>{ const r=read['pg:'+c.file], cc=r?'var(--green)':col;
       return `<div class="item row" data-pgch="${i}" role="button" tabindex="0" style="cursor:pointer;min-height:56px;border-left-color:${cc};font-size:13px">
         <span style="display:flex;gap:12px;align-items:center"><b style="font-size:18px;min-width:24px;color:${cc}">${c.n}</b><b>${esc(L(c.hi,c.en))}</b></span>
-        <span class="pct" style="font-size:12px;color:${cc};white-space:nowrap">${r?L('✓ पढ़ा','✓ Read'):L('पढ़ें','Read')}</span></div>`; }).join('')}</div>`; }
+        <span class="pct" style="font-size:12px;color:${cc};white-space:nowrap">${r?L('✓ पढ़ा','✓ Read'):L('📖 पढ़ें','📖 Read')}</span></div>`; }).join('')
+    :`<div class="empty-note">${L('यह मोड जल्द आएगा। अभी किताब मोड में पढ़ें।','This mode is coming soon. Read in Book mode for now.')}</div>`;
+  return `<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${chs.length}</div></div>
+    ${editionShelf(bk)}${modes}<div style="padding:0 22px">${body}</div><div id="sylBox"></div>`; }
 function openPageBook(bookId,i){ const b=BOOKS.find(x=>x.id===bookId), pg=pgOf(b), c=pg&&pg.chapters[i]; if(!c) return;
-  bookState={bookId,pg:c.file,ch:c.n,mode:'reader',tab:null};
+  bookState={bookId,pg:'library/reader.html?'+new URLSearchParams({f:c.file,t:L('अध्याय '+c.n+' · '+c.hi,'Ch '+c.n+' · '+c.en)}),ch:c.n,mode:'reader',tab:null};
   (DB.edRead||(DB.edRead={}))['pg:'+c.file]=Date.now(); saveState();
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('foundation-layer').classList.add('active');
@@ -1061,12 +1066,11 @@ async function loadEditions(force){
 }
 const edsOf=bk=>(EDS[bk.id]||[]).filter(e=>OWNER.ok||(e.status||'published')==='published');
 const edReady=e=>(e.chapters||[]).filter(c=>OWNER.ok?c.blocks>0||c.status==='published':true);
-function editionShelf(bk){ const eds=edsOf(bk), pg=pgOf(bk); if(!eds.length&&!OWNER.ok&&!pg) return '';
+function editionShelf(bk){ const eds=edsOf(bk), pg=null; if(!eds.length&&!OWNER.ok) return '';
   const sel=(LIB.ed||{})[bk.id]||0, base=bk.kind!=='soon';
   const card=(id,e,title,sub,extra)=>`<button class="ed-card${sel===id?' on':''}" data-edsel="${id}" style="--ec:${e.c||'#3b82f6'}"><span class="ed-e">${e.e}</span><span class="ed-t"><b>${title}</b><small>${sub}</small></span>${extra||''}</button>`;
   let h=`<div class="ed-head">📚 ${L('इस विषय की किताबें','Books for this subject')} <small>${eds.length+1+(pg?1:0)} ${L('किताबें · अपनी पसंद की शैली चुनें','books · pick the style you like')}</small></div><div class="ed-shelf">`;
   h+=card(0,{e:'📘',c:'#3b82f6'},esc(L('ऐप की किताब','App book')),base?`${bk.chapters.length} ${L('अध्याय · किताब · नोट्स · क्लास','chapters · book · notes · class')}`:`🔒 ${L('तैयार हो रही है','being prepared')}`);
-  if(pg) h+=card('pg',{e:'📗',c:'#0e8a84'},esc(L(pg.hi,pg.en)),`📄 ${pg.chapters.length} ${L('अध्याय · छपे पेज जैसा','chapters · same as the printed page')}`);
   eds.forEach(e=>{ const st=ED_STYLES[e.style]||ED_STYLES.textbook, n=(e.chapters||[]).filter(c=>(c.status||'published')==='published').length;
     h+=card(e.id,st,esc(L(e.hi||e.en,e.en||e.hi)),`${st.e} ${esc(L(st.hi,st.en))} · ${n} ${L('अध्याय','ch')}`,
       OWNER.ok?`<span class="ed-own"><i class="ed-st ${e.status}">${e.status==='published'?L('प्रकाशित','live'):L('ड्राफ़्ट','draft')}</i><i class="ed-pen" data-eded="${e.id}" role="link" title="${L('डिज़ाइन करें','Design')}">✏️</i></span>`:''); });
@@ -1545,6 +1549,7 @@ function renderFoundation(reload){
   document.getElementById('modeLecture').classList.toggle('on',bookState.mode==='lecture');
   document.getElementById('modeReader').classList.toggle('on',bookState.mode==='reader');
   document.getElementById('lecture-view').classList.add('hidden'); document.getElementById('reader-view').classList.add('hidden'); document.getElementById('readerNav').classList.add('hidden');
+  document.getElementById('foundation-layer').classList.toggle('pg',!!bookState.pg);
   const host=document.getElementById('foundationContent'); let f=bookFrame();
   if(reload||!f){
     if(f) f.remove();
