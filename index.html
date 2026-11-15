@@ -992,9 +992,10 @@ function renderLibrary(){
   } else { const bk0=books.find(x=>x.id===LIB.sel);
     // a locked subject that already has books opens on its first book
     if(bk0&&bk0.kind==='soon'&&(LIB.ed||{})[bk0.id]==null&&edsOf(bk0).length) (LIB.ed||(LIB.ed={}))[bk0.id]=edsOf(bk0)[0].id;
-    const bk=bk0, eSel=bk&&(LIB.ed||{})[bk.id], ed=eSel&&edsOf(bk).find(e=>e.id===eSel);
-    if(bk&&eSel&&!ed) LIB.ed[bk.id]=0;
-    if(ed) html=editionPanel(bk,ed);
+    const bk=bk0, eSel=bk&&(LIB.ed||{})[bk.id], pgSel=eSel==='pg'&&pgOf(bk), ed=!pgSel&&eSel&&edsOf(bk).find(e=>e.id===eSel);
+    if(bk&&eSel&&!ed&&!pgSel) LIB.ed[bk.id]=0;
+    if(pgSel) html=pagePanel(bk,pgSel);
+    else if(ed) html=editionPanel(bk,ed);
     else if(bk){ const ready=bk.chapters.filter(avail), done=ready.filter(ch=>(DB.chapters[chKey(bk.id,ch.n)]||{}).read).length, soon=bk.chapters.length-ready.length;
       const modes=(DB.setup&&DB.setup.qual&&bk.kind!=='soon')?`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${(LIB.mode||'book')===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`:'';
       html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
@@ -1002,7 +1003,7 @@ function renderLibrary(){
         <div id="sylBox"></div>`; } }
   list.innerHTML=html;
   { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk){ renderOutline(bk); wireEditions(bk); } }
-  loadEditions();
+  loadEditions(); loadPageBooks();
   list.querySelectorAll('[data-mode]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); LIB.mode=el.dataset.mode; renderLibrary(); }));
   list.querySelectorAll('[data-ch]').forEach(el=>{ const go=()=>{ Sound.tap(); openBook(el.dataset.b,+el.dataset.ch,(DB.setup&&DB.setup.qual)?(LIB.mode||'book'):undefined); };
     el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
@@ -1029,6 +1030,24 @@ const ED_STYLES={
   reference:{e:'📚',c:'#2b7a8c',hi:'संदर्भ पुस्तक',en:'Reference book',dhi:'विस्तार और गहराई, ऊँचे स्तर के लिए',den:'In depth, for a higher level'}};
 const OWNER={code:(()=>{ try{ return localStorage.getItem('cr_owner_code')||''; }catch(e){ return ''; } })(),ok:false,checked:false};
 let EDS={}, EDS_STAMP='', EDS_BUSY=false;
+/* page-by-page books: fixed-layout HTML chapters (same as the printed page), listed per book id in library/manifest.json */
+let PGB=null;
+function loadPageBooks(){ if(PGB) return; PGB={}; fetch('library/manifest.json').then(r=>r.ok?r.json():{}).then(j=>{ PGB=j||{}; if(currentView==='library') renderLibrary(); }).catch(()=>{}); }
+const pgOf=bk=>(bk&&PGB&&PGB[bk.id]&&(PGB[bk.id].chapters||[]).length)?PGB[bk.id]:null;
+function pagePanel(bk,pg){ const read=DB.edRead||{}, chs=pg.chapters, done=chs.filter(c=>read['pg:'+c.file]).length, col='#0e8a84';
+  return `<div class="sec-title"><h2>📗 ${esc(L(pg.hi,pg.en))}</h2><div class="count-pill">${done}/${chs.length}</div></div>
+    ${editionShelf(bk)}<div style="padding:0 22px">${chs.map((c,i)=>{ const r=read['pg:'+c.file], cc=r?'var(--green)':col;
+      return `<div class="item row" data-pgch="${i}" role="button" tabindex="0" style="cursor:pointer;min-height:56px;border-left-color:${cc};font-size:13px">
+        <span style="display:flex;gap:12px;align-items:center"><b style="font-size:18px;min-width:24px;color:${cc}">${c.n}</b><b>${esc(L(c.hi,c.en))}</b></span>
+        <span class="pct" style="font-size:12px;color:${cc};white-space:nowrap">${r?L('✓ पढ़ा','✓ Read'):L('पढ़ें','Read')}</span></div>`; }).join('')}</div>`; }
+function openPageBook(bookId,i){ const b=BOOKS.find(x=>x.id===bookId), pg=pgOf(b), c=pg&&pg.chapters[i]; if(!c) return;
+  bookState={bookId,pg:c.file,ch:c.n,mode:'reader',tab:null};
+  (DB.edRead||(DB.edRead={}))['pg:'+c.file]=Date.now(); saveState();
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('foundation-layer').classList.add('active');
+  document.getElementById('bottomNavWrap').classList.add('hidden');
+  renderFoundation(true); haptic(10);
+  try{ history.pushState({book:1},''); }catch(e){} }
 async function loadEditions(force){
   const keys=BOOKS.filter(b=>b.owned).map(b=>b.id).slice(0,300), stamp=keys.join('|');
   if(!keys.length||EDS_BUSY||(!force&&stamp===EDS_STAMP)) return;
@@ -1042,11 +1061,12 @@ async function loadEditions(force){
 }
 const edsOf=bk=>(EDS[bk.id]||[]).filter(e=>OWNER.ok||(e.status||'published')==='published');
 const edReady=e=>(e.chapters||[]).filter(c=>OWNER.ok?c.blocks>0||c.status==='published':true);
-function editionShelf(bk){ const eds=edsOf(bk); if(!eds.length&&!OWNER.ok) return '';
+function editionShelf(bk){ const eds=edsOf(bk), pg=pgOf(bk); if(!eds.length&&!OWNER.ok&&!pg) return '';
   const sel=(LIB.ed||{})[bk.id]||0, base=bk.kind!=='soon';
   const card=(id,e,title,sub,extra)=>`<button class="ed-card${sel===id?' on':''}" data-edsel="${id}" style="--ec:${e.c||'#3b82f6'}"><span class="ed-e">${e.e}</span><span class="ed-t"><b>${title}</b><small>${sub}</small></span>${extra||''}</button>`;
-  let h=`<div class="ed-head">📚 ${L('इस विषय की किताबें','Books for this subject')} <small>${eds.length+1} ${L('किताबें · अपनी पसंद की शैली चुनें','books · pick the style you like')}</small></div><div class="ed-shelf">`;
+  let h=`<div class="ed-head">📚 ${L('इस विषय की किताबें','Books for this subject')} <small>${eds.length+1+(pg?1:0)} ${L('किताबें · अपनी पसंद की शैली चुनें','books · pick the style you like')}</small></div><div class="ed-shelf">`;
   h+=card(0,{e:'📘',c:'#3b82f6'},esc(L('ऐप की किताब','App book')),base?`${bk.chapters.length} ${L('अध्याय · किताब · नोट्स · क्लास','chapters · book · notes · class')}`:`🔒 ${L('तैयार हो रही है','being prepared')}`);
+  if(pg) h+=card('pg',{e:'📗',c:'#0e8a84'},esc(L(pg.hi,pg.en)),`📄 ${pg.chapters.length} ${L('अध्याय · छपे पेज जैसा','chapters · same as the printed page')}`);
   eds.forEach(e=>{ const st=ED_STYLES[e.style]||ED_STYLES.textbook, n=(e.chapters||[]).filter(c=>(c.status||'published')==='published').length;
     h+=card(e.id,st,esc(L(e.hi||e.en,e.en||e.hi)),`${st.e} ${esc(L(st.hi,st.en))} · ${n} ${L('अध्याय','ch')}`,
       OWNER.ok?`<span class="ed-own"><i class="ed-st ${e.status}">${e.status==='published'?L('प्रकाशित','live'):L('ड्राफ़्ट','draft')}</i><i class="ed-pen" data-eded="${e.id}" role="link" title="${L('डिज़ाइन करें','Design')}">✏️</i></span>`:''); });
@@ -1062,9 +1082,11 @@ function editionPanel(bk,e){ const st=ED_STYLES[e.style]||ED_STYLES.textbook, re
         <span class="pct" style="font-size:12px;color:${col};white-space:nowrap">${dr?L('🟡 ड्राफ़्ट','🟡 Draft'):r?L('✓ पढ़ा','✓ Read'):L('पढ़ें','Read')}</span></div>`; }).join('')||`<div class="empty-note">${OWNER.ok?L('अभी कोई अध्याय नहीं। ✏️ से लिखना शुरू करें।','No chapters yet. Start writing with ✏️.'):L('अध्याय जल्द आएँगे।','Chapters coming soon.')}</div>`}</div>
     <div id="sylBox"></div>`; }
 function wireEditions(bk){ const list=document.getElementById('chapterList');
-  list.querySelectorAll('[data-edsel]').forEach(el=>el.addEventListener('click',ev=>{ if(ev.target.closest('[data-eded]')) return; Sound.tap(); (LIB.ed||(LIB.ed={}))[bk.id]=+el.dataset.edsel; renderLibrary(); }));
+  list.querySelectorAll('[data-edsel]').forEach(el=>el.addEventListener('click',ev=>{ if(ev.target.closest('[data-eded]')) return; Sound.tap(); const v=el.dataset.edsel; (LIB.ed||(LIB.ed={}))[bk.id]=v==='pg'?'pg':+v; renderLibrary(); }));
   list.querySelectorAll('[data-eded]').forEach(el=>el.addEventListener('click',ev=>{ ev.stopPropagation(); Sound.tap(); designEdition(bk,+el.dataset.eded); }));
   list.querySelectorAll('[data-edadd]').forEach(el=>el.addEventListener('click',()=>{ Sound.tap(); openAddEdition(bk); }));
+  list.querySelectorAll('[data-pgch]').forEach(el=>{ const go=()=>{ Sound.tap(); openPageBook(bk.id,+el.dataset.pgch); };
+    el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
   list.querySelectorAll('[data-edch]').forEach(el=>{ const go=()=>{ Sound.tap(); openEdition(bk.id,+el.dataset.ed,+el.dataset.edch); };
     el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); }); }
 function openEdition(bookId,eid,ch){ const b=BOOKS.find(x=>x.id===bookId); if(!b) return;
@@ -1528,7 +1550,9 @@ function renderFoundation(reload){
     if(f) f.remove();
     f=document.createElement('iframe'); f.title=b.title.en; f.setAttribute('allow','fullscreen');
     f.style.cssText='display:block;width:100%;height:100%;border:0;background:#0f172a';
-    f.src=bookState.ed
+    f.src=bookState.pg
+      ? bookState.pg   // a page-by-page chapter (fixed-layout HTML, scales itself to the screen)
+      : bookState.ed
       ? 'edition.html?'+new URLSearchParams({e:bookState.ed,ch:bookState.ch,ui:Settings.lang==='en'?'en':'hi'})   // an owner-made book (edition) of this subject
       : b.kind==='atoms'
       ? 'level-book.html?'+new URLSearchParams({l:b.level,s:b.subject.slug,ch:bookState.ch,tab:readerTab(),ui:Settings.lang==='en'?'en':'hi',ln:L(qualLabel().hi,qualLabel().en),...(b.only?{only:b.only.join(',')}:{})})   // every level's chapters, drawn like the Physics book
