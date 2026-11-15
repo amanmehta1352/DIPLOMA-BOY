@@ -1,0 +1,14 @@
+[
+  {"id": "class-10/science/light", "level_family": "basic", "level_hi": "कक्षा 10",
+   "subject_hi": "विज्ञान", "subject_en": "Science", "no": 9,
+   "title_hi": "प्रकाश: परावर्तन और अपवर्तन", "title_en": "Light: Reflection and Refraction",
+   "topics": "परावर्तन के नियम, समतल और गोलीय दर्पण, दर्पण सूत्र और आवर्धन, अपवर्तन के नियम, अपवर्तनांक, गोलीय लेंस, लेंस सूत्र और आवर्धन, लेंस की क्षमता, चिह्न परिपाटी"},
+  {"id": "class-10/mathematics/arithmetic-progressions", "level_family": "basic", "level_hi": "कक्षा 10",
+   "subject_hi": "गणित", "subject_en": "Mathematics", "no": 5,
+   "title_hi": "समांतर श्रेढ़ी", "title_en": "Arithmetic Progressions",
+   "topics": "समांतर श्रेढ़ी की पहचान, सार्व अंतर, n-वाँ पद, अंत से n-वाँ पद, पहले n पदों का योग, शब्द-प्रश्न"},
+  {"id": "diploma-civil/applied-physics-i/units-and-measurements", "level_family": "technical", "level_hi": "Diploma सेमेस्टर 1",
+   "subject_hi": "अनुप्रयुक्त भौतिकी-I", "subject_en": "Applied Physics-I", "no": 1,
+   "title_hi": "मात्रक और मापन", "title_en": "Units and Measurements",
+   "topics": "मूल और व्युत्पन्न राशियाँ, SI मात्रक और उपसर्ग, विमा और विमीय सूत्र, विमीय विश्लेषण के उपयोग और सीमाएँ, वर्नियर कैलिपर्स और स्क्रू गेज का अल्पतमांक, शून्यांक त्रुटि, निरपेक्ष, आपेक्षिक और प्रतिशत त्रुटि, सार्थक अंक"}
+]
