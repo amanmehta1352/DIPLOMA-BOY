@@ -402,7 +402,7 @@ body.lang-both .subtitle .en-part{display:block}
   .app-icon:hover{background:rgba(255,255,255,.05)}
   /* finishing: shelf reads as a rack — bigger tiles, panel + wooden plank under each shelf */
   .app-grid{grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:24px 18px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:24px;padding:22px 20px 14px}
-  .app-grid::after{content:'';grid-column:1/-1;height:9px;border-radius:6px;background:linear-gradient(180deg,#a67c52,#6b4f33);box-shadow:0 8px 16px rgba(0,0,0,.5)}
+  .app-grid::after{content:'';grid-column:1/-1;height:12px;border-radius:6px;background:linear-gradient(180deg,#c49a68,#7d5c39);border-top:1px solid rgba(255,220,170,.45);box-shadow:0 8px 16px rgba(0,0,0,.5)}
   #library-view.active:has(>#chapterList:empty){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .app-icon.sel{background:rgba(255,255,255,.08);box-shadow:0 0 0 1px var(--line2) inset}
   .app-icon:active{transform:scale(.95)}
@@ -1009,7 +1009,7 @@ function renderLibrary(){
     else if(bk){ const ready=bk.chapters.filter(avail), done=ready.filter(ch=>(DB.chapters[chKey(bk.id,ch.n)]||{}).read).length, soon=bk.chapters.length-ready.length;
       const modes=(DB.setup&&DB.setup.qual&&bk.kind!=='soon')?`<div class="lib-modes">${[['book','📖','किताब','Book'],['notes','✦','नोट्स','Notes'],['teach','◉','क्लास','Class'],['formula','∑','सूत्र','Formulas']].map(m=>`<button class="lib-mode${(LIB.mode||'book')===m[0]?' on':''}" data-mode="${m[0]}"><b>${m[1]}</b>${L(m[2],m[3])}</button>`).join('')}</div>`:'';
       html=`<div class="sec-title"><h2>${bk.emoji} ${T(esc(bk.title.hi)+' · अध्याय',esc(bk.title.en)+' · Chapters')}</h2><div class="count-pill">${done}/${ready.length}${soon?` · 🔒 ${soon}`:''}</div></div>
-        ${editionShelf(bk)}${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note" style="text-align:left;color:var(--text2)">🔒 ${bk.lab==='lab'||bk.lab==='project'?L('यह प्रायोगिक / प्रोजेक्ट कार्य है: कॉलेज में किया जाता है।','This is practical / project work, done in college.'):L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं।','Book, notes and formulas for this subject are being prepared.')}</div>`:bk.chapters.map((ch,i)=>(ch.sec&&(!i||(bk.chapters[i-1].sec||{}).en!==ch.sec.en)?`<div class="lib-sec">${T(esc(ch.sec.hi),esc(ch.sec.en))}</div>`:'')+chapterRow(bk,ch)).join('')}</div>
+        ${editionShelf(bk)}${modes}<div style="padding:0 22px">${bk.kind==='soon'?`<div class="empty-note" style="text-align:left;color:var(--text2);padding-left:0;padding-right:0">🔒 ${bk.lab==='lab'||bk.lab==='project'?L('यह प्रायोगिक / प्रोजेक्ट कार्य है: कॉलेज में किया जाता है।','This is practical / project work, done in college.'):L('इस विषय की किताब, नोट्स और सूत्र तैयार हो रहे हैं।','Book, notes and formulas for this subject are being prepared.')}</div>`:bk.chapters.map((ch,i)=>(ch.sec&&(!i||(bk.chapters[i-1].sec||{}).en!==ch.sec.en)?`<div class="lib-sec">${T(esc(ch.sec.hi),esc(ch.sec.en))}</div>`:'')+chapterRow(bk,ch)).join('')}</div>
         <div id="sylBox"></div>`; } }
   list.innerHTML=html;
   { const bk=!q&&books.find(x=>x.id===LIB.sel); if(bk){ renderOutline(bk); wireEditions(bk); } }
