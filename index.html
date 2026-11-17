@@ -404,6 +404,15 @@ body.lang-both .subtitle .en-part{display:block}
   .app-grid{grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:24px 18px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:24px;padding:22px 20px 14px}
   .app-grid::after{content:'';grid-column:1/-1;height:12px;border-radius:6px;background:linear-gradient(180deg,#c49a68,#7d5c39);border-top:1px solid rgba(255,220,170,.45);box-shadow:0 8px 16px rgba(0,0,0,.5)}
   #library-view.active:has(>#chapterList:empty){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  /* desktop polish (sample-approved, >=1024px only — phone/tablet untouched) */
+  #dashboard-view.active,#library-view.active{max-width:1400px;margin-left:auto;margin-right:auto}
+  body{background-image:radial-gradient(900px 520px at 12% -5%,rgba(255,190,80,.16),transparent 60%),radial-gradient(820px 520px at 92% 108%,rgba(0,229,204,.11),transparent 60%),radial-gradient(720px 420px at 88% -8%,rgba(150,100,255,.11),transparent 60%);background-attachment:fixed}
+  .card{padding:22px;box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,210,120,.10);border-color:rgba(255,210,120,.30)}
+  .app-grid{grid-template-columns:repeat(auto-fill,minmax(132px,1fr))}
+  .app-icon .visual{font-size:40px;box-shadow:0 16px 40px rgba(0,0,0,.65)}
+  .app-icon .label{font-size:13px}
+  .page-title,.lib-header .page-title{font-size:48px}
+  #chapterList .sec-title h2,.sec-title h2{font-size:22px}
   .app-icon.sel{background:rgba(255,255,255,.08);box-shadow:0 0 0 1px var(--line2) inset}
   .app-icon:active{transform:scale(.95)}
   .lib-group{padding-top:20px;font-size:15px}
