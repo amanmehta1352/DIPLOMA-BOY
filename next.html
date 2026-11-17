@@ -485,6 +485,10 @@ body.lang-both .subtitle .en-part{display:block}
       <div id="backupBox"></div>
     </div>
     <div class="settings-group">
+      <div class="settings-group-title">📥 <span class="hi-part">ऑफ़लाइन</span><span class="en-part">Offline</span></div>
+      <div id="offlineBox"></div>
+    </div>
+    <div class="settings-group">
       <div class="settings-group-title">📄 <span class="hi-part">जानकारी</span><span class="en-part">About</span></div>
       <div class="toggle-row"><a href="privacy.html" style="color:inherit"><span class="hi-part">गोपनीयता नीति</span><span class="en-part">Privacy Policy</span></a><span>›</span></div>
       <div class="toggle-row"><a href="terms.html" style="color:inherit"><span class="hi-part">शर्तें</span><span class="en-part">Terms</span></a><span>›</span></div>
@@ -906,7 +910,7 @@ document.querySelectorAll('.theme-opt').forEach(b=>b.addEventListener('click',()
 document.querySelectorAll('.lang-opt').forEach(b=>b.addEventListener('click',()=>{ Settings.lang=b.dataset.lang; applySettings(); Settings.save(); Sound.tap(); rerenderAll(); }));
 document.querySelectorAll('[data-toggle]').forEach(t=>t.addEventListener('click',()=>{ Settings[t.dataset.toggle]=!Settings[t.dataset.toggle]; applySettings(); Settings.save(); Sound.tap(); }));
 function fillProfile(){ const n=document.getElementById('profName'), d=document.getElementById('profExam'); if(n) n.value=DB.name||''; if(d){ d.value=DB.examDate||''; d.min=ymd(); }
-  const qn=document.getElementById('qualNow'); if(qn) qn.textContent=DB.level?L(qualLabel().hi,qualLabel().en):L('अभी चुना नहीं','Not chosen yet');  renderBackup(); }
+  const qn=document.getElementById('qualNow'); if(qn) qn.textContent=DB.level?L(qualLabel().hi,qualLabel().en):L('अभी चुना नहीं','Not chosen yet');  renderBackup(); renderOffline(); }
 document.getElementById('profName').addEventListener('change',e=>{ DB.name=e.target.value.trim().slice(0,30); saveState(); rerenderAll(); });
 document.getElementById('profExam').addEventListener('change',e=>{ DB.examDate=e.target.value||null; saveState(); rerenderAll(); });
 
@@ -1145,7 +1149,7 @@ async function pickQual(key){
   DB.level=it.level; DB.exam=key; DB.qlabel={hi:it.hi,en:it.en}; saveState(); Sound.success();
   document.getElementById('qualModal').classList.remove('active');
   if(changed){ BOOKS=[]; FORMULAS=null; LIB.sel=null; }
-  rerenderAll(); await loadBooks(); rerenderAll(); fillProfile();
+  rerenderAll(); await loadBooks(); rerenderAll(); fillProfile(); warmOfflinePack(true);
   showReward(T(`🎓 ${esc(it.hi)}: अब सिर्फ़ इसी की पढ़ाई दिखेगी`,`🎓 ${esc(it.en)}: showing only this level now`));
 }
 document.getElementById('qualClose').addEventListener('click',()=>{ if(DB.level) document.getElementById('qualModal').classList.remove('active'); });
@@ -1642,6 +1646,63 @@ async function bkAction(a){
     BK.eraseAsk=false; saveState(); BK.dirty=false; FORMULAS=null; fillProfile(); await loadBooks(); rerenderAll(); renderBackup(); showReward(T('इस phone की प्रगति मिट गई','Progress on this phone erased')); return; }
 }
 
+// ═══ OFFLINE PACK — level का content एक बार download, फिर फोन से खुले ═══
+// Supabase GETs sw.js (db-v26, stale-while-revalidate) से cache होते हैं।
+// Warming = इस level के सारे chapters/formulas/outline एक बार fetch करना,
+// ताकि service worker उन्हें फोन में save कर ले। बाद में app पहले cache
+// से दिखाता है, net हो तो पीछे से नया content भी आ जाता है।
+const OFF = { busy:false };
+const offKey = () => 'db_pack:' + (DB.setup ? JSON.stringify(DB.setup) : (DB.level || ''));
+function offGet(){ try { return JSON.parse(localStorage.getItem(offKey()) || 'null'); } catch(e){ return null; } }
+function offSet(v){ try { localStorage.setItem(offKey(), JSON.stringify(v)); } catch(e){} }
+function offClear(){ try { localStorage.removeItem(offKey()); } catch(e){} }
+function offStatusText(){
+  const s = offGet();
+  if(!s) return L('अभी इस level का content फोन में save नहीं है। एक बार save करें, फिर बिना net भी खुलेगा।', 'This level is not saved on this phone yet. Save it once, then it opens without internet too.');
+  return L('फोन में save है ✓ · ' + s.chapters + ' अध्याय · ' + new Date(s.at).toLocaleDateString(), 'Saved on this phone ✓ · ' + s.chapters + ' chapters · ' + new Date(s.at).toLocaleDateString());
+}
+function renderOffline(){
+  const box = document.getElementById('offlineBox'); if(!box) return;
+  const s = offGet();
+  box.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:4px 2px 10px;line-height:1.5">' + esc(offStatusText()) + '</div>'
+    + '<button class="btn ' + (s ? '' : 'primary') + '" data-off="warm" style="margin-bottom:8px">' + (OFF.busy ? L('📥 save हो रहा है…', '📥 Saving…') : s ? L('🔄 फिर से check / update करें', '🔄 Check / update again') : L('📥 इस level को फोन में save करें', '📥 Save this level on this phone')) + '</button>'
+    + (s ? '<button class="btn" data-off="clear" style="margin-bottom:8px">' + L('🗑 फोन की copy हटाएँ', '🗑 Remove the phone copy') + '</button>' : '');
+  box.querySelectorAll('[data-off]').forEach(el => el.addEventListener('click', () => offAction(el.dataset.off)));
+}
+async function offAction(a){
+  Sound.tap();
+  if(a === 'clear'){ offClear(); if('caches' in window){ try { await caches.delete('data-db-v26'); } catch(e){} } renderOffline(); showReward(T('फोन की copy हट गई', 'Phone copy removed')); return; }
+  if(a === 'warm'){ await warmOfflinePack(false); return; }
+}
+async function warmOfflinePack(quiet){
+  if(OFF.busy || !BOOKS.length) return false;
+  if(!DB.level && !DB.setup) return false;
+  if(!navigator.onLine){ if(!quiet) showReward(T('इंटरनेट नहीं है — save बाद में होगा', 'No internet — will save later')); return false; }
+  const stamp = offKey();
+  OFF.busy = true; renderOffline();
+  try {
+    await loadOutline();
+    try { await loadFormulas(); } catch(e){}
+    try { await loadEditions(); } catch(e){}
+    const seen = new Set(); let done = 0;
+    const jobs = [];
+    allChapters().forEach(x => { const k = x.b.level + ':' + x.c.n; if(seen.has(k)) return; seen.add(k); jobs.push({b:x.b, ch:x.c.n}); });
+    for(const j of jobs){
+      if(stamp !== offKey() || !BOOKS.length) return false;
+      try { await chapterAtoms(j.ch); done++; } catch(e){}
+      if(done % 10 === 0) { await new Promise(r => setTimeout(r, 20)); }
+    }
+    offSet({at: Date.now(), chapters: done, total: jobs.length});
+    renderOffline();
+    if(!quiet) showReward(T('📥 ' + done + ' अध्याय फोन में save हो गए', '📥 ' + done + ' chapters saved on this phone'));
+    return true;
+  } catch(e){
+    if(!quiet) showReward(T('Save पूरा नहीं हुआ — net जाँचकर फिर कोशिश करें', 'Save did not finish — check internet and try again'));
+    return false;
+  } finally { OFF.busy = false; renderOffline(); }
+}
+
+
 // ═══ INIT ═══
 loadState();
 DB.opens[ymd()]=(DB.opens[ymd()]||0)+1; saveState();
@@ -1910,14 +1971,14 @@ async function finishSetup(){
   DB.level=q.level; DB.exam='setup:'+q.slug; DB.qlabel=setupLabel(DB.setup); delete DB.setupLater;
   saveState(); Sound.success();
   document.getElementById('setupModal').classList.remove('active');
-  BOOKS=[]; FORMULAS=null; LIB.sel=null; rerenderAll(); await loadBooks(); rerenderAll(); fillProfile();
+  BOOKS=[]; FORMULAS=null; LIB.sel=null; rerenderAll(); await loadBooks(); rerenderAll(); fillProfile(); warmOfflinePack(true);
   showReward(T(`🎓 ${esc(DB.qlabel.hi)}: अब सिर्फ़ आपकी पढ़ाई दिखेगी`,`🎓 ${esc(DB.qlabel.en)}: showing only your studies now`));
 }
 document.getElementById('setupClose').addEventListener('click',()=>{ if(DB.setup||DB.level) document.getElementById('setupModal').classList.remove('active'); });
 openQual=function(){ openSetup(); };
 document.querySelectorAll('.view').forEach(v=>v.addEventListener('scroll',()=>{ const b=document.getElementById('settingsBtn'); if(b) b.classList.toggle('away',v.scrollTop>140); },{passive:true}));   // every "choose / change your studies" button now opens the setup
 
-(async()=>{ await loadQualifications(); await loadBooks(); renderDashboard(); renderLibrary(); if(currentView==='formulas') renderFormulas(); if(!DB.setup&&!DB.setupLater) openSetup(!!DB.level); })();
+(async()=>{ await loadQualifications(); await loadBooks(); renderDashboard(); renderLibrary(); if(currentView==='formulas') renderFormulas(); warmOfflinePack(true); if(!DB.setup&&!DB.setupLater) openSetup(!!DB.level); })();
 if('serviceWorker' in navigator && location.protocol==='https:') window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 
 </script>
